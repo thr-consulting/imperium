@@ -1,0 +1,19 @@
+{
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/darkadept/imperium.git"
+	},
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"lerna": "lerna",
+		"build": "cd packages/scripts && node bin/imperium.js build"
+	},
+	"devDependencies": {
+		"lerna": "^2.11.0"
+	}
+}
