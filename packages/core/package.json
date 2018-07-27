@@ -18,8 +18,13 @@
 	"peerDependencies": {
 	},
 	"dependencies": {
+		"chokidar": "^2.0.3",
+		"debug": "^3.1.0",
 		"dotenv": "^6.0.0",
-		"dotenv-expand": "^4.2.0"
+		"dotenv-expand": "^4.2.0",
+		"lodash": "^4.17.4",
+		"socketcluster": "^8.0.2",
+		"socketcluster-client": "^8.0.2"
 	},
 	"jest": {
 	}

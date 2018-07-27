@@ -24,7 +24,7 @@
 		"@babel/core": "^7.0.0-beta.54",
 		"@babel/node": "^7.0.0-beta.54",
 		"@imperium/babel-preset-imperium": "/home/mike/dev/imperium/packages/babel-preset-imperium",
-		"@imperium/core": "/home/mike/dev/imperium/packages/babel-preset-imperium",
+		"@imperium/core": "/home/mike/dev/imperium/packages/core",
 		"babel-core": "^7.0.0-bridge.0",
 		"react-dev-utils": "^5.0.0"
 	},
