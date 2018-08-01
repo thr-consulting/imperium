@@ -1,31 +1,43 @@
 {
 	"name": "@imperium/core",
 	"version": "0.0.1",
-	"description": "The core Imperium framework",
-	"main": "lib/index.js",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"description": "Core Imperium package",
+	"repository": "darkadept/imperium",
 	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/darkadept/imperium.git"
+	"engines": {
+		"node": ">=8"
 	},
-	"keywords": [
-		"react",
-		"framework"
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"files": [
+		"bin"
 	],
-	"devDependencies": {
+	"bin": {
+		"imperium": "./bin/imperium.js"
 	},
-	"peerDependencies": {
+	"scripts": {
+		"build:server": "NODE_ENV=production webpack --config ./webpack/webpack.config.server.js"
 	},
 	"dependencies": {
+		"bcrypt": "^3.0.0",
+		"body-parser": "^1.18.3",
 		"chokidar": "^2.0.3",
+		"compression": "^1.7.2",
+		"cors": "^2.8.4",
 		"debug": "^3.1.0",
 		"dotenv": "^6.0.0",
 		"dotenv-expand": "^4.2.0",
+		"express": "^4.15.4",
 		"lodash": "^4.17.4",
-		"socketcluster": "^8.0.2",
-		"socketcluster-client": "^8.0.2"
+		"react-dev-utils": "5.0.0",
+		"socketcluster": "^14.0.4",
+		"socketcluster-client": "^13.0.1"
 	},
-	"jest": {
+	"devDependencies": {
+		"@imperium/dev-deps": "0.0.1"
+	},
+	"optionalDependencies": {
+		"fsevents": "1.2.0"
 	}
 }

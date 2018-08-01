@@ -1,11 +1,12 @@
-import debug from 'debug';
+const SCBroker = require('socketcluster/scbroker');
+const debug = require('debug');
 
 const d = debug('imperium:core:broker');
 
-function run() {
-	d(`  >> Broker PID: ${process.pid}`);
+class Broker extends SCBroker {
+	run() {
+		d(`  >> Broker PID: ${process.pid}`);
+	}
 }
 
-export {
-	run,
-};
+new Broker(); // eslint-disable-line no-new

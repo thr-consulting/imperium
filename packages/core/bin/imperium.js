@@ -13,28 +13,21 @@ const spawn = require('react-dev-utils/crossSpawn');
 const args = process.argv.slice(2);
 
 const scriptIndex = args.findIndex(
-	x => x === 'build' || x === 'eject' || x === 'start' || x === 'test'
+	x => x === 'build' || x === 'prod' || x === 'dev' || x === 'test'
 );
 
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
 switch (script) {
-	case 'start': {
+	case 'dev': {
 		process.env.NODE_ENV = 'development';
-		process.env.BABEL_DISABLE_CACHE = 1;
-		console.log(['--config-file', `${__dirname}/babel.config.js`, '--ignore', 'THhIsIsStuPid']
-			.concat(nodeArgs)
+		const cmd = 'node';
+		const arg = nodeArgs
 			.concat(require.resolve(`../scripts/${script}`))
-			.concat(args.slice(scriptIndex + 1)));
-		const result = spawn.sync(
-			'babel-node',
-			['--config-file', `${__dirname}/babel.config.js`, '--ignore', 'THhIsIsStuPid']
-				.concat(nodeArgs)
-				.concat(require.resolve(`../scripts/${script}`))
-				.concat(args.slice(scriptIndex + 1)),
-			{stdio: 'inherit'}
-		);
+			.concat(args.slice(scriptIndex + 1));
+
+		const result = spawn.sync(cmd, arg, {stdio: 'inherit'});
 		if (result.signal) {
 			if (result.signal === 'SIGKILL') {
 				console.log(
@@ -51,9 +44,40 @@ switch (script) {
 			}
 			process.exit(1);
 		}
+		if (result.error) console.log(result.error);
 		process.exit(result.status);
 		break;
 	}
+
+	case 'prod': {
+		process.env.NODE_ENV = 'production';
+		const cmd = 'node';
+		const arg = nodeArgs
+			.concat(require.resolve(`../scripts/${script}`))
+			.concat(args.slice(scriptIndex + 1));
+
+		const result = spawn.sync(cmd, arg, {stdio: 'inherit'});
+		if (result.signal) {
+			if (result.signal === 'SIGKILL') {
+				console.log(
+					'The build failed because the process exited too early. '
+					+ 'This probably means the system ran out of memory or someone called '
+					+ '`kill -9` on the process.'
+				);
+			} else if (result.signal === 'SIGTERM') {
+				console.log(
+					'The build failed because the process exited too early. '
+					+ 'Someone might have called `kill` or `killall`, or the system could '
+					+ 'be shutting down.'
+				);
+			}
+			process.exit(1);
+		}
+		if (result.error) console.log(result.error);
+		process.exit(result.status);
+		break;
+	}
+
 	default:
 		console.log(`Unknown script "${script}".`);
 		console.log('Perhaps you need to update @imperium/scripts?');

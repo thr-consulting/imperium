@@ -1,5 +1,0 @@
-{
-	"presets": [
-		["@imperium/babel-preset-imperium"]
-	]
-}

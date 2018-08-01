@@ -1,6 +1,6 @@
-/* eslint-disable function-paren-newline */
 import debug from 'debug';
-// import express from 'express';
+import express from 'express';
+import path from 'path';
 // import cors from 'cors';
 // import bodyParser from 'body-parser';
 // import isFunction from 'lodash/isFunction';
@@ -13,20 +13,44 @@ import debug from 'debug';
 // import graphiql from './endpoints/graphiql';
 // import contextMiddleware from './middleware/contextMiddleware';
 
-const d = debug('imperium:core:worker');
+const d = debug('imperium.scripts.worker');
 
-const PROD = process.env.NODE_ENV === 'production';
-
-export default function(worker, options) {
+export default function worker(sc, {
+	Connectors,
+	hmr,
+}) {
 	d(`  >> Worker PID: ${process.pid}`);
+
+	const isProduction = process.env.NODE_ENV === 'production';
+	const isDevelopment = process.env.NODE_ENV === 'development';
+
+	if (!Connectors) {
+		throw new Error('Connectors.js not defined in your src folder');
+	}
 
 	// Catch unhandled rejections
 	process.on('unhandledRejection', (reason, p) => {
 		d('Unhandled Rejection at: Promise', p, 'reason:', reason);
 	});
-/*
-	const {scServer, httpServer} = worker;
-	// Try to create the connectors first
+
+	// Create connectors
+	const connector = new Connectors();
+	connector.create().then(connectors => {
+		// Create the express app and hook it into SocketCluster
+		d('Creating express app');
+		const app = express();
+		sc.httpServer.on('request', app); // Hook express up to socketcluster
+
+		// HMR (dev only)
+		if (isDevelopment && hmr) hmr(app);
+
+	}).catch(reason => {
+		console.log('ERROR: Connectors couldn\'t be created.'); // eslint-disable-line no-console
+		console.log(reason); // eslint-disable-line no-console
+		sc.scServer.close();
+	});
+
+	/*
 	createConnectors()
 		.then(connectors => {
 			// Load modules - Runs module definition functions and stores the objects
@@ -36,9 +60,9 @@ export default function(worker, options) {
 			// Create the express app and hook it into SocketCluster
 			d('Creating express app');
 			const app = express();
-			httpServer.on('request', app);
+			sc.httpServer.on('request', app); // Hook express up to socketcluster
 			// HMR (dev only)
-			if (!PROD && options.hmr) options.hmr(app);
+			if (!isProduction && options.hmr) options.hmr(app);
 
 			// Setup Express middleware
 			app.use(bodyParser.urlencoded({extended: true}));
