@@ -28,11 +28,6 @@ export default function worker(sc, {
 		throw new Error('Connectors.js not defined in your src folder');
 	}
 
-	// Catch unhandled rejections
-	process.on('unhandledRejection', (reason, p) => {
-		d('Unhandled Rejection at: Promise', p, 'reason:', reason);
-	});
-
 	// Create connectors
 	const connector = new Connectors();
 	connector.create().then(connectors => {

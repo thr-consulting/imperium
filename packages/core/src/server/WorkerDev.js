@@ -14,15 +14,17 @@ const d = require('debug')('imperium.core.WorkerDev');
 const worker = require('./worker').default;
 const config = require('../../webpack/webpack.config.dev');
 
-const Connectors = require(path.join(process.cwd(), 'src', 'Connectors.js')).default;
+// Catch unhandled rejections
+process.on('unhandledRejection', (reason, p) => {
+	d('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
 
 function hmr(app) {
 	d('Webpack and HMR loading');
 
-	// Webpack ev middleware - Compiles client code on the fly and in memory
+	// Webpack dev middleware - Compiles client code on the fly and in memory
 	const compiler = webpack(config);
 	app.use(require('webpack-dev-middleware')(compiler, { // eslint-disable-line global-require
-		// noInfo: true,
 		publicPath: config.output.publicPath,
 	}));
 
@@ -32,6 +34,8 @@ function hmr(app) {
 
 class Worker extends SCWorker {
 	run() {
+		const connPath = path.join(process.cwd(), 'src', 'Connectors.js');
+		const Connectors = require(connPath).default;
 		worker(this, {
 			hmr,
 			Connectors,

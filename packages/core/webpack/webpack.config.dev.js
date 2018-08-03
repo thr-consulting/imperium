@@ -24,9 +24,6 @@ module.exports = {
 			'./client/index.js',
 			'webpack-hot-middleware/client',
 		],
-		stuff: () => {
-			return null;
-		},
 	},
 	output: {
 		filename: 'app.js',

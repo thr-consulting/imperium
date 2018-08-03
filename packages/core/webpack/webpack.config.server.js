@@ -4,7 +4,7 @@
  * module for each thread.
  */
 const path = require('path');
-const Visualizer = require('webpack-visualizer-plugin');
+// const Visualizer = require('webpack-visualizer-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 const root = process.cwd();
@@ -24,6 +24,7 @@ const conf = {
 	target: 'node',
 	output: {
 		filename: '[name].js',
+		chunkFilename: '[name].js',
 		path: buildDir,
 		library: 'server',
 		libraryTarget: 'commonjs2',
@@ -31,11 +32,15 @@ const conf = {
 	externals: [nodeExternals({
 		modulesDir: path.join(root, '..', '..', 'node_modules'),
 	})],
-	// optimization: {
-	// 	minimize: false,
-	// },
+	optimization: {
+		minimize: false,
+	},
+	node: {
+		__dirname: false,
+		__filename: false,
+	},
 	plugins: [
-		new Visualizer({filename: 'stats-server.html'}),
+		// new Visualizer({filename: 'stats-server.html'}),
 	],
 	module: {
 		rules: [
