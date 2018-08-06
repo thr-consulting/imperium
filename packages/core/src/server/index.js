@@ -1,4 +1,4 @@
-// import debug from 'debug';
+import debug from 'debug';
 import SocketCluster from 'socketcluster';
 import os from 'os';
 import path from 'path';
@@ -7,9 +7,11 @@ import dotenvExpand from 'dotenv-expand';
 import chokidar from 'chokidar';
 import debounce from 'lodash/debounce';
 
-// const d = debug('imperium:core:server');
+const d = debug('imperium.core.server');
 
 export default function server() {
+	d('Starting Imperium server');
+
 	// Import .env and expand variables:
 	dotenvExpand(dotenv.config({silent: false}));
 

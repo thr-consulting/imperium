@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "imperium dev",
-    "prod": "imperium prod"
+    "prod": "imperium prod",
+    "build": "imperium build"
   },
   "devDependencies": {
     "@imperium/dev-deps": "0.0.1"

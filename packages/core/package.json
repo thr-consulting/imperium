@@ -16,9 +16,6 @@
 	"bin": {
 		"imperium": "./bin/imperium.js"
 	},
-	"scripts": {
-		"build:server": "NODE_ENV=production webpack --config ./webpack/webpack.config.server.js"
-	},
 	"dependencies": {
 		"bcrypt": "^3.0.0",
 		"body-parser": "^1.18.3",
@@ -28,11 +25,17 @@
 		"debug": "^3.1.0",
 		"dotenv": "^6.0.0",
 		"dotenv-expand": "^4.2.0",
+		"es6-promisify": "^6.0.0",
 		"express": "^4.15.4",
+		"express-jwt": "^5.3.0",
+		"immutable": "^3.8.2",
+		"jsonwebtoken": "^8.3.0",
 		"lodash": "^4.17.4",
 		"react-dev-utils": "5.0.0",
 		"socketcluster": "^14.0.4",
-		"socketcluster-client": "^13.0.1"
+		"socketcluster-client": "^13.0.1",
+		"transit-immutable-js": "^0.7.0",
+		"transit-js": "^0.8.846"
 	},
 	"devDependencies": {
 		"@imperium/dev-deps": "0.0.1"

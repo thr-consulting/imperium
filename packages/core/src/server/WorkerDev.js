@@ -10,9 +10,13 @@ require('@babel/register')({
 const path = require('path');
 const webpack = require('webpack');
 const SCWorker = require('socketcluster/scworker');
-const d = require('debug')('imperium.core.WorkerDev');
+const d = require('debug')('imperium.core.server.WorkerDev');
 const worker = require('./worker').default;
-const config = require('../../webpack/webpack.config.dev');
+const config = require('../../webpack/client.dev');
+
+
+const Connectors = require(path.join(process.cwd(), 'src', 'imperium', 'Connectors.js')).default;
+const serverModules = require(path.join(process.cwd(), 'src', 'imperium', 'serverModules.js')).default;
 
 // Catch unhandled rejections
 process.on('unhandledRejection', (reason, p) => {
@@ -34,11 +38,10 @@ function hmr(app) {
 
 class Worker extends SCWorker {
 	run() {
-		const connPath = path.join(process.cwd(), 'src', 'Connectors.js');
-		const Connectors = require(connPath).default;
 		worker(this, {
 			hmr,
 			Connectors,
+			serverModules,
 		});
 	}
 }
