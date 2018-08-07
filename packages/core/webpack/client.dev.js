@@ -1,6 +1,5 @@
 /**
  * This webpack configuration is used when running the development version of the client app.
- * When the development version is run, it uses babel-node and the .babelrc file to run the server portion.
  * The server portion calls Webpack, loads this config and starts the server.
  */
 const path = require('path');
@@ -8,34 +7,38 @@ const webpack = require('webpack');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const root = path.join(__dirname, '..');
-const srcDir = path.join(root, 'src');
+// Determine main paths
+const iRoot = path.join(__dirname, '..');
+const iSrcDir = path.join(iRoot, 'src');
+const pRoot = process.cwd();
+const pDevBuildDir = path.join(pRoot, 'build-dev');
 
-const devBuildDir = path.join(process.cwd(), 'build-dev');
+const clientInclude = [iSrcDir];
+const serverExclude = [path.join(iSrcDir, 'server')];
 
-const clientInclude = [srcDir];
-const serverExclude = [path.join(srcDir, 'server')];
-
+// This object is available on the client as window.__INITIAL_CONF__
 const initialClientConfig = {
 	graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
 	jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME,
 };
 
+// Options for the HTML generation plugin
 const htmlOptions = {
 	meta: {
-		title: 'Imperium App - Development',
+		title: `${process.env.APPNAME} - Development`,
 		'mobile-web-app-capable': 'yes',
 	},
-	template: path.join(srcDir, 'client', 'index.html'),
+	template: path.join(iSrcDir, 'client', 'index.html'),
 	templateOptions: {
 		initialConfig: JSON.stringify(initialClientConfig),
 	},
 };
 
+// Webpack configuration
 module.exports = {
 	mode: process.env.NODE_ENV,
 	devtool: 'eval',
-	context: srcDir,
+	context: iSrcDir,
 	entry: {
 		app: [
 			'@babel/polyfill',
@@ -47,17 +50,18 @@ module.exports = {
 	output: {
 		filename: 'app.js',
 		chunkFilename: '[name]_[chunkhash].js',
-		path: devBuildDir, // path.join(root, 'build'),
+		// We build into the project build-dev dir. Normally webpack-dev-middleware doesn't write files but we need this for index.html generation.
+		path: pDevBuildDir,
 		publicPath: '/static/',
 	},
 	plugins: [
 		new HtmlWebpackPlugin(htmlOptions),
 		new webpack.HotModuleReplacementPlugin(),
-		// new webpack.DefinePlugin({
-		// 	__CLIENT__: true,
-		// 	__PRODUCTION__: false,
-		// 	'process.env.NODE_ENV': JSON.stringify('development'),
-		// }),
+		new webpack.DefinePlugin({
+			__CLIENT__: true,
+			__PRODUCTION__: false,
+			// 'process.env.NODE_ENV': JSON.stringify('development'),
+		}),
 		new HardSourceWebpackPlugin(),
 	],
 	module: {

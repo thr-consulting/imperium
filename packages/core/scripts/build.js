@@ -7,7 +7,12 @@ const clientConfig = require('../webpack/client.prod');
 
 const {log, error, warn} = console;
 
-function output(err, stats) {
+/**
+ * Prints warnings and errors from webpack output
+ * @param err
+ * @param stats
+ */
+function printOutput(err, stats) {
 	if (err) {
 		// log(chalk.blue('1----'));
 		error(chalk.bold.red(err.stack || err))
@@ -31,28 +36,42 @@ function output(err, stats) {
 	}
 }
 
+/**
+ * Builds the client
+ */
 const buildClient = promisify((data, cb) => {
 	log(chalk.bold.green('>>> Building client'));
 	const clientCompiler = webpack(clientConfig);
 	clientCompiler.run((err, stats) => {
-		output(err, stats);
+		printOutput(err, stats);
 		cb();
 	});
 });
 
+/**
+ * Builds the server
+ */
 const buildServer = promisify((data, cb) => {
 	log(chalk.bold.green('>>> Building server'));
 	const serverCompiler = webpack(serverConfig);
 	serverCompiler.run((err, stats) => {
-		output(err, stats);
+		printOutput(err, stats);
 		cb();
 	});
 });
 
+/**
+ * Prints completion message
+ */
 function complete() {
 	log(chalk.bold.blue('>>> Build Complete!'));
 }
 
+log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
+log(chalk.bold.white('  Imperium Framework - Build'));
+log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
+
+// Delete the build folder and start a new build
 rimraf('build')
 	.then(buildClient)
 	.then(buildServer)

@@ -22,7 +22,7 @@ export default function worker(sc, {
 }) {
 	d(`  >> Worker PID: ${process.pid}`);
 
-	const isProduction = process.env.NODE_ENV === 'production';
+	// const isProduction = process.env.NODE_ENV === 'production';
 	const isDevelopment = process.env.NODE_ENV === 'development';
 
 	if (!Connectors) {
@@ -42,14 +42,14 @@ export default function worker(sc, {
 		sc.httpServer.on('request', app); // Hook express up to socketcluster
 
 		// Webpack Dev & HMR (dev only)
-		let waitUntilValid = a => a();
-		if (isDevelopment && hmr) waitUntilValid = hmr(app).waitUntilValid;
+		let waitUntilClientIsValid = a => a(); // Default is to just call the function that is passed to this function.
+		if (isDevelopment && hmr) waitUntilClientIsValid = hmr(app).waitUntilValid;
 
 		// Setup Express middleware
 		app.use(bodyParser.urlencoded({extended: true}));
 		app.use(bodyParser.json());
 		app.use(cors({origin: true, credentials: true}));
-		app.use((req, res, next) => {
+		app.use((req, res, next) => { // TODO move favicon to HTML generation in webpack
 			if (/\/favicon\.?(jpe?g|png|ico|gif)?$/i.test(req.url)) {
 				res.status(404).end();
 			} else {
@@ -60,7 +60,7 @@ export default function worker(sc, {
 		// Production only endpoint for client chunks
 		production({app});
 
-		// End point to retrieve the initial state. Must provide a valid JWT.
+		// End point to retrieve the initial state. Must provide a valid JWT to access this endpoint.
 		initialState({app, connectors, modules});
 
 		// TODO Graphql endpoints
@@ -70,8 +70,9 @@ export default function worker(sc, {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints({app, connectors, modules});
 		});
 
-		// Normal endpoints. (First load assets, then start hook)
-		waitUntilValid(() => {
+		// In development mode, we wait until webpack-dev-middleware is finished building before loading the index.html file.
+		// All other normal endpoints. (First load assets, then start hook)
+		waitUntilClientIsValid(() => {
 			createHtml().then(normalRequestMiddleware => {
 				app.get('*', normalRequestMiddleware);
 			});
@@ -81,7 +82,7 @@ export default function worker(sc, {
 		const req = {};
 		context({connectors, modules})(req, null, () => {});
 
-		// Module startup code
+		// Run each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
 				return [...memo, module.startup(req.context)];

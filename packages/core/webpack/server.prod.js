@@ -7,15 +7,14 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
-
 const pRoot = path.resolve(process.cwd());
 const pSrcDir = path.join(pRoot, 'src', 'imperium');
-
 const pBuildDir = path.join(pRoot, 'build');
 
 const serverInclude = [path.join(iSrcDir, 'server')];
 
-const conf = {
+// Webpack config
+module.exports = {
 	mode: process.env.NODE_ENV,
 	context: iSrcDir,
 	entry: {
@@ -33,13 +32,13 @@ const conf = {
 	},
 	resolve: {
 		alias: {
+			// These aliases are so we can 'dynamically' include code from our project
 			Connectors$: path.join(pSrcDir, 'Connectors.js'),
 			serverModules$: path.join(pSrcDir, 'serverModules.js'),
-			// 'assets.json$': path.join(pBuildDir, 'assets.json'),
 		},
 	},
 	externals: [
-		nodeExternals({modulesDir: path.join(iRoot, '..', '..', 'node_modules')}),
+		nodeExternals({modulesDir: path.join(iRoot, '..', '..', 'node_modules')}), // TODO this won't be quite right after publishing
 		nodeExternals({modulesDir: path.join(pRoot, 'node_modules')}),
 	],
 	// optimization: {
@@ -54,13 +53,13 @@ const conf = {
 	],
 	module: {
 		rules: [
-			// {
-			// 	test: /\.graphqls$/,
-			// 	exclude: /node_modules/,
-			// 	use: [{
-			// 		loader: 'graphql-tag/loader',
-			// 	}],
-			// },
+			{
+				test: /\.graphqls$/,
+				exclude: /node_modules/,
+				use: [{
+					loader: 'graphql-tag/loader',
+				}],
+			},
 			{
 				test: /\.js$/,
 				use: [{
@@ -75,5 +74,3 @@ const conf = {
 		],
 	},
 };
-
-module.exports = conf;

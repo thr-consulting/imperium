@@ -2,6 +2,7 @@
  * This webpack configuration is used when building the production client app.
  */
 const path = require('path');
+const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,22 +10,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
-
 const pRoot = path.resolve(process.cwd());
 // const pSrcDir = path.join(pRoot, 'src', 'imperium');
-
 const pBuildDir = path.join(pRoot, 'build');
 
 const clientInclude = [iSrcDir];
 const serverExclude = [path.join(iSrcDir, 'server')];
-
-/* code can be: vendor-common, vendor-page-specific, meatier-common, meatier-page-specific
- * a small, fast landing page means only include the common from vendor + meatier
- * long-term caching means breaking apart meatier code from vendor code
- * The right balance in this case is to exclude material-ui from the vendor bundle
- * in order to keep the initial load small.
- * Cache vendor + app on a CDN and call it a day
- */
 
 const vendor = [
 	'@babel/polyfill',
@@ -52,7 +43,7 @@ const initialClientConfig = {
 
 const htmlOptions = {
 	meta: {
-		title: 'Imperium App',
+		title: process.env.APPNAME,
 		'mobile-web-app-capable': 'yes',
 	},
 	template: path.join(iSrcDir, 'client', 'index.html'),
@@ -61,6 +52,7 @@ const htmlOptions = {
 	},
 };
 
+// Webpack config
 module.exports = {
 	mode: process.env.NODE_ENV,
 	context: iSrcDir,
@@ -81,11 +73,8 @@ module.exports = {
 	// },
 	optimization: {
 		splitChunks: {
-			// chunks: 'all',
-			// minSize: 50000,
 			cacheGroups: {
 				vendor: {
-					// test: /[\\/]node_modules[\\/]/,
 					test: 'vendor',
 					name: 'vendor',
 					chunks: 'all',
@@ -100,11 +89,11 @@ module.exports = {
 	},
 	plugins: [
 		new ProgressBarPlugin(),
-		// new webpack.DefinePlugin({
-		// 	__CLIENT__: true,
-		// 	__PRODUCTION__: true,
-		// 	'process.env.NODE_ENV': JSON.stringify('production'),
-		// }),
+		new webpack.DefinePlugin({
+			__CLIENT__: true,
+			__PRODUCTION__: true,
+			// 'process.env.NODE_ENV': JSON.stringify('production'),
+		}),
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',
 			analyzerPort: 8923,
@@ -116,48 +105,47 @@ module.exports = {
 	],
 	module: {
 		rules: [
-			// {test: /\.json$/, use: [{loader: 'json-loader'}]},
-			// {test: /\.txt$/, use: [{loader: 'raw-loader'}]},
-			// {
-			// 	test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
-			// 	use: [{loader: 'url-loader', options: {limit: 10000}}],
-			// },
-			// {test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
-			// {
-			// 	test: /\.css$/,
-			// 	exclude: /node_modules/,
-			// 	use: [
-			// 		{loader: 'style-loader'},
-			// 		{
-			// 			loader: 'css-loader',
-			// 			options: {
-			// 				modules: true,
-			// 				localIdentName: '[path][name]__[local]--[hash:base64:5]',
-			// 			},
-			// 		},
-			// 	],
-			// },
-			// {
-			// 	test: /\.css$/,
-			// 	exclude: /src/,
-			// 	include: /node_modules/,
-			// 	use: [
-			// 		{loader: 'style-loader'},
-			// 		{
-			// 			loader: 'css-loader',
-			// 			options: {
-			// 				modules: false,
-			// 			},
-			// 		},
-			// 	],
-			// },
-			// {
-			// 	test: /\.graphql$/,
-			// 	exclude: /node_modules/,
-			// 	use: [{
-			// 		loader: 'graphql-tag/loader',
-			// 	}],
-			// },
+			{test: /\.txt$/, use: [{loader: 'raw-loader'}]},
+			{
+				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 10000}}],
+			},
+			{test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
+			{
+				test: /\.css$/,
+				exclude: /node_modules/,
+				use: [
+					{loader: 'style-loader'},
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+							localIdentName: '[path][name]__[local]--[hash:base64:5]',
+						},
+					},
+				],
+			},
+			{
+				test: /\.css$/,
+				exclude: /src/,
+				include: /node_modules/,
+				use: [
+					{loader: 'style-loader'},
+					{
+						loader: 'css-loader',
+						options: {
+							modules: false,
+						},
+					},
+				],
+			},
+			{
+				test: /\.graphql$/,
+				exclude: /node_modules/,
+				use: [{
+					loader: 'graphql-tag/loader',
+				}],
+			},
 			{
 				test: /\.js$/,
 				use: [{
