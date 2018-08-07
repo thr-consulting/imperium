@@ -2,7 +2,6 @@
  * This webpack configuration is used when building the production server app.
  */
 const path = require('path');
-const Visualizer = require('webpack-visualizer-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
@@ -36,7 +35,7 @@ const conf = {
 		alias: {
 			Connectors$: path.join(pSrcDir, 'Connectors.js'),
 			serverModules$: path.join(pSrcDir, 'serverModules.js'),
-			'assets.json$': path.join(pBuildDir, 'assets.json'),
+			// 'assets.json$': path.join(pBuildDir, 'assets.json'),
 		},
 	},
 	externals: [
@@ -52,7 +51,6 @@ const conf = {
 	},
 	plugins: [
 		new ProgressBarPlugin(),
-		new Visualizer({filename: 'stats-server.html'}),
 	],
 	module: {
 		rules: [

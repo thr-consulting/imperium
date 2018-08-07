@@ -28,12 +28,16 @@ function hmr(app) {
 
 	// Webpack dev middleware - Compiles client code on the fly and in memory
 	const compiler = webpack(config);
-	app.use(require('webpack-dev-middleware')(compiler, { // eslint-disable-line global-require
+	const hmrInstance = require('webpack-dev-middleware')(compiler, { // eslint-disable-line global-require
 		publicPath: config.output.publicPath,
-	}));
+		writeToDisk: true,
+	});
+	app.use(hmrInstance);
 
 	// Add Webpack HMR
 	app.use(require('webpack-hot-middleware')(compiler)); // eslint-disable-line global-require
+
+	return hmrInstance;
 }
 
 class Worker extends SCWorker {

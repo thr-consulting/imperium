@@ -6,12 +6,31 @@
 const path = require('path');
 const webpack = require('webpack');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const root = path.join(__dirname, '..');
 const srcDir = path.join(root, 'src');
 
+const devBuildDir = path.join(process.cwd(), 'build-dev');
+
 const clientInclude = [srcDir];
 const serverExclude = [path.join(srcDir, 'server')];
+
+const initialClientConfig = {
+	graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
+	jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME,
+};
+
+const htmlOptions = {
+	meta: {
+		title: 'Imperium App - Development',
+		'mobile-web-app-capable': 'yes',
+	},
+	template: path.join(srcDir, 'client', 'index.html'),
+	templateOptions: {
+		initialConfig: JSON.stringify(initialClientConfig),
+	},
+};
 
 module.exports = {
 	mode: process.env.NODE_ENV,
@@ -28,10 +47,11 @@ module.exports = {
 	output: {
 		filename: 'app.js',
 		chunkFilename: '[name]_[chunkhash].js',
-		path: path.join(root, 'build'),
+		path: devBuildDir, // path.join(root, 'build'),
 		publicPath: '/static/',
 	},
 	plugins: [
+		new HtmlWebpackPlugin(htmlOptions),
 		new webpack.HotModuleReplacementPlugin(),
 		// new webpack.DefinePlugin({
 		// 	__CLIENT__: true,

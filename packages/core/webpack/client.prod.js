@@ -2,24 +2,16 @@
  * This webpack configuration is used when building the production client app.
  */
 const path = require('path');
-const webpack = require('webpack');
-
-const AssetsPlugin = require('assets-webpack-plugin');
-// import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// import dotenv from 'dotenv';
-// import dotenvExpand from 'dotenv-expand';
-
-// Import .env and expand variables:
-// dotenvExpand(dotenv.config({silent: false}));
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 
 const pRoot = path.resolve(process.cwd());
-const pSrcDir = path.join(pRoot, 'src', 'imperium');
+// const pSrcDir = path.join(pRoot, 'src', 'imperium');
 
 const pBuildDir = path.join(pRoot, 'build');
 
@@ -35,6 +27,7 @@ const serverExclude = [path.join(iSrcDir, 'server')];
  */
 
 const vendor = [
+	'@babel/polyfill',
 	// 'react',
 	// 'react-dom',
 	// 'react-router-dom',
@@ -52,11 +45,27 @@ const vendor = [
 	// 'transit-js',
 ];
 
+const initialClientConfig = {
+	graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
+	jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME,
+};
+
+const htmlOptions = {
+	meta: {
+		title: 'Imperium App',
+		'mobile-web-app-capable': 'yes',
+	},
+	template: path.join(iSrcDir, 'client', 'index.html'),
+	templateOptions: {
+		initialConfig: JSON.stringify(initialClientConfig),
+	},
+};
+
 module.exports = {
 	mode: process.env.NODE_ENV,
 	context: iSrcDir,
 	entry: {
-		app: ['@babel/polyfill', './client/index.js'],
+		app: './client/index.js',
 		vendor,
 	},
 	output: {
@@ -75,28 +84,35 @@ module.exports = {
 			// chunks: 'all',
 			// minSize: 50000,
 			cacheGroups: {
-				commons: {
-					test: /[\\/]node_modules[\\/]/,
+				vendor: {
+					// test: /[\\/]node_modules[\\/]/,
+					test: 'vendor',
 					name: 'vendor',
 					chunks: 'all',
+					enforce: true,
 				},
 			},
 		},
 		runtimeChunk: {
 			name: 'manifest',
 		},
-		minimize: false,
+		// minimize: false,
 	},
 	plugins: [
 		new ProgressBarPlugin(),
-		new AssetsPlugin({path: pBuildDir, filename: 'assets.json'}),
 		// new webpack.DefinePlugin({
 		// 	__CLIENT__: true,
 		// 	__PRODUCTION__: true,
 		// 	'process.env.NODE_ENV': JSON.stringify('production'),
 		// }),
-		new Visualizer({filename: path.join('..', 'stats-client.html')}),
-		new BundleAnalyzerPlugin(),
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'static',
+			analyzerPort: 8923,
+			reportFilename: path.join('..', 'report.html'),
+			openAnalyzer: false,
+		}),
+		new HtmlWebpackPlugin(htmlOptions),
+		// new InlineChunkManifestHtmlWebpackPlugin(),
 	],
 	module: {
 		rules: [

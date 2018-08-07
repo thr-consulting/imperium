@@ -42,7 +42,8 @@ export default function worker(sc, {
 		sc.httpServer.on('request', app); // Hook express up to socketcluster
 
 		// Webpack Dev & HMR (dev only)
-		if (isDevelopment && hmr) hmr(app);
+		let waitUntilValid = a => a();
+		if (isDevelopment && hmr) waitUntilValid = hmr(app).waitUntilValid;
 
 		// Setup Express middleware
 		app.use(bodyParser.urlencoded({extended: true}));
@@ -70,8 +71,10 @@ export default function worker(sc, {
 		});
 
 		// Normal endpoints. (First load assets, then start hook)
-		createHtml().then(normalRequestMiddleware => {
-			app.get('*', normalRequestMiddleware);
+		waitUntilValid(() => {
+			createHtml().then(normalRequestMiddleware => {
+				app.get('*', normalRequestMiddleware);
+			});
 		});
 
 		// Create a context for use when the server first starts up.

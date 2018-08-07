@@ -56,7 +56,7 @@ export default function server() {
 		// Use chokidar to watch for file changes
 		chokidar.watch([
 			path.join(__dirname, '..'), // TODO This is only for Imperium development
-			process.cwd(),
+			path.join(process.cwd(), 'src'),
 		], {
 			ignored: /node_modules/,
 		}).on('change', filePath => {

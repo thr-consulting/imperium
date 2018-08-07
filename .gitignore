@@ -2,6 +2,7 @@
 .vscode/
 node_modules/
 build
+build-dev
 .DS_Store
 *.tgz
 lerna-debug.log
