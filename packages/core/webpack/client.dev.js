@@ -6,21 +6,16 @@ const path = require('path');
 const webpack = require('webpack');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const config = require('../config');
 
 // Determine main paths
 const iRoot = path.join(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = process.cwd();
-const pDevBuildDir = path.join(pRoot, 'build-dev');
+const pDevBuildDir = path.join(pRoot, 'build-dev'); // This ends up being in MemoryFS, not the real filesystem.
 
 const clientInclude = [iSrcDir];
 const serverExclude = [path.join(iSrcDir, 'server')];
-
-// This object is available on the client as window.__INITIAL_CONF__
-const initialClientConfig = {
-	graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
-	jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME,
-};
 
 // Options for the HTML generation plugin
 const htmlOptions = {
@@ -30,7 +25,7 @@ const htmlOptions = {
 	},
 	template: path.join(iSrcDir, 'client', 'index.html'),
 	templateOptions: {
-		initialConfig: JSON.stringify(initialClientConfig),
+		initialConfig: JSON.stringify(config.client.initialConfig),
 	},
 };
 
@@ -50,7 +45,6 @@ module.exports = {
 	output: {
 		filename: 'app.js',
 		chunkFilename: '[name]_[chunkhash].js',
-		// We build into the project build-dev dir. Normally webpack-dev-middleware doesn't write files but we need this for index.html generation.
 		path: pDevBuildDir,
 		publicPath: '/static/',
 	},

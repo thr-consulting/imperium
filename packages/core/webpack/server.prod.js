@@ -4,12 +4,12 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const config = require('../config');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
-const pSrcDir = path.join(pRoot, 'src', 'imperium');
-const pBuildDir = path.join(pRoot, 'build');
+const pBuildDir = path.join(pRoot, config.production.buildDir);
 
 const serverInclude = [path.join(iSrcDir, 'server')];
 
@@ -33,17 +33,17 @@ module.exports = {
 	resolve: {
 		alias: {
 			// These aliases are so we can 'dynamically' include code from our project
-			Connectors$: path.join(pSrcDir, 'Connectors.js'),
-			serverModules$: path.join(pSrcDir, 'serverModules.js'),
+			Connectors$: path.join(pRoot, config.project.Connectors),
+			serverModules$: path.join(pRoot, config.project.serverModules),
 		},
 	},
 	externals: [
 		nodeExternals({modulesDir: path.join(iRoot, '..', '..', 'node_modules')}), // TODO this won't be quite right after publishing
 		nodeExternals({modulesDir: path.join(pRoot, 'node_modules')}),
 	],
-	// optimization: {
-	// 	minimize: false,
-	// },
+	optimization: {
+		minimize: config.production.minimize,
+	},
 	node: {
 		__dirname: false,
 		__filename: false,

@@ -35,7 +35,15 @@
 		"socketcluster": "^14.0.4",
 		"socketcluster-client": "^13.0.1",
 		"transit-immutable-js": "^0.7.0",
-		"transit-js": "^0.8.846"
+		"transit-js": "^0.8.846",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"react-redux": "^5.0.7",
+		"react-router-dom": "^4.3.1",
+		"redux": "^4.0.0",
+		"redux-immutablejs": "^0.0.8",
+		"redux-thunk": "^2.3.0",
+		"whatwg-fetch": "^2.0.3"
 	},
 	"devDependencies": {
 		"@imperium/dev-deps": "0.0.1"

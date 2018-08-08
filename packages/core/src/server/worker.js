@@ -42,8 +42,8 @@ export default function worker(sc, {
 		sc.httpServer.on('request', app); // Hook express up to socketcluster
 
 		// Webpack Dev & HMR (dev only)
-		let waitUntilClientIsValid = a => a(); // Default is to just call the function that is passed to this function.
-		if (isDevelopment && hmr) waitUntilClientIsValid = hmr(app).waitUntilValid;
+		let hmrInstance; // We store webpack-dev-middleware instance for later
+		if (isDevelopment && hmr) hmrInstance = hmr(app);
 
 		// Setup Express middleware
 		app.use(bodyParser.urlencoded({extended: true}));
@@ -70,12 +70,9 @@ export default function worker(sc, {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints({app, connectors, modules});
 		});
 
-		// In development mode, we wait until webpack-dev-middleware is finished building before loading the index.html file.
 		// All other normal endpoints. (First load assets, then start hook)
-		waitUntilClientIsValid(() => {
-			createHtml().then(normalRequestMiddleware => {
-				app.get('*', normalRequestMiddleware);
-			});
+		createHtml(hmrInstance).then(normalRequestMiddleware => {
+			app.get('*', normalRequestMiddleware);
 		});
 
 		// Create a context for use when the server first starts up.

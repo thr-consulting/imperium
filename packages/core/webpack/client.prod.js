@@ -6,26 +6,27 @@ const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
+// const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin');
+const config = require('../config');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
 // const pSrcDir = path.join(pRoot, 'src', 'imperium');
-const pBuildDir = path.join(pRoot, 'build');
+const pBuildDir = path.join(pRoot, config.production.buildDir);
 
 const clientInclude = [iSrcDir];
 const serverExclude = [path.join(iSrcDir, 'server')];
 
 const vendor = [
 	'@babel/polyfill',
-	// 'react',
-	// 'react-dom',
-	// 'react-router-dom',
-	// 'react-redux',
-	// 'redux',
-	// 'redux-immutablejs',
-	// 'redux-thunk',
+	'react',
+	'react-dom',
+	'react-router-dom',
+	'react-redux',
+	'redux',
+	'redux-immutablejs',
+	'redux-thunk',
 	'lodash',
 	'immutable',
 	// 'apollo-client',
@@ -33,13 +34,11 @@ const vendor = [
 	// 'js-joda',
 	// 'moment',
 	// 'inputmask',
-	// 'transit-js',
+	'debug',
+	'transit-js',
+	'transit-immutable-js',
+	'jsonwebtoken',
 ];
-
-const initialClientConfig = {
-	graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
-	jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME,
-};
 
 const htmlOptions = {
 	meta: {
@@ -48,7 +47,7 @@ const htmlOptions = {
 	},
 	template: path.join(iSrcDir, 'client', 'index.html'),
 	templateOptions: {
-		initialConfig: JSON.stringify(initialClientConfig),
+		initialConfig: JSON.stringify(config.client.initialConfig),
 	},
 };
 
@@ -85,7 +84,7 @@ module.exports = {
 		runtimeChunk: {
 			name: 'manifest',
 		},
-		// minimize: false,
+		minimize: config.production.minimize,
 	},
 	plugins: [
 		new ProgressBarPlugin(),
@@ -97,11 +96,11 @@ module.exports = {
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',
 			analyzerPort: 8923,
-			reportFilename: path.join('..', 'report.html'),
+			reportFilename: path.join('..', config.production.reportFilename),
 			openAnalyzer: false,
 		}),
 		new HtmlWebpackPlugin(htmlOptions),
-		// new InlineChunkManifestHtmlWebpackPlugin(),
+		// new InlineChunkWebpackPlugin({inlineChunks: ['manifest']}),
 	],
 	module: {
 		rules: [
