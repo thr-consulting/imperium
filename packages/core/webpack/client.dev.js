@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('../config');
+const htmlOptions = require('./htmlOptions');
 
 // Determine main paths
 const iRoot = path.join(__dirname, '..');
@@ -14,20 +15,8 @@ const iSrcDir = path.join(iRoot, 'src');
 const pRoot = process.cwd();
 const pDevBuildDir = path.join(pRoot, 'build-dev'); // This ends up being in MemoryFS, not the real filesystem.
 
-const clientInclude = [iSrcDir];
+const clientInclude = [iSrcDir, pRoot];
 const serverExclude = [path.join(iSrcDir, 'server')];
-
-// Options for the HTML generation plugin
-const htmlOptions = {
-	meta: {
-		title: `${process.env.APPNAME} - Development`,
-		'mobile-web-app-capable': 'yes',
-	},
-	template: path.join(iSrcDir, 'client', 'index.html'),
-	templateOptions: {
-		initialConfig: JSON.stringify(config.client.initialConfig),
-	},
-};
 
 // Webpack configuration
 module.exports = {
@@ -48,8 +37,15 @@ module.exports = {
 		path: pDevBuildDir,
 		publicPath: '/static/',
 	},
+	resolve: {
+		alias: {
+			// These aliases are so we can 'dynamically' include code from our project
+			clientModules$: path.join(pRoot, config.project.clientModules),
+			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
+		},
+	},
 	plugins: [
-		new HtmlWebpackPlugin(htmlOptions),
+		new HtmlWebpackPlugin(htmlOptions(iSrcDir, config)),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
 			__CLIENT__: true,

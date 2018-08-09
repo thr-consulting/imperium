@@ -8,6 +8,8 @@ const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin');
 const config = require('../config');
+const htmlOptions = require('./htmlOptions');
+const inspectLoader = require('./inspectLoader');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
@@ -15,7 +17,7 @@ const pRoot = path.resolve(process.cwd());
 // const pSrcDir = path.join(pRoot, 'src', 'imperium');
 const pBuildDir = path.join(pRoot, config.production.buildDir);
 
-const clientInclude = [iSrcDir];
+const clientInclude = [iSrcDir, pRoot];
 const serverExclude = [path.join(iSrcDir, 'server')];
 
 const vendor = [
@@ -40,17 +42,6 @@ const vendor = [
 	'jsonwebtoken',
 ];
 
-const htmlOptions = {
-	meta: {
-		title: process.env.APPNAME,
-		'mobile-web-app-capable': 'yes',
-	},
-	template: path.join(iSrcDir, 'client', 'index.html'),
-	templateOptions: {
-		initialConfig: JSON.stringify(config.client.initialConfig),
-	},
-};
-
 // Webpack config
 module.exports = {
 	mode: process.env.NODE_ENV,
@@ -64,6 +55,13 @@ module.exports = {
 		chunkFilename: '[name]_[chunkhash].js',
 		path: path.join(pBuildDir, 'client'),
 		publicPath: '/static/',
+	},
+	resolve: {
+		alias: {
+			// These aliases are so we can 'dynamically' include code from our project
+			clientModules$: path.join(pRoot, config.project.clientModules),
+			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
+		},
 	},
 	// resolve: {
 	// 	extensions: ['.js'],
@@ -99,7 +97,7 @@ module.exports = {
 			reportFilename: path.join('..', config.production.reportFilename),
 			openAnalyzer: false,
 		}),
-		new HtmlWebpackPlugin(htmlOptions),
+		new HtmlWebpackPlugin(htmlOptions(iSrcDir, config)),
 		// new InlineChunkWebpackPlugin({inlineChunks: ['manifest']}),
 	],
 	module: {
@@ -147,13 +145,14 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-				use: [{
-					loader: 'babel-loader',
-					options: {
-						babelrc: false,
-						presets: [['@imperium/babel-preset-imperium', {client: true}]],
-					},
-				}],
+				use: [inspectLoader('babel-loader'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: true}]],
+						},
+					}],
 				include: clientInclude,
 				exclude: serverExclude,
 			},

@@ -1,17 +1,14 @@
 import debug from 'debug';
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import isFunction from 'lodash/isFunction';
 import createHtml from './createHtml';
-// import {createConnectors} from '../data/connectors';
-// import loadModules from '../data/serverModules';
 import production from './endpoints/production';
 import initialState from './endpoints/initialState';
+import context from './middleware/context';
 // import graphql from './endpoints/graphql';
 // import graphiql from './endpoints/graphiql';
-import context from './middleware/context';
 
 const d = debug('imperium.core.server.worker');
 

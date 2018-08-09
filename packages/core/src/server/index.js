@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import chokidar from 'chokidar';
 import debounce from 'lodash/debounce';
+import config from '../../config';
 
 const d = debug('imperium.core.server');
 
@@ -60,11 +61,19 @@ export default function server() {
 		], {
 			ignored: /node_modules/,
 		}).on('change', filePath => {
-			// d(`Chokidar change detected: ${filePath}`);
-			// if (/(server|data)\//.test(filePath) || /server\.js$/.test(filePath)) {
-			console.log(`  >> File ${filePath} was modified.`); // eslint-disable-line no-console
-			restartWorkers();
-			// }
+			d(`Chokidar change detected: ${filePath}`);
+			// Don't restart if we match imperium client settings/definitions
+			if (
+				filePath === path.join(process.cwd(), config.project.clientModules) ||
+				filePath === path.join(process.cwd(), config.project.routeDefaults)
+			) {
+				return;
+			}
+			// Only restart when the path has a server/ or server.js in it.
+			if (/server\//.test(filePath) || /server\.js$/.test(filePath)) {
+				console.log(`  >> File ${filePath} was modified.`); // eslint-disable-line no-console
+				restartWorkers();
+			}
 		});
 	}
 }
