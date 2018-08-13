@@ -6,7 +6,7 @@ import isFunction from 'lodash/isFunction';
 import createHtml from './createHtml';
 import production from './endpoints/production';
 import initialState from './endpoints/initialState';
-import context from './middleware/context';
+import middleware from './middleware';
 // import graphql from './endpoints/graphql';
 // import graphiql from './endpoints/graphiql';
 
@@ -64,7 +64,7 @@ export default function worker(sc, {
 
 		// Module custom endpoints
 		modules.forEach(module => {
-			if (module.endpoints && isFunction(module.endpoints)) module.endpoints({app, connectors, modules});
+			if (module.endpoints && isFunction(module.endpoints)) module.endpoints({app, connectors, modules, middleware});
 		});
 
 		// All other normal endpoints. (First load assets, then start hook)
@@ -74,7 +74,7 @@ export default function worker(sc, {
 
 		// Create a context for use when the server first starts up.
 		const req = {};
-		context({connectors, modules})(req, null, () => {});
+		middleware.context({connectors, modules})(req, null, () => {});
 
 		// Run each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {

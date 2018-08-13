@@ -11,7 +11,8 @@ const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
 const pBuildDir = path.join(pRoot, config.production.buildDir);
 
-const serverInclude = [path.join(iSrcDir, 'server')];
+// const serverInclude = [path.join(iSrcDir, 'server')];
+const serverInclude = [path.join(iRoot, '..')];
 
 // Webpack config
 module.exports = {

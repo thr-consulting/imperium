@@ -1,0 +1,9 @@
+type Query {
+	# This root query only exists because we can't define an empty Query, it doesn't do anything.
+	root: String
+}
+
+type Mutation {
+	# This root mutation only exists because we can't define an empty Mutation, it doesn't do anything.
+	root: String
+}

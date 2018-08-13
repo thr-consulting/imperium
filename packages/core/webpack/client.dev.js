@@ -25,7 +25,7 @@ module.exports = {
 	context: iSrcDir,
 	entry: {
 		app: [
-			'@babel/polyfill',
+			// '@babel/polyfill',
 			// 'react-hot-loader/patch',
 			'./client/index.js',
 			'webpack-hot-middleware/client',

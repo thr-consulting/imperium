@@ -29,6 +29,7 @@ const vendor = [
 	'redux',
 	'redux-immutablejs',
 	'redux-thunk',
+	'redux-logger',
 	'lodash',
 	'immutable',
 	// 'apollo-client',
@@ -40,6 +41,7 @@ const vendor = [
 	'transit-js',
 	'transit-immutable-js',
 	'jsonwebtoken',
+	'whatwg-fetch',
 ];
 
 // Webpack config

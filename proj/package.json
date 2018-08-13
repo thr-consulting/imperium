@@ -14,6 +14,7 @@
     "@imperium/dev-deps": "0.0.1"
   },
   "dependencies": {
-    "@imperium/core": "^0.0.1"
+    "@imperium/core": "^0.0.1",
+    "@imperium/graphql": "^0.0.1"
   }
 }

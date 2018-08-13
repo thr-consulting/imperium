@@ -105,6 +105,7 @@ module.exports = function (api, opts, env) {
 			],
 
 			// Polyfills the runtime needed for async/await and generators
+			/*
 			[
 				require('@babel/plugin-transform-runtime').default,
 				{
@@ -113,6 +114,7 @@ module.exports = function (api, opts, env) {
 					regenerator: true,
 				},
 			],
+			*/
 
 			isEnvProduction && isClient && [
 				// Remove PropTypes from production build
