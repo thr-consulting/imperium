@@ -73,6 +73,6 @@ log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 
 // Delete the build folder and start a new build
 rimraf('build')
-	// .then(buildClient)
+	.then(buildClient)
 	.then(buildServer)
 	.then(complete);
