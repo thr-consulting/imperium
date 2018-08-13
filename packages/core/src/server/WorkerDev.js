@@ -1,27 +1,19 @@
 /* eslint-disable import/no-dynamic-require */
 const path = require('path');
+const log = require('../../webpack/inspectLoader').log;
+const isSourceFile = require('../../webpack/isSourceFile');
 const babelRegExps = [
-	path.resolve(__dirname, '..', '..', '..'), // Match imperium packages
+	path.resolve(__dirname, '..', '..', '..'), // Match imperium packages TODO this will need to point to core only once i compile graphql, etc packages
 	path.resolve(process.cwd(), 'src'), // Match project folder
 ];
 
 require('@babel/register')({
 	presets: [['@imperium/babel-preset-imperium',	{client: false}]],
 	only: [
-		function(filepath) {
-			// Iterate over allowed paths
-			return babelRegExps.reduce((memo, value) => {
-				if (new RegExp(`${value}/.*`).test(filepath)) {
-					// If node_modules exists in the relative path, do flag as valid file
-					if (/node_modules/.test(path.relative(value, filepath))) {
-						return memo;
-					}
-					// console.log(filepath);
-					return true;
-				}
-				return memo;
-			}, false);
-		},
+		isSourceFile([
+			path.resolve(__dirname, '..', '..', '..'), // Match imperium packages
+			path.resolve(process.cwd(), 'src'), // Match project folder
+		], 'BABEL/REG'),
 	],
 });
 const webpack = require('webpack');

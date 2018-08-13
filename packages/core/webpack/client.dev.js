@@ -8,15 +8,15 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
+const inspectLoader = require('./inspectLoader').default;
+const isSourceFile = require('./isSourceFile');
 
 // Determine main paths
 const iRoot = path.join(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = process.cwd();
+const pSrcDir = path.join(pRoot, 'src');
 const pDevBuildDir = path.join(pRoot, 'build-dev'); // This ends up being in MemoryFS, not the real filesystem.
-
-const clientInclude = [iSrcDir, pRoot];
-const serverExclude = [path.join(iSrcDir, 'server')];
 
 // Webpack configuration
 module.exports = {
@@ -64,8 +64,9 @@ module.exports = {
 			{test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
 			{
 				test: /\.css$/,
-				exclude: /node_modules/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
 				use: [
+					inspectLoader('CSS-MODULE'),
 					{loader: 'style-loader'},
 					{
 						loader: 'css-loader',
@@ -78,9 +79,9 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				exclude: /src/,
-				include: /node_modules/,
+				exclude: isSourceFile([iSrcDir, pSrcDir]),
 				use: [
+					inspectLoader('CSS'),
 					{loader: 'style-loader'},
 					{
 						loader: 'css-loader',
@@ -92,22 +93,27 @@ module.exports = {
 			},
 			{
 				test: /\.graphqls?$/,
-				exclude: /node_modules/,
-				use: [{
-					loader: 'graphql-tag/loader',
-				}],
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('CSS'),
+					{
+						loader: 'graphql-tag/loader',
+					},
+				],
 			},
 			{
 				test: /\.js$/,
-				use: [{
-					loader: 'babel-loader',
-					options: {
-						babelrc: false,
-						presets: [['@imperium/babel-preset-imperium', {client: true}]],
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: true}]],
+						},
 					},
-				}],
-				include: clientInclude,
-				exclude: serverExclude,
+				],
 			},
 		],
 	},

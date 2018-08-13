@@ -60,8 +60,6 @@ export default function worker(sc, {
 		// End point to retrieve the initial state. Must provide a valid JWT to access this endpoint.
 		initialState({app, connectors, modules});
 
-		// TODO Graphql endpoints
-
 		// Module custom endpoints
 		modules.forEach(module => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints({app, connectors, modules, middleware});

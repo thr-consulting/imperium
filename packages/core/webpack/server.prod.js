@@ -4,15 +4,16 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const compact = require('lodash/compact');
 const config = require('../config');
+const inspectLoader = require('./inspectLoader').default;
+const isSourceFile = require('./isSourceFile');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
+const pSrcDir = path.join(pRoot, 'src');
 const pBuildDir = path.join(pRoot, config.production.buildDir);
-
-// const serverInclude = [path.join(iSrcDir, 'server')];
-const serverInclude = [path.join(iRoot, '..')];
 
 // Webpack config
 module.exports = {
@@ -49,28 +50,34 @@ module.exports = {
 		__dirname: false,
 		__filename: false,
 	},
-	plugins: [
-		new ProgressBarPlugin(),
-	],
+	plugins: compact([
+		process.env.DEBUG ? null : new ProgressBarPlugin(),
+	]),
 	module: {
 		rules: [
 			{
 				test: /\.graphqls$/,
-				exclude: /node_modules/,
-				use: [{
-					loader: 'graphql-tag/loader',
-				}],
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('GRAPHQLS'),
+					{
+						loader: 'graphql-tag/loader',
+					},
+				],
 			},
 			{
 				test: /\.js$/,
-				use: [{
-					loader: 'babel-loader',
-					options: {
-						babelrc: false,
-						presets: [['@imperium/babel-preset-imperium', {client: false}]],
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: false}]],
+						},
 					},
-				}],
-				include: serverInclude,
+				],
 			},
 		],
 	},

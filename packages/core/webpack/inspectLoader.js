@@ -1,7 +1,11 @@
 /* eslint-disable no-console, no-underscore-dangle */
 const debug = require('debug');
 
-const d = debug('imperium.webpack.inspectLoader');
+const d = debug('inspectLoader');
+
+function log(name, resource) {
+	d(`[${name}] ${resource}`);
+}
 
 function inspectLoader(loaderName) {
 	return {
@@ -9,10 +13,13 @@ function inspectLoader(loaderName) {
 		options: {
 			loaderName,
 			callback(inspect) {
-				d(`:: ${inspect.options.loaderName} > ${inspect.context._module.resource}`);
+				log(inspect.options.loaderName, inspect.context._module.resource);
 			},
 		},
 	};
 }
 
-module.exports = inspectLoader;
+module.exports = {
+	log,
+	default: inspectLoader,
+};

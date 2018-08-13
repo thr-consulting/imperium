@@ -3,25 +3,24 @@
  */
 const path = require('path');
 const webpack = require('webpack');
+const compact = require('lodash/compact');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
-const inspectLoader = require('./inspectLoader');
+const inspectLoader = require('./inspectLoader').default;
+const isSourceFile = require('./isSourceFile');
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
-// const pSrcDir = path.join(pRoot, 'src', 'imperium');
+const pSrcDir = path.join(pRoot, 'src');
 const pBuildDir = path.join(pRoot, config.production.buildDir);
 
-const clientInclude = [iSrcDir, pRoot];
-const serverExclude = [path.join(iSrcDir, 'server')];
-
 const vendor = [
-	'@babel/polyfill',
+	// '@babel/polyfill',
 	'react',
 	'react-dom',
 	'react-router-dom',
@@ -65,11 +64,6 @@ module.exports = {
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
 		},
 	},
-	// resolve: {
-	// 	extensions: ['.js'],
-	// 	modules: [srcDir, 'node_modules'],
-	// 	unsafeCache: true,
-	// },
 	optimization: {
 		splitChunks: {
 			cacheGroups: {
@@ -86,8 +80,8 @@ module.exports = {
 		},
 		minimize: config.production.minimize,
 	},
-	plugins: [
-		new ProgressBarPlugin(),
+	plugins: compact([
+		process.env.DEBUG ? null : new ProgressBarPlugin(),
 		new webpack.DefinePlugin({
 			__CLIENT__: true,
 			__PRODUCTION__: true,
@@ -101,7 +95,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin(htmlOptions(iSrcDir, config)),
 		// new InlineChunkWebpackPlugin({inlineChunks: ['manifest']}),
-	],
+	]),
 	module: {
 		rules: [
 			{test: /\.txt$/, use: [{loader: 'raw-loader'}]},
@@ -112,8 +106,9 @@ module.exports = {
 			{test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
 			{
 				test: /\.css$/,
-				exclude: /node_modules/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
 				use: [
+					inspectLoader('CSS-MODULE'),
 					{loader: 'style-loader'},
 					{
 						loader: 'css-loader',
@@ -126,9 +121,9 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				exclude: /src/,
-				include: /node_modules/,
+				exclude: isSourceFile([iSrcDir, pSrcDir]),
 				use: [
+					inspectLoader('CSS'),
 					{loader: 'style-loader'},
 					{
 						loader: 'css-loader',
@@ -140,23 +135,27 @@ module.exports = {
 			},
 			{
 				test: /\.graphql$/,
-				exclude: /node_modules/,
-				use: [{
-					loader: 'graphql-tag/loader',
-				}],
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('GRAPHQLS'),
+					{
+						loader: 'graphql-tag/loader',
+					},
+				],
 			},
 			{
 				test: /\.js$/,
-				use: [inspectLoader('babel-loader'),
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL'),
 					{
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
 							presets: [['@imperium/babel-preset-imperium', {client: true}]],
 						},
-					}],
-				include: clientInclude,
-				exclude: serverExclude,
+					},
+				],
 			},
 		],
 	},
