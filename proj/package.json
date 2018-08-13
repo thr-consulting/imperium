@@ -11,7 +11,7 @@
     "build": "imperium build"
   },
   "devDependencies": {
-    "@imperium/dev-deps": "0.0.1"
+    "@imperium/dev-deps": "^0.0.1"
   },
   "dependencies": {
     "@imperium/core": "^0.0.1",

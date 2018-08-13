@@ -11,7 +11,11 @@
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
 	"files": [
-		"bin"
+		"bin",
+		"scripts",
+		"src",
+		"webpack",
+		"config.js"
 	],
 	"bin": {
 		"imperium": "./bin/imperium.js"

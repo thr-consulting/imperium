@@ -10,13 +10,13 @@
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"xpeerDependencies": {
+	"UNUSED_peerDependencies": {
 		"@babel/core": "7.0.0-rc.1",
 		"babel-core": "7.0.0-bridge.0",
 		"react": "16.4.x",
 		"react-dom": "16.4.x"
 	},
-	"xdependencies": {
+	"UNUSED_dependencies": {
 		"babel-jest": "^23.4.0",
 		"enzyme": "^3.1.1",
 		"enzyme-adapter-react-16": "^1.1.1",
@@ -25,7 +25,7 @@
 		"jest": "^23.4.1",
 		"react-test-renderer": "^16.4.1"
 	},
-	"c": {
+	"UNUSED_other": {
 		"puppeteer": "^1.6.0"
 	}
 }
