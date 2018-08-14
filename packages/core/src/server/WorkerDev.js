@@ -1,17 +1,12 @@
 /* eslint-disable import/no-dynamic-require */
 const path = require('path');
-const log = require('../../webpack/inspectLoader').log;
 const isSourceFile = require('../../webpack/isSourceFile');
-const babelRegExps = [
-	path.resolve(__dirname, '..', '..', '..'), // Match imperium packages TODO this will need to point to core only once i compile graphql, etc packages
-	path.resolve(process.cwd(), 'src'), // Match project folder
-];
 
 require('@babel/register')({
 	presets: [['@imperium/babel-preset-imperium',	{client: false}]],
 	only: [
 		isSourceFile([
-			path.resolve(__dirname, '..', '..', '..'), // Match imperium packages
+			path.resolve(__dirname, '..', '..'), // Match imperium core package
 			path.resolve(process.cwd(), 'src'), // Match project folder
 		], 'BABEL/REG'),
 	],

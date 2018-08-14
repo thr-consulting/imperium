@@ -1,10 +1,9 @@
 {
-  "lerna": "2.11.0",
+  "lerna": "3.0.4",
   "packages": [
     "packages/*"
   ],
   "version": "independent",
-  "hoist": true,
   "npmClient": "yarn",
   "useWorkspaces": true,
   "concurrency": 4

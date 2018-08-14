@@ -15,6 +15,11 @@
 		"build": "cd packages/scripts && node bin/imperium.js build"
 	},
 	"devDependencies": {
-		"lerna": "^2.11.0"
+		"@babel/cli": "^7.0.0-rc.1",
+		"@babel/core": "^7.0.0-rc.1",
+		"lerna": "^3.0.4",
+		"react": "^16.4.2",
+		"react-dom": "^16.4.2",
+		"express": "^4.16.3"
 	}
 }

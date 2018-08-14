@@ -19,7 +19,9 @@ module.exports = function (api, opts, env) {
 	var isEnvTest = env === 'test';
 
 	// Options
+	var isDebug = validateBoolOption('debug', opts.debug, false);
 	var isClient = validateBoolOption('client', opts.client, false);
+	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -37,16 +39,18 @@ module.exports = function (api, opts, env) {
 				// ES features necessary for user's Node version
 				require('@babel/preset-env').default,
 				{
+					debug: isDebug,
 					targets: {
 						node: 'current',
 					},
-					modules: (isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
+					modules: (forceModules || isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
 				},
 			],
 			isClient && [
 				// Latest stable ECMAScript features
 				require('@babel/preset-env').default,
 				{
+					debug: isDebug,
 					targets: {
 						browsers: ['last 2 versions', '> 1%'],
 					},

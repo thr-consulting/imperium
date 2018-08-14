@@ -1,4 +1,4 @@
-import endpoints from './src/server/endpoints';
+import endpoints from './server/endpoints';
 
 export default function() {
 	return {
