@@ -67,6 +67,7 @@ export default function worker(sc, {
 
 		// All other normal endpoints. (First load assets, then start hook)
 		createHtml(hmrInstance).then(normalRequestMiddleware => {
+			d('Adding default endpoint');
 			app.get('*', normalRequestMiddleware);
 		});
 
@@ -74,13 +75,14 @@ export default function worker(sc, {
 		const req = {};
 		middleware.context({connectors, modules})(req, null, () => {});
 
-		// Run each module's startup code
+		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
 				return [...memo, module.startup(req.context)];
 			}
 			return memo;
 		}, []);
+
 		// Execute module startup promises
 		Promise.all(startupPromises).catch(err => {
 			d(`Server startup problem: ${err}`);

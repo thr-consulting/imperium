@@ -11,7 +11,7 @@ import schemaDirectives from './security/schemaDirectives';
 const d = debug('imperium.graphql.endpoints.graphql');
 
 export default function({app, connectors, modules, middleware}) {
-	d('Creating graphql schema');
+	d('Merging graphql schema');
 
 	// Merge all the typeDefs from all modules
 	const typeDefs = modules.reduce((memo, module) => {
@@ -40,6 +40,7 @@ export default function({app, connectors, modules, middleware}) {
 		schemaDirectives,
 	});
 
+	d('Adding graphql endpoint');
 	// Mount a bunch of middleware onto /api/graphql
 	app.use(
 		'/api/graphql',

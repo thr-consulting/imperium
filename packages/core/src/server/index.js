@@ -55,7 +55,6 @@ export default function server() {
 		}, 200, {leading: true, trailing: false});
 
 		// Use chokidar to watch for file changes
-		console.log(path.join(__dirname, '..', '..', '..'));
 		chokidar.watch([
 			path.join(__dirname, '..', '..', '..'), // TODO This is only for Imperium development (it works ok in deployed projects)
 			path.join(process.cwd(), 'src'),
