@@ -5,8 +5,6 @@ const d = debug('imperium.proj.connectors');
 
 export default class Connectors {
 	async create() {
-		d('Creating connectors');
-
 		this._mongoConn = await MongoClient.connect(process.env.MONGOURL, {useNewUrlParser: true});
 		const mongo = await this._mongoConn.db(process.env.MONGODB);
 
@@ -16,7 +14,6 @@ export default class Connectors {
 	}
 
 	async close() {
-		d('Closing connectors');
 		this._mongoConn.close();
 	}
 }

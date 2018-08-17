@@ -37,6 +37,7 @@ module.exports = {
 			// These aliases are so we can 'dynamically' include code from our project
 			Connectors$: path.join(pRoot, config.project.Connectors),
 			serverModules$: path.join(pRoot, config.project.serverModules),
+			authentication$: path.join(pRoot, config.project.authentication),
 		},
 	},
 	externals: [

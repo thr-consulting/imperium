@@ -7,8 +7,6 @@ import createHtml from './createHtml';
 import production from './endpoints/production';
 import initialState from './endpoints/initialState';
 import middleware from './middleware';
-// import graphql from './endpoints/graphql';
-// import graphiql from './endpoints/graphiql';
 
 const d = debug('imperium.core.server.worker');
 
@@ -23,10 +21,11 @@ export default function worker(sc, {
 	const isDevelopment = process.env.NODE_ENV === 'development';
 
 	if (!Connectors) {
-		throw new Error('Connectors.js not defined in your src folder');
+		throw new Error('Connectors.js not defined in your Imperium configuration folder');
 	}
 
 	// Create connectors
+	d('Creating connectors');
 	const connector = new Connectors();
 	connector.create().then(connectors => {
 		// Load modules - Runs module definition functions and stores the objects
@@ -61,6 +60,7 @@ export default function worker(sc, {
 		initialState({app, connectors, modules});
 
 		// Module custom endpoints
+		d('Creating module custom endpoints');
 		modules.forEach(module => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints({app, connectors, modules, middleware});
 		});
@@ -73,7 +73,8 @@ export default function worker(sc, {
 
 		// Create a context for use when the server first starts up.
 		const req = {};
-		middleware.context({connectors, modules})(req, null, () => {});
+		middleware.context({connectors, modules})(req, null, () => {
+		});
 
 		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {
@@ -84,8 +85,9 @@ export default function worker(sc, {
 		}, []);
 
 		// Execute module startup promises
+		d('Executing module startup');
 		Promise.all(startupPromises).catch(err => {
-			d(`Server startup problem: ${err}`);
+			d(`Module startup problem: ${err}`);
 		});
 	}).catch(reason => {
 		console.log('ERROR: Connectors couldn\'t be created.'); // eslint-disable-line no-console

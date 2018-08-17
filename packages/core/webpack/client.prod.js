@@ -62,6 +62,7 @@ module.exports = {
 			// These aliases are so we can 'dynamically' include code from our project
 			clientModules$: path.join(pRoot, config.project.clientModules),
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
+			rootRender$: path.join(pRoot, config.project.rootRender),
 		},
 	},
 	optimization: {

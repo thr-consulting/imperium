@@ -1,0 +1,3 @@
+mutation removeContactArrayItem($id: String, $path: String, $index: Int) {
+    removeContactArrayItem(id: $id, path: $path, index: $index)
+}

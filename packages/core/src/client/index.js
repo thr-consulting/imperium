@@ -3,18 +3,15 @@ import debug from 'debug';
 import {render} from 'react-dom';
 import React from 'react';
 import isArray from 'lodash/isArray';
+import isFunction from 'lodash/isFunction';
 import {AppContainer} from 'react-hot-loader';
 import {fromJSON} from 'transit-immutable-js';
-// import {ApolloClient} from 'apollo-client';
-// import {ApolloLink} from 'apollo-link';
-// import {createHttpLink} from 'apollo-link-http';
-// import {InMemoryCache} from 'apollo-cache-inmemory';
 import {decode} from 'jsonwebtoken';
 import {Map} from 'immutable';
-// import {dateInit} from '@thx/date-ui';
 import 'whatwg-fetch';
 import clientModules from 'clientModules';
 import {rootRoute} from 'routeDefaults';
+import rootRender from 'rootRender';
 import makeStore from './redux/makeStore';
 import RootComponent from './components/Root';
 
@@ -23,30 +20,7 @@ const d = debug('imperium.core.client');
 d('>>> CLIENT ENTRY');
 
 // Get initial configuration from server
-const {graphql, jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase
-
-// Create Apollo HTTP link
-// const httpLink = createHttpLink({uri: graphql});
-
-// Create Apollo middleware link (for authorization)
-// const middlewareLink = new ApolloLink((operation, forward) => {
-// 	const jwt = window.localStorage.getItem(jwt_localstorage_name);
-// 	if (jwt) {
-// 		operation.setContext({
-// 			headers: {
-// 				Authorization: `Bearer ${jwt}`,
-// 			},
-// 		});
-// 	}
-// 	return forward(operation);
-// });
-// const apolloLink = middlewareLink.concat(httpLink);
-
-// Configure Apollo GraphQL client
-// const apolloClient = new ApolloClient(({
-// 	link: apolloLink,
-// 	cache: new InMemoryCache(),
-// }));
+const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase
 
 /**
  * Merge module routes into a single array
@@ -68,7 +42,7 @@ function mergeModuleRoutes(modules) {
 function renderRoot(Root, store, routes) {
 	render(
 		<AppContainer>
-			<Root store={store} routes={routes}/>
+			<Root store={store} routes={routes} render={rootRender}/>
 		</AppContainer>,
 		document.getElementById('root')
 	);
@@ -87,11 +61,10 @@ function startFromState(initState) {
 	// Create the Redux store
 	const store = makeStore(initialState, modules);
 
-	// Initialize the date system
-	// dateInit();
-
 	// Run any module specific startup code
-	// TODO do this
+	modules.forEach(module => {
+		if (module.startup && isFunction(module.startup)) module.startup(window.__INITIAL_CONF__, initialState, store); // eslint-disable-line no-underscore-dangle
+	});
 
 	// Merge module routes
 	const routes = mergeModuleRoutes(modules);
@@ -106,11 +79,18 @@ function startFromState(initState) {
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
 			renderRoot(newRoot, store, routes);
 		});
+
+		/*
+			When a client module changes we recreate the Redux store and reload the routes.
+			We cannot re-run the startup logic. In this case you will have to refresh the page to load the new changes.
+			In fact, if your module's startup code depends the Redux store, you may get strange errors when hot reloading.
+		 */
 		module.hot.accept('clientModules', () => {
 			// Load new client modules and re-render
 			const mods = require('clientModules').default; // eslint-disable-line no-shadow,global-require
-			const routs = mergeModuleRoutes(mods.map(moduleFunc => moduleFunc()));
-			renderRoot(RootComponent, store, routs);
+			const newRoutes = mergeModuleRoutes(mods.map(moduleFunc => moduleFunc()));
+			const newStore = makeStore(initialState, mods);
+			renderRoot(RootComponent, newStore, newRoutes);
 		});
 	}
 
@@ -129,7 +109,6 @@ function checkStatus(response) {
 
 const jwt = window.localStorage.getItem(jwt_localstorage_name);
 if (jwt) {
-	/*
 	const {exp} = decode(jwt);
 	if (!exp || exp < (Date.now().valueOf() / 1000)) {
 		d('JWT expired');
@@ -153,7 +132,6 @@ if (jwt) {
 				startFromState();
 			});
 	}
-	*/
 } else {
 	// We don't have a JWT, so just start with no auth info
 	startFromState();

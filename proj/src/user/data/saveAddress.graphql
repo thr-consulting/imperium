@@ -1,0 +1,3 @@
+mutation saveAddress($data: UserAddressInput, $index: Int, $id: String, $path: String) {
+    saveAddress(data: $data, index: $index, id: $id, path: $path)
+}

@@ -1,0 +1,44 @@
+{
+	"name": "@imperium/auth",
+	"version": "0.0.1",
+	"description": "Basic Auth Imperium package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"engines": {
+		"node": ">=8"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"files": [
+		"lib",
+		"README.md"
+	],
+	"scripts": {
+		"prepublish": "npm run build",
+		"build": "npm run clean && concurrently \"npm:build:server\" \"npm:build:client\"",
+		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
+		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
+		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
+		"clean": "rimraf ./lib/*"
+	},
+	"dependencies": {
+		"@thx/ducks": "^7.1.1",
+		"@thx/tschemas": "^7.1.1",
+		"@thx/controls": "^7.1.6",
+		"@thx/mongoloader": "^7.1.1",
+		"@thx/router": "^7.1.1",
+		"bcrypt": "^3.0.0",
+		"jsonwebtoken": "^8.3.0",
+		"debug": "^3.1.0",
+		"lodash": "^4.17.4",
+		"immutable": "^3.8.2",
+		"react-router-dom": "^4.3.1",
+		"yup": "^0.26.2"
+	},
+	"peerDependencies": {
+		"semantic-ui-react": "^0.x",
+		"react": "^16.x",
+		"mongodb": "^3.x"
+	}
+}

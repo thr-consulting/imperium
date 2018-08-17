@@ -1,0 +1,19 @@
+input PasswordDigest {
+	digest: String!
+	algorithm: String!
+}
+
+type Auth {
+	userId: String!
+	permissions: [String]
+	user: User!
+}
+
+type SignInReturn {
+	jwt: String!
+	auth: Auth
+}
+
+extend type Mutation {
+	signIn(email: Email!, password: PasswordDigest!): SignInReturn
+}

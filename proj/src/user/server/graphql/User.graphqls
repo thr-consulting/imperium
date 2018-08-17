@@ -1,0 +1,81 @@
+# A Users profile
+type Addresses {
+	postalCode: String!
+	province: String!
+	city: String!
+	address1: String!
+	address2: String
+	description: String
+}
+
+# Type to reference a user object
+type UserReference {
+	id: String
+	name: String
+}
+
+type Phone {
+	description: String
+	number: String
+}
+
+type Profile {
+	name: String!
+	firstName: String!
+	lastName: String
+	addresses: [Addresses]
+	phone: [Phone]
+}
+
+type UserEmail {
+	address: String!
+	verified: Boolean!
+}
+
+# A user in the system
+type User {
+	id: String
+	profile: Profile!
+	emails: [UserEmail]
+}
+
+type Search {
+	name: String
+	email: Email
+	id: String
+}
+
+input UserNameInput {
+	firstName: String!
+	lastName: String
+}
+
+extend type Query {
+	users: [User],
+	getUser(id: String!): User,
+}
+
+input UserAddressInput {
+    description: String
+    address1: String!
+    address2: String
+    city: String!
+    province: String!
+    postalCode: String!
+}
+
+input UserInfoInput {
+	description: String
+	address: String!
+	verified: Boolean
+}
+
+extend type Mutation {
+	# Create a new user/contact. Email and password is optional
+	createUser(name: UserNameInput!, email: Email, password: PasswordDigest): User
+	createContact(data: UserNameInput): Boolean,
+	saveUserInfo(data: UserInfoInput, id: String, path: String, index: Int): Boolean,
+	removeContactArrayItem(id: String, path: String, index: Int): Boolean,
+	updateName(data: UserNameInput, id: String): Boolean,
+	saveAddress(data: UserAddressInput, index: Int, id: String, path: String): Boolean,
+}

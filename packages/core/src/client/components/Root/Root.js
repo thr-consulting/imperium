@@ -4,17 +4,15 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
-// import {ApolloProvider} from 'react-apollo';
-// import {RouteDirector} from '@thx/router';
-// import {NotificationSystem} from '@thx/notifications';
-// import {DialogSystem} from '@thx/dialog';
+import {RouteDirector} from '@thx/router';
+
 import routeDefaults from 'routeDefaults';
 import './root.css';
 
 type Props = {
 	store: Object,
-	// apolloClient: Object,
 	routes: Object[],
+	render: () => void,
 };
 
 /**
@@ -24,11 +22,16 @@ export default class Root extends Component<Props> {
 	props: Props;
 
 	render() {
-		const {store, routes} = this.props;
+		const {store, routes, render} = this.props;
+		const inner = () => (
+			<Router>
+				<RouteDirector routes={routes} defaults={routeDefaults}/>
+			</Router>
+		);
 		return (
 			<Provider store={store}>
 				<div>
-					root component
+					{render(inner)}
 				</div>
 			</Provider>
 		);
