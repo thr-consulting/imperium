@@ -20,7 +20,7 @@ export default class Connectors {
 ```
 
 ### `serverModules.js`
-Use this file to declare your server modules. See [ServerModule](./ServerModule.md) for details.
+Use this file to declare your server modules. See [ServerModule](docs/ServerModule.md) for details.
 
 ```javascript
 export default [
@@ -29,7 +29,7 @@ export default [
 ```
 
 ### `clientModules.js`
-Use this file to declare your client modules. See [ClientModule](./ClientModule.md) for details.
+Use this file to declare your client modules. See [ClientModule](docs/ClientModule.md) for details.
 
 ```javascript
 export default [

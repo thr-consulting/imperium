@@ -1,5 +1,5 @@
 {
-	"name": "@imperium/eslint",
+	"name": "@imperium/eslint-config-imperium",
 	"version": "0.0.1",
 	"description": "ESLint dependencies",
 	"repository": "darkadept/imperium",
@@ -12,7 +12,6 @@
 	},
 	"dependencies": {
 		"babel-eslint": "^8.2.6",
-		"eslint": "^5.3.0",
 		"eslint-config-airbnb": "^17.0.0",
 		"eslint-plugin-babel": "^5.1.0",
 		"eslint-plugin-flowtype": "^2.50.0",
@@ -20,5 +19,8 @@
 		"eslint-plugin-jest": "^21.21.0",
 		"eslint-plugin-jsx-a11y": "^6.1.1",
 		"eslint-plugin-react": "^7.10.0"
+	},
+	"peerDependencies": {
+		"eslint": "^5.x"
 	}
 }

@@ -20,7 +20,8 @@
 		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
 		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
 		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
-		"clean": "rimraf ./lib/*"
+		"clean": "rimraf ./lib/*",
+		"lint": "eslint --cache 'src/**/*.js'"
 	},
 	"dependencies": {
 		"@thx/ducks": "^7.1.1",

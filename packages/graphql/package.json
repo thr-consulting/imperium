@@ -20,7 +20,8 @@
 		"build": "npm run clean:lib && npm run build:lib",
 		"build:watch": "npm run clean:lib && npm run build:lib -- --verbose -w",
 		"build:lib": "NODE_ENV=production babel src -s --out-dir lib",
-		"clean:lib": "rimraf ./lib/*"
+		"clean:lib": "rimraf ./lib/*",
+		"lint": "eslint --cache 'src/**/*.js'"
 	},
 	"dependencies": {
 		"@thx/date": "^7.1.3",

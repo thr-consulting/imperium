@@ -15,6 +15,9 @@
 		"prod.js",
 		"test.js"
 	],
+	"scripts": {
+		"lint": "eslint --cache '*.js'"
+	},
 	"dependencies": {
 		"@babel/core": "^7.0.0-rc.1",
 		"@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",

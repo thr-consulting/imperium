@@ -20,6 +20,9 @@
 	"bin": {
 		"imperium": "./bin/imperium.js"
 	},
+	"scripts": {
+		"lint": "eslint --cache 'src/**/*.js' 'webpack/**/*.js'"
+	},
 	"dependencies": {
 		"@thx/router": "^7.1.1",
 		"bcrypt": "^3.0.0",

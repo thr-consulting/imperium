@@ -64,8 +64,8 @@ export default function server() {
 			d(`Chokidar change detected: ${filePath}`);
 			// Don't restart if we match imperium client settings/definitions
 			if (
-				filePath === path.join(process.cwd(), config.project.clientModules) ||
-				filePath === path.join(process.cwd(), config.project.routeDefaults)
+				filePath === path.join(process.cwd(), config.project.clientModules)
+				|| filePath === path.join(process.cwd(), config.project.routeDefaults)
 			) {
 				return;
 			}

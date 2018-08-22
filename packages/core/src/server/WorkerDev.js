@@ -1,4 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
+const webpack = require('webpack');
+const SCWorker = require('socketcluster/scworker');
+const d = require('debug')('imperium.core.server.WorkerDev');
 const path = require('path');
 const isSourceFile = require('../../webpack/isSourceFile');
 
@@ -11,9 +14,6 @@ require('@babel/register')({
 		], 'BABEL/REG'),
 	],
 });
-const webpack = require('webpack');
-const SCWorker = require('socketcluster/scworker');
-const d = require('debug')('imperium.core.server.WorkerDev');
 const worker = require('./worker').default;
 const webpackConfig = require('../../webpack/client.dev');
 const config = require('../../config');
