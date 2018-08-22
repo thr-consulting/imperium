@@ -1,3 +1,0 @@
-mutation saveUserInfo($data: UserInfoInput, $index: Int, $id: String, $path: String) {
-    saveUserInfo(data: $data, index: $index, id: $id, path: $path)
-}

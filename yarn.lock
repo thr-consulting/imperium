@@ -1298,20 +1298,6 @@
     react-responsive "^4.0.4"
     string-hash "^1.1.3"
 
-"@thx/date-ui@^7.1.3":
-  version "7.1.6"
-  resolved "https://registry.yarnpkg.com/@thx/date-ui/-/date-ui-7.1.6.tgz#3081a20fe26794f0a913ff5ff588c6b66a3359af"
-  dependencies:
-    "@thx/controls" "^7.1.6"
-    "@thx/date" "^7.1.3"
-    debug "^3.1.0"
-    js-joda "^1.6.2"
-    moment "^2.22.2"
-    prop-types "^15.6.0"
-    react-datepicker "^1.5.0"
-    react-widgets "^4.3.2"
-    react-widgets-moment "^4.0.15"
-
 "@thx/date@^7.1.3":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@thx/date/-/date-7.1.3.tgz#fdd8ea7d1cbe65d86e98d78a970d124770c46568"
@@ -2673,7 +2659,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
+classnames@^2.2.3, classnames@^2.2.5:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
@@ -3170,10 +3156,6 @@ dataloader@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-1.4.0.tgz#bca11d867f5d3f1b9ed9f737bd15970c65dff5c8"
 
-date-arithmetic@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/date-arithmetic/-/date-arithmetic-3.1.0.tgz#1fcd03dbd504b9dbee2b9078c85a5f1c7d3cc2d3"
-
 date-fns@^1.23.0:
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
@@ -3382,10 +3364,6 @@ dom-converter@~0.1:
   resolved "https://registry.yarnpkg.com/dom-converter/-/dom-converter-0.1.4.tgz#a45ef5727b890c9bffe6d7c876e7b19cb0e17f3b"
   dependencies:
     utila "~0.3"
-
-dom-helpers@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.3.1.tgz#fc1a4e15ffdf60ddde03a480a9c0fece821dd4a6"
 
 dom-serializer@0:
   version "0.1.0"
@@ -6520,10 +6498,6 @@ pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
 
-popper.js@^1.14.1:
-  version "1.14.4"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
-
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
@@ -6629,13 +6603,6 @@ promzard@^0.3.0:
   resolved "https://registry.yarnpkg.com/promzard/-/promzard-0.3.0.tgz#26a5d6ee8c7dee4cb12208305acfb93ba382a9ee"
   dependencies:
     read "1"
-
-prop-types-extra@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/prop-types-extra/-/prop-types-extra-1.1.0.tgz#32609910ea2dcf190366bacd3490d5a6412a605f"
-  dependencies:
-    react-is "^16.3.2"
-    warning "^3.0.0"
 
 prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
@@ -6802,22 +6769,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-component-managers@^3.1.0:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/react-component-managers/-/react-component-managers-3.2.2.tgz#b02a965465a32118ffc967f59730618370432412"
-  dependencies:
-    prop-types "^15.6.1"
-    spy-on-component "^1.1.0"
-
-react-datepicker@^1.5.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-1.6.0.tgz#6b7a87e949f3bbd94872554be6a0119bd908a987"
-  dependencies:
-    classnames "^2.2.5"
-    prop-types "^15.6.0"
-    react-onclickoutside "^6.7.1"
-    react-popper "^0.9.1"
-
 react-dev-utils@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"
@@ -6873,24 +6824,13 @@ react-input-message@^0.15.1:
     prop-types "^15.5.9"
     topeka "^1.0.0"
 
-react-is@^16.3.1, react-is@^16.3.2:
+react-is@^16.3.1:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.2.tgz#84891b56c2b6d9efdee577cc83501dfc5ecead88"
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
-
-react-onclickoutside@^6.7.1:
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.7.1.tgz#6a5b5b8b4eae6b776259712c89c8a2b36b17be93"
-
-react-popper@^0.9.1:
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.9.5.tgz#02a24ef3eec33af9e54e8358ab70eb0e331edd05"
-  dependencies:
-    popper.js "^1.14.1"
-    prop-types "^15.6.1"
 
 react-redux@^5.0.7:
   version "5.0.7"
@@ -6933,34 +6873,6 @@ react-router@^4.3.1:
     path-to-regexp "^1.7.0"
     prop-types "^15.6.1"
     warning "^4.0.1"
-
-react-transition-group@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.4.0.tgz#1d9391fabfd82e016f26fabd1eec329dbd922b5a"
-  dependencies:
-    dom-helpers "^3.3.1"
-    loose-envify "^1.3.1"
-    prop-types "^15.6.2"
-    react-lifecycles-compat "^3.0.4"
-
-react-widgets-moment@^4.0.15:
-  version "4.0.20"
-  resolved "https://registry.yarnpkg.com/react-widgets-moment/-/react-widgets-moment-4.0.20.tgz#0f51c15fd9395d21d7427ebf78324c6ba4851c0a"
-
-react-widgets@^4.3.2:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/react-widgets/-/react-widgets-4.4.4.tgz#0d6905e9971e4117e8082479f72ac5a08d756cf5"
-  dependencies:
-    classnames "^2.2.6"
-    date-arithmetic "^3.1.0"
-    dom-helpers "^3.3.1"
-    invariant "^2.2.4"
-    prop-types-extra "^1.0.1"
-    react-component-managers "^3.1.0"
-    react-lifecycles-compat "^3.0.4"
-    react-transition-group "^2.4.0"
-    uncontrollable "^5.0.0"
-    warning "^3.0.0"
 
 react@^16.4.2:
   version "16.4.2"
@@ -7854,10 +7766,6 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-spy-on-component@^1.1.0:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/spy-on-component/-/spy-on-component-1.1.2.tgz#70cec3a0b87dfb9d5356e288135fd349d138d407"
-
 sshpk@^1.7.0:
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.14.2.tgz#c6fc61648a3d9c4e764fd3fcdf4ea105e492ba98"
@@ -8353,12 +8261,6 @@ uncontrollable@^4.1.0:
   resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-4.1.0.tgz#e0358291252e1865222d90939b19f2f49f81c1a9"
   dependencies:
     invariant "^2.1.0"
-
-uncontrollable@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-5.1.0.tgz#7e9a1c50ea24e3c78b625e52d21ff3f758c7bd59"
-  dependencies:
-    invariant "^2.2.4"
 
 underscore@~1.6.0:
   version "1.6.0"

@@ -7,12 +7,13 @@
 	},
 	"private": true,
 	"workspaces": [
-		"packages/*",
-		"proj/"
+		"packages/*"
 	],
 	"scripts": {
 		"lerna": "lerna",
-		"build": "cd packages/scripts && node bin/imperium.js build"
+		"build": "yarn build:auth && yarn build:graphql",
+		"build:auth": "cd packages/auth && yarn build",
+		"build:graphql": "cd packages/graphql && yarn build"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0-rc.1",
@@ -23,6 +24,8 @@
 		"express": "^4.16.3",
 		"semantic-ui-react": "^0.82.2",
 		"concurrently": "^3.6.1",
-		"mongodb": "^3.1.3"
+		"immutable": "^3.8.2",
+		"mongodb": "^3.1.3",
+		"react-router-dom": "^4.3.1"
 	}
 }

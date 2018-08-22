@@ -1,3 +1,0 @@
-mutation updateName($data: UserNameInput, $id: String) {
-    updateName(data: $data, id: $id)
-}
