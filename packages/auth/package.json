@@ -29,11 +29,11 @@
 		"@thx/controls": "^7.1.6",
 		"@thx/mongoloader": "^7.1.1",
 		"@thx/router": "^7.1.1",
-		"bcrypt": "^3.0.0",
+		"bcrypt": "^3.0.1",
 		"jsonwebtoken": "^8.3.0",
-		"debug": "^3.1.0",
-		"lodash": "^4.17.4",
-		"yup": "^0.26.2"
+		"debug": "^4.0.1",
+		"lodash": "^4.17.11",
+		"yup": "^0.26.6"
 	},
 	"peerDependencies": {
 		"semantic-ui-react": "^0.x",
