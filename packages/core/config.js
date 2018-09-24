@@ -15,11 +15,4 @@ module.exports = {
 		routeDefaults: path.join(projectData, 'routeDefaults.js'),
 		rootRender: path.join(projectData, 'rootRender.js'),
 	},
-	client: {
-		// This object is available on the client as window.__INITIAL_CONF__
-		initialConfig: {
-			graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
-			jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME,
-		},
-	},
 };

@@ -9,6 +9,7 @@ export default function() {
 		models,
 		startup,
 		endpoints,
+		initialConfig,
 		
 		// Graphql
 		schema,
@@ -58,6 +59,10 @@ The Express app.
 
 #### `connectors`
 An object that holds all the connectors that have been created. ie. `connectors.mongo`.
+
+## initialConfig
+A function that returns an object. This object is embedded in the index HTML file and is
+available on the client immediately.
 
 ## schema
 *Used by the `@imperium/graphql` package.*

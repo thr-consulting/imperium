@@ -94,7 +94,7 @@ module.exports = {
 			reportFilename: path.join('..', config.production.reportFilename),
 			openAnalyzer: false,
 		}),
-		new HtmlWebpackPlugin(htmlOptions(iSrcDir, config)),
+		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot}, config)),
 		// new InlineChunkWebpackPlugin({inlineChunks: ['manifest']}),
 	]),
 	module: {

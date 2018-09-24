@@ -46,7 +46,7 @@ module.exports = {
 		},
 	},
 	plugins: [
-		new HtmlWebpackPlugin(htmlOptions(iSrcDir, config)),
+		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot}, config)),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
 			__CLIENT__: true,
