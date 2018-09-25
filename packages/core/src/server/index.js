@@ -69,6 +69,7 @@ export default function server() {
 			) {
 				return;
 			}
+
 			// Only restart when the path has a server/ or server.js in it.
 			if (/server\//.test(filePath) || /server\.js$/.test(filePath)) {
 				console.log(`  >> File ${filePath} was modified.`); // eslint-disable-line no-console

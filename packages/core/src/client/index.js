@@ -74,7 +74,15 @@ function startFromState(initState) {
 
 	// Hot Module Replacement API
 	if (module.hot) {
-		module.hot.accept('./components/Root', () => {
+		// Only Needed For Imperium
+		// module.hot.accept('./components/Root', () => {
+		// 	// Load new Root component and re-render
+		// 	const newRoot = require('./components/Root').default; // eslint-disable-line global-require
+		// 	renderRoot(newRoot, store, routes);
+		// });
+
+		// Reload For Implementing Project
+		module.hot.accept('rootRender', () => {
 			// Load new Root component and re-render
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
 			renderRoot(newRoot, store, routes);
