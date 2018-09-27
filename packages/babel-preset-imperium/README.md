@@ -5,7 +5,7 @@ This package includes the Babel preset used by [Imperium Framework](https://gith
 Install the preset.
 
 ```js
-yarn add @imperium/babel-preseet-imperium -D
+yarn add @imperium/babel-preset-imperium -D
 ```
 
 Create a .babelrc with the following:
@@ -30,7 +30,12 @@ code that runs in Node.
 See [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env/#debug)'s debug option.
 
 #### `forceModules`
-`boolean`, defaults to `false`,
+`boolean`, defaults to `false`.
 
 Normally module transformations are on (commonjs) for `client` mode and off for `server` mode.
 This can force modules to be transformed.
+
+#### `react`
+`boolean`, defaults to `false`.
+
+Enables the React preset, even on the server.

@@ -22,6 +22,7 @@ module.exports = function (api, opts, env) {
 	var isDebug = validateBoolOption('debug', opts.debug, false);
 	var isClient = validateBoolOption('client', opts.client, false);
 	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
+	var forceReact = validateBoolOption('react', opts.react, false);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -64,7 +65,7 @@ module.exports = function (api, opts, env) {
 					modules: false,
 				},
 			],
-			isClient && [
+			(isClient || forceReact) && [
 				require('@babel/preset-react').default,
 				{
 					// Adds component stack to warning messages
