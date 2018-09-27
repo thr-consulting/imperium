@@ -10,6 +10,10 @@
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
 	"dependencies": {
 		"babel-eslint": "^9.0.0",
 		"eslint-config-airbnb": "^17.0.0",
@@ -22,5 +26,6 @@
 	},
 	"peerDependencies": {
 		"eslint": "^5.x"
-	}
+	},
+	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }

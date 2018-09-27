@@ -42,5 +42,6 @@
 	},
 	"peerDependencies": {
 		"express": "^4.x"
-	}
+	},
+	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }

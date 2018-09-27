@@ -45,5 +45,6 @@
 	},
 	"optionalDependencies": {
 		"fsevents": "1.2.4"
-	}
+	},
+	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }
