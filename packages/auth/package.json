@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Basic Auth Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -24,22 +24,22 @@
 		"lint": "eslint --cache 'src/**/*.js'"
 	},
 	"dependencies": {
-		"@thx/ducks": "^7.1.1",
-		"@thx/tschemas": "^7.1.1",
 		"@thx/controls": "^7.1.6",
+		"@thx/ducks": "^7.1.1",
 		"@thx/mongoloader": "^7.1.1",
 		"@thx/router": "^7.1.1",
+		"@thx/tschemas": "^7.1.1",
 		"bcrypt": "^3.0.1",
-		"jsonwebtoken": "^8.3.0",
 		"debug": "^4.0.1",
+		"jsonwebtoken": "^8.3.0",
 		"lodash": "^4.17.11",
 		"yup": "^0.26.6"
 	},
 	"peerDependencies": {
-		"semantic-ui-react": "^0.x",
+		"immutable": "^3.x",
+		"mongodb": "^3.x",
 		"react": "^16.x",
 		"react-router-dom": "^4.x",
-		"mongodb": "^3.x",
-		"immutable": "^3.x"
+		"semantic-ui-react": "^0.x"
 	}
 }
