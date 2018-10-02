@@ -24,11 +24,11 @@
 		"lint": "eslint --cache 'src/**/*.js'"
 	},
 	"dependencies": {
-		"@thx/controls": "^7.1.6",
-		"@thx/ducks": "^7.1.1",
-		"@thx/mongoloader": "^7.1.1",
-		"@thx/router": "^7.1.1",
-		"@thx/tschemas": "^7.1.1",
+		"@thx/controls": "^8.0.0",
+		"@thx/ducks": "^8.0.0",
+		"@thx/mongoloader": "^8.0.0",
+		"@thx/router": "^8.0.0",
+		"@thx/tschemas": "^8.0.0",
 		"bcrypt": "^3.0.1",
 		"debug": "^4.0.1",
 		"jsonwebtoken": "^8.3.0",

@@ -24,7 +24,7 @@
 		"lint": "eslint --cache 'src/**/*.js' 'webpack/**/*.js'"
 	},
 	"dependencies": {
-		"@thx/router": "^7.1.1",
+		"@thx/router": "^8.0.0",
 		"bcrypt": "^3.0.1",
 		"body-parser": "^1.18.3",
 		"chokidar": "^2.0.3",
@@ -37,7 +37,7 @@
 		"express-jwt": "^5.3.0",
 		"jsonwebtoken": "^8.3.0",
 		"lodash": "^4.17.11",
-		"react-dev-utils": "^5.0.2",
+		"react-dev-utils": "^6.0.3",
 		"react-hot-loader": "^4.3.11",
 		"react-redux": "^5.0.7",
 		"redux": "^4.0.0",
