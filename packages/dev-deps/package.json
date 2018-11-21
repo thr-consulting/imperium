@@ -25,7 +25,7 @@
 		"chalk": "^2.4.1",
 		"css-loader": "^1.0.0",
 		"file-loader": "^2.0.0",
-		"flow-bin": "^0.82.0",
+		"flow-bin": "^0.86.0",
 		"hard-source-webpack-plugin": "^0.12.0",
 		"html-webpack-inline-chunk-plugin": "^1.1.1",
 		"html-webpack-plugin": "^3.2.0",
@@ -44,7 +44,7 @@
 		"webpack-node-externals": "^1.7.2"
 	},
 	"optionalDependencies": {
-		"fsevents": "1.2.4"
+		"fsevents": "2.0.1"
 	},
 	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }
