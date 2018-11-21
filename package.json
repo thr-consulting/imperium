@@ -13,7 +13,10 @@
 		"lerna": "lerna",
 		"build": "yarn build:auth && yarn build:graphql",
 		"build:auth": "cd packages/auth && yarn build",
-		"build:graphql": "cd packages/graphql && yarn build"
+		"build:graphql": "cd packages/graphql && yarn build",
+		"lint": "lerna run lint",
+		"test": "lerna run test --stream --concurrency 1",
+		"pkghash": "./pkghash"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.1.2",
@@ -27,6 +30,9 @@
 		"immutable": "^3.8.2",
 		"mongodb": "^3.1.6",
 		"react-router-dom": "^4.3.1",
-		"eslint": "^5.6.1"
+		"eslint": "^5.6.1",
+		"jest": "^23.6.0",
+		"babel-jest": "^23.6.0",
+		"babel-core": "^7.0.0-bridge"
 	}
 }

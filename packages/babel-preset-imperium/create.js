@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign, func-names, global-require, no-var, vars-on-top, prefer-template, operator-linebreak */
+
 const validateBoolOption = (name, value, defaultValue) => {
 	if (typeof value === 'undefined') {
 		value = defaultValue;
@@ -8,7 +10,7 @@ const validateBoolOption = (name, value, defaultValue) => {
 	return value;
 };
 
-module.exports = function (api, opts, env) {
+module.exports = function(api, opts, env) {
 	if (!opts) {
 		opts = {};
 	}
@@ -152,7 +154,7 @@ module.exports = function (api, opts, env) {
 				require('babel-plugin-inline-import').default,
 				{
 					extensions: ['.graphqls'],
-				}
+				},
 			],
 		].filter(Boolean),
 	};
