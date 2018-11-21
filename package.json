@@ -25,7 +25,7 @@
 		"react": "^16.5.2",
 		"react-dom": "^16.5.2",
 		"express": "^4.16.3",
-		"semantic-ui-react": "^0.82.5",
+		"semantic-ui-react": "^0.83.0",
 		"concurrently": "^4.0.1",
 		"immutable": "^3.8.2",
 		"mongodb": "^3.1.6",
