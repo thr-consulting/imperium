@@ -1,10 +1,10 @@
 import ContextMap from '../ContextMap';
 
-const connectors = {
+const myConnectors = {
 	MyConnector: {},
 };
 
-function moduleFunc(connectors, context) {
+function moduleFunc(/* connectors, context */) {
 	return {
 		MyDataModel: {},
 	};
@@ -12,7 +12,7 @@ function moduleFunc(connectors, context) {
 
 describe('ContextMap', () => {
 	it('should add modules properly', () => {
-		const context = new ContextMap(connectors);
+		const context = new ContextMap(myConnectors);
 		context.addModule(moduleFunc);
 	});
 });
