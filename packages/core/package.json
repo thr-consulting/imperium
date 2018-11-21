@@ -21,7 +21,8 @@
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
-		"lint": "eslint --cache 'src/**/*.js' 'webpack/**/*.js'"
+		"lint": "eslint --cache 'src/**/*.js' 'webpack/**/*.js'",
+		"test": "jest"
 	},
 	"dependencies": {
 		"@thx/router": "^8.0.0",
@@ -60,5 +61,10 @@
 		"react-router-dom": "^4.x",
 		"semantic-ui-react": "^0.x"
 	},
-	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
+	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537",
+	"jest": {
+		"transform": {
+			"^.+\\.js$": "<rootDir>/../../jest-transformer.js"
+		}
+	}
 }
