@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mapfile -t hashes < <(lerna exec md5sum package.json | awk '{print $1}')
+hashes+=$(md5sum package.json)
+
+hash=$(printf "%s" "${hashes[@]}")
+finalHash=$(echo "$hash" | md5sum | awk '{print $1}')
+
+echo "$finalHash" > .packages-hash
+
+echo "$finalHash"

@@ -14,7 +14,8 @@
 		"build": "yarn build:auth && yarn build:graphql",
 		"build:auth": "cd packages/auth && yarn build",
 		"build:graphql": "cd packages/graphql && yarn build",
-		"test": "lerna run test --stream --concurrency 1"
+		"test": "lerna run test --stream --concurrency 1",
+		"pkghash": "./pkghash"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.1.2",
