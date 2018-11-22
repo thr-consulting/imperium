@@ -8,10 +8,15 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin');
+const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
 const inspectLoader = require('./inspectLoader').default;
 const isSourceFile = require('./isSourceFile');
+
+// Import .env and expand variables:
+dotenvExpand(dotenv.config({silent: false}));
 
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
