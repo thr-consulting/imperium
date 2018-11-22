@@ -1,10 +1,22 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 const path = require('path');
 const isFunction = require('lodash/isFunction');
+const isSourceFile = require('./isSourceFile');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 function htmlOptions({iSrcDir, pRoot}, config) {
+	if (!isDevelopment) {
+		require('@babel/register')({
+			presets: [['@imperium/babel-preset-imperium', {client: false, forceModules: true}]],
+			only: [
+				isSourceFile([
+					path.resolve(pRoot, 'src'),
+				], 'BABEL/REG'),
+			],
+		});
+	}
+
 	const serverModules = require(path.join(pRoot, config.project.serverModules)).default;
 	const modules = serverModules.map(moduleFunc => moduleFunc());
 	const initialConfig = modules.reduce((memo, module) => {
