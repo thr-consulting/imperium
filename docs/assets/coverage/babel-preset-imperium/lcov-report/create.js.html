@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for create.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="prettify.css" />
+    <link rel="stylesheet" href="base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="index.html">All files</a> create.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.47% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>17/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.97% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>27/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.47% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>17/19</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable no-param-reassign, func-names, global-require, no-var, vars-on-top, prefer-template, operator-linebreak */
+&nbsp;
+const validateBoolOption = (name, value, defaultValue) =&gt; {
+	<span class="missing-if-branch" title="else path not taken" >E</span>if (typeof value === 'undefined') {
+		value = defaultValue;
+	}
+	<span class="missing-if-branch" title="if path not taken" >I</span>if (typeof value !== 'boolean') {
+<span class="cstat-no" title="statement not covered" >		throw new Error(`Preset imperium: '${name}' option must be a boolean.`);</span>
+	}
+	return value;
+};
+&nbsp;
+module.exports = function(api, opts, env) {
+	<span class="missing-if-branch" title="else path not taken" >E</span>if (!opts) {
+		opts = {};
+	}
+&nbsp;
+	// Environment
+	var isEnvDevelopment = env === 'development';
+	var isEnvProduction = env === 'production';
+	var isEnvTest = env === 'test';
+&nbsp;
+	// Options
+	var isDebug = validateBoolOption('debug', opts.debug, false);
+	var isClient = validateBoolOption('client', opts.client, false);
+	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
+	var forceReact = validateBoolOption('react', opts.react, false);
+&nbsp;
+	<span class="missing-if-branch" title="if path not taken" >I</span>if (!isEnvDevelopment &amp;&amp; !isEnvProduction &amp;&amp; !isEnvTest) {
+<span class="cstat-no" title="statement not covered" >		throw new Error(</span>
+			'Using `@imperium/babel-preset-imperium` requires that you specify `NODE_ENV` or ' +
+			'`BABEL_ENV` environment variables. Valid values are "development", ' +
+			'"test", and "production". Instead, received: ' +
+			JSON.stringify(env) +
+			'.'
+		);
+	}
+&nbsp;
+	return {
+		presets: [
+			!isClient &amp;&amp; [
+				// ES features necessary for user's Node version
+				require('@babel/preset-env').default,
+				{
+					debug: isDebug,
+					targets: {
+						node: 'current',
+					},
+					modules: (forceModules || isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
+				},
+			],
+			isClient &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >[</span>
+				// Latest stable ECMAScript features
+				require('@babel/preset-env').default,
+				{
+					debug: isDebug,
+					targets: {
+						browsers: ['last 2 versions', '&gt; 1%'],
+					},
+					// `entry` transforms `@babel/polyfill` into individual requires for
+					// the targeted browsers. This is safer than `usage` which performs
+					// static code analysis to determine what's required.
+					// This is probably a fine default to help trim down bundles when
+					// end-users inevitably import '@babel/polyfill'.
+					useBuiltIns: 'entry',
+					// Do not transform modules to CJS
+					modules: false,
+				},
+			],
+			(isClient || forceReact) &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >[</span>
+				require('@babel/preset-react').default,
+				{
+					// Adds component stack to warning messages
+					// Adds __self attribute to JSX which React will use for some warnings
+					development: isEnvDevelopment || isEnvTest,
+					// Will use the native built-in instead of trying to polyfill
+					// behavior for any plugins that require one.
+					useBuiltIns: true,
+				},
+			],
+			// Add flow parsing
+			[require('@babel/preset-flow').default],
+		].filter(Boolean),
+		plugins: [
+			// Experimental macros support. Will be documented after it's had some time
+			// in the wild.
+			require('babel-plugin-macros'),
+&nbsp;
+			// Necessary to include regardless of the environment because
+			// in practice some other transforms (such as object-rest-spread)
+			// don't work without it: https://github.com/babel/babel/issues/7215
+			require('@babel/plugin-transform-destructuring').default,
+&nbsp;
+			// class { handleClick = () =&gt; { } }
+			// Enable loose mode to use assignment instead of defineProperty
+			// See discussion in https://github.com/facebook/create-react-app/issues/4263
+			[
+				require('@babel/plugin-proposal-class-properties').default,
+				{
+					loose: true,
+				},
+			],
+&nbsp;
+			// The following two plugins use Object.assign directly, instead of Babel's
+			// extends helper. Note that this assumes `Object.assign` is available.
+			// { ...todx, completed: true }
+			[
+				require('@babel/plugin-proposal-object-rest-spread').default,
+				{
+					useBuiltIns: true,
+				},
+			],
+&nbsp;
+			// Polyfills the runtime needed for async/await and generators
+			/*
+			[
+				require('@babel/plugin-transform-runtime').default,
+				{
+					helpers: false,
+					polyfill: false,
+					regenerator: true,
+				},
+			],
+			*/
+&nbsp;
+			isEnvProduction &amp;&amp; isClient &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >[</span>
+				// Remove PropTypes from production build
+				require('babel-plugin-transform-react-remove-prop-types').default,
+				{
+					removeImport: true,
+				},
+			],
+&nbsp;
+			// function* () { yield 42; yield 43; }
+			!isEnvTest &amp;&amp; [
+				require('@babel/plugin-transform-regenerator').default,
+				{
+					// Async functions are converted to generators by @babel/preset-env
+					async: false,
+				},
+			],
+&nbsp;
+			// Adds syntax support for import()
+			require('@babel/plugin-syntax-dynamic-import').default,
+&nbsp;
+			// Transform dynamic import to require
+			isEnvTest &amp;&amp; require('babel-plugin-transform-dynamic-import').default,
+&nbsp;
+			// Add react proptypes from flow types
+			isEnvDevelopment &amp;&amp; isClient &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >require('babel-plugin-flow-react-proptypes').default,</span>
+&nbsp;
+			// Inline import graphqls files
+			!isClient &amp;&amp; [
+				require('babel-plugin-inline-import').default,
+				{
+					extensions: ['.graphqls'],
+				},
+			],
+		].filter(Boolean),
+	};
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 29 2018 12:01:33 GMT-0600 (CST)
+</div>
+</div>
+<script src="prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="sorter.js"></script>
+</body>
+</html>

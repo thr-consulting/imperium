@@ -1,0 +1,37 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": [
+      "jsdoc",
+      "closure"
+    ]
+  },
+  "source": {
+    "include": ".",
+    "includePattern": ".+\\.js(doc)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": [
+    "../../node_modules/jsdoc-babel",
+    "../../tools/jsdoc.globals.js"
+  ],
+  "babel": {
+    "presets": [["@imperium/babel-preset-imperium", {"react": true, "forceModules": true}]],
+    "babelrc": false
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "theme": "lumen",
+    "outputSourceFiles": true,
+    "linenums": true
+  },
+  "opts": {
+    "template": "../../node_modules/ink-docstrap/template",
+    "recurse": true,
+    "verbose": false,
+    "debug": false,
+    "readme": "README.md",
+    "destination": "docs/jsdoc"
+  }
+}

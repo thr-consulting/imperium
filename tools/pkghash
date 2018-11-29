@@ -1,0 +1,37 @@
+#!/bin/bash
+
+RESULT_FILE=.packages-hash
+
+if [ -f $RESULT_FILE ]; then
+  rm $RESULT_FILE
+fi
+touch $RESULT_FILE
+
+checksum_file() {
+  echo `md5sum $1 | awk '{print $1}'`
+}
+
+FILES=()
+while read -r -d ''; do
+	FILES+=("$REPLY")
+done < <(find . -name 'package.json' -type f -not -path "*/node_modules/*" -print0)
+
+# Loop through files and append MD5 to result file
+for FILE in ${FILES[@]}; do
+	echo `checksum_file $FILE` >> $RESULT_FILE
+done
+# Now sort the file so that it is
+sort $RESULT_FILE -o $RESULT_FILE
+
+# -----------------------------------------------------------
+# THIS IS THE OLD WAY BUT IT DEPENDS ON LERNA BEING INSTALLED
+
+# mapfile -t hashes < <(lerna exec md5sum package.json | awk '{print $1}')
+# hashes+=$(md5sum package.json)
+
+# hash=$(printf "%s" "${hashes[@]}")
+# finalHash=$(echo "$hash" | md5sum | awk '{print $1}')
+
+# echo "$finalHash" > .packages-hash
+
+# echo "$finalHash"

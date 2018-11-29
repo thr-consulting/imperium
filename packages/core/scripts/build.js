@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const chalk = require('chalk');
 const serverConfig = require('../webpack/server.prod');
 const clientConfig = require('../webpack/client.prod');
+const config = require('../config');
 
 const {log, error, warn} = console;
 
@@ -72,7 +73,7 @@ log(chalk.bold.white('  Imperium Framework - Build'));
 log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 
 // Delete the build folder and start a new build
-rimraf('build')
+rimraf(config.production.buildDir)
 	.then(buildClient)
 	.then(buildServer)
 	.then(complete);

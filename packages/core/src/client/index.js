@@ -115,6 +115,8 @@ function checkStatus(response) {
 	throw error;
 }
 
+// If the JWT if defined and not expired, get the initial state from the server.
+// Otherwise just start the client with no initial state.
 const jwt = window.localStorage.getItem(jwt_localstorage_name);
 if (jwt) {
 	const {exp} = decode(jwt);

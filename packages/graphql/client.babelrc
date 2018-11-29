@@ -1,0 +1,5 @@
+{
+	"presets": [
+		["@imperium/babel-preset-imperium", {"client": true}]
+	]
+}

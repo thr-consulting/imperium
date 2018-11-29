@@ -1,3 +1,5 @@
+[![Coverage_badge](../../docs/assets/coverage/auth/coverage.svg)](assets/coverage/auth/index.html) [![Greenkeeper badge](https://badges.greenkeeper.io/darkadept/imperium.svg)](https://greenkeeper.io/)
+
 # Authentication
 Imperium authentication is handled using a JWT. The user authentication middleware that
 is baked into `@imperium/core`. Imperium also assumes that certain models and reducers are

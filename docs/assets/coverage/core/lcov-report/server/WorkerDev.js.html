@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for server/WorkerDev.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">server</a> WorkerDev.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/20</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable import/no-dynamic-require */
+const webpack = <span class="cstat-no" title="statement not covered" >require('webpack');</span>
+const SCWorker = <span class="cstat-no" title="statement not covered" >require('socketcluster/scworker');</span>
+const d = <span class="cstat-no" title="statement not covered" >require('debug')('imperium.core.server.WorkerDev');</span>
+const path = <span class="cstat-no" title="statement not covered" >require('path');</span>
+const isSourceFile = <span class="cstat-no" title="statement not covered" >require('../../webpack/isSourceFile');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >require('@babel/register')({</span>
+	presets: [['@imperium/babel-preset-imperium',	{client: false}]],
+	only: [
+		isSourceFile([
+			path.resolve(__dirname, '..', '..'), // Match imperium core package
+			path.resolve(process.cwd(), 'src'), // Match project folder
+		], 'BABEL/REG'),
+	],
+});
+const worker = <span class="cstat-no" title="statement not covered" >require('./worker').default;</span>
+const webpackConfig = <span class="cstat-no" title="statement not covered" >require('../../webpack/client.dev');</span>
+const config = <span class="cstat-no" title="statement not covered" >require('../../config');</span>
+&nbsp;
+// In development mode, we dynamically import our project definition code
+const Connectors = <span class="cstat-no" title="statement not covered" >require(path.join(process.cwd(), config.project.Connectors)).default;</span>
+const serverModules = <span class="cstat-no" title="statement not covered" >require(path.join(process.cwd(), config.project.serverModules)).default;</span>
+&nbsp;
+// Catch unhandled rejections
+<span class="cstat-no" title="statement not covered" >process.on('unhandledRejection', <span class="fstat-no" title="function not covered" >(r</span>eason, p) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >	d('Unhandled Rejection at: Promise', p, 'reason:', reason);</span>
+});
+&nbsp;
+/**
+ * Adds webpack-dev-middleware and HMR to the express app
+ * @param app
+ * @returns {*}
+ */
+function <span class="fstat-no" title="function not covered" >hmr(app) {</span>
+<span class="cstat-no" title="statement not covered" >	d('Webpack and HMR loading');</span>
+&nbsp;
+	// Webpack dev middleware - Compiles client code on the fly and in memory
+	const compiler = <span class="cstat-no" title="statement not covered" >webpack(webpackConfig);</span>
+	const hmrInstance = <span class="cstat-no" title="statement not covered" >require('webpack-dev-middleware')(compiler, { // eslint-disable-line global-require</span>
+		publicPath: webpackConfig.output.publicPath,
+	});
+<span class="cstat-no" title="statement not covered" >	app.use(hmrInstance);</span>
+&nbsp;
+	// Add Webpack HMR
+<span class="cstat-no" title="statement not covered" >	app.use(require('webpack-hot-middleware')(compiler)); // eslint-disable-line global-require</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	return hmrInstance;</span>
+}
+&nbsp;
+class Worker extends SCWorker {
+<span class="fstat-no" title="function not covered" >	run</span>() {
+<span class="cstat-no" title="statement not covered" >		worker(this, {</span>
+			hmr,
+			Connectors,
+			serverModules,
+		});
+	}
+}
+&nbsp;
+new Worker(); // eslint-disable-line no-new
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 29 2018 12:01:38 GMT-0600 (CST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

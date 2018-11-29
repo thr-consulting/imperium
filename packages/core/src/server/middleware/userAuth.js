@@ -6,6 +6,12 @@ import jwt from 'jsonwebtoken';
 
 const d = debug('imperium.core.server.userAuth');
 
+/**
+ * Express middleware that uses the Auth model and JWT to build authentication information.
+ * @param tokenReqPath
+ * @param secret
+ * @return {function(*=, *, *)}
+ */
 export default function({tokenReqPath = null, secret = null} = {}) {
 	return (req, res, next) => {
 		d('Building authentication data');

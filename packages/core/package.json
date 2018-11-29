@@ -22,7 +22,11 @@
 	},
 	"scripts": {
 		"lint": "eslint --cache 'src/**/*.js' 'webpack/**/*.js'",
-		"test": "jest"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh core",
+		"docs": "NODE_ENV=development jsdoc -c ../../tools/jsdoc.json",
+		"docs:md": "../../tools/jsdocmd.sh core"
 	},
 	"dependencies": {
 		"@thx/router": "^8.0.0",
@@ -63,8 +67,19 @@
 	},
 	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537",
 	"jest": {
+		"setupFiles": [
+			"<rootDir>/../../tests/setupTests.js"
+		],
 		"transform": {
-			"^.+\\.js$": "<rootDir>/../../jest-transformer.js"
+			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+		},
+		"snapshotSerializers": [
+			"enzyme-to-json/serializer"
+		],
+		"moduleNameMapper": {
+			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../../tests/__mocks__/fileMock.js",
+			"\\.(css)$": "identity-obj-proxy",
+			"routeDefaults": "<rootDir>/../../tests/__mocks__/routeDefaults.js"
 		}
 	}
 }

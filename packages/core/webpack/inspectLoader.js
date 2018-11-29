@@ -1,4 +1,7 @@
 /* eslint-disable no-console, no-underscore-dangle */
+/*
+ * With the DEBUG environment variable "inspectLoader" set this file will log all Babel and other Webpack loaders.
+ */
 const debug = require('debug');
 
 const d = debug('inspectLoader');

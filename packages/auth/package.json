@@ -21,7 +21,12 @@
 		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
 		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
 		"clean": "rimraf ./lib/*",
-		"lint": "eslint --cache 'src/**/*.js'"
+		"lint": "eslint --cache 'src/**/*.js'",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh auth",
+		"docs": "NODE_ENV=development jsdoc -c ../../tools/jsdoc.json",
+		"docs:md": "../../tools/jsdocmd.sh auth"
 	},
 	"dependencies": {
 		"@thx/controls": "^8.0.0",
@@ -41,6 +46,21 @@
 		"react": "^16.x",
 		"react-router-dom": "^4.x",
 		"semantic-ui-react": "^0.x"
+	},
+	"jest": {
+		"setupFiles": [
+			"<rootDir>/../../tests/setupTests.js"
+		],
+		"transform": {
+			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+		},
+		"snapshotSerializers": [
+			"enzyme-to-json/serializer"
+		],
+		"moduleNameMapper": {
+			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../../tests/__mocks__/fileMock.js",
+			"\\.(css)$": "identity-obj-proxy"
+		}
 	},
 	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }

@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for client/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">client</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/61</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/56</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable camelcase */
+<span class="cstat-no" title="statement not covered" >import debug from 'debug';</span>
+<span class="cstat-no" title="statement not covered" >import {render} from 'react-dom';</span>
+<span class="cstat-no" title="statement not covered" >import React from 'react';</span>
+<span class="cstat-no" title="statement not covered" >import isArray from 'lodash/isArray';</span>
+<span class="cstat-no" title="statement not covered" >import isFunction from 'lodash/isFunction';</span>
+<span class="cstat-no" title="statement not covered" >import {AppContainer} from 'react-hot-loader';</span>
+<span class="cstat-no" title="statement not covered" >import {fromJSON} from 'transit-immutable-js';</span>
+<span class="cstat-no" title="statement not covered" >import {decode} from 'jsonwebtoken';</span>
+<span class="cstat-no" title="statement not covered" >import {Map} from 'immutable';</span>
+<span class="cstat-no" title="statement not covered" >import 'whatwg-fetch';</span>
+<span class="cstat-no" title="statement not covered" >import clientModules from 'clientModules';</span>
+<span class="cstat-no" title="statement not covered" >import {rootRoute} from 'routeDefaults';</span>
+<span class="cstat-no" title="statement not covered" >import rootRender from 'rootRender';</span>
+<span class="cstat-no" title="statement not covered" >import makeStore from './redux/makeStore';</span>
+<span class="cstat-no" title="statement not covered" >import RootComponent from './components/Root';</span>
+&nbsp;
+const d = <span class="cstat-no" title="statement not covered" >debug('imperium.core.client');</span>
+&nbsp;
+d('&gt;&gt;&gt; CLIENT ENTRY');
+&nbsp;
+// Get initial configuration from server
+const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase
+&nbsp;
+/**
+ * Merge module routes into a single array
+ * @param modules
+ */
+function <span class="fstat-no" title="function not covered" >mergeModuleRoutes(modules) {</span>
+<span class="cstat-no" title="statement not covered" >	return modules.reduce(<span class="fstat-no" title="function not covered" >(m</span>emo, module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		if (module.routes &amp;&amp; isArray(module.routes)) <span class="cstat-no" title="statement not covered" >r</span>eturn [...memo, ...module.routes];</span>
+<span class="cstat-no" title="statement not covered" >		return memo;</span>
+	}, [rootRoute]);
+}
+&nbsp;
+/**
+ * Render the root component into the DOM
+ * @param Root
+ * @param store
+ * @param routes
+ */
+function renderRoot(Root, store, routes) {
+<span class="cstat-no" title="statement not covered" >	render(</span>
+		&lt;AppContainer&gt;
+			&lt;Root store={store} routes={routes} render={rootRender}/&gt;
+		&lt;/AppContainer&gt;,
+		document.getElementById('root')
+	);
+	// &lt;Root store={store} apolloClient={apolloClient} routes={routes}/&gt;
+}
+&nbsp;
+// Starts the app from a certain initial state;
+function startFromState(initState) {
+	// Load modules - Runs module definition functions and stores the objects
+<span class="cstat-no" title="statement not covered" >	d('Loading modules');</span>
+	const modules = <span class="cstat-no" title="statement not covered" >clientModules.map(<span class="fstat-no" title="function not covered" >moduleFunc</span> =&gt; <span class="cstat-no" title="statement not covered" >moduleFunc());</span></span>
+&nbsp;
+	// Hydrate the initial state (convert to Immutable) FIXME This won't work because fromJS will convert the ENTIRE object.
+	const initialState = <span class="cstat-no" title="statement not covered" >initState ? fromJSON(initState) : new Map();</span>
+&nbsp;
+	// Create the Redux store
+	const store = <span class="cstat-no" title="statement not covered" >makeStore(initialState, modules);</span>
+&nbsp;
+	// Run any module specific startup code
+<span class="cstat-no" title="statement not covered" >	modules.forEach(<span class="fstat-no" title="function not covered" >module</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		if (module.startup &amp;&amp; isFunction(module.startup)) <span class="cstat-no" title="statement not covered" >module.startup(window.__INITIAL_CONF__, initialState, store); // eslint-disable-line no-underscore-dangle</span></span>
+	});
+&nbsp;
+	// Merge module routes
+	const routes = <span class="cstat-no" title="statement not covered" >mergeModuleRoutes(modules);</span>
+&nbsp;
+	// Render root component
+<span class="cstat-no" title="statement not covered" >	renderRoot(RootComponent, store, routes);</span>
+&nbsp;
+	// Hot Module Replacement API
+<span class="cstat-no" title="statement not covered" >	if (module.hot) {</span>
+		// Only Needed For Imperium
+		// module.hot.accept('./components/Root', () =&gt; {
+		// 	// Load new Root component and re-render
+		// 	const newRoot = require('./components/Root').default; // eslint-disable-line global-require
+		// 	renderRoot(newRoot, store, routes);
+		// });
+&nbsp;
+		// Reload For Implementing Project
+<span class="cstat-no" title="statement not covered" >		module.hot.accept('rootRender', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+			// Load new Root component and re-render
+			const newRoot = <span class="cstat-no" title="statement not covered" >require('./components/Root').default; // eslint-disable-line global-require</span>
+<span class="cstat-no" title="statement not covered" >			renderRoot(newRoot, store, routes);</span>
+		});
+&nbsp;
+		/*
+			When a client module changes we recreate the Redux store and reload the routes.
+			We cannot re-run the startup logic. In this case you will have to refresh the page to load the new changes.
+			In fact, if your module's startup code depends the Redux store, you may get strange errors when hot reloading.
+		 */
+<span class="cstat-no" title="statement not covered" >		module.hot.accept('clientModules', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+			// Load new client modules and re-render
+			const mods = <span class="cstat-no" title="statement not covered" >require('clientModules').default; // eslint-disable-line no-shadow,global-require</span>
+			const newRoutes = <span class="cstat-no" title="statement not covered" >mergeModuleRoutes(mods.map(<span class="fstat-no" title="function not covered" >moduleFunc</span> =&gt; <span class="cstat-no" title="statement not covered" >moduleFunc()));</span></span>
+			const newStore = <span class="cstat-no" title="statement not covered" >makeStore(initialState, mods);</span>
+<span class="cstat-no" title="statement not covered" >			renderRoot(RootComponent, newStore, newRoutes);</span>
+		});
+	}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	d('App is ready');</span>
+}
+&nbsp;
+// Checks the status of a response and throws an error
+function checkStatus(response) {
+<span class="cstat-no" title="statement not covered" >	if (response.status &gt;= 200 &amp;&amp; response.status &lt; 300) {</span>
+<span class="cstat-no" title="statement not covered" >		return response;</span>
+	}
+	const error = <span class="cstat-no" title="statement not covered" >new Error(response.statusText);</span>
+<span class="cstat-no" title="statement not covered" >	error.response = response;</span>
+<span class="cstat-no" title="statement not covered" >	throw error;</span>
+}
+&nbsp;
+// If the JWT if defined and not expired, get the initial state from the server.
+// Otherwise just start the client with no initial state.
+const jwt = <span class="cstat-no" title="statement not covered" >window.localStorage.getItem(jwt_localstorage_name);</span>
+<span class="cstat-no" title="statement not covered" >if (jwt) <span class="cstat-no" title="statement not covered" >{</span></span>
+	const {exp} = <span class="cstat-no" title="statement not covered" >decode(jwt);</span>
+<span class="cstat-no" title="statement not covered" >	if (!exp || exp &lt; (Date.now().valueOf() / 1000)) {</span>
+<span class="cstat-no" title="statement not covered" >		d('JWT expired');</span>
+<span class="cstat-no" title="statement not covered" >		window.localStorage.removeItem(jwt_localstorage_name);</span>
+		// Expired JWT, start with no auth info.
+<span class="cstat-no" title="statement not covered" >		startFromState(</span>);
+	} else {
+		// Attempt to fetch the initial state. JWT Must be valid.
+<span class="cstat-no" title="statement not covered" >		d('Fetching initial state');</span>
+<span class="cstat-no" title="statement not covered" >		fetch('/api/initial-state', { // eslint-disable-line no-undef</span>
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+			},
+		})
+			.then(checkStatus)
+			.then(<span class="fstat-no" title="function not covered" >res</span> =&gt; <span class="cstat-no" title="statement not covered" >res.json())</span>
+			.then(startFromState)
+			.catch(<span class="fstat-no" title="function not covered" >err</span> =&gt; {
+				// Something failed authorizing JWT, start with no auth info
+<span class="cstat-no" title="statement not covered" >				d(`Error authorizing JWT: ${err}`);</span>
+<span class="cstat-no" title="statement not covered" >				startFromState(</span>);
+			});
+	}
+} else {
+	// We don't have a JWT, so just start with no auth info
+<span class="cstat-no" title="statement not covered" >	startFromState(</span>);
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 29 2018 12:01:38 GMT-0600 (CST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

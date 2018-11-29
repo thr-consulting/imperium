@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth should create a role 1`] = `
+Array [
+  Object {
+    "_id": "1a2b3c",
+    "name": "sysadmin",
+    "permissions": Array [
+      "SYSADMIN",
+    ],
+  },
+]
+`;
+
+exports[`Auth should retrieve a role 1`] = `
+Object {
+  "_id": "1a2b3c",
+  "name": "sysadmin",
+  "permissions": Array [
+    "SYSADMIN",
+  ],
+}
+`;
+
+exports[`Auth should retrieve a role's permissions 1`] = `
+Array [
+  "SYSADMIN",
+]
+`;
