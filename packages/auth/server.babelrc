@@ -1,5 +1,8 @@
 {
 	"presets": [
 		["@imperium/babel-preset-imperium", {"client": false, "forceModules": true}]
+	],
+	"ignore": [
+		"**/*.test.js"
 	]
 }
