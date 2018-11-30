@@ -4,7 +4,7 @@
  * Copied from Meteor's implementation of SHA256. /packages/sha/sha256.js
  * http://meteor.com
  */
-/**
+/*
  *
  *  Secure Hash Algorithm (SHA256)
  *  http://www.webtoolkit.info/javascript-sha256.html
@@ -12,7 +12,7 @@
  *
  *  Original code by Angel Marin, Paul Johnston.
  *
- **/
+ */
 export default function sha256(s) {
 
 	var chrsz = 8;

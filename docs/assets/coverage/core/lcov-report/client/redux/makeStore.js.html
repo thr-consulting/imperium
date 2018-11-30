@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for client/redux/makeStore.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">client/redux</a> makeStore.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/29</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import debug from 'debug';</span>
+<span class="cstat-no" title="statement not covered" >import thunkMiddleware from 'redux-thunk';</span>
+<span class="cstat-no" title="statement not covered" >import isObject from 'lodash/isObject';</span>
+<span class="cstat-no" title="statement not covered" >import merge from 'lodash/merge';</span>
+<span class="cstat-no" title="statement not covered" >import {createStore, applyMiddleware, compose} from 'redux';</span>
+<span class="cstat-no" title="statement not covered" >import makeReducer from './makeReducer';</span>
+&nbsp;
+const d = <span class="cstat-no" title="statement not covered" >debug('imperium.core.client.redux');</span>
+&nbsp;
+const PROD = <span class="cstat-no" title="statement not covered" >process.env.NODE_ENV === 'production';</span>
+&nbsp;
+/**
+ * Create the Redux store
+ * @param initialState
+ * @param modules
+ * @returns {*}
+ */
+export default <span class="fstat-no" title="function not covered" >function(</span>initialState, modules) {
+<span class="cstat-no" title="statement not covered" >	d('Making store');</span>
+	let store;
+&nbsp;
+	// Merge the module reducers
+	const moduleReducers = <span class="cstat-no" title="statement not covered" >modules.reduce(<span class="fstat-no" title="function not covered" >(m</span>emo, module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		if (module.reducers &amp;&amp; isObject(module.reducers)) <span class="cstat-no" title="statement not covered" >r</span>eturn merge(memo, module.reducers);</span>
+<span class="cstat-no" title="statement not covered" >		return memo;</span>
+	}, {});
+&nbsp;
+	// Create the root reducer
+	const reducer = <span class="cstat-no" title="statement not covered" >makeReducer(moduleReducers);</span>
+&nbsp;
+	// Redux middlewares
+	const middlewares = <span class="cstat-no" title="statement not covered" >[</span>
+		thunkMiddleware,
+	];
+&nbsp;
+	// Create the store
+<span class="cstat-no" title="statement not covered" >	if (PROD) {</span>
+<span class="cstat-no" title="statement not covered" >		store = createStore(reducer, initialState, applyMiddleware(...middlewares));</span>
+	} else {
+		// Check if the Redux devtools are available
+		const devtoolsExt = <span class="cstat-no" title="statement not covered" >global.devToolsExtension &amp;&amp; global.devToolsExtension();</span>
+<span class="cstat-no" title="statement not covered" >		if (!devtoolsExt) <span class="cstat-no" title="statement not covered" >{</span></span>
+			const {createLogger} = <span class="cstat-no" title="statement not covered" >require('redux-logger'); // eslint-disable-line global-require</span>
+			const logger = <span class="cstat-no" title="statement not covered" >createLogger({</span>
+				level: 'info',
+				collapsed: true,
+			});
+<span class="cstat-no" title="statement not covered" >			middlewares.push(logger);</span>
+		}
+<span class="cstat-no" title="statement not covered" >		store = createStore(reducer, initialState, compose(</span>
+			applyMiddleware(...middlewares),
+			devtoolsExt || (<span class="fstat-no" title="function not covered" >f </span>=&gt; <span class="cstat-no" title="statement not covered" >f)</span>
+		));
+	}
+&nbsp;
+	// Hot Module Reloading
+<span class="cstat-no" title="statement not covered" >	if (module.hot) {</span>
+<span class="cstat-no" title="statement not covered" >		module.hot.accept('./makeReducer', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >			d('Replacing reducer');</span>
+			const nextReducer = <span class="cstat-no" title="statement not covered" >require('./makeReducer').default; // eslint-disable-line global-require</span>
+<span class="cstat-no" title="statement not covered" >			store.replaceReducer(nextReducer(moduleReducers));</span>
+		});
+	}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	return store;</span>
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 29 2018 12:01:38 GMT-0600 (CST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

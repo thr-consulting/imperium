@@ -16,18 +16,19 @@
 		"build:graphql": "cd packages/graphql && yarn build",
 		"lint": "lerna run lint",
 		"test": "lerna run test --stream --concurrency 1",
-		"pkghash": "./pkghash"
+		"test:coverage": "lerna run test:coverage --stream --concurrency 1",
+		"pkghash": "./tools/pkghash",
+		"docs:md": "lerna run docs:md",
+		"docs:build": "yarn docs:md && cd website && yarn build",
+		"ready:commit": "yarn lint && yarn test:coverage && yarn docs:build"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.1.2",
 		"@babel/core": "^7.1.2",
-		"babel-core": "^7.0.0-bridge",
-		"babel-jest": "^23.6.0",
 		"concurrently": "^4.0.1",
 		"eslint": "^5.9.0",
 		"express": "^4.16.3",
 		"immutable": "^3.8.2",
-		"jest": "^23.6.0",
 		"lerna": "^3.4.0",
 		"mongodb": "^3.1.6",
 		"react": "^16.5.2",

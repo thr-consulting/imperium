@@ -6,6 +6,12 @@ import middleware from '../middleware';
 
 const d = debug('imperium.core.server.initialState');
 
+/**
+ * HTTP GET endpoint that sends the initial state to the client if the user is authorized.
+ * @param app
+ * @param connectors
+ * @param modules
+ */
 export default function({app, connectors, modules}) {
 	const {context, userAuth} = middleware;
 	app.use(

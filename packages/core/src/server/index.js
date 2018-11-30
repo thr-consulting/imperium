@@ -34,9 +34,10 @@ export default function server() {
 		socketChannelLimit: 1000,
 		authKey: process.env.JWT_SECRET,
 		logLevel: 1,
-		rebootWorkerOnCrash: !process.env.CI, // TODO check if this option still exists
+		rebootWorkerOnCrash: !process.env.CI, // TODO check if this option still exists in socket cluster
 	};
 
+	// Create a new SocketCluster
 	const sc = new SocketCluster(options); // eslint-disable-line no-new
 
 	// Exit server on fail if testing with CI
@@ -46,9 +47,9 @@ export default function server() {
 		});
 	}
 
-	// Watch sources for changes and reloads workers
+	// Watch sources for changes and reloads workers (development only)
 	if (isDevelopment) {
-		// Create a debounced function that kills and restarts the workers
+		// Create a debounced function that kills and restarts the workers (after 200ms)
 		const restartWorkers = debounce(() => {
 			console.log('  !! Restarting workers...'); // eslint-disable-line no-console
 			sc.killWorkers({immediate: true});
@@ -56,7 +57,7 @@ export default function server() {
 
 		// Use chokidar to watch for file changes
 		chokidar.watch([
-			path.join(__dirname, '..', '..', '..'), // TODO This is only for Imperium development (it works ok in deployed projects)
+			path.join(__dirname, '..', '..', '..'), // TODO This is only for Imperium development (although, it works ok in deployed projects)
 			path.join(process.cwd(), 'src'),
 		], {
 			ignored: /node_modules/,

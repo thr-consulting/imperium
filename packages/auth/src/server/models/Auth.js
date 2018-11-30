@@ -14,9 +14,10 @@ import {
 const d = debug('imperium.auth.server.Auth');
 
 /**
- * Takes in a string or password object and returns the password object. Enforces sha-256 algorithm.
- * @param password
- * @return {*}
+ * Takes in a string or password object and returns the hashed password object. Enforces sha-256 algorithm.
+ * @private
+ * @param {string|object} password - The string password or password object with algorithm and digest fields.
+ * @return {string} The password object.
  */
 function getPasswordString(password) {
 	let pword = password;
@@ -32,22 +33,23 @@ function getPasswordString(password) {
 }
 
 /**
- * Validates a user object and a password object
+ * Validates a user object and a password string/object.
  * @param user
  * @param password
- * @return {Promise<*>}
+ * @return {Promise<boolean>}
  */
-async function validatePassword(user, password) {
+export async function validatePassword(user, password) {
 	const pword = getPasswordString(password);
 	return compare(pword, user.services.password.bcrypt);
 }
 
 /**
- * Creates a signed JWT from user data
+ * Creates a signed JWT from user data.
+ * @private
  * @param user
  * @param payload
  * @param options
- * @return {*}
+ * @return {string}
  */
 function signJwt(user, payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}) {
 	return sign(Object.assign({}, {
@@ -57,7 +59,15 @@ function signJwt(user, payload = {}, options = {expiresIn: process.env.JWT_EXPIR
 	}, payload), process.env.JWT_SECRET, options);
 }
 
+/**
+ * Model class for authentication. Uses a Mongo `roles` collection and has an opinionated user object.
+ */
 export default class Auth extends MongoLoader {
+	/**
+	 * Creates a new Auth model.
+	 * @param {object} connection - The Mongo connection.
+	 * @param {object} ctx - The Context object that this model belongs to.
+	 */
 	constructor(connection, ctx) {
 		super(connection, ctx, 'roles');
 		this.createIndex('name', {unique: true});
@@ -65,8 +75,8 @@ export default class Auth extends MongoLoader {
 	}
 
 	/**
-	 * Returns a default authentication object (for server)
-	 * @return {Map}
+	 * Returns a default (blank) authentication object (for server)
+	 * @return {Map} An Immutable map of a blank authentication object.
 	 */
 	defaultAuth() {
 		return new Map({
@@ -79,9 +89,9 @@ export default class Auth extends MongoLoader {
 	/**
 	 * Builds an authentication object from a decoded JWT
 	 * @param decodedJWT
-	 * @return {Promise<Map>}
+	 * @return {Promise<Map>} An Immutable map of the authentication object created from decoded JWT data.
 	 */
-	buildAuthFromJwt = async decodedJWT => {
+	async buildAuthFromJwt(decodedJWT) {
 		const authModel = this;
 		return new Map({
 			userId: decodedJWT.id,
@@ -92,12 +102,12 @@ export default class Auth extends MongoLoader {
 			},
 			permissions: await this.getPermissions(decodedJWT.roles),
 		});
-	};
+	}
 
 	/**
-	 * Takes in an authentication object and serializes it for transport to the client
-	 * @param auth
-	 * @return {Promise<void>}
+	 * Takes in an authentication object and serializes it for transport to the client.
+	 * @param {Map} auth - The Immutable Map that will be serialized.
+	 * @return {Promise<Map>} An Immutable map that can be serialized using Transit Immutable.
 	 */
 	async serializeAuth(auth) {
 		const user = await auth.get('user')();
@@ -110,9 +120,9 @@ export default class Auth extends MongoLoader {
 
 	/**
 	 * Attempts the sign in process.
-	 * @param email
-	 * @param password
-	 * @returns {Promise.<{jwt, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: (*|string), lastName: (*|string)}, emails: (*|number|Array)}}}>}
+	 * @param {string} email - The email to sign in with.
+	 * @param {string|object} password - The password string/object to log in with.
+	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
 	async signIn(email, password) {
 		d('Starting sign in process');
@@ -151,7 +161,7 @@ export default class Auth extends MongoLoader {
 	 * Generate a JWT for the currently logged in user.
 	 * @param payload - Optional JWT claims
 	 * @param options - Optional JWT options
-	 * @returns {Promise.<void>}
+	 * @return {Promise.<void>}
 	 */
 	async generateJwt(payload, options) {
 		const user = await this.ctx.auth.get('user')();
@@ -162,7 +172,7 @@ export default class Auth extends MongoLoader {
 	/**
 	 * Encrypts a password
 	 * @param password
-	 * @returns {Promise.<void>}
+	 * @return {Promise.<void>}
 	 */
 	async encryptPassword(password) {
 		const pword = getPasswordString(password);
@@ -172,7 +182,7 @@ export default class Auth extends MongoLoader {
 	/**
 	 * Gets the array of permissions from an array of roles
 	 * @param roles
-	 * @returns {Promise.<void>}
+	 * @return {Promise.<void>}
 	 */
 	async getPermissions(roles = []) {
 		const perms = await this.loadMany(roles, 'name');
@@ -183,7 +193,7 @@ export default class Auth extends MongoLoader {
 	 * Create a new role
 	 * @param name
 	 * @param permissions
-	 * @returns {Promise<>}
+	 * @return {Promise|*}
 	 */
 	createRole(name, permissions) {
 		return this.insertOne(this.prime({

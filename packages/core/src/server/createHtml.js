@@ -22,6 +22,7 @@ function readDevFile(hmrInstance, file) {
 
 /**
  * Function that returns an Express endpoint handler promise that renders our base client HTML.
+ * @param hmrInstance
  * @returns {Promise.<function(req, res)>}
  */
 export default async function createHtml(hmrInstance) {

@@ -5,7 +5,16 @@ const isSourceFile = require('./isSourceFile');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+/**
+ * Provides options for the HtmlWebpackPlugin plugin.
+ * @param iSrcDir
+ * @param pRoot
+ * @param config
+ * @return *
+ */
 function htmlOptions({iSrcDir, pRoot}, config) {
+	// When building production (during webpack), the project's config files will most likely be written in ES6.
+	// Under dev mode, everything is already run through babel.
 	if (!isDevelopment) {
 		require('@babel/register')({
 			presets: [['@imperium/babel-preset-imperium', {client: false, forceModules: true}]],
@@ -17,6 +26,8 @@ function htmlOptions({iSrcDir, pRoot}, config) {
 		});
 	}
 
+	// We need to grab the initialConfig options from the server modules for inclusion in
+	// the main index file that is generated.
 	const serverModules = require(path.join(pRoot, config.project.serverModules)).default;
 	const modules = serverModules.map(moduleFunc => moduleFunc());
 	const initialConfig = modules.reduce((memo, module) => {
@@ -28,7 +39,7 @@ function htmlOptions({iSrcDir, pRoot}, config) {
 		}
 		return memo;
 	}, {
-		jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP',
+		jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP', // This initialConfig option is always present
 	});
 
 	return {

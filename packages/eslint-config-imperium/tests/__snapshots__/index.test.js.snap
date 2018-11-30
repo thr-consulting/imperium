@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ESLint Config should match the config 1`] = `
+Object {
+  "env": Object {
+    "commonjs": true,
+    "es6": true,
+    "jest/globals": true,
+    "node": true,
+  },
+  "extends": Array [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:flowtype/recommended",
+    "plugin:jest/recommended",
+    "airbnb",
+  ],
+  "globals": Object {
+    "document": true,
+    "process": false,
+    "window": true,
+  },
+  "parser": "babel-eslint",
+  "parserOptions": Object {
+    "ecmaFeatures": Object {
+      "jsx": true,
+    },
+  },
+  "plugins": Array [
+    "react",
+    "babel",
+    "flowtype",
+    "jest",
+  ],
+  "rules": Object {
+    "arrow-parens": Array [
+      "error",
+      "as-needed",
+    ],
+    "class-methods-use-this": "off",
+    "comma-dangle": Array [
+      "error",
+      "always-multiline",
+    ],
+    "flowtype/define-flow-type": "error",
+    "flowtype/require-valid-file-annotation": "error",
+    "flowtype/semi": Array [
+      "error",
+      "always",
+    ],
+    "flowtype/space-after-type-colon": Array [
+      "error",
+      "always",
+      Object {
+        "allowLineBreak": true,
+      },
+    ],
+    "function-paren-newline": Array [
+      "error",
+      "consistent",
+    ],
+    "generator-star-spacing": 0,
+    "global-require": "error",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "indent": Array [
+      "error",
+      "tab",
+      Object {
+        "SwitchCase": 1,
+      },
+    ],
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-for": "off",
+    "lines-between-class-members": Array [
+      "error",
+      "always",
+    ],
+    "max-len": Array [
+      "error",
+      Object {
+        "code": 200,
+      },
+    ],
+    "max-lines": Array [
+      "warn",
+      Object {
+        "max": 300,
+        "skipBlankLines": true,
+        "skipComments": true,
+      },
+    ],
+    "max-statements": Array [
+      "warn",
+      Object {
+        "max": 100,
+      },
+    ],
+    "new-cap": "warn",
+    "no-console": Array [
+      "error",
+    ],
+    "no-return-assign": Array [
+      "error",
+      "except-parens",
+    ],
+    "no-tabs": "off",
+    "no-underscore-dangle": Array [
+      "error",
+      Object {
+        "allowAfterThis": true,
+      },
+    ],
+    "object-curly-newline": Array [
+      "error",
+      Object {
+        "consistent": true,
+      },
+    ],
+    "object-curly-spacing": Array [
+      "error",
+      "never",
+    ],
+    "prefer-arrow-callback": Array [
+      "error",
+      Object {
+        "allowNamedFunctions": true,
+      },
+    ],
+    "react/destructuring-assignment": Array [
+      "off",
+      "always",
+    ],
+    "react/forbid-prop-types": "error",
+    "react/jsx-filename-extension": Array [
+      "error",
+      Object {
+        "extensions": Array [
+          ".js",
+        ],
+      },
+    ],
+    "react/jsx-indent": Array [
+      "error",
+      "tab",
+    ],
+    "react/jsx-indent-props": Array [
+      "error",
+      "tab",
+    ],
+    "react/jsx-one-expression-per-line": Array [
+      "off",
+    ],
+    "react/jsx-tag-spacing": Array [
+      "error",
+      Object {
+        "beforeSelfClosing": "never",
+      },
+    ],
+    "react/no-children-prop": "off",
+    "react/no-typos": "off",
+    "react/no-unknown-property": Array [
+      "error",
+      Object {
+        "ignore": Array [
+          "for",
+        ],
+      },
+    ],
+    "react/no-unused-prop-types": "off",
+    "react/prefer-stateless-function": "error",
+    "react/require-default-props": "off",
+    "space-before-function-paren": Array [
+      "error",
+      Object {
+        "anonymous": "never",
+        "asyncArrow": "always",
+        "named": "never",
+      },
+    ],
+  },
+  "settings": Object {
+    "flowtype": Object {
+      "onlyFilesWithFlowAnnotation": true,
+    },
+  },
+}
+`;

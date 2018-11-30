@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for server/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">server</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import debug from 'debug';</span>
+<span class="cstat-no" title="statement not covered" >import SocketCluster from 'socketcluster';</span>
+<span class="cstat-no" title="statement not covered" >import os from 'os';</span>
+<span class="cstat-no" title="statement not covered" >import path from 'path';</span>
+<span class="cstat-no" title="statement not covered" >import dotenv from 'dotenv';</span>
+<span class="cstat-no" title="statement not covered" >import dotenvExpand from 'dotenv-expand';</span>
+<span class="cstat-no" title="statement not covered" >import chokidar from 'chokidar';</span>
+<span class="cstat-no" title="statement not covered" >import debounce from 'lodash/debounce';</span>
+<span class="cstat-no" title="statement not covered" >import config from '../../config';</span>
+&nbsp;
+const d = <span class="cstat-no" title="statement not covered" >debug('imperium.core.server');</span>
+&nbsp;
+export default function <span class="fstat-no" title="function not covered" >server() {</span>
+<span class="cstat-no" title="statement not covered" >	d('Starting Imperium server');</span>
+&nbsp;
+	// Import .env and expand variables:
+<span class="cstat-no" title="statement not covered" >	dotenvExpand(dotenv.config({silent: false}));</span>
+&nbsp;
+	const numCpus = <span class="cstat-no" title="statement not covered" >os.cpus().length;</span>
+	const isProduction = <span class="cstat-no" title="statement not covered" >process.env.NODE_ENV === 'production';</span>
+	const isDevelopment = <span class="cstat-no" title="statement not covered" >process.env.NODE_ENV === 'development';</span>
+&nbsp;
+	// TODO check env variables for problems ie. asset paths
+&nbsp;
+	// SocketCluster options
+	const options = <span class="cstat-no" title="statement not covered" >{</span>
+		workers: 1 || numCpus,
+		brokers: 1,
+		port: process.env.PORT || 4000,
+		wsEngine: 'sc-uws',
+		appName: process.env.APPNAME || 'Imperium',
+		workerController: isProduction ? path.join(__dirname, '/WorkerProd.js') : path.join(__dirname, '/WorkerDev.js'),
+		brokerController: path.join(__dirname, '/broker.js'),
+		socketChannelLimit: 1000,
+		authKey: process.env.JWT_SECRET,
+		logLevel: 1,
+		rebootWorkerOnCrash: !process.env.CI, // TODO check if this option still exists in socket cluster
+	};
+&nbsp;
+	// Create a new SocketCluster
+	const sc = <span class="cstat-no" title="statement not covered" >new SocketCluster(options); // eslint-disable-line no-new</span>
+&nbsp;
+	// Exit server on fail if testing with CI
+<span class="cstat-no" title="statement not covered" >	if (process.env.CI) {</span>
+<span class="cstat-no" title="statement not covered" >		sc.on('fail', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >			process.exit(1);</span>
+		});
+	}
+&nbsp;
+	// Watch sources for changes and reloads workers (development only)
+<span class="cstat-no" title="statement not covered" >	if (isDevelopment) {</span>
+		// Create a debounced function that kills and restarts the workers (after 200ms)
+		const restartWorkers = <span class="cstat-no" title="statement not covered" >debounce(<span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >			console.log('  !! Restarting workers...'); // eslint-disable-line no-console</span>
+<span class="cstat-no" title="statement not covered" >			sc.killWorkers({immediate: true});</span>
+		}, 200, {leading: true, trailing: false});
+&nbsp;
+		// Use chokidar to watch for file changes
+<span class="cstat-no" title="statement not covered" >		chokidar.watch([</span>
+			path.join(__dirname, '..', '..', '..'), // TODO This is only for Imperium development (although, it works ok in deployed projects)
+			path.join(process.cwd(), 'src'),
+		], {
+			ignored: /node_modules/,
+		}).on('change', <span class="fstat-no" title="function not covered" >filePath</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >			d(`Chokidar change detected: ${filePath}`);</span>
+			// Don't restart if we match imperium client settings/definitions
+<span class="cstat-no" title="statement not covered" >			if (</span>
+				filePath === path.join(process.cwd(), config.project.clientModules)
+				|| filePath === path.join(process.cwd(), config.project.routeDefaults)
+			) {
+<span class="cstat-no" title="statement not covered" >				return;</span>
+			}
+&nbsp;
+			// Only restart when the path has a server/ or server.js in it.
+<span class="cstat-no" title="statement not covered" >			if (/server\//.test(filePath) || /server\.js$/.test(filePath)) {</span>
+<span class="cstat-no" title="statement not covered" >				console.log(`  &gt;&gt; File ${filePath} was modified.`); // eslint-disable-line no-console</span>
+<span class="cstat-no" title="statement not covered" >				restartWorkers(</span>);
+			}
+		});
+	}
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 29 2018 12:01:38 GMT-0600 (CST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

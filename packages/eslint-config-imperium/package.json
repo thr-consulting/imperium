@@ -14,6 +14,11 @@
 		"access": "public",
 		"registry": "https://registry.npmjs.org/"
 	},
+	"scripts": {
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh eslint-config-imperium 'index.js'"
+	},
 	"dependencies": {
 		"babel-eslint": "^10.0.1",
 		"eslint-config-airbnb": "^17.0.0",
@@ -26,6 +31,11 @@
 	},
 	"peerDependencies": {
 		"eslint": "^5.x"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+		}
 	},
 	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }

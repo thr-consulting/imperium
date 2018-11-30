@@ -2,11 +2,14 @@
 /* eslint-disable no-console */
 
 /*
-Main Imperium script. Possible arguments are:
+	Main Imperium script. Possible arguments are:
+
   imperium dev - Start development mode
   imperium build - Build production files
   imperium prod - Start production mode. (Files must be built first)
- */
+
+  This script should be called from the host project.
+*/
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will

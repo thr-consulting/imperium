@@ -9,8 +9,8 @@ const d = debug('imperium.core.server.context');
  *
  * Adds .context to the req
  *
- * @param app
  * @param connectors
+ * @param modules
  * @returns {function(*, *, *)}
  */
 export default function context({connectors, modules}) {
@@ -26,6 +26,7 @@ export default function context({connectors, modules}) {
 			if (module.models && isFunction(module.models)) contextMap.addModule(module.models);
 		});
 
+		// Add the context object to the req
 		req.context = contextMap;
 
 		next();

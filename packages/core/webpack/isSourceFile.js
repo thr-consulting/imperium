@@ -2,6 +2,12 @@
 const path = require('path');
 const log = require('./inspectLoader').log;
 
+/**
+ * For use with Babel/register. Allows filtering of specified source folders.
+ * @param sourceDirs
+ * @param logName
+ * @return {function(*=)}
+ */
 function isSourceFile(sourceDirs, logName) {
 	return filepath => sourceDirs.reduce((memo, value) => {
 		if (new RegExp(`${value}/.*`).test(filepath)) {

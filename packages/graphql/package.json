@@ -14,14 +14,18 @@
 		"lib",
 		"README.md"
 	],
-	"main": "lib/server.js",
 	"scripts": {
 		"prepublish": "npm run build",
-		"build": "npm run clean:lib && npm run build:lib",
-		"build:watch": "npm run clean:lib && npm run build:lib -- --verbose -w",
-		"build:lib": "NODE_ENV=production babel src -s --out-dir lib",
-		"clean:lib": "rimraf ./lib/*",
-		"lint": "eslint --cache 'src/**/*.js'"
+		"build": "npm run clean && concurrently \"npm:build:server\" \"npm:build:client\"",
+		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
+		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
+		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
+		"clean": "rimraf ./lib/*",
+		"lint": "eslint --cache 'src/**/*.js'",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh graphql",
+		"docs:md": "../../tools/jsdocmd.sh graphql"
 	},
 	"dependencies": {
 		"@thx/date": "^8.0.0",
@@ -42,6 +46,11 @@
 	},
 	"peerDependencies": {
 		"express": "^4.x"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+		}
 	},
 	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
 }

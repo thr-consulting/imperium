@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContextMap should add modules properly 1`] = `
+Object {
+  "fakeApiFn": [Function],
+}
+`;
+
+exports[`ContextMap should add modules properly 2`] = `
+Object {
+  "fakeApiFn": [Function],
+}
+`;
+
+exports[`ContextMap should retrieve the connectors 1`] = `
+Object {
+  "MyConnector": Object {},
+}
+`;
+
+exports[`ContextMap should set and get auth data 1`] = `
+Object {
+  "name": "test",
+}
+`;

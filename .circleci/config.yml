@@ -12,6 +12,9 @@ jobs:
       - checkout
 
       # Download and cache dependencies
+      - run:
+          name: Generate pkghash
+          command: yarn pkghash
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum ".packages-hash" }}

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initialConfig should return the initial configuration 1`] = `
+Object {
+  "graphql": "testhost/api/graphql",
+}
+`;
