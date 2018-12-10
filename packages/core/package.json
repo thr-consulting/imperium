@@ -63,7 +63,7 @@
 		"react": "^16.x",
 		"react-dom": "^16.x",
 		"react-router-dom": "^4.x",
-		"semantic-ui-react": "^0.x"
+		"semantic-ui-react": "^0.84.0"
 	},
 	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537",
 	"jest": {
