@@ -45,7 +45,7 @@
 		"mongodb": "^3.x",
 		"react": "^16.x",
 		"react-router-dom": "^4.x",
-		"semantic-ui-react": "^0.x"
+		"semantic-ui-react": "^0.84.0"
 	},
 	"jest": {
 		"setupFiles": [
