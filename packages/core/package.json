@@ -29,7 +29,7 @@
 		"docs:md": "../../tools/jsdocmd.sh core"
 	},
 	"dependencies": {
-		"@thx/router": "^8.0.0",
+		"@thx/router": "^9.0.0",
 		"bcrypt": "^3.0.1",
 		"body-parser": "^1.18.3",
 		"chokidar": "^2.0.3",

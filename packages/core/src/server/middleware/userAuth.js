@@ -18,10 +18,10 @@ export default function({tokenReqPath = null, secret = null} = {}) {
 
 		// Grab the current context
 		const {context} = req;
-		const {defaultAuth, buildAuthFromJwt} = context.models.Auth;
+		const {Auth} = context.models;
 
 		// Build the default auth section
-		const baseAuth = defaultAuth();
+		const baseAuth = Auth.defaultAuth();
 		req.auth = baseAuth;
 
 		if (!context) throw new Error('Context needs to be created before calling userAuthMiddleware');
@@ -37,7 +37,7 @@ export default function({tokenReqPath = null, secret = null} = {}) {
 
 		// If valid JWT present
 		if (req.user) {
-			buildAuthFromJwt(req.user)
+			Auth.buildAuthFromJwt(req.user)
 				.then(auth => {
 					req.auth = auth;
 					req.context.auth = auth;

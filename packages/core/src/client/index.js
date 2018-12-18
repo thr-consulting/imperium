@@ -144,5 +144,6 @@ if (jwt) {
 	}
 } else {
 	// We don't have a JWT, so just start with no auth info
+	d('JWT not present');
 	startFromState();
 }

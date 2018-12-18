@@ -39,6 +39,9 @@ function hmr(app) {
 	const compiler = webpack(webpackConfig);
 	const hmrInstance = require('webpack-dev-middleware')(compiler, { // eslint-disable-line global-require
 		publicPath: webpackConfig.output.publicPath,
+		watchOptions: process.env.IMPERIUM_DEV ? {
+			aggregateTimeout: process.env.IMPERIUM_DEV_HMR_TIMEOUT || 1000,
+		} : undefined,
 	});
 	app.use(hmrInstance);
 
