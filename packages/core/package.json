@@ -10,6 +10,9 @@
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"files": [
 		"bin",
 		"scripts",
@@ -65,7 +68,7 @@
 		"react-router-dom": "^4.x",
 		"semantic-ui-react": "^0.x"
 	},
-	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537",
+	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42",
 	"jest": {
 		"setupFiles": [
 			"<rootDir>/../../tests/setupTests.js"

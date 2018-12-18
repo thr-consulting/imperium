@@ -10,11 +10,8 @@
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"zpeerDependencies": {
-		"react": "^16.4.0"
-	},
-	"DEPRECATED": {
-		"@babel/polyfill": "^7.0.0-rc.1"
+	"publishConfig": {
+		"access": "public"
 	},
 	"dependencies": {
 		"@babel/core": "^7.1.2",
@@ -60,5 +57,5 @@
 	"optionalDependencies": {
 		"fsevents": "2.0.1"
 	},
-	"gitHead": "7597ff5b96c03501ebbae6654b399993774de537"
+	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42"
 }
