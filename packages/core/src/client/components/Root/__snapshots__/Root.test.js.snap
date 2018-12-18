@@ -12,7 +12,8 @@ exports[`Root should render without throwing an error 1`] = `
 >
   <div>
     <BrowserRouter>
-      <RouteDirector
+      <Component
+        checkPermissions={[Function]}
         defaults="test-routeDefaults-stub"
         routes={
           Object {
