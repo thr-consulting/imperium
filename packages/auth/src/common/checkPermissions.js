@@ -16,7 +16,6 @@ function permissionsMatch(havePermissions, needPermissions) {
  * @returns {boolean}
  */
 export default function checkPermissions(auth, needPermissions) {
-
 	if (!auth.get('userId')) return false;
 	return permissionsMatch(auth.get('permissions'), needPermissions);
 }
