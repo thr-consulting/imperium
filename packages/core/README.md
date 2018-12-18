@@ -55,9 +55,14 @@ Use this file to inject components before the root route.
 
 ```javascript
 export default function rootRender(inner) {
+	
+	const renderOptions = {
+		checkPermissions: (auth, permissions) => {}, // See @imperium/auth readme.
+	};
+	
 	return (
 		<MyComponent>
-			{inner()}
+			{inner(renderOptions)}
 		</MyComponent>
 	)
 }

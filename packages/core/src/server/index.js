@@ -20,8 +20,6 @@ export default function server() {
 	const isProduction = process.env.NODE_ENV === 'production';
 	const isDevelopment = process.env.NODE_ENV === 'development';
 
-	// TODO check env variables for problems ie. asset paths
-
 	// SocketCluster options
 	const options = {
 		workers: 1 || numCpus,
@@ -53,13 +51,19 @@ export default function server() {
 		const restartWorkers = debounce(() => {
 			console.log('  !! Restarting workers...'); // eslint-disable-line no-console
 			sc.killWorkers({immediate: true});
-		}, 200, {leading: true, trailing: false});
+		}, process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200, {leading: true, trailing: false});
+
+		const chokidarWatchPaths = [
+			path.join(process.cwd(), 'src'),
+		];
+
+		// This is only for Imperium development (although, it works ok in deployed projects)
+		if (process.env.IMPERIUM_DEV) {
+			chokidarWatchPaths.push(path.join(__dirname, '..', '..', '..'));
+		}
 
 		// Use chokidar to watch for file changes
-		chokidar.watch([
-			path.join(__dirname, '..', '..', '..'), // TODO This is only for Imperium development (although, it works ok in deployed projects)
-			path.join(process.cwd(), 'src'),
-		], {
+		chokidar.watch(chokidarWatchPaths, {
 			ignored: /node_modules/,
 		}).on('change', filePath => {
 			d(`Chokidar change detected: ${filePath}`);

@@ -38,7 +38,7 @@ export default function(initialState, modules) {
 		store = createStore(reducer, initialState, applyMiddleware(...middlewares));
 	} else {
 		// Check if the Redux devtools are available
-		const devtoolsExt = global.devToolsExtension && global.devToolsExtension();
+		const devtoolsExt = global.__REDUX_DEVTOOLS_EXTENSION__ && global.__REDUX_DEVTOOLS_EXTENSION__(); // eslint-disable-line no-underscore-dangle
 		if (!devtoolsExt) {
 			const {createLogger} = require('redux-logger'); // eslint-disable-line global-require
 			const logger = createLogger({

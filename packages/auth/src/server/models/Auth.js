@@ -92,6 +92,7 @@ export default class Auth extends MongoLoader {
 	 * @return {Promise<Map>} An Immutable map of the authentication object created from decoded JWT data.
 	 */
 	async buildAuthFromJwt(decodedJWT) {
+		d('buildAuthFromJwt');
 		const authModel = this;
 		return new Map({
 			userId: decodedJWT.id,
