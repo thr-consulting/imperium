@@ -2,17 +2,20 @@
   "api": {
     "Modules": [
       "api/core",
-	    "api/babel-preset-imperium",
+	    "api/babelpresetimperium",
+	    "api/graphql",
 	    "api/auth",
-	    "api/graphql"
+	    "api/noauth"
     ]
   },
-  "guides": {
-	  "Main": [
-		  "Guides"
-	  ],
-	  "Modules": [
-		  "guides/Core"
+  "docs": {
+	  "Getting Started": [
+		  "main",
+		  "clientModule",
+		  "serverModule",
+		  "context",
+		  "routes",
+		  "authentication"
 	  ]
   }
 }

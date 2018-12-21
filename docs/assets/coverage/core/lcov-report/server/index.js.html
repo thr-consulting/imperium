@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/31</span>
+        <span class='fraction'>0/34</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/20</span>
+        <span class='fraction'>0/24</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/31</span>
+        <span class='fraction'>0/34</span>
       </div>
     </div>
   </div>
@@ -124,7 +124,11 @@
 79
 80
 81
-82</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+82
+83
+84
+85
+86</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -147,8 +151,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,11 +183,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -227,8 +235,6 @@ export default function <span class="fstat-no" title="function not covered" >ser
 	const isProduction = <span class="cstat-no" title="statement not covered" >process.env.NODE_ENV === 'production';</span>
 	const isDevelopment = <span class="cstat-no" title="statement not covered" >process.env.NODE_ENV === 'development';</span>
 &nbsp;
-	// TODO check env variables for problems ie. asset paths
-&nbsp;
 	// SocketCluster options
 	const options = <span class="cstat-no" title="statement not covered" >{</span>
 		workers: 1 || numCpus,
@@ -260,13 +266,19 @@ export default function <span class="fstat-no" title="function not covered" >ser
 		const restartWorkers = <span class="cstat-no" title="statement not covered" >debounce(<span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
 <span class="cstat-no" title="statement not covered" >			console.log('  !! Restarting workers...'); // eslint-disable-line no-console</span>
 <span class="cstat-no" title="statement not covered" >			sc.killWorkers({immediate: true});</span>
-		}, 200, {leading: true, trailing: false});
+		}, process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200, {leading: true, trailing: false});
+&nbsp;
+		const chokidarWatchPaths = <span class="cstat-no" title="statement not covered" >[</span>
+			path.join(process.cwd(), 'src'),
+		];
+&nbsp;
+		// This is only for Imperium development (although, it works ok in deployed projects)
+<span class="cstat-no" title="statement not covered" >		if (process.env.IMPERIUM_DEV) {</span>
+<span class="cstat-no" title="statement not covered" >			chokidarWatchPaths.push(path.join(__dirname, '..', '..', '..'));</span>
+		}
 &nbsp;
 		// Use chokidar to watch for file changes
-<span class="cstat-no" title="statement not covered" >		chokidar.watch([</span>
-			path.join(__dirname, '..', '..', '..'), // TODO This is only for Imperium development (although, it works ok in deployed projects)
-			path.join(process.cwd(), 'src'),
-		], {
+<span class="cstat-no" title="statement not covered" >		chokidar.watch(chokidarWatchPaths, {</span>
 			ignored: /node_modules/,
 		}).on('change', <span class="fstat-no" title="function not covered" >filePath</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >			d(`Chokidar change detected: ${filePath}`);</span>
@@ -292,7 +304,7 @@ export default function <span class="fstat-no" title="function not covered" >ser
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 29 2018 12:01:38 GMT-0600 (CST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Dec 21 2018 10:40:02 GMT-0600 (CST)
 </div>
 </div>
 <script src="../prettify.js"></script>

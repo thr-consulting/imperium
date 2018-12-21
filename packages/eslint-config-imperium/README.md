@@ -1,4 +1,8 @@
-# Imperium Eslint Configuration
+---
+id: eslint
+title: @imperium/eslint-config-imperium
+sidebar_label: eslint-config-imperium
+---
 
 You can use Imperium's specialized Eslint configuration in your own projects.
 

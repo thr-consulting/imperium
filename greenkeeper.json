@@ -8,7 +8,8 @@
         "packages/core/package.json",
         "packages/dev-deps/package.json",
         "packages/eslint-config-imperium/package.json",
-        "packages/graphql/package.json"
+        "packages/graphql/package.json",
+        "packages/noauth/package.json"
       ]
     }
   }

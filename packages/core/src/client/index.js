@@ -38,15 +38,20 @@ function mergeModuleRoutes(modules) {
  * @param Root
  * @param store
  * @param routes
+ * @param startupData
  */
-function renderRoot(Root, store, routes) {
+function renderRoot(Root, store, routes, startupData) {
 	render(
 		<AppContainer>
-			<Root store={store} routes={routes} render={rootRender}/>
+			<Root
+				store={store}
+				routes={routes}
+				render={rootRender}
+				startupData={startupData}
+			/>
 		</AppContainer>,
 		document.getElementById('root')
 	);
-	// <Root store={store} apolloClient={apolloClient} routes={routes}/>
 }
 
 // Starts the app from a certain initial state;
@@ -62,15 +67,21 @@ function startFromState(initState) {
 	const store = makeStore(initialState, modules);
 
 	// Run any module specific startup code
-	modules.forEach(module => {
-		if (module.startup && isFunction(module.startup)) module.startup(window.__INITIAL_CONF__, initialState, store); // eslint-disable-line no-underscore-dangle
-	});
+	const startupData = modules.reduce((memo, module) => {
+		if (module.startup && isFunction(module.startup)) {
+			return {
+				...memo,
+				...module.startup(window.__INITIAL_CONF__, initialState, store), // eslint-disable-line no-underscore-dangle
+			};
+		}
+		return memo;
+	}, {});
 
 	// Merge module routes
 	const routes = mergeModuleRoutes(modules);
 
 	// Render root component
-	renderRoot(RootComponent, store, routes);
+	renderRoot(RootComponent, store, routes, startupData);
 
 	// Hot Module Replacement API
 	if (module.hot) {
@@ -85,7 +96,7 @@ function startFromState(initState) {
 		module.hot.accept('rootRender', () => {
 			// Load new Root component and re-render
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
-			renderRoot(newRoot, store, routes);
+			renderRoot(newRoot, store, routes, startupData);
 		});
 
 		/*
@@ -98,7 +109,7 @@ function startFromState(initState) {
 			const mods = require('clientModules').default; // eslint-disable-line no-shadow,global-require
 			const newRoutes = mergeModuleRoutes(mods.map(moduleFunc => moduleFunc()));
 			const newStore = makeStore(initialState, mods);
-			renderRoot(RootComponent, newStore, newRoutes);
+			renderRoot(RootComponent, newStore, newRoutes, startupData);
 		});
 	}
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1543514502473" clover="3.2.0">
-  <project timestamp="1543514502473" name="All files">
-    <metrics statements="89" coveredstatements="1" conditionals="30" coveredconditionals="0" methods="18" coveredmethods="1" elements="137" coveredelements="2" complexity="0" loc="89" ncloc="89" packages="4" files="10" classes="10">
+<coverage generated="1545410406733" clover="3.2.0">
+  <project timestamp="1545410406733" name="All files">
+    <metrics statements="90" coveredstatements="1" conditionals="30" coveredconditionals="0" methods="18" coveredmethods="1" elements="138" coveredelements="2" complexity="0" loc="90" ncloc="90" packages="4" files="10" classes="10">
       <package name="client">
-        <metrics statements="15" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="16" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <file name="startup.js" path="/home/mike/dev/imperium/packages/graphql/src/client/startup.js">
-          <metrics statements="15" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+          <metrics statements="16" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
           <line num="1" count="0" type="stmt"/>
           <line num="2" count="0" type="stmt"/>
           <line num="3" count="0" type="stmt"/>
@@ -21,6 +21,7 @@
           <line num="25" count="0" type="stmt"/>
           <line num="27" count="0" type="stmt"/>
           <line num="30" count="0" type="stmt"/>
+          <line num="35" count="0" type="stmt"/>
         </file>
       </package>
       <package name="server">

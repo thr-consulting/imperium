@@ -11,17 +11,9 @@ exports[`Root should render without throwing an error 1`] = `
   }
 >
   <div>
-    <BrowserRouter>
-      <Component
-        checkPermissions={[Function]}
-        defaults="test-routeDefaults-stub"
-        routes={
-          Object {
-            "MyRoute": "testroute",
-          }
-        }
-      />
-    </BrowserRouter>
+    <Child
+      checkPermissions={[Function]}
+    />
   </div>
 </Provider>
 `;

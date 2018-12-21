@@ -1,4 +1,8 @@
-# Server Module
+---
+id: serverModule
+title: Server Module
+sidebar_label: Server Module
+---
 
 Usually exported from a `server.js` file. Should be a function that returns an object.
 

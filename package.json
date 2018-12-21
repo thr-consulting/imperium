@@ -11,8 +11,9 @@
 	],
 	"scripts": {
 		"lerna": "lerna",
-		"build": "yarn build:auth && yarn build:graphql",
+		"build": "yarn build:auth && yarn build:graphql && yarn build:noauth",
 		"build:auth": "cd packages/auth && yarn build",
+		"build:noauth": "cd packages/noauth && yarn build",
 		"build:graphql": "cd packages/graphql && yarn build",
 		"lint": "lerna run lint",
 		"test": "lerna run test --stream --concurrency 1",

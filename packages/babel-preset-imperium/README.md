@@ -1,6 +1,11 @@
+---
+id: babelpresetimperium
+title: @imperium/babel-preset-imperium
+sidebar_label: babel-preset-imperium
+---
+
 [![Coverage_badge](../../docs/assets/coverage/babel-preset-imperium/coverage.svg)](assets/coverage/babel-preset-imperium/index.html) [![Greenkeeper badge](https://badges.greenkeeper.io/darkadept/imperium.svg)](https://greenkeeper.io/)
 
-# @imperium/babel-preset-imperium
 This package includes the Babel preset used by [Imperium Framework](https://github.com/darkadept/imperium).
 
 ## Usage
