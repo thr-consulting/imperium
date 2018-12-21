@@ -16,7 +16,7 @@
 	"dependencies": {
 		"@babel/core": "^7.1.2",
 		"@babel/register": "^7.0.0",
-		"@imperium/babel-preset-imperium": "^0.1.1",
+		"@imperium/babel-preset-imperium": "^0.2.0",
 		"babel-core": "^7.0.0-bridge.0",
 		"babel-jest": "^23.6.0",
 		"babel-loader": "^8.0.4",
