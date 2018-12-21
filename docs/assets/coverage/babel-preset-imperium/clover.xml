@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1543514493695" clover="3.2.0">
-  <project timestamp="1543514493696" name="All files">
+<coverage generated="1545410399443" clover="3.2.0">
+  <project timestamp="1545410399443" name="All files">
     <metrics statements="39" coveredstatements="17" conditionals="53" coveredconditionals="27" methods="6" coveredmethods="2" elements="98" coveredelements="46" complexity="0" loc="39" ncloc="39" packages="1" files="5" classes="5">
       <file name="create.js" path="/home/mike/dev/imperium/packages/babel-preset-imperium/create.js">
         <metrics statements="19" coveredstatements="17" conditionals="37" coveredconditionals="27" methods="2" coveredmethods="2"/>

@@ -31,4 +31,8 @@ export default function startup({graphql, jwt_localstorage_name}) { // eslint-di
 		link: apolloLink,
 		cache: new InMemoryCache(),
 	}));
+
+	return {
+		apolloClient,
+	};
 }

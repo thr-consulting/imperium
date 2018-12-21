@@ -1,4 +1,8 @@
-# Imperium Development Dependencies
+---
+id: devdeps
+title: @imperium/dev-deps
+sidebar_label: dev-deps
+---
 
 This simple package depends on all the dependencies needed for developing applications.
 

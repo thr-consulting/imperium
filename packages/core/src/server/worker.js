@@ -73,8 +73,7 @@ export default function worker(sc, {
 
 		// Create a context for use when the server first starts up.
 		const req = {};
-		middleware.context({connectors, modules})(req, null, () => {
-		});
+		middleware.context({connectors, modules})(req, null, () => {});
 
 		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {

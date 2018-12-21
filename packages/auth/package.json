@@ -15,7 +15,10 @@
 	},
 	"files": [
 		"lib",
-		"README.md"
+		"README.md",
+		"client.js",
+		"server.js",
+		"index.js"
 	],
 	"scripts": {
 		"prepublish": "npm run build",

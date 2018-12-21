@@ -1,0 +1,36 @@
+{
+	"name": "@imperium/noauth",
+	"version": "0.1.0",
+	"description": "Auth Imperium package that does no authentication",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"engines": {
+		"node": ">=8"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"lib",
+		"README.md",
+		"client.js",
+		"server.js",
+		"index.js"
+	],
+	"scripts": {
+		"prepublish": "npm run build",
+		"build": "npm run clean && concurrently \"npm:build:server\"",
+		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\"",
+		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
+		"clean": "rimraf ./lib/*",
+		"lint": "eslint --cache 'src/**/*.js'",
+		"docs": "NODE_ENV=development jsdoc -c ./jsdoc.json",
+		"docs:md": "../../tools/jsdocmd.sh noauth"
+	},
+	"peerDependencies": {
+		"immutable": "^3.x"
+	}
+}

@@ -1,4 +1,8 @@
-# Context
+---
+id: context
+title: Context
+sidebar_label: Context
+---
 
 A Context object instance provides access to all the app's models, authentication information and connectors.
 

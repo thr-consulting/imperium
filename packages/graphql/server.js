@@ -1,5 +1,5 @@
-const endpoints = require('./lib/server/endpoints');
-const initialConfig = require('./lib/server/initialConfig');
+const endpoints = require('./lib/server/endpoints').default;
+const initialConfig = require('./lib/server/initialConfig').default;
 
 module.exports = function() {
 	return {

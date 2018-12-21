@@ -1,4 +1,8 @@
-# Client Module
+---
+id: clientModule
+title: Client Module
+sidebar_label: Client Module
+---
 
 Usually exported from a `client.js` file. Should be a function that returns an object.
 
@@ -15,10 +19,14 @@ export default function() {
 
 ## startup
 A function that is called once on client startup. ie. Page refresh.
+It can optionally return an object that is passed as props to your `rootRender()` component.
+See [Main: rootRender()](main#rootrenderjs) for more details.
 
 ```javascript
 function startup(initialConfig, initialState, store) {
-	
+	return {
+		myRootRenderProp: 'value',
+	};
 }
 ```
 
@@ -42,4 +50,4 @@ An object of Redux reducers. Key names are used in the Redux root state.
 
 ## routes
 An array of route objects.
-See [@thx/router](https://github.com/thr-consulting/thr-addons/tree/master/packages/router/docs) for more information.
+See [Routes](routes) for more information.

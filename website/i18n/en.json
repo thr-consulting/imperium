@@ -6,31 +6,57 @@
     "tagline": "Framework for React Applications",
     "docs": {
       "api/auth": {
-        "title": "api/auth"
+        "title": "@imperium/auth",
+        "sidebar_label": "auth"
       },
-      "api/babel-preset-imperium": {
-        "title": "api/babel-preset-imperium"
+      "api/babelpresetimperium": {
+        "title": "@imperium/babel-preset-imperium",
+        "sidebar_label": "babel-preset-imperium"
       },
       "api/core": {
-        "title": "api/core"
+        "title": "@imperium/core",
+        "sidebar_label": "core"
       },
       "api/graphql": {
-        "title": "api/graphql"
+        "title": "Imperium @imperium/graphql",
+        "sidebar_label": "graphql"
       },
-      "Guides": {
-        "title": "Guides"
+      "api/noauth": {
+        "title": "@imperium/noauth",
+        "sidebar_label": "noauth"
       },
-      "guides/Core": {
-        "title": "guides/Core"
+      "authentication": {
+        "title": "Authentication",
+        "sidebar_label": "Authentication"
+      },
+      "clientModule": {
+        "title": "Client Module",
+        "sidebar_label": "Client Module"
+      },
+      "context": {
+        "title": "Context",
+        "sidebar_label": "Context"
+      },
+      "main": {
+        "title": "Imperium React Framework",
+        "sidebar_label": "Main"
+      },
+      "routes": {
+        "title": "Routes",
+        "sidebar_label": "Routes"
+      },
+      "serverModule": {
+        "title": "Server Module",
+        "sidebar_label": "Server Module"
       }
     },
     "links": {
-      "Guides": "Guides",
+      "Documentation": "Documentation",
       "API": "API"
     },
     "categories": {
       "Modules": "Modules",
-      "Main": "Main"
+      "Getting Started": "Getting Started"
     }
   },
   "pages-strings": {
