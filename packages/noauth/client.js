@@ -1,10 +1,10 @@
-import {Map} from 'immutable';
+const immutable = require('immutable');
 
 module.exports = function() {
 	return {
 		reducers: {
 			auth(state) {
-				if (!state) return new Map({});
+				if (!state) return new immutable.Map({});
 				return state;
 			},
 		},
