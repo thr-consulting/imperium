@@ -1,12 +1,16 @@
+/* eslint-disable import/no-dynamic-require, global-require */
 /**
  * This webpack configuration is used when building the production client app.
  */
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const compact = require('lodash/compact');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
@@ -23,6 +27,24 @@ const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
 const pSrcDir = path.join(pRoot, 'src');
 const pBuildDir = path.join(pRoot, config.production.buildDir);
+
+const htmlOptionsFile = path.join(pRoot, config.project.htmlOptions);
+let options = { // Defaults
+	semanticUiLink: '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>',
+	title: `${process.env.APPNAME}`,
+};
+if (fs.existsSync(htmlOptionsFile)) {
+	options = {
+		...options,
+		...require(htmlOptionsFile),
+	};
+}
+
+const cssCopyPlugin = options.css ? new CopyWebpackPlugin(options.css.map(v => ({from: v, to: 'css/'}))) : null;
+const assetsPlugin = options.css ? new HtmlWebpackIncludeAssetsPlugin({
+	append: false,
+	assets: options.css.map(v => `css/${path.basename(v)}`),
+}) : null;
 
 const vendor = [
 	// '@babel/polyfill',
@@ -99,7 +121,9 @@ module.exports = {
 			reportFilename: path.join('..', config.production.reportFilename),
 			openAnalyzer: false,
 		}),
-		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot}, config)),
+		cssCopyPlugin,
+		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot, options}, config)),
+		assetsPlugin,
 		// new InlineChunkWebpackPlugin({inlineChunks: ['manifest']}),
 	]),
 	module: {
