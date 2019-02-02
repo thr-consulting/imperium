@@ -78,7 +78,7 @@ module.exports = {
 			__PRODUCTION__: false,
 			// 'process.env.NODE_ENV': JSON.stringify('development'),
 		}),
-		// new HardSourceWebpackPlugin(),
+		new HardSourceWebpackPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 	]),
 	module: {
