@@ -50,8 +50,8 @@ module.exports = {
 		app: [
 			// '@babel/polyfill',
 			// 'react-hot-loader/patch',
-			'./client/index.js',
 			'webpack-hot-middleware/client',
+			'./client/index.js',
 		],
 	},
 	output: {
@@ -79,6 +79,7 @@ module.exports = {
 			// 'process.env.NODE_ENV': JSON.stringify('development'),
 		}),
 		// new HardSourceWebpackPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
 	]),
 	module: {
 		rules: [
