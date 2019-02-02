@@ -30,5 +30,7 @@ module.exports = {
 		routeDefaults: path.join(projectData, 'routeDefaults.js'),
 		// The path of the file where the root component is rendered from
 		rootRender: path.join(projectData, 'rootRender.js'),
+		// The path of the file where options are found for HTML index generation (optional)
+		htmlOptions: path.join(projectData, 'htmlOptions.js'),
 	},
 };

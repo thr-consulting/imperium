@@ -87,13 +87,15 @@ function startFromState(initState) {
 	if (module.hot) {
 		// Only Needed For Imperium
 		// module.hot.accept('./components/Root', () => {
-		// 	// Load new Root component and re-render
+		// 	d('HOT ACCEPT ./components/Root');
+		// 	Load new Root component and re-render
 		// 	const newRoot = require('./components/Root').default; // eslint-disable-line global-require
-		// 	renderRoot(newRoot, store, routes);
+		//	renderRoot(newRoot, store, routes);
 		// });
 
 		// Reload For Implementing Project
 		module.hot.accept('rootRender', () => {
+			// d('HOT ACCEPT rootRender');
 			// Load new Root component and re-render
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
 			renderRoot(newRoot, store, routes, startupData);
@@ -105,11 +107,12 @@ function startFromState(initState) {
 			In fact, if your module's startup code depends the Redux store, you may get strange errors when hot reloading.
 		 */
 		module.hot.accept('clientModules', () => {
+			// d('HOT ACCEPT clientModules');
 			// Load new client modules and re-render
 			const mods = require('clientModules').default; // eslint-disable-line no-shadow,global-require
 			const newRoutes = mergeModuleRoutes(mods.map(moduleFunc => moduleFunc()));
-			const newStore = makeStore(initialState, mods);
-			renderRoot(RootComponent, newStore, newRoutes, startupData);
+			// const newStore = makeStore(initialState, mods);
+			renderRoot(RootComponent, store, newRoutes, startupData);
 		});
 	}
 

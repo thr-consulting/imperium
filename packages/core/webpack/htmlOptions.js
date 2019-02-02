@@ -12,7 +12,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
  * @param config
  * @return *
  */
-function htmlOptions({iSrcDir, pRoot}, config) {
+function htmlOptions({iSrcDir, pRoot, options}, config) {
 	// When building production (during webpack), the project's config files will most likely be written in ES6.
 	// Under dev mode, everything is already run through babel.
 	if (!isDevelopment) {
@@ -43,13 +43,14 @@ function htmlOptions({iSrcDir, pRoot}, config) {
 	});
 
 	return {
-		title: `${process.env.APPNAME}${isDevelopment ? ' - Development' : ''}`,
+		title: options.title,
 		meta: {
 			'mobile-web-app-capable': 'yes',
 		},
 		template: path.join(iSrcDir, 'client', 'index.html'),
 		templateOptions: {
 			initialConfig: JSON.stringify(initialConfig),
+			semanticUiLink: options.semanticUiLink,
 		},
 	};
 }
