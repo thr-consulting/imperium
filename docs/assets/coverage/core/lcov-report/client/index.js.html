@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/63</span>
+        <span class='fraction'>0/62</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/59</span>
+        <span class='fraction'>0/58</span>
       </div>
     </div>
   </div>
@@ -203,7 +203,10 @@
 158
 159
 160
-161</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+161
+162
+163
+164</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -298,22 +301,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -452,13 +458,15 @@ function startFromState(initState) {
 <span class="cstat-no" title="statement not covered" >	if (module.hot) {</span>
 		// Only Needed For Imperium
 		// module.hot.accept('./components/Root', () =&gt; {
-		// 	// Load new Root component and re-render
+		// 	d('HOT ACCEPT ./components/Root');
+		// 	Load new Root component and re-render
 		// 	const newRoot = require('./components/Root').default; // eslint-disable-line global-require
-		// 	renderRoot(newRoot, store, routes);
+		//	renderRoot(newRoot, store, routes);
 		// });
 &nbsp;
 		// Reload For Implementing Project
 <span class="cstat-no" title="statement not covered" >		module.hot.accept('rootRender', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+			// d('HOT ACCEPT rootRender');
 			// Load new Root component and re-render
 			const newRoot = <span class="cstat-no" title="statement not covered" >require('./components/Root').default; // eslint-disable-line global-require</span>
 <span class="cstat-no" title="statement not covered" >			renderRoot(newRoot, store, routes, startupData);</span>
@@ -470,11 +478,12 @@ function startFromState(initState) {
 			In fact, if your module's startup code depends the Redux store, you may get strange errors when hot reloading.
 		 */
 <span class="cstat-no" title="statement not covered" >		module.hot.accept('clientModules', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+			// d('HOT ACCEPT clientModules');
 			// Load new client modules and re-render
 			const mods = <span class="cstat-no" title="statement not covered" >require('clientModules').default; // eslint-disable-line no-shadow,global-require</span>
 			const newRoutes = <span class="cstat-no" title="statement not covered" >mergeModuleRoutes(mods.map(<span class="fstat-no" title="function not covered" >moduleFunc</span> =&gt; <span class="cstat-no" title="statement not covered" >moduleFunc()));</span></span>
-			const newStore = <span class="cstat-no" title="statement not covered" >makeStore(initialState, mods);</span>
-<span class="cstat-no" title="statement not covered" >			renderRoot(RootComponent, newStore, newRoutes, startupData);</span>
+			// const newStore = makeStore(initialState, mods);
+<span class="cstat-no" title="statement not covered" >			renderRoot(RootComponent, store, newRoutes, startupData);</span>
 		});
 	}
 &nbsp;
@@ -529,7 +538,7 @@ const jwt = <span class="cstat-no" title="statement not covered" >window.localSt
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Dec 21 2018 10:40:02 GMT-0600 (CST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Feb 02 2019 09:47:18 GMT-0600 (CST)
 </div>
 </div>
 <script src="../prettify.js"></script>

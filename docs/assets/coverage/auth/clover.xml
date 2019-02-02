@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1545410397335" clover="3.2.0">
-  <project timestamp="1545410397335" name="All files">
+<coverage generated="1549122431231" clover="3.2.0">
+  <project timestamp="1549122431231" name="All files">
     <metrics statements="208" coveredstatements="85" conditionals="51" coveredconditionals="5" methods="56" coveredmethods="22" elements="315" coveredelements="112" complexity="0" loc="208" ncloc="208" packages="7" files="12" classes="12">
       <package name="client.components">
         <metrics statements="15" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <file name="SignInForm.js" path="/home/mike/dev/imperium/packages/auth/src/client/components/SignInForm.js">
+        <file name="SignInForm.js" path="/home/darkadept/dev/imperium/packages/auth/src/client/components/SignInForm.js">
           <metrics statements="15" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
           <line num="3" count="0" type="stmt"/>
           <line num="4" count="0" type="stmt"/>
@@ -25,7 +25,7 @@
       </package>
       <package name="client.containers">
         <metrics statements="24" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="0"/>
-        <file name="SignIn.js" path="/home/mike/dev/imperium/packages/auth/src/client/containers/SignIn.js">
+        <file name="SignIn.js" path="/home/darkadept/dev/imperium/packages/auth/src/client/containers/SignIn.js">
           <metrics statements="24" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="0"/>
           <line num="3" count="0" type="stmt"/>
           <line num="4" count="0" type="stmt"/>
@@ -55,7 +55,7 @@
       </package>
       <package name="client.data">
         <metrics statements="23" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
-        <file name="redux.js" path="/home/mike/dev/imperium/packages/auth/src/client/data/redux.js">
+        <file name="redux.js" path="/home/darkadept/dev/imperium/packages/auth/src/client/data/redux.js">
           <metrics statements="23" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="6" coveredmethods="0"/>
           <line num="1" count="0" type="stmt"/>
           <line num="2" count="0" type="stmt"/>
@@ -84,7 +84,7 @@
       </package>
       <package name="common">
         <metrics statements="10" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <file name="checkPermissions.js" path="/home/mike/dev/imperium/packages/auth/src/common/checkPermissions.js">
+        <file name="checkPermissions.js" path="/home/darkadept/dev/imperium/packages/auth/src/common/checkPermissions.js">
           <metrics statements="9" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
           <line num="1" count="0" type="stmt"/>
           <line num="2" count="0" type="stmt"/>
@@ -96,14 +96,14 @@
           <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
           <line num="20" count="0" type="stmt"/>
         </file>
-        <file name="permissions.js" path="/home/mike/dev/imperium/packages/auth/src/common/permissions.js">
+        <file name="permissions.js" path="/home/darkadept/dev/imperium/packages/auth/src/common/permissions.js">
           <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
           <line num="1" count="0" type="stmt"/>
         </file>
       </package>
       <package name="server">
         <metrics statements="8" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <file name="startup.js" path="/home/mike/dev/imperium/packages/auth/src/server/startup.js">
+        <file name="startup.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/startup.js">
           <metrics statements="8" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
           <line num="1" count="0" type="stmt"/>
           <line num="2" count="0" type="stmt"/>
@@ -117,7 +117,7 @@
       </package>
       <package name="server.graphql">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <file name="index.js" path="/home/mike/dev/imperium/packages/auth/src/server/graphql/index.js">
+        <file name="index.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/graphql/index.js">
           <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
           <line num="3" count="0" type="stmt"/>
           <line num="5" count="0" type="stmt"/>
@@ -126,7 +126,7 @@
       </package>
       <package name="server.models">
         <metrics statements="125" coveredstatements="85" conditionals="35" coveredconditionals="5" methods="34" coveredmethods="22"/>
-        <file name="Auth.js" path="/home/mike/dev/imperium/packages/auth/src/server/models/Auth.js">
+        <file name="Auth.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/models/Auth.js">
           <metrics statements="42" coveredstatements="16" conditionals="22" coveredconditionals="1" methods="16" coveredmethods="8"/>
           <line num="14" count="1" type="stmt"/>
           <line num="23" count="2" type="stmt"/>
@@ -171,18 +171,18 @@
           <line num="200" count="1" type="stmt"/>
           <line num="212" count="1" type="stmt"/>
         </file>
-        <file name="errors.js" path="/home/mike/dev/imperium/packages/auth/src/server/models/errors.js">
+        <file name="errors.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/models/errors.js">
           <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
           <line num="3" count="1" type="stmt"/>
           <line num="4" count="1" type="stmt"/>
         </file>
-        <file name="index.js" path="/home/mike/dev/imperium/packages/auth/src/server/models/index.js">
+        <file name="index.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/models/index.js">
           <metrics statements="3" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
           <line num="1" count="0" type="stmt"/>
           <line num="4" count="0" type="cond" truecount="0" falsecount="2"/>
           <line num="5" count="0" type="stmt"/>
         </file>
-        <file name="randomId.js" path="/home/mike/dev/imperium/packages/auth/src/server/models/randomId.js">
+        <file name="randomId.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/models/randomId.js">
           <metrics statements="5" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
           <line num="4" count="0" type="stmt"/>
           <line num="6" count="0" type="stmt"/>
@@ -190,7 +190,7 @@
           <line num="9" count="0" type="stmt"/>
           <line num="11" count="0" type="stmt"/>
         </file>
-        <file name="sha256.js" path="/home/mike/dev/imperium/packages/auth/src/server/models/sha256.js">
+        <file name="sha256.js" path="/home/darkadept/dev/imperium/packages/auth/src/server/models/sha256.js">
           <metrics statements="73" coveredstatements="67" conditionals="10" coveredconditionals="4" methods="14" coveredmethods="14"/>
           <line num="18" count="2" type="stmt"/>
           <line num="19" count="2" type="stmt"/>
