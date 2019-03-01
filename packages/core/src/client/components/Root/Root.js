@@ -11,7 +11,6 @@ import './root.css';
 const d = debug('imperium.core.Root');
 
 type Props = {
-	store: Object,
 	routes: Object[],
 	render: () => void,
 	startupData?: Object,
@@ -27,9 +26,9 @@ export default class Root extends Component<Props> {
 		d('Rendering Root component');
 		const {routes, render, startupData} = this.props;
 
-		const Child = ({checkPermissions}) => (
+		const Child = ({AuthContext}) => (
 			<Router>
-				<RouteDirector routes={routes} defaults={routeDefaults} checkPermissions={checkPermissions}/>
+				<RouteDirector routes={routes} defaults={routeDefaults} AuthContext={AuthContext}/>
 			</Router>
 		);
 

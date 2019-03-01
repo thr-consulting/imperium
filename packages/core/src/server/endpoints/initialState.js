@@ -24,6 +24,7 @@ export default function({app, connectors, modules}) {
 			d('Initial state endpoint');
 			req.context.models.Auth.serializeAuth(req.auth)
 				.then(serializedAuth => {
+					// TODO expand initial state to include things from modules
 					const serializedState = JSON.stringify({
 						auth: serializedAuth,
 					});

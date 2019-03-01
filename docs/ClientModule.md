@@ -22,7 +22,7 @@ It can optionally return an object that is passed as props to your `rootRender()
 See [Main: rootRender()](main#rootrenderjs) for more details.
 
 ```javascript
-function startup(initialConfig, initialState, store) {
+function startup(initialConfig, initialState) {
 	return {
 		myRootRenderProp: 'value',
 	};
@@ -36,8 +36,8 @@ The initial configuration variable rendered directly in the initial index HTML f
 The initial state that was already fetched. Could be `null` if not logged in.
 
 ```javascript
-{
-	reduxKey: () => {/* reducer function */},
+{	
+	auth: { /* authentication object */ }
 }
 ```
 
