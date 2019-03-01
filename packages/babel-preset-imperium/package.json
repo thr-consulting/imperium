@@ -40,7 +40,7 @@
 		"@babel/preset-env": "^7.1.0",
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
-		"babel-plugin-flow-react-proptypes": "^24.1.2",
+		"babel-plugin-flow-react-proptypes": "^25.0.0",
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^2.4.2",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",
