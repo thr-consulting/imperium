@@ -3,7 +3,6 @@ import debug from 'debug';
 import {compare, hash} from 'bcrypt';
 import {sign} from 'jsonwebtoken';
 import MongoLoader from '@thx/mongoloader';
-import {Map} from 'immutable';
 import randomId from './randomId';
 import sha256 from './sha256';
 import {
@@ -76,25 +75,25 @@ export default class Auth extends MongoLoader {
 
 	/**
 	 * Returns a default (blank) authentication object (for server)
-	 * @return {Map} An Immutable map of a blank authentication object.
+	 * @return {Object}
 	 */
 	defaultAuth() {
-		return new Map({
+		return {
 			userId: null,
 			user: () => null,
 			permissions: [],
-		});
+		};
 	}
 
 	/**
 	 * Builds an authentication object from a decoded JWT
 	 * @param decodedJWT
-	 * @return {Promise<Map>} An Immutable map of the authentication object created from decoded JWT data.
+	 * @return {Promise<Object>} The authentication object created from decoded JWT data.
 	 */
 	async buildAuthFromJwt(decodedJWT) {
 		d('buildAuthFromJwt');
 		const authModel = this;
-		return new Map({
+		return {
 			userId: decodedJWT.id,
 			user: async () => { // This function retrieves the basic user information
 				const user = await authModel.models.Users.getById(decodedJWT.id);
@@ -102,21 +101,21 @@ export default class Auth extends MongoLoader {
 				return authModel.models.Users.getBasicInfo(user);
 			},
 			permissions: await this.getPermissions(decodedJWT.roles),
-		});
+		};
 	}
 
 	/**
 	 * Takes in an authentication object and serializes it for transport to the client.
-	 * @param {Map} auth - The Immutable Map that will be serialized.
-	 * @return {Promise<Map>} An Immutable map that can be serialized using Transit Immutable.
+	 * @param {Object} auth - The object that will be serialized.
+	 * @return {Promise<Object>} The object that can be serialized.
 	 */
 	async serializeAuth(auth) {
-		const user = await auth.get('user')();
-		return new Map({
-			userId: auth.get('userId'),
-			permissions: auth.get('permissions'),
+		const user = await auth.user();
+		return {
+			userId: auth.userId,
+			permissions: auth.permissions,
 			user,
-		});
+		};
 	}
 
 	/**
@@ -165,7 +164,7 @@ export default class Auth extends MongoLoader {
 	 * @return {Promise.<void>}
 	 */
 	async generateJwt(payload, options) {
-		const user = await this.ctx.auth.get('user')();
+		const user = await this.ctx.auth.user();
 		if (!user) return null;
 		return signJwt(user, payload, options);
 	}

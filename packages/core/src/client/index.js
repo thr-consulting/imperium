@@ -5,14 +5,11 @@ import React from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import {AppContainer} from 'react-hot-loader';
-import {fromJSON} from 'transit-immutable-js';
 import {decode} from 'jsonwebtoken';
-import {Map} from 'immutable';
 import 'whatwg-fetch';
 import clientModules from 'clientModules';
 import {rootRoute} from 'routeDefaults';
 import rootRender from 'rootRender';
-import makeStore from './redux/makeStore';
 import RootComponent from './components/Root';
 
 const d = debug('imperium.core.client');
@@ -36,15 +33,13 @@ function mergeModuleRoutes(modules) {
 /**
  * Render the root component into the DOM
  * @param Root
- * @param store
  * @param routes
  * @param startupData
  */
-function renderRoot(Root, store, routes, startupData) {
+function renderRoot(Root, routes, startupData) {
 	render(
 		<AppContainer>
 			<Root
-				store={store}
 				routes={routes}
 				render={rootRender}
 				startupData={startupData}
@@ -60,18 +55,15 @@ function startFromState(initState) {
 	d('Loading modules');
 	const modules = clientModules.map(moduleFunc => moduleFunc());
 
-	// Hydrate the initial state (convert to Immutable) FIXME This won't work because fromJS will convert the ENTIRE object.
-	const initialState = initState ? fromJSON(initState) : new Map();
-
-	// Create the Redux store
-	const store = makeStore(initialState, modules);
+	// Hydrate the initial state
+	const initialState = initState ? JSON.parse(initState) : {};
 
 	// Run any module specific startup code
 	const startupData = modules.reduce((memo, module) => {
 		if (module.startup && isFunction(module.startup)) {
 			return {
 				...memo,
-				...module.startup(window.__INITIAL_CONF__, initialState, store), // eslint-disable-line no-underscore-dangle
+				...module.startup(window.__INITIAL_CONF__, initialState), // eslint-disable-line no-underscore-dangle
 			};
 		}
 		return memo;
@@ -81,7 +73,7 @@ function startFromState(initState) {
 	const routes = mergeModuleRoutes(modules);
 
 	// Render root component
-	renderRoot(RootComponent, store, routes, startupData);
+	renderRoot(RootComponent, routes, startupData);
 
 	// Hot Module Replacement API
 	if (module.hot) {
@@ -98,7 +90,7 @@ function startFromState(initState) {
 			// d('HOT ACCEPT rootRender');
 			// Load new Root component and re-render
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
-			renderRoot(newRoot, store, routes, startupData);
+			renderRoot(newRoot, routes, startupData);
 		});
 
 		/*
@@ -112,7 +104,7 @@ function startFromState(initState) {
 			const mods = require('clientModules').default; // eslint-disable-line no-shadow,global-require
 			const newRoutes = mergeModuleRoutes(mods.map(moduleFunc => moduleFunc()));
 			// const newStore = makeStore(initialState, mods);
-			renderRoot(RootComponent, store, newRoutes, startupData);
+			renderRoot(RootComponent, newRoutes, startupData);
 		});
 	}
 

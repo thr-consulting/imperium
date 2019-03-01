@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import debug from 'debug';
 import {BrowserRouter as Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
 import {RouteDirector} from '@thx/router';
 import routeDefaults from 'routeDefaults';
 import './root.css';
@@ -26,7 +25,7 @@ export default class Root extends Component<Props> {
 
 	render() {
 		d('Rendering Root component');
-		const {store, routes, render, startupData} = this.props;
+		const {routes, render, startupData} = this.props;
 
 		const Child = ({checkPermissions}) => (
 			<Router>
@@ -35,11 +34,9 @@ export default class Root extends Component<Props> {
 		);
 
 		return (
-			<Provider store={store}>
-				<div>
-					{render({Child, ...startupData})}
-				</div>
-			</Provider>
+			<div>
+				{render({Child, ...startupData})}
+			</div>
 		);
 	}
 

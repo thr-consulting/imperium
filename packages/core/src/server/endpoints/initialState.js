@@ -1,7 +1,5 @@
 import debug from 'debug';
 import jwt from 'express-jwt';
-import {toJSON} from 'transit-immutable-js';
-import {Map} from 'immutable';
 import middleware from '../middleware';
 
 const d = debug('imperium.core.server.initialState');
@@ -26,9 +24,9 @@ export default function({app, connectors, modules}) {
 			d('Initial state endpoint');
 			req.context.models.Auth.serializeAuth(req.auth)
 				.then(serializedAuth => {
-					const serializedState = JSON.stringify(toJSON(new Map({
+					const serializedState = JSON.stringify({
 						auth: serializedAuth,
-					})));
+					});
 					res.setHeader('Content-Type', 'application/json');
 					res.send(serializedState);
 				});

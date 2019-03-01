@@ -37,7 +37,6 @@
 	},
 	"dependencies": {
 		"@thx/controls": "^9.0.0",
-		"@thx/ducks": "^9.0.0",
 		"@thx/mongoloader": "^9.0.0",
 		"@thx/router": "^9.0.0",
 		"@thx/tschemas": "^9.0.0",

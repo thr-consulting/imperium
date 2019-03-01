@@ -29,7 +29,6 @@
 		"concurrently": "^4.0.1",
 		"eslint": "^5.9.0",
 		"express": "^4.16.3",
-		"immutable": "^3.8.2",
 		"lerna": "^3.4.0",
 		"mongodb": "^3.1.6",
 		"react": "^16.5.2",

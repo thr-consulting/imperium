@@ -11,11 +11,11 @@ function permissionsMatch(havePermissions, needPermissions) {
 
 /**
  * Compares an auth object against a permission or list of permissions.
- * @param auth - Must be an immutable auth object
+ * @param auth - Must be an auth object
  * @param needPermissions - Array or string of permissions
  * @returns {boolean}
  */
 export default function checkPermissions(auth, needPermissions) {
-	if (!auth.get('userId')) return false;
-	return permissionsMatch(auth.get('permissions'), needPermissions);
+	if (!auth.userId) return false;
+	return permissionsMatch(auth.permissions, needPermissions);
 }

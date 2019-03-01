@@ -11,7 +11,6 @@ export default function() {
 	return {
 		// Core
 		startup,
-		reducers,
 		routes,
 	};
 }
@@ -35,12 +34,6 @@ The initial configuration variable rendered directly in the initial index HTML f
 
 #### `initialState`
 The initial state that was already fetched. Could be `null` if not logged in.
-
-#### `store`
-The Redux store
-
-## reducers
-An object of Redux reducers. Key names are used in the Redux root state.
 
 ```javascript
 {

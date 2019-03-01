@@ -1,10 +1,9 @@
 // @flow
 
+/*
 import debug from 'debug';
 import React, {Component} from 'react';
 import {Mutation} from 'react-apollo';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import get from 'lodash/get';
 import {Grid} from 'semantic-ui-react';
 import StandardContent from '../../core/client/components/StandardContent';
@@ -12,9 +11,15 @@ import SignInForm from '../components/SignInForm';
 import sha256 from '../../lib/sha256';
 import {signInSuccess, signInError} from '../data/redux';
 import {signInMutation} from '../data/graphql';
+*/
 
-const d = debug('app:auth:SignIn');
+// const d = debug('app:auth:SignIn');
 
+export default function() {
+	return null;
+}
+
+/*
 type Props = {
 	signInSuccess: (jwt: String) => void,
 	signInError: (error: String) => void,
@@ -68,3 +73,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(SignIn);
+*/

@@ -1,19 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Root should render without throwing an error 1`] = `
-<Provider
-  store={
-    Object {
-      "dispatch": [MockFunction],
-      "getState": [MockFunction],
-      "subscribe": [MockFunction],
-    }
-  }
->
-  <div>
-    <Child
-      checkPermissions={[Function]}
-    />
-  </div>
-</Provider>
+<div>
+  <Child
+    checkPermissions={[Function]}
+  />
+</div>
 `;

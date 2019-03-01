@@ -22,8 +22,8 @@ export default class HasPermissionDirective extends SchemaDirectiveVisitor {
 		field.resolve = async (...args) => { // Same fields as a resolver function (obj, params, ctx, info)
 			const ctx = args[2];
 
-			const userPermissions = ctx.auth.get('permissions');
-			const userAuthenticated = !!ctx.auth.get('userId');
+			const userPermissions = ctx.auth.permissions;
+			const userAuthenticated = !!ctx.auth.userId;
 
 			// d(ctx);
 			// d(info);
@@ -42,7 +42,7 @@ export default class HasPermissionDirective extends SchemaDirectiveVisitor {
 
 			throw notAuthenticatedError();
 
-			// d(`Has  : ${args[2].auth.get('permissions')}`);
+			// d(`Has  : ${args[2].auth.permissions}`);
 			// d(`Needs: ${req}  Authenticated: ${authenticated}`);
 			// return resolve.apply(this, args);
 		};

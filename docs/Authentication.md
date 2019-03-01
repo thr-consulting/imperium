@@ -29,9 +29,6 @@ This method must take an authentication object and serialize it for transport to
 
 ### Client
 
-#### Reducer
-You will need a Redux Reducer called `auth` that return an immutable Map of authentication data.
-
 #### `checkPermissions(auth, permissions): bool`
 
 This method needs to check auth data (from your `serializeAuth()` method against an array of permissions.
