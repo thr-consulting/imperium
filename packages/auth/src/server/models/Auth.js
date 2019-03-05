@@ -80,7 +80,7 @@ export default class Auth extends MongoLoader {
 	defaultAuth() {
 		return {
 			userId: null,
-			user: () => null,
+			user: async () => null,
 			permissions: [],
 		};
 	}

@@ -22,15 +22,22 @@ export default function({app, connectors, modules}) {
 		userAuth(),
 		(req, res) => {
 			d('Initial state endpoint');
-			req.context.models.Auth.serializeAuth(req.auth)
-				.then(serializedAuth => {
-					// TODO expand initial state to include things from modules
-					const serializedState = JSON.stringify({
-						auth: serializedAuth,
+			if (req.context.models.Auth && req.context.models.Auth.serializeAuth) {
+				req.context.models.Auth.serializeAuth(req.auth)
+					.then(serializedAuth => {
+						// TODO expand initial state to include things from modules
+						const serializedState = JSON.stringify({
+							auth: serializedAuth,
+						});
+						res.setHeader('Content-Type', 'application/json');
+						res.send(serializedState);
 					});
-					res.setHeader('Content-Type', 'application/json');
-					res.send(serializedState);
+			} else {
+				res.setHeader('Content-Type', 'application/json');
+				res.send({
+					auth: null,
 				});
+			}
 		},
 	);
 }

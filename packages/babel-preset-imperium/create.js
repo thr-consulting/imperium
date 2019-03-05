@@ -57,14 +57,10 @@ module.exports = function(api, opts, env) {
 					targets: {
 						browsers: ['last 2 versions', '> 1%'],
 					},
-					// `entry` transforms `@babel/polyfill` into individual requires for
-					// the targeted browsers. This is safer than `usage` which performs
-					// static code analysis to determine what's required.
-					// This is probably a fine default to help trim down bundles when
-					// end-users inevitably import '@babel/polyfill'.
-					useBuiltIns: 'entry',
+					useBuiltIns: false,
 					// Do not transform modules to CJS
 					modules: false,
+					exclude: ['transform-typeof-symbol'],
 				},
 			],
 			(isClient || forceReact) && [
@@ -112,16 +108,14 @@ module.exports = function(api, opts, env) {
 			],
 
 			// Polyfills the runtime needed for async/await and generators
-			/*
 			[
 				require('@babel/plugin-transform-runtime').default,
 				{
-					helpers: false,
-					polyfill: false,
+					corejs: false,
 					regenerator: true,
+					useESModules: false,
 				},
 			],
-			*/
 
 			isEnvProduction && isClient && [
 				// Remove PropTypes from production build
@@ -132,13 +126,13 @@ module.exports = function(api, opts, env) {
 			],
 
 			// function* () { yield 42; yield 43; }
-			!isEnvTest && [
-				require('@babel/plugin-transform-regenerator').default,
-				{
-					// Async functions are converted to generators by @babel/preset-env
-					async: false,
-				},
-			],
+			// !isEnvTest && [
+			// 	require('@babel/plugin-transform-regenerator').default,
+			// 	{
+			// 		// Async functions are converted to generators by @babel/preset-env
+			// 		async: false,
+			// 	},
+			// ],
 
 			// Adds syntax support for import()
 			require('@babel/plugin-syntax-dynamic-import').default,

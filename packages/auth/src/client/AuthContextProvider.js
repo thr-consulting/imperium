@@ -7,10 +7,16 @@ export default class AuthContextProvider extends React.Component {
 		super(props);
 
 		this.state = {
+			userId: null,
+			async user() {
+				return null;
+			},
+			permissions: null,
 			checkPermissions: this.checkPermissions,
 		};
 	}
 
+	// TODO this need to be implemented
 	checkPermissions = () => ({
 		isAuthorized: false,
 		isAuthenticated: true,
