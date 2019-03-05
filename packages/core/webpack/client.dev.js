@@ -62,6 +62,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
+			// 'react-dom': '@hot-loader/react-dom',
 			// These aliases are so we can 'dynamically' include code from our project
 			clientModules$: path.join(pRoot, config.project.clientModules),
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),

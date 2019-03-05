@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import debug from 'debug';
 import {BrowserRouter as Router} from 'react-router-dom';
+import {hot} from 'react-hot-loader/root';
 import {RouteDirector} from '@thx/router';
 import routeDefaults from 'routeDefaults';
 import './root.css';
@@ -19,7 +20,7 @@ type Props = {
 /**
  * The root component
  */
-export default class Root extends Component<Props> {
+class Root extends Component<Props> {
 	props: Props;
 
 	render() {
@@ -60,3 +61,5 @@ export default class Root extends Component<Props> {
 	}
 	*/
 }
+
+export default hot(Root);

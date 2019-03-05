@@ -4,7 +4,6 @@ import {render} from 'react-dom';
 import React from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
-import {AppContainer} from 'react-hot-loader';
 import {decode} from 'jsonwebtoken';
 import 'whatwg-fetch';
 import clientModules from 'clientModules';
@@ -38,13 +37,11 @@ function mergeModuleRoutes(modules) {
  */
 function renderRoot(Root, routes, startupData) {
 	render(
-		<AppContainer>
-			<Root
-				routes={routes}
-				render={rootRender}
-				startupData={startupData}
-			/>
-		</AppContainer>,
+		<Root
+			routes={routes}
+			render={rootRender}
+			startupData={startupData}
+		/>,
 		document.getElementById('root')
 	);
 }
@@ -87,7 +84,7 @@ function startFromState(initState) {
 
 		// Reload For Implementing Project
 		module.hot.accept('rootRender', () => {
-			// d('HOT ACCEPT rootRender');
+			d('HOT ACCEPT rootRender');
 			// Load new Root component and re-render
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
 			renderRoot(newRoot, routes, startupData);
@@ -99,7 +96,7 @@ function startFromState(initState) {
 			In fact, if your module's startup code depends the Redux store, you may get strange errors when hot reloading.
 		 */
 		module.hot.accept('clientModules', () => {
-			// d('HOT ACCEPT clientModules');
+			d('HOT ACCEPT clientModules');
 			// Load new client modules and re-render
 			const mods = require('clientModules').default; // eslint-disable-line no-shadow,global-require
 			const newRoutes = mergeModuleRoutes(mods.map(moduleFunc => moduleFunc()));
