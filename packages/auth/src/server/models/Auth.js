@@ -119,13 +119,13 @@ export default class Auth extends MongoLoader {
 	}
 
 	/**
-	 * Attempts the sign in process.
-	 * @param {string} email - The email to sign in with.
+	 * Attempts the log in process.
+	 * @param {string} email - The email to log in with.
 	 * @param {string|object} password - The password string/object to log in with.
 	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
-	async signIn(email, password) {
-		d('Starting sign in process');
+	async logIn(email, password) {
+		d('Starting log in process');
 
 		// Verify parameters
 		const {Users} = this.models;

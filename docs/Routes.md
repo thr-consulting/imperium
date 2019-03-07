@@ -35,3 +35,11 @@ access to. Use server-side permissions for real security.
 
   * **permissions: string | [string]** - Permissions that are required to render the route. 
   * **redirect: bool** - When true, redirects to `/signin` if not logged in or unauthorized.
+
+## Portal Routes
+These are special routes that render a popup Portal overtop of other content. While they are defined alongside
+other routes, they have different properties. For maximum customization Imperium doesn't actually render the Portal
+component for you. It just renders the component outside of the normal layout.
+
+  * **key: string** - _Required_ - Used as the key in the query string as well as the React component key
+  * **portal: Component** - _Required_ - The component to display in the Portal

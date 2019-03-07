@@ -69,3 +69,14 @@ export default function rootRender({Child}) {
 	)
 }
 ```
+
+### `htmlOptions.js`
+Use this file to specify customization options for the HTML bundler. Export an object with some/all of the following options:
+
+```js
+module.exports = {
+	semanticUiLink: '<link rel="stylesheet" href="..."/>', // An HTML link tag that overrides the default Semantic UI CDN
+	title: 'My Application', // The HTML title attribute
+	css: [], // Array of paths to CSS files that will be included in the HTML file
+};
+```

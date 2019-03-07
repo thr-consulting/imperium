@@ -9,25 +9,26 @@ const compact = require('lodash/compact');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
 const inspectLoader = require('./inspectLoader').default;
 const isSourceFile = require('./isSourceFile');
+const theme = require('./theme');
 
 // Import .env and expand variables:
 dotenvExpand(dotenv.config({silent: false}));
 
+// Determine Imperium and Project roots
 const iRoot = path.resolve(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = path.resolve(process.cwd());
 const pSrcDir = path.join(pRoot, 'src');
 const pBuildDir = path.join(pRoot, config.production.buildDir);
 
+// Configure HTML options from config file if present
 const htmlOptionsFile = path.join(pRoot, config.project.htmlOptions);
 let options = { // Defaults
 	semanticUiLink: '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>',
@@ -40,29 +41,23 @@ if (fs.existsSync(htmlOptionsFile)) {
 	};
 }
 
-const cssCopyPlugin = options.css ? new CopyWebpackPlugin(options.css.map(v => ({from: v, to: 'css/'}))) : null;
-const assetsPlugin = options.css ? new HtmlWebpackIncludeAssetsPlugin({
-	append: false,
-	assets: options.css.map(v => `css/${path.basename(v)}`),
-}) : null;
+// Theme
+const {themeCopyPlugin, themeAssetPlugin} = theme(options);
+
+// Copy additional static assets
+const assetCopyPlugin = new CopyWebpackPlugin([{from: path.resolve(pRoot, 'assets'), to: 'assets/'}]);
 
 const vendor = [
-	// '@babel/polyfill',
 	'react',
 	'react-dom',
 	'react-router-dom',
 	'lodash',
-	// 'apollo-client',
-	// 'react-apollo',
-	// 'js-joda',
-	// 'moment',
-	// 'inputmask',
 	'debug',
 	'jsonwebtoken',
 	'whatwg-fetch',
 ];
 
-// Webpack config
+// Webpack configuration
 module.exports = {
 	mode: process.env.NODE_ENV,
 	context: iSrcDir,
@@ -113,9 +108,10 @@ module.exports = {
 			reportFilename: path.join('..', config.production.reportFilename),
 			openAnalyzer: false,
 		}),
-		cssCopyPlugin,
+		themeCopyPlugin,
+		assetCopyPlugin,
 		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot, options}, config)),
-		assetsPlugin,
+		themeAssetPlugin,
 		// new InlineChunkWebpackPlugin({inlineChunks: ['manifest']}),
 	]),
 	module: {

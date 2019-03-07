@@ -23,7 +23,7 @@
 	"scripts": {
 		"prepublish": "npm run build",
 		"build": "npm run clean && concurrently \"npm:build:server\" \"npm:build:client\" \"npm:build:common\"",
-		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
+		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\" \"npm:build:common -- --verbose -w\"",
 		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
 		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
 		"build:common": "NODE_ENV=production babel ./src/common -s --out-dir lib/common --config-file ./common.babelrc",
@@ -44,7 +44,7 @@
 		"debug": "^4.0.1",
 		"jsonwebtoken": "^8.3.0",
 		"lodash": "^4.17.11",
-		"yup": "^0.26.6"
+		"yup": "^0.26.10"
 	},
 	"peerDependencies": {
 		"immutable": "^3.x",

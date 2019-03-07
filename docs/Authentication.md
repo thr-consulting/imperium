@@ -54,6 +54,10 @@ This object must follow the following api:
 }
 ```
 
+##### Sign In Portal
+
+// TBD
+
 ## Using @imperium/auth
 Instead of rolling your own authentication module, you can use the `@imperium/auth` package to
 fulfill these needs but it is strongly opinionated and relies on GraphQL and Mongo and that you
