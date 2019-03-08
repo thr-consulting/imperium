@@ -1,15 +1,4 @@
-fragment email on UserEmail {
-  address
-  verified
-}
-
-fragment userName on Profile {
-  name
-  firstName
-  lastName
-}
-
-mutation LogIn($email: Email!, $password: PasswordDigest!) {
+mutation LogIn($email: String!, $password: PasswordDigest!) {
   logIn(email: $email, password: $password) {
     jwt
     auth {
@@ -17,12 +6,7 @@ mutation LogIn($email: Email!, $password: PasswordDigest!) {
       permissions
       user {
         id
-        profile {
-          ...userName
-        }
-        emails {
-          ...email
-        }
+        name
       }
     }
   }

@@ -27,9 +27,9 @@ class Root extends Component<Props> {
 		d('Rendering Root component');
 		const {routes, render, startupData} = this.props;
 
-		const Child = ({AuthContext}) => (
+		const Child = props => (
 			<Router>
-				<RouteDirector routes={routes} defaults={routeDefaults} AuthContext={AuthContext}/>
+				<RouteDirector routes={routes} defaults={routeDefaults} {...props}/>
 			</Router>
 		);
 
@@ -39,27 +39,6 @@ class Root extends Component<Props> {
 			</div>
 		);
 	}
-
-	/*
-	render() {
-		const {store, apolloClient, routes} = this.props;
-		return (
-			<ApolloProvider client={apolloClient}>
-				<Provider store={store}>
-					<div>
-						<NotificationSystem>
-							<DialogSystem>
-								<Router>
-									<RouteDirector routes={routes} defaults={routeDefaults}/>
-								</Router>
-							</DialogSystem>
-						</NotificationSystem>
-					</div>
-				</Provider>
-			</ApolloProvider>
-		);
-	}
-	*/
 }
 
 export default hot(Root);

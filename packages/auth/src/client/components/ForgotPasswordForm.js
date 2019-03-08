@@ -3,18 +3,11 @@ import {Form, Icon} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';
+import styles from './styles.css';
 
 const schema = object({
 	email: TSchemas.email(),
 });
-
-const textStyle = {fontSize: '1em', textAlign: 'center'};
-
-const chevron = {
-	position: 'absolute',
-	left: 0,
-	top: 'calc(-50%)',
-};
 
 export default function ForgotPasswordForm(props) {
 	const {setOpen, setView, loading, error} = props;
@@ -31,12 +24,12 @@ export default function ForgotPasswordForm(props) {
 			numFields={1}
 			render={({values, handleChange, handleBlur, handleSubmit, renderErrors, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
 				<Form onSubmit={handleSubmit} error={hasErrors()} warning={hasWarnings()}>
-					<div style={chevron}>
+					<div className={styles.chevron}>
 						<Icon name="angle left" link size="huge" onClick={() => setView('login')} style={{width: 40}}/>
 					</div>
 					{renderErrors()}
 					{renderWarnings()}
-					<p style={textStyle}>
+					<p className={styles.smallText}>
 						We&apos;ll send a password reset link to your account&apos;s email address.
 					</p>
 					<Form.Field required error={fieldError('email')}>

@@ -53,7 +53,7 @@ function startFromState(initState) {
 	const modules = clientModules.map(moduleFunc => moduleFunc());
 
 	// Hydrate the initial state
-	const initialState = initState ? JSON.parse(initState) : {};
+	const initialState = initState || {};
 
 	// Run any module specific startup code
 	const startupData = modules.reduce((memo, module) => {

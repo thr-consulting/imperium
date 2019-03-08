@@ -91,7 +91,6 @@ export default class Auth extends MongoLoader {
 	 * @return {Promise<Object>} The authentication object created from decoded JWT data.
 	 */
 	async buildAuthFromJwt(decodedJWT) {
-		d('buildAuthFromJwt');
 		const authModel = this;
 		return {
 			userId: decodedJWT.id,
@@ -130,6 +129,8 @@ export default class Auth extends MongoLoader {
 		// Verify parameters
 		const {Users} = this.models;
 
+		if (!Users) throw new Error('Users model not defined');
+
 		const user = await Users.getByEmail(email);
 		if (!user) throw userNotFoundError();
 
@@ -140,15 +141,7 @@ export default class Auth extends MongoLoader {
 					auth: {
 						userId: user._id,
 						permissions: await this.getPermissions(user.roles),
-						user: {
-							id: user._id,
-							profile: {
-								name: `${user.profile.firstName} ${user.profile.lastName}`.trim(),
-								firstName: user.profile.firstName,
-								lastName: user.profile.lastName,
-							},
-							emails: user.emails,
-						},
+						user: Users.getBasicInfo(user),
 					},
 				};
 			}
@@ -186,7 +179,10 @@ export default class Auth extends MongoLoader {
 	 */
 	async getPermissions(roles = []) {
 		const perms = await this.loadMany(roles, 'name');
-		return perms.reduce((memo, value) => [...memo, ...value.permissions], []);
+		return perms.reduce((memo, value) => {
+			if (!value) return memo;
+			return [...memo, ...value.permissions];
+		}, []);
 	}
 
 	/**

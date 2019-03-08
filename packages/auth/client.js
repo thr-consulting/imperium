@@ -1,7 +1,9 @@
-const routes = require('./lib/client/routes').default;
+const client = require('./lib/client/client');
+const startup = require('./lib/client/client').startup;
 
 module.exports = function() {
 	return {
-		routes,
+		routes: client.routes,
+		startup,
 	};
 };

@@ -4,6 +4,8 @@ import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';
 import debug from 'debug';
+import styles from './styles.css';
+import sha256 from './sha256';
 
 const d = debug('imperium.auth.LogInForm');
 
@@ -13,15 +15,18 @@ const schema = object({
 });
 
 export default function LogInForm(props) {
-	const {setOpen, setView, loading, error} = props;
+	const {setView, loading, error, logIn} = props;
 
 	return (
 		<TForm
 			initialValues={{password: '', email: ''}}
 			validationSchema={schema}
 			onSubmit={({email, password}) => {
-				d(email, password);
-				setOpen(false);
+				const payload = {
+					digest: sha256(password),
+					algorithm: 'sha-256',
+				};
+				logIn(email, payload);
 			}}
 			errors={error}
 			loading={loading}
@@ -52,7 +57,7 @@ export default function LogInForm(props) {
 							onBlur={handleBlur}
 						/>
 					</Form.Field>
-					<p style={{fontSize: '0.8em', textAlign: 'center'}}>
+					<p className={styles.smallText}>
 						<button type="button" onClick={() => setView('forgotpassword')}>Forgot your password?</button>
 					</p>
 					<Form.Button primary type="submit" size="medium" loading={loading} disabled={loading} color="green" fluid>Sign In</Form.Button>

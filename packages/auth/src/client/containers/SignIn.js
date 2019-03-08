@@ -13,7 +13,7 @@ import Transit from '../components/Transit';
 const d = debug('imperium:auth:SignIn');
 
 export default function SignIn(props) {
-	const [open, setOpen] = useState(true)
+	const [open, setOpen] = useState(true);
 
 	const {restoreRoute, routeKey} = props;
 

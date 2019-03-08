@@ -1,7 +1,6 @@
-const AuthContext = require('./lib/client/AuthContext').default;
-const AuthContextProvider = require('./lib/client/AuthContextProvider').default;
+const client = require('./lib/client/client');
 
 module.exports = {
-	AuthContext,
-	AuthContextProvider,
+	AuthContextConsumer: client.AuthContextConsumer,
+	AuthContextProvider: client.AuthContextProvider,
 };
