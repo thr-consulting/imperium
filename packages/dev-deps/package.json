@@ -41,7 +41,7 @@
 		"jsdoc": "^3.5.5",
 		"jsdoc-babel": "^0.5.0",
 		"jsdoc-to-markdown": "^4.0.1",
-		"mongodb-memory-server": "^3.1.2",
+		"mongodb-memory-server": "^4.0.0",
 		"progress-bar-webpack-plugin": "^1.11.0",
 		"raw-loader": "^1.0.0",
 		"react-test-renderer": "^16.6.3",
