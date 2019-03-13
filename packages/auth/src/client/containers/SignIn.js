@@ -1,20 +1,33 @@
-// @flow
-
+/* eslint-disable */
 import debug from 'debug';
-import React, {Component} from 'react';
-import {Mutation} from 'react-apollo';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import get from 'lodash/get';
-import {Grid} from 'semantic-ui-react';
-import StandardContent from '../../core/client/components/StandardContent';
-import SignInForm from '../components/SignInForm';
-import sha256 from '../../lib/sha256';
-import {signInSuccess, signInError} from '../data/redux';
-import {signInMutation} from '../data/graphql';
+import React, {useState} from 'react';
+// import {Mutation} from 'react-apollo';
+// import get from 'lodash/get';
+// import {Grid, TransitionablePortal, Segment} from 'semantic-ui-react';
+// import StandardContent from '../../core/client/components/StandardContent';
+import LogInForm from '../components/LogInForm';
+// import sha256 from '../../lib/sha256';
+// import {signInSuccess, signInError} from '../data/redux';
+// import {signInMutation} from '../data/graphql';
+import Transit from '../components/Transit';
 
-const d = debug('app:auth:SignIn');
+const d = debug('imperium:auth:SignIn');
 
+export default function SignIn(props) {
+	const [open, setOpen] = useState(true);
+
+	const {restoreRoute, routeKey} = props;
+
+	return (
+		<Transit open={open} restoreRoute={restoreRoute} routeKey={routeKey}>
+			<LogInForm
+				setOpen={setOpen}
+			/>
+		</Transit>
+	);
+}
+
+/*
 type Props = {
 	signInSuccess: (jwt: String) => void,
 	signInError: (error: String) => void,
@@ -68,3 +81,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(SignIn);
+*/

@@ -1,9 +1,9 @@
-const authReducer = require('./lib/client/data/redux');
+const client = require('./lib/client/client');
+const startup = require('./lib/client/client').startup;
 
 module.exports = function() {
 	return {
-		reducers: {
-			auth: authReducer,
-		},
+		routes: client.routes,
+		startup,
 	};
 };

@@ -9,11 +9,11 @@ type Auth {
 	user: User!
 }
 
-type SignInReturn {
+type LogInReturn {
 	jwt: String!
 	auth: Auth
 }
 
 extend type Mutation {
-	signIn(email: Email!, password: PasswordDigest!): SignInReturn
+	logIn(email: String!, password: PasswordDigest!): LogInReturn
 }

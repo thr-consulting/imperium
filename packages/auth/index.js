@@ -1,5 +1,6 @@
-const checkPermissions = require('./lib/common/checkPermissions').default;
+const client = require('./lib/client/client');
 
 module.exports = {
-	checkPermissions,
+	AuthContextConsumer: client.AuthContextConsumer,
+	AuthContextProvider: client.AuthContextProvider,
 };

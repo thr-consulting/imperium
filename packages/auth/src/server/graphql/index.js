@@ -4,8 +4,8 @@ export const schema = Auth;
 
 export const resolvers = {
 	Mutation: {
-		signIn(obj, {email, password}, ctx) {
-			return ctx.models.Auth.signIn(email, password);
+		logIn(obj, {email, password}, ctx) {
+			return ctx.models.Auth.logIn(email, password);
 		},
 	},
 };

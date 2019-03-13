@@ -1,6 +1,6 @@
 import intersection from 'lodash/intersection';
 import isArray from 'lodash/isArray';
-import permissions from './permissions';
+import permissions from '../../server/permissions';
 
 function permissionsMatch(havePermissions, needPermissions) {
 	const {SYSADMIN} = permissions;
@@ -11,11 +11,16 @@ function permissionsMatch(havePermissions, needPermissions) {
 
 /**
  * Compares an auth object against a permission or list of permissions.
- * @param auth - Must be an immutable auth object
+ * @param userPermissions - Must be an auth object
  * @param needPermissions - Array or string of permissions
+ * @param userId - The id of the user
  * @returns {boolean}
  */
-export default function checkPermissions(auth, needPermissions) {
-	if (!auth.get('userId')) return false;
-	return permissionsMatch(auth.get('permissions'), needPermissions);
+export default function checkPermissions(userPermissions, needPermissions, userId) {
+	if (!userId) return {isAuthenticated: false, isAuthorized: false};
+	if (!userPermissions) return {isAuthenticated: true, isAuthorized: false};
+	return {
+		isAuthenticated: true,
+		isAuthorized: permissionsMatch(userPermissions, needPermissions),
+	};
 }

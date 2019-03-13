@@ -3,7 +3,6 @@ import debug from 'debug';
 import {compare, hash} from 'bcrypt';
 import {sign} from 'jsonwebtoken';
 import MongoLoader from '@thx/mongoloader';
-import {Map} from 'immutable';
 import randomId from './randomId';
 import sha256 from './sha256';
 import {
@@ -76,25 +75,24 @@ export default class Auth extends MongoLoader {
 
 	/**
 	 * Returns a default (blank) authentication object (for server)
-	 * @return {Map} An Immutable map of a blank authentication object.
+	 * @return {Object}
 	 */
 	defaultAuth() {
-		return new Map({
+		return {
 			userId: null,
-			user: () => null,
+			user: async () => null,
 			permissions: [],
-		});
+		};
 	}
 
 	/**
 	 * Builds an authentication object from a decoded JWT
 	 * @param decodedJWT
-	 * @return {Promise<Map>} An Immutable map of the authentication object created from decoded JWT data.
+	 * @return {Promise<Object>} The authentication object created from decoded JWT data.
 	 */
 	async buildAuthFromJwt(decodedJWT) {
-		d('buildAuthFromJwt');
 		const authModel = this;
-		return new Map({
+		return {
 			userId: decodedJWT.id,
 			user: async () => { // This function retrieves the basic user information
 				const user = await authModel.models.Users.getById(decodedJWT.id);
@@ -102,34 +100,36 @@ export default class Auth extends MongoLoader {
 				return authModel.models.Users.getBasicInfo(user);
 			},
 			permissions: await this.getPermissions(decodedJWT.roles),
-		});
+		};
 	}
 
 	/**
 	 * Takes in an authentication object and serializes it for transport to the client.
-	 * @param {Map} auth - The Immutable Map that will be serialized.
-	 * @return {Promise<Map>} An Immutable map that can be serialized using Transit Immutable.
+	 * @param {Object} auth - The object that will be serialized.
+	 * @return {Promise<Object>} The object that can be serialized.
 	 */
 	async serializeAuth(auth) {
-		const user = await auth.get('user')();
-		return new Map({
-			userId: auth.get('userId'),
-			permissions: auth.get('permissions'),
+		const user = await auth.user();
+		return {
+			userId: auth.userId,
+			permissions: auth.permissions,
 			user,
-		});
+		};
 	}
 
 	/**
-	 * Attempts the sign in process.
-	 * @param {string} email - The email to sign in with.
+	 * Attempts the log in process.
+	 * @param {string} email - The email to log in with.
 	 * @param {string|object} password - The password string/object to log in with.
 	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
-	async signIn(email, password) {
-		d('Starting sign in process');
+	async logIn(email, password) {
+		d('Starting log in process');
 
 		// Verify parameters
 		const {Users} = this.models;
+
+		if (!Users) throw new Error('Users model not defined');
 
 		const user = await Users.getByEmail(email);
 		if (!user) throw userNotFoundError();
@@ -141,15 +141,7 @@ export default class Auth extends MongoLoader {
 					auth: {
 						userId: user._id,
 						permissions: await this.getPermissions(user.roles),
-						user: {
-							id: user._id,
-							profile: {
-								name: `${user.profile.firstName} ${user.profile.lastName}`.trim(),
-								firstName: user.profile.firstName,
-								lastName: user.profile.lastName,
-							},
-							emails: user.emails,
-						},
+						user: Users.getBasicInfo(user),
 					},
 				};
 			}
@@ -165,7 +157,7 @@ export default class Auth extends MongoLoader {
 	 * @return {Promise.<void>}
 	 */
 	async generateJwt(payload, options) {
-		const user = await this.ctx.auth.get('user')();
+		const user = await this.ctx.auth.user();
 		if (!user) return null;
 		return signJwt(user, payload, options);
 	}
@@ -187,7 +179,10 @@ export default class Auth extends MongoLoader {
 	 */
 	async getPermissions(roles = []) {
 		const perms = await this.loadMany(roles, 'name');
-		return perms.reduce((memo, value) => [...memo, ...value.permissions], []);
+		return perms.reduce((memo, value) => {
+			if (!value) return memo;
+			return [...memo, ...value.permissions];
+		}, []);
 	}
 
 	/**

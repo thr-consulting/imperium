@@ -11,9 +11,8 @@
 	],
 	"scripts": {
 		"lerna": "lerna",
-		"build": "yarn build:auth && yarn build:graphql && yarn build:noauth",
+		"build": "yarn build:auth && yarn build:graphql",
 		"build:auth": "cd packages/auth && yarn build",
-		"build:noauth": "cd packages/noauth && yarn build",
 		"build:graphql": "cd packages/graphql && yarn build",
 		"lint": "lerna run lint",
 		"test": "lerna run test --stream --concurrency 1",
@@ -29,11 +28,10 @@
 		"concurrently": "^4.0.1",
 		"eslint": "^5.9.0",
 		"express": "^4.16.3",
-		"immutable": "^3.8.2",
 		"lerna": "^3.4.0",
 		"mongodb": "^3.1.6",
-		"react": "^16.5.2",
-		"react-dom": "^16.5.2",
+		"react": "^16.8.3",
+		"react-dom": "npm:@hot-loader/react-dom",
 		"react-router-dom": "^4.3.1",
 		"semantic-ui-react": "^0.85.0"
 	}

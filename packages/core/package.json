@@ -46,15 +46,9 @@
 		"jsonwebtoken": "^8.3.0",
 		"lodash": "^4.17.11",
 		"react-dev-utils": "^7.0.3",
-		"react-hot-loader": "^4.3.11",
-		"react-redux": "^5.0.7",
-		"redux": "^4.0.0",
-		"redux-immutablejs": "^0.0.8",
-		"redux-thunk": "^2.3.0",
+		"react-hot-loader": "^4.7.2",
 		"socketcluster": "^14.3.0",
 		"socketcluster-client": "^14.2.1",
-		"transit-immutable-js": "^0.7.0",
-		"transit-js": "^0.8.846",
 		"whatwg-fetch": "^3.0.0"
 	},
 	"optionalDependencies": {

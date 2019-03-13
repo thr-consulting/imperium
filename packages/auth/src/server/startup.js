@@ -1,5 +1,5 @@
 import debug from 'debug';
-import permissions from '../common/permissions';
+import permissions from './permissions';
 
 const d = debug('imperium.auth.server.startup');
 

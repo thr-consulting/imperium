@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import debug from 'debug';
 import {BrowserRouter as Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
+import {hot} from 'react-hot-loader/root';
 import {RouteDirector} from '@thx/router';
 import routeDefaults from 'routeDefaults';
 import './root.css';
@@ -12,7 +12,6 @@ import './root.css';
 const d = debug('imperium.core.Root');
 
 type Props = {
-	store: Object,
 	routes: Object[],
 	render: () => void,
 	startupData?: Object,
@@ -21,46 +20,25 @@ type Props = {
 /**
  * The root component
  */
-export default class Root extends Component<Props> {
+class Root extends Component<Props> {
 	props: Props;
 
 	render() {
 		d('Rendering Root component');
-		const {store, routes, render, startupData} = this.props;
+		const {routes, render, startupData} = this.props;
 
-		const Child = ({checkPermissions}) => (
+		const Child = props => (
 			<Router>
-				<RouteDirector routes={routes} defaults={routeDefaults} checkPermissions={checkPermissions}/>
+				<RouteDirector routes={routes} defaults={routeDefaults} {...props}/>
 			</Router>
 		);
 
 		return (
-			<Provider store={store}>
-				<div>
-					{render({Child, ...startupData})}
-				</div>
-			</Provider>
+			<div>
+				{render({Child, ...startupData})}
+			</div>
 		);
 	}
-
-	/*
-	render() {
-		const {store, apolloClient, routes} = this.props;
-		return (
-			<ApolloProvider client={apolloClient}>
-				<Provider store={store}>
-					<div>
-						<NotificationSystem>
-							<DialogSystem>
-								<Router>
-									<RouteDirector routes={routes} defaults={routeDefaults}/>
-								</Router>
-							</DialogSystem>
-						</NotificationSystem>
-					</div>
-				</Provider>
-			</ApolloProvider>
-		);
-	}
-	*/
 }
+
+export default hot(Root);

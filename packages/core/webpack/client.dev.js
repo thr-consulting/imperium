@@ -9,20 +9,21 @@ const webpack = require('webpack');
 const compact = require('lodash/compact');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
 const inspectLoader = require('./inspectLoader').default;
 const isSourceFile = require('./isSourceFile');
+const theme = require('./theme');
 
-// Determine main paths
+// Determine Imperium and Project roots
 const iRoot = path.join(__dirname, '..');
 const iSrcDir = path.join(iRoot, 'src');
 const pRoot = process.cwd();
 const pSrcDir = path.join(pRoot, 'src');
 const pDevBuildDir = path.join(pRoot, 'build-dev'); // This ends up being in MemoryFS, not the real filesystem.
 
+// Configure HTML options from config file if present
 const htmlOptionsFile = path.join(pRoot, config.project.htmlOptions);
 let options = { // Defaults
 	semanticUiLink: '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>',
@@ -35,11 +36,11 @@ if (fs.existsSync(htmlOptionsFile)) {
 	};
 }
 
-const cssCopyPlugin = options.css ? new CopyWebpackPlugin(options.css.map(v => ({from: v, to: 'css/'}))) : null;
-const assetsPlugin = options.css ? new HtmlWebpackIncludeAssetsPlugin({
-	append: false,
-	assets: options.css.map(v => `css/${path.basename(v)}`),
-}) : null;
+// Theme
+const {themeCopyPlugin, themeAssetPlugin} = theme(options);
+
+// Copy additional static assets
+const assetCopyPlugin = new CopyWebpackPlugin([{from: path.resolve(pRoot, 'assets'), to: 'assets/'}]);
 
 // Webpack configuration
 module.exports = {
@@ -62,6 +63,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
+			// 'react-dom': '@hot-loader/react-dom',
 			// These aliases are so we can 'dynamically' include code from our project
 			clientModules$: path.join(pRoot, config.project.clientModules),
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
@@ -69,9 +71,10 @@ module.exports = {
 		},
 	},
 	plugins: compact([
-		cssCopyPlugin,
+		themeCopyPlugin,
+		assetCopyPlugin,
 		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot, options}, config)),
-		assetsPlugin,
+		themeAssetPlugin,
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
 			__CLIENT__: true,

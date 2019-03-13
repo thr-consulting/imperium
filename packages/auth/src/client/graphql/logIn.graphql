@@ -1,0 +1,13 @@
+mutation LogIn($email: String!, $password: PasswordDigest!) {
+  logIn(email: $email, password: $password) {
+    jwt
+    auth {
+      userId
+      permissions
+      user {
+        id
+        name
+      }
+    }
+  }
+}
