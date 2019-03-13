@@ -39,7 +39,7 @@
 		"compression": "^1.7.2",
 		"cors": "^2.8.4",
 		"debug": "^4.0.1",
-		"dotenv": "^6.0.0",
+		"dotenv": "^7.0.0",
 		"dotenv-expand": "^4.2.0",
 		"es6-promisify": "^6.0.0",
 		"express-jwt": "^5.3.0",
