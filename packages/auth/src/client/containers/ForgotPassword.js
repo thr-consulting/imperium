@@ -1,12 +1,10 @@
-import debug from 'debug';
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
 
-// const d = debug('imperium:auth:ForgotPassword');
-
 export default function ForgotPassword(props) {
-	const [open, setOpen] = useState(true)
+	const [open, setOpen] = useState(true);
 
 	const {restoreRoute, routeKey} = props;
 
@@ -18,3 +16,8 @@ export default function ForgotPassword(props) {
 		</Transit>
 	);
 }
+
+ForgotPassword.propTypes = {
+	restoreRoute: PropTypes.func.isRequired,
+	routeKey: PropTypes.string.isRequired,
+};

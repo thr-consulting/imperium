@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import debug from 'debug';
 import {Form, Icon} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';
 import styles from './styles.css';
+
+const d = debug('imperium.auth.ForgotPasswordForm');
 
 const schema = object({
 	email: TSchemas.email(),
@@ -17,6 +21,7 @@ export default function ForgotPasswordForm(props) {
 			initialValues={{email: ''}}
 			validationSchema={schema}
 			onSubmit={({email}) => {
+				d(email);
 				setOpen(false);
 			}}
 			errors={error}
@@ -49,3 +54,10 @@ export default function ForgotPasswordForm(props) {
 		/>
 	);
 }
+
+ForgotPasswordForm.propTypes = {
+	setOpen: PropTypes.func.isRequired,
+	setView: PropTypes.func.isRequired,
+	loading: PropTypes.bool,
+	error: PropTypes.any, // eslint-disable-line
+};

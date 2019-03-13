@@ -1,13 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Form, Input} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';
-import debug from 'debug';
 import styles from './styles.css';
 import sha256 from './sha256';
-
-const d = debug('imperium.auth.LogInForm');
 
 const schema = object({
 	password: TSchemas.password(),
@@ -66,3 +64,10 @@ export default function LogInForm(props) {
 		/>
 	);
 }
+
+LogInForm.propTypes = {
+	setView: PropTypes.func.isRequired,
+	loading: PropTypes.bool,
+	error: PropTypes.any, // eslint-disable-line
+	logIn: PropTypes.func.isRequired,
+};

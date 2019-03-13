@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Segment, TransitionablePortal} from 'semantic-ui-react';
 import styles from './transit.css';
 
@@ -21,3 +22,10 @@ export default function Transit(props) {
 		</TransitionablePortal>
 	);
 }
+
+Transit.propTypes = {
+	open: PropTypes.func.isRequired,
+	restoreRoute: PropTypes.func.isRequired,
+	routeKey: PropTypes.string.isRequired,
+	children: PropTypes.any, // eslint-disable-line
+};

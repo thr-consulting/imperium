@@ -20,7 +20,9 @@ Object {
     Array [
       [Function],
       Object {
-        "async": false,
+        "corejs": false,
+        "regenerator": true,
+        "useESModules": false,
       },
     ],
     [Function],
@@ -71,7 +73,9 @@ Object {
     Array [
       [Function],
       Object {
-        "async": false,
+        "corejs": false,
+        "regenerator": true,
+        "useESModules": false,
       },
     ],
     [Function],
@@ -117,6 +121,14 @@ Object {
       [Function],
       Object {
         "useBuiltIns": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "corejs": false,
+        "regenerator": true,
+        "useESModules": false,
       },
     ],
     [Function],
