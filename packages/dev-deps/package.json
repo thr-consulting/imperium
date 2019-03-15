@@ -21,7 +21,7 @@
 		"babel-jest": "^24.5.0",
 		"babel-loader": "^8.0.4",
 		"chalk": "^2.4.1",
-		"copy-webpack-plugin": "^5.0.0",
+		"copy-webpack-plugin": "^5.0.1",
 		"coverbadge": "^0.5.5",
 		"css-loader": "^2.1.1",
 		"dmd-clear": "^0.1.2",
