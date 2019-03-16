@@ -26,7 +26,7 @@
 		"@babel/cli": "^7.1.2",
 		"@babel/core": "^7.1.2",
 		"concurrently": "^4.0.1",
-		"eslint": "^5.15.1",
+		"eslint": "^5.15.2",
 		"express": "^4.16.3",
 		"lerna": "^3.4.0",
 		"mongodb": "^3.1.6",
@@ -34,8 +34,5 @@
 		"react-dom": "npm:@hot-loader/react-dom",
 		"react-router-dom": "^4.3.1",
 		"semantic-ui-react": "^0.86.0"
-	},
-	"dependencies": {
-		"@hot-loader/react-dom": "npm:@hot-loader/react-dom"
 	}
 }
