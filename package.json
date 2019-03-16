@@ -34,5 +34,8 @@
 		"react-dom": "npm:@hot-loader/react-dom",
 		"react-router-dom": "^4.3.1",
 		"semantic-ui-react": "^0.86.0"
+	},
+	"dependencies": {
+		"@hot-loader/react-dom": "npm:@hot-loader/react-dom"
 	}
 }
