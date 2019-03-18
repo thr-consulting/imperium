@@ -50,7 +50,7 @@
 		"immutable": "^3.x",
 		"mongodb": "^3.x",
 		"react": "^16.x",
-		"react-router-dom": "^4.x",
+		"react-router-dom": "^5.0.0",
 		"semantic-ui-react": "^0.x"
 	},
 	"jest": {
