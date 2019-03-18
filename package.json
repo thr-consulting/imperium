@@ -32,7 +32,7 @@
 		"mongodb": "^3.1.6",
 		"react": "^16.8.4",
 		"react-dom": "npm:@hot-loader/react-dom",
-		"react-router-dom": "^4.3.1",
+		"react-router-dom": "^5.0.0",
 		"semantic-ui-react": "^0.86.0"
 	}
 }
