@@ -43,7 +43,7 @@
 		"jsdoc-to-markdown": "^4.0.1",
 		"mongodb-memory-server": "^4.2.1",
 		"progress-bar-webpack-plugin": "^1.11.0",
-		"raw-loader": "^1.0.0",
+		"raw-loader": "^2.0.0",
 		"react-test-renderer": "^16.8.4",
 		"rimraf": "^2.6.2",
 		"style-loader": "^0.23.0",
