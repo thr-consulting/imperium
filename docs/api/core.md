@@ -14,6 +14,14 @@ The root component
 
 * * *
 
+<a name="RouteDirector"></a>
+
+## RouteDirector
+RouteDirector - Component that manages multiple root routes, layouts, and permissions.
+
+
+* * *
+
 <a name="mergeModuleRoutes"></a>
 
 ## mergeModuleRoutes(modules)
@@ -29,30 +37,15 @@ Merge module routes into a single array
 
 <a name="renderRoot"></a>
 
-## renderRoot(Root, store, routes, startupData)
+## renderRoot(Root, routes, startupData)
 
 | Param |
 | --- |
 | Root | 
-| store | 
 | routes | 
 | startupData | 
 
 Render the root component into the DOM
-
-
-* * *
-
-<a name="_default"></a>
-
-## _default(initialState, modules)
-
-| Param |
-| --- |
-| initialState | 
-| modules | 
-
-Create the Redux store
 
 
 * * *
