@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/dev-deps",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"description": "Development dependencies",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -14,9 +14,9 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@babel/core": "^7.1.2",
-		"@babel/register": "^7.0.0",
-		"@imperium/babel-preset-imperium": "^0.3.0",
+		"@babel/core": "^7.4.0",
+		"@babel/register": "^7.4.0",
+		"@imperium/babel-preset-imperium": "^1.0.0",
 		"babel-core": "^7.0.0-bridge.0",
 		"babel-jest": "^24.5.0",
 		"babel-loader": "^8.0.4",
@@ -43,7 +43,7 @@
 		"jsdoc-to-markdown": "^4.0.1",
 		"mongodb-memory-server": "^4.2.1",
 		"progress-bar-webpack-plugin": "^1.11.0",
-		"raw-loader": "^1.0.0",
+		"raw-loader": "^2.0.0",
 		"react-test-renderer": "^16.8.4",
 		"rimraf": "^2.6.2",
 		"style-loader": "^0.23.0",

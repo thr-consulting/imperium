@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/babel-preset-imperium",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"description": "Babel preset used by Imperium.",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -26,25 +26,25 @@
 		"docs:md": "../../tools/jsdocmd.sh babel-preset-imperium"
 	},
 	"dependencies": {
-		"@babel/core": "^7.1.2",
-		"@babel/plugin-proposal-class-properties": "^7.1.0",
-		"@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-		"@babel/plugin-syntax-dynamic-import": "^7.0.0",
-		"@babel/plugin-syntax-object-rest-spread": "^7.0.0",
-		"@babel/plugin-transform-classes": "^7.1.0",
-		"@babel/plugin-transform-destructuring": "^7.1.2",
-		"@babel/plugin-transform-react-constant-elements": "^7.0.0",
-		"@babel/plugin-transform-react-display-name": "^7.0.0",
-		"@babel/plugin-transform-regenerator": "^7.0.0",
-		"@babel/plugin-transform-runtime": "^7.1.0",
-		"@babel/preset-env": "^7.1.0",
+		"@babel/core": "^7.4.0",
+		"@babel/plugin-proposal-class-properties": "^7.4.0",
+		"@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+		"@babel/plugin-syntax-dynamic-import": "^7.2.0",
+		"@babel/plugin-syntax-object-rest-spread": "^7.2.0",
+		"@babel/plugin-transform-classes": "^7.4.0",
+		"@babel/plugin-transform-destructuring": "^7.4.0",
+		"@babel/plugin-transform-react-constant-elements": "^7.2.0",
+		"@babel/plugin-transform-react-display-name": "^7.2.0",
+		"@babel/plugin-transform-regenerator": "^7.4.0",
+		"@babel/plugin-transform-runtime": "^7.4.0",
+		"@babel/preset-env": "^7.4.1",
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
 		"babel-plugin-flow-react-proptypes": "^25.0.0",
 		"babel-plugin-inline-import": "^3.0.0",
-		"babel-plugin-macros": "^2.4.2",
+		"babel-plugin-macros": "^2.5.0",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",
-		"babel-plugin-transform-react-remove-prop-types": "^0.4.18"
+		"babel-plugin-transform-react-remove-prop-types": "^0.4.24"
 	},
 	"jest": {
 		"transform": {

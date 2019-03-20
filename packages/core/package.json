@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/core",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"description": "Core Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -32,23 +32,24 @@
 		"docs:md": "../../tools/jsdocmd.sh core"
 	},
 	"dependencies": {
-		"@thx/router": "^9.0.0",
-		"bcrypt": "^3.0.1",
+		"bcrypt": "^3.0.5",
 		"body-parser": "^1.18.3",
 		"chokidar": "^2.0.3",
-		"compression": "^1.7.2",
+		"compression": "^1.7.4",
 		"cors": "^2.8.4",
 		"debug": "^4.0.1",
 		"dotenv": "^7.0.0",
-		"dotenv-expand": "^5.0.0",
+		"dotenv-expand": "^5.1.0",
 		"es6-promisify": "^6.0.0",
 		"express-jwt": "^5.3.0",
-		"jsonwebtoken": "^8.3.0",
+		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
+		"query-string": "^6.4.0",
 		"react-dev-utils": "^8.0.0",
 		"react-hot-loader": "^4.8.0",
 		"socketcluster": "^14.3.0",
 		"socketcluster-client": "^14.2.2",
+		"styled-components": "^4.1.3",
 		"whatwg-fetch": "^3.0.0"
 	},
 	"optionalDependencies": {

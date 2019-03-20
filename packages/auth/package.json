@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"description": "Basic Auth Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -37,13 +37,12 @@
 	"dependencies": {
 		"@thx/controls": "^9.0.0",
 		"@thx/mongoloader": "^9.0.0",
-		"@thx/router": "^9.0.0",
 		"@thx/tschemas": "^9.0.0",
-		"bcrypt": "^3.0.1",
+		"bcrypt": "^3.0.5",
 		"debug": "^4.0.1",
-		"jsonwebtoken": "^8.3.0",
+		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
-		"react-apollo": "^2.5.2",
+		"react-apollo": "2.3.3",
 		"yup": "^0.27.0"
 	},
 	"peerDependencies": {

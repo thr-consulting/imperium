@@ -21,7 +21,7 @@ Model class for authentication. Uses a Mongo `roles` collection and has an opini
 
     * [.serializeAuth(auth)](#Auth+serializeAuth)
 
-    * [.signIn(email, password)](#Auth+signIn)
+    * [.logIn(email, password)](#Auth+logIn)
 
     * [.generateJwt(payload, options)](#Auth+generateJwt)
 
@@ -56,7 +56,6 @@ Creates a new Auth model.
 ### *auth*.defaultAuth()
 Returns a default (blank) authentication object (for server)
 
-**Returns**: <code>Map</code> - An Immutable map of a blank authentication object.  
 
 * * *
 
@@ -70,7 +69,7 @@ Returns a default (blank) authentication object (for server)
 
 Builds an authentication object from a decoded JWT
 
-**Returns**: <code>Promise.&lt;Map&gt;</code> - An Immutable map of the authentication object created from decoded JWT data.  
+**Returns**: <code>Promise.&lt;Object&gt;</code> - The authentication object created from decoded JWT data.  
 
 * * *
 
@@ -80,24 +79,24 @@ Builds an authentication object from a decoded JWT
 
 | Param | Type | Description |
 | --- | --- | --- |
-| auth | <code>Map</code> | The Immutable Map that will be serialized. |
+| auth | <code>Object</code> | The object that will be serialized. |
 
 Takes in an authentication object and serializes it for transport to the client.
 
-**Returns**: <code>Promise.&lt;Map&gt;</code> - An Immutable map that can be serialized using Transit Immutable.  
+**Returns**: <code>Promise.&lt;Object&gt;</code> - The object that can be serialized.  
 
 * * *
 
-<a name="Auth+signIn"></a>
+<a name="Auth+logIn"></a>
 
-### *auth*.signIn(email, password)
+### *auth*.logIn(email, password)
 
 | Param | Type | Description |
 | --- | --- | --- |
-| email | <code>string</code> | The email to sign in with. |
+| email | <code>string</code> | The email to log in with. |
 | password | <code>string</code> \| <code>object</code> | The password string/object to log in with. |
 
-Attempts the sign in process.
+Attempts the log in process.
 
 
 * * *
@@ -169,28 +168,15 @@ Gets a role by name
 
 * * *
 
-<a name="signOut"></a>
-
-## signOut(apolloClient, history)
-
-| Param |
-| --- |
-| apolloClient | 
-| history | 
-
-Signs out the user.
-
-
-* * *
-
 <a name="checkPermissions"></a>
 
-## checkPermissions(auth, needPermissions)
+## checkPermissions(userPermissions, needPermissions, userId)
 
 | Param | Description |
 | --- | --- |
-| auth | Must be an immutable auth object |
+| userPermissions | Must be an auth object |
 | needPermissions | Array or string of permissions |
+| userId | The id of the user |
 
 Compares an auth object against a permission or list of permissions.
 

@@ -37,6 +37,9 @@
         "title": "Context",
         "sidebar_label": "Context"
       },
+      "DependencyIssues": {
+        "title": "DependencyIssues"
+      },
       "main": {
         "title": "Imperium React Framework",
         "sidebar_label": "Main"
