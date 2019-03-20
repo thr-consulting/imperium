@@ -5,8 +5,8 @@ import React, {Component} from 'react';
 import debug from 'debug';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {hot} from 'react-hot-loader/root';
-import {RouteDirector} from '@thx/router';
 import routeDefaults from 'routeDefaults';
+import RouteDirector from '../RouteDirector';
 import './root.css';
 
 const d = debug('imperium.core.Root');
@@ -28,15 +28,13 @@ class Root extends Component<Props> {
 		const {routes, render, startupData} = this.props;
 
 		const Child = props => (
-			<Router>
-				<RouteDirector routes={routes} defaults={routeDefaults} {...props}/>
-			</Router>
+			<RouteDirector routes={routes} defaults={routeDefaults} {...props}/>
 		);
 
 		return (
-			<div>
+			<Router>
 				{render({Child, ...startupData})}
-			</div>
+			</Router>
 		);
 	}
 }

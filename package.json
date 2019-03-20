@@ -23,16 +23,16 @@
 		"ready:commit": "yarn lint && yarn test:coverage && yarn docs:build"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.1.2",
-		"@babel/core": "^7.1.2",
+		"@babel/cli": "^7.2.3",
+		"@babel/core": "^7.4.0",
 		"concurrently": "^4.0.1",
-		"eslint": "^5.15.2",
+		"eslint": "^5.15.3",
 		"express": "^4.16.3",
 		"lerna": "^3.4.0",
 		"mongodb": "^3.1.6",
 		"react": "^16.8.4",
 		"react-dom": "npm:@hot-loader/react-dom",
-		"react-router-dom": "^4.3.1",
+		"react-router-dom": "4.3.1",
 		"semantic-ui-react": "^0.86.0"
 	}
 }
