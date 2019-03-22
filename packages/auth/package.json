@@ -35,7 +35,7 @@
 		"docs:md": "../../tools/jsdocmd.sh auth"
 	},
 	"dependencies": {
-		"@thx/controls": "^9.0.0",
+		"@thx/controls": "^10.0.0",
 		"@thx/mongoloader": "^9.0.0",
 		"@thx/tschemas": "^9.0.0",
 		"bcrypt": "^3.0.5",
