@@ -46,7 +46,6 @@
 		"yup": "^0.27.0"
 	},
 	"peerDependencies": {
-		"immutable": "^3.x",
 		"mongodb": "^3.x",
 		"react": "^16.x",
 		"react-router-dom": "^4.x",

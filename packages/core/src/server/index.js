@@ -16,13 +16,13 @@ export default function server() {
 	// Import .env and expand variables:
 	dotenvExpand(dotenv.config({silent: false}));
 
-	const numCpus = os.cpus().length;
 	const isProduction = process.env.NODE_ENV === 'production';
 	const isDevelopment = process.env.NODE_ENV === 'development';
+	const numCpus = isProduction ? os.cpus().length : 1;
 
 	// SocketCluster options
 	const options = {
-		workers: 1 || numCpus,
+		workers: numCpus || 1,
 		brokers: 1,
 		port: process.env.PORT || 4000,
 		wsEngine: 'sc-uws',

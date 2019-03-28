@@ -33,6 +33,7 @@ export default function LogIn(props) {
 					logIn={(email, password) => {
 						logIn({variables: {email, password}})
 							.then(ret => {
+								d('Login success, setting user');
 								authContext.setUser({
 									userId: ret.data.logIn.auth.userId,
 									user: ret.data.logIn.auth.user,
@@ -41,6 +42,7 @@ export default function LogIn(props) {
 								});
 								const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase
 								window.localStorage.setItem(jwt_localstorage_name, ret.data.logIn.jwt);
+								restoreRoute(routeKey);
 							})
 							.catch(err => {
 								d(err.message);
