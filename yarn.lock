@@ -1812,6 +1812,15 @@
     debug "^4.1.1"
     lodash "^4.17.11"
 
+"@thx/router@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/router/-/router-10.0.0.tgz#8c75bf70f39c1cb11af01d95ed0d856e7d087d6b"
+  integrity sha512-c8M2ghdmri6olZHv73f0gUQa7GFyfPO3UoIjdO0K4hIbvVUNdhUYttYy85HVJVgJ/wvwo0OdXJVWmApQNYNcuQ==
+  dependencies:
+    prop-types "^15.7.2"
+    query-string "^6.4.0"
+    styled-components "^4.1.3"
+
 "@thx/tschemas@^10.0.1":
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/@thx/tschemas/-/tschemas-10.0.1.tgz#c9c89e0b6ac3bb7b809e00a7a9d562e1be8366a1"

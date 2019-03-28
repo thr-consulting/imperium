@@ -4,8 +4,7 @@ import React from 'react';
 import debug from 'debug';
 import {withRouter} from 'react-router-dom';
 import {parse, stringify} from 'query-string';
-import SwitchWithError from '../SwitchWithError';
-import Reroute from '../Reroute/Reroute';
+import {SwitchWithError, Reroute} from '@thx/router';
 
 const d = debug('imperium.core.RouteDirector');
 
