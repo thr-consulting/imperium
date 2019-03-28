@@ -17,7 +17,18 @@ The root component
 <a name="RouteDirector"></a>
 
 ## RouteDirector
-RouteDirector - Component that manages multiple root routes, layouts, and permissions.
+
+* * *
+
+<a name="new_RouteDirector_new"></a>
+
+### new RouteDirector(props)
+
+| Param |
+| --- |
+| props | 
+
+The RouteDirector renders main routes, usually in a layout, based off of route objects.
 
 
 * * *
