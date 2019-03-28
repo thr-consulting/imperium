@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Basic Auth Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
