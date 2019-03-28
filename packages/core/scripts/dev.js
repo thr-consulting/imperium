@@ -12,6 +12,7 @@ require('@babel/register')({
 			path.resolve(process.cwd(), 'src'), // Match project folder
 		], 'BABEL/REG'),
 	],
+	cache: false,
 });
 
 // Include the main server file
