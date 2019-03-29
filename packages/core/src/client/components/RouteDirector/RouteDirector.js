@@ -1,15 +1,16 @@
 // @flow
-/* eslint-disable react/forbid-prop-types */
 
-import React, {Component} from 'react';
-import type {Element} from 'react';
+import React from 'react';
 import debug from 'debug';
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router-dom';
 import {parse, stringify} from 'query-string';
-import Reroute from '../Reroute';
-import SwitchWithError from '../SwitchWithError';
+import {SwitchWithError, Reroute} from '@thx/router';
 
-const d = debug('imperium:core:RouteDirector');
+const d = debug('imperium.core.RouteDirector');
+
+function NoAuthContextConsumer({children}) {
+	return children({checkPermissions: null});
+}
 
 type RouteType = {
 	path: string,
@@ -39,84 +40,79 @@ type Props = {
 	AuthContextConsumer?: any,
 };
 
-function NoAuthContextConsumer({children}) {
-	return children({checkPermissions: null});
-}
-
 /**
- * RouteDirector - Component that manages multiple root routes, layouts, and permissions.
- * @class
+ * The RouteDirector renders main routes, usually in a layout, based off of route objects.
+ * @param props
+ * @return {*}
+ * @constructor
  */
-class RouteDirector extends Component<Props> {
-	componentWillUpdate() {
-		// TODO expand onRouteChange calls
-		if (this.props.onRouteChange) this.props.onRouteChange();
-	}
+function RouteDirector(props: Props) {
+	const {location: {pathname, search, hash}, history, routes, defaults, AuthContextConsumer} = props;
 
-	doRender = (props: any, routeProps: RouteType) => {
-		d(`Rendering route: ${routeProps.path}`);
-		if (routeProps.layout) {
-			return <routeProps.layout route={routeProps} {...props}/>;
-		}
-		if (routeProps.content) {
-			return <routeProps.content route={routeProps} {...props}/>;
-		}
-		return null;
-	};
+	d(`Rendering RouteDirector: ${pathname}${search}${hash}`);
 
-	restoreRoute = routeKey => {
-		const search = parse(this.props.location.search);
-		delete search[routeKey];
-		this.props.history.push({
-			...this.props.location,
-			search: stringify(search),
-		});
-	};
+	const currentQuery = parse(search);
 
-	render() {
-		const {location: {pathname, search, hash}, defaults, AuthContextConsumer} = this.props;
+	const AuthContextConsumerComponent = AuthContextConsumer || NoAuthContextConsumer;
 
-		d(`Rendering RouteDirector: ${pathname}${search}${hash}`);
-		const defaultRouteProps = defaults || {};
+	return (
+		<AuthContextConsumerComponent>
+			{({checkPermissions}) => (
+				<div>
+					<SwitchWithError>
+						{routes.map(route => {
+							// Apply default route options and then apply specific route options
+							const routeProps = Object.assign({}, defaults || {}, route);
 
-		const currentQuery = parse(search);
+							// If the route is a portal route, don't render it here
+							if (routeProps.portal) return null;
 
-		const AuthContextConsumerComponent = AuthContextConsumer || NoAuthContextConsumer;
-
-		return (
-			<AuthContextConsumerComponent>
-				{({checkPermissions}) => (
-					<div>
-						<SwitchWithError>
-							{this.props.routes.map(route => {
-								// Apply default route options and then apply specific route options
-								const routeProps = Object.assign({}, defaultRouteProps, route);
-
-								// If the route is a portal route, don't render it here
-								if (routeProps.portal) return null;
-
-								return (
-									<Reroute
-										key={routeProps.path}
-										render={props => this.doRender(props, routeProps)}
-										checkPermissions={checkPermissions}
-										{...routeProps}
-									/>
-								);
-							})}
-						</SwitchWithError>
-						{
-							this.props.routes.map(route => {
-								// If the route is not a portal route or if the current key isn't present, don't render it here
-								if (!route.portal || !currentQuery[route.key]) return null;
-								return <route.portal key={route.key} routeKey={route.key} restoreRoute={this.restoreRoute} {...route}/>;
-							})
-						}
-					</div>
-				)}
-			</AuthContextConsumerComponent>
-		);
-	}
+							// Render the route content in a Reroute, which checks for permissions
+							return (
+								<Reroute
+									key={routeProps.path}
+									render={rrProps => {
+										d(`Rendering route: ${routeProps.path}`);
+										if (routeProps.layout) {
+											return <routeProps.layout route={routeProps} {...rrProps}/>;
+										}
+										if (routeProps.content) {
+											return <routeProps.content route={routeProps} {...rrProps}/>;
+										}
+										return null;
+									}}
+									checkPermissions={checkPermissions}
+									{...routeProps}
+								/>
+							);
+						})}
+					</SwitchWithError>
+					{
+						routes.map(route => {
+							// If the route is not a portal route or if the current key isn't present, don't render it here
+							if (!route.portal || !currentQuery[route.key]) return null;
+							d('Rendering a portal', route.key);
+							return (
+								<route.portal
+									key={route.key}
+									routeKey={route.key}
+									restoreRoute={routeKey => {
+										d('Removing portal route key', routeKey);
+										delete currentQuery[routeKey];
+										history.push({
+											...props.location,
+											search: stringify(currentQuery),
+										});
+									}}
+									{...route}
+								/>
+							);
+						})
+					}
+				</div>
+			)}
+		</AuthContextConsumerComponent>
+	);
 }
 
 export default withRouter(RouteDirector);

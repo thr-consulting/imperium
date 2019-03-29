@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Segment, TransitionablePortal} from 'semantic-ui-react';
+import debug from 'debug';
 import styles from './transit.css';
+
+const d = debug('imperium.auth.Transit');
 
 export default function Transit(props) {
 	const {open, restoreRoute, routeKey, children} = props;
@@ -9,7 +12,10 @@ export default function Transit(props) {
 	return (
 		<TransitionablePortal
 			open={open}
-			onClose={() => restoreRoute(routeKey)}
+			onClose={() => {
+				d('Transit onClose, restoring route...');
+				restoreRoute(routeKey);
+			}}
 			transition={{animation: 'fade', duration: 400}}
 		>
 			<div className={styles.background}>

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/core",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Core Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -18,7 +18,8 @@
 		"scripts",
 		"src",
 		"webpack",
-		"config.js"
+		"config.js",
+		"index.js"
 	],
 	"bin": {
 		"imperium": "./bin/imperium.js"
@@ -32,6 +33,7 @@
 		"docs:md": "../../tools/jsdocmd.sh core"
 	},
 	"dependencies": {
+		"@thx/router": "^10.0.0",
 		"bcrypt": "^3.0.5",
 		"body-parser": "^1.18.3",
 		"chokidar": "^2.0.3",
@@ -49,7 +51,6 @@
 		"react-hot-loader": "^4.8.0",
 		"socketcluster": "^14.3.0",
 		"socketcluster-client": "^14.2.2",
-		"styled-components": "^4.1.3",
 		"whatwg-fetch": "^3.0.0"
 	},
 	"optionalDependencies": {

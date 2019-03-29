@@ -66,6 +66,10 @@ module.exports = {
 			clientModules$: path.join(pRoot, config.project.clientModules),
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
 			rootRender$: path.join(pRoot, config.project.rootRender),
+
+			// If you are developing Imperium with 'yarn link', enable these to use the same React libs as the project
+			// react: path.resolve(pRoot, './node_modules/react'),
+			// 'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 		},
 	},
 	plugins: compact([
@@ -79,7 +83,9 @@ module.exports = {
 			__PRODUCTION__: false,
 			// 'process.env.NODE_ENV': JSON.stringify('development'),
 		}),
-		new HardSourceWebpackPlugin(),
+		new HardSourceWebpackPlugin({
+			cacheDirectory: path.resolve(pRoot, 'node_modules', '.cache', 'hard-source'),
+		}),
 		new webpack.NoEmitOnErrorsPlugin(),
 	]),
 	module: {
