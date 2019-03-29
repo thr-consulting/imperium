@@ -58,7 +58,6 @@
 	},
 	"peerDependencies": {
 		"express": "^4.x",
-		"immutable": "^3.x",
 		"react": "^16.x",
 		"react-dom": "^16.x",
 		"react-router-dom": "^4.x",

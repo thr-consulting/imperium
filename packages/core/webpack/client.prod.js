@@ -78,6 +78,7 @@ module.exports = {
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
 			rootRender$: path.join(pRoot, config.project.rootRender),
 		},
+		extensions: ['.js', '.mjs', '.ts', '.tsx'],
 	},
 	optimization: {
 		splitChunks: {
@@ -171,6 +172,20 @@ module.exports = {
 						options: {
 							babelrc: false,
 							presets: [['@imperium/babel-preset-imperium', {client: true}]],
+						},
+					},
+				],
+			},
+			{
+				test: /\.tsx$/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL-TS'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 						},
 					},
 				],

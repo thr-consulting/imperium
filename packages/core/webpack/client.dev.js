@@ -68,9 +68,10 @@ module.exports = {
 			rootRender$: path.join(pRoot, config.project.rootRender),
 
 			// If you are developing Imperium with 'yarn link', enable these to use the same React libs as the project
-			// react: path.resolve(pRoot, './node_modules/react'),
-			// 'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
+			react: path.resolve(pRoot, './node_modules/react'),
+			'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 		},
+		extensions: ['.js', '.mjs', '.ts', '.tsx'],
 	},
 	plugins: compact([
 		themeCopyPlugin,
@@ -145,6 +146,20 @@ module.exports = {
 						options: {
 							babelrc: false,
 							presets: [['@imperium/babel-preset-imperium', {client: true}]],
+						},
+					},
+				],
+			},
+			{
+				test: /\.tsx$/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL-TS'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 						},
 					},
 				],

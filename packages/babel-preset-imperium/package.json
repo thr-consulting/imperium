@@ -40,6 +40,7 @@
 		"@babel/preset-env": "^7.4.1",
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
+		"@babel/preset-typescript": "^7.3.3",
 		"babel-plugin-flow-react-proptypes": "^25.0.0",
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^2.5.0",
