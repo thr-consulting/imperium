@@ -1,44 +1,52 @@
-// @flow
-
 import React from 'react';
 import debug from 'debug';
-import {withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {parse, stringify} from 'query-string';
 import {SwitchWithError, Reroute} from '@thx/router';
 
 const d = debug('imperium.core.RouteDirector');
 
-function NoAuthContextConsumer({children}) {
-	return children({checkPermissions: null});
-}
-
-type RouteType = {
+interface RouteType {
 	path: string,
 	exact?: boolean,
 	strict?: boolean,
 	redirect?: boolean,
 	permissions?: string | string[],
-	layout?: Element<*>,
-};
+	layout?: any,
+	portal: any,
+	content: any,
+	key: string,
+}
 
-type Props = {
+interface Props {
 	routes: RouteType[],
 	defaults?: {
 		exact?: boolean,
 		strict?: boolean,
 		redirect?: boolean,
 		permissions?: string | string[],
-		layout?: Element<*>,
+		layout?: any,
+		portal: any,
 	},
 	location: {
+		pathname: string,
 		search: string,
+		hash: string,
 	},
 	history: {
-		push: () => {},
+		push: (pushObj: object) => {},
 	},
 	onRouteChange?: () => {},
-	AuthContextConsumer?: any,
-};
+	AuthContextConsumer?: JSX.Element,
+}
+
+interface AuthContextConsumerRenderProp {
+	checkPermissions?: () => void,
+}
+
+function NoAuthContextConsumer({children}: {children: (param: AuthContextConsumerRenderProp) => any}) {
+	return children({checkPermissions: undefined});
+}
 
 /**
  * The RouteDirector renders main routes, usually in a layout, based off of route objects.
@@ -57,7 +65,7 @@ function RouteDirector(props: Props) {
 
 	return (
 		<AuthContextConsumerComponent>
-			{({checkPermissions}) => (
+			{({checkPermissions}: AuthContextConsumerRenderProp) => (
 				<div>
 					<SwitchWithError>
 						{routes.map(route => {
@@ -71,7 +79,7 @@ function RouteDirector(props: Props) {
 							return (
 								<Reroute
 									key={routeProps.path}
-									render={rrProps => {
+									render={(rrProps: RouteType) => {
 										d(`Rendering route: ${routeProps.path}`);
 										if (routeProps.layout) {
 											return <routeProps.layout route={routeProps} {...rrProps}/>;
@@ -96,8 +104,9 @@ function RouteDirector(props: Props) {
 								<route.portal
 									key={route.key}
 									routeKey={route.key}
-									restoreRoute={routeKey => {
+									restoreRoute={(routeKey: string) => {
 										d('Removing portal route key', routeKey);
+										// @ts-ignore
 										delete currentQuery[routeKey];
 										history.push({
 											...props.location,

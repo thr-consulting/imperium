@@ -1,10 +1,10 @@
-// @flow
 /* eslint-disable react/prefer-stateless-function */
 
 import React, {Component} from 'react';
 import debug from 'debug';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {hot} from 'react-hot-loader/root';
+// @ts-ignore
 import routeDefaults from 'routeDefaults';
 import RouteDirector from '../RouteDirector';
 import './root.css';
@@ -17,26 +17,19 @@ type Props = {
 	startupData?: Object,
 };
 
-/**
- * The root component
- */
-class Root extends Component<Props> {
-	props: Props;
+function Root(props) {
+	d('Rendering Root component');
+	const {routes, render, startupData} = props;
 
-	render() {
-		d('Rendering Root component');
-		const {routes, render, startupData} = this.props;
+	const Child = props => (
+		<RouteDirector routes={routes} defaults={routeDefaults} {...props}/>
+	);
 
-		const Child = props => (
-			<RouteDirector routes={routes} defaults={routeDefaults} {...props}/>
-		);
-
-		return (
-			<Router>
-				{render({Child, ...startupData})}
-			</Router>
-		);
-	}
+	return (
+		<Router>
+			{render({Child, ...startupData})}
+		</Router>
+	);
 }
 
 export default hot(Root);
