@@ -93,7 +93,15 @@ module.exports = {
 		rules: [
 			{test: /\.txt$/, use: [{loader: 'raw-loader'}]},
 			{
-				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				test: /\.(woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 10000}}],
+			},
+			{
+				test: /\.(svg)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 1}}],
+			},
+			{
+				test: /\.(png|jpg|jpeg|gif)(\?[a-z0-9=.]+)?$/,
 				use: [{loader: 'url-loader', options: {limit: 10000}}],
 			},
 			{test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
