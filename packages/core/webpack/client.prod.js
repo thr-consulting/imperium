@@ -185,7 +185,7 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.tsx$/,
+				test: /\.tsx?$/,
 				include: isSourceFile([iSrcDir, pSrcDir]),
 				use: [
 					inspectLoader('BABEL-TS'),
