@@ -1,4 +1,5 @@
 import debug from 'debug';
+import {EndpointParameters} from '@imperium/core/types.d';
 import jwt from 'express-jwt';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
@@ -10,7 +11,7 @@ import schemaDirectives from './security/schemaDirectives';
 
 const d = debug('imperium.graphql.endpoints.graphql');
 
-export default function({app, connectors, modules, middleware}) {
+export default function({app, connectors, modules, middleware}: EndpointParameters) {
 	d('Merging graphql schema');
 
 	// Merge all the typeDefs from all modules

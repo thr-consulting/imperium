@@ -1,7 +1,7 @@
-const startup = require('./lib/client/startup').default;
+const client = require('./lib/client').default;
 
 module.exports = function() {
 	return {
-		startup,
+		startup: client.startup,
 	};
 };

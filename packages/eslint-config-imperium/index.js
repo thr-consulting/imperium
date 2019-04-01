@@ -45,7 +45,7 @@ module.exports = {
 		'no-tabs': 'off',
 		'arrow-parens': ['error', 'as-needed'],
 		'comma-dangle': ['error', 'always-multiline'],
-		'no-underscore-dangle': ['error', {allowAfterThis: true}],
+		'no-underscore-dangle': ['warn', {allowAfterThis: true, allow: ['_id']}],
 		'global-require': 'error',
 		'generator-star-spacing': 0,
 		'object-curly-spacing': ['error', 'never'],
@@ -60,6 +60,12 @@ module.exports = {
 		'function-paren-newline': ['error', 'consistent'],
 		'lines-between-class-members': ['error', 'always'],
 		'max-statements': ['warn', {max: 100}],
+		'no-plusplus': 'off',
+		'no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
+
+		// Typescript
+		'@typescript-eslint/indent': ['error', 'tab', {SwitchCase: 1}],
+		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
 
 		// React
 		'react/forbid-prop-types': 'error',
@@ -96,8 +102,5 @@ module.exports = {
 		// React Hooks
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
-
-		// Typescript
-		'@typescript-eslint/indent': ['error', 'tab', {SwitchCase: 1}],
 	},
 };

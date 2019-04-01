@@ -19,7 +19,7 @@
 		"src",
 		"webpack",
 		"config.js",
-		"index.js"
+		"index.ts"
 	],
 	"bin": {
 		"imperium": "./bin/imperium.js"

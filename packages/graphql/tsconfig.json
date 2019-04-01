@@ -17,9 +17,10 @@
 		"pretty": true,
 		"jsx": "react",
 		"declaration": true,
-		"outDir": "lib"
+		"outDir": "lib",
+		"noImplicitAny": false
 	},
 	"include": [
-		"packages/**/src"
+		"src/**/*"
 	]
 }

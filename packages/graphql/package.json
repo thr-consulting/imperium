@@ -21,10 +21,9 @@
 	],
 	"scripts": {
 		"prepublish": "npm run build",
-		"build": "npm run clean && concurrently \"npm:build:server\" \"npm:build:client\"",
-		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
-		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
-		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
+		"build": "npm run clean && npm run build:server && npm run build:client",
+		"build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
+		"build:client": "NODE_ENV=production webpack --config webpack.client.config.js",
 		"clean": "rimraf ./lib/*",
 		"lint": "eslint --cache 'src/**/*.js'",
 		"test": "jest",
@@ -51,6 +50,12 @@
 	},
 	"peerDependencies": {
 		"express": "^4.x"
+	},
+	"devDependencies": {
+		"@types/express": "^4.16.1",
+		"@types/express-jwt": "^0.0.42",
+		"@types/graphql": "^14.2.0",
+		"webpack": "^4.20.2"
 	},
 	"jest": {
 		"transform": {
