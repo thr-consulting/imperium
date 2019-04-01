@@ -1,14 +1,27 @@
 module.exports = {
 	parser: 'babel-eslint',
 	plugins: [
-		'react', 'babel', 'flowtype', 'jest',
+		'@typescript-eslint',
+		'react',
+		'babel',
+		'flowtype',
+		'jest',
+		'react-hooks',
 	],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true,
 		},
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:flowtype/recommended', 'plugin:jest/recommended', 'airbnb'],
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:flowtype/recommended',
+		'plugin:jest/recommended',
+		'airbnb',
+		'airbnb-typescript',
+		'plugin:@typescript-eslint/recommended',
+	],
 	env: {
 		commonjs: true,
 		es6: true,
@@ -26,6 +39,7 @@ module.exports = {
 		},
 	},
 	rules: {
+		// General
 		'max-lines': ['warn', {max: 300, skipBlankLines: true, skipComments: true}],
 		indent: ['error', 'tab', {SwitchCase: 1}],
 		'no-tabs': 'off',
@@ -47,6 +61,7 @@ module.exports = {
 		'lines-between-class-members': ['error', 'always'],
 		'max-statements': ['warn', {max: 100}],
 
+		// React
 		'react/forbid-prop-types': 'error',
 		'react/jsx-filename-extension': ['error', {extensions: ['.js']}],
 		'react/jsx-indent': ['error', 'tab'],
@@ -61,18 +76,28 @@ module.exports = {
 		'react/destructuring-assignment': ['off', 'always'],
 		'react/jsx-one-expression-per-line': ['off'],
 
+		// ES6 Import
 		'import/no-extraneous-dependencies': 'off',
 		'import/no-unresolved': 'off',
 		'import/prefer-default-export': 'off',
 		'import/extensions': 'off',
 
+		// Flow
 		'flowtype/define-flow-type': 'error',
 		'flowtype/require-valid-file-annotation': 'error',
 		'flowtype/semi': ['error', 'always'],
 		'flowtype/space-after-type-colon': ['error', 'always', {allowLineBreak: true}],
 
+		// JSX a11y
 		'jsx-a11y/label-has-for': 'off',
 		'jsx-a11y/anchor-is-valid': 'off',
 		'jsx-a11y/label-has-associated-control': 'off',
+
+		// React Hooks
+		'react-hooks/rules-of-hooks': 'error',
+		'react-hooks/exhaustive-deps': 'warn',
+
+		// Typescript
+		'@typescript-eslint/indent': ['error', 'tab', {SwitchCase: 1}],
 	},
 };
