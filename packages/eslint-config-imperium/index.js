@@ -15,6 +15,7 @@ module.exports = {
 	},
 	extends: [
 		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
 		'plugin:flowtype/recommended',
 		'plugin:jest/recommended',
@@ -66,6 +67,12 @@ module.exports = {
 		// Typescript
 		'@typescript-eslint/indent': ['error', 'tab', {SwitchCase: 1}],
 		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
+		'@typescript-eslint/member-delimiter-style': ['error', {
+			multiline: {delimiter: 'comma', requireLast: true},
+			singleline: {delimiter: 'comma', requireLast: false},
+		}],
+		'@typescript-eslint/explicit-member-accessibility': ['off'],
+		'@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true, allowTypedFunctionExpressions: true}],
 
 		// React
 		'react/forbid-prop-types': 'error',

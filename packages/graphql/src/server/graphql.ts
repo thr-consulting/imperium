@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {EndpointParameters} from '@imperium/core/types.d';
+import {EndpointParameters} from '@imperium/core';
 import jwt from 'express-jwt';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
@@ -37,6 +37,7 @@ export default function({app, connectors, modules, middleware}: EndpointParamete
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers,
+		// @ts-ignore
 		context: ({req}) => req.context, // Context is stored in req. It is created in the contextMiddleware() method below.
 		schemaDirectives,
 	});
@@ -46,7 +47,7 @@ export default function({app, connectors, modules, middleware}: EndpointParamete
 	app.use(
 		'/api/graphql',
 		jwt({
-			secret: process.env.JWT_SECRET,
+			secret: process.env.JWT_SECRET || 'notsecure',
 			credentialsRequired: false,
 		}),
 		middleware.context({connectors, modules}),

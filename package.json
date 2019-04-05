@@ -15,6 +15,7 @@
 		"build:auth": "cd packages/auth && yarn build",
 		"build:graphql": "cd packages/graphql && yarn build",
 		"lint": "lerna run lint",
+		"ts": "lerna run ts",
 		"test": "lerna run test --stream --concurrency 1",
 		"test:coverage": "lerna run test:coverage --stream --concurrency 1",
 		"pkghash": "./tools/pkghash",

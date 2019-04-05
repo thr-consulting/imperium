@@ -62,7 +62,7 @@ module.exports = {
 	mode: process.env.NODE_ENV,
 	context: iSrcDir,
 	entry: {
-		app: './client/index.js',
+		app: './client/index.tsx',
 		vendor,
 	},
 	output: {

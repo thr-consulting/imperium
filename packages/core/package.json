@@ -21,11 +21,13 @@
 		"config.js",
 		"index.ts"
 	],
+	"types": "./src/types.d.ts",
 	"bin": {
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
-		"lint": "eslint --cache 'src/**/*.js' 'webpack/**/*.js'",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"ts": "tsc",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh core",
@@ -79,5 +81,9 @@
 			"\\.(css)$": "identity-obj-proxy",
 			"routeDefaults": "<rootDir>/../../tests/__mocks__/routeDefaults.js"
 		}
+	},
+	"devDependencies": {
+		"@types/webpack-env": "^1.13.9",
+		"@types/express": "^4.16.1"
 	}
 }

@@ -50,7 +50,7 @@ module.exports = {
 	entry: {
 		app: [
 			'webpack-hot-middleware/client',
-			'./client/index.js',
+			'./client/index.tsx',
 		],
 	},
 	output: {
@@ -71,7 +71,7 @@ module.exports = {
 			react: path.resolve(pRoot, './node_modules/react'),
 			'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 		},
-		extensions: ['.js', '.mjs', '.ts', '.tsx'],
+		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},
 	plugins: compact([
 		themeCopyPlugin,

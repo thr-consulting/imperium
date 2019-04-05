@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path'); // eslint-disable-line
 
 /**
  * This is where the configuration resides in the host project.
