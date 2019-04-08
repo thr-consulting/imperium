@@ -1,12 +1,10 @@
-const models = require('./lib/server/models').default;
-const startup = require('./lib/server/startup').default;
-const {schema, resolvers} = require('./lib/server/graphql');
+const server = require('./lib/server').default;
 
-module.exports = function() {
+module.exports = function ImperiumAuthModule() {
 	return {
-		models,
-		startup,
-		schema,
-		resolvers,
+		models: server.models,
+		startup: server.startup,
+		schema: server.schema,
+		resolvers: server.resolvers,
 	};
 };

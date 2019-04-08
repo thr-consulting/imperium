@@ -29,7 +29,7 @@ export default function worker(sc, {
 	const connector = new Connectors();
 	connector.create().then(connectors => {
 		// Load modules - Runs module definition functions and stores the objects
-		d('Loading modules');
+		d('Loading modules: ', serverModules.map(v => v.name).join(', '));
 		const modules = serverModules.map(moduleFunc => moduleFunc());
 
 		// Create the express app and hook it into SocketCluster

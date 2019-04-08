@@ -58,7 +58,7 @@ function renderRoot(Root, routes, startupData): void {
 // Starts the app from a certain initial state;
 function startFromState(initState?: {}): void {
 	// Load modules - Runs module definition functions and stores the objects
-	d('Loading modules');
+	d('Loading modules: ', clientModules.map(v => v.name).join(', '));
 	const modules = clientModules.map((moduleFunc): ClientModule => moduleFunc());
 
 	// Hydrate the initial state
