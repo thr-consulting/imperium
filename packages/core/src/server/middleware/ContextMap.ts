@@ -11,7 +11,7 @@ export default class Context {
 	 * an object keyed with data model objects.
 	 * @param moduleFunc
 	 */
-	addModule(moduleFunc) {
+	addModule(moduleFunc): void {
 		const moduleModels = moduleFunc(this._connectors, this);
 		this._models = Object.assign({}, this._models, moduleModels);
 	}
@@ -42,7 +42,7 @@ export default class Context {
 	}
 
 	/**
-	 * Returns the auth data (Immutable Map)
+	 * Returns the auth data
 	 * @returns {null|*}
 	 */
 	get auth() {

@@ -16,8 +16,8 @@
 	"files": [
 		"lib",
 		"README.md",
-		"client.js",
-		"server.js"
+		"client.ts",
+		"server.ts"
 	],
 	"scripts": {
 		"prepublish": "npm run build",

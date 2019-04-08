@@ -25,7 +25,7 @@ module.exports = function(api, opts, env) {
 	var isClient = validateBoolOption('client', opts.client, false);
 	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 	var forceReact = validateBoolOption('react', opts.react, false);
-	var enableTypescript = validateBoolOption('typescript', false);
+	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -84,11 +84,8 @@ module.exports = function(api, opts, env) {
 
 			// Add typescript
 			enableTypescript && [
-				require('@babel/typescript').default,
+				require('@babel/preset-typescript').default,
 			],
-
-			// Add flow parsing
-			[require('@babel/preset-flow').default],
 		].filter(Boolean),
 		plugins: [
 			// Experimental macros support. Will be documented after it's had some time
@@ -154,10 +151,6 @@ module.exports = function(api, opts, env) {
 			// Constraint: IS testing
 			// Transform dynamic import to require
 			isEnvTest && require('babel-plugin-transform-dynamic-import').default,
-
-			// Constraint: IS development client
-			// Add react proptypes from flow types
-			isEnvDevelopment && isClient && require('babel-plugin-flow-react-proptypes').default,
 
 			// Constraint: NOT client
 			// Inline import graphqls files

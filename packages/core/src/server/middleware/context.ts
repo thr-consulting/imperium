@@ -1,5 +1,6 @@
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
+import {RequestHandler} from 'express';
 import ContextMap from './ContextMap';
 
 const d = debug('imperium.core.server.context');
@@ -13,7 +14,7 @@ const d = debug('imperium.core.server.context');
  * @param modules
  * @returns {function(*, *, *)}
  */
-export default function context({connectors, modules}) {
+export default function context({connectors, modules}): RequestHandler {
 	return (req, res, next) => {
 		d('Creating context');
 

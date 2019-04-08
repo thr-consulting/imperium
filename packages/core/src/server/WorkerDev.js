@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require */
+/* eslint-disable import/no-dynamic-require, @typescript-eslint/no-var-requires */
 const webpack = require('webpack');
 const SCWorker = require('socketcluster/scworker');
 const d = require('debug')('imperium.core.server.WorkerDev');

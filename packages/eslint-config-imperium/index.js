@@ -4,7 +4,6 @@ module.exports = {
 		'@typescript-eslint',
 		'react',
 		'babel',
-		'flowtype',
 		'jest',
 		'react-hooks',
 	],
@@ -17,7 +16,6 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
-		'plugin:flowtype/recommended',
 		'plugin:jest/recommended',
 		'airbnb',
 		'airbnb-typescript',
@@ -33,11 +31,6 @@ module.exports = {
 		process: false,
 		window: true,
 		document: true,
-	},
-	settings: {
-		flowtype: {
-			onlyFilesWithFlowAnnotation: true,
-		},
 	},
 	rules: {
 		// General
@@ -94,12 +87,6 @@ module.exports = {
 		'import/no-unresolved': 'off',
 		'import/prefer-default-export': 'off',
 		'import/extensions': 'off',
-
-		// Flow
-		'flowtype/define-flow-type': 'error',
-		'flowtype/require-valid-file-annotation': 'error',
-		'flowtype/semi': ['error', 'always'],
-		'flowtype/space-after-type-colon': ['error', 'always', {allowLineBreak: true}],
 
 		// JSX a11y
 		'jsx-a11y/label-has-for': 'off',

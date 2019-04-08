@@ -1,11 +1,11 @@
 import debug from 'debug';
-import {EndpointParameters} from '@imperium/core/types.d';
 import expressPlayground from 'graphql-playground-middleware-express';
+import {EndpointParameters} from '@imperium/core';
 
 const d = debug('imperium.graphql.graphiql');
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-export default function({app}: EndpointParameters) {
+export default function({app}: EndpointParameters): void {
 	if (isDevelopment) {
 		d('Adding GraphQL Playground endpoint');
 		app.use(

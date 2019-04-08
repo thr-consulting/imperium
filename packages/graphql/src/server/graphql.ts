@@ -11,7 +11,7 @@ import schemaDirectives from './security/schemaDirectives';
 
 const d = debug('imperium.graphql.endpoints.graphql');
 
-export default function({app, connectors, modules, middleware}: EndpointParameters) {
+export default function({app, connectors, modules, middleware}: EndpointParameters): void {
 	d('Merging graphql schema');
 
 	// Merge all the typeDefs from all modules

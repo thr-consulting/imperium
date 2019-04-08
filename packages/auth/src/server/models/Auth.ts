@@ -9,6 +9,7 @@ import {
 	userNotFoundError,
 	incorrectPasswordError,
 } from './errors';
+import {ServerAuth, ClientAuth} from '../../types';
 
 const d = debug('imperium.auth.server.Auth');
 
@@ -18,7 +19,7 @@ const d = debug('imperium.auth.server.Auth');
  * @param {string|object} password - The string password or password object with algorithm and digest fields.
  * @return {string} The password object.
  */
-function getPasswordString(password) {
+function getPasswordString(password): string {
 	let pword = password;
 	if (typeof pword === 'string') {
 		pword = sha256(pword);
@@ -37,7 +38,7 @@ function getPasswordString(password) {
  * @param password
  * @return {Promise<boolean>}
  */
-export async function validatePassword(user, password) {
+export async function validatePassword(user, password): Promise<boolean> {
 	const pword = getPasswordString(password);
 	return compare(pword, user.services.password.bcrypt);
 }
@@ -50,7 +51,7 @@ export async function validatePassword(user, password) {
  * @param options
  * @return {string}
  */
-function signJwt(user, payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}) {
+function signJwt(user, payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}): string {
 	return sign(Object.assign({}, {
 		id: user._id,
 		rnd: randomId(8),
@@ -77,7 +78,7 @@ export default class Auth extends MongoLoader {
 	 * Returns a default (blank) authentication object (for server)
 	 * @return {Object}
 	 */
-	defaultAuth() {
+	defaultAuth(): ServerAuth {
 		return {
 			userId: null,
 			user: async () => null,
@@ -90,7 +91,7 @@ export default class Auth extends MongoLoader {
 	 * @param decodedJWT
 	 * @return {Promise<Object>} The authentication object created from decoded JWT data.
 	 */
-	async buildAuthFromJwt(decodedJWT) {
+	async buildAuthFromJwt(decodedJWT): Promise<ServerAuth> {
 		const authModel = this;
 		return {
 			userId: decodedJWT.id,
@@ -108,7 +109,7 @@ export default class Auth extends MongoLoader {
 	 * @param {Object} auth - The object that will be serialized.
 	 * @return {Promise<Object>} The object that can be serialized.
 	 */
-	async serializeAuth(auth) {
+	async serializeAuth(auth): Promise<ClientAuth> {
 		const user = await auth.user();
 		return {
 			userId: auth.userId,
@@ -123,7 +124,7 @@ export default class Auth extends MongoLoader {
 	 * @param {string|object} password - The password string/object to log in with.
 	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
-	async logIn(email, password) {
+	async logIn(email, password): Promise<{jwt: string, auth: ClientAuth}> {
 		d('Starting log in process');
 
 		// Verify parameters
@@ -156,7 +157,7 @@ export default class Auth extends MongoLoader {
 	 * @param options - Optional JWT options
 	 * @return {Promise.<void>}
 	 */
-	async generateJwt(payload, options) {
+	async generateJwt(payload, options): Promise<string | null> {
 		const user = await this.ctx.auth.user();
 		if (!user) return null;
 		return signJwt(user, payload, options);
@@ -165,9 +166,9 @@ export default class Auth extends MongoLoader {
 	/**
 	 * Encrypts a password
 	 * @param password
-	 * @return {Promise.<void>}
+	 * @return {Promise<string>}
 	 */
-	async encryptPassword(password) {
+	async encryptPassword(password): Promise<string> {
 		const pword = getPasswordString(password);
 		return hash(pword, 10);
 	}

@@ -6,7 +6,7 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 const d = debug('imperium.graphql.client.startup');
 
-export default function startup({graphql, jwt_localstorage_name}) { // eslint-disable-line @typescript-eslint/camelcase
+export default function startup({graphql, jwt_localstorage_name}): {} { // eslint-disable-line @typescript-eslint/camelcase
 	d('Creating Apollo client');
 
 	// Create Apollo HTTP link

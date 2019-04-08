@@ -19,9 +19,10 @@
 		"src",
 		"webpack",
 		"config.js",
-		"index.ts"
+		"index.ts",
+		"lib"
 	],
-	"types": "./src/types.d.ts",
+	"types": "./lib/types.d.ts",
 	"bin": {
 		"imperium": "./bin/imperium.js"
 	},
