@@ -5,7 +5,7 @@ COVERAGE=$PWD/../../docs/assets/coverage
 NAME=$1
 COLLECT_DEFAULT="src/**/*.js"
 COLLECT_PASSED=$2
-COLLECT=${COLLECT_PASSED:-"src/**/*.js"}
+COLLECT=${COLLECT_PASSED:-"src/**/*.{js,ts,tsx}"}
 
 $BIN/jest --coverage --coverageDirectory $COVERAGE/$NAME --collectCoverageFrom=$COLLECT  && cat $COVERAGE/$NAME/lcov.info | $BIN/coverbadge -o $COVERAGE/$NAME/coverage.svg
 

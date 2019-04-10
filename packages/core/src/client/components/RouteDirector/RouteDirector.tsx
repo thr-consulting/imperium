@@ -3,7 +3,6 @@ import debug from 'debug';
 import {withRouter} from 'react-router-dom';
 import {parse, stringify} from 'query-string';
 import {SwitchWithError, Reroute} from '@thx/router';
-import {ImperiumRoute} from '../../../types';
 
 const d = debug('imperium.core.RouteDirector');
 

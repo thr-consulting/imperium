@@ -6,7 +6,6 @@ import {hot} from 'react-hot-loader/root';
 import routeDefaults from 'routeDefaults';
 import RouteDirector from '../RouteDirector';
 import './root.css';
-import {ImperiumRoute} from '../../../types';
 
 const d = debug('imperium.core.Root');
 

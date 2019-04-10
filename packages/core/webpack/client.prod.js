@@ -6,10 +6,10 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const compact = require('lodash/compact');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 const config = require('../config');
@@ -78,7 +78,7 @@ module.exports = {
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
 			rootRender$: path.join(pRoot, config.project.rootRender),
 		},
-		extensions: ['.js', '.mjs', '.ts', '.tsx'],
+		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},
 	optimization: {
 		splitChunks: {

@@ -10,6 +10,7 @@ const compact = require('lodash/compact');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
 const inspectLoader = require('./inspectLoader').default;
@@ -74,6 +75,7 @@ module.exports = {
 		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},
 	plugins: compact([
+		new ProgressBarPlugin(),
 		themeCopyPlugin,
 		assetCopyPlugin,
 		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot, options}, config)),

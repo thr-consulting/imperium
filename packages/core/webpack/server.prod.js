@@ -38,6 +38,7 @@ module.exports = {
 			Connectors$: path.join(pRoot, config.project.Connectors),
 			serverModules$: path.join(pRoot, config.project.serverModules),
 		},
+		extensions: ['.js', '.ts', '.d.ts'],
 	},
 	externals: [
 		nodeExternals({modulesDir: path.join(iRoot, '..', '..', 'node_modules')}), // TODO this won't be quite right after publishing
@@ -75,6 +76,20 @@ module.exports = {
 						options: {
 							babelrc: false,
 							presets: [['@imperium/babel-preset-imperium', {client: false}]],
+						},
+					},
+				],
+			},
+			{
+				test: /\.ts$/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL-TS'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
 						},
 					},
 				],

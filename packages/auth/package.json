@@ -16,8 +16,8 @@
 	"files": [
 		"lib",
 		"README.md",
-		"client.ts",
-		"server.ts"
+		"client.js",
+		"server.js"
 	],
 	"scripts": {
 		"prepublish": "npm run build",
@@ -30,10 +30,12 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh auth",
-		"docs": "NODE_ENV=development jsdoc -c ../../tools/jsdoc.json",
-		"docs:md": "../../tools/jsdocmd.sh auth"
+		"docs:md": "../../tools/jsdocmd.sh auth",
+		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
+		"@imperium/core": "^1.0.2",
+		"@imperium/graphql": "^1.0.1",
 		"@thx/controls": "^10.0.1",
 		"@thx/mongoloader": "^10.0.1",
 		"@thx/tschemas": "^10.0.1",
@@ -51,14 +53,14 @@
 		"semantic-ui-react": "^0.x"
 	},
 	"devDependencies": {
-		"webpack": "^4.20.2"
+		"webpack-cli": "^3.3.0"
 	},
 	"jest": {
 		"setupFiles": [
 			"<rootDir>/../../tests/setupTests.js"
 		],
 		"transform": {
-			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+			"^.+\\.[jt]sx?$": "<rootDir>/../../tools/jest-transformer.js"
 		},
 		"snapshotSerializers": [
 			"enzyme-to-json/serializer"

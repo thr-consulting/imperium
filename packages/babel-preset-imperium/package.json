@@ -23,7 +23,8 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh babel-preset-imperium '*.js'",
-		"docs:md": "../../tools/jsdocmd.sh babel-preset-imperium"
+		"docs:md": "../../tools/jsdocmd.sh babel-preset-imperium",
+		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
 		"@babel/core": "^7.4.0",
