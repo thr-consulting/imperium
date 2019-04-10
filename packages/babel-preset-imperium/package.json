@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/babel-preset-imperium",
-	"version": "1.0.0",
+	"version": "2.0.0-alpha.0",
 	"description": "Babel preset used by Imperium.",
 	"repository": "darkadept/imperium",
 	"license": "MIT",

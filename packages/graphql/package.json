@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql",
-	"version": "1.0.1",
+	"version": "2.0.0-alpha.0",
 	"description": "Graphql Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -33,7 +33,7 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@imperium/core": "^1.0.2",
+		"@imperium/core": "^2.0.0-alpha.0",
 		"@thx/date": "^10.0.1",
 		"@thx/money": "^10.0.1",
 		"apollo-cache-inmemory": "^1.2.10",
