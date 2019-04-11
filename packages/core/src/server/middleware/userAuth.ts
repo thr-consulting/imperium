@@ -3,6 +3,7 @@ import debug from 'debug';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import jwt from 'jsonwebtoken';
+import {ImperiumRequestHandler} from '../../../types';
 
 const d = debug('imperium.core.server.userAuth');
 
@@ -12,7 +13,7 @@ const d = debug('imperium.core.server.userAuth');
  * @param secret
  * @return {function(*=, *, *)}
  */
-export default function({tokenReqPath = null, secret = null} = {}) {
+export default function({tokenReqPath = null, secret = null} = {}): ImperiumRequestHandler {
 	return (req, res, next) => {
 		d('Building authentication data');
 

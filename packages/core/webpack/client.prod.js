@@ -6,10 +6,10 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const compact = require('lodash/compact');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 const config = require('../config');
@@ -62,7 +62,7 @@ module.exports = {
 	mode: process.env.NODE_ENV,
 	context: iSrcDir,
 	entry: {
-		app: './client/index.js',
+		app: './client/index.tsx',
 		vendor,
 	},
 	output: {
@@ -78,6 +78,7 @@ module.exports = {
 			routeDefaults$: path.join(pRoot, config.project.routeDefaults),
 			rootRender$: path.join(pRoot, config.project.rootRender),
 		},
+		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},
 	optimization: {
 		splitChunks: {
@@ -118,7 +119,15 @@ module.exports = {
 		rules: [
 			{test: /\.txt$/, use: [{loader: 'raw-loader'}]},
 			{
-				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				test: /\.(woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 10000}}],
+			},
+			{
+				test: /\.(svg)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 1}}],
+			},
+			{
+				test: /\.(png|jpg|jpeg|gif)(\?[a-z0-9=.]+)?$/,
 				use: [{loader: 'url-loader', options: {limit: 10000}}],
 			},
 			{test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
@@ -171,6 +180,20 @@ module.exports = {
 						options: {
 							babelrc: false,
 							presets: [['@imperium/babel-preset-imperium', {client: true}]],
+						},
+					},
+				],
+			},
+			{
+				test: /\.tsx?$/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL-TS'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 						},
 					},
 				],

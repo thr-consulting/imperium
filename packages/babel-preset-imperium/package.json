@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/babel-preset-imperium",
-	"version": "1.0.0",
+	"version": "2.0.0-alpha.1",
 	"description": "Babel preset used by Imperium.",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -23,7 +23,8 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh babel-preset-imperium '*.js'",
-		"docs:md": "../../tools/jsdocmd.sh babel-preset-imperium"
+		"docs:md": "../../tools/jsdocmd.sh babel-preset-imperium",
+		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
 		"@babel/core": "^7.4.0",
@@ -40,6 +41,7 @@
 		"@babel/preset-env": "^7.4.1",
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
+		"@babel/preset-typescript": "^7.3.3",
 		"babel-plugin-flow-react-proptypes": "^25.0.0",
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^2.5.0",
@@ -48,7 +50,7 @@
 	},
 	"jest": {
 		"transform": {
-			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transformer.js"
 		},
 		"testPathIgnorePatterns": [
 			"/node_modules/",

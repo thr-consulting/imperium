@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const SCBroker = require('socketcluster/scbroker');
 const debug = require('debug');
 

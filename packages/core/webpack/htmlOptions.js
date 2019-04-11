@@ -17,7 +17,7 @@ function htmlOptions({iSrcDir, pRoot, options}, config) {
 	// Under dev mode, everything is already run through babel.
 	if (!isDevelopment) {
 		require('@babel/register')({
-			presets: [['@imperium/babel-preset-imperium', {client: false, forceModules: true}]],
+			presets: [['@imperium/babel-preset-imperium', {client: false, forceModules: true, typescript: true}]],
 			only: [
 				isSourceFile([
 					path.resolve(pRoot, 'src'),

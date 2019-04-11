@@ -7,6 +7,7 @@ import createHtml from './createHtml';
 import production from './endpoints/production';
 import initialState from './endpoints/initialState';
 import middleware from './middleware';
+import {ImperiumRequest, ServerModule} from '../../types';
 
 const d = debug('imperium.core.server.worker');
 
@@ -14,7 +15,7 @@ export default function worker(sc, {
 	Connectors,
 	serverModules,
 	hmr,
-}) {
+}): void {
 	d(`  >> Worker PID: ${process.pid}`);
 
 	// const isProduction = process.env.NODE_ENV === 'production';
@@ -29,8 +30,8 @@ export default function worker(sc, {
 	const connector = new Connectors();
 	connector.create().then(connectors => {
 		// Load modules - Runs module definition functions and stores the objects
-		d('Loading modules');
-		const modules = serverModules.map(moduleFunc => moduleFunc());
+		d('Loading modules: ', serverModules.map(v => v.name).join(', '));
+		const modules: ServerModule[] = serverModules.map(moduleFunc => moduleFunc());
 
 		// Create the express app and hook it into SocketCluster
 		d('Creating express app');
@@ -72,7 +73,8 @@ export default function worker(sc, {
 		});
 
 		// Create a context for use when the server first starts up.
-		const req = {};
+		// @ts-ignore
+		const req: ImperiumRequest = {};
 		middleware.context({connectors, modules})(req, null, () => {});
 
 		// Get Promise's for each module's startup code
@@ -81,7 +83,7 @@ export default function worker(sc, {
 				return [...memo, module.startup(req.context)];
 			}
 			return memo;
-		}, []);
+		}, [] as Promise<any>[]);
 
 		// Execute module startup promises
 		d('Executing module startup');

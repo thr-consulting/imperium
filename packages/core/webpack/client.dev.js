@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require, global-require */
+/* eslint-disable import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires */
 /**
  * This webpack configuration is used when running the development version of the client app.
  * The server portion calls Webpack, loads this config and starts the server.
@@ -10,6 +10,7 @@ const compact = require('lodash/compact');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const config = require('../config');
 const htmlOptions = require('./htmlOptions');
 const inspectLoader = require('./inspectLoader').default;
@@ -50,7 +51,7 @@ module.exports = {
 	entry: {
 		app: [
 			'webpack-hot-middleware/client',
-			'./client/index.js',
+			'./client/index.tsx',
 		],
 	},
 	output: {
@@ -68,11 +69,16 @@ module.exports = {
 			rootRender$: path.join(pRoot, config.project.rootRender),
 
 			// If you are developing Imperium with 'yarn link', enable these to use the same React libs as the project
-			// react: path.resolve(pRoot, './node_modules/react'),
-			// 'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
+			react: path.resolve(pRoot, './node_modules/react'),
+			'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 		},
+		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
+	},
+	optimization: {
+		minimize: false,
 	},
 	plugins: compact([
+		new ProgressBarPlugin(),
 		themeCopyPlugin,
 		assetCopyPlugin,
 		new HtmlWebpackPlugin(htmlOptions({iSrcDir, pRoot, options}, config)),
@@ -92,7 +98,15 @@ module.exports = {
 		rules: [
 			{test: /\.txt$/, use: [{loader: 'raw-loader'}]},
 			{
-				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				test: /\.(woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 10000}}],
+			},
+			{
+				test: /\.(svg)(\?[a-z0-9=.]+)?$/,
+				use: [{loader: 'url-loader', options: {limit: 1}}],
+			},
+			{
+				test: /\.(png|jpg|jpeg|gif)(\?[a-z0-9=.]+)?$/,
 				use: [{loader: 'url-loader', options: {limit: 10000}}],
 			},
 			{test: /\.(wav|mp3)$/, use: [{loader: 'file-loader'}]},
@@ -145,6 +159,20 @@ module.exports = {
 						options: {
 							babelrc: false,
 							presets: [['@imperium/babel-preset-imperium', {client: true}]],
+						},
+					},
+				],
+			},
+			{
+				test: /\.tsx?$/,
+				include: isSourceFile([iSrcDir, pSrcDir]),
+				use: [
+					inspectLoader('BABEL-TS'),
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 						},
 					},
 				],

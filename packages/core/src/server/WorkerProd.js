@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const SCWorker = require('socketcluster/scworker');
 const d = require('debug')('imperium.core.WorkerProd');
 const Connectors = require('Connectors').default;

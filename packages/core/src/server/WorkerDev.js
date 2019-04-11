@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require */
+/* eslint-disable import/no-dynamic-require, @typescript-eslint/no-var-requires */
 const webpack = require('webpack');
 const SCWorker = require('socketcluster/scworker');
 const d = require('debug')('imperium.core.server.WorkerDev');
@@ -6,7 +6,8 @@ const path = require('path');
 const isSourceFile = require('../../webpack/isSourceFile');
 
 require('@babel/register')({
-	presets: [['@imperium/babel-preset-imperium',	{client: false}]],
+	presets: [['@imperium/babel-preset-imperium',	{client: false, typescript: true}]],
+	extensions: ['.js', '.ts'],
 	only: [
 		isSourceFile([
 			path.resolve(__dirname, '..', '..'), // Match imperium core package

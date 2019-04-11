@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production';
  * HTTP GET Endpoint that offers up the client for download in a production setting.
  * @param app
  */
-export default function({app}) {
+export default function({app}): void {
 	if (isProduction) {
 		d('Activating client endpoint for production');
 		app.use(compression());

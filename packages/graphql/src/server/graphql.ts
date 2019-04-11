@@ -1,4 +1,5 @@
 import debug from 'debug';
+import {EndpointOptions} from '@imperium/core';
 import jwt from 'express-jwt';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
@@ -10,7 +11,7 @@ import schemaDirectives from './security/schemaDirectives';
 
 const d = debug('imperium.graphql.endpoints.graphql');
 
-export default function({app, connectors, modules, middleware}) {
+export default function({app, connectors, modules, middleware}: EndpointOptions): void {
 	d('Merging graphql schema');
 
 	// Merge all the typeDefs from all modules
@@ -36,6 +37,7 @@ export default function({app, connectors, modules, middleware}) {
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers,
+		// @ts-ignore
 		context: ({req}) => req.context, // Context is stored in req. It is created in the contextMiddleware() method below.
 		schemaDirectives,
 	});
@@ -45,7 +47,7 @@ export default function({app, connectors, modules, middleware}) {
 	app.use(
 		'/api/graphql',
 		jwt({
-			secret: process.env.JWT_SECRET,
+			secret: process.env.JWT_SECRET || 'notsecure',
 			credentialsRequired: false,
 		}),
 		middleware.context({connectors, modules}),

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql",
-	"version": "1.0.1",
+	"version": "2.0.0-alpha.1",
 	"description": "Graphql Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -21,40 +21,44 @@
 	],
 	"scripts": {
 		"prepublish": "npm run build",
-		"build": "npm run clean && concurrently \"npm:build:server\" \"npm:build:client\"",
-		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
-		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
-		"build:client": "NODE_ENV=production babel ./src/client -s --out-dir lib/client --config-file ./client.babelrc",
+		"build": "npm run clean && npm run build:server && npm run build:client",
+		"build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
+		"build:client": "NODE_ENV=production webpack --config webpack.client.config.js",
 		"clean": "rimraf ./lib/*",
-		"lint": "eslint --cache 'src/**/*.js'",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"ts": "tsc",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh graphql",
-		"docs:md": "../../tools/jsdocmd.sh graphql"
+		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
+		"@imperium/core": "^2.0.0-alpha.1",
 		"@thx/date": "^10.0.1",
 		"@thx/money": "^10.0.1",
-		"apollo-cache-inmemory": "^1.2.10",
-		"apollo-client": "^2.4.2",
+		"apollo-cache-inmemory": "^1.5.1",
+		"apollo-client": "^2.5.1",
 		"apollo-link": "^1.2.11",
 		"apollo-link-http": "^1.5.14",
-		"apollo-server": "^2.1.0",
-		"apollo-server-express": "^2.1.0",
+		"apollo-server": "^2.4.8",
+		"apollo-server-express": "^2.4.8",
 		"debug": "^4.0.1",
 		"express-jwt": "^5.3.0",
-		"graphql": "^14.0.2",
-		"graphql-custom-types": "^1.4.0",
-		"graphql-playground-middleware-express": "^1.7.3",
-		"graphql-tools": "^4.0.0",
+		"graphql": "^14.2.1",
+		"graphql-custom-types": "^1.5.0",
+		"graphql-playground-middleware-express": "^1.7.12",
+		"graphql-tools": "^4.0.4",
 		"lodash": "^4.17.11"
 	},
 	"peerDependencies": {
 		"express": "^4.x"
 	},
+	"devDependencies": {
+		"webpack-cli": "^3.3.0"
+	},
 	"jest": {
 		"transform": {
-			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+			"^.+\\.[jt]sx?$": "<rootDir>/../../tools/jest-transformer.js"
 		}
 	},
 	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42"

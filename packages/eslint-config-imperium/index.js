@@ -1,14 +1,26 @@
 module.exports = {
 	parser: 'babel-eslint',
 	plugins: [
-		'react', 'babel', 'flowtype', 'jest',
+		'@typescript-eslint',
+		'react',
+		'babel',
+		'jest',
+		'react-hooks',
 	],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true,
 		},
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:flowtype/recommended', 'plugin:jest/recommended', 'airbnb'],
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:react/recommended',
+		'plugin:jest/recommended',
+		'airbnb',
+		'airbnb-typescript',
+		'plugin:@typescript-eslint/recommended',
+	],
 	env: {
 		commonjs: true,
 		es6: true,
@@ -20,18 +32,14 @@ module.exports = {
 		window: true,
 		document: true,
 	},
-	settings: {
-		flowtype: {
-			onlyFilesWithFlowAnnotation: true,
-		},
-	},
 	rules: {
+		// General
 		'max-lines': ['warn', {max: 300, skipBlankLines: true, skipComments: true}],
 		indent: ['error', 'tab', {SwitchCase: 1}],
 		'no-tabs': 'off',
 		'arrow-parens': ['error', 'as-needed'],
 		'comma-dangle': ['error', 'always-multiline'],
-		'no-underscore-dangle': ['error', {allowAfterThis: true}],
+		'no-underscore-dangle': ['warn', {allowAfterThis: true, allow: ['_id']}],
 		'global-require': 'error',
 		'generator-star-spacing': 0,
 		'object-curly-spacing': ['error', 'never'],
@@ -44,9 +52,22 @@ module.exports = {
 		'no-return-assign': ['error', 'except-parens'],
 		'no-console': ['error'],
 		'function-paren-newline': ['error', 'consistent'],
-		'lines-between-class-members': ['error', 'always'],
+		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 		'max-statements': ['warn', {max: 100}],
+		'no-plusplus': 'off',
+		'no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
 
+		// Typescript
+		'@typescript-eslint/indent': ['error', 'tab', {SwitchCase: 1}],
+		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
+		'@typescript-eslint/member-delimiter-style': ['error', {
+			multiline: {delimiter: 'comma', requireLast: true},
+			singleline: {delimiter: 'comma', requireLast: false},
+		}],
+		'@typescript-eslint/explicit-member-accessibility': ['off'],
+		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
+
+		// React
 		'react/forbid-prop-types': 'error',
 		'react/jsx-filename-extension': ['error', {extensions: ['.js']}],
 		'react/jsx-indent': ['error', 'tab'],
@@ -61,18 +82,19 @@ module.exports = {
 		'react/destructuring-assignment': ['off', 'always'],
 		'react/jsx-one-expression-per-line': ['off'],
 
+		// ES6 Import
 		'import/no-extraneous-dependencies': 'off',
 		'import/no-unresolved': 'off',
 		'import/prefer-default-export': 'off',
 		'import/extensions': 'off',
 
-		'flowtype/define-flow-type': 'error',
-		'flowtype/require-valid-file-annotation': 'error',
-		'flowtype/semi': ['error', 'always'],
-		'flowtype/space-after-type-colon': ['error', 'always', {allowLineBreak: true}],
-
+		// JSX a11y
 		'jsx-a11y/label-has-for': 'off',
 		'jsx-a11y/anchor-is-valid': 'off',
 		'jsx-a11y/label-has-associated-control': 'off',
+
+		// React Hooks
+		'react-hooks/rules-of-hooks': 'error',
+		'react-hooks/exhaustive-deps': 'warn',
 	},
 };

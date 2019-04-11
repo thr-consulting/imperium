@@ -1,6 +1,6 @@
 import {randomBytes, pseudoRandomBytes} from 'crypto';
 
-export default function randomId(digits = 24) {
+export default function randomId(digits = 24): string {
 	const numBytes = Math.ceil(digits / 2);
 	let bytes;
 	try {

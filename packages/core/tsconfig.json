@@ -1,0 +1,34 @@
+{
+	"compilerOptions": {
+		// Target latest version of ECMAScript.
+		"target": "esnext",
+		"module": "commonjs",
+		// Search under node_modules for non-relative imports.
+		"moduleResolution": "node",
+		// Process & infer types from .js files.
+		"allowJs": false,
+		// Don't emit; allow Babel to transform files.
+		// "noEmit": true, // Can't have this active if I want to emit declarations
+		// Enable strictest settings like strictNullChecks & noImplicitAny.
+		"strict": true,
+		// Disallow features that require cross-file information for emit.
+		// "isolatedModules": true, // if I have declaration: true, I can't have this true
+		// Import non-ES modules as default imports.
+		"esModuleInterop": true,
+		// Output with colors
+		"pretty": true,
+		// Support JSX in TSX files
+		"jsx": "react",
+		// Generate .d.ts files
+		"declaration": true,
+		// Output dir for .d.ts files
+		"declarationDir": "lib",
+		// Only emit .d.ts files
+		"emitDeclarationOnly": true,
+
+		"noImplicitAny": false // I don't think I really want this set to false
+	},
+	"include": [
+		"src/**/*"
+	]
+}

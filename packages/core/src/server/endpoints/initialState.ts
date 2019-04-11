@@ -10,12 +10,12 @@ const d = debug('imperium.core.server.initialState');
  * @param connectors
  * @param modules
  */
-export default function({app, connectors, modules}) {
+export default function({app, connectors, modules}): void {
 	const {context, userAuth} = middleware;
 	app.use(
 		'/api/initial-state',
 		jwt({
-			secret: process.env.JWT_SECRET,
+			secret: process.env.JWT_SECRET || 'secretfail',
 			credentialsRequired: true,
 		}),
 		context({connectors, modules}),

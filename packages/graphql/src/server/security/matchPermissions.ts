@@ -12,7 +12,7 @@ const SYSADMIN = 'sysadmin';
  * @param needPermissions
  * @return {boolean}
  */
-export default function permissionsMatch(havePermissions, needPermissions) {
+export default function permissionsMatch(havePermissions, needPermissions): boolean {
 	const have = isArray(havePermissions) ? havePermissions : [havePermissions];
 	const need = isArray(needPermissions) ? [...needPermissions, SYSADMIN] : [needPermissions, SYSADMIN];
 	return intersection(have, need).length > 0;

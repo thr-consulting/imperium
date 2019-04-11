@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth",
-	"version": "1.0.2",
+	"version": "2.0.0-alpha.1",
 	"description": "Basic Auth Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -17,29 +17,33 @@
 		"lib",
 		"README.md",
 		"client.js",
-		"server.js",
-		"index.js"
+		"server.js"
 	],
 	"scripts": {
 		"prepublish": "npm run build",
-		"build": "npm run clean && concurrently \"npm:build:server\" \"npm:build:client\"",
-		"build:watch": "npm run clean && concurrently \"npm:build:server -- --verbose -w\" \"npm:build:client -- --verbose -w\"",
-		"build:server": "NODE_ENV=production babel ./src/server -s --out-dir lib/server --config-file ./server.babelrc",
-		"build:client": "NODE_ENV=production webpack",
+		"build": "npm run clean && npm run build:server && npm run build:client",
+		"build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
+		"build:client": "NODE_ENV=production webpack --config webpack.client.config.js",
 		"clean": "rimraf ./lib/*",
-		"lint": "eslint --cache 'src/**/*.js'",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"ts": "tsc",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh auth",
-		"docs": "NODE_ENV=development jsdoc -c ../../tools/jsdoc.json",
-		"docs:md": "../../tools/jsdocmd.sh auth"
+		"docs:md": "../../tools/jsdocmd.sh auth",
+		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
+		"@imperium/core": "^2.0.0-alpha.1",
+		"@imperium/graphql": "^2.0.0-alpha.1",
 		"@thx/controls": "^10.0.1",
 		"@thx/mongoloader": "^10.0.1",
 		"@thx/tschemas": "^10.0.1",
+		"apollo-client": "^2.5.1",
+		"apollo-server": "^2.4.8",
 		"bcrypt": "^3.0.5",
 		"debug": "^4.0.1",
+		"graphql": "^14.2.1",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
 		"react-apollo": "2.3.3",
@@ -51,12 +55,16 @@
 		"react-router-dom": "^4.x",
 		"semantic-ui-react": "^0.x"
 	},
+	"devDependencies": {
+		"webpack": "^4.29.6",
+		"webpack-cli": "^3.3.0"
+	},
 	"jest": {
 		"setupFiles": [
 			"<rootDir>/../../tests/setupTests.js"
 		],
 		"transform": {
-			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+			"^.+\\.[jt]sx?$": "<rootDir>/../../tools/jest-transformer.js"
 		},
 		"snapshotSerializers": [
 			"enzyme-to-json/serializer"

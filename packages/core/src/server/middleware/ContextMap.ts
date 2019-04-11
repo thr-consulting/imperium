@@ -1,4 +1,10 @@
+import {Connectors, Model} from '../../../types';
+
 export default class Context {
+	_connectors: Connectors[];
+	_models: Record<string, Model>;
+	_auth: any;
+
 	constructor(connectors) {
 		this._connectors = connectors;
 		this._models = {};
@@ -11,7 +17,7 @@ export default class Context {
 	 * an object keyed with data model objects.
 	 * @param moduleFunc
 	 */
-	addModule(moduleFunc) {
+	addModule(moduleFunc): void {
 		const moduleModels = moduleFunc(this._connectors, this);
 		this._models = Object.assign({}, this._models, moduleModels);
 	}
@@ -21,7 +27,7 @@ export default class Context {
 	 * @param name
 	 * @returns {*}
 	 */
-	getModel(name) {
+	getModel(name): Model {
 		return this._models[name];
 	}
 
@@ -29,7 +35,7 @@ export default class Context {
 	 * Returns all the models
 	 * @returns {*}
 	 */
-	get models() {
+	get models(): Record<string, Model> {
 		return this._models;
 	}
 
@@ -42,14 +48,14 @@ export default class Context {
 	}
 
 	/**
-	 * Returns the auth data (Immutable Map)
+	 * Returns the auth data
 	 * @returns {null|*}
 	 */
-	get auth() {
+	get auth(): any {
 		return this._auth;
 	}
 
-	get connectors() {
+	get connectors(): Connectors[] {
 		return this._connectors;
 	}
 }

@@ -1,9 +1,11 @@
-const client = require('./lib/client/client');
-const startup = require('./lib/client/client').startup;
+const client = require('./lib/client');
 
-module.exports = function() {
+module.exports = function ImperiumAuthModule() {
 	return {
 		routes: client.routes,
-		startup,
+		startup: client.startup,
 	};
 };
+
+module.exports.AuthContextConsumer = client.AuthContextConsumer;
+module.exports.AuthContextProvider = client.AuthContextProvider;

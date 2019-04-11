@@ -5,10 +5,13 @@ import {
 	GraphQLUUID,
 	GraphQLPassword,
 } from 'graphql-custom-types';
+// @ts-ignore
 import {
 	GraphQLLocalDate,
 	GraphQLMoment,
+	// @ts-ignore
 } from '@thx/date';
+// @ts-ignore
 import {GraphQLMoney} from '@thx/money';
 import Scalars from './Scalars.graphqls';
 import Root from './Root.graphqls';
@@ -28,6 +31,7 @@ export const resolvers = {
 	URL: GraphQLURL,
 	DateTime: GraphQLDateTime,
 	UUID: GraphQLUUID,
+	// @ts-ignore
 	Password: new GraphQLPassword(6, 64, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?', {
 		mixedCase: true,
 	}),

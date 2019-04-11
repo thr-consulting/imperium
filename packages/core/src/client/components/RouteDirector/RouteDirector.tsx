@@ -1,44 +1,41 @@
-// @flow
-
 import React from 'react';
 import debug from 'debug';
 import {withRouter} from 'react-router-dom';
 import {parse, stringify} from 'query-string';
 import {SwitchWithError, Reroute} from '@thx/router';
+import {ImperiumRoute} from '../../../../types';
 
 const d = debug('imperium.core.RouteDirector');
 
-function NoAuthContextConsumer({children}) {
-	return children({checkPermissions: null});
-}
-
-type RouteType = {
-	path: string,
-	exact?: boolean,
-	strict?: boolean,
-	redirect?: boolean,
-	permissions?: string | string[],
-	layout?: Element<*>,
-};
-
-type Props = {
-	routes: RouteType[],
+interface Props {
+	routes: ImperiumRoute[],
 	defaults?: {
 		exact?: boolean,
 		strict?: boolean,
 		redirect?: boolean,
 		permissions?: string | string[],
-		layout?: Element<*>,
+		layout?: React.ComponentType,
+		portal: React.ComponentType,
 	},
 	location: {
+		pathname: string,
 		search: string,
+		hash: string,
 	},
 	history: {
-		push: () => {},
+		push: (pushObj: object) => {},
 	},
 	onRouteChange?: () => {},
 	AuthContextConsumer?: any,
-};
+}
+
+interface AuthContextConsumerRenderProp {
+	checkPermissions?: () => void,
+}
+
+function NoAuthContextConsumer({children}: {children: (param: AuthContextConsumerRenderProp) => JSX.Element}): JSX.Element {
+	return children({checkPermissions: undefined});
+}
 
 /**
  * The RouteDirector renders main routes, usually in a layout, based off of route objects.
@@ -46,7 +43,7 @@ type Props = {
  * @return {*}
  * @constructor
  */
-function RouteDirector(props: Props) {
+function RouteDirector(props: Props): JSX.Element {
 	const {location: {pathname, search, hash}, history, routes, defaults, AuthContextConsumer} = props;
 
 	d(`Rendering RouteDirector: ${pathname}${search}${hash}`);
@@ -57,12 +54,12 @@ function RouteDirector(props: Props) {
 
 	return (
 		<AuthContextConsumerComponent>
-			{({checkPermissions}) => (
+			{({checkPermissions}: AuthContextConsumerRenderProp) => (
 				<div>
 					<SwitchWithError>
 						{routes.map(route => {
 							// Apply default route options and then apply specific route options
-							const routeProps = Object.assign({}, defaults || {}, route);
+							const routeProps: ImperiumRoute = Object.assign({}, defaults || {}, route);
 
 							// If the route is a portal route, don't render it here
 							if (routeProps.portal) return null;
@@ -71,7 +68,7 @@ function RouteDirector(props: Props) {
 							return (
 								<Reroute
 									key={routeProps.path}
-									render={rrProps => {
+									render={(rrProps: ImperiumRoute) => {
 										d(`Rendering route: ${routeProps.path}`);
 										if (routeProps.layout) {
 											return <routeProps.layout route={routeProps} {...rrProps}/>;
@@ -96,8 +93,9 @@ function RouteDirector(props: Props) {
 								<route.portal
 									key={route.key}
 									routeKey={route.key}
-									restoreRoute={routeKey => {
+									restoreRoute={(routeKey: string) => {
 										d('Removing portal route key', routeKey);
+										// @ts-ignore
 										delete currentQuery[routeKey];
 										history.push({
 											...props.location,
@@ -115,4 +113,5 @@ function RouteDirector(props: Props) {
 	);
 }
 
+// @ts-ignore
 export default withRouter(RouteDirector);

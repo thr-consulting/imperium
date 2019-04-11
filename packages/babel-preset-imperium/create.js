@@ -25,6 +25,7 @@ module.exports = function(api, opts, env) {
 	var isClient = validateBoolOption('client', opts.client, false);
 	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 	var forceReact = validateBoolOption('react', opts.react, false);
+	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -38,17 +39,22 @@ module.exports = function(api, opts, env) {
 
 	return {
 		presets: [
+			// Constraint: NOT client
 			!isClient && [
-				// ES features necessary for user's Node version
+				// ES features necessary for user's Node version.
+				// Modules are only active in development, testing, and if forced.
 				require('@babel/preset-env').default,
 				{
 					debug: isDebug,
 					targets: {
 						node: 'current',
 					},
+					// This transforms ES6 modules to a different type (CommonJS in this case)
 					modules: (forceModules || isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
 				},
 			],
+
+			// Constraint: IS client
 			isClient && [
 				// Latest stable ECMAScript features
 				require('@babel/preset-env').default,
@@ -58,11 +64,12 @@ module.exports = function(api, opts, env) {
 						browsers: ['last 2 versions', '> 1%'],
 					},
 					useBuiltIns: false,
-					// Do not transform modules to CJS
-					modules: false,
+					modules: false, // Do not transform modules to CJS
 					exclude: ['transform-typeof-symbol'],
 				},
 			],
+
+			// Contraint: IS client OR react is forced
 			(isClient || forceReact) && [
 				require('@babel/preset-react').default,
 				{
@@ -74,8 +81,11 @@ module.exports = function(api, opts, env) {
 					useBuiltIns: true,
 				},
 			],
-			// Add flow parsing
-			[require('@babel/preset-flow').default],
+
+			// Add typescript
+			enableTypescript && [
+				require('@babel/preset-typescript').default,
+			],
 		].filter(Boolean),
 		plugins: [
 			// Experimental macros support. Will be documented after it's had some time
@@ -117,6 +127,7 @@ module.exports = function(api, opts, env) {
 				},
 			],
 
+			// Constraint: IS production client
 			isEnvProduction && isClient && [
 				// Remove PropTypes from production build
 				require('babel-plugin-transform-react-remove-prop-types').default,
@@ -137,12 +148,11 @@ module.exports = function(api, opts, env) {
 			// Adds syntax support for import()
 			require('@babel/plugin-syntax-dynamic-import').default,
 
+			// Constraint: IS testing
 			// Transform dynamic import to require
 			isEnvTest && require('babel-plugin-transform-dynamic-import').default,
 
-			// Add react proptypes from flow types
-			isEnvDevelopment && isClient && require('babel-plugin-flow-react-proptypes').default,
-
+			// Constraint: NOT client
 			// Inline import graphqls files
 			!isClient && [
 				require('babel-plugin-inline-import').default,

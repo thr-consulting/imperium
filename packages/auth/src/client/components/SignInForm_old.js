@@ -1,5 +1,4 @@
-// @flow
-
+/*
 import React, {Component} from 'react';
 import debug from 'debug';
 import {Link} from 'react-router-dom';
@@ -84,3 +83,4 @@ export default class SignInForm extends Component<Props> {
 		);
 	}
 }
+*/
