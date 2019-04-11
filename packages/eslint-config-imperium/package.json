@@ -37,7 +37,7 @@
 	},
 	"jest": {
 		"transform": {
-			"^.+\\.js$": "<rootDir>/../../tools/jest-transformer.js"
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transformer.js"
 		}
 	},
 	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42"

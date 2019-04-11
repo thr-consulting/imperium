@@ -52,7 +52,7 @@ module.exports = {
 		'no-return-assign': ['error', 'except-parens'],
 		'no-console': ['error'],
 		'function-paren-newline': ['error', 'consistent'],
-		'lines-between-class-members': ['error', 'always'],
+		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 		'max-statements': ['warn', {max: 100}],
 		'no-plusplus': 'off',
 		'no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
@@ -65,7 +65,7 @@ module.exports = {
 			singleline: {delimiter: 'comma', requireLast: false},
 		}],
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
-		'@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true, allowTypedFunctionExpressions: true}],
+		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
 
 		// React
 		'react/forbid-prop-types': 'error',

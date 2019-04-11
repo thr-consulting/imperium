@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require, global-require */
+/* eslint-disable import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires */
 /**
  * This webpack configuration is used when running the development version of the client app.
  * The server portion calls Webpack, loads this config and starts the server.
@@ -73,6 +73,9 @@ module.exports = {
 			'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 		},
 		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
+	},
+	optimization: {
+		minimize: false,
 	},
 	plugins: compact([
 		new ProgressBarPlugin(),

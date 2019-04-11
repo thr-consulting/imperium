@@ -39,8 +39,11 @@
 		"@thx/controls": "^10.0.1",
 		"@thx/mongoloader": "^10.0.1",
 		"@thx/tschemas": "^10.0.1",
+		"apollo-client": "^2.5.1",
+		"apollo-server": "^2.4.8",
 		"bcrypt": "^3.0.5",
 		"debug": "^4.0.1",
+		"graphql": "^14.2.1",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
 		"react-apollo": "2.3.3",
@@ -53,6 +56,7 @@
 		"semantic-ui-react": "^0.x"
 	},
 	"devDependencies": {
+		"webpack": "^4.29.6",
 		"webpack-cli": "^3.3.0"
 	},
 	"jest": {

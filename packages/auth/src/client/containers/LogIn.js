@@ -40,7 +40,7 @@ export default function LogIn(props) {
 									permissions: ret.data.logIn.auth.permissions,
 									jwt: ret.data.logIn.jwt,
 								});
-								const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase
+								const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase,@typescript-eslint/camelcase
 								window.localStorage.setItem(jwt_localstorage_name, ret.data.logIn.jwt);
 								restoreRoute(routeKey);
 							})

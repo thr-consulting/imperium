@@ -1,8 +1,8 @@
-import {EndpointParameters} from '@imperium/core';
+import {EndpointOptions} from '@imperium/core';
 import graphql from './graphql';
 import graphiql from './graphiql';
 
-export default function endpoints({app, connectors, modules, middleware}: EndpointParameters): void {
+export default function endpoints({app, connectors, modules, middleware}: EndpointOptions): void {
 	graphql({app, connectors, modules, middleware});
 	graphiql({app, modules});
 }

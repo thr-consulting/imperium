@@ -18,6 +18,7 @@ import {rootRoute} from 'routeDefaults';
 // @ts-ignore
 import rootRender from 'rootRender';
 import RootComponent from './components/Root';
+import {ClientModule, ImperiumRoute} from '../../types';
 
 const d = debug('imperium.core.client');
 

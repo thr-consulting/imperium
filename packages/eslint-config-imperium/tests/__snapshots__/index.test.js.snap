@@ -10,10 +10,12 @@ Object {
   },
   "extends": Array [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:flowtype/recommended",
     "plugin:jest/recommended",
     "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
   ],
   "globals": Object {
     "document": true,
@@ -27,12 +29,49 @@ Object {
     },
   },
   "plugins": Array [
+    "@typescript-eslint",
     "react",
     "babel",
-    "flowtype",
     "jest",
+    "react-hooks",
   ],
   "rules": Object {
+    "@typescript-eslint/explicit-function-return-type": Array [
+      "off",
+      Object {
+        "allowExpressions": true,
+        "allowTypedFunctionExpressions": true,
+      },
+    ],
+    "@typescript-eslint/explicit-member-accessibility": Array [
+      "off",
+    ],
+    "@typescript-eslint/indent": Array [
+      "error",
+      "tab",
+      Object {
+        "SwitchCase": 1,
+      },
+    ],
+    "@typescript-eslint/member-delimiter-style": Array [
+      "error",
+      Object {
+        "multiline": Object {
+          "delimiter": "comma",
+          "requireLast": true,
+        },
+        "singleline": Object {
+          "delimiter": "comma",
+          "requireLast": false,
+        },
+      },
+    ],
+    "@typescript-eslint/no-unused-vars": Array [
+      "error",
+      Object {
+        "varsIgnorePattern": "d",
+      },
+    ],
     "arrow-parens": Array [
       "error",
       "as-needed",
@@ -41,19 +80,6 @@ Object {
     "comma-dangle": Array [
       "error",
       "always-multiline",
-    ],
-    "flowtype/define-flow-type": "error",
-    "flowtype/require-valid-file-annotation": "error",
-    "flowtype/semi": Array [
-      "error",
-      "always",
-    ],
-    "flowtype/space-after-type-colon": Array [
-      "error",
-      "always",
-      Object {
-        "allowLineBreak": true,
-      },
     ],
     "function-paren-newline": Array [
       "error",
@@ -78,6 +104,9 @@ Object {
     "lines-between-class-members": Array [
       "error",
       "always",
+      Object {
+        "exceptAfterSingleLine": true,
+      },
     ],
     "max-len": Array [
       "error",
@@ -103,15 +132,25 @@ Object {
     "no-console": Array [
       "error",
     ],
+    "no-plusplus": "off",
     "no-return-assign": Array [
       "error",
       "except-parens",
     ],
     "no-tabs": "off",
     "no-underscore-dangle": Array [
+      "warn",
+      Object {
+        "allow": Array [
+          "_id",
+        ],
+        "allowAfterThis": true,
+      },
+    ],
+    "no-unused-vars": Array [
       "error",
       Object {
-        "allowAfterThis": true,
+        "varsIgnorePattern": "d",
       },
     ],
     "object-curly-newline": Array [
@@ -130,6 +169,8 @@ Object {
         "allowNamedFunctions": true,
       },
     ],
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
     "react/destructuring-assignment": Array [
       "off",
       "always",
@@ -181,11 +222,6 @@ Object {
         "named": "never",
       },
     ],
-  },
-  "settings": Object {
-    "flowtype": Object {
-      "onlyFilesWithFlowAnnotation": true,
-    },
   },
 }
 `;

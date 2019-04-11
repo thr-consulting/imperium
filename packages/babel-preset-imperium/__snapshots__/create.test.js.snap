@@ -46,9 +46,6 @@ Object {
         },
       },
     ],
-    Array [
-      [Function],
-    ],
   ],
 }
 `;
@@ -98,9 +95,6 @@ Object {
           "node": "current",
         },
       },
-    ],
-    Array [
-      [Function],
     ],
   ],
 }
@@ -152,9 +146,6 @@ Object {
           "node": "current",
         },
       },
-    ],
-    Array [
-      [Function],
     ],
   ],
 }
