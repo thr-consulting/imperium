@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.47% </span>
+        <span class="strong">90% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>17/19</span>
+        <span class='fraction'>18/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">71.43% </span>
+        <span class="strong">70.59% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>25/35</span>
+        <span class='fraction'>24/34</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.47% </span>
+        <span class="strong">90% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>17/19</span>
+        <span class='fraction'>18/20</span>
       </div>
     </div>
     <p class="quiet">
@@ -201,16 +201,26 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -228,6 +238,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -240,6 +251,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -383,6 +403,7 @@ module.exports = function(api, opts, env) {
 	var isClient = validateBoolOption('client', opts.client, false);
 	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 	var forceReact = validateBoolOption('react', opts.react, false);
+	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
 &nbsp;
 	<span class="missing-if-branch" title="if path not taken" >I</span>if (!isEnvDevelopment &amp;&amp; !isEnvProduction &amp;&amp; !isEnvTest) {
 <span class="cstat-no" title="statement not covered" >		throw new Error(</span>
@@ -396,17 +417,22 @@ module.exports = function(api, opts, env) {
 &nbsp;
 	return {
 		presets: [
+			// Constraint: NOT client
 			!isClient &amp;&amp; [
-				// ES features necessary for user's Node version
+				// ES features necessary for user's Node version.
+				// Modules are only active in development, testing, and if forced.
 				require('@babel/preset-env').default,
 				{
 					debug: isDebug,
 					targets: {
 						node: 'current',
 					},
+					// This transforms ES6 modules to a different type (CommonJS in this case)
 					modules: (forceModules || isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
 				},
 			],
+&nbsp;
+			// Constraint: IS client
 			isClient &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >[</span>
 				// Latest stable ECMAScript features
 				require('@babel/preset-env').default,
@@ -416,11 +442,12 @@ module.exports = function(api, opts, env) {
 						browsers: ['last 2 versions', '&gt; 1%'],
 					},
 					useBuiltIns: false,
-					// Do not transform modules to CJS
-					modules: false,
+					modules: false, // Do not transform modules to CJS
 					exclude: ['transform-typeof-symbol'],
 				},
 			],
+&nbsp;
+			// Contraint: IS client OR react is forced
 			(isClient || forceReact) &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >[</span>
 				require('@babel/preset-react').default,
 				{
@@ -432,8 +459,11 @@ module.exports = function(api, opts, env) {
 					useBuiltIns: true,
 				},
 			],
-			// Add flow parsing
-			[require('@babel/preset-flow').default],
+&nbsp;
+			// Add typescript
+			enableTypescript &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >[</span>
+				require('@babel/preset-typescript').default,
+			],
 		].filter(Boolean),
 		plugins: [
 			// Experimental macros support. Will be documented after it's had some time
@@ -475,6 +505,7 @@ module.exports = function(api, opts, env) {
 				},
 			],
 &nbsp;
+			// Constraint: IS production client
 			isEnvProduction &amp;&amp; isClient &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >[</span>
 				// Remove PropTypes from production build
 				require('babel-plugin-transform-react-remove-prop-types').default,
@@ -495,12 +526,11 @@ module.exports = function(api, opts, env) {
 			// Adds syntax support for import()
 			require('@babel/plugin-syntax-dynamic-import').default,
 &nbsp;
+			// Constraint: IS testing
 			// Transform dynamic import to require
 			isEnvTest &amp;&amp; require('babel-plugin-transform-dynamic-import').default,
 &nbsp;
-			// Add react proptypes from flow types
-			isEnvDevelopment &amp;&amp; isClient &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >require('babel-plugin-flow-react-proptypes').default,</span>
-&nbsp;
+			// Constraint: NOT client
 			// Inline import graphqls files
 			!isClient &amp;&amp; [
 				require('babel-plugin-inline-import').default,
@@ -517,7 +547,7 @@ module.exports = function(api, opts, env) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Mar 20 2019 11:00:10 GMT-0500 (CDT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 11 2019 11:06:31 GMT-0500 (CDT)
 </div>
 </div>
 <script src="prettify.js"></script>

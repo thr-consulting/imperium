@@ -4,8 +4,7 @@
       "api/core",
 	    "api/babelpresetimperium",
 	    "api/graphql",
-	    "api/auth",
-	    "api/noauth"
+	    "api/auth"
     ]
   },
   "docs": {
