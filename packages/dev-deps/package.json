@@ -20,6 +20,7 @@
 		"@babel/core": "^7.4.3",
 		"@babel/register": "^7.4.0",
 		"@imperium/babel-preset-imperium": "^2.0.0-alpha.0",
+		"@types/react-router-dom": "^4.3.1",
 		"babel-loader": "^8.0.4",
 		"copy-webpack-plugin": "^5.0.1",
 		"css-loader": "^2.1.1",
