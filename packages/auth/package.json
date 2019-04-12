@@ -50,7 +50,6 @@
 		"yup": "^0.27.0"
 	},
 	"peerDependencies": {
-		"mongodb": "^3.x",
 		"react": "^16.x",
 		"react-router-dom": "^4.x",
 		"semantic-ui-react": "^0.x"
