@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Basic Auth Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -34,8 +34,8 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@imperium/core": "^2.0.0",
-		"@imperium/graphql": "^2.0.0",
+		"@imperium/core": "^2.0.1",
+		"@imperium/graphql": "^2.0.1",
 		"@thx/controls": "^10.0.1",
 		"@thx/mongoloader": "^10.0.1",
 		"@thx/tschemas": "^10.0.1",
