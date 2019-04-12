@@ -10,24 +10,30 @@ Usually exported from a `server.js` file. Should be a function that returns an o
 export default function() {
 	return {
 		// Core
-		models,
-		startup,
-		endpoints,
-		initialConfig,
+		models,         // Data Models (Mongo, Mongoose, pure logic, Dataloaders, etc)
+		startup,        // Startup function
+		endpoints,      // Custom Express endpoints
+		initialConfig,  // Initial configuration
 		
 		// Graphql
-		schema,
-		resolvers,
+		schema,         // Graphql Schema
+		resolvers,      // Graphql Resolvers
 	};
 }
 ```
 
 ## models
-A function with the following signature:
+This function is called for every single request. This allows DataLoader's to be created new for every request.
+Certain types of models don't need to be created every time, just passed through. (ie. Mongoose models).
+It has the following signature:
 
 ```javascript
 function models(connectors, context) {
-	
+	return {
+		MyModel: mongoose.model('users', myMongooseSchema),
+		MyDataloader: new DataLoader(ids => context.models.MyModel.find({_id: {$in: ids}}).exec()),
+		MyCustomLogicModel: new CustomLogicModel(connectors.mongo, context),
+	};
 }
 ```
 

@@ -73,6 +73,7 @@ export default function worker(sc, {
 		});
 
 		// Create a context for use when the server first starts up.
+		// TODO create an abstraction so we don't need to "hack" the request here
 		// @ts-ignore
 		const req: ImperiumRequest = {};
 		middleware.context({connectors, modules})(req, null, () => {});
