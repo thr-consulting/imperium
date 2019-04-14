@@ -42,7 +42,7 @@
 		"jsdoc-to-markdown": "^4.0.1",
 		"lerna": "^3.4.0",
 		"mongodb": "^3.1.6",
-		"mongodb-memory-server": "^4.2.1",
+		"mongodb-memory-server": "^5.0.3",
 		"react": "^16.8.4",
 		"react-dom": "npm:@hot-loader/react-dom",
 		"react-router-dom": "4.3.1",
