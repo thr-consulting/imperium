@@ -46,12 +46,12 @@
 		"graphql": "^14.2.1",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
-		"react-apollo": "2.3.3",
+		"react-apollo": "^2.5.5",
 		"yup": "^0.27.0"
 	},
 	"peerDependencies": {
 		"react": "^16.x",
-		"react-router-dom": "^4.x",
+		"react-router-dom": "^5.x",
 		"semantic-ui-react": "^0.x"
 	},
 	"devDependencies": {

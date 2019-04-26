@@ -40,7 +40,7 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@thx/router": "^10.1.1",
+		"@thx/router": "^10.1.2",
 		"bcrypt": "^3.0.6",
 		"body-parser": "^1.19.0",
 		"chalk": "^2.4.1",
@@ -56,7 +56,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
 		"query-string": "^6.4.0",
-		"react-dev-utils": "^8.0.0",
+		"react-dev-utils": "^9.0.0",
 		"react-hot-loader": "^4.8.4",
 		"socketcluster": "^14.3.0",
 		"socketcluster-client": "^14.2.2",
@@ -66,7 +66,7 @@
 		"express": "^4.x",
 		"react": "^16.x",
 		"react-dom": "^16.x",
-		"react-router-dom": "^4.x",
+		"react-router-dom": "^5.x",
 		"semantic-ui-react": "^0.x"
 	},
 	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42",
