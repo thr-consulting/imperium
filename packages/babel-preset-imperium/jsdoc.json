@@ -8,7 +8,7 @@
   },
   "source": {
     "include": ".",
-    "includePattern": ".+\\.js(doc)?$",
+    "includePattern": ".+\\.[tj]s(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },
   "plugins": [
@@ -16,7 +16,8 @@
     "../../tools/jsdoc.globals.js"
   ],
   "babel": {
-    "presets": [["@imperium/babel-preset-imperium", {"react": true, "forceModules": true}]],
+    "extensions": ["ts", "tsx", "js"],
+    "presets": [["@imperium/babel-preset-imperium", {"react": true, "forceModules": true, "typescript": true}]],
     "babelrc": false
   },
   "templates": {
