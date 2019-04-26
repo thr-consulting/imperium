@@ -1,5 +1,5 @@
 module.exports = {
-	parser: 'babel-eslint',
+	parser: '@typescript-eslint/parser',
 	plugins: [
 		'@typescript-eslint',
 		'react',
@@ -19,7 +19,6 @@ module.exports = {
 		'plugin:jest/recommended',
 		'airbnb',
 		'airbnb-typescript',
-		'plugin:@typescript-eslint/recommended',
 	],
 	env: {
 		commonjs: true,
@@ -66,10 +65,11 @@ module.exports = {
 		}],
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
 		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
+		// '@typescript-eslint/no-explicit-any': 'warn',
 
 		// React
 		'react/forbid-prop-types': 'error',
-		'react/jsx-filename-extension': ['error', {extensions: ['.js']}],
+		'react/jsx-filename-extension': ['error', {extensions: ['.js', '.tsx']}],
 		'react/jsx-indent': ['error', 'tab'],
 		'react/jsx-indent-props': ['error', 'tab'],
 		'react/jsx-tag-spacing': ['error', {beforeSelfClosing: 'never'}],
@@ -97,4 +97,13 @@ module.exports = {
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
 	},
+	overrides: [
+		// Typescript
+		{
+			files: ['**/*.ts', '**/*.tsx'],
+			rules: {
+				'no-undef': 'off',
+			},
+		},
+	],
 };

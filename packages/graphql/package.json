@@ -34,8 +34,8 @@
 	},
 	"dependencies": {
 		"@imperium/core": "^2.0.1",
-		"@thx/date": "^10.0.1",
-		"@thx/money": "^10.0.1",
+		"@thx/date": "^10.1.1",
+		"@thx/money": "^10.1.1",
 		"apollo-cache-inmemory": "^1.5.1",
 		"apollo-client": "^2.5.1",
 		"apollo-link": "^1.2.11",
@@ -54,7 +54,8 @@
 		"express": "^4.x"
 	},
 	"devDependencies": {
-		"webpack-cli": "^3.3.0"
+		"@types/graphql": "^14.2.0",
+		"webpack-cli": "^3.3.1"
 	},
 	"jest": {
 		"transform": {

@@ -11,9 +11,10 @@
 	],
 	"scripts": {
 		"lerna": "lerna",
-		"build": "yarn build:auth && yarn build:graphql",
+		"build": "yarn build:auth && yarn build:graphql && yarn build:core",
 		"build:auth": "cd packages/auth && yarn build",
 		"build:graphql": "cd packages/graphql && yarn build",
+		"build:core": "cd packages/core && yarn build",
 		"lint": "lerna run lint",
 		"ts": "lerna run ts",
 		"test": "lerna run test --stream --concurrency 1",
@@ -40,17 +41,17 @@
 		"jest": "^24.5.0",
 		"jsdoc-babel": "^0.5.0",
 		"jsdoc-to-markdown": "^4.0.1",
-		"lerna": "^3.4.0",
+		"lerna": "^3.13.4",
 		"mongodb": "^3.1.6",
 		"mongodb-memory-server": "^4.2.1",
 		"react": "^16.8.4",
 		"react-dom": "npm:@hot-loader/react-dom",
-		"react-router-dom": "4.3.1",
+		"react-router-dom": "^5.0.0",
 		"rimraf": "^2.6.2",
 		"semantic-ui-react": "^0.86.0",
 		"style-loader": "^0.23.0",
-		"typescript": "^3.4.2",
-		"webpack": "^4.29.6",
+		"typescript": "^3.4.5",
+		"webpack": "^4.30.0",
 		"webpack-node-externals": "^1.7.2"
 	}
 }

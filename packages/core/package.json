@@ -14,6 +14,7 @@
 		"access": "public"
 	},
 	"files": [
+		"lib",
 		"bin",
 		"scripts",
 		"src",
@@ -27,6 +28,9 @@
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
+		"build": "npm run clean && npm run build:server",
+		"build:server": "NODE_ENV=production webpack --config webpack/webpack.serverlib.config.js",
+		"clean": "rimraf ./lib/*",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"ts": "tsc",
 		"test": "jest",
@@ -36,13 +40,14 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@thx/router": "^10.0.0",
-		"bcrypt": "^3.0.5",
-		"body-parser": "^1.18.3",
+		"@thx/router": "^10.1.2",
+		"bcrypt": "^3.0.6",
+		"body-parser": "^1.19.0",
 		"chalk": "^2.4.1",
 		"chokidar": "^2.0.3",
 		"compression": "^1.7.4",
 		"cors": "^2.8.4",
+		"dataloader": "^1.4.0",
 		"debug": "^4.0.1",
 		"dotenv": "^7.0.0",
 		"dotenv-expand": "^5.1.0",
@@ -51,8 +56,8 @@
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
 		"query-string": "^6.4.0",
-		"react-dev-utils": "^8.0.0",
-		"react-hot-loader": "^4.8.0",
+		"react-dev-utils": "^9.0.0",
+		"react-hot-loader": "^4.8.4",
 		"socketcluster": "^14.3.0",
 		"socketcluster-client": "^14.2.2",
 		"whatwg-fetch": "^3.0.0"
@@ -61,7 +66,7 @@
 		"express": "^4.x",
 		"react": "^16.x",
 		"react-dom": "^16.x",
-		"react-router-dom": "^4.x",
+		"react-router-dom": "^5.x",
 		"semantic-ui-react": "^0.x"
 	},
 	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42",
