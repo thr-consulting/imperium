@@ -11,9 +11,10 @@
 	],
 	"scripts": {
 		"lerna": "lerna",
-		"build": "yarn build:auth && yarn build:graphql",
+		"build": "yarn build:auth && yarn build:graphql && yarn build:core",
 		"build:auth": "cd packages/auth && yarn build",
 		"build:graphql": "cd packages/graphql && yarn build",
+		"build:core": "cd packages/core && yarn build",
 		"lint": "lerna run lint",
 		"ts": "lerna run ts",
 		"test": "lerna run test --stream --concurrency 1",
