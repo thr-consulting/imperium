@@ -69,8 +69,8 @@ module.exports = {
 			rootRender$: path.join(pRoot, config.project.rootRender),
 
 			// If you are developing Imperium with 'yarn link', enable these to use the same React libs as the project
-			react: path.resolve(pRoot, './node_modules/react'),
-			'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
+			// react: path.resolve(pRoot, './node_modules/react'),
+			// 'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 		},
 		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},

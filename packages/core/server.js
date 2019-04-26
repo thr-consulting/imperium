@@ -1,7 +1,7 @@
-import userAuthMiddleware from './src/server/middleware/userAuth';
-import contextMiddleware from './src/server/middleware/context';
+const server = require('./lib/server');
 
-export {
-	userAuthMiddleware,
-	contextMiddleware,
+module.exports = {
+	userAuthMiddleware: server.userAuthMiddleware,
+	contextMiddleware: server.contextMiddleware,
+	ContextMap: server.ContextMap,
 };

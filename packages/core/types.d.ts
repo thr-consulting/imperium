@@ -1,6 +1,8 @@
 import React from 'react';
 import {RouteProps} from 'react-router-dom';
 import {Application, RequestHandler, NextFunction, Request, Response} from 'express';
+import DataLoader from 'dataloader';
+import {Document, Model, Types} from 'mongoose';
 import Context from './src/server/middleware/ContextMap';
 
 interface RouteContentProps {
@@ -34,13 +36,17 @@ export interface EndpointOptions {
 	middleware?: any,
 }
 
+export interface Models {
+	[key: string]: DataLoader<string | Types.ObjectId, Document> | Model<Document>,
+}
+
 export interface ServerModule {
-	models?: string,
-	schema?: string,
-	resolvers?: string,
+	schema?: string | string[],
+	resolvers?: {},
+	models?: () => Models,
 	endpoints?: (options: EndpointOptions) => void,
 	startup?: (context: Context) => Promise<any>,
-	initialConfig: () => Record<string, any>,
+	initialConfig?: () => Record<string, any>,
 }
 
 export interface Connectors {

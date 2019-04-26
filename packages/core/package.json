@@ -14,6 +14,7 @@
 		"access": "public"
 	},
 	"files": [
+		"lib",
 		"bin",
 		"scripts",
 		"src",
@@ -27,6 +28,9 @@
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
+		"build": "npm run clean && npm run build:server",
+		"build:server": "NODE_ENV=production webpack --config webpack/webpack.serverlib.config.js",
+		"clean": "rimraf ./lib/*",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"ts": "tsc",
 		"test": "jest",
@@ -43,6 +47,7 @@
 		"chokidar": "^2.0.3",
 		"compression": "^1.7.4",
 		"cors": "^2.8.4",
+		"dataloader": "^1.4.0",
 		"debug": "^4.0.1",
 		"dotenv": "^7.0.0",
 		"dotenv-expand": "^5.1.0",
