@@ -40,7 +40,7 @@
 		"jest": "^24.5.0",
 		"jsdoc-babel": "^0.5.0",
 		"jsdoc-to-markdown": "^4.0.1",
-		"lerna": "^3.4.0",
+		"lerna": "^3.13.4",
 		"mongodb": "^3.1.6",
 		"mongodb-memory-server": "^4.2.1",
 		"react": "^16.8.4",
@@ -49,8 +49,8 @@
 		"rimraf": "^2.6.2",
 		"semantic-ui-react": "^0.86.0",
 		"style-loader": "^0.23.0",
-		"typescript": "^3.4.2",
-		"webpack": "^4.29.6",
+		"typescript": "^3.4.5",
+		"webpack": "^4.30.0",
 		"webpack-node-externals": "^1.7.2"
 	}
 }

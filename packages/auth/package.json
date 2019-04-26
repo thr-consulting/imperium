@@ -36,12 +36,12 @@
 	"dependencies": {
 		"@imperium/core": "^2.0.1",
 		"@imperium/graphql": "^2.0.1",
-		"@thx/controls": "^10.0.1",
-		"@thx/mongoloader": "^10.0.1",
-		"@thx/tschemas": "^10.0.1",
+		"@thx/controls": "^10.1.0",
+		"@thx/mongoloader": "^10.1.0",
+		"@thx/tschemas": "^10.1.0",
 		"apollo-client": "^2.5.1",
 		"apollo-server": "^2.4.8",
-		"bcrypt": "^3.0.5",
+		"bcrypt": "^3.0.6",
 		"debug": "^4.0.1",
 		"graphql": "^14.2.1",
 		"jsonwebtoken": "^8.5.1",
@@ -55,8 +55,8 @@
 		"semantic-ui-react": "^0.x"
 	},
 	"devDependencies": {
-		"webpack": "^4.29.6",
-		"webpack-cli": "^3.3.0"
+		"webpack": "^4.30.0",
+		"webpack-cli": "^3.3.1"
 	},
 	"jest": {
 		"setupFiles": [

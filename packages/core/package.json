@@ -40,9 +40,9 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@thx/router": "^10.0.0",
-		"bcrypt": "^3.0.5",
-		"body-parser": "^1.18.3",
+		"@thx/router": "^10.1.0",
+		"bcrypt": "^3.0.6",
+		"body-parser": "^1.19.0",
 		"chalk": "^2.4.1",
 		"chokidar": "^2.0.3",
 		"compression": "^1.7.4",
@@ -57,7 +57,7 @@
 		"lodash": "^4.17.11",
 		"query-string": "^6.4.0",
 		"react-dev-utils": "^8.0.0",
-		"react-hot-loader": "^4.8.0",
+		"react-hot-loader": "^4.8.4",
 		"socketcluster": "^14.3.0",
 		"socketcluster-client": "^14.2.2",
 		"whatwg-fetch": "^3.0.0"
