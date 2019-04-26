@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1555097561836" clover="3.2.0">
-  <project timestamp="1555097561837" name="All files">
-    <metrics statements="247" coveredstatements="38" conditionals="114" coveredconditionals="8" methods="65" coveredmethods="16" elements="426" coveredelements="62" complexity="0" loc="247" ncloc="247" packages="6" files="17" classes="17"/>
-    <package name="client">
+<coverage generated="1556307414600" clover="3.2.0">
+  <project timestamp="1556307414601" name="All files">
+    <metrics statements="247" coveredstatements="38" conditionals="114" coveredconditionals="8" methods="65" coveredmethods="16" elements="426" coveredelements="62" complexity="0" loc="247" ncloc="247" packages="7" files="18" classes="18"/>
+    <package name="src">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="serverlib.ts" path="/home/mike/dev/imperium/packages/core/src/serverlib.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.client">
       <metrics statements="44" coveredstatements="0" conditionals="22" coveredconditionals="0" methods="13" coveredmethods="0"/>
       <file name="index.tsx" path="/home/mike/dev/imperium/packages/core/src/client/index.tsx">
         <metrics statements="44" coveredstatements="0" conditionals="22" coveredconditionals="0" methods="13" coveredmethods="0"/>
@@ -52,7 +58,7 @@
         <line num="160" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="client.components.Root">
+    <package name="src.client.components.Root">
       <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="Root.tsx" path="/home/mike/dev/imperium/packages/core/src/client/components/Root/Root.tsx">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
@@ -67,7 +73,7 @@
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
-    <package name="client.components.RouteDirector">
+    <package name="src.client.components.RouteDirector">
       <metrics statements="23" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="7" coveredmethods="0"/>
       <file name="RouteDirector.tsx" path="/home/mike/dev/imperium/packages/core/src/client/components/RouteDirector/RouteDirector.tsx">
         <metrics statements="23" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="7" coveredmethods="0"/>
@@ -99,7 +105,7 @@
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
-    <package name="server">
+    <package name="src.server">
       <metrics statements="114" coveredstatements="13" conditionals="50" coveredconditionals="4" methods="26" coveredmethods="5"/>
       <file name="WorkerDev.js" path="/home/mike/dev/imperium/packages/core/src/server/WorkerDev.js">
         <metrics statements="21" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
@@ -234,7 +240,7 @@
         <line num="97" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="server.endpoints">
+    <package name="src.server.endpoints">
       <metrics statements="17" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="initialState.ts" path="/home/mike/dev/imperium/packages/core/src/server/endpoints/initialState.ts">
         <metrics statements="11" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
@@ -260,7 +266,7 @@
         <line num="18" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="server.middleware">
+    <package name="src.server.middleware">
       <metrics statements="43" coveredstatements="19" conditionals="20" coveredconditionals="4" methods="13" coveredmethods="10"/>
       <file name="ContextMap.ts" path="/home/mike/dev/imperium/packages/core/src/server/middleware/ContextMap.ts">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
