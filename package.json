@@ -48,7 +48,7 @@
 		"react-dom": "npm:@hot-loader/react-dom",
 		"react-router-dom": "^5.0.0",
 		"rimraf": "^2.6.2",
-		"semantic-ui-react": "^0.86.0",
+		"semantic-ui-react": "^0.87.0",
 		"style-loader": "^0.23.0",
 		"typescript": "^3.4.5",
 		"webpack": "^4.30.0",
