@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/core",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"description": "Core Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -42,7 +42,7 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@imperium/context": "^2.0.2",
+		"@imperium/context": "^2.0.3",
 		"@thx/router": "^10.1.2",
 		"bcrypt": "^3.0.6",
 		"body-parser": "^1.19.0",
