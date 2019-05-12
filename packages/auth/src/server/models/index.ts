@@ -1,8 +1,10 @@
 import Auth from './Auth';
+import Role from './Role';
 
 export default function(connectors, ctx) {
-	if (!connectors.mongo) throw new Error('Mongo connector not defined');
+	if (!connectors.mongoose) throw new Error('Mongoose connector not defined');
 	return {
-		Auth: new Auth(connectors.mongo, ctx),
+		Auth: new Auth(ctx),
+		Role,
 	};
 }

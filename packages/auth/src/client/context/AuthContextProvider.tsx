@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 // import debug from 'debug';
 import PropTypes from 'prop-types';
-import {Context} from './context';
+import {AuthContext} from '@imperium/context';
 import checkPermissions from './checkPermissions';
 
 // const d = debug('imperium.auth.AuthContextProvider');
@@ -28,9 +28,9 @@ export default function AuthContextProvider(props) {
 	};
 
 	return (
-		<Context.Provider value={eState}>
+		<AuthContext.Provider value={eState}>
 			{props.children}
-		</Context.Provider>
+		</AuthContext.Provider>
 	);
 }
 

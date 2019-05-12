@@ -40,6 +40,12 @@ export default function({app, connectors, modules, middleware}: EndpointOptions)
 		// @ts-ignore
 		context: ({req}) => req.context, // Context is stored in req. It is created in the contextMiddleware() method below.
 		schemaDirectives,
+		formatError: error => {
+			// TODO Do more here
+			// eslint-disable-next-line no-console
+			console.error(error);
+			return error;
+		},
 	});
 
 	d('Adding graphql endpoint');

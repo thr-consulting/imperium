@@ -13,3 +13,8 @@ export interface ClientAuth {
 	user: UserObj | null,
 	permissions: string[],
 }
+
+export interface LoginRet {
+	jwt: string,
+	auth: ClientAuth,
+}

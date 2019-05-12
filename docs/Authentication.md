@@ -109,4 +109,4 @@ export default function rootRender({Child, auth}) {
 ### Theme
 You can provide a background to the login window by adding the following file to your project:
 
-`<project_root>/assets/imperium/auth/signin.jpg`
+`<project_root>/assets/imperium/auth/login.jpg`

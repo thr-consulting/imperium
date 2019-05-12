@@ -39,15 +39,34 @@ function mergeModuleRoutes(modules): ImperiumRoute[] {
 }
 
 /**
+ * Merge module fragments into a single object
+ * @param modules
+ * @return {any}
+ */
+function mergeModuleFragments(modules) {
+	return modules.reduce((memo, module) => {
+		if (module.fragments) {
+			return {
+				...memo,
+				...module.fragments,
+			};
+		}
+		return memo;
+	}, {});
+}
+
+/**
  * Render the root component into the DOM
  * @param Root
  * @param routes
+ * @param fragments
  * @param startupData
  */
-function renderRoot(Root, routes, startupData): void {
+function renderRoot(Root, routes, fragments, startupData): void {
 	render(
 		<Root
 			routes={routes}
+			fragments={fragments}
 			render={rootRender}
 			startupData={startupData}
 		/>,
@@ -78,8 +97,11 @@ function startFromState(initState?: {}): void {
 	// Merge module routes
 	const routes = mergeModuleRoutes(modules);
 
+	// Graphql fragments
+	const fragments = mergeModuleFragments(modules);
+
 	// Render root component
-	renderRoot(RootComponent, routes, startupData);
+	renderRoot(RootComponent, routes, fragments, startupData);
 
 	// Hot Module Replacement API
 	if (module.hot) {
@@ -96,7 +118,7 @@ function startFromState(initState?: {}): void {
 			// d('HOT ACCEPT rootRender');
 			// Load new Root component and re-render
 			const newRoot = require('./components/Root').default; // eslint-disable-line global-require
-			renderRoot(newRoot, routes, startupData);
+			renderRoot(newRoot, routes, fragments, startupData);
 		});
 
 		/*
@@ -109,8 +131,9 @@ function startFromState(initState?: {}): void {
 			// Load new client modules and re-render
 			const mods = require('clientModules').default; // eslint-disable-line no-shadow,global-require
 			const newRoutes = mergeModuleRoutes(mods.map((moduleFunc): ClientModule => moduleFunc()));
+			const newFragments = mergeModuleFragments(mods.map((moduleFunc): ClientModule => moduleFunc()));
 			// const newStore = makeStore(initialState, mods);
-			renderRoot(RootComponent, newRoutes, startupData);
+			renderRoot(RootComponent, newRoutes, newFragments, startupData);
 		});
 	}
 

@@ -9,3 +9,4 @@ module.exports = function ImperiumAuthModule() {
 
 module.exports.AuthContextConsumer = client.AuthContextConsumer;
 module.exports.AuthContextProvider = client.AuthContextProvider;
+module.exports.useAuth = client.useAuth;

@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import debug from 'debug';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import isFunction from 'lodash/isFunction';
+import chalk from 'chalk';
 import createHtml from './createHtml';
 import production from './endpoints/production';
 import initialState from './endpoints/initialState';
@@ -79,9 +81,30 @@ export default function worker(sc, {
 		middleware.context({connectors, modules})(req, null, () => {});
 
 		// Get Promise's for each module's startup code
+		// const startupPromises = modules.reduce((memo, module) => {
+		// 	if (module.startup && isFunction(module.startup)) {
+		// 		return [...memo, module.startup(req.context)];
+		// 	}
+		// 	return memo;
+		// }, [] as Promise<any>[]);
+
+		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
-				return [...memo, module.startup(req.context)];
+				const moduleStartupReturn = module.startup(req.context);
+				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
+					moduleStartupReturn.catch(err => {
+						console.log(chalk.bold.white('#######################################################'));
+						console.log(chalk.bold.red(' >>> Error running module startup\n'));
+						console.error(err);
+						console.log(chalk.bold.white('#######################################################'));
+						return Promise.reject(err);
+					});
+				}
+				return [
+					...memo,
+					moduleStartupReturn,
+				];
 			}
 			return memo;
 		}, [] as Promise<any>[]);
@@ -90,6 +113,7 @@ export default function worker(sc, {
 		d('Executing module startup');
 		Promise.all(startupPromises).catch(err => {
 			d(`Module startup problem: ${err}`);
+			sc.scServer.close();
 		});
 	}).catch(reason => {
 		console.log('ERROR: Connectors couldn\'t be created.'); // eslint-disable-line no-console

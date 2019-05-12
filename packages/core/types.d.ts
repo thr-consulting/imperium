@@ -2,6 +2,7 @@ import React from 'react';
 import {RouteProps} from 'react-router-dom';
 import {Application, RequestHandler, NextFunction, Request, Response} from 'express';
 import DataLoader from 'dataloader';
+import {DocumentNode} from 'graphql';
 import {Document, Model, Types} from 'mongoose';
 import Context from './src/server/middleware/ContextMap';
 
@@ -24,9 +25,12 @@ export interface ImperiumRoute extends RouteProps {
 	portal?: React.ComponentType<{ route: ImperiumRoute, routeKey: string }>,
 }
 
+export type Fragments = Record<string, any>;
+
 export interface ClientModule {
 	startup?: (initialConfig: {}, initialState: {}) => {} | void,
 	routes?: ImperiumRoute[],
+	fragments?: Fragments,
 }
 
 export interface EndpointOptions {
@@ -41,7 +45,7 @@ export interface Models {
 }
 
 export interface ServerModule {
-	schema?: string | string[],
+	schema?: DocumentNode | DocumentNode[],
 	resolvers?: {},
 	models?: () => Models,
 	endpoints?: (options: EndpointOptions) => void,
@@ -64,4 +68,14 @@ export interface ImperiumRequestHandler extends RequestHandler {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Model {
+}
+
+export type ServerModuleFunc = (connectors: Connectors[], context: ContextMap) => ServerModule;
+
+export interface ContextMap {
+	addModule: (moduleFunc: ServerModuleFunc) => void,
+	getModel: (name: string) => Model,
+	models: Record<string, Model>,
+	auth: any,
+	connectors: Connectors[],
 }

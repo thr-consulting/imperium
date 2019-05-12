@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Context} from './context';
+import {AuthContext} from '@imperium/context';
 
 export default function AuthContextConsumer(props) {
 	return (
-		<Context.Consumer>
+		<AuthContext.Consumer>
 			{children => props.children(children)}
-		</Context.Consumer>
+		</AuthContext.Consumer>
 	);
 }
 

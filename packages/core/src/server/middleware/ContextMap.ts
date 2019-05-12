@@ -1,4 +1,4 @@
-import {Connectors, Model} from '../../../types';
+import {Connectors, Model, ServerModuleFunc} from '../../../types';
 
 export default class Context {
 	_connectors: Connectors[];
@@ -17,7 +17,7 @@ export default class Context {
 	 * an object keyed with data model objects.
 	 * @param moduleFunc
 	 */
-	addModule(moduleFunc): void {
+	addModule(moduleFunc: ServerModuleFunc): void {
 		const moduleModels = moduleFunc(this._connectors, this);
 		this._models = Object.assign({}, this._models, moduleModels);
 	}

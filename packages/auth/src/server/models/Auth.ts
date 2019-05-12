@@ -1,17 +1,13 @@
-/* eslint-disable no-underscore-dangle */
 import debug from 'debug';
 import {compare, hash} from 'bcrypt';
+import {pseudoRandomBytes, randomBytes} from 'crypto';
 import {sign} from 'jsonwebtoken';
-import MongoLoader from '@thx/mongoloader';
-import randomId from './randomId';
+import {ContextMap} from '@imperium/core';
+import {ServerAuth, ClientAuth, LoginRet} from '../../types';
+import {incorrectPasswordError, userNotFoundError} from './errors';
 import sha256 from './sha256';
-import {
-	userNotFoundError,
-	incorrectPasswordError,
-} from './errors';
-import {ServerAuth, ClientAuth} from '../../types';
 
-const d = debug('imperium.auth.server.Auth');
+const d = debug('imperium.auth.Auth');
 
 /**
  * Takes in a string or password object and returns the hashed password object. Enforces sha-256 algorithm.
@@ -34,13 +30,13 @@ function getPasswordString(password): string {
 
 /**
  * Validates a user object and a password string/object.
- * @param user
+ * @param bcrypt - Encrypted password
  * @param password
  * @return {Promise<boolean>}
  */
-export async function validatePassword(user, password): Promise<boolean> {
+export async function validatePassword(bcrypt, password): Promise<boolean> {
 	const pword = getPasswordString(password);
-	return compare(pword, user.services.password.bcrypt);
+	return compare(pword, bcrypt);
 }
 
 /**
@@ -51,27 +47,29 @@ export async function validatePassword(user, password): Promise<boolean> {
  * @param options
  * @return {string}
  */
-function signJwt(user, payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}): string {
+function signJwt(payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}): string {
+	const numBytes = Math.ceil(4);
+	let bytes;
+	try {
+		bytes = randomBytes(numBytes);
+	} catch (e) {
+		bytes = pseudoRandomBytes(numBytes);
+	}
+	const rnd = bytes.toString('hex').substring(0, 4);
+
 	return sign(Object.assign({}, {
-		id: user._id,
-		rnd: randomId(8),
-		roles: user.roles,
+		rnd,
 	}, payload), process.env.JWT_SECRET, options);
 }
 
 /**
  * Model class for authentication. Uses a Mongo `roles` collection and has an opinionated user object.
  */
-export default class Auth extends MongoLoader {
-	/**
-	 * Creates a new Auth model.
-	 * @param {object} connection - The Mongo connection.
-	 * @param {object} ctx - The Context object that this model belongs to.
-	 */
-	constructor(connection, ctx) {
-		super(connection, ctx, 'roles');
-		this.createIndex('name', {unique: true});
-		this.createLoader('name');
+export default class Auth {
+	_ctx: ContextMap;
+
+	constructor(ctx) {
+		this._ctx = ctx;
 	}
 
 	/**
@@ -92,15 +90,16 @@ export default class Auth extends MongoLoader {
 	 * @return {Promise<Object>} The authentication object created from decoded JWT data.
 	 */
 	async buildAuthFromJwt(decodedJWT): Promise<ServerAuth> {
-		const authModel = this;
+		const {User, Role} = this._ctx.models;
+
 		return {
 			userId: decodedJWT.id,
 			user: async () => { // This function retrieves the basic user information
-				const user = await authModel.models.Users.getById(decodedJWT.id);
-				if (!user) return authModel.defaultAuth();
-				return authModel.models.Users.getBasicInfo(user);
+				const user = await User.getById(decodedJWT.id);
+				if (!user) return null;
+				return User.getData(user).basicInfo;
 			},
-			permissions: await this.getPermissions(decodedJWT.roles),
+			permissions: await Role.getPermissions(decodedJWT.roles),
 		};
 	}
 
@@ -119,48 +118,21 @@ export default class Auth extends MongoLoader {
 	}
 
 	/**
-	 * Attempts the log in process.
-	 * @param {string} email - The email to log in with.
-	 * @param {string|object} password - The password string/object to log in with.
-	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
-	 */
-	async logIn(email, password): Promise<{jwt: string, auth: ClientAuth}> {
-		d('Starting log in process');
-
-		// Verify parameters
-		const {Users} = this.models;
-
-		if (!Users) throw new Error('Users model not defined');
-
-		const user = await Users.getByEmail(email);
-		if (!user) throw userNotFoundError();
-
-		if (user.services && user.services.password && user.services.password.bcrypt) {
-			if (await validatePassword(user, password)) {
-				return {
-					jwt: signJwt(user),
-					auth: {
-						userId: user._id,
-						permissions: await this.getPermissions(user.roles),
-						user: Users.getBasicInfo(user),
-					},
-				};
-			}
-		}
-		d(`Incorrect password: ${email}`);
-		throw incorrectPasswordError();
-	}
-
-	/**
 	 * Generate a JWT for the currently logged in user.
 	 * @param payload - Optional JWT claims
 	 * @param options - Optional JWT options
 	 * @return {Promise.<void>}
 	 */
 	async generateJwt(payload, options): Promise<string | null> {
-		const user = await this.ctx.auth.user();
+		if (!this._ctx.auth) throw new Error('auth isn\'t set on context');
+		const user = await this._ctx.auth.user();
 		if (!user) return null;
-		return signJwt(user, payload, options);
+		const {id, roles} = this._ctx.models.User.getData(user);
+		return signJwt({
+			...payload,
+			id,
+			roles,
+		}, options);
 	}
 
 	/**
@@ -174,37 +146,38 @@ export default class Auth extends MongoLoader {
 	}
 
 	/**
-	 * Gets the array of permissions from an array of roles
-	 * @param roles
-	 * @return {Promise.<void>}
+	 * Attempts the log in process.
+	 * @param {string} email - The email to log in with.
+	 * @param {string|object} password - The password string/object to log in with.
+	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
-	async getPermissions(roles = []) {
-		const perms = await this.loadMany(roles, 'name');
-		return perms.reduce((memo, value) => {
-			if (!value) return memo;
-			return [...memo, ...value.permissions];
-		}, []);
-	}
+	async logIn(email, password): Promise<LoginRet> {
+		d(`Starting log in process: ${email}`);
 
-	/**
-	 * Create a new role
-	 * @param name
-	 * @param permissions
-	 * @return {Promise|*}
-	 */
-	createRole(name, permissions) {
-		return this.insertOne(this.prime({
-			_id: randomId(),
-			name,
-			permissions,
-		}));
-	}
+		// Verify parameters
+		const {User, Role} = this._ctx.models;
 
-	/**
-	 * Gets a role by name
-	 * @param name
-	 */
-	getByName(name) {
-		return this.load(name, 'name');
+		if (!User) throw new Error('User model not defined');
+
+		const user = await User.getByEmail(email);
+		if (!user) throw userNotFoundError();
+
+		const {id, basicInfo, password: userPassword, roles} = User.getData(user);
+
+		if (userPassword) {
+			if (await validatePassword(userPassword, password)) {
+				d('Everything validated. Returning jwt and auth');
+				return {
+					jwt: signJwt({id, roles}),
+					auth: {
+						userId: id,
+						permissions: await Role.getPermissions(roles),
+						user: basicInfo,
+					},
+				};
+			}
+		}
+		d(`Incorrect password: ${email}`);
+		throw incorrectPasswordError();
 	}
 }

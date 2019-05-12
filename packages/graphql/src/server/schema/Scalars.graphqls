@@ -6,3 +6,4 @@ scalar UUID
 scalar LocalDate
 scalar Moment
 scalar Money
+scalar ObjectId

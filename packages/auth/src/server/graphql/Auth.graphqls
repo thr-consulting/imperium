@@ -4,16 +4,16 @@ input PasswordDigest {
 }
 
 type Auth {
-	userId: String!
+	userId: ObjectId!
 	permissions: [String]
 	user: User!
 }
 
-type LogInReturn {
+type LoginReturn {
 	jwt: String!
 	auth: Auth
 }
 
 extend type Mutation {
-	logIn(email: String!, password: PasswordDigest!): LogInReturn
+	logIn(email: String!, password: PasswordDigest!): LoginReturn
 }

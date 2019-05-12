@@ -1,21 +1,27 @@
+import gql from 'graphql-tag';
 import debug from 'debug';
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {Mutation} from 'react-apollo';
 import PropTypes from 'prop-types';
+import {useFragments} from '@imperium/context';
 import LogInForm from '../components/LogInForm';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
 import {logInMutation} from '../graphql';
-import {Context} from '../context/context';
+import useAuth from '../context/useAuth';
 
-const d = debug('imperium:auth:LogIn');
+const d = debug('imperium.auth.LogIn');
 
 export default function LogIn(props) {
 	const [open, setOpen] = useState(true);
 	const [view, setView] = useState('login');
-	const authContext = useContext(Context);
+	const authContext = useAuth();
+	const fragments = useFragments();
 
 	const {restoreRoute, routeKey} = props;
+
+	if (!fragments || !fragments.userBasicInfoFragment) throw new Error('userBasicInfoFragment not defined in fragments context');
+	const combinedLogInMutation = gql`${logInMutation} ${fragments.userBasicInfoFragment}`;
 
 	const form = view === 'forgotpassword' ? (
 		<ForgotPasswordForm
@@ -23,7 +29,7 @@ export default function LogIn(props) {
 			setView={setView}
 		/>
 	) : (
-		<Mutation mutation={logInMutation}>
+		<Mutation mutation={combinedLogInMutation}>
 			{(logIn, {loading, error}) => (
 				<LogInForm
 					setOpen={setOpen}

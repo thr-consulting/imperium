@@ -85,14 +85,14 @@ function RouteDirector(props: Props): JSX.Element {
 						})}
 					</SwitchWithError>
 					{
-						routes.map(route => {
+						routes.map(Route => {
 							// If the route is not a portal route or if the current key isn't present, don't render it here
-							if (!route.portal || !currentQuery[route.key]) return null;
-							d('Rendering a portal', route.key);
+							if (!Route.portal || !currentQuery[Route.key]) return null;
+							d('Rendering a portal', Route.key);
 							return (
-								<route.portal
-									key={route.key}
-									routeKey={route.key}
+								<Route.portal
+									key={Route.key}
+									routeKey={Route.key}
 									restoreRoute={(routeKey: string) => {
 										d('Removing portal route key', routeKey);
 										// @ts-ignore
@@ -102,7 +102,7 @@ function RouteDirector(props: Props): JSX.Element {
 											search: stringify(currentQuery),
 										});
 									}}
-									{...route}
+									{...Route}
 								/>
 							);
 						})

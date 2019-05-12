@@ -5,6 +5,7 @@ import {
 	GraphQLUUID,
 	GraphQLPassword,
 } from 'graphql-custom-types';
+import GraphQLObjectId from 'graphql-scalar-objectid';
 // @ts-ignore
 import {
 	GraphQLLocalDate,
@@ -38,4 +39,5 @@ export const resolvers = {
 	LocalDate: GraphQLLocalDate,
 	Moment: GraphQLMoment,
 	Money: GraphQLMoney,
+	ObjectId: GraphQLObjectId,
 };

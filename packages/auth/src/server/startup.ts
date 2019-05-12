@@ -5,13 +5,11 @@ const d = debug('imperium.auth.server.startup');
 
 export default async function startup(ctx) {
 	d('Auth startup');
-	const {Auth} = ctx.models;
+	const {Role} = ctx.models;
 	const {SYSADMIN} = permissions;
 
-	if (!await Auth.getByName(SYSADMIN)) {
-		await Auth.createRole(SYSADMIN, [SYSADMIN]);
+	if (!await Role.findOne().byName(SYSADMIN)) {
+		const SysadminRole = new Role({name: SYSADMIN, permissions: [SYSADMIN]});
+		await SysadminRole.save();
 	}
-
-	// const x = await Auth.signIn('darkadept@durbn.net', 'sysadmin');
-	// d(x);
 }

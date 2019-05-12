@@ -5,8 +5,7 @@ mutation LogIn($email: String!, $password: PasswordDigest!) {
       userId
       permissions
       user {
-        id
-        name
+        ...userBasicInfoFragment
       }
     }
   }
