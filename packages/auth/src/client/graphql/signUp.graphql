@@ -1,0 +1,3 @@
+mutation SignUp($email: Email!) {
+	signUp(email: $email)
+}

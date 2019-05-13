@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {SetStateAction, Dispatch} from 'react';
 import debug from 'debug';
 import {Form, Icon} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
@@ -13,16 +12,22 @@ const schema = object({
 	email: TSchemas.email(),
 });
 
-export default function ForgotPasswordForm(props) {
-	const {setOpen, setView, loading, error} = props;
+interface Props {
+	forgotPassword: (email: string) => void,
+	setView: Dispatch<SetStateAction<string>>,
+	loading: boolean,
+	error: any,
+}
+
+export default function ForgotPasswordForm(props: Props) {
+	const {setView, loading, error, forgotPassword} = props;
 
 	return (
 		<TForm
 			initialValues={{email: ''}}
 			validationSchema={schema}
 			onSubmit={({email}) => {
-				d(email);
-				setOpen(false);
+				forgotPassword(email);
 			}}
 			errors={error}
 			loading={loading}
@@ -54,10 +59,3 @@ export default function ForgotPasswordForm(props) {
 		/>
 	);
 }
-
-ForgotPasswordForm.propTypes = {
-	setOpen: PropTypes.func.isRequired,
-	setView: PropTypes.func.isRequired,
-	loading: PropTypes.bool,
-	error: PropTypes.any, // eslint-disable-line
-};

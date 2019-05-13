@@ -1,4 +1,4 @@
-mutation LogIn($email: String!, $password: PasswordDigest!) {
+mutation LogIn($email: Email!, $password: PasswordDigest!) {
   logIn(email: $email, password: $password) {
     jwt
     auth {

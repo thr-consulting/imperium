@@ -81,14 +81,6 @@ export default function worker(sc, {
 		middleware.context({connectors, modules})(req, null, () => {});
 
 		// Get Promise's for each module's startup code
-		// const startupPromises = modules.reduce((memo, module) => {
-		// 	if (module.startup && isFunction(module.startup)) {
-		// 		return [...memo, module.startup(req.context)];
-		// 	}
-		// 	return memo;
-		// }, [] as Promise<any>[]);
-
-		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
 				const moduleStartupReturn = module.startup(req.context);

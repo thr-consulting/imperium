@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
 
-export default function ForgotPassword(props) {
+interface Props {
+	restoreRoute: (routeKey: string) => void,
+	routeKey: string,
+}
+
+export default function ForgotPassword(props: Props): JSX.Element {
 	const [open, setOpen] = useState(true);
 
 	const {restoreRoute, routeKey} = props;
@@ -16,8 +20,3 @@ export default function ForgotPassword(props) {
 		</Transit>
 	);
 }
-
-ForgotPassword.propTypes = {
-	restoreRoute: PropTypes.func.isRequired,
-	routeKey: PropTypes.string.isRequired,
-};

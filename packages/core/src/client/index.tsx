@@ -121,6 +121,10 @@ function startFromState(initState?: {}): void {
 			renderRoot(newRoot, routes, fragments, startupData);
 		});
 
+		module.hot.accept('routeDefaults', (): void => {
+			renderRoot(RootComponent, routes, fragments, startupData);
+		});
+
 		/*
 			When a client module changes we recreate the Redux store and reload the routes.
 			We cannot re-run the startup logic. In this case you will have to refresh the page to load the new changes.

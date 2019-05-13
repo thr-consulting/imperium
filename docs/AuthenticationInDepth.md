@@ -2,6 +2,7 @@
 
 ## Actions
 * Route authentication - On every express request (including graphql requests) we need to authenticate the user.
+* Token refresh - Refresh the token when it expires.
 * Log in - The user wants to log in.
 * Log out - The user wants to log out.
 * Sign up - The user wants to sign up.
@@ -11,9 +12,9 @@
 
 ## Definitions
 
-* **Auth object** - On object representing the authenticated user. It can contain anything,
+* **Auth object** - (Defined by @imperium/core) On object representing the authenticated user. It can contain anything,
 including methods (on the server), and usually contains userId, etc.
-* **User basic info object** - Data extracted from the user object that will be sent to the client.
+* **User basic info object** - (Defined by @imperium/auth) Data extracted from the user object that will be sent to the client.
 It isn't public data, but will be sent over the wire when the user logs in. This object is a part
 of the Auth object. It can contain whatever field you would like.
 

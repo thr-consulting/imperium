@@ -180,4 +180,14 @@ export default class Auth {
 		d(`Incorrect password: ${email}`);
 		throw incorrectPasswordError();
 	}
+
+	async forgotPassword(email): Promise<boolean> {
+		d(email);
+		return true;
+	}
+
+	async signUp(email): Promise<boolean> {
+		d(email);
+		return true;
+	}
 }

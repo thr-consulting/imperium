@@ -2,18 +2,21 @@ import gql from 'graphql-tag';
 import debug from 'debug';
 import React, {useState} from 'react';
 import {Mutation} from 'react-apollo';
-import PropTypes from 'prop-types';
 import {useFragments} from '@imperium/context';
 import LogInForm from '../components/LogInForm';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
-import {logInMutation} from '../graphql';
+import {logInMutation, forgotPasswordMutation} from '../graphql';
 import useAuth from '../context/useAuth';
 
 const d = debug('imperium.auth.LogIn');
 
-export default function LogIn(props) {
-	const [open, setOpen] = useState(true);
+interface Props {
+	restoreRoute: (routeKey: string) => void,
+	routeKey: string,
+}
+
+export default function LogIn(props: Props) {
 	const [view, setView] = useState('login');
 	const authContext = useAuth();
 	const fragments = useFragments();
@@ -24,15 +27,25 @@ export default function LogIn(props) {
 	const combinedLogInMutation = gql`${logInMutation} ${fragments.userBasicInfoFragment}`;
 
 	const form = view === 'forgotpassword' ? (
-		<ForgotPasswordForm
-			setOpen={setOpen}
-			setView={setView}
-		/>
+		<Mutation mutation={forgotPasswordMutation}>
+			{(forgotPassword, {loading, error}) => (
+				<ForgotPasswordForm
+					setView={setView}
+					loading={loading}
+					error={error}
+					forgotPassword={email => {
+						forgotPassword({variables: {email}}).then(ret => {
+							d('Requested password reset success', ret);
+							restoreRoute(routeKey);
+						});
+					}}
+				/>
+			)}
+		</Mutation>
 	) : (
 		<Mutation mutation={combinedLogInMutation}>
 			{(logIn, {loading, error}) => (
 				<LogInForm
-					setOpen={setOpen}
 					setView={setView}
 					loading={loading}
 					error={error}
@@ -60,13 +73,8 @@ export default function LogIn(props) {
 	);
 
 	return (
-		<Transit open={open} restoreRoute={restoreRoute} routeKey={routeKey}>
+		<Transit open restoreRoute={restoreRoute} routeKey={routeKey}>
 			{form}
 		</Transit>
 	);
 }
-
-LogIn.propTypes = {
-	restoreRoute: PropTypes.func.isRequired,
-	routeKey: PropTypes.string.isRequired,
-};

@@ -15,5 +15,7 @@ type LoginReturn {
 }
 
 extend type Mutation {
-	logIn(email: String!, password: PasswordDigest!): LoginReturn
+	logIn(email: Email!, password: PasswordDigest!): LoginReturn
+	forgotPassword(email: Email!): Boolean
+	signUp(email: Email!): Boolean
 }
