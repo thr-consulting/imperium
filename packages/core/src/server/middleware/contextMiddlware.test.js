@@ -1,4 +1,4 @@
-import context from './context';
+import contextMiddleware from './contextMiddleware';
 
 const myConnectors = {
 	MyConnector: {},
@@ -16,7 +16,7 @@ describe('context', () => {
 	it('should execute the middleware properly', () => {
 		const req = {};
 		const next = jest.fn();
-		context({
+		contextMiddleware({
 			connectors: myConnectors,
 			modules: [{models: moduleFunc}],
 		})(req, null, next);

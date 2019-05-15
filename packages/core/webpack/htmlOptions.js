@@ -39,7 +39,8 @@ function htmlOptions({iSrcDir, pRoot, options}, config) {
 		}
 		return memo;
 	}, {
-		jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP', // This initialConfig option is always present
+		jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP.jwt', // These initialConfig options are always present
+		rtoken_localstorage_name: process.env.RTOKEN_LOCALSTORAGE_NAME || 'IMP.rtoken',
 	});
 
 	return {

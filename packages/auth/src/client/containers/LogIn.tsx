@@ -3,6 +3,7 @@ import debug from 'debug';
 import React, {useState} from 'react';
 import {Mutation} from 'react-apollo';
 import {useFragments} from '@imperium/context';
+import {InitialConfig} from '@imperium/core';
 import LogInForm from '../components/LogInForm';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
@@ -10,6 +11,12 @@ import {logInMutation, forgotPasswordMutation} from '../graphql';
 import useAuth from '../context/useAuth';
 
 const d = debug('imperium.auth.LogIn');
+
+declare global {
+	interface Window {
+		__INITIAL_CONF__: InitialConfig,
+	}
+}
 
 interface Props {
 	restoreRoute: (routeKey: string) => void,
@@ -44,7 +51,7 @@ export default function LogIn(props: Props) {
 		</Mutation>
 	) : (
 		<Mutation mutation={combinedLogInMutation}>
-			{(logIn, {loading, error}) => (
+			{(logIn, {loading, error, client}) => (
 				<LogInForm
 					setView={setView}
 					loading={loading}
@@ -57,11 +64,16 @@ export default function LogIn(props: Props) {
 									userId: ret.data.logIn.auth.userId,
 									user: ret.data.logIn.auth.user,
 									permissions: ret.data.logIn.auth.permissions,
-									jwt: ret.data.logIn.jwt,
+									// jwt: ret.data.logIn.jwt, // TODO Do I really need the JWT in my client Auth?
 								});
-								const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase,@typescript-eslint/camelcase
+								const {jwt_localstorage_name, rtoken_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase,@typescript-eslint/camelcase
 								window.localStorage.setItem(jwt_localstorage_name, ret.data.logIn.jwt);
-								restoreRoute(routeKey);
+								window.localStorage.setItem(rtoken_localstorage_name, ret.data.logIn.rtoken);
+
+								// Reset apollo cache, now that we have tokens
+								client.resetStore().then(() => {
+									restoreRoute(routeKey);
+								});
 							})
 							.catch(err => {
 								d(err.message);

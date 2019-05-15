@@ -11,6 +11,7 @@ type Auth {
 
 type LoginReturn {
 	jwt: String!
+	rtoken: String!
 	auth: Auth
 }
 

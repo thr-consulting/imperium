@@ -7,7 +7,6 @@ import isFunction from 'lodash/isFunction';
 import chalk from 'chalk';
 import createHtml from './createHtml';
 import production from './endpoints/production';
-import initialState from './endpoints/initialState';
 import middleware from './middleware';
 import {ImperiumRequest, ServerModule} from '../../types';
 
@@ -59,9 +58,6 @@ export default function worker(sc, {
 		// Production only endpoint for client chunks
 		production({app});
 
-		// End point to retrieve the initial state. Must provide a valid JWT to access this endpoint.
-		initialState({app, connectors, modules});
-
 		// Module custom endpoints
 		d('Creating module custom endpoints');
 		modules.forEach(module => {
@@ -78,7 +74,7 @@ export default function worker(sc, {
 		// TODO create an abstraction so we don't need to "hack" the request here
 		// @ts-ignore
 		const req: ImperiumRequest = {};
-		middleware.context({connectors, modules})(req, null, () => {});
+		middleware.contextMiddleware({connectors, modules})(req, null, () => {});
 
 		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {

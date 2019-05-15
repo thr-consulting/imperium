@@ -104,3 +104,10 @@ Use the React Hook `useAuth()` to access the auth object on the client.
 10. Startup data gets passed to `<Root>` as a prop.
 11. The startup data gets passed as parameters to the `rootRender` function.
 12. The `rootRender` function should render `AuthContextProvider` and pass the auth startup data as props.
+
+### Login
+1. Client runs `logIn` mutation, passing email and password digest.
+2. Server gets user record and validated password.
+3. Server signs an access token (JWT) and a refresh token (RJWT) and passes back an (client) Auth object.
+
+### 

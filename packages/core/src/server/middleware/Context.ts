@@ -1,8 +1,8 @@
-import {Connectors, Model, ServerModuleFunc} from '../../../types';
+import {Connectors, ServerModuleFunc} from '../../../types';
 
 export default class Context {
 	_connectors: Connectors[];
-	_models: Record<string, Model>;
+	_models: Record<string, any>;
 	_auth: any;
 
 	constructor(connectors) {
@@ -27,7 +27,7 @@ export default class Context {
 	 * @param name
 	 * @returns {*}
 	 */
-	getModel(name): Model {
+	getModel(name): any {
 		return this._models[name];
 	}
 
@@ -35,7 +35,7 @@ export default class Context {
 	 * Returns all the models
 	 * @returns {*}
 	 */
-	get models(): Record<string, Model> {
+	get models(): Record<string, any> {
 		return this._models;
 	}
 

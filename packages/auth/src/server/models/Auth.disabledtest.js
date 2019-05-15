@@ -1,5 +1,5 @@
 /* eslint-disable global-require, no-underscore-dangle */
-import Context from '@imperium/core/src/server/middleware/ContextMap';
+import Context from '@imperium/core/src/server/middleware/Context';
 import {mongoSetup, mongoTeardown} from '../../../../../tests/mongo';
 import Auth, {validatePassword} from './Auth';
 import * as randomId from './randomId';

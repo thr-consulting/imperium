@@ -6,6 +6,7 @@ import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
 import {ApolloServer} from 'apollo-server-express';
 import merge from 'lodash/merge';
+import {DocumentNode} from 'graphql';
 import {schema as coreSchema, resolvers as coreResolvers} from './schema';
 import schemaDirectives from './security/schemaDirectives';
 
@@ -15,12 +16,13 @@ export default function({app, connectors, modules, middleware}: EndpointOptions)
 	d('Merging graphql schema');
 
 	// Merge all the typeDefs from all modules
-	const typeDefs = modules.reduce((memo, module) => {
+	const typeDefs = modules.reduce((memo, module): DocumentNode[] => {
 		if (module.schema) {
 			if (isArray(module.schema)) {
-				return [...memo, ...module.schema];
+				return [...memo, ...module.schema as DocumentNode[]];
 			}
 			if (isString(module.schema)) {
+				// @ts-ignore
 				return [...memo, module.schema];
 			}
 		}
@@ -56,8 +58,8 @@ export default function({app, connectors, modules, middleware}: EndpointOptions)
 			secret: process.env.JWT_SECRET || 'notsecure',
 			credentialsRequired: false,
 		}),
-		middleware.context({connectors, modules}),
-		middleware.userAuth(),
+		middleware.contextMiddleware({connectors, modules}),
+		middleware.userAuthMiddleware(),
 	);
 
 	apolloServer.applyMiddleware({

@@ -4,6 +4,7 @@ module.exports = function ImperiumAuthModule() {
 	return {
 		routes: client.routes,
 		startup: client.startup,
+		pre: client.pre,
 	};
 };
 

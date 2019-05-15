@@ -42,6 +42,7 @@
 		"@thx/mongoloader": "^10.1.1",
 		"@thx/tschemas": "^10.1.1",
 		"apollo-client": "^2.5.1",
+		"apollo-link-token-refresh": "^0.2.5",
 		"apollo-server": "^2.4.8",
 		"bcrypt": "^3.0.6",
 		"debug": "^4.0.1",

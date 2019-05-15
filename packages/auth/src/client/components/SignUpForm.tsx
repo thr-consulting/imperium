@@ -1,6 +1,6 @@
 import React from 'react';
 import debug from 'debug';
-import {Form, Icon} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';

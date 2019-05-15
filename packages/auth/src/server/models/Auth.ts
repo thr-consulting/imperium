@@ -2,7 +2,7 @@ import debug from 'debug';
 import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
 import {sign} from 'jsonwebtoken';
-import {ContextMap} from '@imperium/core';
+import {Context} from '@imperium/core';
 import {ServerAuth, ClientAuth, LoginRet} from '../../types';
 import {incorrectPasswordError, userNotFoundError} from './errors';
 import sha256 from './sha256';
@@ -40,33 +40,10 @@ export async function validatePassword(bcrypt, password): Promise<boolean> {
 }
 
 /**
- * Creates a signed JWT from user data.
- * @private
- * @param user
- * @param payload
- * @param options
- * @return {string}
- */
-function signJwt(payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}): string {
-	const numBytes = Math.ceil(4);
-	let bytes;
-	try {
-		bytes = randomBytes(numBytes);
-	} catch (e) {
-		bytes = pseudoRandomBytes(numBytes);
-	}
-	const rnd = bytes.toString('hex').substring(0, 4);
-
-	return sign(Object.assign({}, {
-		rnd,
-	}, payload), process.env.JWT_SECRET, options);
-}
-
-/**
  * Model class for authentication. Uses a Mongo `roles` collection and has an opinionated user object.
  */
 export default class Auth {
-	_ctx: ContextMap;
+	_ctx: Context;
 
 	constructor(ctx) {
 		this._ctx = ctx;
@@ -118,21 +95,24 @@ export default class Auth {
 	}
 
 	/**
-	 * Generate a JWT for the currently logged in user.
-	 * @param payload - Optional JWT claims
-	 * @param options - Optional JWT options
-	 * @return {Promise.<void>}
+	 * Creates a signed JWT from user data.
+	 * @param payload
+	 * @param options
+	 * @return {string}
 	 */
-	async generateJwt(payload, options): Promise<string | null> {
-		if (!this._ctx.auth) throw new Error('auth isn\'t set on context');
-		const user = await this._ctx.auth.user();
-		if (!user) return null;
-		const {id, roles} = this._ctx.models.User.getData(user);
-		return signJwt({
-			...payload,
-			id,
-			roles,
-		}, options);
+	signJwt(payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '1h'}): string {
+		const numBytes = Math.ceil(4);
+		let bytes;
+		try {
+			bytes = randomBytes(numBytes);
+		} catch (e) {
+			bytes = pseudoRandomBytes(numBytes);
+		}
+		const rnd = bytes.toString('hex').substring(0, 4);
+
+		return sign(Object.assign({}, {
+			rnd,
+		}, payload), process.env.JWT_SECRET, options);
 	}
 
 	/**
@@ -166,9 +146,10 @@ export default class Auth {
 
 		if (userPassword) {
 			if (await validatePassword(userPassword, password)) {
-				d('Everything validated. Returning jwt and auth');
+				d('Everything validated. Returning jwt, rtoken and auth');
 				return {
-					jwt: signJwt({id, roles}),
+					jwt: this.signJwt({id, roles}),
+					rtoken: this.signJwt({id}, {expiresIn: process.env.RTOKEN_EXPIRES || '7d'}),
 					auth: {
 						userId: id,
 						permissions: await Role.getPermissions(roles),

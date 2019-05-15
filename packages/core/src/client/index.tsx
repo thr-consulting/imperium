@@ -9,8 +9,6 @@ import {render} from 'react-dom';
 import React from 'react';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
-import {decode} from 'jsonwebtoken';
-import 'whatwg-fetch';
 // @ts-ignore
 import clientModules from 'clientModules';
 // @ts-ignore
@@ -18,14 +16,21 @@ import {rootRoute} from 'routeDefaults';
 // @ts-ignore
 import rootRender from 'rootRender';
 import RootComponent from './components/Root';
-import {ClientModule, ImperiumRoute} from '../../types';
+import {ClientModule, ImperiumRoute, InitialConfig, StartupData} from '../../types';
 
 const d = debug('imperium.core.client');
 
+declare global {
+	interface Window {
+		__INITIAL_CONF__: InitialConfig,
+	}
+}
+
 d('>>> CLIENT ENTRY');
 
-// Get initial configuration from server
-const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,@typescript-eslint/camelcase
+// Load modules - Runs module definition functions and stores the objects
+d('Loading modules: ', clientModules.map(v => v.name).join(', '));
+const loadedModules = clientModules.map((moduleFunc): ClientModule => moduleFunc());
 
 /**
  * Merge module routes into a single array
@@ -76,15 +81,11 @@ function renderRoot(Root, routes, fragments, startupData): void {
 
 // Starts the app from a certain initial state;
 function startFromState(initState?: {}): void {
-	// Load modules - Runs module definition functions and stores the objects
-	d('Loading modules: ', clientModules.map(v => v.name).join(', '));
-	const modules = clientModules.map((moduleFunc): ClientModule => moduleFunc());
-
 	// Hydrate the initial state
 	const initialState = initState || {};
 
 	// Run any module specific startup code
-	const startupData = modules.reduce((memo, module): {} => {
+	const startupData = loadedModules.reduce((memo, module): StartupData => {
 		if (module.startup && isFunction(module.startup)) {
 			return {
 				...memo,
@@ -95,10 +96,10 @@ function startFromState(initState?: {}): void {
 	}, {});
 
 	// Merge module routes
-	const routes = mergeModuleRoutes(modules);
+	const routes = mergeModuleRoutes(loadedModules);
 
 	// Graphql fragments
-	const fragments = mergeModuleFragments(modules);
+	const fragments = mergeModuleFragments(loadedModules);
 
 	// Render root component
 	renderRoot(RootComponent, routes, fragments, startupData);
@@ -144,45 +145,20 @@ function startFromState(initState?: {}): void {
 	d('App is ready');
 }
 
-// Checks the status of a response and throws an error
-function checkStatus(response): Express.Response {
-	if (response.status >= 200 && response.status < 300) {
-		return response;
+const initialStatePromise = loadedModules.reduce(async (memo, module): Promise<{}> => {
+	const state = await memo;
+	if (module.pre && isFunction(module.pre)) {
+		// eslint-disable-next-line no-underscore-dangle
+		const moreState = await module.pre(window.__INITIAL_CONF__);
+		if (moreState) {
+			return {
+				...state,
+				...moreState,
+			};
+		}
+		return state;
 	}
-	const error = new Error(response.statusText);
-	error.response = response;
-	throw error;
-}
+	return state;
+}, Promise.resolve());
 
-// If the JWT if defined and not expired, get the initial state from the server.
-// Otherwise just start the client with no initial state.
-const jwt = window.localStorage.getItem(jwt_localstorage_name);
-if (jwt) {
-	const {exp} = decode(jwt);
-	if (!exp || exp < (Date.now().valueOf() / 1000)) {
-		d('JWT expired');
-		window.localStorage.removeItem(jwt_localstorage_name);
-		// Expired JWT, start with no auth info.
-		startFromState();
-	} else {
-		// Attempt to fetch the initial state. JWT Must be valid.
-		d('Fetching initial state');
-		fetch('/api/initial-state', { // eslint-disable-line no-undef
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-			},
-		})
-			.then(checkStatus)
-			.then(res => res.json())
-			.then(startFromState)
-			.catch(err => {
-				// Something failed authorizing JWT, start with no auth info
-				d(`Error authorizing JWT: ${err}`);
-				startFromState();
-			});
-	}
-} else {
-	// We don't have a JWT, so just start with no auth info
-	d('JWT not present');
-	startFromState();
-}
+initialStatePromise.then(startFromState);

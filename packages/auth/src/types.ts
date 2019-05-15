@@ -16,5 +16,6 @@ export interface ClientAuth {
 
 export interface LoginRet {
 	jwt: string,
+	rtoken: string,
 	auth: ClientAuth,
 }

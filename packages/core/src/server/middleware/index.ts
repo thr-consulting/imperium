@@ -1,7 +1,7 @@
-import context from './context';
-import userAuth from './userAuth';
+import contextMiddleware from './contextMiddleware';
+import userAuthMiddleware from './userAuthMiddleware';
 
 export default {
-	context,
-	userAuth,
+	contextMiddleware,
+	userAuthMiddleware,
 };
