@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {AuthContext} from '@imperium/context';
-import {ClientAuth} from '../../types';
+import {ClientAuth} from '../../../types';
 
 interface UseAuth extends ClientAuth {
 	setUser: (user: ClientAuth) => void,

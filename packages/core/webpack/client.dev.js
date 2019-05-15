@@ -73,6 +73,7 @@ module.exports = {
 			// 'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
 			// 'react-router': path.resolve(pRoot, './node_modules/react-router'),
 			// 'react-router-dom': path.resolve(pRoot, './node_modules/react-router-dom'),
+			// '@imperium/context': path.resolve(pRoot, './node_modules/@imperium/context'),
 		},
 		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},

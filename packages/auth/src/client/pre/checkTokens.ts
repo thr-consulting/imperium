@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import {decode} from 'jsonwebtoken';
 import {InitialState} from '@imperium/core';
 
-const d = debug('imperium.auth.pre');
+const d = debug('imperium.auth.checkTokens');
 
 // Checks the status of a response and throws an error
 function checkStatus(response): Express.Response {
@@ -11,6 +11,7 @@ function checkStatus(response): Express.Response {
 		return response;
 	}
 	const error = new Error(response.statusText);
+	// @ts-ignore
 	error.response = response;
 	throw error;
 }
@@ -20,13 +21,14 @@ function isTokenExpired(token) {
 }
 
 function fetchInitialState(token) {
-	d('Fetching initial state', token);
+	d('Fetching initial state');
 	return fetch('/api/initial-state', { // eslint-disable-line no-undef
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
 	})
 		.then(checkStatus)
+		// @ts-ignore
 		.then(res => res.json());
 }
 
@@ -47,30 +49,34 @@ async function getRefreshedToken(token): Promise<string | null> {
 	return null;
 }
 
-export default async function pre(initialConf): Promise<InitialState> {
+export default async function checkTokens(initialConf): Promise<InitialState> {
 	// Get initial configuration from server
 	const {jwt_localstorage_name, rtoken_localstorage_name} = initialConf; // eslint-disable-line @typescript-eslint/camelcase
 
-	d('Checking JWT and RToken');
-	// If the JWT is defined and not expired, get the initial state from the server.
-	// Otherwise just start the client with no initial state.
-	const jwt = window.localStorage.getItem(jwt_localstorage_name);
-	const rtoken = window.localStorage.getItem(rtoken_localstorage_name);
-	const decodedJWT = decode(jwt);
-	const decodedRToken = decode(rtoken);
+	try {
+		d('Checking JWT and RToken');
+		// If the JWT is defined and not expired, get the initial state from the server.
+		// Otherwise just start the client with no initial state.
+		const jwt = window.localStorage.getItem(jwt_localstorage_name);
+		const rtoken = window.localStorage.getItem(rtoken_localstorage_name);
+		const decodedJWT = decode(jwt);
+		const decodedRToken = decode(rtoken);
 
-	if (rtoken && decodedRToken && !isTokenExpired(decodedRToken)) {
-		if (jwt && decodedJWT && !isTokenExpired(decodedJWT)) {
-			d('JWT is valid');
-			return fetchInitialState(jwt);
-		}
+		if (rtoken && decodedRToken && !isTokenExpired(decodedRToken)) {
+			if (jwt && decodedJWT && !isTokenExpired(decodedJWT)) {
+				d('JWT is valid');
+				return fetchInitialState(jwt);
+			}
 
-		d('JWT is missing or invalid, refreshing');
-		const newToken = await getRefreshedToken(rtoken);
-		if (newToken) {
-			window.localStorage.setItem(jwt_localstorage_name, newToken);
-			return fetchInitialState(newToken);
+			d('JWT is missing or invalid, refreshing');
+			const newToken = await getRefreshedToken(rtoken);
+			if (newToken) {
+				window.localStorage.setItem(jwt_localstorage_name, newToken);
+				return fetchInitialState(newToken);
+			}
 		}
+	} catch (err) {
+		d('Error decoding access tokens');
 	}
 
 	// RToken is not valid in some way, remove invalid tokens
@@ -78,5 +84,5 @@ export default async function pre(initialConf): Promise<InitialState> {
 	window.localStorage.removeItem(jwt_localstorage_name);
 	window.localStorage.removeItem(rtoken_localstorage_name);
 
-	return null;
+	return {};
 }

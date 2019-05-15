@@ -1,8 +1,3 @@
-/*
-	TODO Typescript errors in this file:
-	TS2339: https://stackoverflow.com/questions/12709074/how-do-you-explicitly-set-a-new-property-on-window-in-typescript
-*/
-
 /* eslint-disable camelcase */
 import debug from 'debug';
 import {render} from 'react-dom';
@@ -149,7 +144,7 @@ const initialStatePromise = loadedModules.reduce(async (memo, module): Promise<{
 	const state = await memo;
 	if (module.pre && isFunction(module.pre)) {
 		// eslint-disable-next-line no-underscore-dangle
-		const moreState = await module.pre(window.__INITIAL_CONF__);
+		const moreState = await module.pre(window.__INITIAL_CONF__, state);
 		if (moreState) {
 			return {
 				...state,

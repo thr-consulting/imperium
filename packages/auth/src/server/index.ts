@@ -2,11 +2,21 @@ import models from './models';
 import startup from './startup';
 import {schema, resolvers} from './graphql';
 import endpoints from './endpoints';
+import middleware from './middleware';
 
-export default {
-	models,
-	startup,
-	schema,
-	resolvers,
-	endpoints,
-};
+export default function ImperiumAuthModule() {
+	return {
+		models,
+		startup,
+		schema,
+		resolvers,
+		endpoints,
+		middleware,
+		initialConfig() {
+			return {
+				jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP.jwt',
+				rtoken_localstorage_name: process.env.RTOKEN_LOCALSTORAGE_NAME || 'IMP.rtoken',
+			};
+		},
+	};
+}

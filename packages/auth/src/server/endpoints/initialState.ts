@@ -4,6 +4,7 @@ import {EndpointOptions} from '@imperium/core';
 
 const d = debug('imperium.auth.initialState');
 
+// TODO This isn't initial state, but initial auth
 export default function initialState({app, connectors, modules, middleware}: EndpointOptions): void {
 	const {contextMiddleware, userAuthMiddleware} = middleware;
 	app.use(

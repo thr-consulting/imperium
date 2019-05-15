@@ -14,6 +14,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"types": "types.d.ts",
 	"files": [
 		"lib",
 		"README.md",
@@ -42,16 +43,19 @@
 		"@thx/mongoloader": "^10.1.1",
 		"@thx/tschemas": "^10.1.1",
 		"apollo-client": "^2.5.1",
+		"apollo-link": "^1.2.11",
 		"apollo-link-token-refresh": "^0.2.5",
 		"apollo-server": "^2.4.8",
 		"bcrypt": "^3.0.6",
 		"debug": "^4.0.1",
+		"express-jwt": "^5.3.0",
 		"graphql": "^14.2.1",
 		"graphql-tag": "^2.10.1",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
 		"react-apollo": "^2.5.5",
-		"yup": "^0.27.0"
+		"yup": "^0.27.0",
+		"whatwg-fetch": "^3.0.0"
 	},
 	"peerDependencies": {
 		"mongoose": "^5.x",

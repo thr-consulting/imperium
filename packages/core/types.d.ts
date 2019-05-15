@@ -37,9 +37,10 @@ export type Fragments = Record<string, any>;
 export type StartupData = Record<string, any>;
 
 export interface ClientModule {
-	startup?: (initialConfig: InitialConfig, initialState: InitialState) => {} | void,
+	startup?: (initialConfig: InitialConfig, initialState: InitialState) => StartupData | void,
 	routes?: ImperiumRoute[],
 	fragments?: Fragments,
+	pre?: (initialConfig: InitialConfig, initialState: InitialState) => InitialState,
 }
 
 export interface EndpointOptions {
@@ -60,7 +61,7 @@ export interface ServerModule {
 	endpoints?: (options: EndpointOptions) => void,
 	startup?: (context: Context) => Promise<StartupData>,
 	initialConfig?: () => InitialConfig,
-	pre?: (initialConfig: InitialConfig) => InitialState,
+	middleware?: () => ImperiumRequestHandler,
 }
 
 export interface Connectors {
@@ -77,11 +78,3 @@ export interface ImperiumRequestHandler extends RequestHandler {
 }
 
 export type ServerModuleFunc = (connectors: Connectors[], context: Context) => ServerModule;
-
-// export interface Context {
-// 	addModule: (moduleFunc: ServerModuleFunc) => void,
-// 	getModel: (name: string) => Model,
-// 	models: Record<string, Model>,
-// 	auth: any,
-// 	connectors: Connectors[],
-// }

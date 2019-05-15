@@ -3,7 +3,7 @@ import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
 import {sign} from 'jsonwebtoken';
 import {Context} from '@imperium/core';
-import {ServerAuth, ClientAuth, LoginRet} from '../../types';
+import {ServerAuth, ClientAuth, LoginRet} from '../../../types';
 import {incorrectPasswordError, userNotFoundError} from './errors';
 import sha256 from './sha256';
 

@@ -1,4 +1,4 @@
-/* eslint-disable global-require, import/no-dynamic-require */
+/* eslint-disable global-require, import/no-dynamic-require, @typescript-eslint/no-var-requires */
 const path = require('path');
 const isFunction = require('lodash/isFunction');
 const isSourceFile = require('./isSourceFile');
@@ -38,10 +38,7 @@ function htmlOptions({iSrcDir, pRoot, options}, config) {
 			};
 		}
 		return memo;
-	}, {
-		jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP.jwt', // These initialConfig options are always present
-		rtoken_localstorage_name: process.env.RTOKEN_LOCALSTORAGE_NAME || 'IMP.rtoken',
-	});
+	}, {});
 
 	return {
 		title: options.title,

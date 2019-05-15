@@ -3,9 +3,9 @@ import debug from 'debug';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import jwt from 'jsonwebtoken';
-import {ImperiumRequestHandler} from '../../../types';
+import {ImperiumRequestHandler} from '@imperium/core';
 
-const d = debug('imperium.core.server.userAuth');
+const d = debug('imperium.auth.userAuthMiddleware');
 
 /**
  * Express middleware that uses the Auth model and JWT to build authentication information.
