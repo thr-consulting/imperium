@@ -48,7 +48,7 @@ export default async function apolloLinks({jwt_localstorage_name, rtoken_localst
 		handleFetch: accessToken => {
 			window.localStorage.setItem(jwt_localstorage_name, accessToken);
 		},
-		handleError: err => {
+		handleError: () => {
 			d('There was a problem refreshing the access token. Re-login required.');
 			window.localStorage.removeItem(jwt_localstorage_name);
 			window.localStorage.removeItem(rtoken_localstorage_name);

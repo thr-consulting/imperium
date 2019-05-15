@@ -28,9 +28,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum ".packages-hash" }}
 
+      - run: yarn lint
       - run: yarn build
       - run: yarn test
-      - run: yarn lint
+      - run: yarn ts
 
   publish:
     docker:
