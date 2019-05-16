@@ -16,7 +16,7 @@ export default function AuthContextProvider(props: Props) {
 	const [state, setState] = useState(auth || {
 		userId: null,
 		user: null,
-		permissions: null,
+		permissions: [],
 	});
 
 	const eState = {

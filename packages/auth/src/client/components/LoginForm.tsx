@@ -17,7 +17,7 @@ interface Props {
 	logIn: (email: string, payload: {digest: any, algorithm: string}) => void,
 }
 
-export default function LogInForm(props: Props) {
+export default function LoginForm(props: Props) {
 	const {setView, loading, error, logIn} = props;
 
 	return (
@@ -41,6 +41,7 @@ export default function LogInForm(props: Props) {
 					<Form.Field required error={fieldError('email')}>
 						<label>Email</label>
 						<Input
+							focus
 							placeholder="Email"
 							name="email"
 							type="email"

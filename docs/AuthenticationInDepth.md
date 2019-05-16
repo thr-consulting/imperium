@@ -19,18 +19,8 @@ It isn't public data, but will be sent over the wire when the user logs in. This
 of the Auth object. It can contain whatever field you would like.
 
 ## Package Requirements
-Each component of the Imperium framework has different requirements regarding authentication.
-This is a deeper look at what and why each package has these requirements.
 
-### Package: @imperium/core
-
-#### `userAuth` middleware
-This is Express middleware that authenticates a JWT on the server.
-This places a generated Auth object on the express request and on the current context.
-
-Requires:
-* `Auth.defaultAuth()` - needs to create blank authentication object.
-* `Auth.buildAuthFromJwt(decodedJwt)` - *[async]* creates an auth object from a decoded JWT
+### Package: @imperium/auth
 
 #### `initialState` endpoint
 This Express endpoint sends a serialized state object to the client.
@@ -39,7 +29,13 @@ Requires:
 * `Auth.serializeAuth(authObject)` - *[async]* passes an auth object and requires a JSON serializable
 object in return. Needs to return a promise to the serializable object.
 
-### Package: @imperium/auth
+#### `userAuth` middleware
+This is Express middleware that authenticates a JWT on the server.
+This places a generated Auth object on the express request and on the current context.
+
+Requires:
+* `Auth.defaultAuth()` - needs to create blank authentication object.
+* `Auth.buildAuthFromJwt(decodedJwt)` - *[async]* creates an auth object from a decoded JWT
 
 #### `Auth.defaultAuth()` model method
 This method needs to create a blank server auth object representing that no user is authenticated.
@@ -91,9 +87,9 @@ Use the React Hook `useAuth()` to access the auth object on the client.
 
 ## Workflows
 
-### Client startup 
+### Client startup (out of date) 
 1. Client loads `index.tsx` from @imperium/core.
-2. Initiates fetch for initial state from server.
+2. @imperium/auth `pre` function initiates fetch for initial state from server.
 3. Server authenticates JWT using `userAuth` middleware.
 4. `userAuth` middleware builds the server auth object using `Auth.defaultAuth()` and `Auth.buildAuthFromJwt()`
 5. `userAuth` middleware adds the auth object to current context and request.
@@ -109,5 +105,3 @@ Use the React Hook `useAuth()` to access the auth object on the client.
 1. Client runs `logIn` mutation, passing email and password digest.
 2. Server gets user record and validated password.
 3. Server signs an access token (JWT) and a refresh token (RJWT) and passes back an (client) Auth object.
-
-### 

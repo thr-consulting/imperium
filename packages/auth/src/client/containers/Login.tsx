@@ -4,13 +4,13 @@ import React, {useState} from 'react';
 import {Mutation} from 'react-apollo';
 import {useFragments} from '@imperium/context';
 import {InitialConfig} from '@imperium/core';
-import LogInForm from '../components/LogInForm';
+import LoginForm from '../components/LoginForm';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
 import {logInMutation, forgotPasswordMutation} from '../graphql';
 import useAuth from '../context/useAuth';
 
-const d = debug('imperium.auth.LogIn');
+const d = debug('imperium.auth.Login');
 
 declare global {
 	interface Window {
@@ -23,7 +23,7 @@ interface Props {
 	routeKey: string,
 }
 
-export default function LogIn(props: Props) {
+export default function Login(props: Props) {
 	const [view, setView] = useState('login');
 	const authContext = useAuth();
 	const fragments = useFragments();
@@ -52,7 +52,7 @@ export default function LogIn(props: Props) {
 	) : (
 		<Mutation mutation={combinedLogInMutation}>
 			{(logIn, {loading, error, client}) => (
-				<LogInForm
+				<LoginForm
 					setView={setView}
 					loading={loading}
 					error={error}

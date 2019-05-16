@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import createHtml from './createHtml';
 import production from './endpoints/production';
 import contextMiddleware from './middleware/contextMiddleware';
-import {ImperiumRequest, ImperiumRequestHandler, ServerModule} from '../../types';
+import {ImperiumRequest, ServerModule} from '../../types';
 
 const d = debug('imperium.core.server.worker');
 

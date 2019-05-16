@@ -7,8 +7,8 @@ import isObject from 'lodash/isObject';
 import {ApolloServer} from 'apollo-server-express';
 import merge from 'lodash/merge';
 import {DocumentNode} from 'graphql';
-import {schema as coreSchema, resolvers as coreResolvers} from './schema';
-import schemaDirectives from './security/schemaDirectives';
+import {schema as coreSchema, resolvers as coreResolvers} from '../schema';
+import schemaDirectives from '../security/schemaDirectives';
 
 const d = debug('imperium.graphql.endpoints.graphql');
 
