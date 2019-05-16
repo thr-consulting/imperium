@@ -1,3 +1,5 @@
+directive @auth(req: [String!], authenticated: Boolean) on FIELD | FIELD_DEFINITION
+
 input PasswordDigest {
 	digest: String!
 	algorithm: String!

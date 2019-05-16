@@ -16,9 +16,8 @@ import {
 import {GraphQLMoney} from '@thx/money';
 import Scalars from './Scalars.graphqls';
 import Root from './Root.graphqls';
-import Directives from './Directives.graphqls';
 
-export const schema = [Scalars, Root, Directives];
+export const schema = [Scalars, Root];
 
 export const resolvers = {
 	// These root resolvers are here to fill in the root placeholders because we can't define an empty Query or Mutation

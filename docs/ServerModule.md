@@ -18,8 +18,9 @@ export default function MyModuleName() {
 		middleware,     // Express middleware that can be called from other modules
 		
 		// Graphql
-		schema,         // Graphql Schema
-		resolvers,      // Graphql Resolvers
+		schema,           // Graphql Schema
+		schemaDirectives, // Graphql Schema Directives
+		resolvers,        // Graphql Resolvers
 	};
 }
 ```
@@ -114,6 +115,11 @@ function middleware() {
 *Used by the `@imperium/graphql` package.*
 
 An array of GraphQL strings that represent the server schema, usually imported from `.graphqls` files.
+
+## schemaDirectives
+*Used by the `@imperium/graphql` package.*
+
+An object containing GraphQL schema directives.
 
 ## resolvers
 *Used by the `@imperium/graphql` package.*

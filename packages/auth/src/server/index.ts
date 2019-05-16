@@ -1,6 +1,6 @@
 import models from './models';
 import startup from './startup';
-import {schema, resolvers} from './graphql';
+import {schema, resolvers, schemaDirectives} from './graphql';
 import endpoints from './endpoints';
 import middleware from './middleware';
 
@@ -9,6 +9,7 @@ export default function ImperiumAuthModule() {
 		models,
 		startup,
 		schema,
+		schemaDirectives,
 		resolvers,
 		endpoints,
 		middleware,

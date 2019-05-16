@@ -3,6 +3,7 @@ import {RouteProps} from 'react-router-dom';
 import {Application, RequestHandler, NextFunction, Request, Response} from 'express';
 import DataLoader from 'dataloader';
 import {DocumentNode} from 'graphql';
+import {SchemaDirectiveVisitor} from 'graphql-tools';
 import {Document, Model, Types} from 'mongoose';
 import Context from './src/server/middleware/Context';
 
@@ -56,6 +57,7 @@ export interface Models {
 
 export interface ServerModule {
 	schema?: DocumentNode | DocumentNode[],
+	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>,
 	resolvers?: {},
 	models?: () => Models,
 	endpoints?: (options: EndpointOptions) => void,

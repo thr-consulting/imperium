@@ -1,1 +1,0 @@
-directive @auth(req: [String!], authenticated: Boolean) on FIELD | FIELD_DEFINITION

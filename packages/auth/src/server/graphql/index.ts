@@ -1,4 +1,5 @@
 import Auth from './Auth.graphqls';
+import HasPermissionDirective from './HasPermissionDirective';
 
 export const schema = Auth;
 
@@ -15,4 +16,8 @@ export const resolvers = {
 			throw new Error('Signup not allowed');
 		},
 	},
+};
+
+export const schemaDirectives = {
+	auth: HasPermissionDirective,
 };

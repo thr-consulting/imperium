@@ -4,18 +4,16 @@ import jwt from 'express-jwt';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
-import {ApolloServer} from 'apollo-server-express';
+import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express';
 import merge from 'lodash/merge';
 import {DocumentNode} from 'graphql';
 import {schema as coreSchema, resolvers as coreResolvers} from '../schema';
-import schemaDirectives from '../security/schemaDirectives';
 
 const d = debug('imperium.graphql.endpoints.graphql');
 
 export default function({app, connectors, modules, middleware}: EndpointOptions): void {
-	d('Merging graphql schema');
-
 	// Merge all the typeDefs from all modules
+	d('Merging graphql schema');
 	const typeDefs = modules.reduce((memo, module): DocumentNode[] => {
 		if (module.schema) {
 			if (isArray(module.schema)) {
@@ -29,13 +27,28 @@ export default function({app, connectors, modules, middleware}: EndpointOptions)
 		return memo;
 	}, [...coreSchema]);
 
+	// Merge all the schema directives from all modules
+	d('Merging graphql schema directives');
+	type RecordSDV = Record<string, typeof SchemaDirectiveVisitor>;
+	const schemaDirectives = modules.reduce((memo: RecordSDV, module): RecordSDV => {
+		if (module.schemaDirectives && isObject(module.schemaDirectives)) {
+			return {
+				...memo,
+				...module.schemaDirectives,
+			};
+		}
+		return memo;
+	}, {});
+
 	// Merge all the resolvers from all modules
+	d('Merging graphql resolvers');
 	const resolvers = modules.reduce((memo, module) => {
 		if (module.resolvers && isObject(module.resolvers)) return merge(memo, module.resolvers);
 		return memo;
 	}, coreResolvers);
 
 	// Create apollo graphql server
+	d('Creating apollo server');
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers,
