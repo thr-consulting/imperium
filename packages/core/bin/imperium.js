@@ -33,6 +33,7 @@ let arg;
 switch (script) {
 	case 'dev': {
 		process.env.NODE_ENV = 'development';
+		process.env.IMPERIUM_NODE_ENV = 'development';
 		cmd = 'node';
 		arg = nodeArgs
 			.concat(require.resolve(`../scripts/${script}`))
@@ -42,6 +43,7 @@ switch (script) {
 
 	case 'prod': {
 		process.env.NODE_ENV = 'production';
+		process.env.IMPERIUM_NODE_ENV = 'production';
 		cmd = 'node';
 		arg = nodeArgs
 			.concat(require.resolve(`../scripts/${script}`))
@@ -51,6 +53,7 @@ switch (script) {
 
 	case 'build': {
 		process.env.NODE_ENV = 'production';
+		process.env.IMPERIUM_NODE_ENV = 'production';
 		cmd = 'node';
 		arg = nodeArgs
 			.concat(require.resolve(`../scripts/${script}`))

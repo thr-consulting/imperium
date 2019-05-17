@@ -9,6 +9,7 @@
 * Confirm email - We need to confirm the email address.
 * Forget password - The user forgot their password.
 * Reset password - The user needs to reset their password (after a Forget password action).
+* Graphql query/mutation authentication.
 
 ## Definitions
 
