@@ -19,13 +19,15 @@
 		"lib",
 		"README.md",
 		"client.js",
-		"server.js"
+		"server.js",
+		"Auth.graphqls"
 	],
 	"scripts": {
-		"prepublish": "npm run build",
-		"build": "npm run clean && npm run build:server && npm run build:client",
+		"prepublish": "yarn build",
+		"build": "yarn clean && yarn build:server && yarn build:client && yarn copy:schema",
 		"build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
 		"build:client": "NODE_ENV=production webpack --config webpack.client.config.js",
+		"copy:schema": "cp src/server/graphql/*.graphqls .",
 		"clean": "rimraf ./lib/*",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"ts": "tsc",
