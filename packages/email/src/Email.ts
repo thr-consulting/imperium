@@ -3,8 +3,12 @@ import debug from 'debug';
 import {Transporter} from 'nodemailer';
 import striptags from 'striptags';
 import Stream from 'stream';
+import markdownIt from 'markdown-it';
+import isUndefined from 'lodash/isUndefined';
 
 const d = debug('imperium.email.Email');
+
+const md = markdownIt();
 
 interface SendOptions {
 	from: string,
@@ -16,6 +20,7 @@ interface SendOptions {
 		filename: string,
 		context: string | Buffer | Stream,
 	}],
+	markdown?: boolean,
 }
 
 export default class Email {
@@ -26,12 +31,14 @@ export default class Email {
 		this.transporter = transporter;
 	}
 
-	async send({from, to, body, subject, template, attachments}: SendOptions) {
+	async send({from, to, body, subject, template, attachments, markdown}: SendOptions) {
+		const isMarkdown = isUndefined(markdown) ? true : markdown;
+		const mSubject = striptags(subject);
+		const mBody = striptags(body);
 		const templateParams = {
 			mail: {
-				subject,
-				title: subject,
-				body,
+				subject: mSubject,
+				body: isMarkdown ? md.render(mBody) : mBody,
 			},
 		};
 
@@ -39,21 +46,19 @@ export default class Email {
 			await this.transporter.sendMail({
 				from,
 				to: process.env.MAIL_TO_DEVOVERRIDE ? process.env.MAIL_TO_DEVOVERRIDE : to,
-				subject,
-				text: striptags(body),
-				html: template ? template(templateParams) : body,
+				subject: mSubject,
+				text: mBody,
+				html: template ? template(templateParams) : templateParams.mail.body,
 				attachments,
 			});
 		} else {
 			console.log('--------- DEV MODE: SENDING EMAIL  -------------------');
-			console.log(`  From   : ${from}`);
-			console.log(`  To     : ${to}`);
-			console.log(`  Subject: ${subject}`);
-			console.log(striptags(body));
-			if (template) {
-				console.log('-------------------------');
-				console.log(template(templateParams));
-			}
+			console.log(`  From         : ${from}`);
+			console.log(`  To           : ${to}`);
+			console.log(`  Subject      : ${mSubject}`);
+			console.log(`  HTML Template: ${!!template}`);
+			console.log(`  Markdown Body: ${isMarkdown}`);
+			console.log(mBody);
 			if (attachments) {
 				attachments.forEach(att => {
 					console.log(`  Attached file: ${att.filename}`);

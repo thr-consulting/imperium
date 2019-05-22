@@ -13,7 +13,7 @@
 
 ## Definitions
 
-* **Auth object** - (Defined by @imperium/core) On object representing the authenticated user. It can contain anything,
+* **Auth object** - (Defined by @imperium/auth) On object representing the authenticated user. It can contain anything,
 including methods (on the server), and usually contains userId, etc.
 * **User basic info object** - (Defined by @imperium/auth) Data extracted from the user object that will be sent to the client.
 It isn't public data, but will be sent over the wire when the user logs in. This object is a part
@@ -46,14 +46,14 @@ Requires:
 * `User.getById(id)` - *[async]* needs to get a user object by id.
 * `User.getByEmail(email)` - *[async]* needs to a get a user object by email.
 * `User.getData(user)` - needs to extract specific information from the user object.
-  * Returns and object with these fields:
+  * Returns an object with these fields:
     * id - the user id
     * basicInfo - the user basic info object
-    * password - encrypted password
     * roles - array of user roles
+    * servicesField - string name of where the `services` field is located under a user object. 
 
 #### `Auth.serializeAuth(authObject)` model method *[async]*
-This method needs convert the server auth object to a `JSON.serialize`-able object that will 
+This method needs to convert the server auth object to a `JSON.serialize`-able object that will 
 get sent to the client.
 
 ## Implementation of @imperium/auth

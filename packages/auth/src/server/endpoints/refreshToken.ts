@@ -1,6 +1,8 @@
 import debug from 'debug';
 import {decode} from 'jsonwebtoken';
 import {EndpointOptions} from '@imperium/core';
+import get from 'lodash/get';
+import find from 'lodash/find';
 
 const d = debug('imperium.auth.refreshToken');
 
@@ -17,21 +19,19 @@ export default function refreshToken({app, connectors, modules, middleware}: End
 			} else if (Date.now() / 1000 > token.exp) {
 				res.status(500).send('Token is expired');
 			} else {
-				req.context.models.User.checkToken(token.id, token.rnd).then(ret => {
-					if (ret) {
-						d('RToken is not blacklisted');
-						req.context.models.User.getById(token.id).then(user => {
-							if (user) {
-								res.setHeader('Content-Type', 'application/json');
-								res.send(JSON.stringify({
-									access_token: req.context.models.Auth.signJwt({id: token.id, roles: user.roles}),
-								}));
-							} else {
-								res.status(500).send('User not found');
-							}
-						});
+				req.context.models.User.getById(token.id).then(user => {
+					if (user) {
+						const {servicesField, roles} = req.context.models.User.getData(user);
+						if (find(get(user, [servicesField, 'token', 'blacklist'], []), {token: token.rnd})) {
+							res.status(500).send('Token has been deauthorized');
+						} else {
+							res.setHeader('Content-Type', 'application/json');
+							res.send(JSON.stringify({
+								access_token: req.context.models.Auth.signJwt({id: token.id, roles}),
+							}));
+						}
 					} else {
-						res.status(500).send('Token has been deauthorized');
+						res.status(500).send('User not found');
 					}
 				});
 			}

@@ -2,7 +2,10 @@ import debug from 'debug';
 import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
 import {sign} from 'jsonwebtoken';
+import get from 'lodash/get';
+import set from 'lodash/set';
 import {Context} from '@imperium/core';
+import {randomId, SharedCache} from '@thx/extras/server';
 import {ServerAuth, ClientAuth, LoginRet} from '../../../types';
 import {incorrectPasswordError, userNotFoundError} from './errors';
 import sha256 from './sha256';
@@ -44,9 +47,13 @@ export async function validatePassword(bcrypt, password): Promise<boolean> {
  */
 export default class Auth {
 	_ctx: Context;
+	_cache: SharedCache;
 
-	constructor(ctx) {
+	constructor(ctx, {sharedCache}) {
 		this._ctx = ctx;
+		this._cache = sharedCache;
+
+		if (!sharedCache) throw new Error('Shared cache not defined in Connectors');
 	}
 
 	/**
@@ -132,7 +139,10 @@ export default class Auth {
 	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
 	async logIn(email, password): Promise<LoginRet> {
-		d(`Starting log in process: ${email}`);
+		const attempts = await this._cache.get(`loginattempts:${email}`) || 0;
+		d(`Starting log in process: ${email} (Attempt: ${attempts + 1})`);
+
+		if (attempts > (process.env.LOGIN_MAX_FAIL || 5)) throw new Error('Too many login attempts');
 
 		// Verify parameters
 		const {User, Role} = this._ctx.models;
@@ -142,7 +152,8 @@ export default class Auth {
 		const user = await User.getByEmail(email);
 		if (!user) throw userNotFoundError();
 
-		const {id, basicInfo, password: userPassword, roles} = User.getData(user);
+		const {id, basicInfo, roles, servicesField} = User.getData(user);
+		const userPassword = get(user, [servicesField, 'password', 'bcrypt']);
 
 		if (userPassword) {
 			if (await validatePassword(userPassword, password)) {
@@ -158,12 +169,30 @@ export default class Auth {
 				};
 			}
 		}
+
 		d(`Incorrect password: ${email}`);
+		await this._cache.set(`loginattempts:${email}`, attempts + 1, process.env.LOGIN_MAX_COOLDOWN || 300);
 		throw incorrectPasswordError();
 	}
 
 	async forgotPassword(email): Promise<boolean> {
-		d(email);
+		d(`Requesting forgotten password ${email}`);
+		const {User} = this._ctx.models;
+
+		// Get user
+		const user = await User.getByEmail(email);
+		// We return "success" here because we don't want to notify the client that we have a user with the specified email.
+		if (!user) return true;
+
+		// Get the previous recovery tokens
+		const {servicesField} = User.getData(user);
+		const recoveryTokens = get(user, [servicesField, 'token', 'recovery'], []);
+
+		// Create a new recovery token
+		const newToken = this.signJwt({recovery: randomId(32)}, {expiresIn: '2d'});
+		set(user, [servicesField, 'token', 'recovery'], recoveryTokens.concat([newToken]));
+		await user.save();
+
 		return true;
 	}
 

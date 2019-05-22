@@ -43,6 +43,7 @@ function hmr(app) {
 		watchOptions: process.env.IMPERIUM_DEV ? {
 			aggregateTimeout: process.env.IMPERIUM_DEV_HMR_TIMEOUT || 1000,
 		} : undefined,
+		logLevel: 'error',
 	});
 	app.use(hmrInstance);
 

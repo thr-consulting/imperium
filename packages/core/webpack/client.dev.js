@@ -90,7 +90,6 @@ module.exports = {
 		new webpack.DefinePlugin({
 			__CLIENT__: true,
 			__PRODUCTION__: false,
-			// 'process.env.NODE_ENV': JSON.stringify('development'),
 		}),
 		new HardSourceWebpackPlugin({
 			cacheDirectory: path.resolve(pRoot, 'node_modules', '.cache', 'hard-source'),

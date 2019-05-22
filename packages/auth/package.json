@@ -42,6 +42,7 @@
 		"@imperium/core": "^2.0.4",
 		"@imperium/graphql": "^2.0.4",
 		"@thx/controls": "^10.1.1",
+		"@thx/extras": "^10.2.4",
 		"@thx/mongoloader": "^10.1.1",
 		"@thx/tschemas": "^10.1.1",
 		"apollo-client": "^2.5.1",
@@ -56,8 +57,8 @@
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.11",
 		"react-apollo": "^2.5.5",
-		"yup": "^0.27.0",
-		"whatwg-fetch": "^3.0.0"
+		"whatwg-fetch": "^3.0.0",
+		"yup": "^0.27.0"
 	},
 	"peerDependencies": {
 		"mongoose": "^5.x",
