@@ -3,5 +3,5 @@ const server = require('./lib/server');
 
 module.exports = {
 	contextMiddleware: server.contextMiddleware,
-	ContextMap: server.ContextMap,
+	Context: server.Context,
 };

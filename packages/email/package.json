@@ -26,9 +26,9 @@
 		"clean": "rimraf ./lib/*",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"ts": "tsc",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:coverage": "../../tools/coverage.sh email",
+		"DISABLEDtest": "jest",
+		"DISABLEDtest:watch": "jest --watch",
+		"DISABLEDtest:coverage": "../../tools/coverage.sh email",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {

@@ -3,6 +3,7 @@ import {decode} from 'jsonwebtoken';
 import {EndpointOptions} from '@imperium/core';
 import get from 'lodash/get';
 import find from 'lodash/find';
+import restError from './restError';
 
 const d = debug('imperium.auth.refreshToken');
 
@@ -12,6 +13,16 @@ export default function refreshToken({app, connectors, modules, middleware}: End
 		middleware.contextMiddleware({connectors, modules}),
 		(req, res) => {
 			d('Getting a renewed token');
+			req.context.models.Auth.refreshToken(req.headers['refresh-token'])
+				.then(newToken => {
+					res.setHeader('Content-Type', 'application/json');
+					res.send(JSON.stringify({
+						access_token: newToken,
+					}));
+				})
+				.catch(err => {
+					restError(err, res);
+				});
 			const token = decode(req.headers['refresh-token']);
 
 			if (!token || !token.id || !token.exp) {

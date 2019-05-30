@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 // import DataLoader from 'dataloader';
 import uniq from 'lodash/uniq';
+import intersection from 'lodash/intersection';
+import isArray from 'lodash/isArray';
 import debug from 'debug';
+import permissions from '../permissions';
 
 const d = debug('imperium.auth.Role');
 
@@ -21,6 +24,13 @@ roleSchema.statics.getPermissions = async function getPermissions(roles = []) {
 		if (!value) return memo;
 		return [...memo, ...value.permissions];
 	}, []));
+};
+
+roleSchema.statics.permissionsMatch = function permissionsMatch(havePermissions, needPermissions): boolean {
+	const {SYSADMIN} = permissions;
+	const have = isArray(havePermissions) ? havePermissions : [havePermissions];
+	const need = isArray(needPermissions) ? [...needPermissions, SYSADMIN] : [needPermissions, SYSADMIN];
+	return intersection(have, need).length > 0;
 };
 
 roleSchema.query.byName = function byName(name) {

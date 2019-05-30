@@ -1,13 +1,22 @@
 import debug from 'debug';
 import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
-import {sign} from 'jsonwebtoken';
+import {sign, decode} from 'jsonwebtoken';
 import get from 'lodash/get';
 import set from 'lodash/set';
+import find from 'lodash/find';
 import {Context} from '@imperium/core';
 import {randomId, SharedCache} from '@thx/extras/server';
 import {ServerAuth, ClientAuth, LoginRet} from '../../../types';
-import {incorrectPasswordError, userNotFoundError} from './errors';
+import {
+	IncorrectPasswordError,
+	InvalidHashAlgorithm,
+	TokenDeauthorized,
+	TokenExpired,
+	TokenNotValid,
+	TooManyLoginAttempts,
+	UserNotFoundError,
+} from './errors';
 import sha256 from './sha256';
 
 const d = debug('imperium.auth.Auth');
@@ -24,15 +33,16 @@ function getPasswordString(password): string {
 		pword = sha256(pword);
 	} else {
 		if (password.algorithm !== 'sha-256') {
-			throw new Error('Invalid password hash algorithm. Only \'sha-256\' is allowed.');
+			throw InvalidHashAlgorithm();
 		}
-		pword = pword.digest;
+		pword = pword.digest.toLowerCase();
 	}
 	return pword;
 }
 
 /**
  * Validates a user object and a password string/object.
+ * @private
  * @param bcrypt - Encrypted password
  * @param password
  * @return {Promise<boolean>}
@@ -133,6 +143,30 @@ export default class Auth {
 	}
 
 	/**
+	 * Takes a refresh token and creates a new access token
+	 * @param {string} rtoken
+	 */
+	async refreshToken(rtoken: string): Promise<string> {
+		const token = decode(rtoken);
+
+		if (!token || !token.id || !token.exp) {
+			throw TokenNotValid();
+		} else if (Date.now() / 1000 > token.exp) {
+			throw TokenExpired();
+		} else {
+			const {User} = this._ctx.models;
+			const user = await User.getById(token.id);
+			if (!user) throw UserNotFoundError();
+			const {servicesField, roles} = User.getData(user);
+			if (find(get(user, [servicesField, 'token', 'blacklist'], []), {token: token.rnd})) {
+				throw TokenDeauthorized();
+			} else {
+				return this.signJwt({id: token.id, roles});
+			}
+		}
+	}
+
+	/**
 	 * Attempts the log in process.
 	 * @param {string} email - The email to log in with.
 	 * @param {string|object} password - The password string/object to log in with.
@@ -142,7 +176,7 @@ export default class Auth {
 		const attempts = await this._cache.get(`loginattempts:${email}`) || 0;
 		d(`Starting log in process: ${email} (Attempt: ${attempts + 1})`);
 
-		if (attempts > (process.env.LOGIN_MAX_FAIL || 5)) throw new Error('Too many login attempts');
+		if (attempts > (process.env.LOGIN_MAX_FAIL || 5)) throw TooManyLoginAttempts();
 
 		// Verify parameters
 		const {User, Role} = this._ctx.models;
@@ -150,7 +184,7 @@ export default class Auth {
 		if (!User) throw new Error('User model not defined');
 
 		const user = await User.getByEmail(email);
-		if (!user) throw userNotFoundError();
+		if (!user) throw UserNotFoundError();
 
 		const {id, basicInfo, roles, servicesField} = User.getData(user);
 		const userPassword = get(user, [servicesField, 'password', 'bcrypt']);
@@ -172,7 +206,7 @@ export default class Auth {
 
 		d(`Incorrect password: ${email}`);
 		await this._cache.set(`loginattempts:${email}`, attempts + 1, process.env.LOGIN_MAX_COOLDOWN || 300);
-		throw incorrectPasswordError();
+		throw IncorrectPasswordError();
 	}
 
 	async forgotPassword(email): Promise<boolean> {
