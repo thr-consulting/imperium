@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/email",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Email Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
