@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@imperium/core": "^2.0.4",
-		"@thx/date": "^10.1.1",
+		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",
 		"apollo-cache-inmemory": "^1.5.1",
 		"apollo-client": "^2.5.1",

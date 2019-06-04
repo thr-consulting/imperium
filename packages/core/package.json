@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"@imperium/context": "^2.0.3",
-		"@thx/router": "^10.1.2",
+		"@thx/router": "^10.2.0",
 		"body-parser": "^1.19.0",
 		"chalk": "^2.4.1",
 		"chokidar": "^3.0.0",
