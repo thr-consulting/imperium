@@ -1,12 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Segment, TransitionablePortal} from 'semantic-ui-react';
 import debug from 'debug';
 import styles from './transit.css';
 
 const d = debug('imperium.auth.Transit');
 
-export default function Transit(props) {
+interface Props {
+	open: boolean,
+	restoreRoute: (routeKey: string) => void,
+	routeKey: string,
+	children: any,
+}
+
+export default function Transit(props: Props) {
 	const {open, restoreRoute, routeKey, children} = props;
 
 	return (
@@ -28,10 +34,3 @@ export default function Transit(props) {
 		</TransitionablePortal>
 	);
 }
-
-Transit.propTypes = {
-	open: PropTypes.func.isRequired,
-	restoreRoute: PropTypes.func.isRequired,
-	routeKey: PropTypes.string.isRequired,
-	children: PropTypes.any, // eslint-disable-line
-};

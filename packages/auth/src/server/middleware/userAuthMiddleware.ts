@@ -3,9 +3,9 @@ import debug from 'debug';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import jwt from 'jsonwebtoken';
-import {ImperiumRequestHandler} from '../../../types';
+import {ImperiumRequestHandler} from '@imperium/core';
 
-const d = debug('imperium.core.server.userAuth');
+const d = debug('imperium.auth.userAuthMiddleware');
 
 /**
  * Express middleware that uses the Auth model and JWT to build authentication information.
@@ -13,7 +13,7 @@ const d = debug('imperium.core.server.userAuth');
  * @param secret
  * @return {function(*=, *, *)}
  */
-export default function({tokenReqPath = null, secret = null} = {}): ImperiumRequestHandler {
+export default function userAuthMiddleware({tokenReqPath = null, secret = null} = {}): ImperiumRequestHandler {
 	return (req, res, next) => {
 		d('Building authentication data');
 

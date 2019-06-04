@@ -2,8 +2,12 @@
 
 exports[`Root should render without throwing an error 1`] = `
 <BrowserRouter>
-  <Child
-    checkPermissions={[Function]}
-  />
+  <ContextProvider
+    value={Object {}}
+  >
+    <Child
+      checkPermissions={[Function]}
+    />
+  </ContextProvider>
 </BrowserRouter>
 `;

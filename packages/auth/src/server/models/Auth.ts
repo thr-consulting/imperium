@@ -1,10 +1,22 @@
 import debug from 'debug';
 import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
-import {sign} from 'jsonwebtoken';
-import {ContextMap} from '@imperium/core';
-import {ServerAuth, ClientAuth, LoginRet} from '../../types';
-import {incorrectPasswordError, userNotFoundError} from './errors';
+import {sign, decode} from 'jsonwebtoken';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import find from 'lodash/find';
+import {Context} from '@imperium/core';
+import {randomId, SharedCache} from '@thx/extras/server';
+import {ServerAuth, ClientAuth, LoginRet} from '../../../types';
+import {
+	IncorrectPasswordError,
+	InvalidHashAlgorithm,
+	TokenDeauthorized,
+	TokenExpired,
+	TokenNotValid,
+	TooManyLoginAttempts,
+	UserNotFoundError,
+} from './errors';
 import sha256 from './sha256';
 
 const d = debug('imperium.auth.Auth');
@@ -21,15 +33,16 @@ function getPasswordString(password): string {
 		pword = sha256(pword);
 	} else {
 		if (password.algorithm !== 'sha-256') {
-			throw new Error('Invalid password hash algorithm. Only \'sha-256\' is allowed.');
+			throw InvalidHashAlgorithm();
 		}
-		pword = pword.digest;
+		pword = pword.digest.toLowerCase();
 	}
 	return pword;
 }
 
 /**
  * Validates a user object and a password string/object.
+ * @private
  * @param bcrypt - Encrypted password
  * @param password
  * @return {Promise<boolean>}
@@ -40,36 +53,17 @@ export async function validatePassword(bcrypt, password): Promise<boolean> {
 }
 
 /**
- * Creates a signed JWT from user data.
- * @private
- * @param user
- * @param payload
- * @param options
- * @return {string}
- */
-function signJwt(payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '7d'}): string {
-	const numBytes = Math.ceil(4);
-	let bytes;
-	try {
-		bytes = randomBytes(numBytes);
-	} catch (e) {
-		bytes = pseudoRandomBytes(numBytes);
-	}
-	const rnd = bytes.toString('hex').substring(0, 4);
-
-	return sign(Object.assign({}, {
-		rnd,
-	}, payload), process.env.JWT_SECRET, options);
-}
-
-/**
  * Model class for authentication. Uses a Mongo `roles` collection and has an opinionated user object.
  */
 export default class Auth {
-	_ctx: ContextMap;
+	_ctx: Context;
+	_cache: SharedCache;
 
-	constructor(ctx) {
+	constructor(ctx, {sharedCache}) {
 		this._ctx = ctx;
+		this._cache = sharedCache;
+
+		if (!sharedCache) throw new Error('Shared cache not defined in Connectors');
 	}
 
 	/**
@@ -118,21 +112,24 @@ export default class Auth {
 	}
 
 	/**
-	 * Generate a JWT for the currently logged in user.
-	 * @param payload - Optional JWT claims
-	 * @param options - Optional JWT options
-	 * @return {Promise.<void>}
+	 * Creates a signed JWT from user data.
+	 * @param payload
+	 * @param options
+	 * @return {string}
 	 */
-	async generateJwt(payload, options): Promise<string | null> {
-		if (!this._ctx.auth) throw new Error('auth isn\'t set on context');
-		const user = await this._ctx.auth.user();
-		if (!user) return null;
-		const {id, roles} = this._ctx.models.User.getData(user);
-		return signJwt({
-			...payload,
-			id,
-			roles,
-		}, options);
+	signJwt(payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '1h'}): string {
+		const numBytes = Math.ceil(4);
+		let bytes;
+		try {
+			bytes = randomBytes(numBytes);
+		} catch (e) {
+			bytes = pseudoRandomBytes(numBytes);
+		}
+		const rnd = bytes.toString('hex').substring(0, 4);
+
+		return sign(Object.assign({}, {
+			rnd,
+		}, payload), process.env.JWT_SECRET, options);
 	}
 
 	/**
@@ -146,13 +143,40 @@ export default class Auth {
 	}
 
 	/**
+	 * Takes a refresh token and creates a new access token
+	 * @param {string} rtoken
+	 */
+	async refreshToken(rtoken: string): Promise<string> {
+		const token = decode(rtoken);
+
+		if (!token || !token.id || !token.exp) {
+			throw TokenNotValid();
+		} else if (Date.now() / 1000 > token.exp) {
+			throw TokenExpired();
+		} else {
+			const {User} = this._ctx.models;
+			const user = await User.getById(token.id);
+			if (!user) throw UserNotFoundError();
+			const {servicesField, roles} = User.getData(user);
+			if (find(get(user, [servicesField, 'token', 'blacklist'], []), {token: token.rnd})) {
+				throw TokenDeauthorized();
+			} else {
+				return this.signJwt({id: token.id, roles});
+			}
+		}
+	}
+
+	/**
 	 * Attempts the log in process.
 	 * @param {string} email - The email to log in with.
 	 * @param {string|object} password - The password string/object to log in with.
 	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
 	async logIn(email, password): Promise<LoginRet> {
-		d(`Starting log in process: ${email}`);
+		const attempts = await this._cache.get(`loginattempts:${email}`) || 0;
+		d(`Starting log in process: ${email} (Attempt: ${attempts + 1})`);
+
+		if (attempts > (process.env.LOGIN_MAX_FAIL || 5)) throw TooManyLoginAttempts();
 
 		// Verify parameters
 		const {User, Role} = this._ctx.models;
@@ -160,15 +184,17 @@ export default class Auth {
 		if (!User) throw new Error('User model not defined');
 
 		const user = await User.getByEmail(email);
-		if (!user) throw userNotFoundError();
+		if (!user) throw UserNotFoundError();
 
-		const {id, basicInfo, password: userPassword, roles} = User.getData(user);
+		const {id, basicInfo, roles, servicesField} = User.getData(user);
+		const userPassword = get(user, [servicesField, 'password', 'bcrypt']);
 
 		if (userPassword) {
 			if (await validatePassword(userPassword, password)) {
-				d('Everything validated. Returning jwt and auth');
+				d('Everything validated. Returning jwt, rtoken and auth');
 				return {
-					jwt: signJwt({id, roles}),
+					jwt: this.signJwt({id, roles}),
+					rtoken: this.signJwt({id}, {expiresIn: process.env.RTOKEN_EXPIRES || '7d'}),
 					auth: {
 						userId: id,
 						permissions: await Role.getPermissions(roles),
@@ -177,7 +203,35 @@ export default class Auth {
 				};
 			}
 		}
+
 		d(`Incorrect password: ${email}`);
-		throw incorrectPasswordError();
+		await this._cache.set(`loginattempts:${email}`, attempts + 1, process.env.LOGIN_MAX_COOLDOWN || 300);
+		throw IncorrectPasswordError();
+	}
+
+	async forgotPassword(email): Promise<boolean> {
+		d(`Requesting forgotten password ${email}`);
+		const {User} = this._ctx.models;
+
+		// Get user
+		const user = await User.getByEmail(email);
+		// We return "success" here because we don't want to notify the client that we have a user with the specified email.
+		if (!user) return true;
+
+		// Get the previous recovery tokens
+		const {servicesField} = User.getData(user);
+		const recoveryTokens = get(user, [servicesField, 'token', 'recovery'], []);
+
+		// Create a new recovery token
+		const newToken = this.signJwt({recovery: randomId(32)}, {expiresIn: '2d'});
+		set(user, [servicesField, 'token', 'recovery'], recoveryTokens.concat([newToken]));
+		await user.save();
+
+		return true;
+	}
+
+	async signUp(email): Promise<boolean> {
+		d(email);
+		return true;
 	}
 }

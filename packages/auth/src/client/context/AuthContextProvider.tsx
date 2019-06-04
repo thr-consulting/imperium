@@ -1,18 +1,22 @@
-/* eslint-disable react/forbid-prop-types */
 import React, {useState} from 'react';
-// import debug from 'debug';
-import PropTypes from 'prop-types';
+import debug from 'debug';
 import {AuthContext} from '@imperium/context';
 import checkPermissions from './checkPermissions';
+import {ClientAuth} from '../../../types';
 
-// const d = debug('imperium.auth.AuthContextProvider');
+const d = debug('imperium.auth.AuthContextProvider');
 
-export default function AuthContextProvider(props) {
+interface Props {
+	auth: ClientAuth,
+	children: JSX.Element,
+}
+
+export default function AuthContextProvider(props: Props) {
 	const {auth} = props;
 	const [state, setState] = useState(auth || {
 		userId: null,
 		user: null,
-		permissions: null,
+		permissions: [],
 	});
 
 	const eState = {
@@ -33,8 +37,3 @@ export default function AuthContextProvider(props) {
 		</AuthContext.Provider>
 	);
 }
-
-AuthContextProvider.propTypes = {
-	auth: PropTypes.object,
-	children: PropTypes.any,
-};

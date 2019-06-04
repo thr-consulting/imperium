@@ -3,8 +3,11 @@ import {RouteProps} from 'react-router-dom';
 import {Application, RequestHandler, NextFunction, Request, Response} from 'express';
 import DataLoader from 'dataloader';
 import {DocumentNode} from 'graphql';
+import {SchemaDirectiveVisitor} from 'graphql-tools';
 import {Document, Model, Types} from 'mongoose';
-import Context from './src/server/middleware/ContextMap';
+import Context from './src/server/middleware/Context';
+
+export {default as Context} from './src/server/middleware/Context';
 
 interface RouteContentProps {
 	route: ImperiumRoute,
@@ -22,15 +25,23 @@ export interface ImperiumRoute extends RouteProps {
 	redirect?: boolean,
 	// Portal props
 	key?: string,
-	portal?: React.ComponentType<{ route: ImperiumRoute, routeKey: string }>,
+	portal?: React.ComponentType<{
+		route: ImperiumRoute,
+		routeKey: string,
+		restoreRoute: (routeKey: string) => void,
+	}>,
 }
 
+export type InitialConfig = Record<string, any>;
+export type InitialState = Record<string, any> | null | void;
 export type Fragments = Record<string, any>;
+export type StartupData = Record<string, any>;
 
 export interface ClientModule {
-	startup?: (initialConfig: {}, initialState: {}) => {} | void,
+	startup?: (initialConfig: InitialConfig, initialState: InitialState) => StartupData | void,
 	routes?: ImperiumRoute[],
 	fragments?: Fragments,
+	pre?: (initialConfig: InitialConfig, initialState: InitialState) => InitialState,
 }
 
 export interface EndpointOptions {
@@ -46,11 +57,13 @@ export interface Models {
 
 export interface ServerModule {
 	schema?: DocumentNode | DocumentNode[],
+	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>,
 	resolvers?: {},
 	models?: () => Models,
 	endpoints?: (options: EndpointOptions) => void,
-	startup?: (context: Context) => Promise<any>,
-	initialConfig?: () => Record<string, any>,
+	startup?: (context: Context) => Promise<StartupData>,
+	initialConfig?: () => InitialConfig,
+	middleware?: () => ImperiumRequestHandler,
 }
 
 export interface Connectors {
@@ -66,16 +79,4 @@ export interface ImperiumRequestHandler extends RequestHandler {
 	(req: ImperiumRequest, res: Response | null, next: NextFunction): any,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Model {
-}
-
-export type ServerModuleFunc = (connectors: Connectors[], context: ContextMap) => ServerModule;
-
-export interface ContextMap {
-	addModule: (moduleFunc: ServerModuleFunc) => void,
-	getModel: (name: string) => Model,
-	models: Record<string, Model>,
-	auth: any,
-	connectors: Connectors[],
-}
+export type ServerModuleFunc = (connectors: Connectors[], context: Context) => ServerModule;

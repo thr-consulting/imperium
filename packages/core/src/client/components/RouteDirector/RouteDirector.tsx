@@ -87,7 +87,7 @@ function RouteDirector(props: Props): JSX.Element {
 					{
 						routes.map(Route => {
 							// If the route is not a portal route or if the current key isn't present, don't render it here
-							if (!Route.portal || !currentQuery[Route.key]) return null;
+							if (!Route.portal || !Route.key || !currentQuery[Route.key]) return null;
 							d('Rendering a portal', Route.key);
 							return (
 								<Route.portal
@@ -102,6 +102,7 @@ function RouteDirector(props: Props): JSX.Element {
 											search: stringify(currentQuery),
 										});
 									}}
+									route={Route}
 									{...Route}
 								/>
 							);

@@ -1,7 +1,3 @@
-const client = require('./lib/client').default;
+const client = require('./lib/client');
 
-module.exports = function ImperiumGraphqlModule() {
-	return {
-		startup: client.startup,
-	};
-};
+module.exports = client.default;

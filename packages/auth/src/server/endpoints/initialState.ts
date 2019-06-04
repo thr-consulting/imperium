@@ -1,31 +1,25 @@
 import debug from 'debug';
 import jwt from 'express-jwt';
-import middleware from '../middleware';
+import {EndpointOptions} from '@imperium/core';
 
-const d = debug('imperium.core.server.initialState');
+const d = debug('imperium.auth.initialState');
 
-/**
- * HTTP GET endpoint that sends the initial state to the client if the user is authorized.
- * @param app
- * @param connectors
- * @param modules
- */
-export default function({app, connectors, modules}): void {
-	const {context, userAuth} = middleware;
+// TODO This isn't initial state, but initial auth
+export default function initialState({app, connectors, modules, middleware}: EndpointOptions): void {
+	const {contextMiddleware, userAuthMiddleware} = middleware;
 	app.use(
 		'/api/initial-state',
 		jwt({
 			secret: process.env.JWT_SECRET || 'secretfail',
 			credentialsRequired: true,
 		}),
-		context({connectors, modules}),
-		userAuth(),
+		contextMiddleware({connectors, modules}),
+		userAuthMiddleware(),
 		(req, res) => {
 			d('Initial state endpoint');
 			if (req.context.models.Auth && req.context.models.Auth.serializeAuth) {
 				req.context.models.Auth.serializeAuth(req.auth)
 					.then(serializedAuth => {
-						// TODO expand initial state to include things from modules
 						const serializedState = JSON.stringify({
 							auth: serializedAuth,
 						});

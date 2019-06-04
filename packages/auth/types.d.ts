@@ -16,5 +16,22 @@ export interface ClientAuth {
 
 export interface LoginRet {
 	jwt: string,
+	rtoken: string,
 	auth: ClientAuth,
+}
+
+export interface UserServices {
+	password: {
+		bcrypt: string,
+	},
+	token: {
+		blacklist: [{
+			token: string,
+			exp: Date,
+		}],
+		recovery: [{
+			token: string,
+			exp: Date,
+		}],
+	},
 }

@@ -1,41 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import debug from 'debug';
-import {Form, Icon} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';
 import styles from './styles.css';
 
-const d = debug('imperium.auth.ForgotPasswordForm');
+const d = debug('imperium.auth.SignUpForm');
 
 const schema = object({
 	email: TSchemas.email(),
 });
 
-export default function ForgotPasswordForm(props) {
-	const {setOpen, setView, loading, error} = props;
+interface Props {
+	signUp: (email: string) => void,
+	loading: boolean,
+	error: any,
+}
+
+export default function SignUpForm(props: Props) {
+	const {loading, error, signUp} = props;
 
 	return (
 		<TForm
 			initialValues={{email: ''}}
 			validationSchema={schema}
 			onSubmit={({email}) => {
-				d(email);
-				setOpen(false);
+				signUp(email);
 			}}
 			errors={error}
 			loading={loading}
 			numFields={1}
 			render={({values, handleChange, handleBlur, handleSubmit, renderErrors, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
 				<Form onSubmit={handleSubmit} error={hasErrors()} warning={hasWarnings()}>
-					<div className={styles.chevron}>
-						<Icon name="angle left" link size="huge" onClick={() => setView('login')} style={{width: 40}}/>
-					</div>
 					{renderErrors()}
 					{renderWarnings()}
 					<p className={styles.smallText}>
-						We&apos;ll send a password reset link to your account&apos;s email address.
+						We&apos;ll send a confirmation email to finish setting up your account.
 					</p>
 					<Form.Field required error={fieldError('email')}>
 						<label>Email</label>
@@ -48,16 +49,9 @@ export default function ForgotPasswordForm(props) {
 							onBlur={handleBlur}
 						/>
 					</Form.Field>
-					<Form.Button primary type="submit" size="medium" loading={loading} disabled={loading} color="green" fluid>Reset Password</Form.Button>
+					<Form.Button primary type="submit" size="medium" loading={loading} disabled={loading} color="green" fluid>Sign Up</Form.Button>
 				</Form>
 			)}
 		/>
 	);
 }
-
-ForgotPasswordForm.propTypes = {
-	setOpen: PropTypes.func.isRequired,
-	setView: PropTypes.func.isRequired,
-	loading: PropTypes.bool,
-	error: PropTypes.any, // eslint-disable-line
-};

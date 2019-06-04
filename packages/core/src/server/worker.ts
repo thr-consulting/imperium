@@ -7,8 +7,7 @@ import isFunction from 'lodash/isFunction';
 import chalk from 'chalk';
 import createHtml from './createHtml';
 import production from './endpoints/production';
-import initialState from './endpoints/initialState';
-import middleware from './middleware';
+import contextMiddleware from './middleware/contextMiddleware';
 import {ImperiumRequest, ServerModule} from '../../types';
 
 const d = debug('imperium.core.server.worker');
@@ -59,8 +58,19 @@ export default function worker(sc, {
 		// Production only endpoint for client chunks
 		production({app});
 
-		// End point to retrieve the initial state. Must provide a valid JWT to access this endpoint.
-		initialState({app, connectors, modules});
+		// Module custom middleware
+		d('Creating module custom middleware');
+		const middleware = modules.reduce((memo, module) => {
+			if (module.middleware && isFunction(module.middleware)) {
+				return {
+					...memo,
+					...module.middleware(),
+				};
+			}
+			return memo;
+		}, {
+			contextMiddleware, // Default core middleware
+		});
 
 		// Module custom endpoints
 		d('Creating module custom endpoints');
@@ -78,15 +88,7 @@ export default function worker(sc, {
 		// TODO create an abstraction so we don't need to "hack" the request here
 		// @ts-ignore
 		const req: ImperiumRequest = {};
-		middleware.context({connectors, modules})(req, null, () => {});
-
-		// Get Promise's for each module's startup code
-		// const startupPromises = modules.reduce((memo, module) => {
-		// 	if (module.startup && isFunction(module.startup)) {
-		// 		return [...memo, module.startup(req.context)];
-		// 	}
-		// 	return memo;
-		// }, [] as Promise<any>[]);
+		contextMiddleware({connectors, modules})(req, null, () => {});
 
 		// Get Promise's for each module's startup code
 		const startupPromises = modules.reduce((memo, module) => {

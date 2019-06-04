@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:8.16
     working_directory: ~/repo
     steps:
       - checkout
@@ -28,9 +28,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum ".packages-hash" }}
 
+      - run: yarn lint
       - run: yarn build
       - run: yarn test
-      - run: yarn lint
+      - run: yarn ts
 
   publish:
     docker:

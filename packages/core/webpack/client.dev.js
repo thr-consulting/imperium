@@ -69,10 +69,11 @@ module.exports = {
 			rootRender$: path.join(pRoot, config.project.rootRender),
 
 			// If you are developing Imperium with 'yarn link' or 'yalc publish', enable these to use the same React libs as the project
-			// react: path.resolve(pRoot, './node_modules/react'),
-			// 'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
-			// 'react-router': path.resolve(pRoot, './node_modules/react-router'),
-			// 'react-router-dom': path.resolve(pRoot, './node_modules/react-router-dom'),
+			react: path.resolve(pRoot, './node_modules/react'),
+			'react-dom': path.resolve(pRoot, './node_modules/react-dom'),
+			'react-router': path.resolve(pRoot, './node_modules/react-router'),
+			'react-router-dom': path.resolve(pRoot, './node_modules/react-router-dom'),
+			'@imperium/context': path.resolve(pRoot, './node_modules/@imperium/context'),
 		},
 		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},
@@ -89,7 +90,6 @@ module.exports = {
 		new webpack.DefinePlugin({
 			__CLIENT__: true,
 			__PRODUCTION__: false,
-			// 'process.env.NODE_ENV': JSON.stringify('development'),
 		}),
 		new HardSourceWebpackPlugin({
 			cacheDirectory: path.resolve(pRoot, 'node_modules', '.cache', 'hard-source'),

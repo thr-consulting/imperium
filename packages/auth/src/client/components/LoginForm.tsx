@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Form, Input} from 'semantic-ui-react';
+import React, {Dispatch, SetStateAction} from 'react';
+import {Form, Input, Label} from 'semantic-ui-react';
 import TSchemas from '@thx/tschemas';
 import {TForm} from '@thx/controls';
 import {object} from 'yup';
-import styles from './styles.css';
 import sha256 from './sha256';
 
 const schema = object({
@@ -12,7 +10,14 @@ const schema = object({
 	email: TSchemas.email(),
 });
 
-export default function LogInForm(props) {
+interface Props {
+	setView: Dispatch<SetStateAction<string>>,
+	loading: boolean,
+	error: any,
+	logIn: (email: string, payload: {digest: any, algorithm: string}) => void,
+}
+
+export default function LoginForm(props: Props) {
 	const {setView, loading, error, logIn} = props;
 
 	return (
@@ -36,6 +41,7 @@ export default function LogInForm(props) {
 					<Form.Field required error={fieldError('email')}>
 						<label>Email</label>
 						<Input
+							focus
 							placeholder="Email"
 							name="email"
 							type="email"
@@ -55,19 +61,12 @@ export default function LogInForm(props) {
 							onBlur={handleBlur}
 						/>
 					</Form.Field>
-					<p className={styles.smallText}>
-						<button type="button" onClick={() => setView('forgotpassword')}>Forgot your password?</button>
-					</p>
+					<div style={{textAlign: 'center'}}>
+						<Label style={{marginBottom: '1.5em'}} basic size="tiny" color="grey" as="a" onClick={() => setView('forgotpassword')}>Forgot your password?</Label>
+					</div>
 					<Form.Button primary type="submit" size="medium" loading={loading} disabled={loading} color="green" fluid>Sign In</Form.Button>
 				</Form>
 			)}
 		/>
 	);
 }
-
-LogInForm.propTypes = {
-	setView: PropTypes.func.isRequired,
-	loading: PropTypes.bool,
-	error: PropTypes.any, // eslint-disable-line
-	logIn: PropTypes.func.isRequired,
-};

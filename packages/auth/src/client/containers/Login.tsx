@@ -2,18 +2,28 @@ import gql from 'graphql-tag';
 import debug from 'debug';
 import React, {useState} from 'react';
 import {Mutation} from 'react-apollo';
-import PropTypes from 'prop-types';
 import {useFragments} from '@imperium/context';
-import LogInForm from '../components/LogInForm';
+import {InitialConfig} from '@imperium/core';
+import LoginForm from '../components/LoginForm';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import Transit from '../components/Transit';
-import {logInMutation} from '../graphql';
+import {logInMutation, forgotPasswordMutation} from '../graphql';
 import useAuth from '../context/useAuth';
 
-const d = debug('imperium.auth.LogIn');
+const d = debug('imperium.auth.Login');
 
-export default function LogIn(props) {
-	const [open, setOpen] = useState(true);
+declare global {
+	interface Window {
+		__INITIAL_CONF__: InitialConfig,
+	}
+}
+
+interface Props {
+	restoreRoute: (routeKey: string) => void,
+	routeKey: string,
+}
+
+export default function Login(props: Props) {
 	const [view, setView] = useState('login');
 	const authContext = useAuth();
 	const fragments = useFragments();
@@ -24,15 +34,25 @@ export default function LogIn(props) {
 	const combinedLogInMutation = gql`${logInMutation} ${fragments.userBasicInfoFragment}`;
 
 	const form = view === 'forgotpassword' ? (
-		<ForgotPasswordForm
-			setOpen={setOpen}
-			setView={setView}
-		/>
+		<Mutation mutation={forgotPasswordMutation}>
+			{(forgotPassword, {loading, error}) => (
+				<ForgotPasswordForm
+					setView={setView}
+					loading={loading}
+					error={error}
+					forgotPassword={email => {
+						forgotPassword({variables: {email}}).then(ret => {
+							d('Requested password reset success', ret);
+							restoreRoute(routeKey);
+						});
+					}}
+				/>
+			)}
+		</Mutation>
 	) : (
 		<Mutation mutation={combinedLogInMutation}>
-			{(logIn, {loading, error}) => (
-				<LogInForm
-					setOpen={setOpen}
+			{(logIn, {loading, error, client}) => (
+				<LoginForm
 					setView={setView}
 					loading={loading}
 					error={error}
@@ -44,11 +64,16 @@ export default function LogIn(props) {
 									userId: ret.data.logIn.auth.userId,
 									user: ret.data.logIn.auth.user,
 									permissions: ret.data.logIn.auth.permissions,
-									jwt: ret.data.logIn.jwt,
+									// jwt: ret.data.logIn.jwt, // TODO Do I really need the JWT in my client Auth?
 								});
-								const {jwt_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase,@typescript-eslint/camelcase
+								const {jwt_localstorage_name, rtoken_localstorage_name} = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle,camelcase,@typescript-eslint/camelcase
 								window.localStorage.setItem(jwt_localstorage_name, ret.data.logIn.jwt);
-								restoreRoute(routeKey);
+								window.localStorage.setItem(rtoken_localstorage_name, ret.data.logIn.rtoken);
+
+								// Reset apollo cache, now that we have tokens
+								client.resetStore().then(() => {
+									restoreRoute(routeKey);
+								});
 							})
 							.catch(err => {
 								d(err.message);
@@ -60,13 +85,8 @@ export default function LogIn(props) {
 	);
 
 	return (
-		<Transit open={open} restoreRoute={restoreRoute} routeKey={routeKey}>
+		<Transit open restoreRoute={restoreRoute} routeKey={routeKey}>
 			{form}
 		</Transit>
 	);
 }
-
-LogIn.propTypes = {
-	restoreRoute: PropTypes.func.isRequired,
-	routeKey: PropTypes.string.isRequired,
-};

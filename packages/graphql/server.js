@@ -1,8 +1,3 @@
-const server = require('./lib/server').default;
+const server = require('./lib/server');
 
-module.exports = function ImperiumGraphqlModule() {
-	return {
-		endpoints: server.endpoints,
-		initialConfig: server.initialConfig,
-	};
-};
+module.exports = server.default;

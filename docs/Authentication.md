@@ -4,6 +4,8 @@ title: Authentication
 sidebar_label: Authentication
 ---
 
+# This is out of date!
+
 Imperium authentication is handled using JWT. User authentication middleware hooks are baked into `@imperium/core`.
 It assumes that the Auth model is present with the appropriate methods defined. On the client an AuthContext will
 also need to be specified.

@@ -1,5 +1,7 @@
 import startup from './startup';
 
-export default {
-	startup,
-};
+export default function ImperiumGraphqlModule() {
+	return {
+		startup,
+	};
+}

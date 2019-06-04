@@ -1,10 +1,3 @@
-const server = require('./lib/server').default;
+const server = require('./lib/server');
 
-module.exports = function ImperiumAuthModule() {
-	return {
-		models: server.models,
-		startup: server.startup,
-		schema: server.schema,
-		resolvers: server.resolvers,
-	};
-};
+module.exports = server.default;
