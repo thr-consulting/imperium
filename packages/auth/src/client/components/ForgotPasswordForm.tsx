@@ -31,13 +31,11 @@ export default function ForgotPasswordForm(props: Props) {
 			}}
 			errors={error}
 			loading={loading}
-			numFields={1}
-			render={({values, handleChange, handleBlur, handleSubmit, renderErrors, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
+			render={({values, handleChange, handleBlur, handleSubmit, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
 				<Form onSubmit={handleSubmit} error={hasErrors()} warning={hasWarnings()}>
 					<div className={styles.chevron}>
 						<Icon name="angle left" link size="huge" onClick={() => setView('login')} style={{width: 40}}/>
 					</div>
-					{renderErrors()}
 					{renderWarnings()}
 					<p className={styles.smallText}>
 						We&apos;ll send a password reset link to your account&apos;s email address.

@@ -31,9 +31,8 @@ export default function SignUpForm(props: Props) {
 			errors={error}
 			loading={loading}
 			numFields={1}
-			render={({values, handleChange, handleBlur, handleSubmit, renderErrors, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
+			render={({values, handleChange, handleBlur, handleSubmit, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
 				<Form onSubmit={handleSubmit} error={hasErrors()} warning={hasWarnings()}>
-					{renderErrors()}
 					{renderWarnings()}
 					<p className={styles.smallText}>
 						We&apos;ll send a confirmation email to finish setting up your account.

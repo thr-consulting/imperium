@@ -33,10 +33,8 @@ export default function LoginForm(props: Props) {
 			}}
 			errors={error}
 			loading={loading}
-			numFields={2}
-			render={({values, handleChange, handleBlur, handleSubmit, renderErrors, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
+			render={({values, handleChange, handleBlur, handleSubmit, renderWarnings, hasErrors, hasWarnings, fieldError}) => (
 				<Form onSubmit={handleSubmit} error={hasErrors()} warning={hasWarnings()}>
-					{renderErrors()}
 					{renderWarnings()}
 					<Form.Field required error={fieldError('email')}>
 						<label>Email</label>
