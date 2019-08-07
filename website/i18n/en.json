@@ -29,6 +29,9 @@
         "title": "Authentication",
         "sidebar_label": "Authentication"
       },
+      "AuthenticationInDepth": {
+        "title": "AuthenticationInDepth"
+      },
       "clientModule": {
         "title": "Client Module",
         "sidebar_label": "Client Module"
@@ -39,6 +42,10 @@
       },
       "DependencyIssues": {
         "title": "DependencyIssues"
+      },
+      "email": {
+        "title": "Imperium Email",
+        "sidebar_label": "Main"
       },
       "main": {
         "title": "Imperium React Framework",

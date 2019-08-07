@@ -13,40 +13,20 @@ Model class for authentication. Uses a Mongo `roles` collection and has an opini
 
 * [Auth](#Auth)
 
-    * [new Auth(connection, ctx)](#new_Auth_new)
-
     * [.defaultAuth()](#Auth+defaultAuth)
 
     * [.buildAuthFromJwt(decodedJWT)](#Auth+buildAuthFromJwt)
 
     * [.serializeAuth(auth)](#Auth+serializeAuth)
 
-    * [.logIn(email, password)](#Auth+logIn)
-
-    * [.generateJwt(payload, options)](#Auth+generateJwt)
+    * [.signJwt(payload, options)](#Auth+signJwt)
 
     * [.encryptPassword(password)](#Auth+encryptPassword)
 
-    * [.getPermissions(roles)](#Auth+getPermissions)
+    * [.refreshToken(rtoken)](#Auth+refreshToken)
 
-    * [.createRole(name, permissions)](#Auth+createRole)
+    * [.logIn(email, password)](#Auth+logIn)
 
-    * [.getByName(name)](#Auth+getByName)
-
-
-
-* * *
-
-<a name="new_Auth_new"></a>
-
-### new Auth(connection, ctx)
-
-| Param | Type | Description |
-| --- | --- | --- |
-| connection | <code>object</code> | The Mongo connection. |
-| ctx | <code>object</code> | The Context object that this model belongs to. |
-
-Creates a new Auth model.
 
 
 * * *
@@ -87,30 +67,16 @@ Takes in an authentication object and serializes it for transport to the client.
 
 * * *
 
-<a name="Auth+logIn"></a>
+<a name="Auth+signJwt"></a>
 
-### *auth*.logIn(email, password)
+### *auth*.signJwt(payload, options)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| email | <code>string</code> | The email to log in with. |
-| password | <code>string</code> \| <code>object</code> | The password string/object to log in with. |
+| Param |
+| --- |
+| payload | 
+| options | 
 
-Attempts the log in process.
-
-
-* * *
-
-<a name="Auth+generateJwt"></a>
-
-### *auth*.generateJwt(payload, options)
-
-| Param | Description |
-| --- | --- |
-| payload | Optional JWT claims |
-| options | Optional JWT options |
-
-Generate a JWT for the currently logged in user.
+Creates a signed JWT from user data.
 
 
 * * *
@@ -128,43 +94,36 @@ Encrypts a password
 
 * * *
 
-<a name="Auth+getPermissions"></a>
+<a name="Auth+refreshToken"></a>
 
-### *auth*.getPermissions(roles)
+### *auth*.refreshToken(rtoken)
 
-| Param |
-| --- |
-| roles | 
+| Param | Type |
+| --- | --- |
+| rtoken | <code>string</code> | 
 
-Gets the array of permissions from an array of roles
-
-
-* * *
-
-<a name="Auth+createRole"></a>
-
-### *auth*.createRole(name, permissions)
-
-| Param |
-| --- |
-| name | 
-| permissions | 
-
-Create a new role
+Takes a refresh token and creates a new access token
 
 
 * * *
 
-<a name="Auth+getByName"></a>
+<a name="Auth+logIn"></a>
 
-### *auth*.getByName(name)
+### *auth*.logIn(email, password)
 
-| Param |
-| --- |
-| name | 
+| Param | Type | Description |
+| --- | --- | --- |
+| email | <code>string</code> | The email to log in with. |
+| password | <code>string</code> \| <code>object</code> | The password string/object to log in with. |
 
-Gets a role by name
+Attempts the log in process.
 
+
+* * *
+
+<a name="Role"></a>
+
+## Role
 
 * * *
 
@@ -183,16 +142,16 @@ Compares an auth object against a permission or list of permissions.
 
 * * *
 
-<a name="validatePassword"></a>
+<a name="userAuthMiddleware"></a>
 
-## validatePassword(user, password)
+## userAuthMiddleware(tokenReqPath, secret)
 
 | Param |
 | --- |
-| user | 
-| password | 
+| tokenReqPath | 
+| secret | 
 
-Validates a user object and a password string/object.
+Express middleware that uses the Auth model and JWT to build authentication information.
 
 
 * * *

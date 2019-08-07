@@ -38,14 +38,28 @@ Merge module routes into a single array
 
 * * *
 
+<a name="mergeModuleFragments"></a>
+
+## mergeModuleFragments(modules)
+
+| Param |
+| --- |
+| modules | 
+
+Merge module fragments into a single object
+
+
+* * *
+
 <a name="renderRoot"></a>
 
-## renderRoot(Root, routes, startupData)
+## renderRoot(Root, routes, fragments, startupData)
 
 | Param |
 | --- |
 | Root | 
 | routes | 
+| fragments | 
 | startupData | 
 
 Render the root component into the DOM
@@ -95,21 +109,6 @@ Function that returns an Express endpoint handler promise that renders our base 
 
 <a name="_default"></a>
 
-## _default(app, connectors, modules)
-
-| Param |
-| --- |
-| app | 
-| connectors | 
-| modules | 
-
-HTTP GET endpoint that sends the initial state to the client if the user is authorized.
-
-
-* * *
-
-<a name="_default"></a>
-
 ## _default(app)
 
 | Param |
@@ -121,9 +120,9 @@ HTTP GET Endpoint that offers up the client for download in a production setting
 
 * * *
 
-<a name="context"></a>
+<a name="contextMiddleware"></a>
 
-## context(connectors, modules)
+## contextMiddleware(connectors, modules)
 
 | Param |
 | --- |
@@ -133,20 +132,6 @@ HTTP GET Endpoint that offers up the client for download in a production setting
 Express middleware that creates the context (data models & auth info).
 
 Adds .context to the req
-
-
-* * *
-
-<a name="_default"></a>
-
-## _default(tokenReqPath, secret)
-
-| Param |
-| --- |
-| tokenReqPath | 
-| secret | 
-
-Express middleware that uses the Auth model and JWT to build authentication information.
 
 
 * * *
