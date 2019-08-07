@@ -1,6 +1,5 @@
 /* eslint-disable import/no-duplicates */
 
-/*
 declare module '*.graphqls' {
 	import {DocumentNode} from 'graphql';
 
@@ -22,4 +21,3 @@ declare module '*.css' {
 	const classNames: ClassNames;
 	export = classNames;
 }
-*/
