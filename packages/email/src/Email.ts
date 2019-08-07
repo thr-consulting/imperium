@@ -5,6 +5,8 @@ import striptags from 'striptags';
 import Stream from 'stream';
 import markdownIt from 'markdown-it';
 import isUndefined from 'lodash/isUndefined';
+import htmlToText from 'html-to-text';
+import mjml2html from 'mjml';
 
 const d = debug('imperium.email.Email');
 
@@ -21,6 +23,17 @@ interface SendOptions {
 		context: string | Buffer | Stream,
 	}],
 	markdown?: boolean,
+}
+
+interface SendHtmlOptions {
+	from: string,
+	to: string,
+	subject: string,
+	html: string,
+	attachments?: [{
+		filename: string,
+		context: string | Buffer | Stream,
+	}],
 }
 
 export default class Email {
@@ -58,7 +71,7 @@ export default class Email {
 			console.log(`  Subject      : ${mSubject}`);
 			console.log(`  HTML Template: ${!!template}`);
 			console.log(`  Markdown Body: ${isMarkdown}`);
-			console.log(mBody);
+			// console.log(mBody);
 			if (attachments) {
 				attachments.forEach(att => {
 					console.log(`  Attached file: ${att.filename}`);
@@ -66,5 +79,36 @@ export default class Email {
 			}
 			console.log('------------------------------------------------------');
 		}
+	}
+
+	async sendHtml({from, to, html, subject, attachments}: SendHtmlOptions) {
+		const mSubject = striptags(subject);
+
+		if (process.env.IMPERIUM_NODE_ENV === 'production') {
+			await this.transporter.sendMail({
+				from,
+				to: process.env.MAIL_TO_DEVOVERRIDE ? process.env.MAIL_TO_DEVOVERRIDE : to,
+				subject: mSubject,
+				text: htmlToText(html),
+				html,
+				attachments,
+			});
+		} else {
+			console.log('--------- DEV MODE: SENDING EMAIL  -------------------');
+			console.log(`  From         : ${from}`);
+			console.log(`  To           : ${to}`);
+			console.log(`  Subject      : ${mSubject}`);
+			// console.log(html);
+			if (attachments) {
+				attachments.forEach(att => {
+					console.log(`  Attached file: ${att.filename}`);
+				});
+			}
+			console.log('------------------------------------------------------');
+		}
+	}
+
+	async sendMjml({from, to, mjml, subject, attachments}) {
+		await this.sendHtml({from, to, html: mjml2html(mjml).html, subject, attachments});
 	}
 }
