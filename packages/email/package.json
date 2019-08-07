@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/email",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Email Imperium package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -34,8 +34,10 @@
 	"dependencies": {
 		"@types/nodemailer": "^4.6.8",
 		"debug": "^4.0.1",
+		"html-to-text": "^5.1.1",
 		"lodash": "^4.17.11",
 		"markdown-it": "^8.4.2",
+		"mjml": "^4.4.0-beta.2",
 		"nodemailer": "^6.1.1",
 		"striptags": "^3.1.1"
 	},

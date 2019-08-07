@@ -25,7 +25,8 @@ export default function server() {
 		workers: numCpus || 1,
 		brokers: 1,
 		port: process.env.PORT || 4000,
-		wsEngine: 'sc-uws',
+		// wsEngine: 'sc-uws', // This was enabled because of "speed" but we aren't using websockets anyways. Not defining it makes it use "ws".
+		// This was also keeping use at node 8.
 		appName: process.env.APPNAME || 'Imperium',
 		workerController: isProduction ? path.join(__dirname, '/WorkerProd.js') : path.join(__dirname, '/WorkerDev.js'),
 		brokerController: path.join(__dirname, '/broker.js'),
