@@ -11,3 +11,4 @@ yarn-error.log*
 .eslintcache
 lib
 packages/**/docs/jsdoc
+yalc.lock

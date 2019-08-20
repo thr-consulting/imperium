@@ -16,7 +16,7 @@ export default function initialState({app, connectors, modules, middleware}: End
 		contextMiddleware({connectors, modules}),
 		userAuthMiddleware(),
 		(req, res) => {
-			d('Initial state endpoint');
+			d('Initial auth endpoint');
 			if (req.context.models.Auth && req.context.models.Auth.serializeAuth) {
 				req.context.models.Auth.serializeAuth(req.auth)
 					.then(serializedAuth => {

@@ -23,6 +23,7 @@ function htmlOptions({iSrcDir, pRoot, options}, config) {
 					path.resolve(pRoot, 'src'),
 				], 'BABEL/REG'),
 			],
+			extensions: ['.es6', '.es', '.jsx', '.js', '.mjs', '.ts', '.tsx'],
 		});
 	}
 
