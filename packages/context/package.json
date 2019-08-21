@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/context",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Imperium context package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
