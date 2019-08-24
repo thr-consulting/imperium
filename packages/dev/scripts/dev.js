@@ -22,7 +22,7 @@ if (cluster.isMaster) {
 
 	console.log(`Master process PID: ${process.pid}`);
 	console.log(`Number of workers:  1`);
-	console.log(`Server port:        ${process.env.PORT || 4000}`);
+	console.log(`Server port:        ${process.env.PORT || 4001}`);
 	console.log(`Client port:        ${imperiumConfig.development.clientPort}`);
 	console.log('');
 
