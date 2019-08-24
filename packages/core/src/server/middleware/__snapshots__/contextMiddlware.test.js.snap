@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`context should execute the middleware properly 1`] = `
-Object {
-  "fakeApiFn": [Function],
-}
-`;

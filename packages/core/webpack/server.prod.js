@@ -1,99 +1,70 @@
-/**
- * This webpack configuration is used when building the production server app.
- */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const compact = require('lodash/compact');
 const nodeExternals = require('webpack-node-externals');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const compact = require('lodash/compact');
-const config = require('../config');
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const inspectLoader = require('./inspectLoader').default;
-const isSourceFile = require('./isSourceFile');
 
-const iRoot = path.resolve(__dirname, '..');
-const iSrcDir = path.join(iRoot, 'src');
-const pRoot = path.resolve(process.cwd());
-const pSrcDir = path.join(pRoot, 'src');
-const pBuildDir = path.join(pRoot, config.production.buildDir);
-
-// Webpack config
-module.exports = {
-	mode: process.env.NODE_ENV,
-	context: iSrcDir,
-	entry: {
-		index: './server/index.js',
-		broker: './server/broker.js',
-		WorkerProd: './server/WorkerProd.js',
-	},
-	target: 'node',
-	output: {
-		filename: '[name].js',
-		chunkFilename: '[name].js',
-		path: pBuildDir,
-		library: 'server',
-		libraryTarget: 'commonjs2',
-	},
-	resolve: {
-		alias: {
-			// These aliases are so we can 'dynamically' include code from our project
-			Connectors$: path.join(pRoot, config.project.Connectors),
-			serverModules$: path.join(pRoot, config.project.serverModules),
+module.exports = function(imperiumConfig) {
+	return {
+		mode: 'production',
+		context: imperiumConfig.source.path,
+		target: 'node',
+		devtool: imperiumConfig.build.server.devtool,
+		entry: imperiumConfig.source.serverIndex,
+		externals: imperiumConfig.build.server.externals.map(v => nodeExternals({modulesDir: v})),
+		output: {
+			filename: 'worker.js',
+			path: path.join(imperiumConfig.build.path, 'server'),
+			libraryTarget: 'commonjs2',
 		},
-		extensions: ['.js', '.ts', '.d.ts'],
-	},
-	externals: [
-		nodeExternals({modulesDir: path.join(iRoot, '..', '..', 'node_modules')}), // TODO this won't be quite right after publishing
-		nodeExternals({modulesDir: path.join(pRoot, 'node_modules')}),
-	],
-	optimization: {
-		minimize: config.production.minimize,
-	},
-	node: {
-		__dirname: false,
-		__filename: false,
-	},
-	plugins: compact([
-		process.env.DEBUG ? null : new ProgressBarPlugin(),
-	]),
-	module: {
-		rules: [
-			{
-				test: /\.graphqls$/,
-				include: isSourceFile([iSrcDir, pSrcDir]),
-				use: [
-					inspectLoader('GRAPHQLS'),
-					{
-						loader: 'graphql-tag/loader',
-					},
-				],
-			},
-			{
-				test: /\.js$/,
-				include: isSourceFile([iSrcDir, pSrcDir]),
-				use: [
-					inspectLoader('BABEL'),
-					{
-						loader: 'babel-loader',
-						options: {
-							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: false}]],
+		resolve: {
+			extensions: ['.js', '.mjs', '.ts', '.d.ts'],
+		},
+		optimization: {
+			minimize: imperiumConfig.build.server.minimize,
+		},
+		plugins: compact([
+			process.env.DEBUG ? null : new ProgressBarPlugin(),
+			new BundleAnalyzerPlugin({
+				analyzerMode: 'static',
+				analyzerPort: 8923,
+				reportFilename: path.join('..', 'report-server.html'),
+				openAnalyzer: false,
+			}),
+		]),
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					exclude: /node_modules/,
+					use: [
+						inspectLoader('BABEL'),
+						{
+							loader: 'babel-loader',
+							options: {
+								babelrc: false,
+								presets: [['@imperium/babel-preset-imperium', {client: false}]],
+							},
 						},
-					},
-				],
-			},
-			{
-				test: /\.ts$/,
-				include: isSourceFile([iSrcDir, pSrcDir]),
-				use: [
-					inspectLoader('BABEL-TS'),
-					{
-						loader: 'babel-loader',
-						options: {
-							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
+					],
+				},
+				{
+					test: /\.ts$/,
+					exclude: /node_modules/,
+					use: [
+						inspectLoader('BABEL-TS'),
+						{
+							loader: 'babel-loader',
+							options: {
+								babelrc: false,
+								presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
+							},
 						},
-					},
-				],
-			},
-		],
-	},
+					],
+				},
+			],
+		},
+	};
 };

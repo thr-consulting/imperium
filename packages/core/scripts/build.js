@@ -1,12 +1,14 @@
-const {promisify} = require('es6-promisify');
-const rimraf = promisify(require('rimraf'));
+const util = require('util');
+const rimraf = util.promisify(require('rimraf'));
 const webpack = require('webpack');
 const chalk = require('chalk');
 const serverConfig = require('../webpack/server.prod');
 const clientConfig = require('../webpack/client.prod');
-const config = require('../config');
+const getConfig = require('./getConfig');
 
 const {log, error, warn} = console;
+
+const imperiumConfig = getConfig();
 
 /**
  * Prints warnings and errors from webpack output
@@ -16,7 +18,7 @@ const {log, error, warn} = console;
 function printOutput(err, stats) {
 	if (err) {
 		// log(chalk.blue('1----'));
-		error(chalk.bold.red(err.stack || err))
+		error(chalk.bold.red(err.stack || err));
 		if (err.details) {
 			// log(chalk.blue('2----'));
 			error(chalk.bold.red(err.details));
@@ -40,9 +42,9 @@ function printOutput(err, stats) {
 /**
  * Builds the client
  */
-const buildClient = promisify((data, cb) => {
+const buildClient = util.promisify((data, cb) => {
 	log(chalk.bold.green('>>> Building client'));
-	const clientCompiler = webpack(clientConfig);
+	const clientCompiler = webpack(clientConfig(imperiumConfig));
 	clientCompiler.run((err, stats) => {
 		printOutput(err, stats);
 		cb();
@@ -52,9 +54,9 @@ const buildClient = promisify((data, cb) => {
 /**
  * Builds the server
  */
-const buildServer = promisify((data, cb) => {
+const buildServer = util.promisify((data, cb) => {
 	log(chalk.bold.green('>>> Building server'));
-	const serverCompiler = webpack(serverConfig);
+	const serverCompiler = webpack(serverConfig(imperiumConfig));
 	serverCompiler.run((err, stats) => {
 		printOutput(err, stats);
 		cb();
@@ -73,7 +75,7 @@ log(chalk.bold.white('  Imperium Framework - Build'));
 log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 
 // Delete the build folder and start a new build
-rimraf(config.production.buildDir)
+rimraf(imperiumConfig.build.path)
 	.then(buildClient)
 	.then(buildServer)
 	.then(complete);
