@@ -91,19 +91,45 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
+/* 0 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("debug");
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  console.log('client');
-});
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImperiumServer; });
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(debug__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const d = debug__WEBPACK_IMPORTED_MODULE_1___default()('imperium.core.server');
+class ImperiumServer {
+  start() {
+    d('Starting express app'); // Create express app
+
+    const app = express__WEBPACK_IMPORTED_MODULE_0___default()();
+    app.listen(process.env.PORT || 4001, () => {// console.log(`  PID ${process.pid} listening on port ${process.env.PORT || 4000}`);
+    });
+  }
+
+}
 
 /***/ })
 /******/ ]);

@@ -3,7 +3,7 @@
  * This webpack configuration is used when running the development version of the client app.
  * The server portion calls Webpack, loads this config and starts the server.
  */
-const path = require('path');
+const webpack = require('webpack');
 const compact = require('lodash/compact');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -34,6 +34,7 @@ module.exports = function(imperiumConfig) {
 		devServer: {
 			quiet: true,
 			stats: 'errors-warnings',
+			hot: true,
 		},
 		stats: 'errors-warnings',
 		plugins: compact([
@@ -42,6 +43,7 @@ module.exports = function(imperiumConfig) {
 				title: 'test',
 				template: imperiumConfig.source.webTemplate,
 			}),
+			new webpack.HotModuleReplacementPlugin(),
 		]),
 		module: {
 			rules: [

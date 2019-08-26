@@ -9,10 +9,13 @@ module.exports = {
 	target: 'node',
 	// devtool: false,
 	entry: {
-		server: './server.ts',
-		client: './client.ts',
+		ImperiumServer: './ImperiumServer.ts',
+		ImperiumClient: './ImperiumClient.ts',
 	},
-	externals: nodeExternals(),
+	externals: [
+		nodeExternals({modulesDir: 'node_modules'}),
+		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
+	],
 	output: {
 		filename: '[name].js',
 		path: path.resolve(__dirname, 'lib'),

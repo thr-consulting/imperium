@@ -91,19 +91,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 3:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  console.log('server');
-});
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImperiumClient; });
+class ImperiumClient {
+  start() {
+    console.log('client');
+  }
+
+}
 
 /***/ })
-/******/ ]);
+
+/******/ });
 });
