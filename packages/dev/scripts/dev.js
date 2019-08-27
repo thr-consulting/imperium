@@ -1,3 +1,4 @@
+// Common package imports
 const cluster = require('cluster');
 const getConfig = require('./getConfig');
 require('dotenv').config();
@@ -7,25 +8,26 @@ const d = require('debug')('imperium.core');
 const imperiumConfig = getConfig();
 
 if (cluster.isMaster) {
-	/*
+	/* ****************************************************************************************
 	 * SERVER MASTER ENTRY POINT
-	 */
+	 **************************************************************************************** */
 	const chalk = require('chalk');
 	const chokidar = require('chokidar');
 	const debounce = require('lodash/debounce');
 	const webpack = require('webpack');
 	const WebpackDevServer = require('webpack-dev-server');
 
+	// Display banner and info
 	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 	console.log(chalk.bold.white('  Imperium Framework - Development'));
 	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
-
 	console.log(`Master process PID: ${process.pid}`);
 	console.log(`Number of workers:  1`);
 	console.log(`Server port:        ${process.env.PORT || 4001}`);
 	console.log(`Client port:        ${imperiumConfig.development.clientPort}`);
 	console.log('');
 
+	// Create a debounced function that will restart the worker thread
 	const restartWorker = debounce(() => {
 		clusterWorker.kill();
 	}, process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200, {leading: true, trailing: false});
@@ -47,7 +49,6 @@ if (cluster.isMaster) {
 	const webpackConfig = require('../webpack/client.dev')(imperiumConfig);
 	const compiler = webpack(webpackConfig);
 	const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-
 	server.listen(parseInt(imperiumConfig.development.clientPort, 10), '127.0.0.1', () => {
 		d(`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`);
 	});
@@ -55,35 +56,34 @@ if (cluster.isMaster) {
 	// For dev, only fork a single worker
 	let clusterWorker = cluster.fork();
 
-	// TODO if worker is dying really fast, stop spawning new ones and kill main thread.
+	let workerCrashCounter = 0;
+	let workerForkTime = process.hrtime(); // Record time worker is forked.
+
+	// Event: Fires when a worker exists
 	cluster.on('exit', (deadWorker, code, signal) => {
-		clusterWorker = cluster.fork();
-		d(`Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`)
+		const workerForkTimeDifference = process.hrtime(workerForkTime); // Calculate time since last worker fork
+
+		// If time between forks is less than the crash delay, increase the counter
+		if (workerForkTimeDifference[0] < imperiumConfig.development.workerCrashDelay) {
+			workerCrashCounter++;
+		}
+
+		// If the crash counter is less than the max, fork a new worker
+		if (workerCrashCounter < imperiumConfig.development.workerCrashMax) {
+			clusterWorker = cluster.fork();
+			workerForkTime = process.hrtime(); // Record new worker time
+			d(`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`)
+		} else {
+			console.error('Worker thread keeps crashing, exiting main app.');
+			process.exit(1);
+		}
 	});
 } else {
-	/*
+	/* ****************************************************************************************
 	 * SERVER WORKER ENTRY POINT
-	 */
+	 **************************************************************************************** */
 	const path = require('path');
-
-	// Exit when SIGINT sent
-	process.on('SIGINT', () => {
-		console.log('\n'); // eslint-disable-line no-console
-		console.log('Caught interrupt signal, shutting down');
-		process.exit(1);
-	});
-
-	// Catch uncaught exceptions
-	process.on('uncaughtException', error => {
-		console.error('Fatal: Uncaught exception', error);
-		process.exit(1);
-	});
-
-	// Catch unhandled rejections
-	process.on('unhandledRejection', error => {
-		console.error('Fatal: Unhandled promise rejection', error);
-		process.exit(1);
-	});
+	const isFunction = require('lodash/isFunction');
 
 	require('@babel/register')({
 		presets: [['@imperium/babel-preset-imperium',	{client: false, typescript: true}]],
@@ -91,5 +91,35 @@ if (cluster.isMaster) {
 	});
 
 	const worker = require(path.resolve(imperiumConfig.source.path, imperiumConfig.source.serverIndex)).default;
-	worker();
+	if (!isFunction(worker)) {
+		console.error('Server index must export a default function');
+		process.exit(1);
+	}
+	worker().then(server => {
+		if (!server) {
+			console.error('Server index function must return server.start()');
+			process.exit(2);
+		}
+
+		// Exit when SIGINT sent
+		process.on('SIGINT', () => {
+			console.log('\n'); // eslint-disable-line no-console
+			console.log('Caught interrupt signal, shutting down');
+			server.stop().finally(() => {
+				process.exit(0);
+			});
+		});
+
+		// Catch uncaught exceptions
+		process.on('uncaughtException', error => {
+			console.error('Fatal: Uncaught exception', error);
+			process.exit(3);
+		});
+
+		// Catch unhandled rejections
+		process.on('unhandledRejection', error => {
+			console.error('Fatal: Unhandled promise rejection', error);
+			process.exit(4);
+		});
+	});
 }

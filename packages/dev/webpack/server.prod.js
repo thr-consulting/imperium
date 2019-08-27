@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const compact = require('lodash/compact');
 const nodeExternals = require('webpack-node-externals');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
-const inspectLoader = require('./inspectLoader').default;
+const serverModuleRules = require('./serverModuleRules');
 
 module.exports = function(imperiumConfig) {
 	return {
@@ -33,38 +33,12 @@ module.exports = function(imperiumConfig) {
 				reportFilename: path.join('..', 'report-server.html'),
 				openAnalyzer: false,
 			}),
+			new CopyWebpackPlugin([
+				{from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'), to: '.'},
+			]),
 		]),
 		module: {
-			rules: [
-				{
-					test: /\.js$/,
-					exclude: /node_modules/,
-					use: [
-						inspectLoader('BABEL'),
-						{
-							loader: 'babel-loader',
-							options: {
-								babelrc: false,
-								presets: [['@imperium/babel-preset-imperium', {client: false}]],
-							},
-						},
-					],
-				},
-				{
-					test: /\.ts$/,
-					exclude: /node_modules/,
-					use: [
-						inspectLoader('BABEL-TS'),
-						{
-							loader: 'babel-loader',
-							options: {
-								babelrc: false,
-								presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
-							},
-						},
-					],
-				},
-			],
+			rules: serverModuleRules,
 		},
 	};
 };

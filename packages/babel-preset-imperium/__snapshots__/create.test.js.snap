@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create should return the default development configuration 1`] = `
+Object {
+  "plugins": Array [
+    [Function],
+    [Function],
+    Array [
+      [Function],
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "useBuiltIns": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "corejs": false,
+        "regenerator": true,
+        "useESModules": false,
+      },
+    ],
+    [Function],
+    Array [
+      [Function],
+      Object {
+        "extensions": Array [
+          ".graphqls",
+        ],
+      },
+    ],
+  ],
+  "presets": Array [
+    Array [
+      [Function],
+      Object {
+        "debug": false,
+        "modules": "commonjs",
+        "targets": Object {
+          "node": "current",
+        },
+      },
+    ],
+  ],
+}
+`;
+
+exports[`create should return the default production configuration 1`] = `
+Object {
+  "plugins": Array [
+    [Function],
+    [Function],
+    Array [
+      [Function],
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "useBuiltIns": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "corejs": false,
+        "regenerator": true,
+        "useESModules": false,
+      },
+    ],
+    [Function],
+    Array [
+      [Function],
+      Object {
+        "extensions": Array [
+          ".graphqls",
+        ],
+      },
+    ],
+  ],
+  "presets": Array [
+    Array [
+      [Function],
+      Object {
+        "debug": false,
+        "modules": false,
+        "targets": Object {
+          "node": "current",
+        },
+      },
+    ],
+  ],
+}
+`;
+
+exports[`create should return the default test configuration 1`] = `
+Object {
+  "plugins": Array [
+    [Function],
+    [Function],
+    Array [
+      [Function],
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "useBuiltIns": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
+        "corejs": false,
+        "regenerator": true,
+        "useESModules": false,
+      },
+    ],
+    [Function],
+    [Function],
+    Array [
+      [Function],
+      Object {
+        "extensions": Array [
+          ".graphqls",
+        ],
+      },
+    ],
+  ],
+  "presets": Array [
+    Array [
+      [Function],
+      Object {
+        "debug": false,
+        "modules": "commonjs",
+        "targets": Object {
+          "node": "current",
+        },
+      },
+    ],
+  ],
+}
+`;

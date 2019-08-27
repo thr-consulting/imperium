@@ -1,37 +1,30 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const packageJson = require('./package.json');
+const packageJson = require('../package.json');
 
 module.exports = {
 	mode: 'production',
-	context: path.resolve(__dirname, 'src'),
-	target: 'node',
-	// devtool: false,
-	entry: {
-		ImperiumServer: './ImperiumServer.ts',
-		ImperiumClient: './ImperiumClient.ts',
-	},
+	context: path.resolve(__dirname, '..', 'src'),
+	target: 'web',
+	devtool: 'source-map',
+	entry: './ImperiumClient.tsx',
 	externals: [
 		nodeExternals({modulesDir: 'node_modules'}),
 		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
 	],
 	output: {
-		filename: '[name].js',
-		path: path.resolve(__dirname, 'lib'),
+		filename: 'ImperiumClient.js',
+		path: path.resolve(__dirname, '..', 'lib'),
 		library: packageJson.name,
-		libraryTarget: 'umd',
-		globalObject: 'this',
+		libraryTarget: 'commonjs2',
+		// globalObject: 'this',
 	},
 	resolve: {
-		extensions: ['.js', '.mjs', '.ts', '.d.ts'],
+		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 	},
 	optimization: {
-		minimize: false,
-		splitChunks: {
-			name: 'vendor',
-			minChunks: 2,
-		},
+		minimize: true,
 	},
 	module: {
 		rules: [
@@ -49,14 +42,14 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.ts$/,
+				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: [
 					{
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
+							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 						},
 					},
 				],

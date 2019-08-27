@@ -15,27 +15,28 @@
 		"access": "public"
 	},
 	"main": "./lib/ImperiumServer.js",
+	"types": "./types.d.ts",
 	"files": [
-		"lib/*"
+		"lib/*",
+		"types.d.ts"
 	],
 	"scripts": {
-		"build": "NODE_ENV=production webpack --config webpack.config.js"
+		"build": "rimraf lib && yarn build:client && yarn build:server",
+		"build:client": "NODE_ENV=production webpack --config webpack/client.js",
+		"build:server": "NODE_ENV=production webpack --config webpack/server.js",
+		"ts": "tsc",
+		"lint": "eslint --cache --ext js,ts,tsx src"
 	},
 	"peerDependencies": {
-		"express": "^4.x",
 		"react": "^16.x",
-		"react-dom": "^16.x",
-		"semantic-ui-react": "^0.x"
-	},
-	"notpeer": {
-		"react-router-dom": "^5.x"
+		"react-dom": "^16.x"
 	},
 	"devDependencies": {
-		"@imperium/babel-preset-imperium": "^2.0.1",
-		"webpack": "^4.39.2",
+		"prettier": "^1.18.2",
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
-		"express": "^4.17.1"
+		"express": "^4.17.1",
+		"react-hot-loader": "^4.12.12"
 	}
 }
