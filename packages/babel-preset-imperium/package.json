@@ -40,6 +40,7 @@
 		"@babel/preset-env": "^7.4.1",
 		"@babel/preset-react": "^7.0.0",
 		"@babel/preset-typescript": "^7.3.3",
+		"@imperium/prettier-config-imperium": "^1.0.0",
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^2.5.0",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",

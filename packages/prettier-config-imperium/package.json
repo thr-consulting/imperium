@@ -16,8 +16,5 @@
 	"main": "index.json",
 	"scripts": {
 		"yalc:publish": "yalc publish --push"
-	},
-	"peerDependencies": {
-		"prettier": "^1.x"
 	}
 }

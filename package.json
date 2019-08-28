@@ -27,6 +27,7 @@
 		"@types/react-dom": "^16.9.0",
 		"@types/react-hot-loader": "^4.1.0",
 		"eslint": "^6.2.1",
+		"prettier": "^1.18.2",
 		"lerna": "^3.16.4",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",

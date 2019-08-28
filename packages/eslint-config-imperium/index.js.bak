@@ -1,26 +1,37 @@
 module.exports = {
 	parser: '@typescript-eslint/parser',
 	plugins: [
+		'@typescript-eslint',
+		'react',
+		'babel',
 		'jest',
 		'react-hooks',
 	],
-	extends: [
-		'airbnb-typescript',
-		'plugin:react/recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:prettier/recommended'
-	],
 	parserOptions: {
-		ecmaVersion: 2019,
-		sourceType: 'module',
 		ecmaFeatures: {
-			jsx: true
-		}
+			jsx: true,
+		},
 	},
-	settings: {
-		react: {
-			version: 'detect'
-		}
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:react/recommended',
+		'plugin:jest/recommended',
+		'airbnb-typescript',
+		'plugin:prettier/recommended',
+		// 'prettier/react',
+		// 'prettier/standard',
+	],
+	env: {
+		commonjs: true,
+		es6: true,
+		node: true,
+		'jest/globals': true,
+	},
+	globals: {
+		process: false,
+		window: true,
+		document: true,
 	},
 	rules: {
 		// General
@@ -68,4 +79,13 @@ module.exports = {
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
 	},
+	overrides: [
+		// Typescript
+		{
+			files: ['**/*.ts', '**/*.tsx'],
+			rules: {
+				'no-undef': 'off',
+			},
+		},
+	],
 };
