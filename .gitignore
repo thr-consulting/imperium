@@ -13,3 +13,4 @@ yalc.lock
 build
 .env
 yarn.lock
+lib

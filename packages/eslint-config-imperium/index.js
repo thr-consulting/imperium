@@ -22,6 +22,17 @@ module.exports = {
 			version: 'detect'
 		}
 	},
+	env: {
+		commonjs: true,
+		es6: true,
+		node: true,
+		'jest/globals': true,
+	},
+	globals: {
+		process: false,
+		window: true,
+		document: true,
+	},
 	rules: {
 		// General
 		'no-underscore-dangle': ['warn', {allowAfterThis: true, allow: ['_id']}],
