@@ -17,10 +17,10 @@ module.exports = function(api, opts) {
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
 			'Using `@imperium/babel-preset-imperium` requires that you specify `NODE_ENV` or ' +
-			'`BABEL_ENV` environment variables. Valid values are "development", ' +
-			'"test", and "production". Instead, received: ' +
-			JSON.stringify(env) +
-			'.'
+				'`BABEL_ENV` environment variables. Valid values are "development", ' +
+				'"test", and "production". Instead, received: ' +
+				JSON.stringify(env) +
+				'.',
 		);
 	}
 

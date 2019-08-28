@@ -23,17 +23,25 @@ module.exports = function(api, opts, env) {
 	// Options
 	var isDebug = validateBoolOption('debug', opts.debug, false);
 	var isClient = validateBoolOption('client', opts.client, false);
-	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
+	var forceModules = validateBoolOption(
+		'forceModules',
+		opts.forceModules,
+		false,
+	);
 	var forceReact = validateBoolOption('react', opts.react, false);
-	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
+	var enableTypescript = validateBoolOption(
+		'typescript',
+		opts.typescript,
+		false,
+	);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
 			'Using `@imperium/babel-preset-imperium` requires that you specify `NODE_ENV` or ' +
-			'`BABEL_ENV` environment variables. Valid values are "development", ' +
-			'"test", and "production". Instead, received: ' +
-			JSON.stringify(env) +
-			'.'
+				'`BABEL_ENV` environment variables. Valid values are "development", ' +
+				'"test", and "production". Instead, received: ' +
+				JSON.stringify(env) +
+				'.',
 		);
 	}
 
@@ -50,7 +58,8 @@ module.exports = function(api, opts, env) {
 						node: 'current',
 					},
 					// This transforms ES6 modules to a different type (CommonJS in this case)
-					modules: (forceModules || isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
+					modules:
+						forceModules || isEnvDevelopment || isEnvTest ? 'commonjs' : false,
 				},
 			],
 
@@ -83,9 +92,7 @@ module.exports = function(api, opts, env) {
 			],
 
 			// Add typescript
-			enableTypescript && [
-				require('@babel/preset-typescript').default,
-			],
+			enableTypescript && [require('@babel/preset-typescript').default],
 		].filter(Boolean),
 		plugins: [
 			// Experimental macros support. Will be documented after it's had some time
@@ -128,13 +135,14 @@ module.exports = function(api, opts, env) {
 			],
 
 			// Constraint: IS production client
-			isEnvProduction && isClient && [
-				// Remove PropTypes from production build
-				require('babel-plugin-transform-react-remove-prop-types').default,
-				{
-					removeImport: true,
-				},
-			],
+			isEnvProduction &&
+				isClient && [
+					// Remove PropTypes from production build
+					require('babel-plugin-transform-react-remove-prop-types').default,
+					{
+						removeImport: true,
+					},
+				],
 
 			// function* () { yield 42; yield 43; }
 			// !isEnvTest && [

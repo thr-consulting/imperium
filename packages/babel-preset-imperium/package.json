@@ -20,6 +20,7 @@
 	],
 	"scripts": {
 		"lint": "eslint --cache '*.js'",
+		"lint:fix": "eslint --cache --fix '*.js'",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"yalc:publish": "yalc publish --push"

@@ -4,12 +4,12 @@ import debug from 'debug';
 const d = debug('imperium.core.server');
 
 export interface ImperiumConnectors {
-	create(): Promise<{[connectorName: string]: any}>,
-	close(): Promise<void>,
+	create(): Promise<{[connectorName: string]: any}>;
+	close(): Promise<void>;
 }
 
 export interface ImperiumServerOptions {
-	connectors: ImperiumConnectors,
+	connectors: ImperiumConnectors;
 }
 
 export default class ImperiumServer {

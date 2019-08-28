@@ -11,19 +11,11 @@
 	],
 	"scripts": {
 		"lerna": "lerna",
-		"build": "yarn build:auth && yarn build:graphql && yarn build:core && yarn build:context",
-		"build:auth": "cd packages/auth && yarn build",
-		"build:graphql": "cd packages/graphql && yarn build",
-		"build:core": "cd packages/core && yarn build",
-		"build:context": "cd packages/context && yarn build",
+		"build": "lerna run build",
 		"lint": "lerna run lint",
+		"lint:fix": "lerna run lint:fix",
 		"ts": "lerna run ts",
 		"test": "lerna run test --stream --concurrency 1",
-		"test:coverage": "lerna run test:coverage --stream --concurrency 1",
-		"pkghash": "./tools/pkghash",
-		"docs:md": "lerna run docs:md",
-		"docs:build": "yarn docs:md && cd website && yarn build",
-		"ready:commit": "yarn lint && yarn test:coverage && yarn docs:build",
 		"yalc:publish": "lerna run yalc:publish"
 	},
 	"devDependencies": {

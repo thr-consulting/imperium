@@ -24,6 +24,9 @@
 	"bin": {
 		"imperium": "./bin/imperium.js"
 	},
+	"scripts": {
+		"yalc:publish": "yalc publish --push"
+	},
 	"peerDependencies": {
 		"react": "^16.x",
 		"react-dom": "^16.x"

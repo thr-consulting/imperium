@@ -1,0 +1,23 @@
+{
+	"name": "@imperium/prettier-config-imperium",
+	"version": "1.0.0",
+	"description": "Prettier config",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"main": "index.json",
+	"scripts": {
+		"yalc:publish": "yalc publish --push"
+	},
+	"peerDependencies": {
+		"prettier": "^1.x"
+	}
+}

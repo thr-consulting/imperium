@@ -1,4 +1,3 @@
 {
   "extends": "@imperium/eslint-config-imperium"
-//  "extends": "airbnb-typescript"
 }
