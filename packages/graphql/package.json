@@ -1,0 +1,44 @@
+{
+	"name": "@imperium/core",
+	"version": "4.0.0",
+	"description": "Imperium Core package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"main": "./lib/ImperiumServer.js",
+	"types": "./types.d.ts",
+	"files": [
+		"lib/*",
+		"types.d.ts"
+	],
+	"scripts": {
+		"build": "rimraf lib && yarn build:client && yarn build:server",
+		"build:client": "NODE_ENV=production webpack --config webpack/client.js",
+		"build:server": "NODE_ENV=production webpack --config webpack/server.js",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"ts": "tsc",
+		"yalc:publish": "yalc publish --push"
+	},
+	"peerDependencies": {
+		"react": "^16.x",
+		"react-dom": "^16.x"
+	},
+	"devDependencies": {
+		"webpack-cli": "^3.3.7"
+	},
+	"dependencies": {
+		"debug": "^4.1.1",
+		"express": "^4.17.1",
+		"react-hot-loader": "^4.12.12"
+	}
+}
