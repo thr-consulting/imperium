@@ -48,7 +48,12 @@ module.exports = {
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
+							presets: [
+								[
+									'@imperium/babel-preset-imperium',
+									{client: false, typescript: true},
+								],
+							],
 						},
 					},
 				],

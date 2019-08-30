@@ -4,17 +4,12 @@ import isFunction from 'lodash/isFunction';
 import {
 	ImperiumConnectorsMap,
 	ImperiumServerModule,
-	ImperiumServerModuleFunction,
+	ImperiumServerOptions,
 } from '../../types';
 import contextMiddleware from './contextMiddleware';
 import Context from './Context';
 
 const d = debug('imperium.core.server');
-
-interface ImperiumServerOptions {
-	connectors: ImperiumConnectorsMap;
-	serverModules: ImperiumServerModuleFunction[];
-}
 
 export default class ImperiumServer {
 	_connectors: ImperiumConnectorsMap;

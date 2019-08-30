@@ -42,6 +42,11 @@ export interface ImperiumServerModule {
 	models: (connectors: ImperiumConnectorsMap, context: IContext) => ModelsMap;
 }
 
+export interface ImperiumServerOptions {
+	connectors: ImperiumConnectorsMap;
+	serverModules: ImperiumServerModuleFunction[];
+}
+
 export type ImperiumServerModuleFunction = () => ImperiumServerModule;
 
 export interface ImperiumRequest extends Request {
@@ -53,3 +58,7 @@ export interface ImperiumClientModule {
 }
 
 export type ImperiumClientModuleFunction = () => ImperiumClientModule;
+
+export interface ImperiumClientOptions {
+	clientModules: ImperiumClientModuleFunction[];
+}

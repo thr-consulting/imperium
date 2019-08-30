@@ -14,7 +14,6 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "./lib/ImperiumServer.js",
 	"types": "./types.d.ts",
 	"files": [
 		"client.js",
