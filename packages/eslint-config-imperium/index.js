@@ -52,6 +52,7 @@ module.exports = {
 		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/ban-ts-ignore': ['off'],
+		'@typescript-eslint/interface-name-prefix': ['off'],
 
 		// React
 		'react/forbid-prop-types': 'error',

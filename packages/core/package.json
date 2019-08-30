@@ -17,7 +17,10 @@
 	"main": "./lib/ImperiumServer.js",
 	"types": "./types.d.ts",
 	"files": [
-		"lib/*",
+		"client.js",
+		"client.js.map",
+		"server.js.map",
+		"server.js",
 		"types.d.ts"
 	],
 	"scripts": {

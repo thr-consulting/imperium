@@ -1,11 +1,11 @@
-import {ImperiumConnectors, Models} from '../serverTypes';
+import {IContext, ImperiumConnectorsMap, ModelsMap} from '../../types';
 
-export default class Context {
-	_connectors: ImperiumConnectors;
+export default class Context implements IContext {
+	_connectors: ImperiumConnectorsMap;
 	_models: {[key: string]: any};
 	_auth: any;
 
-	constructor(connectors: ImperiumConnectors) {
+	constructor(connectors: ImperiumConnectorsMap) {
 		this._connectors = connectors;
 		this._models = {};
 		this._auth = null;
@@ -18,7 +18,10 @@ export default class Context {
 	 * @param modelFunc
 	 */
 	addModels(
-		modelFunc: (connectors: ImperiumConnectors, context: Context) => Models,
+		modelFunc: (
+			connectors: ImperiumConnectorsMap,
+			context: Context,
+		) => ModelsMap,
 	): void {
 		const moduleModels = modelFunc(this._connectors, this);
 		this._models = Object.assign({}, this._models, moduleModels);
@@ -29,7 +32,7 @@ export default class Context {
 	 * @param name
 	 * @returns {*}
 	 */
-	getModel(name: string): any {
+	getModel(name: string): ModelsMap {
 		return this._models[name];
 	}
 
@@ -37,7 +40,7 @@ export default class Context {
 	 * Returns all the models
 	 * @returns {*}
 	 */
-	get models(): {[modelName: string]: any} {
+	get models(): {[modelName: string]: ModelsMap} {
 		return this._models;
 	}
 
@@ -57,7 +60,7 @@ export default class Context {
 		return this._auth;
 	}
 
-	get connectors(): ImperiumConnectors {
+	get connectors(): ImperiumConnectorsMap {
 		return this._connectors;
 	}
 }

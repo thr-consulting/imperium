@@ -1,18 +1,17 @@
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
-import {NextFunction, Response} from 'express';
+import {Response, NextFunction} from 'express';
 import Context from './Context';
 import {
 	ImperiumConnectors,
 	ImperiumRequest,
-	ImperiumRequestHandler,
 	ImperiumServerModule,
-} from '../serverTypes';
+} from '../../types';
 
 const d = debug('imperium.core.server.context');
 
 interface ContextMiddlewareOptions {
-	connectors: ImperiumConnectors[];
+	connectors: ImperiumConnectors;
 	modules: ImperiumServerModule[];
 }
 
@@ -28,8 +27,8 @@ interface ContextMiddlewareOptions {
 export default function contextMiddleware({
 	connectors,
 	modules,
-}: ContextMiddlewareOptions): ImperiumRequestHandler {
-	return (req: ImperiumRequest, res: Response | null, next: NextFunction) => {
+}: ContextMiddlewareOptions) {
+	return (req: ImperiumRequest, res: Response, next: NextFunction) => {
 		d('Creating context');
 
 		const context = new Context(connectors); // Create a brand new instance of Context
@@ -39,7 +38,7 @@ export default function contextMiddleware({
 		// Loop through each defined module and add it's data models (if any) to the context
 		modules.forEach(module => {
 			if (module.models && isFunction(module.models))
-				context.addModule(module.models);
+				context.addModels(module.models);
 		});
 
 		// Add the context object to the req

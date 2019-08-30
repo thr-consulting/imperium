@@ -8,14 +8,14 @@ module.exports = {
 	context: path.resolve(__dirname, '..', 'src'),
 	target: 'node',
 	devtool: 'source-map',
-	entry: './ImperiumServer.ts',
+	entry: './server/index.ts',
 	externals: [
 		nodeExternals({modulesDir: 'node_modules'}),
 		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
 	],
 	output: {
-		filename: 'ImperiumServer.js',
-		path: path.resolve(__dirname, '..', 'lib'),
+		filename: 'server.js',
+		path: path.resolve(__dirname, '..'),
 		library: packageJson.name,
 		libraryTarget: 'commonjs2',
 	},

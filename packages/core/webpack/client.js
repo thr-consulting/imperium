@@ -8,14 +8,14 @@ module.exports = {
 	context: path.resolve(__dirname, '..', 'src'),
 	target: 'web',
 	devtool: 'source-map',
-	entry: './ImperiumClient.tsx',
+	entry: './client/index.ts',
 	externals: [
 		nodeExternals({modulesDir: 'node_modules'}),
 		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
 	],
 	output: {
-		filename: 'ImperiumClient.js',
-		path: path.resolve(__dirname, '..', 'lib'),
+		filename: 'client.js',
+		path: path.resolve(__dirname, '..'),
 		library: packageJson.name,
 		libraryTarget: 'commonjs2',
 		// globalObject: 'this',
@@ -49,7 +49,12 @@ module.exports = {
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
+							presets: [
+								[
+									'@imperium/babel-preset-imperium',
+									{client: true, typescript: true},
+								],
+							],
 						},
 					},
 				],

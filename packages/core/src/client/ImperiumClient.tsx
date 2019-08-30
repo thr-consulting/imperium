@@ -1,15 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
 import debug from 'debug';
-import Root from './client/components/Root';
+import Root from './components/Root';
+import {ImperiumClientModule, ImperiumClientModuleFunction} from '../../types';
 
 const d = debug('imperium.core.client');
-
-export interface ImperiumClientModule {
-	name: string;
-}
-
-type ImperiumClientModuleFunction = () => ImperiumClientModule;
 
 export interface ImperiumClientOptions {
 	clientModules: ImperiumClientModuleFunction[];
