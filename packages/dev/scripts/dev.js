@@ -99,12 +99,20 @@ if (cluster.isMaster) {
 	 **************************************************************************************** */
 	const path = require('path');
 	const isFunction = require('lodash/isFunction');
+	const {log} = require('../webpack/inspectLoader');
 
 	require('@babel/register')({
 		presets: [
 			['@imperium/babel-preset-imperium', {client: false, typescript: true}],
 		],
 		extensions: ['.js', '.ts'],
+		ignore: [/node_modules/],
+		only: [
+			filepath => {
+				log('BABEL/REG', filepath);
+				return true;
+			},
+		],
 	});
 
 	const worker = require(path.resolve(

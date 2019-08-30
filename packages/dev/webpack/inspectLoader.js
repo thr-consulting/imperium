@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-underscore-dangle */
+/* eslint-disable no-console, no-underscore-dangle,@typescript-eslint/no-var-requires */
 /*
  * With the DEBUG environment variable "inspectLoader" set this file will log all Babel and other Webpack loaders.
  */

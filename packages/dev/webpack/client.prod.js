@@ -65,7 +65,7 @@ module.exports = function(imperiumConfig) {
 			}),
 		]),
 		module: {
-			rules: clientModuleRules,
+			rules: clientModuleRules.concat(imperiumConfig.build.client.rules),
 		},
 	};
 };

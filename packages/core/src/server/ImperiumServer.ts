@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import express from 'express';
 import debug from 'debug';
+import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
 import {
 	ImperiumConnectorsMap,
@@ -69,6 +71,44 @@ export default class ImperiumServer {
 		this._serverModules.forEach(module => {
 			if (module.models && isFunction(module.models))
 				context.addModels(module.models);
+		});
+
+		// Create startup promises
+		const startupPromises = this._serverModules.reduce(
+			(memo, module) => {
+				if (module.startup && isFunction(module.startup)) {
+					const moduleStartupReturn = module.startup(context);
+					if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
+						moduleStartupReturn.catch(err => {
+							console.log(
+								chalk.bold.white(
+									'#######################################################',
+								),
+							);
+							console.log(
+								chalk.bold.red(' >>> Error running module startup\n'),
+							);
+							console.error(err);
+							console.log(
+								chalk.bold.white(
+									'#######################################################',
+								),
+							);
+							return Promise.reject(err);
+						});
+					}
+					return [...memo, moduleStartupReturn];
+				}
+				return memo;
+			},
+			[] as Promise<any>[],
+		);
+
+		// Execute startup promises
+		d('Executing module startup');
+		Promise.all(startupPromises).catch(err => {
+			d(`Module startup problem: ${err}`);
+			throw err;
 		});
 
 		app.listen(process.env.PORT || 4001, () => {

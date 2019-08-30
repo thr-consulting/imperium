@@ -39,7 +39,8 @@ export interface ImperiumServerModule {
 	name: string;
 	middleware?: () => {[key: string]: () => {}};
 	endpoints?: (options: EndpointOptions) => void;
-	models: (connectors: ImperiumConnectorsMap, context: IContext) => ModelsMap;
+	models?: (connectors: ImperiumConnectorsMap, context: IContext) => ModelsMap;
+	startup?: (context: IContext) => Promise<{[key: string]: any}>;
 }
 
 export interface ImperiumServerOptions {

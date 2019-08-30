@@ -2,9 +2,9 @@ const util = require('util');
 const rimraf = util.promisify(require('rimraf'));
 const webpack = require('webpack');
 const chalk = require('chalk');
+const getConfig = require('./getConfig');
 const serverConfig = require('../webpack/server.prod');
 const clientConfig = require('../webpack/client.prod');
-const getConfig = require('./getConfig');
 
 const {log, error, warn} = console;
 

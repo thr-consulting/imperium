@@ -48,7 +48,7 @@ module.exports = function(imperiumConfig) {
 			]),
 		]),
 		module: {
-			rules: serverModuleRules,
+			rules: serverModuleRules.concat(imperiumConfig.build.server.rules),
 		},
 	};
 };

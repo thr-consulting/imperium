@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const packageJson = require('./package.json');
+const {name} = require('./package.json');
 
 module.exports = function() {
 	return {
-		name: packageJson.name,
+		name,
 		initialConfig: {
 			graphql: `${process.env.GRAPHQL_HOST}/api/graphql`,
 		},

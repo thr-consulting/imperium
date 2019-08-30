@@ -24,6 +24,7 @@ module.exports = {
 				// 'jsonwebtoken',
 				// 'whatwg-fetch',
 			],
+			rules: [],
 		},
 		server: {
 			minimize: true,
@@ -32,15 +33,16 @@ module.exports = {
 				path.join(pRoot, 'node_modules'),
 				path.join(pRoot, '..', '..', 'node_modules'), // Needed if the project is a lerna project
 			],
+			rules: [],
 		},
 	},
 	source: {
 		projectRoot: pRoot,
 		imperiumRoot: iRoot,
 		path: path.join(pRoot, 'src'),
-		serverIndex: './core/server.ts',
-		clientIndex: './core/client.tsx',
-		configModules: './core/configModules.ts',
+		serverIndex: './core/server.ts', // This file runs on the server only.
+		clientIndex: './core/client.tsx', // This file runs on the client only.
+		configModules: './core/configModules.ts', // This file needs to be isomorphic (client/server)
 	},
 	web: {
 		template: path.join(iRoot, 'resource/index.html'),

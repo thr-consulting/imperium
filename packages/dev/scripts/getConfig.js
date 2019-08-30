@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const d = require('debug')('imperium.dev.getConfig');
 const isFunction = require('lodash/isFunction');
+const {log} = require('../webpack/inspectLoader');
 
 module.exports = function getConfig() {
 	// The project can define their own config file
@@ -29,12 +30,24 @@ module.exports = function getConfig() {
 	// Config modules definition file isn't required to exist
 	if (fs.existsSync(configModulePath)) {
 		// We load the configModules file here and that may be written in TS,
-		// so we run it through babel/register.
+		// so we run it through babel/register, but ONLY the config file.
 		require('@babel/register')({
 			presets: [
-				['@imperium/babel-preset-imperium', {client: false, typescript: true}],
+				[
+					'@imperium/babel-preset-imperium',
+					{client: false, typescript: true, forceModules: true},
+				],
 			],
-			extensions: ['.js', '.ts'],
+			extensions: ['.js', '.ts', '.tsx'],
+			only: [
+				filepath => {
+					if (filepath === configModulePath) {
+						log('BABEL/REG-CONFIG', filepath);
+						return true;
+					}
+					return false;
+				},
+			],
 		});
 		configModuleFunctions = require(configModulePath).default;
 	}
@@ -52,6 +65,7 @@ module.exports = function getConfig() {
 		return configModuleDefinition;
 	});
 
+	// Merge initialConfig options
 	config.web.options.initialConfig = mergeOptions(
 		config.web.options.initialConfig,
 		configModules.reduce((memo, configModule) => {
@@ -60,6 +74,34 @@ module.exports = function getConfig() {
 			}
 			return memo;
 		}, {}),
+	);
+
+	// Merge webpack client rules
+	config.build.client.rules = config.build.client.rules.concat(
+		configModules.reduce((memo, configModule) => {
+			if (
+				configModule.webpack &&
+				configModule.webpack.client &&
+				configModule.webpack.client.rules
+			) {
+				return memo.concat(configModule.webpack.client.rules);
+			}
+			return memo;
+		}, []),
+	);
+
+	// Merge webpack client rules
+	config.build.server.rules = config.build.server.rules.concat(
+		configModules.reduce((memo, configModule) => {
+			if (
+				configModule.webpack &&
+				configModule.webpack.server &&
+				configModule.webpack.server.rules
+			) {
+				return memo.concat(configModule.webpack.server.rules);
+			}
+			return memo;
+		}, []),
 	);
 
 	return config;
