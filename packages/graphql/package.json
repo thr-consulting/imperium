@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/core",
+	"name": "@imperium/graphql",
 	"version": "4.0.0",
-	"description": "Imperium Core package",
+	"description": "Imperium Graphql package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -14,14 +14,18 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "./lib/ImperiumServer.js",
 	"types": "./types.d.ts",
 	"files": [
-		"lib/*",
+		"server.js",
+		"client.js",
+		"config.js",
+		"server.js.map",
+		"client.js.map",
+		"config.js.map",
 		"types.d.ts"
 	],
 	"scripts": {
-		"build": "rimraf lib && yarn build:client && yarn build:server",
+		"build": "yarn build:server && yarn build:client",
 		"build:client": "NODE_ENV=production webpack --config webpack/client.js",
 		"build:server": "NODE_ENV=production webpack --config webpack/server.js",
 		"lint": "eslint --cache --ext js,ts,tsx src",
@@ -29,16 +33,27 @@
 		"ts": "tsc",
 		"yalc:publish": "yalc publish --push"
 	},
-	"peerDependencies": {
-		"react": "^16.x",
-		"react-dom": "^16.x"
-	},
 	"devDependencies": {
-		"webpack-cli": "^3.3.7"
+		"@types/graphql": "^14.2.0"
 	},
 	"dependencies": {
+		"graphql-tag": "^2.10.1"
+	},
+	"blah": {
+		"@thx/date": "^10.3.0",
+		"@thx/money": "^10.1.1",
+		"apollo-cache-inmemory": "^1.6.3",
+		"apollo-client": "^2.6.4",
+		"apollo-link": "^1.2.12",
+		"apollo-link-http": "^1.5.15",
+		"apollo-server": "^2.9.1",
+		"apollo-server-express": "^2.9.1",
 		"debug": "^4.1.1",
-		"express": "^4.17.1",
-		"react-hot-loader": "^4.12.12"
+		"express-jwt": "^5.3.1",
+		"graphql": "^14.5.3",
+		"graphql-custom-types": "^1.5.1",
+		"graphql-scalar-objectid": "^0.1.1",
+		"graphql-tools": "^4.0.5",
+		"lodash": "^4.17.15"
 	}
 }

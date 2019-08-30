@@ -8,18 +8,29 @@ module.exports = [
 	{test: /\.txt$/, use: [inspectLoader('RAW'), {loader: 'raw-loader'}]},
 	{
 		test: /\.(woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
-		use: [inspectLoader('URL-FONT'), {loader: 'url-loader', options: {limit: 10000}},
+		use: [
+			inspectLoader('URL-FONT'),
+			{loader: 'url-loader', options: {limit: 10000}},
 		],
 	},
 	{
 		test: /\.(svg)(\?[a-z0-9=.]+)?$/,
-		use: [inspectLoader('URL-SVG'), {loader: 'url-loader', options: {limit: 1}}],
+		use: [
+			inspectLoader('URL-SVG'),
+			{loader: 'url-loader', options: {limit: 1}},
+		],
 	},
 	{
 		test: /\.(png|jpg|jpeg|gif)(\?[a-z0-9=.]+)?$/,
-		use: [inspectLoader('URL-IMAGE'), {loader: 'url-loader', options: {limit: 10000}}],
+		use: [
+			inspectLoader('URL-IMAGE'),
+			{loader: 'url-loader', options: {limit: 10000}},
+		],
 	},
-	{test: /\.(wav|mp3)$/, use: [inspectLoader('FILE-AUDIO'), {loader: 'file-loader'}]},
+	{
+		test: /\.(wav|mp3)$/,
+		use: [inspectLoader('FILE-AUDIO'), {loader: 'file-loader'}],
+	},
 	{
 		test: /\.css$/,
 		exclude: /node_modules/,
@@ -49,16 +60,6 @@ module.exports = [
 			},
 		],
 	},
-	// {
-	// 	test: /\.graphql$/,
-	// 	include: isSourceFile([iSrcDir, pSrcDir]),
-	// 	use: [
-	// 		inspectLoader('GRAPHQLS'),
-	// 		{
-	// 			loader: 'graphql-tag/loader',
-	// 		},
-	// 	],
-	// },
 	{
 		test: /\.js$/,
 		exclude: /node_modules/,
@@ -82,7 +83,12 @@ module.exports = [
 				loader: 'babel-loader',
 				options: {
 					babelrc: false,
-					presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
+					presets: [
+						[
+							'@imperium/babel-preset-imperium',
+							{client: true, typescript: true},
+						],
+					],
 				},
 			},
 		],

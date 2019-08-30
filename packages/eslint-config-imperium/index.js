@@ -43,6 +43,7 @@ module.exports = {
 		'no-console': ['error'],
 		'no-plusplus': 'off',
 		'no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
+		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
@@ -50,6 +51,7 @@ module.exports = {
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
 		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
 		'@typescript-eslint/no-explicit-any': 'warn',
+		'@typescript-eslint/ban-ts-ignore': ['off'],
 
 		// React
 		'react/forbid-prop-types': 'error',

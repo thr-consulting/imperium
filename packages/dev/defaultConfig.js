@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
 const iRoot = path.resolve(__dirname);
@@ -24,13 +25,13 @@ module.exports = {
 				// 'whatwg-fetch',
 			],
 		},
-		server:{
+		server: {
 			minimize: true,
 			devtool: false,
 			externals: [
 				path.join(pRoot, 'node_modules'),
 				path.join(pRoot, '..', '..', 'node_modules'), // Needed if the project is a lerna project
-			]
+			],
 		},
 	},
 	source: {
@@ -39,8 +40,7 @@ module.exports = {
 		path: path.join(pRoot, 'src'),
 		serverIndex: './core/server.ts',
 		clientIndex: './core/client.tsx',
-		serverModules: './core/serverModules.ts',
-		clientModules: './core/clientModules.ts',
+		configModules: './core/configModules.ts',
 	},
 	web: {
 		template: path.join(iRoot, 'resource/index.html'),

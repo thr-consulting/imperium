@@ -1,10 +1,11 @@
+/* eslint-disable no-console,@typescript-eslint/no-var-requires,global-require */
 require('dotenv').config();
 const cluster = require('cluster');
 
 if (cluster.isMaster) {
-	/*
-	 * MASTER ENTRY POINT
-	 */
+	/* ****************************************************************************************
+	 * SERVER MASTER ENTRY POINT
+	 **************************************************************************************** */
 	const os = require('os');
 
 	// Get number of processes to run
@@ -18,14 +19,16 @@ if (cluster.isMaster) {
 	// TODO if worker is dying really fast, stop spawning new ones and kill main thread.
 	cluster.on('exit', (deadWorker, code, signal) => {
 		const newWorker = cluster.fork();
-		console.log(`Worker ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${newWorker.process.pid}`);
+		console.log(
+			`Worker ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${newWorker.process.pid}`,
+		);
 	});
 
 	console.log(`Master ${process.pid} is running [Processes: ${numProcesses}]`);
 } else {
-	/*
-	 * WORKER ENTRY POINT
-	 */
+	/* ****************************************************************************************
+	 * SERVER WORKER ENTRY POINT
+	 **************************************************************************************** */
 
 	const worker = require('./worker').default;
 	worker().then(server => {

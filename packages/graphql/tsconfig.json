@@ -19,20 +19,16 @@
 		"pretty": true,
 		// Support JSX in TSX files
 		"jsx": "react",
-		// Generate .d.ts files
-		"declaration": true,
-		// Output dir for .d.ts files
-		"declarationDir": "lib",
-		// Only emit .d.ts files
-		"emitDeclarationOnly": true,
+//		// Generate .d.ts files
+//		"declaration": true,
+//		// Output dir for .d.ts files
+//		"declarationDir": "lib",
+//		// Only emit .d.ts files
+//		"emitDeclarationOnly": true,
 
 		"noImplicitAny": true // I don't think I really want this set to false
 	},
-	"files": [
-		"src/ImperiumServer.ts",
-		"src/ImperiumClient.tsx"
+	"include": [
+		"src/**/*"
 	]
-	//	"include": [
-//		"src/**/*"
-//	]
 }

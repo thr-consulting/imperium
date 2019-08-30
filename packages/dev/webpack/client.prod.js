@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require, global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * This webpack configuration is used when building the production client app.
  */
@@ -53,9 +53,7 @@ module.exports = function(imperiumConfig) {
 				reportFilename: path.join('..', '..', 'report-client.html'),
 				openAnalyzer: false,
 			}),
-			new CopyWebpackPlugin([
-				{from: path.resolve('assets'), to: 'assets/'},
-			]),
+			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
 			new HtmlWebpackPlugin({
 				filename: '../index.html',
 				title: imperiumConfig.web.title,
@@ -64,7 +62,6 @@ module.exports = function(imperiumConfig) {
 				templateOptions: Object.assign({}, imperiumConfig.web.options, {
 					initialConfig: JSON.stringify({}),
 				}),
-
 			}),
 		]),
 		module: {

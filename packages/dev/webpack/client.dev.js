@@ -1,4 +1,4 @@
-/* eslint-disable import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * This webpack configuration is used when running the development version of the client app.
  * The server portion calls Webpack, loads this config and starts the server.
@@ -41,19 +41,24 @@ module.exports = function(imperiumConfig) {
 		stats: 'errors-warnings',
 		plugins: compact([
 			new ProgressBarPlugin(),
-			new CopyWebpackPlugin([
-				{from: path.resolve('assets'), to: 'assets/'},
-			]),
+			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
 			new HtmlWebpackPlugin({
 				title: imperiumConfig.web.title,
 				template: imperiumConfig.web.template,
 				meta: imperiumConfig.web.meta,
 				templateOptions: Object.assign({}, imperiumConfig.web.options, {
-					initialConfig: JSON.stringify({}),
+					initialConfig: JSON.stringify(
+						imperiumConfig.web.options.initialConfig,
+					),
 				}),
 			}),
 			new HardSourceWebpackPlugin({
-				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
+				cacheDirectory: path.resolve(
+					imperiumConfig.source.projectRoot,
+					'node_modules',
+					'.cache',
+					'hard-source',
+				),
 			}),
 		]),
 		module: {

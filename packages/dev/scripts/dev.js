@@ -1,8 +1,9 @@
+/* eslint-disable no-console,@typescript-eslint/no-var-requires,global-require,import/no-dynamic-require */
 // Common package imports
 const cluster = require('cluster');
+const d = require('debug')('imperium.dev.dev');
 const getConfig = require('./getConfig');
 require('dotenv').config();
-const d = require('debug')('imperium.core');
 
 // Read the configuration
 const imperiumConfig = getConfig();
@@ -27,31 +28,19 @@ if (cluster.isMaster) {
 	console.log(`Client port:        ${imperiumConfig.development.clientPort}`);
 	console.log('');
 
-	// Create a debounced function that will restart the worker thread
-	const restartWorker = debounce(() => {
-		clusterWorker.kill();
-	}, process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200, {leading: true, trailing: false});
-
-	// Watch source folder for changes
-	chokidar.watch([
-		imperiumConfig.source.path,
-	]).on('change', filePath => {
-		// console.log(`Chokidar change detected: ${filePath}`);
-		// Only restart when the path has a server/ or server.js in it.
-		// TODO add graphqls files
-		if (/server\//.test(filePath) || /server\.[tj]sx?$/.test(filePath)) {
-			console.log(`  >> File ${filePath} was modified, restarting server thread...`); // eslint-disable-line no-console
-			restartWorker();
-		}
-	});
-
 	// Webpack Dev Server (for Client code)
 	const webpackConfig = require('../webpack/client.dev')(imperiumConfig);
 	const compiler = webpack(webpackConfig);
 	const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-	server.listen(parseInt(imperiumConfig.development.clientPort, 10), '127.0.0.1', () => {
-		d(`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`);
-	});
+	server.listen(
+		parseInt(imperiumConfig.development.clientPort, 10),
+		'127.0.0.1',
+		() => {
+			d(
+				`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`,
+			);
+		},
+	);
 
 	// For dev, only fork a single worker
 	let clusterWorker = cluster.fork();
@@ -64,7 +53,9 @@ if (cluster.isMaster) {
 		const workerForkTimeDifference = process.hrtime(workerForkTime); // Calculate time since last worker fork
 
 		// If time between forks is less than the crash delay, increase the counter
-		if (workerForkTimeDifference[0] < imperiumConfig.development.workerCrashDelay) {
+		if (
+			workerForkTimeDifference[0] < imperiumConfig.development.workerCrashDelay
+		) {
 			workerCrashCounter++;
 		}
 
@@ -72,10 +63,34 @@ if (cluster.isMaster) {
 		if (workerCrashCounter < imperiumConfig.development.workerCrashMax) {
 			clusterWorker = cluster.fork();
 			workerForkTime = process.hrtime(); // Record new worker time
-			d(`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`)
+			d(
+				`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`,
+			);
 		} else {
 			console.error('Worker thread keeps crashing, exiting main app.');
 			process.exit(1);
+		}
+	});
+
+	// Create a debounced function that will restart the worker thread
+	const restartWorker = debounce(
+		() => {
+			clusterWorker.kill();
+		},
+		process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200,
+		{leading: true, trailing: false},
+	);
+
+	// Watch source folder for changes
+	chokidar.watch([imperiumConfig.source.path]).on('change', filePath => {
+		// console.log(`Chokidar change detected: ${filePath}`);
+		// Only restart when the path has a server/ or server.js in it.
+		// TODO add graphqls files
+		if (/server\//.test(filePath) || /server\.[tj]sx?$/.test(filePath)) {
+			console.log(
+				`  >> File ${filePath} was modified, restarting server thread...`,
+			); // eslint-disable-line no-console
+			restartWorker();
 		}
 	});
 } else {
@@ -86,11 +101,16 @@ if (cluster.isMaster) {
 	const isFunction = require('lodash/isFunction');
 
 	require('@babel/register')({
-		presets: [['@imperium/babel-preset-imperium',	{client: false, typescript: true}]],
+		presets: [
+			['@imperium/babel-preset-imperium', {client: false, typescript: true}],
+		],
 		extensions: ['.js', '.ts'],
 	});
 
-	const worker = require(path.resolve(imperiumConfig.source.path, imperiumConfig.source.serverIndex)).default;
+	const worker = require(path.resolve(
+		imperiumConfig.source.path,
+		imperiumConfig.source.serverIndex,
+	)).default;
 	if (!isFunction(worker)) {
 		console.error('Server index must export a default function');
 		process.exit(1);

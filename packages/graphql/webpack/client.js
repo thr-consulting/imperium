@@ -1,30 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
-const packageJson = require('../package.json');
+const mergeOptions = require('merge-options');
 
-module.exports = {
-	mode: 'production',
-	context: path.resolve(__dirname, '..', 'src'),
+module.exports = mergeOptions(require('./common'), {
 	target: 'web',
-	devtool: 'source-map',
-	entry: './ImperiumClient.tsx',
-	externals: [
-		nodeExternals({modulesDir: 'node_modules'}),
-		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
-	],
+	entry: './client/index.ts',
 	output: {
-		filename: 'ImperiumClient.js',
-		path: path.resolve(__dirname, '..', 'lib'),
-		library: packageJson.name,
-		libraryTarget: 'commonjs2',
-		// globalObject: 'this',
+		filename: 'client.js',
 	},
 	resolve: {
-		extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
-	},
-	optimization: {
-		minimize: true,
+		extensions: ['.tsx'],
 	},
 	module: {
 		rules: [
@@ -49,11 +33,16 @@ module.exports = {
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
+							presets: [
+								[
+									'@imperium/babel-preset-imperium',
+									{client: true, typescript: true},
+								],
+							],
 						},
 					},
 				],
 			},
 		],
 	},
-};
+});
