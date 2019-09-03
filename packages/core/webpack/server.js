@@ -23,7 +23,7 @@ module.exports = {
 		extensions: ['.js', '.mjs', '.ts', '.d.ts'],
 	},
 	optimization: {
-		minimize: true,
+		minimize: false,
 	},
 	module: {
 		rules: [

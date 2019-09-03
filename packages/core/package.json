@@ -29,13 +29,15 @@
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"yalc:publish": "yalc publish --push"
+		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"peerDependencies": {
 		"react": "^16.x",
 		"react-dom": "^16.x"
 	},
 	"devDependencies": {
+		"@types/mongoose": "^5.5.16",
+		"dataloader": "^1.4.0",
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {

@@ -1,14 +1,16 @@
-import {IContext, ImperiumConnectorsMap, ModelsMap} from '../../types';
+import {ImperiumConnectorsMap, ModelsMap, ImperiumOptions, ModelsOptions} from '../../types';
 
-export default class Context implements IContext {
+export default class Context {
 	_connectors: ImperiumConnectorsMap;
 	_models: {[key: string]: any};
 	_auth: any;
+	_options: ImperiumOptions;
 
-	constructor(connectors: ImperiumConnectorsMap) {
+	constructor(connectors: ImperiumConnectorsMap, options: ImperiumOptions) {
 		this._connectors = connectors;
 		this._models = {};
 		this._auth = null;
+		this._options = options;
 	}
 
 	/**
@@ -17,13 +19,12 @@ export default class Context implements IContext {
 	 * an object keyed with data model objects.
 	 * @param modelFunc
 	 */
-	addModels(
-		modelFunc: (
-			connectors: ImperiumConnectorsMap,
-			context: Context,
-		) => ModelsMap,
-	): void {
-		const moduleModels = modelFunc(this._connectors, this);
+	addModels(modelFunc: ({connectors, context, options}: ModelsOptions) => ModelsMap): void {
+		const moduleModels = modelFunc({
+			options: this._options,
+			connectors: this._connectors,
+			context: this,
+		});
 		this._models = Object.assign({}, this._models, moduleModels);
 	}
 
@@ -62,5 +63,9 @@ export default class Context implements IContext {
 
 	get connectors(): ImperiumConnectorsMap {
 		return this._connectors;
+	}
+
+	get options(): ImperiumOptions {
+		return this._options;
 	}
 }

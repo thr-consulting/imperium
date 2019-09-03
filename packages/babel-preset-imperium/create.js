@@ -23,17 +23,9 @@ module.exports = function(api, opts, env) {
 	// Options
 	var isDebug = validateBoolOption('debug', opts.debug, false);
 	var isClient = validateBoolOption('client', opts.client, false);
-	var forceModules = validateBoolOption(
-		'forceModules',
-		opts.forceModules,
-		false,
-	);
+	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 	var forceReact = validateBoolOption('react', opts.react, false);
-	var enableTypescript = validateBoolOption(
-		'typescript',
-		opts.typescript,
-		false,
-	);
+	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -58,8 +50,7 @@ module.exports = function(api, opts, env) {
 						node: 'current',
 					},
 					// This transforms ES6 modules to a different type (CommonJS in this case)
-					modules:
-						forceModules || isEnvDevelopment || isEnvTest ? 'commonjs' : false,
+					modules: forceModules || isEnvDevelopment || isEnvTest ? 'commonjs' : false,
 				},
 			],
 

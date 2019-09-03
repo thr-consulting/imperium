@@ -1,6 +1,12 @@
-import {Application, Request} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import DataLoader from 'dataloader';
 import {Document, Model, Types} from 'mongoose';
+import {DocumentNode} from 'graphql';
+import {SchemaDirectiveVisitor} from 'graphql-tools';
+import Context from './src/server/Context';
+import ImperiumServer from './src/server';
+
+export {Context};
 
 export type ImperiumConnectorsMap = {[connectorName: string]: any};
 
@@ -9,50 +15,61 @@ export interface ImperiumConnectors {
 	close(): Promise<void>;
 }
 
-export interface EndpointOptions {
-	app: Application;
-	connectors?: ImperiumConnectorsMap;
-	modules: ImperiumServerModule[];
-	middlewares?: any;
-}
+export type ImperiumOptions = {[key: string]: any};
 
 export interface ModelsMap {
-	[key: string]:
-		| DataLoader<string | Types.ObjectId, Document>
-		| Model<Document>;
+	[key: string]: DataLoader<string | Types.ObjectId, Document> | Model<Document>;
 }
 
-export interface IContext {
-	addModels(
-		modelFunc: (
-			connectors: ImperiumConnectorsMap,
-			context: IContext,
-		) => ModelsMap,
-	): void;
-	getModel(name: string): any;
-	models: {[modelName: string]: any};
-	auth: any;
+export interface MiddlewareOptions {
+	options: ImperiumOptions;
+}
+
+export interface ModelsOptions {
+	options: ImperiumOptions;
 	connectors: ImperiumConnectorsMap;
+	context: Context;
+}
+
+export interface StartupOptions {
+	options: ImperiumOptions;
+	context: Context;
+}
+
+export interface ImperiumRequest extends Request {
+	context: Context;
+}
+
+export type ImperiumRequestHandler = (req: ImperiumRequest, res: Response, next: NextFunction) => void;
+
+export interface MiddlewareMap {
+	[key: string]: () => ImperiumRequestHandler;
 }
 
 export interface ImperiumServerModule {
+	// @imperium/core
 	name: string;
-	middleware?: () => {[key: string]: () => {}};
-	endpoints?: (options: EndpointOptions) => void;
-	models?: (connectors: ImperiumConnectorsMap, context: IContext) => ModelsMap;
-	startup?: (context: IContext) => Promise<{[key: string]: any}>;
+	options?: () => {[key: string]: any};
+	middleware?: (server: ImperiumServer) => MiddlewareMap;
+	endpoints?: (server: ImperiumServer) => void;
+	models?: (options: ModelsOptions) => ModelsMap;
+	startup?: (server: ImperiumServer) => Promise<{[key: string]: any}>;
+	// @imperium/graphql
+	schema?: DocumentNode | DocumentNode[];
+	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
+	resolvers?: {};
+	insecureSchema?: DocumentNode | DocumentNode[];
+	insecureSchemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
+	insecureResolvers?: {};
 }
 
 export interface ImperiumServerOptions {
 	connectors: ImperiumConnectorsMap;
-	serverModules: ImperiumServerModuleFunction[];
+	serverModules?: ImperiumServerModuleFunction[];
+	options?: () => {[key: string]: any};
 }
 
 export type ImperiumServerModuleFunction = () => ImperiumServerModule;
-
-export interface ImperiumRequest extends Request {
-	context: IContext;
-}
 
 export interface ImperiumClientModule {
 	name: string;

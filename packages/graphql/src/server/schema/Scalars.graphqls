@@ -1,0 +1,9 @@
+scalar Email
+scalar URL
+scalar DateTime
+scalar Password
+scalar UUID
+scalar LocalDate
+scalar Moment
+scalar Money
+scalar ObjectId

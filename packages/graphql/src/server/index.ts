@@ -1,15 +1,20 @@
+import {ImperiumServerModule} from '@imperium/core';
 import {name} from '../../package.json';
-// import endpoints from './endpoints';
+import secureEndpoints from './secureEndpoint';
+import insecureEndpoints from './insecureEndpoint';
 
-export default function() {
+export default function(): ImperiumServerModule {
 	return {
 		name,
-		// endpoints,
-		middleware: () => ({
-			mymiddleware: () => {},
-		}),
-		endpoints: () => {
-
+		options() {
+			return {
+				secureGraphqlUrl: process.env.GRAPHQL_SECURE_URL,
+				insecureGraphqlUrl: process.env.GRAPHQL_INSECURE_URL,
+			};
+		},
+		endpoints(args) {
+			secureEndpoints(args);
+			insecureEndpoints(args);
 		},
 	};
 }

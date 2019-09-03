@@ -31,29 +31,30 @@
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"yalc:publish": "yalc publish --push"
+		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"devDependencies": {
-		"@types/graphql": "^14.2.0"
+		"@types/graphql": "^14.2.0",
+		"@types/express-jwt": "^0.0.42"
 	},
 	"dependencies": {
-		"graphql-tag": "^2.10.1"
-	},
-	"blah": {
 		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",
+		"apollo-server-express": "^2.9.1",
+		"express-jwt": "^5.3.1",
+		"graphql-tag": "^2.10.1",
+		"graphql": "^14.5.3",
+		"graphql-custom-types": "^1.5.1",
+		"graphql-scalar-objectid": "^0.1.1",
+		"lodash": "^4.17.15"
+	},
+	"blah": {
 		"apollo-cache-inmemory": "^1.6.3",
 		"apollo-client": "^2.6.4",
 		"apollo-link": "^1.2.12",
 		"apollo-link-http": "^1.5.15",
 		"apollo-server": "^2.9.1",
-		"apollo-server-express": "^2.9.1",
 		"debug": "^4.1.1",
-		"express-jwt": "^5.3.1",
-		"graphql": "^14.5.3",
-		"graphql-custom-types": "^1.5.1",
-		"graphql-scalar-objectid": "^0.1.1",
-		"graphql-tools": "^4.0.5",
-		"lodash": "^4.17.15"
+		"graphql-tools": "^4.0.5"
 	}
 }
