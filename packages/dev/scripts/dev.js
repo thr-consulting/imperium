@@ -32,18 +32,12 @@ if (cluster.isMaster) {
 	const webpackConfig = require('../webpack/client.dev')(imperiumConfig);
 	const compiler = webpack(webpackConfig);
 	const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-	server.listen(
-		parseInt(imperiumConfig.development.clientPort, 10),
-		'127.0.0.1',
-		() => {
-			d(
-				`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`,
-			);
-		},
-	);
+	server.listen(parseInt(imperiumConfig.development.clientPort, 10), '127.0.0.1', () => {
+		d(`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`);
+	});
 
 	// For dev, only fork a single worker
-	let clusterWorker = cluster.fork();
+	let clusterWorker = cluster.fork(process.env);
 
 	let workerCrashCounter = 0;
 	let workerForkTime = process.hrtime(); // Record time worker is forked.
@@ -53,9 +47,7 @@ if (cluster.isMaster) {
 		const workerForkTimeDifference = process.hrtime(workerForkTime); // Calculate time since last worker fork
 
 		// If time between forks is less than the crash delay, increase the counter
-		if (
-			workerForkTimeDifference[0] < imperiumConfig.development.workerCrashDelay
-		) {
+		if (workerForkTimeDifference[0] < imperiumConfig.development.workerCrashDelay) {
 			workerCrashCounter++;
 		}
 
@@ -87,9 +79,7 @@ if (cluster.isMaster) {
 		// Only restart when the path has a server/ or server.js in it.
 		// TODO add graphqls files
 		if (/server\//.test(filePath) || /server\.[tj]sx?$/.test(filePath)) {
-			console.log(
-				`  >> File ${filePath} was modified, restarting server thread...`,
-			); // eslint-disable-line no-console
+			console.log(`  >> File ${filePath} was modified, restarting server thread...`); // eslint-disable-line no-console
 			restartWorker();
 		}
 	});
@@ -99,12 +89,10 @@ if (cluster.isMaster) {
 	 **************************************************************************************** */
 	const path = require('path');
 	const isFunction = require('lodash/isFunction');
-	const {log} = require('../webpack/inspectLoader');
+	const {log} = require('../lib');
 
 	require('@babel/register')({
-		presets: [
-			['@imperium/babel-preset-imperium', {client: false, typescript: true}],
-		],
+		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
 		extensions: ['.js', '.ts'],
 		ignore: [/node_modules/],
 		only: [
@@ -115,10 +103,7 @@ if (cluster.isMaster) {
 		],
 	});
 
-	const worker = require(path.resolve(
-		imperiumConfig.source.path,
-		imperiumConfig.source.serverIndex,
-	)).default;
+	const worker = require(path.resolve(imperiumConfig.source.path, imperiumConfig.source.serverIndex)).default;
 	if (!isFunction(worker)) {
 		console.error('Server index must export a default function');
 		process.exit(1);

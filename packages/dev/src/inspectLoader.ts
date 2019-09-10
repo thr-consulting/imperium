@@ -2,15 +2,15 @@
 /*
  * With the DEBUG environment variable "inspectLoader" set this file will log all Babel and other Webpack loaders.
  */
-const debug = require('debug');
+import debug from 'debug';
 
 const d = debug('inspectLoader');
 
-function log(name, resource) {
+export function log(name: string, resource: string) {
 	d(`[${name}] ${resource}`);
 }
 
-function inspectLoader(loaderName) {
+export default function inspectLoader(loaderName: string) {
 	return {
 		loader: 'inspect-loader',
 		options: {
@@ -21,8 +21,3 @@ function inspectLoader(loaderName) {
 		},
 	};
 }
-
-module.exports = {
-	log,
-	default: inspectLoader,
-};

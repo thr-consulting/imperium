@@ -19,9 +19,7 @@ if (cluster.isMaster) {
 	// TODO if worker is dying really fast, stop spawning new ones and kill main thread.
 	cluster.on('exit', (deadWorker, code, signal) => {
 		const newWorker = cluster.fork();
-		console.log(
-			`Worker ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${newWorker.process.pid}`,
-		);
+		console.log(`Worker ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${newWorker.process.pid}`);
 	});
 
 	console.log(`Master ${process.pid} is running [Processes: ${numProcesses}]`);

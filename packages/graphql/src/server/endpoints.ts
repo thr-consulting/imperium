@@ -1,6 +1,7 @@
 import ImperiumServer from '@imperium/core/src/server';
 import debug from 'debug';
 import jwt from 'express-jwt';
+import cors from 'cors';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
@@ -10,9 +11,9 @@ import merge from 'lodash/merge';
 import {DocumentNode} from 'graphql';
 import {schema as coreSchema, resolvers as coreResolvers} from './schema';
 
-const d = debug('imperium.graphql.secureEndpoints');
+const d = debug('imperium.graphql.endpoints');
 
-export default function secureEndpoints(server: ImperiumServer): void {
+export default function endpoints(server: ImperiumServer): void {
 	// Merge all the typeDefs from all modules
 	d('Merging graphql schema');
 	const typeDefs = server.modules.reduce(
@@ -68,12 +69,15 @@ export default function secureEndpoints(server: ImperiumServer): void {
 
 	d('Adding graphql endpoint');
 	server.app.use(
-		server.options.secureGraphqlUrl,
+		server.options.graphqlUrl,
 		// @ts-ignore
 		compact([
+			cors({
+				origin: 'http://localhost:4000',
+			}),
 			jwt({
-				secret: server.options.accessToken,
-				credentialsRequired: true,
+				secret: server.options.accessTokenSecret,
+				credentialsRequired: server.options.production, // On production, credentials are required
 			}),
 			server.middleware.contextMiddleware(),
 			server.middleware.userAuthMiddleware ? server.middleware.userAuthMiddleware() : undefined,
@@ -82,6 +86,6 @@ export default function secureEndpoints(server: ImperiumServer): void {
 
 	apolloServer.applyMiddleware({
 		app: server.app,
-		path: server.options.secureGraphqlUrl,
+		path: server.options.graphqlUrl,
 	});
 }

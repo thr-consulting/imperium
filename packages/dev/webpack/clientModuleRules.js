@@ -1,4 +1,5 @@
-const inspectLoader = require('./inspectLoader').default;
+/* eslint-disable @typescript-eslint/no-var-requires */
+const {inspectLoader} = require('../lib');
 
 /* ************************************************************
 	Common client webpack module rules
@@ -8,24 +9,15 @@ module.exports = [
 	{test: /\.txt$/, use: [inspectLoader('RAW'), {loader: 'raw-loader'}]},
 	{
 		test: /\.(woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
-		use: [
-			inspectLoader('URL-FONT'),
-			{loader: 'url-loader', options: {limit: 10000}},
-		],
+		use: [inspectLoader('URL-FONT'), {loader: 'url-loader', options: {limit: 10000}}],
 	},
 	{
 		test: /\.(svg)(\?[a-z0-9=.]+)?$/,
-		use: [
-			inspectLoader('URL-SVG'),
-			{loader: 'url-loader', options: {limit: 1}},
-		],
+		use: [inspectLoader('URL-SVG'), {loader: 'url-loader', options: {limit: 1}}],
 	},
 	{
 		test: /\.(png|jpg|jpeg|gif)(\?[a-z0-9=.]+)?$/,
-		use: [
-			inspectLoader('URL-IMAGE'),
-			{loader: 'url-loader', options: {limit: 10000}},
-		],
+		use: [inspectLoader('URL-IMAGE'), {loader: 'url-loader', options: {limit: 10000}}],
 	},
 	{
 		test: /\.(wav|mp3)$/,
@@ -83,12 +75,7 @@ module.exports = [
 				loader: 'babel-loader',
 				options: {
 					babelrc: false,
-					presets: [
-						[
-							'@imperium/babel-preset-imperium',
-							{client: true, typescript: true},
-						],
-					],
+					presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 				},
 			},
 		],

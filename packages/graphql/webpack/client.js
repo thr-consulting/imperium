@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const mergeOptions = require('merge-options');
+const {inspectLoader} = require('@imperium/dev');
 
 module.exports = mergeOptions(require('./common'), {
 	target: 'web',
@@ -16,6 +17,7 @@ module.exports = mergeOptions(require('./common'), {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: [
+					inspectLoader('BABEL'),
 					{
 						loader: 'babel-loader',
 						options: {
@@ -29,16 +31,12 @@ module.exports = mergeOptions(require('./common'), {
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: [
+					inspectLoader('BABEL-TS'),
 					{
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
-							presets: [
-								[
-									'@imperium/babel-preset-imperium',
-									{client: true, typescript: true},
-								],
-							],
+							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
 						},
 					},
 				],

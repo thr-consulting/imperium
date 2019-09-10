@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const {inspectLoader} = require('@imperium/dev');
 const packageJson = require('../package.json');
 
 module.exports = {
@@ -24,6 +25,7 @@ module.exports = {
 	},
 	optimization: {
 		minimize: false,
+		nodeEnv: false,
 	},
 	module: {
 		rules: [
@@ -31,6 +33,7 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: [
+					inspectLoader('BABEL'),
 					{
 						loader: 'babel-loader',
 						options: {
@@ -44,16 +47,12 @@ module.exports = {
 				test: /\.ts$/,
 				exclude: /node_modules/,
 				use: [
+					inspectLoader('BABEL-TS'),
 					{
 						loader: 'babel-loader',
 						options: {
 							babelrc: false,
-							presets: [
-								[
-									'@imperium/babel-preset-imperium',
-									{client: false, typescript: true},
-								],
-							],
+							presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
 						},
 					},
 				],

@@ -1,4 +1,5 @@
-const inspectLoader = require('./inspectLoader').default;
+/* eslint-disable @typescript-eslint/no-var-requires */
+const {inspectLoader} = require('../lib');
 
 /* ************************************************************
 	Common server webpack module rules

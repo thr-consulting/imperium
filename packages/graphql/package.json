@@ -34,18 +34,20 @@
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"devDependencies": {
-		"@types/graphql": "^14.2.0",
-		"@types/express-jwt": "^0.0.42"
+		"@imperium/dev": "^4.0.0",
+		"@types/express-jwt": "^0.0.42",
+		"@types/graphql": "^14.2.0"
 	},
 	"dependencies": {
 		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",
 		"apollo-server-express": "^2.9.1",
+		"cors": "^2.8.5",
 		"express-jwt": "^5.3.1",
-		"graphql-tag": "^2.10.1",
 		"graphql": "^14.5.3",
 		"graphql-custom-types": "^1.5.1",
 		"graphql-scalar-objectid": "^0.1.1",
+		"graphql-tag": "^2.10.1",
 		"lodash": "^4.17.15"
 	},
 	"blah": {

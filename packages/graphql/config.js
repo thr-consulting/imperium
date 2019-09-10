@@ -6,13 +6,11 @@ module.exports = function() {
 	const host = process.env.HOST || 'localhost';
 	const port = process.env.PORT || 4001;
 	const secureUrl = process.env.GRAPHQL_SECURE_URL || '/api/graphql';
-	const insecureUrl = process.env.GRAPHQL_INSECURE_URL || '/api/igraphql';
 
 	return {
 		name,
 		initialConfig: {
 			graphql: `${proto}://${host}:${port}${secureUrl}`,
-			igraphql: `${proto}://${host}:${port}${insecureUrl}`,
 		},
 		webpack: {
 			client: {

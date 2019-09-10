@@ -13,7 +13,7 @@ import {
 import Context from './Context';
 import defaultOptions from './defaultOptions';
 
-const d = debug('imperium.core.server');
+const d = debug('imperium.core.ImperiumServer');
 
 export default class ImperiumServer {
 	_connectors: ImperiumConnectorsMap;
@@ -130,8 +130,8 @@ export default class ImperiumServer {
 			throw err;
 		});
 
-		this._app.listen(process.env.PORT || 4001, () => {
-			// console.log(`  PID ${process.pid} listening on port ${process.env.PORT || 4000}`);
+		this._app.listen(this._options.port, () => {
+			// d(this._options);
 		});
 
 		return this;
