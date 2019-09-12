@@ -1,7 +1,6 @@
 import ImperiumServer from '@imperium/core/src/server';
 import debug from 'debug';
 import jwt from 'express-jwt';
-import cors from 'cors';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
@@ -65,6 +64,9 @@ export default function endpoints(server: ImperiumServer): void {
 			console.error(error);
 			return error;
 		},
+		playground: server.options.development,
+		debug: server.options.development,
+		introspection: server.options.development,
 	});
 
 	d('Adding graphql endpoint');
@@ -72,11 +74,6 @@ export default function endpoints(server: ImperiumServer): void {
 		server.options.graphqlUrl,
 		// @ts-ignore
 		compact([
-			cors(
-			// 	{
-			// 	origin: 'http://localhost:4000',
-			// }
-			),
 			jwt({
 				secret: server.options.accessTokenSecret,
 				credentialsRequired: server.options.graphqlCredentialsRequired,
@@ -89,5 +86,6 @@ export default function endpoints(server: ImperiumServer): void {
 	apolloServer.applyMiddleware({
 		app: server.app,
 		path: server.options.graphqlUrl,
+		cors: server.options.graphqlCors,
 	});
 }

@@ -11,6 +11,9 @@ export default function(): ImperiumServerModule {
 				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED
 					? process.env.GRAPHQL_CREDENTIALS_REQUIRED
 					: false,
+				graphqlCors: {
+					origin: process.env.GRAPHQL_CORS_ORIGIN || false,
+				},
 			};
 		},
 		endpoints,

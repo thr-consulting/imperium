@@ -41,7 +41,7 @@ module.exports = {
 		imperiumRoot: iRoot,
 		path: path.join(pRoot, 'src'),
 		serverIndex: './core/server.ts', // This file runs on the server only.
-		clientIndex: './core/client.tsx', // This file runs on the client only.
+		clientIndex: './core/client.ts', // This file runs on the client only.
 		configModules: './core/configModules.ts', // This file needs to be isomorphic (client/server)
 	},
 	web: {
