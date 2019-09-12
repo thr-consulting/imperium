@@ -3,10 +3,12 @@ import DataLoader from 'dataloader';
 import {Document, Model, Types} from 'mongoose';
 import {DocumentNode} from 'graphql';
 import {SchemaDirectiveVisitor} from 'graphql-tools';
+import {RouteProps} from 'react-router-dom';
 import Context from './src/server/Context';
 import ImperiumServer from './src/server';
+import ImperiumClient from './src/client';
 
-export {Context};
+export {Context, ImperiumServer, ImperiumClient};
 
 export type ImperiumConnectorsMap = {[connectorName: string]: any};
 
@@ -63,20 +65,54 @@ export interface ImperiumServerModule {
 	insecureResolvers?: {};
 }
 
+export type ImperiumServerModuleFunction = () => ImperiumServerModule;
+
 export interface ImperiumServerOptions {
-	connectors: ImperiumConnectorsMap;
+	connectors: ImperiumConnectors;
 	serverModules?: ImperiumServerModuleFunction[];
 	options?: () => {[key: string]: any};
 }
 
-export type ImperiumServerModuleFunction = () => ImperiumServerModule;
+export type InitialConfig = {[key: string]: any};
+export type InitialState = {[key: string]: any} | null | void;
+export type RootProps = {[key: string]: any};
+export type Hoc = (client: ImperiumClient) => (WrappedComponent: React.ComponentType<any>) => React.Component;
 
 export interface ImperiumClientModule {
 	name: string;
+	initialState?: (initialConfig: InitialConfig, initialState: InitialState) => InitialState;
+	startup?: (client: ImperiumClient) => RootProps | void;
+	routes?: ImperiumRoute[];
+	hocs?: Hoc[];
 }
 
 export type ImperiumClientModuleFunction = () => ImperiumClientModule;
 
 export interface ImperiumClientOptions {
-	clientModules: ImperiumClientModuleFunction[];
+	clientModules?: ImperiumClientModuleFunction[];
+	rootRoute?: ImperiumRoute;
+	routeDefaults?: {[key: string]: any};
+}
+
+interface RouteContentProps {
+	route: ImperiumRoute;
+}
+
+export interface ImperiumRoute extends RouteProps {
+	layout?: React.ComponentType<RouteContentProps>;
+	content?: React.ComponentType<RouteContentProps>;
+	statusbar?: React.ComponentType<RouteContentProps>;
+	sidebar?: React.ComponentType<RouteContentProps>;
+	menu?: React.ComponentType<RouteContentProps>;
+	footer?: React.ComponentType<RouteContentProps>;
+	// TODO remove these in favor of extending @thx/router Reroute props
+	permissions?: string | string[];
+	redirect?: boolean;
+	// Portal props
+	key?: string;
+	portal?: React.ComponentType<{
+		route: ImperiumRoute;
+		routeKey: string;
+		restoreRoute: (routeKey: string) => void;
+	}>;
 }

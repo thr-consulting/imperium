@@ -60,7 +60,7 @@ module.exports = function(imperiumConfig) {
 				template: imperiumConfig.web.template,
 				meta: imperiumConfig.web.meta,
 				templateOptions: Object.assign({}, imperiumConfig.web.options, {
-					initialConfig: JSON.stringify({}),
+					initialConfig: JSON.stringify(imperiumConfig.web.options.initialConfig),
 				}),
 			}),
 		]),

@@ -38,13 +38,17 @@
 	"devDependencies": {
 		"@imperium/dev": "^4.0.0",
 		"@types/mongoose": "^5.5.16",
+		"@types/react-router-dom": "^4.3.5",
 		"dataloader": "^1.4.0",
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
+		"@thx/router": "^10.2.0",
 		"chalk": "^2.4.2",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
-		"react-hot-loader": "^4.12.12"
+		"query-string": "^6.8.3",
+		"react-hot-loader": "^4.12.12",
+		"react-router-dom": "^5.0.1"
 	}
 }

@@ -1,27 +1,32 @@
+import debug from 'debug';
+import React from 'react';
 import {hot} from 'react-hot-loader/root';
-import React, {useState} from 'react';
+import {BrowserRouter as Router} from 'react-router-dom';
+import RouteDirector from './RouteDirector/RouteDirector';
+import {ImperiumRoute, RootProps} from '../../../types';
 
-function Root() {
-	const [a, setA] = useState('a');
+const d = debug('imperium.core.Root');
 
-	return (
-		<div>
-			<p>
-				hello world
-				{a}
-			</p>
-			<p>
-				<button
-					type="button"
-					onClick={() => {
-						setA('b');
-					}}
-				>
-					push
-				</button>
-			</p>
-		</div>
-	);
+interface Props {
+	routes: ImperiumRoute[];
+	routeDefaults: {[key: string]: any};
+	rootProps: RootProps;
+	hoc: any; // This is a cheat, but React Typescript isn't easy
+}
+
+function withRouter(WrappedComponent: React.ComponentType<any>) {
+	return function includeRouter(props: any) {
+		return (
+			<Router>
+				<WrappedComponent {...props} />
+			</Router>
+		);
+	};
+}
+
+function Root(props: Props) {
+	const RootWrappedComponent = withRouter(props.hoc(RouteDirector));
+	return <RootWrappedComponent routes={props.routes} defaults={props.routeDefaults} {...props.rootProps} />;
 }
 
 export default hot(Root);

@@ -47,18 +47,11 @@ module.exports = function(imperiumConfig) {
 				template: imperiumConfig.web.template,
 				meta: imperiumConfig.web.meta,
 				templateOptions: Object.assign({}, imperiumConfig.web.options, {
-					initialConfig: JSON.stringify(
-						imperiumConfig.web.options.initialConfig,
-					),
+					initialConfig: JSON.stringify(imperiumConfig.web.options.initialConfig),
 				}),
 			}),
 			new HardSourceWebpackPlugin({
-				cacheDirectory: path.resolve(
-					imperiumConfig.source.projectRoot,
-					'node_modules',
-					'.cache',
-					'hard-source',
-				),
+				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
 			}),
 		]),
 		module: {

@@ -28,7 +28,7 @@ export default class ImperiumServer {
 		this._middleware = {};
 		this._app = null;
 
-		// Loading server definitions
+		// Loading server module definitions
 		if (options.serverModules) {
 			// Load module definitions
 			this._serverModules = options.serverModules.map(moduleFunc => {

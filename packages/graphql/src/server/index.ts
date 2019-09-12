@@ -8,6 +8,9 @@ export default function(): ImperiumServerModule {
 		options() {
 			return {
 				graphqlUrl: process.env.GRAPHQL_URL,
+				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED
+					? process.env.GRAPHQL_CREDENTIALS_REQUIRED
+					: false,
 			};
 		},
 		endpoints,

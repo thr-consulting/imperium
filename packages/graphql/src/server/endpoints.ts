@@ -72,12 +72,14 @@ export default function endpoints(server: ImperiumServer): void {
 		server.options.graphqlUrl,
 		// @ts-ignore
 		compact([
-			cors({
-				origin: 'http://localhost:4000',
-			}),
+			cors(
+			// 	{
+			// 	origin: 'http://localhost:4000',
+			// }
+			),
 			jwt({
 				secret: server.options.accessTokenSecret,
-				credentialsRequired: server.options.production, // On production, credentials are required
+				credentialsRequired: server.options.graphqlCredentialsRequired,
 			}),
 			server.middleware.contextMiddleware(),
 			server.middleware.userAuthMiddleware ? server.middleware.userAuthMiddleware() : undefined,

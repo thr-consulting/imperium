@@ -1,1 +1,1 @@
-export {default as ImperiumClient} from './ImperiumClient';
+export {default} from './ImperiumClient';
