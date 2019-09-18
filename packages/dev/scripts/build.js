@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const util = require('util');
 const rimraf = util.promisify(require('rimraf'));
 const webpack = require('webpack');

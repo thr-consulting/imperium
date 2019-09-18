@@ -15,7 +15,7 @@ export default function inspectLoader(loaderName: string) {
 		loader: 'inspect-loader',
 		options: {
 			loaderName,
-			callback(inspect) {
+			callback(inspect: {[key: string]: any}) {
 				log(inspect.options.loaderName, inspect.context._module.resource);
 			},
 		},

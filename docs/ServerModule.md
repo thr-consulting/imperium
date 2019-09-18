@@ -137,4 +137,4 @@ An object containing GraphQL schema directives.
 ## resolvers
 *Used by the `@imperium/graphql` package.*
 
-An GraphQL resolvers object. Will merge all `Query` and `Mutation` keys.
+A function that returns a GraphQL resolvers object. Will merge all `Query`, `Mutation` and `Subscription` keys.

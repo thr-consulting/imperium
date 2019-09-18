@@ -11,7 +11,7 @@ interface Props {
 	routes: ImperiumRoute[];
 	routeDefaults: {[key: string]: any};
 	rootProps: RootProps;
-	hoc: any; // This is a cheat, but React Typescript isn't easy
+	hoc: any; // This is a cheat, but React Typescript isn't easy. This could be Hoc from types.d.ts, but....
 }
 
 function withRouter(WrappedComponent: React.ComponentType<any>) {

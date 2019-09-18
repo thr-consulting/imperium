@@ -9,7 +9,6 @@ if (cluster.isMaster) {
 	const os = require('os');
 
 	// Get number of processes to run
-	console.log(process.env.PROCESSES);
 	const numProcesses = process.env.PROCESSES || os.cpus().length;
 
 	for (let i = 0; i < numProcesses; i++) {

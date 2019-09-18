@@ -5,7 +5,7 @@ import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
 import Root from './components/Root';
-import {Hoc, ImperiumClientModule, ImperiumClientOptions, ImperiumRoute, RootProps} from '../../types';
+import {HocCreator, ImperiumClientModule, ImperiumClientOptions, ImperiumRoute, RootProps} from '../../types';
 
 const d = debug('imperium.core.client');
 
@@ -38,14 +38,16 @@ export default class ImperiumClient {
 		}
 
 		// Loading client module definitions
+		const clientModuleNames: string[] = [];
 		if (options.clientModules) {
 			// Load module definitions
 			this._clientModules = options.clientModules.map(moduleFunc => {
 				const moduleDefinition = moduleFunc();
-				d(`Loading client module: ${moduleDefinition.name || 'unnamed module'}`);
+				clientModuleNames.push(moduleDefinition.name || 'unnamed module');
 				return moduleDefinition;
 			});
 		}
+		d(`Loaded modules: ${clientModuleNames.join(', ')}`);
 	}
 
 	async start() {
@@ -53,6 +55,7 @@ export default class ImperiumClient {
 		d('Starting ImperiumClient...');
 
 		// Build initial state
+		d('Building initial state');
 		this._initialState = await this._clientModules.reduce(async (memo, module) => {
 			const state = await memo;
 			if (module.initialState && isFunction(module.initialState)) {
@@ -69,6 +72,7 @@ export default class ImperiumClient {
 		}, Promise.resolve({}));
 
 		// Run startup functions
+		d('Running startup functions');
 		const rootProps = this._clientModules.reduce((memo, module): RootProps => {
 			if (module.startup && isFunction(module.startup)) {
 				return {
@@ -80,6 +84,7 @@ export default class ImperiumClient {
 		}, {});
 
 		// Load routes
+		d('Loading routes');
 		const routes = this._clientModules.reduce(
 			(memo, module): ImperiumRoute[] => {
 				if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
@@ -89,19 +94,21 @@ export default class ImperiumClient {
 		);
 
 		// HOC's
-		const hocs = this._clientModules.reduce(
+		d("Building HoC's");
+		const hocCreators = this._clientModules.reduce(
 			(memo, module) => {
 				if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
 				return memo;
 			},
-			[] as Hoc[],
+			[] as HocCreator[],
 		);
-		const hoc = flowRight(hocs);
 
-		// Render the root component
-		// The composed HOC's are executed here as well.
+		// Execute HoC creators and compose HoC's.
+		const hoc = flowRight(hocCreators.map(v => v(this)));
+
+		d('Rendering root component');
 		render(
-			<Root hoc={hoc(this)} routes={routes} rootProps={rootProps} routeDefaults={this._routeDefaults} />,
+			<Root hoc={hoc} routes={routes} rootProps={rootProps} routeDefaults={this._routeDefaults} />,
 			document.getElementById('root'),
 		);
 	}

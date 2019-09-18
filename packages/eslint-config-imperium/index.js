@@ -66,6 +66,7 @@ module.exports = {
 		'react/no-typos': 'off',
 		'react/no-children-prop': 'off',
 		'react/destructuring-assignment': ['off', 'always'],
+		'react/jsx-one-expression-per-line': ['off'],
 
 		// ES6 Import
 		'import/no-extraneous-dependencies': 'off',

@@ -14,6 +14,7 @@ export default function(): ImperiumServerModule {
 				graphqlCors: {
 					origin: process.env.GRAPHQL_CORS_ORIGIN || false,
 				},
+				graphqlWs: process.env.GRAPHQL_WS === 'true',
 			};
 		},
 		endpoints,

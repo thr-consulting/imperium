@@ -21,6 +21,9 @@ export const resolvers = {
 	Mutation: {
 		root: () => 'root',
 	},
+	Subscription: {
+		root: () => 'root',
+	},
 	Email: GraphQLEmail,
 	URL: GraphQLURL,
 	DateTime: GraphQLDateTime,

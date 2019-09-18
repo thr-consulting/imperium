@@ -38,5 +38,8 @@ An object that holds the server-wide options.
 ## app
 The Express app.
 
+## server
+The HTTP server.
+
 ## middleware
 An object that holds all the available middleware functions from all modules.

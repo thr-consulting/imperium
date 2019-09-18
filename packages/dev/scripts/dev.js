@@ -24,7 +24,7 @@ if (cluster.isMaster) {
 	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 	console.log(`Master process PID: ${process.pid}`);
 	console.log(`Number of workers:  1`);
-	console.log(`Server port:        ${process.env.PORT || 4001}`);
+	console.log(`Server port:        ${process.env.PORT || 4001}`); // This is for display purposes only. See @imperium/core defaultOptions for PORT definition.
 	console.log(`Client port:        ${imperiumConfig.development.clientPort}`);
 	console.log('');
 
@@ -32,6 +32,7 @@ if (cluster.isMaster) {
 	const webpackConfig = require('../webpack/client.dev')(imperiumConfig);
 	const compiler = webpack(webpackConfig);
 	const server = new WebpackDevServer(compiler, webpackConfig.devServer);
+	// TODO will I need to change the localhost here?
 	server.listen(parseInt(imperiumConfig.development.clientPort, 10), '127.0.0.1', () => {
 		d(`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`);
 	});
@@ -101,6 +102,7 @@ if (cluster.isMaster) {
 				return true;
 			},
 		],
+		cache: false, // This is disabled because of: https://github.com/babel/babel/issues/8497
 	});
 
 	const worker = require(path.resolve(imperiumConfig.source.path, imperiumConfig.source.serverIndex)).default;

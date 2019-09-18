@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import express, {NextFunction, Response, Application} from 'express';
+import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
@@ -20,6 +21,7 @@ export default class ImperiumServer {
 	_serverModules: ImperiumServerModule[];
 	_options: {[key: string]: any};
 	_app: Application | null;
+	_server: Server | null;
 	_middleware: MiddlewareMap;
 
 	constructor(options: ImperiumServerOptions) {
@@ -27,18 +29,22 @@ export default class ImperiumServer {
 		this._serverModules = [];
 		this._middleware = {};
 		this._app = null;
+		this._server = null;
 
 		// Loading server module definitions
+		const serverModuleNames: string[] = [];
 		if (options.serverModules) {
 			// Load module definitions
 			this._serverModules = options.serverModules.map(moduleFunc => {
 				const moduleDefinition = moduleFunc();
-				d(`Loading server module: ${moduleDefinition.name || 'unnamed module'}`);
+				serverModuleNames.push(moduleDefinition.name || 'unnamed module');
 				return moduleDefinition;
 			});
 		}
+		d(`Loaded modules: ${serverModuleNames.join(', ')}`);
 
 		// Load Imperium global options
+		d('Loading options');
 		this._options = this._serverModules.reduce((memo, module) => {
 			if (module.options && isFunction(module.options)) {
 				return {
@@ -56,11 +62,12 @@ export default class ImperiumServer {
 		d('Creating connectors');
 		await this._connectors.create();
 
-		d('Starting express app');
-		// Create express app
+		d('Creating express app');
 		this._app = express();
 
-		// Module middleware
+		d('Creating HTTP server');
+		this._server = createServer(this._app);
+
 		d('Creating module middleware');
 		this._middleware = this._serverModules.reduce(
 			(memo, module) => {
@@ -130,7 +137,8 @@ export default class ImperiumServer {
 			throw err;
 		});
 
-		this._app.listen(this._options.port, () => {
+		d('Starting server');
+		this._server.listen(this._options.port, () => {
 			// d(this._options);
 		});
 
@@ -154,9 +162,18 @@ export default class ImperiumServer {
 		return this._options;
 	}
 
-	get app() {
+	addOption(option: any, value: any) {
+		this._options[option] = value;
+	}
+
+	get app(): Application {
 		if (this._app) return this._app;
-		throw new Error('Express app not created');
+		throw new Error('Imperium server not started yet.');
+	}
+
+	get server(): Server {
+		if (this._server) return this._server;
+		throw new Error('Imperium server not started yet.');
 	}
 
 	get middleware() {

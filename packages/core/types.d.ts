@@ -59,7 +59,7 @@ export interface ImperiumServerModule {
 	// @imperium/graphql
 	schema?: DocumentNode | DocumentNode[];
 	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
-	resolvers?: {};
+	resolvers?: (server: ImperiumServer) => {[key: string]: any};
 	insecureSchema?: DocumentNode | DocumentNode[];
 	insecureSchemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
 	insecureResolvers?: {};
@@ -76,14 +76,15 @@ export interface ImperiumServerOptions {
 export type InitialConfig = {[key: string]: any};
 export type InitialState = {[key: string]: any} | null | void;
 export type RootProps = {[key: string]: any};
-export type Hoc = (client: ImperiumClient) => (WrappedComponent: React.ComponentType<any>) => React.Component;
+export type Hoc = (WrappedComponent: React.ComponentType<any>) => React.Component;
+export type HocCreator = (client: ImperiumClient) => Hoc;
 
 export interface ImperiumClientModule {
 	name: string;
 	initialState?: (initialConfig: InitialConfig, initialState: InitialState) => InitialState;
 	startup?: (client: ImperiumClient) => RootProps | void;
 	routes?: ImperiumRoute[];
-	hocs?: Hoc[];
+	hocs?: HocCreator[];
 }
 
 export type ImperiumClientModuleFunction = () => ImperiumClientModule;

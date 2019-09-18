@@ -7,3 +7,8 @@ type Mutation {
 	# This root mutation only exists because we can't define an empty Mutation, it doesn't do anything.
 	root: String
 }
+
+type Subscription {
+	# This root mutation only exists because we can't define an empty Mutation, it doesn't do anything.
+	root: String
+}

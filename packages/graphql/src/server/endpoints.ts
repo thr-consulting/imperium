@@ -4,8 +4,9 @@ import jwt from 'express-jwt';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
+import isFunction from 'lodash/isFunction';
 import compact from 'lodash/compact';
-import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express';
+import {ApolloServer, SchemaDirectiveVisitor, PubSub, ApolloServerExpressConfig} from 'apollo-server-express';
 import merge from 'lodash/merge';
 import {DocumentNode} from 'graphql';
 import {schema as coreSchema, resolvers as coreResolvers} from './schema';
@@ -30,6 +31,10 @@ export default function endpoints(server: ImperiumServer): void {
 		[...coreSchema],
 	);
 
+	// TODO There is a bug where Babel's cache is not invalidated if a graphqls file changes.
+	// This is being addressed in https://github.com/babel/babel/issues/8497.
+	// For now, I've disabled the @babel/register cache in `dev.js` in @imperium/dev.
+
 	// Merge all the schema directives from all modules
 	d('Merging graphql schema directives');
 	type RecordSDV = {[key: string]: typeof SchemaDirectiveVisitor};
@@ -43,20 +48,32 @@ export default function endpoints(server: ImperiumServer): void {
 		return memo;
 	}, {});
 
+	// Create PubSub for subscriptions
+	if (server.options.graphqlWs) {
+		d('Creating graphql pub/sub');
+		const pubsub = new PubSub();
+		server.addOption('graphqlPubSub', pubsub);
+	}
+
 	// Merge all the resolvers from all modules
 	d('Merging graphql resolvers');
 	const resolvers = server.modules.reduce((memo, module) => {
-		if (module.resolvers && isObject(module.resolvers)) return merge(memo, module.resolvers);
+		if (module.resolvers && isFunction(module.resolvers)) return merge(memo, module.resolvers(server));
 		return memo;
 	}, coreResolvers);
 
-	// Create apollo graphql server
-	d('Creating apollo server');
-	const apolloServer = new ApolloServer({
+	const apolloServerConfig: ApolloServerExpressConfig = {
 		typeDefs,
 		resolvers,
 		// @ts-ignore
-		context: ({req}) => req.context, // Context is stored in req. It is created in the contextMiddleware() from core
+		context: ({req, connection}) => {
+			// Context is stored in req. It is created in the contextMiddleware() from core
+			if (connection) {
+				return connection.context;
+			}
+			// @ts-ignore
+			return req.context;
+		},
 		schemaDirectives,
 		formatError: error => {
 			// TODO Do more here
@@ -67,7 +84,17 @@ export default function endpoints(server: ImperiumServer): void {
 		playground: server.options.development,
 		debug: server.options.development,
 		introspection: server.options.development,
-	});
+	};
+
+	if (server.options.graphqlWs) {
+		d('Configuring subscriptions');
+		apolloServerConfig.subscriptions = {
+			path: server.options.graphqlUrl,
+		};
+	}
+
+	d('Creating apollo server');
+	const apolloServer = new ApolloServer(apolloServerConfig);
 
 	d('Adding graphql endpoint');
 	server.app.use(
@@ -88,4 +115,9 @@ export default function endpoints(server: ImperiumServer): void {
 		path: server.options.graphqlUrl,
 		cors: server.options.graphqlCors,
 	});
+
+	if (server.options.graphqlWs) {
+		d('Installing subscription handlers');
+		apolloServer.installSubscriptionHandlers(server.server);
+	}
 }
