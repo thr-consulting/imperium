@@ -1,31 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+const mergeOptions = require('merge-options');
 const {inspectLoader} = require('@imperium/dev');
-const packageJson = require('../package.json');
 
-module.exports = {
-	mode: 'production',
-	context: path.resolve(__dirname, '..', 'src'),
+module.exports = mergeOptions(require('./common'), {
 	target: 'node',
-	devtool: 'source-map',
 	entry: './server/index.ts',
-	externals: [
-		nodeExternals({modulesDir: 'node_modules'}),
-		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
-	],
 	output: {
 		filename: 'server.js',
-		path: path.resolve(__dirname, '..'),
-		library: packageJson.name,
-		libraryTarget: 'commonjs2',
-	},
-	resolve: {
-		extensions: ['.js', '.mjs', '.ts', '.d.ts'],
-	},
-	optimization: {
-		minimize: false, // TODO: Set true
-		nodeEnv: false,
 	},
 	module: {
 		rules: [
@@ -57,11 +38,6 @@ module.exports = {
 					},
 				],
 			},
-			// {
-			// 	test: /\.ts$/,
-			// 	exclude: /node_modules/,
-			// 	use: 'ts-loader',
-			// }
 		],
 	},
-};
+});

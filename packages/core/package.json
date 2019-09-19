@@ -31,10 +31,6 @@
 		"ts": "tsc",
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
-	"peerDependencies": {
-		"react": "^16.x",
-		"react-dom": "^16.x"
-	},
 	"devDependencies": {
 		"@imperium/dev": "^4.0.0",
 		"@types/mongoose": "^5.5.16",

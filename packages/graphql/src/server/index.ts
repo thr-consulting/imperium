@@ -7,10 +7,9 @@ export default function(): ImperiumServerModule {
 		name,
 		options() {
 			return {
-				graphqlUrl: process.env.GRAPHQL_URL,
-				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED
-					? process.env.GRAPHQL_CREDENTIALS_REQUIRED
-					: false,
+				graphqlAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
+				graphqlUrl: process.env.GRAPHQL_URL || '/api/graphql',
+				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED === 'true',
 				graphqlCors: {
 					origin: process.env.GRAPHQL_CORS_ORIGIN || false,
 				},

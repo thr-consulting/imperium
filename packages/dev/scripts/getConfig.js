@@ -43,14 +43,16 @@ module.exports = function getConfig() {
 	}
 
 	// Run configModule functions
+	const configModuleNames = [];
 	const configModules = configModuleFunctions.map(configModuleFunction => {
 		if (!isFunction(configModuleFunction)) {
 			throw new Error('');
 		}
 		const configModuleDefinition = configModuleFunction(config);
-		d(`Loading config module: ${configModuleDefinition.name || 'unnamed module'}`);
+		configModuleNames.push(configModuleDefinition.name || 'unnamed module');
 		return configModuleDefinition;
 	});
+	d(`Loaded modules: ${configModuleNames.join(', ')}`);
 
 	// Merge initialConfig options
 	config.web.options.initialConfig = mergeOptions(

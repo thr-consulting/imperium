@@ -96,13 +96,17 @@ export default function endpoints(server: ImperiumServer): void {
 	d('Creating apollo server');
 	const apolloServer = new ApolloServer(apolloServerConfig);
 
-	d('Adding graphql endpoint');
+	d(
+		`Adding graphql endpoint: ${server.options.graphqlUrl} ${
+			server.options.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'
+		}`,
+	);
 	server.app.use(
 		server.options.graphqlUrl,
 		// @ts-ignore
 		compact([
 			jwt({
-				secret: server.options.accessTokenSecret,
+				secret: server.options.graphqlAccessTokenSecret,
 				credentialsRequired: server.options.graphqlCredentialsRequired,
 			}),
 			server.middleware.contextMiddleware(),

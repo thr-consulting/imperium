@@ -5,6 +5,7 @@ import debug from 'debug';
 import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
 import {
+	ImperiumConnectors,
 	ImperiumConnectorsMap,
 	ImperiumRequest,
 	ImperiumServerModule,
@@ -17,7 +18,8 @@ import defaultOptions from './defaultOptions';
 const d = debug('imperium.core.ImperiumServer');
 
 export default class ImperiumServer {
-	_connectors: ImperiumConnectorsMap;
+	_connectors: ImperiumConnectors;
+	_connectorsMap: ImperiumConnectorsMap;
 	_serverModules: ImperiumServerModule[];
 	_options: {[key: string]: any};
 	_app: Application | null;
@@ -26,6 +28,7 @@ export default class ImperiumServer {
 
 	constructor(options: ImperiumServerOptions) {
 		this._connectors = options.connectors;
+		this._connectorsMap = {};
 		this._serverModules = [];
 		this._middleware = {};
 		this._app = null;
@@ -60,7 +63,7 @@ export default class ImperiumServer {
 		if (this._app) throw new Error('Server already started');
 
 		d('Creating connectors');
-		await this._connectors.create();
+		this._connectorsMap = await this._connectors.create();
 
 		d('Creating express app');
 		this._app = express();
@@ -83,7 +86,7 @@ export default class ImperiumServer {
 				contextMiddleware: () => {
 					return (req: ImperiumRequest, res: Response, next: NextFunction) => {
 						d('Creating context');
-						const context = new Context(this._connectors, this._options);
+						const context = new Context(this._connectorsMap, this._options);
 						this._serverModules.forEach(module => {
 							if (module.models && isFunction(module.models)) context.addModels(module.models);
 						});
@@ -103,7 +106,7 @@ export default class ImperiumServer {
 
 		// Create server startup Context
 		d('Creating initial context');
-		const context = new Context(this._connectors, this._options);
+		const context = new Context(this._connectorsMap, this._options);
 		this._serverModules.forEach(module => {
 			if (module.models && isFunction(module.models)) context.addModels(module.models);
 		});
@@ -139,7 +142,7 @@ export default class ImperiumServer {
 
 		d('Starting server');
 		this._server.listen(this._options.port, () => {
-			// d(this._options);
+			d(`Now listening on port: ${this._options.port}`);
 		});
 
 		return this;
@@ -151,7 +154,7 @@ export default class ImperiumServer {
 	}
 
 	get connectors() {
-		return this._connectors;
+		return this._connectorsMap;
 	}
 
 	get modules() {

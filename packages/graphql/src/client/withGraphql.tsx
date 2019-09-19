@@ -6,6 +6,7 @@ import {ApolloLink, split} from 'apollo-link';
 import {HttpLink} from 'apollo-link-http';
 import {onError} from 'apollo-link-error';
 import {WebSocketLink} from 'apollo-link-ws';
+import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {getMainDefinition} from 'apollo-utilities';
 import {ImperiumClient} from '@imperium/core';
@@ -15,7 +16,7 @@ const d = debug('imperium.graphql.withGraphql');
 export default function withGraphql(client: ImperiumClient) {
 	d('Creating Apollo client');
 
-	d('Creating Apollo HTTP link');
+	d(`Creating Apollo HTTP link: ${client.initialConf.graphql}`);
 	const httpLink = new HttpLink({
 		uri: client.initialConf.graphql,
 		credentials: 'same-origin',
@@ -35,13 +36,13 @@ export default function withGraphql(client: ImperiumClient) {
 
 	// Split between normal http and ws for subscriptions
 	if (client.initialConf.graphqlws) {
-		d('Creating Apollo websocket link');
-		const wsLink = new WebSocketLink({
-			uri: client.initialConf.graphqlws,
-			options: {
-				reconnect: true,
-			},
+		d(`Creating subscription client: ${client.initialConf.graphqlws}`);
+		const subscriptionClient = new SubscriptionClient(client.initialConf.graphqlws, {
+			reconnect: true,
 		});
+
+		d('Creating Apollo websocket link');
+		const wsLink = new WebSocketLink(subscriptionClient);
 
 		d('Splitting link between regular http and websocket.');
 		finalLink = split(

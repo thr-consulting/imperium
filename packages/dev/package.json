@@ -30,11 +30,7 @@
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"yalc:publish": "yalc publish --push"
-	},
-	"peerDependencies": {
-		"react": "^16.x",
-		"react-dom": "^16.x"
+		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"dependencies": {
 		"@babel/core": "^7.5.5",
