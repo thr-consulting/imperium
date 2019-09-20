@@ -1,10 +1,20 @@
 import {name} from '../../package.json';
 import models from './models';
+import endpoints from './endpoints';
+import middleware from './middleware';
+import {schema, resolvers, schemaDirectives} from './graphql';
+import startup from './startup';
 
 export default function ImperiumAuthModule() {
 	return {
 		name,
 		models,
+		middleware,
+		endpoints,
+		schema,
+		resolvers,
+		schemaDirectives,
+		startup,
 		options() {
 			return {
 				authAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',

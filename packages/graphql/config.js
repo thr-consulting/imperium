@@ -22,7 +22,7 @@ module.exports = function() {
 						test: /\.graphql$/,
 						exclude: /node_modules/,
 						use: [
-							inspectLoader('GRAPHQLS'),
+							inspectLoader('GRAPHQL'),
 							{
 								loader: 'graphql-tag/loader',
 							},

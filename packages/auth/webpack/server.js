@@ -38,6 +38,16 @@ module.exports = mergeOptions(require('./common'), {
 					},
 				],
 			},
+			{
+				test: /\.graphqls$/,
+				exclude: /node_modules/,
+				use: [
+					inspectLoader('GRAPHQLS'),
+					{
+						loader: 'graphql-tag/loader',
+					},
+				],
+			},
 		],
 	},
 });

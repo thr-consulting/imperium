@@ -6,25 +6,51 @@ import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import compact from 'lodash/compact';
-import {ApolloServer, SchemaDirectiveVisitor, PubSub, ApolloServerExpressConfig} from 'apollo-server-express';
+import {ApolloServer, SchemaDirectiveVisitor, PubSub, ApolloServerExpressConfig, gql} from 'apollo-server-express';
 import merge from 'lodash/merge';
-import {DocumentNode} from 'graphql';
 import {schema as coreSchema, resolvers as coreResolvers} from './schema';
 
 const d = debug('imperium.graphql.endpoints');
+
+type SchemaString = string;
+type SchemaObject = {[key: string]: any};
+type SchemaArray = (SchemaString | SchemaObject)[];
+
+function transformToSchemaObjectArray(schema: SchemaString | SchemaObject | SchemaArray): SchemaObject[] {
+	if (isArray(schema)) {
+		return schema.map(schem => {
+			if (isObject(schem)) {
+				return schem;
+			}
+			if (isString(schem)) {
+				return gql`
+					${schem}
+				`;
+			}
+			throw new Error('Schema array contained a non-object or non-string');
+		});
+	}
+	if (isObject(schema)) {
+		return [schema];
+	}
+	if (isString(schema)) {
+		return [
+			gql`
+				${schema}
+			`,
+		];
+	}
+	throw new Error('Schema must be an array, object or string');
+}
 
 export default function endpoints(server: ImperiumServer): void {
 	// Merge all the typeDefs from all modules
 	d('Merging graphql schema');
 	const typeDefs = server.modules.reduce(
-		(memo, module): DocumentNode[] => {
+		// TODO figure out typescript
+		(memo, module): any[] => {
 			if (module.schema) {
-				if (isArray(module.schema)) {
-					return [...memo, ...(module.schema as DocumentNode[])];
-				}
-				if (isString(module.schema)) {
-					return [...memo, module.schema];
-				}
+				return [...memo, ...transformToSchemaObjectArray(module.schema)];
 			}
 			return memo;
 		},

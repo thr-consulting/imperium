@@ -26,6 +26,7 @@ module.exports = function(api, opts, env) {
 	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 	var forceReact = validateBoolOption('react', opts.react, false);
 	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
+	var enableGraphqls = validateBoolOption('graphqls', opts.graphqls, false);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -153,12 +154,13 @@ module.exports = function(api, opts, env) {
 
 			// Constraint: NOT client
 			// Inline import graphqls files
-			!isClient && [
-				require('babel-plugin-inline-import').default,
-				{
-					extensions: ['.graphqls'],
-				},
-			],
+			!isClient &&
+				enableGraphqls && [
+					require('babel-plugin-inline-import').default,
+					{
+						extensions: ['.graphqls'],
+					},
+				],
 		].filter(Boolean),
 	};
 };

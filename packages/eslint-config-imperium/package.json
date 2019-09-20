@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/eslint-config-imperium",
-	"version": "2.0.2",
+	"version": "4.0.0",
 	"description": "ESLint dependencies",
 	"repository": "darkadept/imperium",
 	"license": "MIT",

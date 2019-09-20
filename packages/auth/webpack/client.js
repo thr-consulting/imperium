@@ -41,6 +41,16 @@ module.exports = mergeOptions(require('./common'), {
 					},
 				],
 			},
+			{
+				test: /\.graphql$/,
+				exclude: /node_modules/,
+				use: [
+					inspectLoader('GRAPHQLS'),
+					{
+						loader: 'graphql-tag/loader',
+					},
+				],
+			},
 		],
 	},
 });

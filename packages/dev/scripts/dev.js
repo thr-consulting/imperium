@@ -93,7 +93,7 @@ if (cluster.isMaster) {
 	const {log} = require('../lib');
 
 	require('@babel/register')({
-		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true}]],
+		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true, graphqls: true}]],
 		extensions: ['.js', '.ts'],
 		ignore: [/node_modules/],
 		only: [

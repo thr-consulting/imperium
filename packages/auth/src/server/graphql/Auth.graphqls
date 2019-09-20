@@ -1,0 +1,24 @@
+directive @auth(req: [String!], authenticated: Boolean) on FIELD | FIELD_DEFINITION
+
+input PasswordDigest {
+	digest: String!
+	algorithm: String!
+}
+
+type Auth {
+	userId: ObjectId!
+	permissions: [String]
+	user: User!
+}
+
+type LoginReturn {
+	jwt: String!
+	rtoken: String!
+	auth: Auth
+}
+
+extend type Mutation {
+	logIn(email: Email!, password: PasswordDigest!): LoginReturn
+	forgotPassword(email: Email!): Boolean
+	signUp(email: Email!): Boolean
+}

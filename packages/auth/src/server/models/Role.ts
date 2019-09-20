@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq';
 import intersection from 'lodash/intersection';
 import isArray from 'lodash/isArray';
 import debug from 'debug';
-import permissions from '../permissions';
+import permissions from '../../permissions';
 
 const d = debug('imperium.auth.Role');
 

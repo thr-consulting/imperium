@@ -127,7 +127,7 @@ A [Context](Context.md) instance that has access to all models, authentication i
 ## schema
 *Used by the `@imperium/graphql` package.*
 
-An array of GraphQL strings that represent the server schema, usually imported from `.graphqls` files.
+An array of GraphQL schema that represent the server schema, usually imported from `.graphqls` files.
 
 ## schemaDirectives
 *Used by the `@imperium/graphql` package.*

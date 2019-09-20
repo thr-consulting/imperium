@@ -16,6 +16,7 @@ import Context from './Context';
 import defaultOptions from './defaultOptions';
 
 const d = debug('imperium.core.ImperiumServer');
+const dd = debug('verbose.imperium.core.ImperiumServer');
 
 export default class ImperiumServer {
 	_connectors: ImperiumConnectors;
@@ -25,6 +26,7 @@ export default class ImperiumServer {
 	_app: Application | null;
 	_server: Server | null;
 	_middleware: MiddlewareMap;
+	_context: Context | null;
 
 	constructor(options: ImperiumServerOptions) {
 		this._connectors = options.connectors;
@@ -33,6 +35,7 @@ export default class ImperiumServer {
 		this._middleware = {};
 		this._app = null;
 		this._server = null;
+		this._context = null;
 
 		// Loading server module definitions
 		const serverModuleNames: string[] = [];
@@ -85,7 +88,7 @@ export default class ImperiumServer {
 			{
 				contextMiddleware: () => {
 					return (req: ImperiumRequest, res: Response, next: NextFunction) => {
-						d('Creating context');
+						dd(`Creating context for request to: ${req.baseUrl}`);
 						const context = new Context(this._connectorsMap, this._options);
 						this._serverModules.forEach(module => {
 							if (module.models && isFunction(module.models)) context.addModels(module.models);
@@ -106,9 +109,9 @@ export default class ImperiumServer {
 
 		// Create server startup Context
 		d('Creating initial context');
-		const context = new Context(this._connectorsMap, this._options);
+		this._context = new Context(this._connectorsMap, this._options);
 		this._serverModules.forEach(module => {
-			if (module.models && isFunction(module.models)) context.addModels(module.models);
+			if (module.models && isFunction(module.models)) this._context.addModels(module.models);
 		});
 
 		// Create startup promises (these are executed in the next section)
@@ -181,5 +184,10 @@ export default class ImperiumServer {
 
 	get middleware() {
 		return this._middleware;
+	}
+
+	get initialContext() {
+		if (this._context) return this._context;
+		throw new Error('Imperium server not started yet.');
 	}
 }

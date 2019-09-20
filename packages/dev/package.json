@@ -36,7 +36,7 @@
 		"@babel/core": "^7.5.5",
 		"@babel/register": "^7.5.5",
 		"@hot-loader/react-dom": "^16.9.0",
-		"@imperium/babel-preset-imperium": "^2.0.1",
+		"@imperium/babel-preset-imperium": "^4.0.0",
 		"babel-loader": "^8.0.6",
 		"chalk": "^2.4.2",
 		"chokidar": "^3.0.2",
