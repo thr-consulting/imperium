@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {inspectLoader} = require('@imperium/dev');
+const {inspectLoader} = require('@imperium/core');
 const {name} = require('./package.json');
 
 module.exports = function() {

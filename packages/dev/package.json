@@ -26,11 +26,9 @@
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
-		"build": "NODE_ENV=production webpack --config webpack/library.js",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
-		"ts": "tsc",
-		"yalc:publish": "yarn build && yalc publish --push"
+		"ts": "tsc"
 	},
 	"dependencies": {
 		"@babel/core": "^7.5.5",

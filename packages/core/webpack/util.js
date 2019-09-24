@@ -6,16 +6,16 @@ const packageJson = require('../package.json');
 module.exports = {
 	mode: 'production',
 	context: path.resolve(__dirname, '..', 'src'),
-	devtool: 'source-map',
 	target: 'node',
+	devtool: 'source-map',
 	entry: './index.ts',
 	externals: [
 		nodeExternals({modulesDir: 'node_modules'}),
 		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
 	],
 	output: {
-		filename: 'index.js',
-		path: path.resolve(__dirname, '..', 'lib'),
+		filename: 'util.js',
+		path: path.resolve(__dirname, '..'),
 		library: packageJson.name,
 		libraryTarget: 'commonjs2',
 	},
@@ -41,7 +41,7 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.ts?$/,
+				test: /\.ts$/,
 				exclude: /node_modules/,
 				use: [
 					{

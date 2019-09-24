@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const mergeOptions = require('merge-options');
-const {inspectLoader} = require('@imperium/dev');
+const {inspectLoader} = require('@imperium/core');
 
 module.exports = mergeOptions(require('./common'), {
 	target: 'web',

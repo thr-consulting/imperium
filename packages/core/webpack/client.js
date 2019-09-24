@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const {inspectLoader} = require('@imperium/dev');
+const {inspectLoader} = require('../util.js');
 const packageJson = require('../package.json');
 
 module.exports = {

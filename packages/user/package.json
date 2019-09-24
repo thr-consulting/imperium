@@ -26,12 +26,12 @@
 		"ts": "tsc",
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
-	"devDependencies": {
-		"@types/mongoose": "^5.5.17"
+	"peerDependencies": {
+		"mongoose": "^5.x"
 	},
 	"dependencies": {
+		"@imperium/core": "4.0.0-alpha.1",
 		"@imperium/auth": "^4.0.0-alpha.1",
-		"@types/mongoose": "^5.5.17",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"mongoose": "^5.7.1"
