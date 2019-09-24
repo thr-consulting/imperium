@@ -3,8 +3,8 @@ const mergeOptions = require('merge-options');
 const path = require('path');
 const fs = require('fs');
 const d = require('debug')('imperium.dev.getConfig');
+const dInspectLoader = require('debug')('inspectLoader');
 const isFunction = require('lodash/isFunction');
-const {log} = require('../lib');
 
 module.exports = function getConfig() {
 	// The project can define their own config file
@@ -32,7 +32,7 @@ module.exports = function getConfig() {
 			only: [
 				filepath => {
 					if (filepath === configModulePath) {
-						log('BABEL/REG-CONFIG', filepath);
+						dInspectLoader(`[BABEL/REG-CONFIG] ${filepath}`);
 						return true;
 					}
 					return false;
