@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/core",
-	"version": "4.0.0",
+	"version": "4.0.0-alpha.1",
 	"description": "Imperium Core package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -32,7 +32,7 @@
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"devDependencies": {
-		"@imperium/dev": "^4.0.0",
+		"@imperium/dev": "^4.0.0-alpha.1",
 		"@types/mongoose": "^5.5.16",
 		"@types/react-router-dom": "^4.3.5",
 		"dataloader": "^1.4.0",

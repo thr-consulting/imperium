@@ -48,3 +48,10 @@ Requires:
 - **AUTH_MAX_COOLDOWN** [authMaxCooldown]: Time in seconds to reset lockout status. Defaults to '300'.
 - **AUTH_PASSWORD_SALT_ROUNDS** [authPasswordSaltRounds]: Numbers of salt rounds. Defaults to '11'.
 - **AUTH_RECOVERY_TOKEN_EXPIRES** [authRecoveryTokenExpires]: Time until the password recovery token expires. Defaults to '2d'.
+- **AUTH_ENABLE_SIGNUP** [authEnableSignup]: If true, allows signing up new users. Defaults to 'false'.
+
+## User
+
+- **USER_SYSADMIN_NAME** [userSysadminName]: Name of the default created sysadmin. Defaults to 'sysadmin'.
+- **USER_SYSADMIN_EMAIL** [userSysadminEmail]: Email address of the default created sysadmin. Defaults to 'sysadmin@example.com'.
+- **USER_SYSADMIN_PASSWORD** [userSysadminPassword]: Initial password of the default created sysadmin. Defaults to 'password'.

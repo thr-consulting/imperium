@@ -19,8 +19,6 @@
 		"yalc:publish": "lerna run yalc:publish"
 	},
 	"devDependencies": {
-		"@imperium/babel-preset-imperium": "^4.0.0",
-		"@imperium/eslint-config-imperium": "^4.0.0",
 		"@types/debug": "^4.1.5",
 		"@types/express": "^4.17.1",
 		"@types/lodash": "^4.14.138",

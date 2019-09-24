@@ -95,7 +95,7 @@ export default class Auth {
 			userId: decodedJwt.id,
 			user: async () => {
 				// This function retrieves the basic user information
-				const user = await User.getById(decodedJwt.id);
+				const user = await User.findById(decodedJwt.id);
 				if (!user) return null;
 				return User.getData(user).basicInfo;
 			},
@@ -179,7 +179,7 @@ export default class Auth {
 			throw TokenExpired();
 		} else {
 			const {User} = this._ctx.models;
-			const user = await User.getById(token.id);
+			const user = await User.findById(token.id);
 			if (!user) throw UserNotFoundError();
 			const {servicesField, roles} = User.getData(user);
 			if (find(get(user, [servicesField, 'token', 'blacklist'], []), {token: token.rnd})) {
@@ -207,7 +207,7 @@ export default class Auth {
 
 		if (!User) throw new Error('User model not defined');
 
-		const user = await User.getByEmail(email);
+		const user = await User.findOne().byEmail(email);
 		if (!user) throw UserNotFoundError();
 
 		const {id, basicInfo, roles, servicesField} = User.getData(user);
@@ -238,7 +238,7 @@ export default class Auth {
 		const {User} = this._ctx.models;
 
 		// Get user
-		const user = await User.getByEmail(email);
+		const user = await User.findOne().byEmail(email);
 		// We return "success" here because we don't want to notify the client that we have a user with the specified email.
 		if (!user) return true;
 

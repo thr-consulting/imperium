@@ -20,7 +20,7 @@ export interface ImperiumConnectors {
 export type ImperiumOptions = {[key: string]: any};
 
 export interface ModelsMap {
-	[key: string]: DataLoader<string | Types.ObjectId, Document> | Model<Document>;
+	[key: string]: DataLoader<string | Types.ObjectId, Document> | Model<Document> | any;
 }
 
 export interface MiddlewareOptions {

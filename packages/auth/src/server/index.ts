@@ -25,7 +25,10 @@ export default function ImperiumAuthModule() {
 				authMaxCooldown: parseInt(process.env.AUTH_MAX_COOLDOWN || '300', 10),
 				authPasswordSaltRounds: parseInt(process.env.AUTH_PASSWORD_SALT_ROUNDS || '11', 10),
 				authRecoveryTokenExpires: process.env.AUTH_RECOVERY_TOKEN_EXPIRES || '2d',
+				authEnableSignup: process.env.AUTH_ENABLE_SIGNUP === 'true',
 			};
 		},
 	};
 }
+
+export {default as permissions} from '../permissions';

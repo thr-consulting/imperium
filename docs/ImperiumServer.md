@@ -43,3 +43,6 @@ The HTTP server.
 
 ## middleware
 An object that holds all the available middleware functions from all modules.
+
+## initialContext
+The initial context used for startup.

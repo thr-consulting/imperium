@@ -108,8 +108,8 @@ A [Context](Context.md) instance that has access to all models, authentication i
 The options object that defined from various modules and stored in  the current [ImperiumServer](ImperiumServer.md) instance.
 
 ## startup
-A function that returns a Promise. It is called once (for each worker) on server startup.
-It shouldn't return anything.
+A function that returns a Promise. It is called once (for each worker) on server startup. The value returned
+is not used.
 
 ```javascript
 async function startup(server: ImperiumServer) {
@@ -118,7 +118,7 @@ async function startup(server: ImperiumServer) {
 ```
 
 #### `server`
-A [Context](Context.md) instance that has access to all models, authentication information, and connectors as well.
+An [ImperiumServer](ImperiumServer.md) instance.
 
 ---------------------------------------------------------------------------------
 

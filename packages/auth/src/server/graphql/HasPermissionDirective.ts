@@ -2,6 +2,7 @@
 import debug from 'debug';
 import {SchemaDirectiveVisitor} from 'graphql-tools';
 import {ApolloError} from 'apollo-client';
+import {GraphQLField} from 'graphql';
 import {permissionsMatch} from '../../checkPermissions';
 
 const d = debug('imperium.graphql.HasPermissionDirective');
@@ -13,7 +14,7 @@ const notAuthenticatedError = (): ApolloError =>
 	});
 
 export default class HasPermissionDirective extends SchemaDirectiveVisitor {
-	visitFieldDefinition(field) {
+	visitFieldDefinition(field: GraphQLField<any, any>) {
 		const {req, authenticated} = this.args; // Directive parameters
 		const {name, resolve} = field;
 

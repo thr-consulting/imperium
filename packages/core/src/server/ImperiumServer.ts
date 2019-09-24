@@ -111,7 +111,7 @@ export default class ImperiumServer {
 		d('Creating initial context');
 		this._context = new Context(this._connectorsMap, this._options);
 		this._serverModules.forEach(module => {
-			if (module.models && isFunction(module.models)) this._context.addModels(module.models);
+			if (module.models && isFunction(module.models) && this._context) this._context.addModels(module.models);
 		});
 
 		// Create startup promises (these are executed in the next section)
