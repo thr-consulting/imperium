@@ -14,9 +14,7 @@ module.exports = function(imperiumConfig) {
 		target: 'node',
 		devtool: imperiumConfig.build.server.devtool,
 		entry: imperiumConfig.source.serverIndex,
-		externals: imperiumConfig.build.server.externals.map(v =>
-			nodeExternals({modulesDir: v}),
-		),
+		externals: imperiumConfig.build.server.externals.map(v => nodeExternals({modulesDir: v})),
 		output: {
 			filename: 'worker.js',
 			path: path.join(imperiumConfig.build.path, 'server'),
@@ -38,11 +36,7 @@ module.exports = function(imperiumConfig) {
 			}),
 			new CopyWebpackPlugin([
 				{
-					from: path.resolve(
-						imperiumConfig.source.imperiumRoot,
-						'resource',
-						'index.js',
-					),
+					from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'),
 					to: '.',
 				},
 			]),

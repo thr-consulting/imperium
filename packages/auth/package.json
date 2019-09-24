@@ -41,6 +41,7 @@
 	},
 	"dependencies": {
 		"@imperium/core": "^4.0.0-alpha.2",
+		"@imperium/util": "^4.0.0-alpha.2",
 		"@thx/extras": "^10.4.0",
 		"apollo-server-errors": "^2.3.3",
 		"bcrypt": "^3.0.6",
