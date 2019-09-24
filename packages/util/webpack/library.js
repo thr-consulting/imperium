@@ -1,31 +1,29 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const {inspectLoader} = require('@imperium/util');
-const packageJson = require('../package.json');
+const {name} = require('../package.json');
 
 module.exports = {
 	mode: 'production',
 	context: path.resolve(__dirname, '..', 'src'),
-	target: 'node',
 	devtool: 'source-map',
-	entry: './server/index.ts',
 	externals: [
 		nodeExternals({modulesDir: 'node_modules'}),
 		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
 	],
 	output: {
-		filename: 'server.js',
-		path: path.resolve(__dirname, '..'),
-		library: packageJson.name,
+		filename: 'index.js',
+		path: path.resolve(__dirname, '..', 'lib'),
+		library: name,
 		libraryTarget: 'commonjs2',
 	},
+	target: 'node',
+	entry: './index.ts',
 	resolve: {
 		extensions: ['.js', '.mjs', '.ts', '.d.ts'],
 	},
 	optimization: {
-		minimize: false, // TODO: Set true
-		nodeEnv: false,
+		minimize: true,
 	},
 	module: {
 		rules: [
@@ -33,7 +31,6 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: [
-					inspectLoader('BABEL'),
 					{
 						loader: 'babel-loader',
 						options: {
@@ -47,7 +44,6 @@ module.exports = {
 				test: /\.ts$/,
 				exclude: /node_modules/,
 				use: [
-					inspectLoader('BABEL-TS'),
 					{
 						loader: 'babel-loader',
 						options: {

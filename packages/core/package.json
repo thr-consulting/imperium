@@ -26,10 +26,9 @@
 		"util.js.map"
 	],
 	"scripts": {
-		"build": "yarn build:util && yarn build:client && yarn build:server",
+		"build": "yarn build:client && yarn build:server",
 		"build:client": "NODE_ENV=production webpack --config webpack/client.js",
 		"build:server": "NODE_ENV=production webpack --config webpack/server.js",
-		"build:util": "NODE_ENV=production webpack --config webpack/util.js",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
@@ -39,6 +38,7 @@
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
+		"@imperium/util": "^4.0.0-alpha.2",
 		"@thx/router": "^10.2.0",
 		"chalk": "^2.4.2",
 		"debug": "^4.1.1",

@@ -1,9 +1,9 @@
 /* eslint-disable global-require,@typescript-eslint/no-var-requires,import/no-dynamic-require */
 const mergeOptions = require('merge-options');
+const {log} = require('@imperium/util');
 const path = require('path');
 const fs = require('fs');
 const d = require('debug')('imperium.dev.getConfig');
-const dInspectLoader = require('debug')('inspectLoader');
 const isFunction = require('lodash/isFunction');
 
 module.exports = function getConfig() {
@@ -32,7 +32,7 @@ module.exports = function getConfig() {
 			only: [
 				filepath => {
 					if (filepath === configModulePath) {
-						dInspectLoader(`[BABEL/REG-CONFIG] ${filepath}`);
+						log('BABEL/REG-CONFIG', filepath);
 						return true;
 					}
 					return false;
