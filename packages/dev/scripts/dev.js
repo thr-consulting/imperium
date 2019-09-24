@@ -90,7 +90,7 @@ if (cluster.isMaster) {
 	 **************************************************************************************** */
 	const path = require('path');
 	const isFunction = require('lodash/isFunction');
-	const {log} = require('../lib');
+	const {log} = require('@imperium/util');
 
 	require('@babel/register')({
 		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true, graphqls: true}]],
