@@ -52,7 +52,7 @@ switch (script) {
 
 	default:
 		console.log(`Unknown script "${script}".`);
-		console.log('Perhaps you need to update @imperium/core?');
+		console.log('Perhaps you need to update @imperium/dev?');
 		break;
 }
 
