@@ -19,8 +19,10 @@ export interface ImperiumConnectors {
 
 export type ImperiumOptions = {[key: string]: any};
 
+export type IModel = Model<Document> | DataLoader<string | Types.ObjectId, Document>;
+
 export interface ModelsMap {
-	[key: string]: DataLoader<string | Types.ObjectId, Document> | Model<Document> | any;
+	[key: string]: IModel;
 }
 
 export interface MiddlewareOptions {

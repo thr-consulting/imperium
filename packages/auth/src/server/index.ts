@@ -30,5 +30,3 @@ export default function ImperiumAuthModule() {
 		},
 	};
 }
-
-export {default as permissions} from '../permissions';

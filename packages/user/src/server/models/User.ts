@@ -1,4 +1,5 @@
 import mongoose, {Document} from 'mongoose';
+import {servicesField} from '../constants';
 
 export interface IUser extends Document {
 	email: string;
@@ -31,7 +32,7 @@ userSchema.statics.getData = function getData(user: IUser) {
 			name: user.name,
 			email: user.email,
 		},
-		servicesField: 'services',
+		servicesField,
 		roles: user.roles,
 	};
 };

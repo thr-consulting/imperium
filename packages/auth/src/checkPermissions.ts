@@ -1,9 +1,8 @@
 import intersection from 'lodash/intersection';
 import isArray from 'lodash/isArray';
-import permissions from './permissions';
+import {SYSADMIN} from '../permissions';
 
 export function permissionsMatch(havePermissions: string | string[], needPermissions: string | string[]): boolean {
-	const {SYSADMIN} = permissions;
 	const have = isArray(havePermissions) ? havePermissions : [havePermissions];
 	const need = isArray(needPermissions) ? [...needPermissions, SYSADMIN] : [needPermissions, SYSADMIN];
 	return intersection(have, need).length > 0;

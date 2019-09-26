@@ -3,8 +3,6 @@ import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
 import {sign, decode} from 'jsonwebtoken';
 import get from 'lodash/get';
-import set from 'lodash/set';
-import find from 'lodash/find';
 import {Context, ImperiumOptions, ModelsOptions} from '@imperium/core';
 // @ts-ignore
 import {randomId, SharedCache, sha256} from '@thx/extras/server';
@@ -20,6 +18,20 @@ import {
 } from './errors';
 
 const d = debug('imperium.auth.Auth');
+
+interface servicesField {
+	password: {
+		bcrypt: string;
+	};
+	token: {
+		recovery: string[];
+		blacklist: {
+			token: {
+				rnd: string;
+			};
+		}[];
+	};
+}
 
 interface PasswordObject {
 	algorithm: string;
@@ -181,11 +193,11 @@ export default class Auth {
 			const {User} = this._ctx.models;
 			const user = await User.findById(token.id);
 			if (!user) throw UserNotFoundError();
-			const {servicesField, roles} = User.getData(user);
-			if (find(get(user, [servicesField, 'token', 'blacklist'], []), {token: token.rnd})) {
+			const {servicesField} = User.getData(user);
+			if (get(user, [servicesField, 'token', 'blacklist'], []).includes(token.rnd)) {
 				throw TokenDeauthorized();
 			} else {
-				return this.signRefreshToken({id: token.id, roles});
+				return this.signRefreshToken({id: token.id});
 			}
 		}
 	}
@@ -216,6 +228,7 @@ export default class Auth {
 		if (userPassword) {
 			if (await validatePassword(userPassword, password)) {
 				d('Everything validated. Returning access token, refresh token and auth');
+				await this._cache.set(`loginattempts:${email}`, 0, this._options.authMaxCooldown);
 				return {
 					access: this.signAccessToken({id, roles}),
 					refresh: this.signRefreshToken({id}),
@@ -253,8 +266,11 @@ export default class Auth {
 		);
 
 		// Update the user object with the recovery token.
-		set(user, [servicesField, 'token', 'recovery'], recoveryTokens.concat([newToken]));
-		await user.save();
+		user.set([servicesField, 'token', 'recovery'].join('.'), recoveryTokens.concat([newToken]));
+		d(user.isModified());
+
+		const a = await user.save();
+		d(a.services.token.recovery);
 
 		return true;
 	}
@@ -262,5 +278,11 @@ export default class Auth {
 	async signUp(email: string): Promise<boolean> {
 		d(email);
 		return true;
+	}
+
+	async setPassword(user: any, password: PasswordObject): Promise<void> {
+		const {User} = this._ctx.models;
+		const {servicesField} = User.getData(user);
+		user.set([servicesField, 'password', 'bcrypt'].join('.'), await this.encryptPassword(password));
 	}
 }

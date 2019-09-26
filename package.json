@@ -30,7 +30,7 @@
 		"@types/react": "^16.9.2",
 		"@types/react-dom": "^16.9.0",
 		"@types/react-hot-loader": "^4.1.0",
-		"@types/react-router-dom": "^4.3.5",
+		"@types/react-router-dom": "^5.1.0",
 		"dataloader": "^1.4.0",
 		"eslint": "^6.2.1",
 		"jest": "^24.9.0",

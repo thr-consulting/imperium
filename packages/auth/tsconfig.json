@@ -6,7 +6,7 @@
 		// Search under node_modules for non-relative imports.
 		"moduleResolution": "node",
 		// Process & infer types from .js files.
-		"allowJs": false,
+		"allowJs": true,
 		"resolveJsonModule": true,
 		// Don't emit; allow Babel to transform files.
 		"noEmit": true, // Can't have this active if I want to emit declarations

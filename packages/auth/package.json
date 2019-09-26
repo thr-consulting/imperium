@@ -22,7 +22,9 @@
 		"server.js.map",
 		"client.js.map",
 		"config.js.map",
-		"types.d.ts"
+		"types.d.ts",
+		"permissions.js",
+		"permissions.d.ts"
 	],
 	"scripts": {
 		"build": "yarn build:server && yarn build:client",

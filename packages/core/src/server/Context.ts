@@ -1,4 +1,4 @@
-import {ImperiumConnectorsMap, ModelsMap, ImperiumOptions, ModelsOptions} from '../../types';
+import {ImperiumConnectorsMap, ModelsMap, ImperiumOptions, ModelsOptions, IModel} from '../../types';
 
 export default class Context {
 	_connectors: ImperiumConnectorsMap;
@@ -25,7 +25,7 @@ export default class Context {
 			connectors: this._connectors,
 			context: this,
 		});
-		this._models = Object.assign({}, this._models, moduleModels);
+		this._models = {...this._models, ...moduleModels};
 	}
 
 	/**
@@ -33,7 +33,7 @@ export default class Context {
 	 * @param name
 	 * @returns {*}
 	 */
-	getModel(name: string): ModelsMap {
+	getModel(name: string): IModel {
 		return this._models[name];
 	}
 
@@ -41,7 +41,7 @@ export default class Context {
 	 * Returns all the models
 	 * @returns {*}
 	 */
-	get models(): {[modelName: string]: ModelsMap} {
+	get models(): ModelsMap {
 		return this._models;
 	}
 
