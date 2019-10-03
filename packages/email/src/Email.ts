@@ -34,6 +34,9 @@ interface SendHtmlOptions {
 		filename: string,
 		context: string | Buffer | Stream,
 	}],
+	debug: null | {
+		to: string | null,
+	},
 }
 
 export default class Email {
@@ -81,15 +84,15 @@ export default class Email {
 		}
 	}
 
-	async sendHtml({from, to, html, subject, attachments}: SendHtmlOptions) {
+	async sendHtml({from, to, html, subject, attachments, debug}: SendHtmlOptions) {
 		const mSubject = striptags(subject);
 
 		if (process.env.IMPERIUM_NODE_ENV === 'production') {
 			await this.transporter.sendMail({
 				from,
-				to: process.env.MAIL_TO_DEVOVERRIDE ? process.env.MAIL_TO_DEVOVERRIDE : to,
+				to: debug && debug.to ? debug.to : to,
 				subject: mSubject,
-				text: htmlToText(html),
+				text: htmlToText.fromString(html),
 				html,
 				attachments,
 			});
@@ -98,7 +101,6 @@ export default class Email {
 			console.log(`  From         : ${from}`);
 			console.log(`  To           : ${to}`);
 			console.log(`  Subject      : ${mSubject}`);
-			// console.log(html);
 			if (attachments) {
 				attachments.forEach(att => {
 					console.log(`  Attached file: ${att.filename}`);
@@ -108,7 +110,7 @@ export default class Email {
 		}
 	}
 
-	async sendMjml({from, to, mjml, subject, attachments}) {
-		await this.sendHtml({from, to, html: mjml2html(mjml).html, subject, attachments});
+	async sendMjml({from, to, mjml, subject, attachments, debug}) {
+		await this.sendHtml({from, to, html: mjml2html(mjml).html, subject, attachments, debug});
 	}
 }
