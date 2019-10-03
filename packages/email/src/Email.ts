@@ -88,7 +88,7 @@ export default class Email {
 		const mSubject = striptags(subject);
 
 		if (process.env.IMPERIUM_NODE_ENV === 'production') {
-			await this.transporter.sendMail({
+			return await this.transporter.sendMail({
 				from,
 				to: debug && debug.to ? debug.to : to,
 				subject: mSubject,
@@ -107,10 +107,11 @@ export default class Email {
 				});
 			}
 			console.log('------------------------------------------------------');
+			return Promise.resolve();
 		}
 	}
 
 	async sendMjml({from, to, mjml, subject, attachments, debug}) {
-		await this.sendHtml({from, to, html: mjml2html(mjml).html, subject, attachments, debug});
+		return await this.sendHtml({from, to, html: mjml2html(mjml).html, subject, attachments, debug});
 	}
 }
