@@ -14,6 +14,7 @@ const md = markdownIt();
 
 interface SendOptions {
 	from: string,
+	replyTo?: string,
 	to: string,
 	subject: string,
 	body: string,
@@ -27,6 +28,7 @@ interface SendOptions {
 
 interface SendHtmlOptions {
 	from: string,
+	replyTo?: string,
 	to: string,
 	subject: string,
 	html: string,
@@ -47,7 +49,7 @@ export default class Email {
 		this.transporter = transporter;
 	}
 
-	async send({from, to, body, subject, template, attachments, markdown}: SendOptions) {
+	async send({from, replyTo, to, body, subject, template, attachments, markdown}: SendOptions) {
 		const isMarkdown = isUndefined(markdown) ? true : markdown;
 		const mSubject = striptags(subject);
 		const mBody = striptags(body);
@@ -61,6 +63,7 @@ export default class Email {
 		if (process.env.IMPERIUM_NODE_ENV === 'production') {
 			await this.transporter.sendMail({
 				from,
+				replyTo,
 				to: process.env.MAIL_TO_DEVOVERRIDE ? process.env.MAIL_TO_DEVOVERRIDE : to,
 				subject: mSubject,
 				text: mBody,
@@ -84,12 +87,13 @@ export default class Email {
 		}
 	}
 
-	async sendHtml({from, to, html, subject, attachments, debug}: SendHtmlOptions) {
+	async sendHtml({from, replyTo, to, html, subject, attachments, debug}: SendHtmlOptions) {
 		const mSubject = striptags(subject);
 
 		if (process.env.IMPERIUM_NODE_ENV === 'production') {
 			return await this.transporter.sendMail({
 				from,
+				replyTo,
 				to: debug && debug.to ? debug.to : to,
 				subject: mSubject,
 				text: htmlToText.fromString(html),
@@ -99,6 +103,7 @@ export default class Email {
 		} else {
 			console.log('--------- DEV MODE: SENDING EMAIL  -------------------');
 			console.log(`  From         : ${from}`);
+			console.log(`  Reply-to     : ${replyTo}`);
 			console.log(`  To           : ${to}`);
 			console.log(`  Subject      : ${mSubject}`);
 			if (attachments) {
@@ -111,7 +116,24 @@ export default class Email {
 		}
 	}
 
-	async sendMjml({from, to, mjml, subject, attachments, debug}) {
-		return await this.sendHtml({from, to, html: mjml2html(mjml).html, subject, attachments, debug});
+	async sendMjml({from, replyTo, to, mjml, subject, attachments, debug}) {
+		return await this.sendHtml({from, replyTo, to, html: mjml2html(mjml).html, subject, attachments, debug});
+	}
+
+	async relay({raw, from, to}) {
+		if (process.env.IMPERIUM_NODE_ENV === 'production') {
+			await this.transporter.sendMail({
+				envelope: {
+					from,
+					to,
+				},
+				raw,
+			});
+		} else {
+			console.log('--------- DEV MODE: RELAYING EMAIL  -------------------');
+			console.log(`  From         : ${from}`);
+			console.log(`  To           : ${to}`);
+			console.log('------------------------------------------------------');
+		}
 	}
 }
