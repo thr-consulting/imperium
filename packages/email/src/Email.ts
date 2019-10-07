@@ -87,37 +87,36 @@ export default class Email {
 		}
 	}
 
-	async sendHtml({from, replyTo, to, html, subject, attachments, debug}: SendHtmlOptions) {
+	async sendHtml({from, replyTo, to, html, subject, attachments, debug: deb}: SendHtmlOptions) {
 		const mSubject = striptags(subject);
 
 		if (process.env.IMPERIUM_NODE_ENV === 'production') {
-			return await this.transporter.sendMail({
+			return this.transporter.sendMail({
 				from,
 				replyTo,
-				to: debug && debug.to ? debug.to : to,
+				to: deb && deb.to ? deb.to : to,
 				subject: mSubject,
 				text: htmlToText.fromString(html),
 				html,
 				attachments,
 			});
-		} else {
-			console.log('--------- DEV MODE: SENDING EMAIL  -------------------');
-			console.log(`  From         : ${from}`);
-			console.log(`  Reply-to     : ${replyTo}`);
-			console.log(`  To           : ${to}`);
-			console.log(`  Subject      : ${mSubject}`);
-			if (attachments) {
-				attachments.forEach(att => {
-					console.log(`  Attached file: ${att.filename}`);
-				});
-			}
-			console.log('------------------------------------------------------');
-			return Promise.resolve();
 		}
+		console.log('--------- DEV MODE: SENDING EMAIL  -------------------');
+		console.log(`  From         : ${from}`);
+		console.log(`  Reply-to     : ${replyTo}`);
+		console.log(`  To           : ${to}`);
+		console.log(`  Subject      : ${mSubject}`);
+		if (attachments) {
+			attachments.forEach(att => {
+				console.log(`  Attached file: ${att.filename}`);
+			});
+		}
+		console.log('------------------------------------------------------');
+		return Promise.resolve();
 	}
 
-	async sendMjml({from, replyTo, to, mjml, subject, attachments, debug}) {
-		return await this.sendHtml({from, replyTo, to, html: mjml2html(mjml).html, subject, attachments, debug});
+	async sendMjml({from, replyTo, to, mjml, subject, attachments, deb}) {
+		return this.sendHtml({from, replyTo, to, html: mjml2html(mjml).html, subject, attachments, debug: deb});
 	}
 
 	async relay({raw, from, to}) {
