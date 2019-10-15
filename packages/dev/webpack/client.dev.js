@@ -42,20 +42,13 @@ module.exports = function(imperiumConfig) {
 		plugins: compact([
 			new ProgressBarPlugin(),
 			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
-			new HtmlWebpackPlugin({
-				title: imperiumConfig.web.title,
-				template: imperiumConfig.web.template,
-				meta: imperiumConfig.web.meta,
-				templateOptions: Object.assign({}, imperiumConfig.web.options, {
-					initialConfig: JSON.stringify(imperiumConfig.web.options.initialConfig),
-				}),
-			}),
+			new HtmlWebpackPlugin(imperiumConfig.html),
 			new HardSourceWebpackPlugin({
 				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
 			}),
 		]),
 		module: {
-			rules: clientModuleRules.concat(imperiumConfig.build.client.rules),
+			rules: clientModuleRules.concat(imperiumConfig.webpack.client.rules),
 		},
 	};
 };

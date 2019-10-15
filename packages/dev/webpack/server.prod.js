@@ -12,19 +12,19 @@ module.exports = function(imperiumConfig) {
 		mode: 'production',
 		context: imperiumConfig.source.path,
 		target: 'node',
-		devtool: imperiumConfig.build.server.devtool,
+		devtool: imperiumConfig.production.server.devtool,
 		entry: imperiumConfig.source.serverIndex,
-		externals: imperiumConfig.build.server.externals.map(v => nodeExternals({modulesDir: v})),
+		externals: imperiumConfig.production.server.externals.map(v => nodeExternals({modulesDir: v})),
 		output: {
 			filename: 'worker.js',
-			path: path.join(imperiumConfig.build.path, 'server'),
+			path: path.join(imperiumConfig.production.path, 'server'),
 			libraryTarget: 'commonjs2',
 		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.d.ts'],
 		},
 		optimization: {
-			minimize: imperiumConfig.build.server.minimize,
+			minimize: imperiumConfig.production.server.minimize,
 		},
 		plugins: compact([
 			process.env.DEBUG ? null : new ProgressBarPlugin(),
@@ -42,7 +42,7 @@ module.exports = function(imperiumConfig) {
 			]),
 		]),
 		module: {
-			rules: serverModuleRules.concat(imperiumConfig.build.server.rules),
+			rules: serverModuleRules.concat(imperiumConfig.webpack.server.rules),
 		},
 	};
 };

@@ -5,51 +5,56 @@ const iRoot = path.resolve(__dirname);
 const pRoot = path.resolve(process.cwd());
 
 module.exports = {
+	// Only affects running in development mode
 	development: {
-		clientPort: 4000,
-		workerCrashDelay: 2, // Seconds
-		workerCrashMax: 5,
+		clientPort: 4000, // Port the webpack-dev-server runs on
+		workerCrashDelay: 2, // Seconds to wait before restarting a worker process.
+		workerCrashMax: 5, // Number of times a worker is allowed to crash before killing the server.
 	},
-	build: {
-		path: path.join(pRoot, 'build'),
+	// Only affects building production of apps
+	production: {
+		path: path.join(pRoot, 'build'), // Path to place the build files
 		client: {
-			minimize: true,
-			devtool: false,
-			vendorChunk: [
-				'react',
-				'react-dom',
-				// 'react-router-dom',
-				'lodash',
-				'debug',
-				// 'jsonwebtoken',
-				// 'whatwg-fetch',
-			],
-			rules: [],
+			minimize: true, // Minimize the production output
+			devtool: false, // Devtool built for production (See https://webpack.js.org/configuration/devtool/#devtool)
+			vendorChunk: ['react', 'react-dom', 'lodash', 'debug'], // Vendor packages to split into their own chunk
 		},
 		server: {
-			minimize: true,
-			devtool: false,
+			minimize: true, // Minimize the production output
+			devtool: false, // Devtool build for production
+			// Externals aren't included in webpack. (See https://webpack.js.org/configuration/externals/#externals)
 			externals: [
 				path.join(pRoot, 'node_modules'),
 				path.join(pRoot, '..', '..', 'node_modules'), // Needed if the project is a lerna project
 			],
-			rules: [],
 		},
 	},
+	webpack: {
+		client: {
+			rules: [], // Additional webpack rules (See https://webpack.js.org/configuration/module/#modulerules)
+		},
+		server: {
+			rules: [], // Additional webpack rules (See https://webpack.js.org/configuration/module/#modulerules)
+		},
+	},
+	// Source code locations
 	source: {
-		projectRoot: pRoot,
-		imperiumRoot: iRoot,
-		path: path.join(pRoot, 'src'),
+		projectRoot: pRoot, // Usually don't override this. It's determined from cwd.
+		imperiumRoot: iRoot, // Usually don't override this. It's determined from __dirname.
+		path: path.join(pRoot, 'src'), // The folder where source code is located.
+		// The next 3 entries are required "magically".
 		serverIndex: './core/server.ts', // This file runs on the server only.
 		clientIndex: './core/client.ts', // This file runs on the client only.
 		configModules: './core/configModules.ts', // This file needs to be isomorphic (client/server)
 	},
-	web: {
-		template: path.join(iRoot, 'resource/index.html'),
-		title: 'Imperium Project',
+	// Configuration for HTML generation (production and development) (See https://github.com/jantimon/html-webpack-plugin#options)
+	html: {
+		template: path.join(iRoot, 'resource/index.html'), // Path to the web template to use. Uses lodash style templates.
 		meta: {
 			'mobile-web-app-capable': 'yes',
 		},
-		options: {},
+		templateParameters: {
+			title: 'Imperium Project', // The default title included in the HTML file.
+		},
 	},
 };

@@ -15,15 +15,15 @@ module.exports = function(imperiumConfig) {
 	return {
 		mode: 'production',
 		context: imperiumConfig.source.path,
-		devtool: imperiumConfig.build.client.devtool,
+		devtool: imperiumConfig.production.client.devtool,
 		entry: {
 			app: imperiumConfig.source.clientIndex,
-			vendor: imperiumConfig.build.client.vendorChunk,
+			vendor: imperiumConfig.production.client.vendorChunk,
 		},
 		output: {
 			filename: '[name]_[chunkhash].js',
 			chunkFilename: '[name]_[chunkhash].js',
-			path: path.join(imperiumConfig.build.path, 'client', 'static'),
+			path: path.join(imperiumConfig.production.path, 'client', 'static'),
 			publicPath: '/static/',
 		},
 		resolve: {
@@ -43,7 +43,7 @@ module.exports = function(imperiumConfig) {
 			runtimeChunk: {
 				name: 'manifest',
 			},
-			minimize: imperiumConfig.build.client.minimize,
+			minimize: imperiumConfig.production.client.minimize,
 		},
 		plugins: compact([
 			process.env.DEBUG ? null : new ProgressBarPlugin(),
@@ -55,17 +55,12 @@ module.exports = function(imperiumConfig) {
 			}),
 			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
 			new HtmlWebpackPlugin({
+				...imperiumConfig.html,
 				filename: '../index.html',
-				title: imperiumConfig.web.title,
-				template: imperiumConfig.web.template,
-				meta: imperiumConfig.web.meta,
-				templateOptions: Object.assign({}, imperiumConfig.web.options, {
-					initialConfig: JSON.stringify(imperiumConfig.web.options.initialConfig),
-				}),
 			}),
 		]),
 		module: {
-			rules: clientModuleRules.concat(imperiumConfig.build.client.rules),
+			rules: clientModuleRules.concat(imperiumConfig.webpack.client.rules),
 		},
 	};
 };

@@ -3,8 +3,10 @@ const mergeOptions = require('merge-options');
 const {log} = require('@imperium/util');
 const path = require('path');
 const fs = require('fs');
-const d = require('debug')('imperium.dev.getConfig');
+const get = require('lodash/get');
+const set = require('lodash/set');
 const isFunction = require('lodash/isFunction');
+const d = require('debug')('imperium.dev.getConfig');
 
 module.exports = function getConfig() {
 	// The project can define their own config file
@@ -55,18 +57,23 @@ module.exports = function getConfig() {
 	d(`Loaded modules: ${configModuleNames.join(', ')}`);
 
 	// Merge initialConfig options
-	config.web.options.initialConfig = mergeOptions(
-		config.web.options.initialConfig,
-		configModules.reduce((memo, configModule) => {
-			if (configModule.initialConfig) {
-				return Object.assign(memo, configModule.initialConfig);
-			}
-			return memo;
-		}, {}),
-	);
+	config.html.templateParameters = {
+		...config.html.templateParameters,
+		initialConfig: JSON.stringify(
+			mergeOptions(
+				config.html.templateParameters.initialConfig,
+				configModules.reduce((memo, configModule) => {
+					if (configModule.initialConfig) {
+						return Object.assign(memo, configModule.initialConfig);
+					}
+					return memo;
+				}, {}),
+			),
+		),
+	};
 
 	// Merge webpack client rules
-	config.build.client.rules = config.build.client.rules.concat(
+	config.webpack.client.rules = config.webpack.client.rules.concat(
 		configModules.reduce((memo, configModule) => {
 			if (configModule.webpack && configModule.webpack.client && configModule.webpack.client.rules) {
 				return memo.concat(configModule.webpack.client.rules);
@@ -75,8 +82,8 @@ module.exports = function getConfig() {
 		}, []),
 	);
 
-	// Merge webpack client rules
-	config.build.server.rules = config.build.server.rules.concat(
+	// Merge webpack server rules
+	config.webpack.server.rules = config.webpack.server.rules.concat(
 		configModules.reduce((memo, configModule) => {
 			if (configModule.webpack && configModule.webpack.server && configModule.webpack.server.rules) {
 				return memo.concat(configModule.webpack.server.rules);

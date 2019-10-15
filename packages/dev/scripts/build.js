@@ -77,7 +77,7 @@ log(chalk.bold.white('  Imperium Framework - Build'));
 log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 
 // Delete the build folder and start a new build
-rimraf(imperiumConfig.build.path)
+rimraf(imperiumConfig.production.path)
 	.then(buildClient)
 	.then(buildServer)
 	.then(complete);

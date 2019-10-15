@@ -35,16 +35,15 @@
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"devDependencies": {
-		"webpack-cli": "^3.3.7"
+		"webpack-cli": "^3.3.9"
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.0-alpha.4",
-		"@thx/router": "^10.2.0",
 		"chalk": "^2.4.2",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
 		"query-string": "^6.8.3",
-		"react-hot-loader": "^4.12.12",
-		"react-router-dom": "^5.0.1"
+		"react-hot-loader": "^4.12.15",
+		"react-router-dom": "^5.1.2"
 	}
 }
