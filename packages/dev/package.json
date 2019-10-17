@@ -26,8 +26,8 @@
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
-		"lint": "eslint --cache --ext js,ts,tsx src",
-		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"lint": "eslint --cache --ext js,ts,tsx scripts",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx scripts",
 		"ts": "tsc",
 		"yalc:publish": "yalc publish --push"
 	},

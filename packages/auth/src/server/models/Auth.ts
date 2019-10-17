@@ -19,7 +19,7 @@ import {
 
 const d = debug('imperium.auth.Auth');
 
-interface servicesField {
+interface ServicesField {
 	password: {
 		bcrypt: string;
 	};
@@ -148,13 +148,10 @@ export default class Auth {
 		const rnd = bytes.toString('hex').substring(0, 4);
 
 		return sign(
-			Object.assign(
-				{},
-				{
-					rnd,
-				},
-				payload,
-			),
+			{
+				rnd,
+				...payload,
+			},
 			secret,
 			options,
 		);

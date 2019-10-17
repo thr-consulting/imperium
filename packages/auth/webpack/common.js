@@ -21,7 +21,7 @@ module.exports = {
 		extensions: ['.js', '.mjs', '.ts', '.d.ts'],
 	},
 	optimization: {
-		minimize: false, // TODO: Set true
+		minimize: true,
 	},
 	module: {
 		rules: [

@@ -13,7 +13,7 @@ export default function MyModuleName() {
 		name, // [String] Name of the module
 
 		// Core
-		initialConfig, // [Object] Initial configuration
+		initialConfig, // [Object] Initial configuration for client
 		webpack: {
 			client: {
 				rules, // Client webpack rules

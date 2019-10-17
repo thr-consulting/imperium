@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/core",
+	"name": "@imperium/router",
 	"version": "4.0.0-alpha.4",
-	"description": "Imperium Core package",
+	"description": "Imperium Router package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -14,32 +14,31 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "server.js",
-	"types": "./types.d.ts",
+	"types": "types.d.ts",
+	"main": "client.js",
 	"files": [
-		"lib",
 		"client.js",
-		"server.js",
+		"lib",
 		"types.d.ts"
 	],
 	"scripts": {
-		"build": "yarn build:client && yarn build:server",
+		"build": "yarn build:client",
 		"build:client": "NODE_ENV=production webpack --config webpack/client.js && NODE_ENV=development webpack --config webpack/client.js",
-		"build:server": "NODE_ENV=production webpack --config webpack/server.js && NODE_ENV=development webpack --config webpack/server.js",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
+	"peerDependencies": {
+		"react": "16.x",
+		"react-dom": "^16.x"
+	},
 	"devDependencies": {
-		"webpack-cli": "^3.3.9"
+		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.0-alpha.4",
-		"chalk": "^2.4.2",
 		"debug": "^4.1.1",
-		"express": "^4.17.1",
-		"query-string": "^6.8.3",
-		"react-hot-loader": "^4.12.15"
+		"react-router-dom": "^5.1.2"
 	}
 }

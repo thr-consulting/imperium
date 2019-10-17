@@ -3,8 +3,6 @@ const mergeOptions = require('merge-options');
 const {log} = require('@imperium/util');
 const path = require('path');
 const fs = require('fs');
-const get = require('lodash/get');
-const set = require('lodash/set');
 const isFunction = require('lodash/isFunction');
 const d = require('debug')('imperium.dev.getConfig');
 

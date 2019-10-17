@@ -36,7 +36,7 @@ module.exports = function(imperiumConfig) {
 		devServer: {
 			stats: 'errors-warnings',
 			hot: true,
-			historyApiFallback: true,
+			historyApiFallback: true, // https://tylermcginnis.com/react-router-cannot-get-url-refresh/
 		},
 		stats: 'errors-warnings',
 		plugins: compact([

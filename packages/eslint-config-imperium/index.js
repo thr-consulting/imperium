@@ -1,26 +1,23 @@
 module.exports = {
 	parser: '@typescript-eslint/parser',
-	plugins: [
-		'jest',
-		'react-hooks',
-	],
+	plugins: ['jest', 'react-hooks'],
 	extends: [
 		'airbnb-typescript',
 		'plugin:react/recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:prettier/recommended'
+		'plugin:prettier/recommended',
 	],
 	parserOptions: {
 		ecmaVersion: 2019,
 		sourceType: 'module',
 		ecmaFeatures: {
-			jsx: true
-		}
+			jsx: true,
+		},
 	},
 	settings: {
 		react: {
-			version: 'detect'
-		}
+			version: 'detect',
+		},
 	},
 	env: {
 		commonjs: true,
@@ -49,7 +46,10 @@ module.exports = {
 		'@typescript-eslint/indent': ['off'],
 		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd'}],
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
-		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
+		'@typescript-eslint/explicit-function-return-type': [
+			'off',
+			{allowExpressions: true, allowTypedFunctionExpressions: true},
+		],
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/ban-ts-ignore': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
@@ -67,6 +67,8 @@ module.exports = {
 		'react/no-children-prop': 'off',
 		'react/destructuring-assignment': ['off', 'always'],
 		'react/jsx-one-expression-per-line': 'off',
+		'react/jsx-props-no-spreading': ['off'],
+		'react/display-name': ['off'],
 
 		// ES6 Import
 		'import/no-extraneous-dependencies': 'off',

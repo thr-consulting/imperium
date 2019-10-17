@@ -4,15 +4,15 @@ import debug from 'debug';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
-import Root from './components/Root';
+import Root from './Root';
 import {HocCreator, ImperiumClientModule, ImperiumClientOptions, ImperiumRoute, RootProps} from '../../types';
 
 const d = debug('imperium.core.client');
 
 export default class ImperiumClient {
 	_clientModules: ImperiumClientModule[];
-	_rootRoute: ImperiumRoute;
-	_routeDefaults: {[key: string]: any};
+	// _rootRoute: ImperiumRoute;
+	// _routeDefaults: {[key: string]: any};
 
 	_initialConf: {[key: string]: any};
 	_initialState: {[key: string]: any};
@@ -22,20 +22,22 @@ export default class ImperiumClient {
 		this._initialConf = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle
 		this._initialState = {};
 		this._clientModules = [];
-		this._routeDefaults = {};
-		this._rootRoute = {
-			path: '/',
-			exact: true,
-			component: () => <div>Undefined Imperium Root Route</div>,
-		};
+		// this._routeDefaults = {};
+		// this._rootRoute = {
+		// 	path: '/',
+		// 	exact: true,
+		// 	component: () => <div>Undefined Imperium Root Route</div>,
+		// };
 
-		if (options.routeDefaults) {
-			this._routeDefaults = options.routeDefaults;
-		}
+		this._rootComponent = options.rootComponent || (() => <div>Default Root Component</div>);
 
-		if (options.rootRoute) {
-			this._rootRoute = options.rootRoute;
-		}
+		// if (options.routeDefaults) {
+		// 	this._routeDefaults = options.routeDefaults;
+		// }
+
+		// if (options.rootRoute) {
+		// 	this._rootRoute = options.rootRoute;
+		// }
 
 		// Loading client module definitions
 		const clientModuleNames: string[] = [];
@@ -84,14 +86,14 @@ export default class ImperiumClient {
 		}, {});
 
 		// Load routes
-		d('Loading routes');
-		const routes = this._clientModules.reduce(
-			(memo, module): ImperiumRoute[] => {
-				if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
-				return memo;
-			},
-			[this._rootRoute] as ImperiumRoute[],
-		);
+		// d('Loading routes');
+		// const routes = this._clientModules.reduce(
+		// 	(memo, module): ImperiumRoute[] => {
+		// 		if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
+		// 		return memo;
+		// 	},
+		// 	[this._rootRoute] as ImperiumRoute[],
+		// );
 
 		// HOC's
 		d("Building HoC's");
@@ -108,10 +110,14 @@ export default class ImperiumClient {
 
 		d('Rendering root component');
 		render(
-			<Root hoc={hoc} routes={routes} rootProps={rootProps} routeDefaults={this._routeDefaults} />,
+			<Root hoc={hoc} rootProps={rootProps} rootComponent={this._rootComponent} />,
 			document.getElementById('root'),
 		);
 	}
+	/*
+	routes={routes}
+	routeDefaults={this._routeDefaults}
+	 */
 
 	get initialState() {
 		return this._initialState;

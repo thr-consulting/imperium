@@ -1,56 +1,23 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const mergeOptions = require('merge-options');
-const {inspectLoader} = require('@imperium/util');
+const {commonWebpack, inspectLoader} = require('@imperium/util');
+const {name} = require('../package.json');
 
-module.exports = mergeOptions(require('./common'), {
-	target: 'web',
+module.exports = commonWebpack({
+	isProduction: process.env.NODE_ENV === 'production',
+	isClient: true,
+	name,
 	entry: './client/index.ts',
-	output: {
-		filename: 'client.js',
-	},
-	resolve: {
-		extensions: ['.tsx'],
-	},
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: [
-					inspectLoader('BABEL'),
-					{
-						loader: 'babel-loader',
-						options: {
-							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: false}]],
-						},
-					},
-				],
-			},
-			{
-				test: /\.tsx?$/,
-				exclude: /node_modules/,
-				use: [
-					inspectLoader('BABEL-TS'),
-					{
-						loader: 'babel-loader',
-						options: {
-							babelrc: false,
-							presets: [['@imperium/babel-preset-imperium', {client: true, typescript: true}]],
-						},
-					},
-				],
-			},
-			{
-				test: /\.graphql$/,
-				exclude: /node_modules/,
-				use: [
-					inspectLoader('GRAPHQLS'),
-					{
-						loader: 'graphql-tag/loader',
-					},
-				],
-			},
-		],
-	},
+	outputFile: 'client.js',
+	rules: [
+		{
+			test: /\.graphql$/,
+			exclude: /node_modules/,
+			use: [
+				inspectLoader('GRAPHQL'),
+				{
+					loader: 'graphql-tag/loader',
+				},
+			],
+		},
+	],
 });

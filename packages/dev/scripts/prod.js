@@ -1,1 +1,2 @@
-console.log('prod');
+// eslint-disable-next-line no-console
+console.log('prod (not implemented yet)');

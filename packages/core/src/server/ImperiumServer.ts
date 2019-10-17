@@ -51,15 +51,18 @@ export default class ImperiumServer {
 
 		// Load Imperium global options
 		d('Loading options');
-		this._options = this._serverModules.reduce((memo, module) => {
-			if (module.options && isFunction(module.options)) {
-				return {
-					...memo,
-					...module.options(),
-				};
-			}
-			return memo;
-		}, Object.assign({}, defaultOptions, options.options ? options.options() : {}));
+		this._options = this._serverModules.reduce(
+			(memo, module) => {
+				if (module.options && isFunction(module.options)) {
+					return {
+						...memo,
+						...module.options(),
+					};
+				}
+				return memo;
+			},
+			{...defaultOptions, ...(options.options ? options.options() : {})},
+		);
 	}
 
 	async start() {

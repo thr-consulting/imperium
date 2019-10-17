@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import debug from 'debug';
 import {withRouter} from 'react-router-dom';
@@ -68,7 +69,7 @@ function RouteDirector(props: Props): JSX.Element {
 					<SwitchWithError>
 						{routes.map(route => {
 							// Apply default route options and then apply specific route options
-							const routeProps: ImperiumRoute = Object.assign({}, defaults || {}, route);
+							const routeProps: ImperiumRoute = {...(defaults || {}), ...route};
 
 							// If the route is a portal route, don't render it here
 							if (routeProps.portal) return null;

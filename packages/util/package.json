@@ -26,9 +26,11 @@
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"devDependencies": {
+		"@types/webpack-node-externals": "^1.6.3",
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
-		"debug": "^4.1.1"
+		"debug": "^4.1.1",
+		"webpack-node-externals": "^1.7.2"
 	}
 }
