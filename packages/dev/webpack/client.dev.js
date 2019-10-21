@@ -34,9 +34,9 @@ module.exports = function(imperiumConfig) {
 			noEmitOnErrors: true,
 		},
 		devServer: {
-			quiet: true,
 			stats: 'errors-warnings',
 			hot: true,
+			historyApiFallback: true,
 		},
 		stats: 'errors-warnings',
 		plugins: compact([

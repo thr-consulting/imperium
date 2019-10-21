@@ -27,6 +27,7 @@ module.exports = function(api, opts, env) {
 	var forceReact = validateBoolOption('react', opts.react, false);
 	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
 	var enableGraphqls = validateBoolOption('graphqls', opts.graphqls, false);
+	const enableDecorators = validateBoolOption('decorators', opts.decorators, true);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -95,6 +96,16 @@ module.exports = function(api, opts, env) {
 			// in practice some other transforms (such as object-rest-spread)
 			// don't work without it: https://github.com/babel/babel/issues/7215
 			require('@babel/plugin-transform-destructuring').default,
+
+			// Must be before "@babel/plugin-proposal-class-properties" and
+			// "@babel/plugin-proposal-class-properties" must be in 'loose' mode
+			// cannot use decoratorsBeforeExport with legacy
+			enableDecorators && [
+				require('@babel/plugin-proposal-decorators').default,
+				{
+					legacy: true,
+				}
+			],
 
 			// class { handleClick = () => { } }
 			// Enable loose mode to use assignment instead of defineProperty

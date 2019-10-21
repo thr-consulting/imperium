@@ -40,7 +40,7 @@ module.exports = [
 	},
 	{
 		test: /\.css$/,
-		exclude: /node_modules/,
+		include: /node_modules/,
 		use: [
 			inspectLoader('CSS'),
 			{loader: 'style-loader'},
