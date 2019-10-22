@@ -1,3 +1,4 @@
+import React from 'react';
 import {Request, Response, NextFunction} from 'express';
 import DataLoader from 'dataloader';
 import {Document, Model, Types} from 'mongoose';
@@ -13,7 +14,7 @@ export {Context, ImperiumServer, ImperiumClient};
 export type ImperiumConnectorsMap = {[connectorName: string]: any};
 
 export interface ImperiumConnectors {
-	create(): Promise<ImperiumConnectorsMap>;
+	create(server: ImperiumServer): Promise<ImperiumConnectorsMap>;
 	close(): Promise<void>;
 }
 
@@ -93,8 +94,8 @@ export type ImperiumClientModuleFunction = () => ImperiumClientModule;
 
 export interface ImperiumClientOptions {
 	clientModules?: ImperiumClientModuleFunction[];
-	rootRoute?: ImperiumRoute;
-	routeDefaults?: {[key: string]: any};
+	rootComponent: React.Component;
+	rootProps?: {[key: string]: any};
 }
 
 interface RouteContentProps {

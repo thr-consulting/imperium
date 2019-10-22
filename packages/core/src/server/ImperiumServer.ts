@@ -69,7 +69,7 @@ export default class ImperiumServer {
 		if (this._app) throw new Error('Server already started');
 
 		d('Creating connectors');
-		this._connectorsMap = await this._connectors.create();
+		this._connectorsMap = await this._connectors.create(this);
 
 		d('Creating express app');
 		this._app = express();

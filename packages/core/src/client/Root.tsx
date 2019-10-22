@@ -6,15 +6,15 @@ import {ImperiumRoute, RootProps} from '../../types';
 const d = debug('imperium.core.Root');
 
 interface Props {
-	// routes: ImperiumRoute[];
-	// routeDefaults: {[key: string]: any};
-	rootProps: RootProps;
-	hoc: any; // This is a cheat, but React Typescript isn't easy. This could be Hoc from types.d.ts, but....
+	routes: ImperiumRoute[];
+	rootComponent: React.Component;
+	rootProps?: RootProps;
+	hoc?: any; // This is a cheat, but React Typescript isn't easy. This could be Hoc from types.d.ts, but....
 }
 
 function Root(props: Props) {
 	const RootWrappedComponent = props.hoc(props.rootComponent);
-	return <RootWrappedComponent routes={props.routes} defaults={props.routeDefaults} {...props.rootProps} />;
+	return <RootWrappedComponent routes={props.routes} {...props.rootProps} />;
 }
 
 export default hot(Root);

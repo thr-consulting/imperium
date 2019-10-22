@@ -11,33 +11,20 @@ const d = debug('imperium.core.client');
 
 export default class ImperiumClient {
 	_clientModules: ImperiumClientModule[];
-	// _rootRoute: ImperiumRoute;
-	// _routeDefaults: {[key: string]: any};
-
 	_initialConf: {[key: string]: any};
 	_initialState: {[key: string]: any};
+	_rootComponent: React.Component;
+	_defaultRootProps: {[key: string]: any};
+	_rootProps: {[key: string]: any};
 
 	constructor(options: ImperiumClientOptions) {
 		// @ts-ignore
 		this._initialConf = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle
 		this._initialState = {};
 		this._clientModules = [];
-		// this._routeDefaults = {};
-		// this._rootRoute = {
-		// 	path: '/',
-		// 	exact: true,
-		// 	component: () => <div>Undefined Imperium Root Route</div>,
-		// };
-
-		this._rootComponent = options.rootComponent || (() => <div>Default Root Component</div>);
-
-		// if (options.routeDefaults) {
-		// 	this._routeDefaults = options.routeDefaults;
-		// }
-
-		// if (options.rootRoute) {
-		// 	this._rootRoute = options.rootRoute;
-		// }
+		this._rootComponent = options.rootComponent;
+		this._defaultRootProps = options.rootProps || {};
+		this._rootProps = {};
 
 		// Loading client module definitions
 		const clientModuleNames: string[] = [];
@@ -75,7 +62,7 @@ export default class ImperiumClient {
 
 		// Run startup functions
 		d('Running startup functions');
-		const rootProps = this._clientModules.reduce((memo, module): RootProps => {
+		this._rootProps = this._clientModules.reduce((memo, module): RootProps => {
 			if (module.startup && isFunction(module.startup)) {
 				return {
 					...memo,
@@ -83,21 +70,25 @@ export default class ImperiumClient {
 				};
 			}
 			return memo;
-		}, {});
+		}, this._defaultRootProps);
 
+		this.renderRoot(this._clientModules, this._rootComponent);
+	}
+
+	renderRoot(clientModules: ImperiumClientModule[], rootComponent: React.Component) {
 		// Load routes
-		// d('Loading routes');
-		// const routes = this._clientModules.reduce(
-		// 	(memo, module): ImperiumRoute[] => {
-		// 		if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
-		// 		return memo;
-		// 	},
-		// 	[this._rootRoute] as ImperiumRoute[],
-		// );
+		d('Loading routes');
+		const routes = clientModules.reduce(
+			(memo, module): ImperiumRoute[] => {
+				if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
+				return memo;
+			},
+			[] as ImperiumRoute[],
+		);
 
 		// HOC's
 		d("Building HoC's");
-		const hocCreators = this._clientModules.reduce(
+		const hocCreators = clientModules.reduce(
 			(memo, module) => {
 				if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
 				return memo;
@@ -110,14 +101,10 @@ export default class ImperiumClient {
 
 		d('Rendering root component');
 		render(
-			<Root hoc={hoc} rootProps={rootProps} rootComponent={this._rootComponent} />,
+			<Root hoc={hoc} rootProps={this._rootProps} rootComponent={rootComponent} routes={routes} />,
 			document.getElementById('root'),
 		);
 	}
-	/*
-	routes={routes}
-	routeDefaults={this._routeDefaults}
-	 */
 
 	get initialState() {
 		return this._initialState;

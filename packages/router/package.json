@@ -31,14 +31,15 @@
 	},
 	"peerDependencies": {
 		"react": "16.x",
-		"react-dom": "^16.x"
+		"react-dom": "^16.x",
+		"react-router-dom": "^5.x"
 	},
 	"devDependencies": {
+		"react-router-dom": "^5.1.2",
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.0-alpha.4",
-		"debug": "^4.1.1",
-		"react-router-dom": "^5.1.2"
+		"debug": "^4.1.1"
 	}
 }

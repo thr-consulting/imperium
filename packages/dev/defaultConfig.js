@@ -10,6 +10,7 @@ module.exports = {
 		clientPort: 4000, // Port the webpack-dev-server runs on
 		workerCrashDelay: 2, // Seconds to wait before restarting a worker process.
 		workerCrashMax: 5, // Number of times a worker is allowed to crash before killing the server.
+		imperiumDevelopmentAliases: false, // Enable this if you are working on the imperium library installed with yalc or npm link.
 	},
 	// Only affects building production of apps
 	production: {

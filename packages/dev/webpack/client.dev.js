@@ -13,21 +13,33 @@ const clientModuleRules = require('./clientModuleRules');
 
 // Webpack configuration
 module.exports = function(imperiumConfig) {
+	// Default alias for development is to replace react-dom with HMR one.
+	const alias = {
+		'react-dom': '@hot-loader/react-dom',
+	};
+
+	// This will make sure we're not using different packages when yalc or npm link is being used.
+	if (imperiumConfig.development.imperiumDevelopmentAliases) {
+		alias['react-router-dom'] = path.resolve(imperiumConfig.source.projectRoot, './node_modules/react-router-dom');
+		alias['@apollo/react-hooks'] = path.resolve(
+			imperiumConfig.source.projectRoot,
+			'./node_modules/@apollo/react-hooks',
+		);
+	}
+
 	return {
 		mode: 'development',
 		devtool: 'eval',
 		context: imperiumConfig.source.path,
 		entry: {
-			app: imperiumConfig.source.clientIndex,
+			app: [imperiumConfig.source.clientIndex],
 		},
 		output: {
 			filename: 'static/app.js',
 		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
-			alias: {
-				'react-dom': '@hot-loader/react-dom',
-			},
+			alias,
 		},
 		optimization: {
 			minimize: false,
