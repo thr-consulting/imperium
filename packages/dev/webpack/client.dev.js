@@ -35,7 +35,8 @@ module.exports = function(imperiumConfig) {
 			app: [imperiumConfig.source.clientIndex],
 		},
 		output: {
-			filename: 'static/app.js',
+			filename: 'app.js',
+			publicPath: '/',
 		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
