@@ -31,8 +31,8 @@
 	},
 	"peerDependencies": {
 		"react": "16.x",
-		"react-dom": "^16.x",
-		"react-router-dom": "^5.x"
+		"react-dom": "16.x",
+		"react-router-dom": "5.x"
 	},
 	"devDependencies": {
 		"react-router-dom": "^5.1.2",
