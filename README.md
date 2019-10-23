@@ -4,4 +4,4 @@
 
 Imperium React Framework
 
-Copyright © THR Consulting
+Copyright © Mike Kornelson
