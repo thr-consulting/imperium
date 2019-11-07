@@ -1,0 +1,55 @@
+{
+	"name": "@imperium/graphql-client",
+	"version": "4.0.0-alpha.10",
+	"description": "Imperium Graphql client package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"types": "./types.d.ts",
+	"files": [
+		"client.js",
+		"config.js",
+		"lib",
+		"types.d.ts"
+	],
+	"scripts": {
+		"build": "yarn build:dev && yarn build:prod",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"ts": "tsc",
+		"yalc:publish": "yarn build && yalc publish --push"
+	},
+	"peerDependencies": {
+		"@apollo/react-hooks": "3.x",
+		"apollo-client": "2.x",
+		"apollo-utilities": "1.x"
+	},
+	"devDependencies": {
+		"@apollo/react-hooks": "^3.1.0",
+		"apollo-client": "^2.6.4",
+		"apollo-utilities": "^1.3.2"
+	},
+	"dependencies": {
+		"@imperium/util": "^4.0.0-alpha.10",
+		"apollo-cache-inmemory": "^1.6.3",
+		"apollo-link": "^1.2.13",
+		"apollo-link-error": "^1.1.12",
+		"apollo-link-http": "^1.5.16",
+		"apollo-link-ws": "^1.0.19",
+		"debug": "^4.1.1",
+		"graphql": "^14.5.8",
+		"lodash": "^4.17.15",
+		"subscriptions-transport-ws": "^0.9.16"
+	}
+}

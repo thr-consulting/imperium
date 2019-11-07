@@ -1,0 +1,49 @@
+{
+	"name": "@imperium/graphql-server",
+	"version": "4.0.0-alpha.10",
+	"description": "Imperium Graphql server package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"types": "./types.d.ts",
+	"files": [
+		"server.js",
+		"config.js",
+		"lib",
+		"types.d.ts"
+	],
+	"scripts": {
+		"build": "yarn build:dev && yarn build:prod",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"lint": "eslint --cache --ext js,ts src",
+		"lint:fix": "eslint --cache --fix --ext js,ts src",
+		"ts": "tsc",
+		"yalc:publish": "yarn build && yalc publish --push"
+	},
+	"dependencies": {
+		"@imperium/server": "^4.0.0-alpha.10",
+		"@imperium/util": "^4.0.0-alpha.10",
+		"@thx/date": "^10.3.0",
+		"@thx/money": "^10.1.1",
+		"apollo-server-express": "^2.9.6",
+		"cors": "^2.8.5",
+		"debug": "^4.1.1",
+		"express-jwt": "^5.3.1",
+		"graphql": "^14.5.6",
+		"graphql-custom-types": "^1.5.1",
+		"graphql-scalar-objectid": "^0.1.1",
+		"graphql-tag": "^2.10.1",
+		"lodash": "^4.17.15",
+		"subscriptions-transport-ws": "^0.9.16"
+	}
+}

@@ -21,7 +21,15 @@ process.on('unhandledRejection', err => {
 const spawn = require('cross-spawn');
 
 const args = process.argv.slice(2);
-const scriptIndex = args.findIndex(x => x === 'build' || x === 'prod' || x === 'dev' || x === 'test');
+const scriptIndex = args.findIndex(
+	x =>
+		x === 'build-client' ||
+		x === 'build-server' ||
+		x === 'prod-client' ||
+		x === 'prod-server' ||
+		x === 'dev-client' ||
+		x === 'dev-server',
+);
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
@@ -29,21 +37,24 @@ let cmd;
 let arg;
 
 switch (script) {
-	case 'dev': {
+	case 'dev-server':
+	case 'dev-client': {
 		process.env.NODE_ENV = 'development';
 		cmd = 'node';
 		arg = nodeArgs.concat(require.resolve(`../scripts/${script}`)).concat(args.slice(scriptIndex + 1));
 		break;
 	}
 
-	case 'prod': {
+	case 'prod-server':
+	case 'prod-client': {
 		process.env.NODE_ENV = 'production';
 		cmd = 'node';
 		arg = nodeArgs.concat(require.resolve(`../scripts/${script}`)).concat(args.slice(scriptIndex + 1));
 		break;
 	}
 
-	case 'build': {
+	case 'build-server':
+	case 'build-client': {
 		process.env.NODE_ENV = 'production';
 		cmd = 'node';
 		arg = nodeArgs.concat(require.resolve(`../scripts/${script}`)).concat(args.slice(scriptIndex + 1));

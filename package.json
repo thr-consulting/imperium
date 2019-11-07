@@ -35,7 +35,7 @@
 		"eslint": "^6.2.1",
 		"jest": "^24.9.0",
 		"lerna": "^3.16.4",
-		"merge-options": "^1.0.1",
+		"merge-options": "^2.0.0",
 		"mongoose": "^5.7.1",
 		"prettier": "^1.18.2",
 		"react": "^16.9.0",

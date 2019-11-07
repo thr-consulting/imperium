@@ -104,7 +104,7 @@ module.exports = function(api, opts, env) {
 				require('@babel/plugin-proposal-decorators').default,
 				{
 					legacy: true,
-				}
+				},
 			],
 
 			// class { handleClick = () => { } }

@@ -3,13 +3,17 @@ import debug from 'debug';
 
 const d = debug('imperium.router.RouteErrorBoundary');
 
-export default class RouteErrorBoundary extends React.Component {
-	constructor(props) {
+interface State {
+	hasError: boolean;
+}
+
+export default class RouteErrorBoundary extends React.Component<Readonly<{}>, State> {
+	constructor(props: Readonly<{}>) {
 		super(props);
 		this.state = {hasError: false};
 	}
 
-	static getDerivedStateFromError(error) {
+	static getDerivedStateFromError(/* error */) {
 		return {hasError: true};
 	}
 

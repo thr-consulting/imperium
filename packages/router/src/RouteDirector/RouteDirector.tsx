@@ -16,13 +16,13 @@ export default function RouteDirector(props: RouteDirectorProps) {
 
 	return (
 		<Switch>
-			{routes.map((route, i) => {
+			{routes.map(route => {
 				// Apply default route options and then apply specific route options
 				const routeProps: ImperiumRoute = {...(routeDefaults || {}), ...route};
 
 				return (
 					<Route
-						key={i}
+						key={`${route.path}`}
 						render={(rProps: ImperiumRoute) => {
 							d(`Rendering route: ${routeProps.path}`);
 							if (routeProps.layout) {
