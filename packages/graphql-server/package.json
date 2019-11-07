@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-server",
-	"version": "4.0.0-alpha.11",
+	"version": "4.0.0-alpha.12",
 	"description": "Imperium Graphql server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
