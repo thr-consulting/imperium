@@ -43,6 +43,7 @@
 		"@imperium/util": "^4.0.0-alpha.11",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
-		"react-hot-loader": "^4.12.15"
+		"react-hot-loader": "^4.12.15",
+		"@hot-loader/react-dom": "^16.11.0"
 	}
 }
