@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/dev",
-	"version": "4.0.0-alpha.10",
+	"version": "4.0.0-alpha.11",
 	"description": "Imperium Development package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -34,8 +34,8 @@
 	"dependencies": {
 		"@babel/core": "^7.5.5",
 		"@babel/register": "^7.5.5",
-		"@imperium/babel-preset-imperium": "^4.0.0-alpha.7",
-		"@imperium/util": "^4.0.0-alpha.10",
+		"@imperium/babel-preset-imperium": "^4.0.0-alpha.11",
+		"@imperium/util": "^4.0.0-alpha.11",
 		"babel-loader": "^8.0.6",
 		"chalk": "^2.4.2",
 		"chokidar": "^3.0.2",

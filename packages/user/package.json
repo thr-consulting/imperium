@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/user",
-	"version": "4.0.0-alpha.10",
+	"version": "4.0.0-alpha.11",
 	"description": "Imperium Example User package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -30,9 +30,9 @@
 		"mongoose": "^5.x"
 	},
 	"dependencies": {
-		"@imperium/auth": "^4.0.0-alpha.10",
+		"@imperium/auth": "^4.0.0-alpha.11",
 		"@imperium/core": "^4.0.0-alpha.10",
-		"@imperium/util": "^4.0.0-alpha.10",
+		"@imperium/util": "^4.0.0-alpha.11",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"mongoose": "^5.7.1"
