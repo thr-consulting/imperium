@@ -15,6 +15,7 @@
 		"access": "public"
 	},
 	"types": "./types.d.ts",
+	"main": "client.js",
 	"files": [
 		"client.js",
 		"config.js",
