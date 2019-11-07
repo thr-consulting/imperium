@@ -47,6 +47,8 @@ module.exports = {
 		serverIndex: './core/server.ts', // This file runs on the server only.
 		clientIndex: './core/client.ts', // This file runs on the client only.
 		configModules: './core/configModules.ts', // This file needs to be isomorphic (client/server)
+		// You can add more paths to the client/server auto-restart/HMR watching tools
+		watchPaths: [],
 	},
 	// Configuration for HTML generation (production and development) (See https://github.com/jantimon/html-webpack-plugin#options)
 	html: {

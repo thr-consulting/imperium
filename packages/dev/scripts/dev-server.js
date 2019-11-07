@@ -63,14 +63,10 @@ if (cluster.isMaster) {
 	);
 
 	// Watch source folder for changes
-	chokidar.watch([imperiumConfig.source.path]).on('change', filePath => {
-		// console.log(`Chokidar change detected: ${filePath}`);
-		// Only restart when the path has a server/ or server.js in it.
-		// TODO add graphqls files
-		if (/server\//.test(filePath) || /server\.[tj]sx?$/.test(filePath)) {
-			console.log(`  >> File ${filePath} was modified, restarting server thread...`); // eslint-disable-line no-console
-			restartWorker();
-		}
+	const watchFolders = [...imperiumConfig.source.watchPaths, imperiumConfig.source.path];
+	chokidar.watch(watchFolders).on('change', filePath => {
+		console.log(`  >> File ${filePath} was modified, restarting server thread...`); // eslint-disable-line no-console
+		restartWorker();
 	});
 } else {
 	/* ****************************************************************************************
