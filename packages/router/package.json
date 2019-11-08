@@ -1,0 +1,45 @@
+{
+	"name": "@imperium/router",
+	"version": "4.0.0-alpha.11",
+	"description": "Imperium Router package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"types": "types.d.ts",
+	"main": "client.js",
+	"files": [
+		"client.js",
+		"lib",
+		"types.d.ts"
+	],
+	"scripts": {
+		"build": "yarn build:client",
+		"build:client": "NODE_ENV=production webpack --config webpack/client.js && NODE_ENV=development webpack --config webpack/client.js",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"ts": "tsc",
+		"yalc:publish": "yarn build && yalc publish --push"
+	},
+	"peerDependencies": {
+		"react": "16.x",
+		"react-dom": "16.x",
+		"react-router-dom": "5.x"
+	},
+	"devDependencies": {
+		"react-router-dom": "^5.1.2",
+		"webpack-cli": "^3.3.7"
+	},
+	"dependencies": {
+		"@imperium/util": "^4.0.0-alpha.11",
+		"debug": "^4.1.1"
+	}
+}

@@ -26,14 +26,16 @@ module.exports = function(api, opts, env) {
 	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
 	var forceReact = validateBoolOption('react', opts.react, false);
 	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
+	var enableGraphqls = validateBoolOption('graphqls', opts.graphqls, false);
+	const enableDecorators = validateBoolOption('decorators', opts.decorators, true);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
 			'Using `@imperium/babel-preset-imperium` requires that you specify `NODE_ENV` or ' +
-			'`BABEL_ENV` environment variables. Valid values are "development", ' +
-			'"test", and "production". Instead, received: ' +
-			JSON.stringify(env) +
-			'.'
+				'`BABEL_ENV` environment variables. Valid values are "development", ' +
+				'"test", and "production". Instead, received: ' +
+				JSON.stringify(env) +
+				'.',
 		);
 	}
 
@@ -50,7 +52,7 @@ module.exports = function(api, opts, env) {
 						node: 'current',
 					},
 					// This transforms ES6 modules to a different type (CommonJS in this case)
-					modules: (forceModules || isEnvDevelopment || isEnvTest) ? 'commonjs' : false,
+					modules: forceModules || isEnvDevelopment || isEnvTest ? 'commonjs' : false,
 				},
 			],
 
@@ -83,9 +85,7 @@ module.exports = function(api, opts, env) {
 			],
 
 			// Add typescript
-			enableTypescript && [
-				require('@babel/preset-typescript').default,
-			],
+			enableTypescript && [require('@babel/preset-typescript').default],
 		].filter(Boolean),
 		plugins: [
 			// Experimental macros support. Will be documented after it's had some time
@@ -96,6 +96,16 @@ module.exports = function(api, opts, env) {
 			// in practice some other transforms (such as object-rest-spread)
 			// don't work without it: https://github.com/babel/babel/issues/7215
 			require('@babel/plugin-transform-destructuring').default,
+
+			// Must be before "@babel/plugin-proposal-class-properties" and
+			// "@babel/plugin-proposal-class-properties" must be in 'loose' mode
+			// cannot use decoratorsBeforeExport with legacy
+			enableDecorators && [
+				require('@babel/plugin-proposal-decorators').default,
+				{
+					legacy: true,
+				},
+			],
 
 			// class { handleClick = () => { } }
 			// Enable loose mode to use assignment instead of defineProperty
@@ -128,13 +138,14 @@ module.exports = function(api, opts, env) {
 			],
 
 			// Constraint: IS production client
-			isEnvProduction && isClient && [
-				// Remove PropTypes from production build
-				require('babel-plugin-transform-react-remove-prop-types').default,
-				{
-					removeImport: true,
-				},
-			],
+			isEnvProduction &&
+				isClient && [
+					// Remove PropTypes from production build
+					require('babel-plugin-transform-react-remove-prop-types').default,
+					{
+						removeImport: true,
+					},
+				],
 
 			// function* () { yield 42; yield 43; }
 			// !isEnvTest && [
@@ -154,12 +165,13 @@ module.exports = function(api, opts, env) {
 
 			// Constraint: NOT client
 			// Inline import graphqls files
-			!isClient && [
-				require('babel-plugin-inline-import').default,
-				{
-					extensions: ['.graphqls'],
-				},
-			],
+			!isClient &&
+				enableGraphqls && [
+					require('babel-plugin-inline-import').default,
+					{
+						extensions: ['.graphqls'],
+					},
+				],
 		].filter(Boolean),
 	};
 };

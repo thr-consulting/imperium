@@ -3,10 +3,9 @@ import {compare, hash} from 'bcrypt';
 import {pseudoRandomBytes, randomBytes} from 'crypto';
 import {sign, decode} from 'jsonwebtoken';
 import get from 'lodash/get';
-import set from 'lodash/set';
-import find from 'lodash/find';
-import {Context} from '@imperium/core';
-import {randomId, SharedCache} from '@thx/extras/server';
+import {Context, ImperiumOptions, ModelsOptions} from '@imperium/core';
+// @ts-ignore
+import {randomId, SharedCache, sha256} from '@thx/extras/server';
 import {ServerAuth, ClientAuth, LoginRet} from '../../../types';
 import {
 	IncorrectPasswordError,
@@ -17,9 +16,28 @@ import {
 	TooManyLoginAttempts,
 	UserNotFoundError,
 } from './errors';
-import sha256 from './sha256';
 
 const d = debug('imperium.auth.Auth');
+
+interface ServicesField {
+	password: {
+		bcrypt: string;
+	};
+	token: {
+		recovery: string[];
+		blacklist: {
+			token: {
+				rnd: string;
+			};
+		}[];
+	};
+}
+
+interface PasswordObject {
+	algorithm: string;
+	digest: string;
+}
+type Password = PasswordObject | string;
 
 /**
  * Takes in a string or password object and returns the hashed password object. Enforces sha-256 algorithm.
@@ -27,27 +45,24 @@ const d = debug('imperium.auth.Auth');
  * @param {string|object} password - The string password or password object with algorithm and digest fields.
  * @return {string} The password object.
  */
-function getPasswordString(password): string {
-	let pword = password;
-	if (typeof pword === 'string') {
-		pword = sha256(pword);
-	} else {
-		if (password.algorithm !== 'sha-256') {
-			throw InvalidHashAlgorithm();
-		}
-		pword = pword.digest.toLowerCase();
+function getPasswordString(password: Password): string {
+	if (typeof password === 'string') {
+		return sha256(password);
 	}
-	return pword;
+	if (password.algorithm !== 'sha-256') {
+		throw InvalidHashAlgorithm();
+	}
+	return password.digest.toLowerCase();
 }
 
 /**
- * Validates a user object and a password string/object.
+ * Validates a password.
  * @private
- * @param bcrypt - Encrypted password
- * @param password
- * @return {Promise<boolean>}
+ * @param bcrypt - Encrypted hash of password.
+ * @param password - Plaintext actual password.
+ * @return {Promise<boolean>} True if passwords match.
  */
-export async function validatePassword(bcrypt, password): Promise<boolean> {
+export async function validatePassword(bcrypt: string, password: Password): Promise<boolean> {
 	const pword = getPasswordString(password);
 	return compare(pword, bcrypt);
 }
@@ -58,12 +73,14 @@ export async function validatePassword(bcrypt, password): Promise<boolean> {
 export default class Auth {
 	_ctx: Context;
 	_cache: SharedCache;
+	_options: ImperiumOptions;
 
-	constructor(ctx, {sharedCache}) {
-		this._ctx = ctx;
-		this._cache = sharedCache;
+	constructor({context, connectors, options}: ModelsOptions) {
+		this._ctx = context;
+		this._cache = connectors.sharedCache;
+		this._options = options;
 
-		if (!sharedCache) throw new Error('Shared cache not defined in Connectors');
+		if (!this._cache) throw new Error('Shared cache not defined in Connectors with key "sharedCache".');
 	}
 
 	/**
@@ -80,20 +97,21 @@ export default class Auth {
 
 	/**
 	 * Builds an authentication object from a decoded JWT
-	 * @param decodedJWT
+	 * @param decodedJwt
 	 * @return {Promise<Object>} The authentication object created from decoded JWT data.
 	 */
-	async buildAuthFromJwt(decodedJWT): Promise<ServerAuth> {
+	async buildAuthFromJwt(decodedJwt: {[key: string]: any}): Promise<ServerAuth> {
 		const {User, Role} = this._ctx.models;
 
 		return {
-			userId: decodedJWT.id,
-			user: async () => { // This function retrieves the basic user information
-				const user = await User.getById(decodedJWT.id);
+			userId: decodedJwt.id,
+			user: async () => {
+				// This function retrieves the basic user information
+				const user = await User.findById(decodedJwt.id);
 				if (!user) return null;
 				return User.getData(user).basicInfo;
 			},
-			permissions: await Role.getPermissions(decodedJWT.roles),
+			permissions: await Role.getPermissions(decodedJwt.roles),
 		};
 	}
 
@@ -102,7 +120,7 @@ export default class Auth {
 	 * @param {Object} auth - The object that will be serialized.
 	 * @return {Promise<Object>} The object that can be serialized.
 	 */
-	async serializeAuth(auth): Promise<ClientAuth> {
+	async serializeAuth(auth: ServerAuth): Promise<ClientAuth> {
 		const user = await auth.user();
 		return {
 			userId: auth.userId,
@@ -115,9 +133,11 @@ export default class Auth {
 	 * Creates a signed JWT from user data.
 	 * @param payload
 	 * @param options
+	 * @param secret
 	 * @return {string}
 	 */
-	signJwt(payload = {}, options = {expiresIn: process.env.JWT_EXPIRES || '1h'}): string {
+	signJwt(payload = {}, options: {[key: string]: any}, secret: string): string {
+		// Generate 4 random bytes to encode into the JWT
 		const numBytes = Math.ceil(4);
 		let bytes;
 		try {
@@ -127,9 +147,22 @@ export default class Auth {
 		}
 		const rnd = bytes.toString('hex').substring(0, 4);
 
-		return sign(Object.assign({}, {
-			rnd,
-		}, payload), process.env.JWT_SECRET, options);
+		return sign(
+			{
+				rnd,
+				...payload,
+			},
+			secret,
+			options,
+		);
+	}
+
+	signAccessToken(payload = {}, options = {expiresIn: this._options.authAccessTokenExpires}) {
+		return this.signJwt(payload, options, this._options.authAccessTokenSecret);
+	}
+
+	signRefreshToken(payload = {}, options = {expiresIn: this._options.authRefreshTokenExpires}) {
+		return this.signJwt(payload, options, this._options.authRefreshTokenSecret);
 	}
 
 	/**
@@ -137,17 +170,17 @@ export default class Auth {
 	 * @param password
 	 * @return {Promise<string>}
 	 */
-	async encryptPassword(password): Promise<string> {
+	async encryptPassword(password: Password): Promise<string> {
 		const pword = getPasswordString(password);
-		return hash(pword, 10);
+		return hash(pword, this._options.authPasswordSaltRounds);
 	}
 
 	/**
 	 * Takes a refresh token and creates a new access token
-	 * @param {string} rtoken
+	 * @param {string} refreshToken
 	 */
-	async refreshToken(rtoken: string): Promise<string> {
-		const token = decode(rtoken);
+	async refreshAccessToken(refreshToken: string): Promise<string> {
+		const token = decode(refreshToken);
 
 		if (!token || !token.id || !token.exp) {
 			throw TokenNotValid();
@@ -155,13 +188,13 @@ export default class Auth {
 			throw TokenExpired();
 		} else {
 			const {User} = this._ctx.models;
-			const user = await User.getById(token.id);
+			const user = await User.findById(token.id);
 			if (!user) throw UserNotFoundError();
-			const {servicesField, roles} = User.getData(user);
-			if (find(get(user, [servicesField, 'token', 'blacklist'], []), {token: token.rnd})) {
+			const {servicesField} = User.getData(user);
+			if (get(user, [servicesField, 'token', 'blacklist'], []).includes(token.rnd)) {
 				throw TokenDeauthorized();
 			} else {
-				return this.signJwt({id: token.id, roles});
+				return this.signRefreshToken({id: token.id});
 			}
 		}
 	}
@@ -172,18 +205,18 @@ export default class Auth {
 	 * @param {string|object} password - The password string/object to log in with.
 	 * @return {Promise<{jwt: string, auth: {userId, permissions: void, user: {id, profile: {name: string, firstName: *, lastName: *}, emails: *}}}>}
 	 */
-	async logIn(email, password): Promise<LoginRet> {
-		const attempts = await this._cache.get(`loginattempts:${email}`) || 0;
+	async logIn(email: string, password: Password): Promise<LoginRet> {
+		const attempts = (await this._cache.get(`loginattempts:${email}`)) || 0;
 		d(`Starting log in process: ${email} (Attempt: ${attempts + 1})`);
 
-		if (attempts > (process.env.LOGIN_MAX_FAIL || 5)) throw TooManyLoginAttempts();
+		if (attempts > this._options.authMaxFail) throw TooManyLoginAttempts();
 
 		// Verify parameters
 		const {User, Role} = this._ctx.models;
 
 		if (!User) throw new Error('User model not defined');
 
-		const user = await User.getByEmail(email);
+		const user = await User.findOne().byEmail(email);
 		if (!user) throw UserNotFoundError();
 
 		const {id, basicInfo, roles, servicesField} = User.getData(user);
@@ -191,10 +224,11 @@ export default class Auth {
 
 		if (userPassword) {
 			if (await validatePassword(userPassword, password)) {
-				d('Everything validated. Returning jwt, rtoken and auth');
+				d('Everything validated. Returning access token, refresh token and auth');
+				await this._cache.set(`loginattempts:${email}`, 0, this._options.authMaxCooldown);
 				return {
-					jwt: this.signJwt({id, roles}),
-					rtoken: this.signJwt({id}, {expiresIn: process.env.RTOKEN_EXPIRES || '7d'}),
+					access: this.signAccessToken({id, roles}),
+					refresh: this.signRefreshToken({id}),
 					auth: {
 						userId: id,
 						permissions: await Role.getPermissions(roles),
@@ -205,16 +239,16 @@ export default class Auth {
 		}
 
 		d(`Incorrect password: ${email}`);
-		await this._cache.set(`loginattempts:${email}`, attempts + 1, process.env.LOGIN_MAX_COOLDOWN || 300);
+		await this._cache.set(`loginattempts:${email}`, attempts + 1, this._options.authMaxCooldown);
 		throw IncorrectPasswordError();
 	}
 
-	async forgotPassword(email): Promise<boolean> {
+	async forgotPassword(email: string): Promise<boolean> {
 		d(`Requesting forgotten password ${email}`);
 		const {User} = this._ctx.models;
 
 		// Get user
-		const user = await User.getByEmail(email);
+		const user = await User.findOne().byEmail(email);
 		// We return "success" here because we don't want to notify the client that we have a user with the specified email.
 		if (!user) return true;
 
@@ -223,15 +257,29 @@ export default class Auth {
 		const recoveryTokens = get(user, [servicesField, 'token', 'recovery'], []);
 
 		// Create a new recovery token
-		const newToken = this.signJwt({recovery: randomId(32)}, {expiresIn: '2d'});
-		set(user, [servicesField, 'token', 'recovery'], recoveryTokens.concat([newToken]));
-		await user.save();
+		const newToken = this.signAccessToken(
+			{recovery: randomId(32)},
+			{expiresIn: this._options.authRecoveryTokenExpires},
+		);
+
+		// Update the user object with the recovery token.
+		user.set([servicesField, 'token', 'recovery'].join('.'), recoveryTokens.concat([newToken]));
+		d(user.isModified());
+
+		const a = await user.save();
+		d(a.services.token.recovery);
 
 		return true;
 	}
 
-	async signUp(email): Promise<boolean> {
+	async signUp(email: string): Promise<boolean> {
 		d(email);
 		return true;
+	}
+
+	async setPassword(user: any, password: PasswordObject): Promise<void> {
+		const {User} = this._ctx.models;
+		const {servicesField} = User.getData(user);
+		user.set([servicesField, 'password', 'bcrypt'].join('.'), await this.encryptPassword(password));
 	}
 }

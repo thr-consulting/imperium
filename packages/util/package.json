@@ -1,0 +1,37 @@
+{
+	"name": "@imperium/util",
+	"version": "4.0.0-alpha.11",
+	"description": "Imperium Util package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"main": "lib/index.js",
+	"files": [
+		"lib"
+	],
+	"scripts": {
+		"build": "NODE_ENV=production webpack --config webpack.js",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"ts": "tsc",
+		"yalc:publish": "yarn build && yalc publish --push"
+	},
+	"devDependencies": {
+		"@types/webpack-node-externals": "^1.6.3",
+		"webpack-cli": "^3.3.7"
+	},
+	"dependencies": {
+		"debug": "^4.1.1",
+		"inspect-loader": "^1.0.0",
+		"webpack-node-externals": "^1.7.2"
+	}
+}

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<meta name="application-name" content="<%= title %>"/>
+	<meta name="viewport" content="width=device-width, initial-scale = 1.0,maximum-scale=1.0, user-scalable=no" />
+	<meta name="generator" content="Imperium Framework"/>
+	<title>Imp</title>
+	<style>
+		.fade-in {
+			animation: fadeIn ease 10s;
+			-webkit-animation: fadeIn ease 10s;
+			-moz-animation: fadeIn ease 10s;
+			-o-animation: fadeIn ease 10s;
+			-ms-animation: fadeIn ease 10s;
+		}
+
+		@keyframes fadeIn {
+			0% {opacity:0;}
+			80% {opacity: 0.4;}
+			100% {opacity:1;}
+		}
+
+		.spinner {
+			margin: 100px auto;
+			width: 40px;
+			height: 40px;
+			position: relative;
+			text-align: center;
+
+			-webkit-animation: sk-rotate 2.0s infinite linear;
+			animation: sk-rotate 2.0s infinite linear;
+		}
+
+		.dot1, .dot2 {
+			width: 60%;
+			height: 60%;
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			background-color: #333;
+			border-radius: 100%;
+
+			-webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+			animation: sk-bounce 2.0s infinite ease-in-out;
+		}
+
+		.dot2 {
+			top: auto;
+			bottom: 0;
+			-webkit-animation-delay: -1.0s;
+			animation-delay: -1.0s;
+		}
+
+		@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
+		@keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+		@-webkit-keyframes sk-bounce {
+			0%, 100% { -webkit-transform: scale(0.0) }
+			50% { -webkit-transform: scale(1.0) }
+		}
+
+		@keyframes sk-bounce {
+			0%, 100% {
+				transform: scale(0.0);
+				-webkit-transform: scale(0.0);
+			} 50% {
+				  transform: scale(1.0);
+				  -webkit-transform: scale(1.0);
+			  }
+		}
+	</style>
+</head>
+<body>
+	<div id="root">
+		<div class="fade-in">
+			<div class="spinner">
+				<div class="dot1"></div>
+				<div class="dot2"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.__INITIAL_CONF__ = <%= initialConfig %>;
+	</script>
+</body>
+</html>

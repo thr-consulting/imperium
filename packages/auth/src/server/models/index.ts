@@ -1,10 +1,10 @@
+import {ModelsOptions} from '@imperium/core';
 import Auth from './Auth';
 import Role from './Role';
 
-export default function(connectors, ctx) {
-	if (!connectors.mongoose) throw new Error('Mongoose connector not defined');
+export default function(options: ModelsOptions) {
 	return {
-		Auth: new Auth(ctx, connectors),
+		Auth: new Auth(options),
 		Role,
 	};
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/babel-preset-imperium",
-	"version": "2.0.1",
+	"version": "4.0.0-alpha.11",
 	"description": "Babel preset used by Imperium.",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -20,15 +20,15 @@
 	],
 	"scripts": {
 		"lint": "eslint --cache '*.js'",
+		"lint:fix": "eslint --cache --fix '*.js'",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"test:coverage": "../../tools/coverage.sh babel-preset-imperium '*.js'",
-		"docs:md": "../../tools/jsdocmd.sh babel-preset-imperium",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
 		"@babel/core": "^7.4.0",
 		"@babel/plugin-proposal-class-properties": "^7.4.0",
+		"@babel/plugin-proposal-decorators": "^7.6.0",
 		"@babel/plugin-proposal-object-rest-spread": "^7.4.0",
 		"@babel/plugin-syntax-dynamic-import": "^7.2.0",
 		"@babel/plugin-syntax-object-rest-spread": "^7.2.0",
@@ -54,6 +54,5 @@
 			"/node_modules/",
 			"<rootDir>/test.js"
 		]
-	},
-	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42"
+	}
 }

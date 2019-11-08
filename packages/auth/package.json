@@ -1,12 +1,12 @@
 {
 	"name": "@imperium/auth",
-	"version": "3.1.2",
-	"description": "Basic Auth Imperium package",
+	"version": "4.0.0-alpha.11",
+	"description": "Imperium Auth package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"engines": {
-		"node": ">=8"
+		"node": ">=12"
 	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -14,77 +14,41 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"types": "types.d.ts",
+	"types": "./types.d.ts",
 	"files": [
-		"lib",
-		"README.md",
-		"client.js",
 		"server.js",
-		"Auth.graphqls"
+		"client.js",
+		"config.js",
+		"lib",
+		"types.d.ts",
+		"permissions.js",
+		"permissions.d.ts"
 	],
 	"scripts": {
-		"prepublish": "yarn build",
-		"build": "yarn clean && yarn build:server && yarn build:client && yarn copy:schema",
-		"build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
-		"build:client": "NODE_ENV=production webpack --config webpack.client.config.js",
-		"copy:schema": "cp src/server/graphql/*.graphqls .",
-		"clean": "rimraf ./lib/*",
+		"build": "yarn build:client && yarn build:server",
+		"build:client": "NODE_ENV=production webpack --config webpack/client.js && NODE_ENV=development webpack --config webpack/client.js",
+		"build:server": "NODE_ENV=production webpack --config webpack/server.js && NODE_ENV=development webpack --config webpack/server.js",
 		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"DISABLEDtest": "jest",
-		"test:watch": "jest --watch",
-		"test:coverage": "../../tools/coverage.sh auth",
-		"docs:md": "../../tools/jsdocmd.sh auth",
-		"yalc:publish": "yalc publish --push"
-	},
-	"dependencies": {
-		"@imperium/context": "^2.1.1",
-		"@imperium/core": "^3.1.1",
-		"@imperium/graphql": "^3.1.1",
-		"@thx/controls": "^11.1.0",
-		"@thx/extras": "^10.3.0",
-		"@thx/mongoloader": "^10.1.1",
-		"@thx/tschemas": "^10.1.1",
-		"apollo-client": "^2.5.1",
-		"apollo-link": "^1.2.11",
-		"apollo-link-token-refresh": "^0.2.5",
-		"apollo-server": "^2.4.8",
-		"bcrypt": "^3.0.6",
-		"debug": "^4.0.1",
-		"express-jwt": "^5.3.0",
-		"graphql": "^14.2.1",
-		"graphql-tag": "^2.10.1",
-		"jsonwebtoken": "^8.5.1",
-		"lodash": "^4.17.11",
-		"react-apollo": "^3.1.2",
-		"whatwg-fetch": "^3.0.0",
-		"yup": "^0.27.0"
-	},
-	"peerDependencies": {
-		"mongoose": "^5.x",
-		"react": "^16.x",
-		"react-router-dom": "^5.x",
-		"semantic-ui-react": "^0.x"
+		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"devDependencies": {
-		"rimraf": "^2.6.3",
-		"webpack": "^4.30.0",
-		"webpack-cli": "^3.3.1"
+		"webpack-cli": "^3.3.7"
 	},
-	"jest": {
-		"setupFiles": [
-			"<rootDir>/../../tests/setupTests.js"
-		],
-		"transform": {
-			"^.+\\.[jt]sx?$": "<rootDir>/../../tools/jest-transformer.js"
-		},
-		"snapshotSerializers": [
-			"enzyme-to-json/serializer"
-		],
-		"moduleNameMapper": {
-			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../../tests/__mocks__/fileMock.js",
-			"\\.(css)$": "identity-obj-proxy"
-		}
+	"peerDependencies": {
+		"mongoose": "^5.x"
 	},
-	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42"
+	"dependencies": {
+		"@imperium/core": "^4.0.0-alpha.10",
+		"@imperium/util": "^4.0.0-alpha.11",
+		"@thx/extras": "^10.4.0",
+		"apollo-server-errors": "^2.3.3",
+		"bcrypt": "^3.0.6",
+		"debug": "^4.1.1",
+		"graphql": "^14.5.6",
+		"graphql-tag": "^2.10.1",
+		"jsonwebtoken": "^8.5.1",
+		"lodash": "^4.17.15"
+	}
 }

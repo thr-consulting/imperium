@@ -1,0 +1,49 @@
+{
+	"name": "@imperium/client",
+	"version": "4.0.0-alpha.13",
+	"description": "Imperium client core",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"main": "client.js",
+	"types": "./types.d.ts",
+	"files": [
+		"lib",
+		"client.js",
+		"types.d.ts"
+	],
+	"scripts": {
+		"build": "yarn build:dev && yarn build:prod",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"ts": "tsc",
+		"yalc:publish": "yarn build && yalc publish --push"
+	},
+	"devDependencies": {
+		"react": "^16.11.0",
+		"react-dom": "^16.11.0",
+		"webpack-cli": "^3.3.9"
+	},
+	"peerDependencies": {
+		"react": "^16.x",
+		"react-dom": "^16.x"
+	},
+	"dependencies": {
+		"@hot-loader/react-dom": "^16.11.0",
+		"@imperium/util": "^4.0.0-alpha.11",
+		"debug": "^4.1.1",
+		"lodash": "^4.17.15",
+		"react-hot-loader": "^4.12.15"
+	}
+}

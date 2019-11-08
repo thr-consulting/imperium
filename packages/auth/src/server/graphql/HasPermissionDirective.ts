@@ -2,21 +2,24 @@
 import debug from 'debug';
 import {SchemaDirectiveVisitor} from 'graphql-tools';
 import {ApolloError} from 'apollo-client';
-import {permissionsMatch} from '../../client/context/checkPermissions';
+import {GraphQLField} from 'graphql';
+import {permissionsMatch} from '../../checkPermissions';
 
 const d = debug('imperium.graphql.HasPermissionDirective');
 
-const notAuthenticatedError = (): ApolloError => new ApolloError({
-	errorMessage: 'Not authenticated',
-	extraInfo: 'NO_AUTH',
-});
+const notAuthenticatedError = (): ApolloError =>
+	new ApolloError({
+		errorMessage: 'Not authenticated',
+		extraInfo: 'NO_AUTH',
+	});
 
 export default class HasPermissionDirective extends SchemaDirectiveVisitor {
-	visitFieldDefinition(field) {
+	visitFieldDefinition(field: GraphQLField<any, any>) {
 		const {req, authenticated} = this.args; // Directive parameters
 		const {name, resolve} = field;
 
-		field.resolve = async (...args) => { // Same fields as a resolver function (obj, params, ctx, info)
+		field.resolve = async (...args) => {
+			// Same fields as a resolver function (obj, params, ctx, info)
 			const ctx = args[2];
 
 			d(`${name} required permissions: ${req}`); // Required user permissions
@@ -32,12 +35,15 @@ export default class HasPermissionDirective extends SchemaDirectiveVisitor {
 			d(`${name}, user permissions: ${userPermissions}`); // Actual user permissions
 			d(`${name}, user is authenticated: ${userAuthenticated}`); // Actual user is authenticated
 
-			if (!req) { // No required permissions
-				if (!authenticated || userAuthenticated) { // Does not require authentication or is authenticated
+			if (!req) {
+				// No required permissions
+				if (!authenticated || userAuthenticated) {
+					// Does not require authentication or is authenticated
 					d(`${name}, does not require authentication or is authenticated`);
 					return resolve.apply(this, args);
 				}
-			} else if (userAuthenticated && permissionsMatch(userPermissions, req)) { // Requires permissions and they match AND user is authenticated
+			} else if (userAuthenticated && permissionsMatch(userPermissions, req)) {
+				// Requires permissions and they match AND user is authenticated
 				d(`${name}, requires permissions and they match AND user is authenticated`);
 				return resolve.apply(this, args);
 			}

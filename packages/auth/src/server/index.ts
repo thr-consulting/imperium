@@ -1,22 +1,31 @@
+import {name} from '../../package.json';
 import models from './models';
-import startup from './startup';
-import {schema, resolvers, schemaDirectives} from './graphql';
 import endpoints from './endpoints';
 import middleware from './middleware';
+import {schema, resolvers, schemaDirectives} from './graphql';
+import startup from './startup';
 
 export default function ImperiumAuthModule() {
 	return {
+		name,
 		models,
-		startup,
-		schema,
-		schemaDirectives,
-		resolvers,
-		endpoints,
 		middleware,
-		initialConfig() {
+		endpoints,
+		schema,
+		resolvers,
+		schemaDirectives,
+		startup,
+		options() {
 			return {
-				jwt_localstorage_name: process.env.JWT_LOCALSTORAGE_NAME || 'IMP.jwt',
-				rtoken_localstorage_name: process.env.RTOKEN_LOCALSTORAGE_NAME || 'IMP.rtoken',
+				authAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
+				authRefreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || 'notsecure',
+				authAccessTokenExpires: process.env.AUTH_ACCESS_TOKEN_EXPIRES || '1h',
+				authRefreshTokenExpires: process.env.AUTH_REFRESH_TOKEN_EXPIRES || '7d',
+				authMaxFail: parseInt(process.env.AUTH_MAX_FAIL || '5', 10),
+				authMaxCooldown: parseInt(process.env.AUTH_MAX_COOLDOWN || '300', 10),
+				authPasswordSaltRounds: parseInt(process.env.AUTH_PASSWORD_SALT_ROUNDS || '11', 10),
+				authRecoveryTokenExpires: process.env.AUTH_RECOVERY_TOKEN_EXPIRES || '2d',
+				authEnableSignup: process.env.AUTH_ENABLE_SIGNUP === 'true',
 			};
 		},
 	};

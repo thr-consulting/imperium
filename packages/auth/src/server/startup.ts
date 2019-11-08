@@ -1,14 +1,14 @@
 import debug from 'debug';
-import permissions from './permissions';
+import {ImperiumServer, IModel} from '@imperium/core';
+import {SYSADMIN} from '../../permissions';
 
-const d = debug('imperium.auth.server.startup');
+const d = debug('imperium.auth.startup');
 
-export default async function startup(ctx) {
-	d('Auth startup');
-	const {Role} = ctx.models;
-	const {SYSADMIN} = permissions;
+export default async function startup(server: ImperiumServer) {
+	const {Role} = server.initialContext.models;
 
-	if (!await Role.findOne().byName(SYSADMIN)) {
+	if (!(await Role.findOne().byName(SYSADMIN))) {
+		d('Creating sysadmin role');
 		const SysadminRole = new Role({name: SYSADMIN, permissions: [SYSADMIN]});
 		await SysadminRole.save();
 	}
