@@ -1,37 +1,35 @@
-import ImperiumServer from '@imperium/server';
+import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
+import {DocumentNode} from 'graphql';
+import {ApolloServer, SchemaDirectiveVisitor, ApolloServerExpressConfig, gql, CorsOptions} from 'apollo-server-express';
 import jwt from 'express-jwt';
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
-import isObject from 'lodash/isObject';
-import isFunction from 'lodash/isFunction';
 import compact from 'lodash/compact';
 import merge from 'lodash/merge';
-import {ApolloServer, SchemaDirectiveVisitor, PubSub, ApolloServerExpressConfig, gql} from 'apollo-server-express';
 import {schema as coreSchema, resolvers as coreResolvers} from './schema';
+import {ApolloSchema, ImperiumGraphqlServerModule} from './types';
 
 const d = debug('imperium.graphql-server.endpoints');
 
-type SchemaString = string;
-type SchemaObject = {[key: string]: any};
-type SchemaArray = (SchemaString | SchemaObject)[];
+// Typeguard
+function isString(x: any): x is string {
+	return typeof x === 'string';
+}
 
-function transformToSchemaObjectArray(schema: SchemaString | SchemaObject | SchemaArray): SchemaObject[] {
-	if (isArray(schema)) {
-		return schema.map(schem => {
-			if (isObject(schem)) {
-				return schem;
-			}
-			if (isString(schem)) {
+function toString(x: any): string {
+	if (isString(x)) return x;
+	throw new Error('Value is not a string');
+}
+
+function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
+	if (Array.isArray(schema)) {
+		return (schema as Array<DocumentNode | string>).map(s => {
+			if (isString(s)) {
 				return gql`
-					${schem}
+					${s}
 				`;
 			}
-			throw new Error('Schema array contained a non-object or non-string');
+			return s;
 		});
-	}
-	if (isObject(schema)) {
-		return [schema];
 	}
 	if (isString(schema)) {
 		return [
@@ -40,15 +38,16 @@ function transformToSchemaObjectArray(schema: SchemaString | SchemaObject | Sche
 			`,
 		];
 	}
-	throw new Error('Schema must be an array, object or string');
+
+	// Else it's just a DocumentNode (because of typescript)
+	return [schema];
 }
 
-export default function endpoints(server: ImperiumServer): void {
+export default function endpoints(server: IImperiumServer): void {
 	// Merge all the typeDefs from all modules
 	d('Merging graphql schema');
 	const typeDefs = server.modules.reduce(
-		// TODO figure out typescript
-		(memo, module): any[] => {
+		(memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
 			if (module.schema) {
 				return [...memo, ...transformToSchemaObjectArray(module.schema)];
 			}
@@ -63,28 +62,28 @@ export default function endpoints(server: ImperiumServer): void {
 
 	// Merge all the schema directives from all modules
 	d('Merging graphql schema directives');
-	type RecordSDV = {[key: string]: typeof SchemaDirectiveVisitor};
-	const schemaDirectives = server.modules.reduce((memo: RecordSDV, module): RecordSDV => {
-		if (module.schemaDirectives && isObject(module.schemaDirectives)) {
+	const schemaDirectives = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
+		if (module.schemaDirectives) {
 			return {
 				...memo,
 				...module.schemaDirectives,
 			};
 		}
 		return memo;
-	}, {});
+	}, {} as {[key: string]: typeof SchemaDirectiveVisitor});
 
-	// Create PubSub for subscriptions
-	if (server.options.graphqlWs) {
-		d('Creating graphql pub/sub');
-		const pubsub = new PubSub();
-		server.addOption('graphqlPubSub', pubsub);
-	}
+	// Let's not create a pubsub here. The app should be in charge of that.
+	// // Create PubSub for subscriptions
+	// if (server.environment.graphqlWs) {
+	// 	d('Creating graphql pub/sub');
+	// 	const pubsub = new PubSub();
+	// 	server.addEnvironment('graphqlPubSub', pubsub);
+	// }
 
 	// Merge all the resolvers from all modules
 	d('Merging graphql resolvers');
-	const resolvers = server.modules.reduce((memo, module) => {
-		if (module.resolvers && isFunction(module.resolvers)) return merge(memo, module.resolvers(server));
+	const resolvers = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
+		if (module.resolvers) return merge(memo, module.resolvers(server));
 		return memo;
 	}, coreResolvers);
 
@@ -93,12 +92,12 @@ export default function endpoints(server: ImperiumServer): void {
 		resolvers,
 		// @ts-ignore
 		context: ({req, connection}) => {
-			// Context is stored in req. It is created in the contextMiddleware() from core
+			// ContextManager is stored in req. It is created in the contextMiddleware() from core
 			if (connection) {
 				return connection.context;
 			}
 			// @ts-ignore
-			return req.context;
+			return req.contextManager;
 		},
 		schemaDirectives,
 		formatError: error => {
@@ -107,33 +106,35 @@ export default function endpoints(server: ImperiumServer): void {
 			console.error(error);
 			return error;
 		},
-		playground: server.options.development,
-		debug: server.options.development,
-		introspection: server.options.development,
+		playground: !!server.environment.development,
+		debug: !!server.environment.development,
+		introspection: !!server.environment.development,
 	};
 
-	if (server.options.graphqlWs) {
+	if (server.environment.graphqlWs) {
 		d('Configuring subscriptions');
-		apolloServerConfig.subscriptions = {
-			path: server.options.graphqlUrl,
-		};
+		if (isString(server.environment.graphqlUrl)) {
+			apolloServerConfig.subscriptions = {
+				path: server.environment.graphqlUrl,
+			};
+		}
 	}
 
 	d('Creating apollo server');
 	const apolloServer = new ApolloServer(apolloServerConfig);
 
 	d(
-		`Adding graphql endpoint: ${server.options.graphqlUrl} ${
-			server.options.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'
+		`Adding graphql endpoint: ${server.environment.graphqlUrl} ${
+			server.environment.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'
 		}`,
 	);
-	server.app.use(
-		server.options.graphqlUrl,
+	server.expressApp.use(
+		toString(server.environment.graphqlUrl),
 		// @ts-ignore
 		compact([
 			jwt({
-				secret: server.options.graphqlAccessTokenSecret,
-				credentialsRequired: server.options.graphqlCredentialsRequired,
+				secret: toString(server.environment.graphqlAccessTokenSecret),
+				credentialsRequired: !!server.environment.graphqlCredentialsRequired,
 			}),
 			server.middleware.contextMiddleware(),
 			server.middleware.userAuthMiddleware ? server.middleware.userAuthMiddleware() : undefined,
@@ -141,13 +142,13 @@ export default function endpoints(server: ImperiumServer): void {
 	);
 
 	apolloServer.applyMiddleware({
-		app: server.app,
-		path: server.options.graphqlUrl,
-		cors: server.options.graphqlCors,
+		app: server.expressApp,
+		path: toString(server.environment.graphqlUrl),
+		cors: server.environment.graphqlCors as CorsOptions,
 	});
 
-	if (server.options.graphqlWs) {
+	if (server.environment.graphqlWs) {
 		d('Installing subscription handlers');
-		apolloServer.installSubscriptionHandlers(server.server);
+		apolloServer.installSubscriptionHandlers(server.httpServer);
 	}
 }

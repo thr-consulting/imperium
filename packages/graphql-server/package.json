@@ -14,13 +14,13 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"types": "./types.d.ts",
+	"types": "types.d.ts",
 	"main": "server.js",
 	"files": [
 		"server.js",
 		"config.js",
 		"lib",
-		"types.d.ts"
+		"types/types.d.ts"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",
@@ -33,6 +33,7 @@
 	},
 	"dependencies": {
 		"@imperium/server": "^4.0.0-alpha.13",
+		"@imperium/typetest": "^4.0.0-alpha.13",
 		"@imperium/util": "^4.0.0-alpha.11",
 		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",

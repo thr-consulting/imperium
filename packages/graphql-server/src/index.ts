@@ -5,7 +5,7 @@ import endpoints from './endpoints';
 export default function(): ImperiumServerModule {
 	return {
 		name,
-		options() {
+		environment() {
 			return {
 				graphqlAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
 				graphqlUrl: process.env.GRAPHQL_URL || '/api/graphql',

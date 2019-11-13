@@ -15,11 +15,10 @@
 		"access": "public"
 	},
 	"main": "server.js",
-	"types": "./types.d.ts",
+	"types": "./lib/index.d.ts",
 	"files": [
 		"lib",
-		"server.js",
-		"types.d.ts"
+		"server.js"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",

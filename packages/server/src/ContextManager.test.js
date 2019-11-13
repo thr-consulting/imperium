@@ -1,4 +1,4 @@
-import Context from './Context';
+import ContextManager from './ContextManager';
 
 const myConnectors = {
 	MyConnector: {},
@@ -14,20 +14,20 @@ function moduleFunc(/* connectors, context */) {
 
 describe('Context', () => {
 	it('should add modules properly', () => {
-		const context = new Context(myConnectors);
+		const context = new ContextManager(myConnectors);
 		context.addModule(moduleFunc);
 		expect(context.getModel('MyDataModel')).toMatchSnapshot();
 		expect(context.models.MyDataModel).toMatchSnapshot();
 	});
 
 	it('should set and get auth data', () => {
-		const context = new Context(myConnectors);
+		const context = new ContextManager(myConnectors);
 		context.auth = {name: 'test'};
 		expect(context.auth).toMatchSnapshot();
 	});
 
 	it('should retrieve the connectors', () => {
-		const context = new Context(myConnectors);
+		const context = new ContextManager(myConnectors);
 		expect(context.connectors).toMatchSnapshot();
 	});
 });
