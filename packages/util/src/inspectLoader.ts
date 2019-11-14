@@ -10,12 +10,23 @@ export function log(name: string, resource: string) {
 	d(`[${name}] ${resource}`);
 }
 
+export interface Inspection {
+	options: {
+		loaderName: string;
+	};
+	context: {
+		_module: {
+			resource: string;
+		};
+	};
+}
+
 export default function inspectLoader(loaderName: string) {
 	return {
 		loader: 'inspect-loader',
 		options: {
 			loaderName,
-			callback(inspect: {[key: string]: any}) {
+			callback(inspect: Inspection) {
 				log(inspect.options.loaderName, inspect.context._module.resource);
 			},
 		},

@@ -33,7 +33,6 @@
 	},
 	"dependencies": {
 		"@imperium/server": "^4.0.0-alpha.13",
-		"@imperium/typetest": "^4.0.0-alpha.13",
 		"@imperium/util": "^4.0.0-alpha.11",
 		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",

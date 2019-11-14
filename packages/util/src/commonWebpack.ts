@@ -2,7 +2,7 @@ import path from 'path';
 import nodeExternals from 'webpack-node-externals';
 import inspectLoader from './inspectLoader';
 
-export interface CommonWebpackParams {
+interface CommonWebpackParams {
 	isProduction: boolean;
 	isClient: boolean;
 	name: string;

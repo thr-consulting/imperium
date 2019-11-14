@@ -1,4 +1,5 @@
 import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
+import {isString, toString} from '@imperium/util';
 import debug from 'debug';
 import {DocumentNode} from 'graphql';
 import {ApolloServer, SchemaDirectiveVisitor, ApolloServerExpressConfig, gql, CorsOptions} from 'apollo-server-express';
@@ -9,16 +10,6 @@ import {schema as coreSchema, resolvers as coreResolvers} from './schema';
 import {ApolloSchema, ImperiumGraphqlServerModule} from './types';
 
 const d = debug('imperium.graphql-server.endpoints');
-
-// Typeguard
-function isString(x: any): x is string {
-	return typeof x === 'string';
-}
-
-function toString(x: any): string {
-	if (isString(x)) return x;
-	throw new Error('Value is not a string');
-}
 
 function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 	if (Array.isArray(schema)) {
@@ -62,15 +53,18 @@ export default function endpoints(server: IImperiumServer): void {
 
 	// Merge all the schema directives from all modules
 	d('Merging graphql schema directives');
-	const schemaDirectives = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
-		if (module.schemaDirectives) {
-			return {
-				...memo,
-				...module.schemaDirectives,
-			};
-		}
-		return memo;
-	}, {} as {[key: string]: typeof SchemaDirectiveVisitor});
+	const schemaDirectives = server.modules.reduce(
+		(memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
+			if (module.schemaDirectives) {
+				return {
+					...memo,
+					...module.schemaDirectives,
+				};
+			}
+			return memo;
+		},
+		{} as {[key: string]: typeof SchemaDirectiveVisitor},
+	);
 
 	// Let's not create a pubsub here. The app should be in charge of that.
 	// // Create PubSub for subscriptions
