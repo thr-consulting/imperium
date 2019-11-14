@@ -45,7 +45,7 @@ export default function worker(sc, {
 
 		// Setup Express middleware
 		app.use(bodyParser.urlencoded({extended: true}));
-		app.use(bodyParser.json());
+		app.use(bodyParser.json({limit: '1mb'}));
 		app.use(cors({origin: true, credentials: true}));
 		app.use((req, res, next) => { // TODO move favicon to HTML generation in webpack
 			if (/\/favicon\.?(jpe?g|png|ico|gif)?$/i.test(req.url)) {
