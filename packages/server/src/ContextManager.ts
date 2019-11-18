@@ -3,7 +3,7 @@ import {ContextMap, ContextMapFunc, IContextManager, IImperiumServer, Context} f
 export default class ContextManager implements IContextManager {
 	readonly _server: IImperiumServer;
 	private _context: ContextMap;
-	_auth: any;
+	private _auth: any;
 
 	constructor(server: IImperiumServer) {
 		this._server = server;
