@@ -14,12 +14,11 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"types": "types.d.ts",
+	"types": "lib/index.d.ts",
 	"main": "client.js",
 	"files": [
 		"client.js",
-		"lib",
-		"types.d.ts"
+		"lib"
 	],
 	"scripts": {
 		"build": "yarn build:client",

@@ -1,11 +1,16 @@
 import React from 'react';
 import debug from 'debug';
 import {Switch, Route} from 'react-router-dom';
-import {ImperiumRoute} from '@imperium/core';
+import {ImperiumRoute} from '../types';
 import RouteErrorBoundary from './RouteErrorBoundary';
-import {RouteDirectorProps} from '../../types';
 
 const d = debug('imperium.router.RouteDirector');
+
+interface RouteDirectorProps {
+	routeDefaults?: ImperiumRoute;
+	rootRoute: ImperiumRoute;
+	routes?: ImperiumRoute[];
+}
 
 export default function RouteDirector(props: RouteDirectorProps) {
 	const {routeDefaults} = props;

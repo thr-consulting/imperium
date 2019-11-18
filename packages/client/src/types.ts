@@ -17,7 +17,6 @@ export interface ImperiumClientModule {
 	name: string;
 	environment?: (globalConst: GlobalConst, currentEnvironment: ImperiumEnvironment) => Promise<ImperiumEnvironment>;
 	startup?: (client: IImperiumClient) => RootProps | void;
-	// routes?: ImperiumRoute[];
 	hocs?: HocCreator[];
 }
 

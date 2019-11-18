@@ -26,6 +26,9 @@ module.exports = function(imperiumConfig) {
 			path: path.join(imperiumConfig.production.path, 'client', 'static'),
 			publicPath: '/static/',
 		},
+		node: {
+			fs: 'empty',
+		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 		},

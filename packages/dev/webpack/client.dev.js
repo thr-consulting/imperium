@@ -38,6 +38,9 @@ module.exports = function(imperiumConfig) {
 			filename: 'app.js',
 			publicPath: '/',
 		},
+		node: {
+			fs: 'empty',
+		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 			alias,

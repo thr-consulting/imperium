@@ -11,7 +11,7 @@ export interface ImperiumRoute extends RouteProps {
 	sidebar?: React.ComponentType<RouteContentProps>;
 	menu?: React.ComponentType<RouteContentProps>;
 	footer?: React.ComponentType<RouteContentProps>;
-	// TODO remove these in favor of extending @thx/router Reroute props
+	// Reroute
 	permissions?: string | string[];
 	redirect?: boolean;
 	// Portal props
@@ -21,4 +21,8 @@ export interface ImperiumRoute extends RouteProps {
 		routeKey: string;
 		restoreRoute: (routeKey: string) => void;
 	}>;
+}
+
+export interface ImperiumRouterClientModule {
+	routes?: ImperiumRoute[];
 }
