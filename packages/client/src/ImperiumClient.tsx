@@ -12,7 +12,6 @@ import {
 	ImperiumClientModule,
 	ImperiumClientModuleFunction,
 	ImperiumEnvironment,
-	ImperiumRoute,
 	RootProps,
 } from './types';
 
@@ -91,11 +90,14 @@ export default class ImperiumClient implements IImperiumClient {
 
 	renderRoot(clientModules: ImperiumClientModule[], rootComponent: React.Component) {
 		// Load routes
-		d('Loading routes');
-		const routes = clientModules.reduce((memo, module): ImperiumRoute[] => {
-			if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
-			return memo;
-		}, [] as ImperiumRoute[]);
+		// d('Loading routes');
+		// const routes = clientModules.reduce(
+		// 	(memo, module): ImperiumRoute[] => {
+		// 		if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
+		// 		return memo;
+		// 	},
+		// 	[] as ImperiumRoute[],
+		// );
 
 		// HOC's
 		d("Building HoC's");
@@ -109,9 +111,13 @@ export default class ImperiumClient implements IImperiumClient {
 
 		d('Rendering root component');
 		render(
-			<Root hoc={hoc} rootProps={this._rootProps} rootComponent={rootComponent} routes={routes} />,
+			<Root hoc={hoc} rootProps={this._rootProps} rootComponent={rootComponent} />,
 			document.getElementById('root'),
 		);
+	}
+
+	get modules() {
+		return this._clientModules;
 	}
 
 	get environment() {

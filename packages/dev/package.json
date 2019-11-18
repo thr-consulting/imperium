@@ -28,7 +28,6 @@
 	"scripts": {
 		"lint": "eslint --cache --ext js,ts,tsx scripts",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx scripts",
-		"ts": "tsc",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
@@ -59,8 +58,5 @@
 		"webpack-cli": "^3.3.7",
 		"webpack-dev-server": "^3.8.0",
 		"webpack-node-externals": "^1.7.2"
-	},
-	"removedDeps": {
-		"@hot-loader/react-dom": "^16.9.0"
 	}
 }

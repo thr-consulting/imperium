@@ -20,7 +20,7 @@
 		"client.js",
 		"config.js",
 		"lib",
-		"types.d.ts"
+		"src/types.ts"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",
