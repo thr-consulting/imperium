@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth",
-	"version": "4.0.0-alpha.11",
+	"version": "4.0.0-alpha.14",
 	"description": "Imperium Auth package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@imperium/core": "^4.0.0-alpha.10",
-		"@imperium/util": "^4.0.0-alpha.11",
+		"@imperium/util": "^4.0.0-alpha.14",
 		"@thx/extras": "^10.4.0",
 		"apollo-server-errors": "^2.3.3",
 		"bcrypt": "^3.0.6",
