@@ -97,9 +97,6 @@ module.exports = function(api, opts, env) {
 			// don't work without it: https://github.com/babel/babel/issues/7215
 			require('@babel/plugin-transform-destructuring').default,
 
-			// This is needed for decorator-based metadata - MPS 2019-11-15
-			enableDecorators && enableTypescript && require('babel-plugin-transform-typescript-metadata').default,
-
 			// Must be before "@babel/plugin-proposal-class-properties" and
 			// "@babel/plugin-proposal-class-properties" must be in 'loose' mode
 			// cannot use decoratorsBeforeExport with legacy
