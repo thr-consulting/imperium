@@ -24,7 +24,7 @@
 		"permissions.js",
 		"permissions.d.ts"
 	],
-	"scripts": {
+	"disabled_scripts": {
 		"build": "yarn build:client && yarn build:server",
 		"build:client": "NODE_ENV=production webpack --config webpack/client.js && NODE_ENV=development webpack --config webpack/client.js",
 		"build:server": "NODE_ENV=production webpack --config webpack/server.js && NODE_ENV=development webpack --config webpack/server.js",

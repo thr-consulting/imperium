@@ -14,10 +14,10 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"types": "lib/index.d.ts",
-	"main": "lib/index.js",
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
 	"files": [
-		"lib"
+		"dist"
 	],
 	"scripts": {
 		"build": "NODE_ENV=production webpack --config webpack.js",

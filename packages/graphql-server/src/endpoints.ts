@@ -53,18 +53,15 @@ export default function endpoints(server: IImperiumServer): void {
 
 	// Merge all the schema directives from all modules
 	d('Merging graphql schema directives');
-	const schemaDirectives = server.modules.reduce(
-		(memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
-			if (module.schemaDirectives) {
-				return {
-					...memo,
-					...module.schemaDirectives,
-				};
-			}
-			return memo;
-		},
-		{} as {[key: string]: typeof SchemaDirectiveVisitor},
-	);
+	const schemaDirectives = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
+		if (module.schemaDirectives) {
+			return {
+				...memo,
+				...module.schemaDirectives,
+			};
+		}
+		return memo;
+	}, {} as {[key: string]: typeof SchemaDirectiveVisitor});
 
 	// Let's not create a pubsub here. The app should be in charge of that.
 	// // Create PubSub for subscriptions

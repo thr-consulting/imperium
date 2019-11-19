@@ -6,14 +6,11 @@ import {RootProps} from './types';
 const d = debug('imperium.client.Root');
 
 interface Props {
-	rootComponent: React.Component;
-	rootProps?: RootProps;
-	hoc?: any; // TODO This is a cheat, but React Typescript isn't easy.
+	render: (props: RootProps) => React.ReactNode;
 }
 
 function Root(props: Props) {
-	const RootWrappedComponent = props.hoc(props.rootComponent);
-	return <RootWrappedComponent {...props.rootProps} />;
+	return props.render(props);
 }
 
 export default hot(Root);

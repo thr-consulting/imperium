@@ -24,7 +24,7 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 		],
 		output: {
 			filename: isProduction ? `${path.basename(outputFile, path.extname(outputFile))}.min.js` : outputFile,
-			path: path.resolve(process.cwd(), 'lib'),
+			path: path.resolve(process.cwd(), 'dist'),
 			library: name,
 			libraryTarget: 'commonjs2',
 		},

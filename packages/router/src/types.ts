@@ -14,13 +14,6 @@ export interface ImperiumRoute extends RouteProps {
 	// Reroute
 	permissions?: string | string[];
 	redirect?: boolean;
-	// Portal props
-	key?: string;
-	portal?: React.ComponentType<{
-		route: ImperiumRoute;
-		routeKey: string;
-		restoreRoute: (routeKey: string) => void;
-	}>;
 }
 
 export interface ImperiumRouterClientModule {

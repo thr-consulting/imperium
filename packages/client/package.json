@@ -15,9 +15,9 @@
 		"access": "public"
 	},
 	"main": "client.js",
-	"types": "./lib/index.d.ts",
+	"types": "./dist/index.d.ts",
 	"files": [
-		"lib",
+		"dist",
 		"client.js"
 	],
 	"scripts": {

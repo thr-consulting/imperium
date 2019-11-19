@@ -130,26 +130,23 @@ export default class ImperiumServer implements IImperiumServer {
 		});
 
 		// Create startup promises (these are executed in the next section)
-		const startupPromises = this._serverModules.reduce(
-			(memo, module) => {
-				if (module.startup && isFunction(module.startup)) {
-					const moduleStartupReturn = module.startup(this);
-					if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
-						// Add a catch function to the promise
-						moduleStartupReturn.catch(err => {
-							console.log(chalk.bold.white('#######################################################'));
-							console.log(chalk.bold.red(' >>> Error running module startup\n'));
-							console.error(err);
-							console.log(chalk.bold.white('#######################################################'));
-							return Promise.reject(err);
-						});
-					}
-					return [...memo, moduleStartupReturn];
+		const startupPromises = this._serverModules.reduce((memo, module) => {
+			if (module.startup && isFunction(module.startup)) {
+				const moduleStartupReturn = module.startup(this);
+				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
+					// Add a catch function to the promise
+					moduleStartupReturn.catch(err => {
+						console.log(chalk.bold.white('#######################################################'));
+						console.log(chalk.bold.red(' >>> Error running module startup\n'));
+						console.error(err);
+						console.log(chalk.bold.white('#######################################################'));
+						return Promise.reject(err);
+					});
 				}
-				return memo;
-			},
-			[] as Promise<any>[],
-		);
+				return [...memo, moduleStartupReturn];
+			}
+			return memo;
+		}, [] as Promise<any>[]);
 
 		// Execute startup promises
 		d('Executing module startup');

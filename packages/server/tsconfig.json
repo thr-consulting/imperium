@@ -23,7 +23,7 @@
 		"declaration": true,
 		// Only emit .d.ts files
 		"emitDeclarationOnly": true,
-		"declarationDir": "lib",
+		"declarationDir": "dist",
 		"noImplicitAny": true // I don't think I really want this set to false
 	},
 	"include": [

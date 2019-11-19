@@ -58,15 +58,12 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	}
 
 	// Use links from other modules
-	const moduleLinks = client.modules.reduce(
-		(memo, module: ImperiumClientModule & ImperiumGraphqlClientModule) => {
-			if (module.apolloLinks) {
-				return [...memo, ...module.apolloLinks];
-			}
-			return memo;
-		},
-		[] as ApolloLink[],
-	);
+	const moduleLinks = client.modules.reduce((memo, module: ImperiumClientModule & ImperiumGraphqlClientModule) => {
+		if (module.apolloLinks) {
+			return [...memo, ...module.apolloLinks];
+		}
+		return memo;
+	}, [] as ApolloLink[]);
 
 	// Create complete link object
 	const link = ApolloLink.from([errorLink, ...moduleLinks, finalLink]);

@@ -19,26 +19,23 @@ const d = debug('imperium.client');
 
 export interface ImperiumClientConfig {
 	clientModules?: ImperiumClientModuleFunction[];
-	rootComponent: React.Component;
-	rootProps?: {[key: string]: any};
+	render: (props?: any) => React.ReactNode;
 }
 
 export default class ImperiumClient implements IImperiumClient {
-	private _clientModules: ImperiumClientModule[];
-	private _globalConst: GlobalConst;
+	private readonly _clientModules: ImperiumClientModule[];
+	private readonly _globalConst: GlobalConst;
 	private _environment: ImperiumEnvironment;
-	private _rootComponent: React.Component;
-	private _defaultRootProps: RootProps;
 	private _rootProps: RootProps;
+	private readonly _renderProp: (props: RootProps) => React.ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
 		// @ts-ignore
 		this._globalConst = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle
 		this._environment = {};
 		this._clientModules = [];
-		this._rootComponent = config.rootComponent;
-		this._defaultRootProps = config.rootProps || {};
 		this._rootProps = {};
+		this._renderProp = config.render;
 
 		// Loading client module definitions
 		const clientModuleNames: string[] = [];
@@ -83,37 +80,21 @@ export default class ImperiumClient implements IImperiumClient {
 				};
 			}
 			return memo;
-		}, this._defaultRootProps);
-
-		this.renderRoot(this._clientModules, this._rootComponent);
-	}
-
-	renderRoot(clientModules: ImperiumClientModule[], rootComponent: React.Component) {
-		// Load routes
-		// d('Loading routes');
-		// const routes = clientModules.reduce(
-		// 	(memo, module): ImperiumRoute[] => {
-		// 		if (module.routes && isArray(module.routes)) return [...memo, ...module.routes];
-		// 		return memo;
-		// 	},
-		// 	[] as ImperiumRoute[],
-		// );
+		}, {});
 
 		// HOC's
 		d("Building HoC's");
-		const hocCreators = clientModules.reduce((memo, module) => {
+		const hocCreators = this._clientModules.reduce((memo, module) => {
 			if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
 			return memo;
 		}, [] as HocCreator[]);
 
 		// Execute HoC creators and compose HoC's.
 		const hoc = flowRight(hocCreators.map(v => v(this)));
+		const RootWrappedComponent = hoc(Root);
 
 		d('Rendering root component');
-		render(
-			<Root hoc={hoc} rootProps={this._rootProps} rootComponent={rootComponent} />,
-			document.getElementById('root'),
-		);
+		render(<RootWrappedComponent render={this._renderProp} {...this._rootProps} />, document.getElementById('root'));
 	}
 
 	get modules() {

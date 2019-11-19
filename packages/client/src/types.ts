@@ -24,7 +24,6 @@ export type ImperiumClientModuleFunction = () => ImperiumClientModule;
 
 export interface IImperiumClient {
 	start(): Promise<void>;
-	renderRoot(clientModules: ImperiumClientModule[], rootComponent: React.Component): void;
 	readonly modules: ImperiumClientModule[];
 	readonly environment: ImperiumEnvironment;
 	readonly globalConst: GlobalConst;

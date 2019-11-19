@@ -23,7 +23,7 @@
 //		// Generate .d.ts files
 		"declaration": true,
 //		// Output dir for .d.ts files
-		"declarationDir": "lib",
+		"declarationDir": "dist",
 //		// Only emit .d.ts files
 		"emitDeclarationOnly": true,
 		"noImplicitAny": true // I don't think I really want this set to false

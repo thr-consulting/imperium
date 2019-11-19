@@ -14,23 +14,21 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"types": "lib/index.d.ts",
 	"main": "client.js",
+	"types": "./dist/index.d.ts",
 	"files": [
-		"client.js",
-		"lib"
+		"dist",
+		"client.js"
 	],
 	"scripts": {
 		"build": "yarn build:client",
-		"build:client": "NODE_ENV=production webpack --config webpack/client.js && NODE_ENV=development webpack --config webpack/client.js",
+		"build:client": "NODE_ENV=production webpack --config webpack.js && NODE_ENV=development webpack --config webpack.js",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
 		"yalc:publish": "yarn build && yalc publish --push"
 	},
 	"peerDependencies": {
-		"react": "16.x",
-		"react-dom": "16.x",
 		"react-router-dom": "5.x"
 	},
 	"devDependencies": {
@@ -38,6 +36,7 @@
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
+		"@imperium/client": "^4.0.0-alpha.15",
 		"@imperium/util": "^4.0.0-alpha.14",
 		"debug": "^4.1.1"
 	}

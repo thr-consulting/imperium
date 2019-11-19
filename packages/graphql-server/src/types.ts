@@ -4,8 +4,10 @@ import {IImperiumServer} from '@imperium/server';
 
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
+export type ImperiumResolvers = {[key: string]: IResolvers};
+
 export interface ImperiumGraphqlServerModule {
 	schema?: ApolloSchema;
 	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
-	resolvers?: (server: IImperiumServer) => {[key: string]: IResolvers};
+	resolvers?: (server: IImperiumServer) => ImperiumResolvers;
 }
