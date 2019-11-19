@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/client",
-	"version": "4.0.0-alpha.16",
+	"version": "4.0.0-alpha.17",
 	"description": "Imperium client core",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
