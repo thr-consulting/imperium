@@ -1,7 +1,7 @@
 "use strict";
 
 if (process.env.NODE_ENV === 'production') {
-	module.exports = require('./lib/client.min.js');
+	module.exports = require('./dist/client.min.js');
 } else {
-	module.exports = require('./lib/client.js');
+	module.exports = require('./dist/client.js');
 }
