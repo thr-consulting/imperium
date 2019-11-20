@@ -80,7 +80,7 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 		function ComponentWithGraphql(props: any) {
 			return (
 				<ApolloProvider client={apolloClient}>
-					<WrappedComponent {...props} />;
+					<WrappedComponent {...props} />
 				</ApolloProvider>
 			);
 		}
