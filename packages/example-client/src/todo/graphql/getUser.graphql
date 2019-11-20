@@ -1,0 +1,20 @@
+query($id: Int) {
+	getUser(id: $id) {
+		id
+		firstName
+		lastName
+		todos {
+			id
+			title
+			completed
+		}
+	}
+	getTodoHistory(userId: $id) {
+		id
+		originalId
+		makeActionAt
+		action
+		title
+		completed
+	}
+}
