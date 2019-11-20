@@ -1,6 +1,7 @@
 import {ContextMap, ContextMapFunc, IContextManager, IImperiumServer, Context} from './types';
 
 export default class ContextManager implements IContextManager {
+	[prop: string]: Context;
 	readonly _server: IImperiumServer;
 	private _context: ContextMap;
 	private _auth: any;
@@ -19,7 +20,13 @@ export default class ContextManager implements IContextManager {
 	 */
 	addContext(contextFunc: ContextMapFunc): void {
 		const context = contextFunc(this._server, this);
-		this._context = {...this._context, ...context};
+		const keys = Object.keys(context);
+		for (let i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			if (this[key] === undefined) {
+				this[key] = context[key];
+			}
+		}
 	}
 
 	/**

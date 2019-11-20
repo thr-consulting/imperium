@@ -146,7 +146,7 @@ export default class ImperiumServer implements IImperiumServer {
 				return [...memo, moduleStartupReturn];
 			}
 			return memo;
-		}, [] as Promise<any>[]);
+		}, [] as Promise<any | void>[]);
 
 		// Execute startup promises
 		d('Executing module startup');

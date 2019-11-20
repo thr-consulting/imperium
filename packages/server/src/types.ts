@@ -3,16 +3,14 @@ import {Server} from 'http';
 
 export type ContextMapFunc = (server: IImperiumServer, contextManager: IContextManager) => ContextMap;
 export type Context = any;
-export interface ContextMap {
-	[key: string]: Context;
-}
-export interface IContextManager {
+export type ContextMap = {
+	readonly [prop: string]: Context;
+};
+export type IContextManager<T extends ContextMap = any> = {
 	addContext(contextFunc: ContextMapFunc): void;
-	getContext(name: string): Context;
-	readonly context: ContextMap;
 	auth: any;
 	readonly server: IImperiumServer;
-}
+} & T;
 
 export type ImperiumEnvironmentVar = string | number | boolean | ImperiumEnvironment;
 export type ImperiumEnvironment = {[key: string]: ImperiumEnvironmentVar | ImperiumEnvironmentVar[]};
@@ -26,16 +24,18 @@ export interface MiddlewareMap {
 	[key: string]: () => ImperiumRequestHandler;
 }
 
-export type StartupFunc = (server: IImperiumServer) => Promise<{[key: string]: any}>;
+export type StartupFunc = (server: IImperiumServer) => Promise<any | void>;
 
-export interface ImperiumServerModule {
+export type ImperiumServerModule = {
 	name: string;
 	environment?: () => ImperiumEnvironment;
 	middleware?: (server: IImperiumServer) => MiddlewareMap;
 	endpoints?: (server: IImperiumServer) => void;
 	context?: ContextMapFunc;
 	startup?: StartupFunc;
-}
+} & {
+	[key: string]: () => any | void;
+};
 export type ImperiumServerModuleFunction = () => ImperiumServerModule;
 
 export type ImperiumConnectorsMap = {[connectorName: string]: any};
@@ -45,12 +45,12 @@ export interface ImperiumConnectors {
 }
 
 export interface IImperiumServer {
+	addEnvironment(key: string, value: ImperiumEnvironmentVar): void;
 	start(): Promise<this>;
 	stop(): Promise<void>;
 	readonly connectors: ImperiumConnectorsMap;
 	readonly modules: ImperiumServerModule[];
 	readonly environment: ImperiumEnvironment;
-	addEnvironment(key: string, value: ImperiumEnvironmentVar): void;
 	readonly expressApp: Application;
 	readonly httpServer: Server;
 	readonly middleware: MiddlewareMap;
