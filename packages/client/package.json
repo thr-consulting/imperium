@@ -21,17 +21,20 @@
 		"client.js"
 	],
 	"scripts": {
-		"build": "yarn build:dev && yarn build:prod",
+		"build": "yarn clean && yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"yalc:publish": "yarn build && yalc publish --push"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh",
+		"yalc:publish": "yalc publish --push",
+		"prepublish": "yarn build && yarn ts"
 	},
 	"devDependencies": {
-		"react": "^16.11.0",
-		"react-dom": "^16.11.0",
 		"webpack-cli": "^3.3.9"
 	},
 	"peerDependencies": {
@@ -43,6 +46,21 @@
 		"@imperium/util": "^4.0.0-alpha.16",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
-		"react-hot-loader": "^4.12.15"
+		"react-hot-loader": "^4.12.18"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
+		},
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/client",
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.js",
+			"<rootDir>/src/**/*.jsx",
+			"<rootDir>/src/**/*.ts",
+			"<rootDir>/src/**/*.tsx"
+		]
 	}
 }

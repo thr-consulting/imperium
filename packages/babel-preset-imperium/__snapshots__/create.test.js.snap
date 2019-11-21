@@ -8,6 +8,12 @@ Object {
     Array [
       [Function],
       Object {
+        "legacy": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
         "loose": true,
       },
     ],
@@ -26,14 +32,6 @@ Object {
       },
     ],
     [Function],
-    Array [
-      [Function],
-      Object {
-        "extensions": Array [
-          ".graphqls",
-        ],
-      },
-    ],
   ],
   "presets": Array [
     Array [
@@ -58,6 +56,12 @@ Object {
     Array [
       [Function],
       Object {
+        "legacy": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
         "loose": true,
       },
     ],
@@ -76,14 +80,6 @@ Object {
       },
     ],
     [Function],
-    Array [
-      [Function],
-      Object {
-        "extensions": Array [
-          ".graphqls",
-        ],
-      },
-    ],
   ],
   "presets": Array [
     Array [
@@ -108,6 +104,12 @@ Object {
     Array [
       [Function],
       Object {
+        "legacy": true,
+      },
+    ],
+    Array [
+      [Function],
+      Object {
         "loose": true,
       },
     ],
@@ -127,14 +129,6 @@ Object {
     ],
     [Function],
     [Function],
-    Array [
-      [Function],
-      Object {
-        "extensions": Array [
-          ".graphqls",
-        ],
-      },
-    ],
   ],
   "presets": Array [
     Array [

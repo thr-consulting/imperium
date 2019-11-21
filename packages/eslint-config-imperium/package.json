@@ -16,6 +16,7 @@
 	"scripts": {
 		"test": "jest",
 		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
@@ -28,7 +29,7 @@
 		"eslint-plugin-jsx-a11y": "^6.2.3",
 		"eslint-plugin-prettier": "^3.1.0",
 		"eslint-plugin-react": "^7.14.3",
-		"eslint-plugin-react-hooks": "^2.0.1"
+		"eslint-plugin-react-hooks": "^2.3.0"
 	},
 	"peerDependencies": {
 		"eslint": "^6.x",
@@ -37,8 +38,14 @@
 	},
 	"jest": {
 		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transformer.js"
-		}
-	},
-	"gitHead": "ef0f65a07cdee2c41888f59f00239a4961884a42"
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+		},
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/eslint-config-imperium",
+		"collectCoverageFrom": [
+			"<rootDir>/*.js"
+		]
+	}
 }

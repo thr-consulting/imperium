@@ -8,7 +8,7 @@ interface CommonWebpackParams {
 	name: string;
 	entry: string;
 	outputFile: string;
-	rules: any[];
+	rules?: any[];
 }
 
 export default function commonWebpack({isProduction, isClient, name, entry, outputFile, rules}: CommonWebpackParams) {

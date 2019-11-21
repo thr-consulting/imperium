@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1574367880032" clover="3.2.0">
+  <project timestamp="1574367880032" name="All files">
+    <metrics statements="41" coveredstatements="0" conditionals="18" coveredconditionals="0" methods="11" coveredmethods="0" elements="70" coveredelements="0" complexity="0" loc="41" ncloc="41" packages="1" files="4" classes="4"/>
+    <file name="ImperiumClient.tsx" path="/home/mike/dev/imperium/packages/client/src/ImperiumClient.tsx">
+      <metrics statements="39" coveredstatements="0" conditionals="18" coveredconditionals="0" methods="10" coveredmethods="0"/>
+      <line num="18" count="0" type="stmt"/>
+      <line num="34" count="0" type="stmt"/>
+      <line num="35" count="0" type="stmt"/>
+      <line num="36" count="0" type="stmt"/>
+      <line num="37" count="0" type="stmt"/>
+      <line num="38" count="0" type="stmt"/>
+      <line num="41" count="0" type="stmt"/>
+      <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="44" count="0" type="stmt"/>
+      <line num="45" count="0" type="stmt"/>
+      <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="47" count="0" type="stmt"/>
+      <line num="50" count="0" type="stmt"/>
+      <line num="54" count="0" type="stmt"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="58" count="0" type="stmt"/>
+      <line num="59" count="0" type="stmt"/>
+      <line num="60" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="61" count="0" type="stmt"/>
+      <line num="62" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="63" count="0" type="stmt"/>
+      <line num="68" count="0" type="stmt"/>
+      <line num="70" count="0" type="stmt"/>
+      <line num="74" count="0" type="stmt"/>
+      <line num="75" count="0" type="stmt"/>
+      <line num="76" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="77" count="0" type="stmt"/>
+      <line num="82" count="0" type="stmt"/>
+      <line num="86" count="0" type="stmt"/>
+      <line num="87" count="0" type="stmt"/>
+      <line num="88" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="89" count="0" type="stmt"/>
+      <line num="93" count="0" type="stmt"/>
+      <line num="94" count="0" type="stmt"/>
+      <line num="96" count="0" type="stmt"/>
+      <line num="97" count="0" type="stmt"/>
+      <line num="101" count="0" type="stmt"/>
+      <line num="105" count="0" type="stmt"/>
+      <line num="109" count="0" type="stmt"/>
+    </file>
+    <file name="Root.tsx" path="/home/mike/dev/imperium/packages/client/src/Root.tsx">
+      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="6" count="0" type="stmt"/>
+      <line num="13" count="0" type="stmt"/>
+    </file>
+    <file name="index.ts" path="/home/mike/dev/imperium/packages/client/src/index.ts">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+    </file>
+    <file name="types.ts" path="/home/mike/dev/imperium/packages/client/src/types.ts">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+    </file>
+  </project>
+</coverage>
