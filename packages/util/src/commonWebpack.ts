@@ -1,5 +1,6 @@
 import path from 'path';
 import nodeExternals from 'webpack-node-externals';
+import process from 'process';
 import inspectLoader from './inspectLoader';
 
 interface CommonWebpackParams {

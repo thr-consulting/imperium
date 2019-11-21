@@ -2,7 +2,7 @@
 
 exports[`commonWebpack should work in dev/client mode 1`] = `
 Object {
-  "context": "/home/mike/dev/imperium/packages/util/src",
+  "context": "/src",
   "devtool": "inline-source-map",
   "entry": "entry.ts",
   "externals": Array [
@@ -77,7 +77,7 @@ Object {
     "filename": "out.ts",
     "library": "commonWebpackTest",
     "libraryTarget": "commonjs2",
-    "path": "/home/mike/dev/imperium/packages/util/dist",
+    "path": "/dist",
   },
   "resolve": Object {
     "extensions": Array [
@@ -94,7 +94,7 @@ Object {
 
 exports[`commonWebpack should work in dev/server mode 1`] = `
 Object {
-  "context": "/home/mike/dev/imperium/packages/util/src",
+  "context": "/src",
   "devtool": "inline-source-map",
   "entry": "entry.ts",
   "externals": Array [
@@ -169,7 +169,7 @@ Object {
     "filename": "out.ts",
     "library": "commonWebpackTest",
     "libraryTarget": "commonjs2",
-    "path": "/home/mike/dev/imperium/packages/util/dist",
+    "path": "/dist",
   },
   "resolve": Object {
     "extensions": Array [
@@ -185,7 +185,7 @@ Object {
 
 exports[`commonWebpack should work in prod/client mode 1`] = `
 Object {
-  "context": "/home/mike/dev/imperium/packages/util/src",
+  "context": "/src",
   "devtool": "source-map",
   "entry": "entry.ts",
   "externals": Array [
@@ -260,7 +260,7 @@ Object {
     "filename": "out.min.js",
     "library": "commonWebpackTest",
     "libraryTarget": "commonjs2",
-    "path": "/home/mike/dev/imperium/packages/util/dist",
+    "path": "/dist",
   },
   "resolve": Object {
     "extensions": Array [
@@ -277,7 +277,7 @@ Object {
 
 exports[`commonWebpack should work in prod/server mode 1`] = `
 Object {
-  "context": "/home/mike/dev/imperium/packages/util/src",
+  "context": "/src",
   "devtool": "source-map",
   "entry": "entry.ts",
   "externals": Array [
@@ -352,7 +352,7 @@ Object {
     "filename": "out.min.js",
     "library": "commonWebpackTest",
     "libraryTarget": "commonjs2",
-    "path": "/home/mike/dev/imperium/packages/util/dist",
+    "path": "/dist",
   },
   "resolve": Object {
     "extensions": Array [

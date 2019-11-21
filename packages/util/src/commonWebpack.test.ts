@@ -1,5 +1,9 @@
 import commonWebpack from './commonWebpack';
 
+jest.mock('process', () => ({
+	cwd: () => '/',
+}));
+
 describe('commonWebpack', () => {
 	it('should work in dev/server mode', () => {
 		const out = commonWebpack({
