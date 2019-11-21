@@ -65,7 +65,7 @@ export default class Connectors implements ImperiumConnectors {
 	async create(server: IImperiumServer) {
 		// Order matters here as some connections rely on others.
 		return {
-			// pg: await this.createTypeORM(server),
+			pg: await this.createTypeORM(server),
 			redis: this.createRedis(),
 			mongoose: await this.createMongoose(),
 			mongo: this._mongoose ? this._mongoose.connection.db : null,

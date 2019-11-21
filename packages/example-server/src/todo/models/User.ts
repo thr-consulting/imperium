@@ -1,3 +1,4 @@
+import {IImperiumServer} from '@imperium/server';
 import debug from 'debug';
 import {
 	BaseEntity,
@@ -9,7 +10,7 @@ import {
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 import {HistoryActionColumn, HistoryActionType, HistoryEntityInterface, HistorySubscriber} from 'typeorm-revisions';
-import OrderedDataLoader from '../../../../web/src/todo/lib/OrderedDataLoader';
+import OrderedDataLoader from '../lib/OrderedDataLoader';
 import {Todo} from './Todo';
 
 const d = debug('app.todo.server.models.User');
@@ -20,6 +21,17 @@ interface UserInput {
 	passwordHash?: string;
 	todos?: Todo[];
 }
+
+export type ContextMapFunc = (server: IImperiumServer, contextManager: IContextManager) => ContextMap;
+export type Context = any;
+export type ContextMap = {
+	readonly [prop: string]: Context;
+};
+export type IContextManager<T extends ContextMap = any> = {
+	addContext(contextFunc: ContextMapFunc): void;
+	auth: any;
+	readonly server: IImperiumServer;
+} & T;
 
 @Entity()
 class User extends BaseEntity {
@@ -35,22 +47,20 @@ class User extends BaseEntity {
 	@Column('varchar', {select: false})
 	passwordHash?: string;
 
-	@OneToMany(
-		type => Todo,
-		todo => todo.user,
-	)
+	@OneToMany(type => Todo, todo => todo.user)
 	todos!: Todo[]; // TypeORM initialises this.
 
 	static createLoader() {
 		return new OrderedDataLoader<number, User>(keys => this.findByIds(keys));
 	}
 
-	static get(args: UserInput, context) {
+	static get(args: UserInput, context: IContextManager<{User: OrderedDataLoader<number, User>}>) {
+		// cannot use loadMany unless we have the id's or the id field
 		return this.find(args);
 	}
 
-	static getOne(id: number, context) {
-		return context.models.User.load(id);
+	static getOne(id: number, context: IContextManager<{User: OrderedDataLoader<number, User>}>) {
+		return context.User.load(id);
 	}
 
 	constructor(user?: UserInput) {

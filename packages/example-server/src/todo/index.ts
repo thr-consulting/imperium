@@ -1,4 +1,4 @@
-import {ImperiumServerModule} from '@imperium/core';
+import {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
 import faker from 'faker';
 import TodoSchema from './graphql/Todo.graphqls';
@@ -9,7 +9,7 @@ const d = debug('app.todo.server');
 export default function TodoServerModule(): ImperiumServerModule {
 	return {
 		name: 'Users',
-		async startup(server) {
+		async startup() {
 			if ((await User.count()) < 3) {
 				const user = await new User({
 					firstName: faker.name.firstName(),
@@ -41,9 +41,7 @@ export default function TodoServerModule(): ImperiumServerModule {
 				},
 			};
 		},
-		// will be changed to context
-		// contextModels maybe?
-		models() {
+		context() {
 			return {
 				User: User.createLoader(),
 				Todo: Todo.createLoader(),

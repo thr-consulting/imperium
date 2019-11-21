@@ -9,7 +9,7 @@ import {
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 import {HistoryActionColumn, HistoryActionType, HistoryEntityInterface, HistorySubscriber} from 'typeorm-revisions';
-import OrderedDataLoader from '../../../../web/src/todo/lib/OrderedDataLoader';
+import OrderedDataLoader from '../lib/OrderedDataLoader';
 import {User} from './User';
 
 const d = debug('app.todo.server.models.Todo');
@@ -25,10 +25,7 @@ class Todo extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@ManyToOne(
-		type => User,
-		user => user.todos,
-	)
+	@ManyToOne(type => User, user => user.todos)
 	user!: User;
 
 	@Column('varchar')
@@ -42,13 +39,12 @@ class Todo extends BaseEntity {
 	}
 
 	static async getByUser(user) {
-		d('get todo by user', user);
 		// cannot do this with data loader because we dont have the id.
 		return this.find({where: {user}, order: {id: 'ASC'}});
 	}
 
 	static async getOne(id, context) {
-		return context.models.Todo.load(id);
+		return context.Todo.load(id);
 	}
 
 	constructor(todo: TodoInput = {}) {
@@ -81,7 +77,7 @@ class TodoHistory extends Todo implements HistoryEntityInterface {
 	}
 
 	static async getOne(id, context) {
-		return context.models.Todo.load(id);
+		return context.Todo.load(id);
 	}
 }
 
