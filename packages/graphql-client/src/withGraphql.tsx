@@ -13,6 +13,9 @@ import {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
 import {toString} from '@imperium/util';
 import {ImperiumGraphqlClientModule} from './types';
 
+/**
+ * @ignore
+ */
 const d = debug('imperium.graphql.withGraphql');
 
 export default function withGraphql(client: IImperiumClient): Hoc {

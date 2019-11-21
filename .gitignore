@@ -12,3 +12,6 @@ yarn-error.log*
 yalc.lock
 build
 .env
+docs/assets/api/
+# !docs/assets/coverage/**/coverage.svg
+# docs/assets/coverage/

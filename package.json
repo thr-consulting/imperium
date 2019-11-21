@@ -16,11 +16,12 @@
 		"lint": "lerna run lint",
 		"lint:fix": "lerna run lint:fix",
 		"ts": "yarn ts:phase1 && yarn ts:phase2",
+		"ts:phase1": "lerna run ts --scope '@imperium/{client,util,server}'",
+		"ts:phase2": "lerna run ts",
 		"test": "lerna run test",
 		"test:coverage": "lerna run test:coverage",
 		"yalc:publish": "lerna run yalc:publish",
-		"ts:phase1": "lerna run ts --scope '@imperium/{client,util,server}'",
-		"ts:phase2": "lerna run ts"
+		"typedoc": "lerna run typedoc"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^3.0.0",
@@ -59,6 +60,8 @@
 		"react-router-dom": "^5.1.2",
 		"rimraf": "^3.0.0",
 		"typescript": "^3.5.3",
-		"webpack": "^4.39.3"
+		"webpack": "^4.39.3",
+		"typedoc": "^0.15.2",
+		"typedoc-dark-theme": "^0.0.11"
 	}
 }

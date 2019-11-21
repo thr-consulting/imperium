@@ -22,6 +22,9 @@ export interface ImperiumClientConfig {
 	render: (props?: any) => React.ReactNode;
 }
 
+/**
+ * The main entry point to running Imperium on the client.
+ */
 export default class ImperiumClient implements IImperiumClient {
 	private readonly _clientModules: ImperiumClientModule[];
 	private readonly _globalConst: GlobalConst;
