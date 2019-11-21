@@ -45,7 +45,7 @@ module.exports = {
 		path: path.join(pRoot, 'src'), // The folder where source code is located.
 		// The next 3 entries are required "magically".
 		serverIndex: './core/server.ts', // This file runs on the server only.
-		clientIndex: './core/client.ts', // This file runs on the client only.
+		clientIndex: './core/client.tsx', // This file runs on the client only.
 		configModules: './core/configModules.ts', // This file needs to be isomorphic (client/server)
 		// You can add more paths to the client/server auto-restart/HMR watching tools
 		watchPaths: [],

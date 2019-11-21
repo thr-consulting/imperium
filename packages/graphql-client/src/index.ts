@@ -1,9 +1,11 @@
-import {name} from '../package.json';
+import {ImperiumClientModule} from '@imperium/client';
 import withGraphql from './withGraphql';
 
-export default function() {
+export default function(): ImperiumClientModule {
 	return {
-		name,
+		name: '@imperium/graphql-client',
 		hocs: [withGraphql],
 	};
 }
+
+export {ImperiumGraphqlClientModule} from './types';

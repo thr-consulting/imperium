@@ -13,10 +13,10 @@ export default function MyModuleName() {
 		name,           // [String] Name of the module
 
 		// Core
-		options,        // [Function] Imperium options
+		environment,    // [Function] Imperium environment
 		middleware,     // [Function] Express middleware
 		endpoints,      // [Function] Express endpoints
-		models,         // [Function] Data Models (Mongo, Mongoose, pure logic, Dataloaders, etc)
+		context,         // [Function] This function runs for every request. Return a map of context-specific instances. (ie. Dataloaders).
 		startup,        // [Function] Startup function		
 		
 		// Graphql
@@ -34,13 +34,13 @@ The string name of the module. You can import directly from the `package.json` f
 const {name} = require('./package.json');
 ```
 
-## options
-A function that returns an object. This object can provide data to the entire Imperium app. It's a good place
-to process and store environment variables.
+## environment
+A function that returns an object of strings, numbers or booleans or objects of the same.
+This object can provide environment variables to the entire Imperium app.
 
-Options are processed on the `ImperiumServer` constructor.
+Environment is processed in the `ImperiumServer` constructor.
 
-The reason for this is because accessing `process.env` makes a C call every time and can potentially slow things down.
+The main use-case for this is because accessing `process.env` makes a C call every time and can potentially slow things down.
 
 ## middleware
 A function that returns an object. This object should provide Express middleware that can be
@@ -66,7 +66,7 @@ function middleware() {
 ```
 
 Some middleware is already available by default:
-  * `contextMiddleware` - Provides a `context` instance on every `req` object.
+  * `contextManagerMiddleware` - Provides a `ContextManager` instance on every `req` object at `req.contextManager`.
   
 #### `server`
 A reference to the current [ImperiumServer](ImperiumServer.md) instance.
@@ -83,29 +83,24 @@ function endpoints(server: ImperiumServer) {
 #### `server`
 A reference to the current [ImperiumServer](ImperiumServer.md) instance.
 
-## models
+## context
 This function is called for every single request. This allows DataLoader's to be created new for every request.
-Certain types of models don't need to be created every time, just passed through. (ie. Mongoose models).
+
 It has the following signature:
 
 ```javascript
-function models(connectors, context, options) {
+function context(server, contextManager) {
 	return {
-		MyModel: mongoose.model('users', myMongooseSchema),
-		MyDataloader: new DataLoader(ids => context.models.MyModel.find({_id: {$in: ids}}).exec()),
-		MyCustomLogicModel: new CustomLogicModel(connectors.mongo, context),
+		MyDataloader: new DataLoader(ids => MyModel.find({_id: {$in: ids}}).exec()),
 	};
 }
 ```
 
-#### `connectors`
-An object that holds all the connectors that have been created. ie. `connectors.mongo`.
+#### `server`
+An [ImperiumServer](ImperiumServer.md) instance.
 
-#### `context`
-A [Context](Context.md) instance that has access to all models, authentication information, and connectors as well.
-
-#### `options`
-The options object that defined from various modules and stored in  the current [ImperiumServer](ImperiumServer.md) instance.
+#### `contextManager`
+A [ContextManager](ContextManager.md) instance that has access to all context and authentication information.
 
 ## startup
 A function that returns a Promise. It is called once (for each worker) on server startup. The value returned

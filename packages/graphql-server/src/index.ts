@@ -1,11 +1,10 @@
 import {ImperiumServerModule} from '@imperium/server';
-import {name} from '../package.json';
 import endpoints from './endpoints';
 
 export default function(): ImperiumServerModule {
 	return {
-		name,
-		options() {
+		name: '@imperium/graphql-server',
+		environment() {
 			return {
 				graphqlAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
 				graphqlUrl: process.env.GRAPHQL_URL || '/api/graphql',
@@ -19,3 +18,5 @@ export default function(): ImperiumServerModule {
 		endpoints,
 	};
 }
+
+export {ImperiumGraphqlServerModule, ImperiumResolvers} from './types';

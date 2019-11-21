@@ -4,44 +4,56 @@ import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
+import ContextManager from './ContextManager';
+import defaultEnvironment from './defaultEnvironment';
 import {
 	ImperiumConnectors,
 	ImperiumConnectorsMap,
 	ImperiumRequest,
 	ImperiumServerModule,
-	ImperiumServerOptions,
 	MiddlewareMap,
-} from '../types';
-import Context from './Context';
-import defaultOptions from './defaultOptions';
+	ImperiumServerModuleFunction,
+	ImperiumEnvironment,
+	ImperiumEnvironmentVar,
+	IImperiumServer,
+} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
 const dd = debug('verbose.imperium.server.ImperiumServer');
 
-export default class ImperiumServer {
-	_connectors: ImperiumConnectors;
-	_connectorsMap: ImperiumConnectorsMap;
-	_serverModules: ImperiumServerModule[];
-	_options: {[key: string]: any};
-	_app: Application | null;
-	_server: Server | null;
-	_middleware: MiddlewareMap;
-	_context: Context | null;
+export interface ImperiumServerConfig {
+	connectors: ImperiumConnectors;
+	serverModules?: ImperiumServerModuleFunction[];
+	environment?: ImperiumEnvironment;
+}
 
-	constructor(options: ImperiumServerOptions) {
-		this._connectors = options.connectors;
+/**
+ * ImperiumServer
+ */
+export default class ImperiumServer implements IImperiumServer {
+	private _connectors: ImperiumConnectors;
+	private _connectorsMap: ImperiumConnectorsMap;
+	readonly _serverModules: ImperiumServerModule[];
+	readonly _environment: ImperiumEnvironment;
+	private _expressApp: Application | null;
+	private _httpServer: Server | null;
+	private _middleware: MiddlewareMap;
+	private _context: ContextManager | null;
+
+	constructor(config: ImperiumServerConfig) {
+		this._connectors = config.connectors;
 		this._connectorsMap = {};
 		this._serverModules = [];
 		this._middleware = {};
-		this._app = null;
-		this._server = null;
+		this._expressApp = null;
+		this._httpServer = null;
 		this._context = null;
 
 		// Loading server module definitions
 		const serverModuleNames: string[] = [];
-		if (options.serverModules) {
+		if (config.serverModules) {
 			// Load module definitions
-			this._serverModules = options.serverModules.map(moduleFunc => {
+			this._serverModules = config.serverModules.map(moduleFunc => {
 				const moduleDefinition = moduleFunc();
 				serverModuleNames.push(moduleDefinition.name || 'unnamed module');
 				return moduleDefinition;
@@ -49,33 +61,33 @@ export default class ImperiumServer {
 		}
 		d(`Loaded modules: ${serverModuleNames.join(', ')}`);
 
-		// Load Imperium global options
-		d('Loading options');
-		this._options = this._serverModules.reduce(
+		// Load Imperium environment
+		d('Loading environment');
+		this._environment = this._serverModules.reduce(
 			(memo, module) => {
-				if (module.options && isFunction(module.options)) {
+				if (module.environment && isFunction(module.environment)) {
 					return {
 						...memo,
-						...module.options(),
+						...module.environment(),
 					};
 				}
 				return memo;
 			},
-			{...defaultOptions, ...(options.options ? options.options() : {})},
+			{...defaultEnvironment, ...(config.environment || {})},
 		);
 	}
 
 	async start() {
-		if (this._app) throw new Error('Server already started');
+		if (this._expressApp) throw new Error('Server already started');
 
 		d('Creating connectors');
 		this._connectorsMap = await this._connectors.create(this);
 
 		d('Creating express app');
-		this._app = express();
+		this._expressApp = express();
 
 		d('Creating HTTP server');
-		this._server = createServer(this._app);
+		this._httpServer = createServer(this._expressApp);
 
 		d('Creating module middleware');
 		this._middleware = this._serverModules.reduce(
@@ -89,15 +101,15 @@ export default class ImperiumServer {
 				return memo;
 			},
 			{
-				contextMiddleware: () => {
+				contextManagerMiddleware: () => {
 					return (req: ImperiumRequest, res: Response, next: NextFunction) => {
-						dd(`Creating context for request to: ${req.baseUrl}`);
-						const context = new Context(this._connectorsMap, this._options);
+						dd(`Creating context manager for request to: ${req.baseUrl}`);
+						const contextManager = new ContextManager(this);
 						this._serverModules.forEach(module => {
-							if (module.models && isFunction(module.models)) context.addModels(module.models);
+							if (module.context && isFunction(module.context)) contextManager.addContext(module.context);
 						});
 						// Add the context object to the req
-						req.context = context;
+						req.contextManager = contextManager;
 						next();
 					};
 				},
@@ -112,32 +124,29 @@ export default class ImperiumServer {
 
 		// Create server startup Context
 		d('Creating initial context');
-		this._context = new Context(this._connectorsMap, this._options);
+		this._context = new ContextManager(this);
 		this._serverModules.forEach(module => {
-			if (module.models && isFunction(module.models) && this._context) this._context.addModels(module.models);
+			if (module.context && isFunction(module.context) && this._context) this._context.addContext(module.context);
 		});
 
 		// Create startup promises (these are executed in the next section)
-		const startupPromises = this._serverModules.reduce(
-			(memo, module) => {
-				if (module.startup && isFunction(module.startup)) {
-					const moduleStartupReturn = module.startup(this);
-					if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
-						// Add a catch function to the promise
-						moduleStartupReturn.catch(err => {
-							console.log(chalk.bold.white('#######################################################'));
-							console.log(chalk.bold.red(' >>> Error running module startup\n'));
-							console.error(err);
-							console.log(chalk.bold.white('#######################################################'));
-							return Promise.reject(err);
-						});
-					}
-					return [...memo, moduleStartupReturn];
+		const startupPromises = this._serverModules.reduce((memo, module) => {
+			if (module.startup && isFunction(module.startup)) {
+				const moduleStartupReturn = module.startup(this);
+				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
+					// Add a catch function to the promise
+					moduleStartupReturn.catch(err => {
+						console.log(chalk.bold.white('#######################################################'));
+						console.log(chalk.bold.red(' >>> Error running module startup\n'));
+						console.error(err);
+						console.log(chalk.bold.white('#######################################################'));
+						return Promise.reject(err);
+					});
 				}
-				return memo;
-			},
-			[] as Promise<any>[],
-		);
+				return [...memo, moduleStartupReturn];
+			}
+			return memo;
+		}, [] as Promise<any | void>[]);
 
 		// Execute startup promises
 		d('Executing module startup');
@@ -147,8 +156,8 @@ export default class ImperiumServer {
 		});
 
 		d('Starting server');
-		this._server.listen(this._options.port, () => {
-			d(`Now listening on port: ${this._options.port}`);
+		this._httpServer.listen(this._environment.port, () => {
+			d(`Now listening on port: ${this._environment.port}`);
 		});
 
 		return this;
@@ -156,7 +165,7 @@ export default class ImperiumServer {
 
 	async stop() {
 		d('Closing connectors');
-		this._connectors.close();
+		await this._connectors.close();
 	}
 
 	get connectors() {
@@ -167,21 +176,21 @@ export default class ImperiumServer {
 		return this._serverModules;
 	}
 
-	get options() {
-		return this._options;
+	get environment() {
+		return this._environment;
 	}
 
-	addOption(option: any, value: any) {
-		this._options[option] = value;
+	addEnvironment(key: string, value: ImperiumEnvironmentVar) {
+		this._environment[key] = value;
 	}
 
-	get app(): Application {
-		if (this._app) return this._app;
+	get expressApp(): Application {
+		if (this._expressApp) return this._expressApp;
 		throw new Error('Imperium server not started yet.');
 	}
 
-	get server(): Server {
-		if (this._server) return this._server;
+	get httpServer(): Server {
+		if (this._httpServer) return this._httpServer;
 		throw new Error('Imperium server not started yet.');
 	}
 
@@ -189,7 +198,7 @@ export default class ImperiumServer {
 		return this._middleware;
 	}
 
-	get initialContext() {
+	get initialContextManager() {
 		if (this._context) return this._context;
 		throw new Error('Imperium server not started yet.');
 	}

@@ -1,26 +1,20 @@
----
-id: babelpresetimperium
-title: @imperium/babel-preset-imperium
-sidebar_label: babel-preset-imperium
----
+# @imperium/babel-preset-imperium
 
-[![Coverage_badge](../../docs/assets/coverage/babel-preset-imperium/coverage.svg)](assets/coverage/babel-preset-imperium/index.html) [![Greenkeeper badge](https://badges.greenkeeper.io/darkadept/imperium.svg)](https://greenkeeper.io/)
+[![Coverage_badge](../../docs/assets/coverage/babel-preset-imperium/coverage.svg)](assets/coverage/babel-preset-imperium/index.html)
+[![GitHub tag](https://img.shields.io/github/tag/darkadept/imperium.svg)](https://github.com/darkadept/imperium/tags/)
+[![GitHub issues](https://img.shields.io/github/issues/darkadept/imperium.svg)](https://github.com/darkadept/imperium/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/darkadept/imperium.svg)](https://GitHub.com/darkadept/imperium/pull/)
+
+[![GitHub license](https://img.shields.io/github/license/darkadept/imperium.svg)](https://github.com/darkadept/imperium/blob/master/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/darkadept/imperium.svg)](https://github.com/darkadept/imperium/graphs/contributors/)
 
 This package includes the Babel preset used by [Imperium Framework](https://github.com/darkadept/imperium).
 
 ## Usage
 Install the preset.
 
-```js
+```bash
 yarn add @imperium/babel-preset-imperium -D
-```
-
-Create a .babelrc with the following:
-
-```json
-{
-	"presets": ["@imperium/babel-preset-imperium"]
-}
 ```
 
 ## Options
@@ -46,3 +40,18 @@ This can force modules to be transformed.
 `boolean`, defaults to `false`.
 
 Enables the React preset, even on the server.
+
+#### `typescript`
+`boolean`, defaults to `false`.
+
+Enables the Typescript preset.
+
+#### `graphqls`
+`boolean`, defaults to `false`.
+
+Enables including `*.graphqls` files using Babel.
+
+#### `decorators`
+`boolean`, defaults to `true`.
+
+Enables support for decorators.

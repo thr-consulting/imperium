@@ -1,0 +1,367 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`commonWebpack should work in dev/client mode 1`] = `
+Object {
+  "context": "/src",
+  "devtool": "inline-source-map",
+  "entry": "entry.ts",
+  "externals": Array [
+    [Function],
+    [Function],
+  ],
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.tsx\\?\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL-TS",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": true,
+                    "typescript": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "minimize": false,
+    "nodeEnv": false,
+  },
+  "output": Object {
+    "filename": "out.ts",
+    "library": "commonWebpackTest",
+    "libraryTarget": "commonjs2",
+    "path": "/dist",
+  },
+  "resolve": Object {
+    "extensions": Array [
+      ".js",
+      ".mjs",
+      ".ts",
+      ".d.ts",
+      ".tsx",
+    ],
+  },
+  "target": "web",
+}
+`;
+
+exports[`commonWebpack should work in dev/server mode 1`] = `
+Object {
+  "context": "/src",
+  "devtool": "inline-source-map",
+  "entry": "entry.ts",
+  "externals": Array [
+    [Function],
+    [Function],
+  ],
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": false,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.ts\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL-TS",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": false,
+                    "typescript": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "minimize": false,
+    "nodeEnv": false,
+  },
+  "output": Object {
+    "filename": "out.ts",
+    "library": "commonWebpackTest",
+    "libraryTarget": "commonjs2",
+    "path": "/dist",
+  },
+  "resolve": Object {
+    "extensions": Array [
+      ".js",
+      ".mjs",
+      ".ts",
+      ".d.ts",
+    ],
+  },
+  "target": "node",
+}
+`;
+
+exports[`commonWebpack should work in prod/client mode 1`] = `
+Object {
+  "context": "/src",
+  "devtool": "source-map",
+  "entry": "entry.ts",
+  "externals": Array [
+    [Function],
+    [Function],
+  ],
+  "mode": "production",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.tsx\\?\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL-TS",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": true,
+                    "typescript": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "minimize": true,
+    "nodeEnv": false,
+  },
+  "output": Object {
+    "filename": "out.min.js",
+    "library": "commonWebpackTest",
+    "libraryTarget": "commonjs2",
+    "path": "/dist",
+  },
+  "resolve": Object {
+    "extensions": Array [
+      ".js",
+      ".mjs",
+      ".ts",
+      ".d.ts",
+      ".tsx",
+    ],
+  },
+  "target": "web",
+}
+`;
+
+exports[`commonWebpack should work in prod/server mode 1`] = `
+Object {
+  "context": "/src",
+  "devtool": "source-map",
+  "entry": "entry.ts",
+  "externals": Array [
+    [Function],
+    [Function],
+  ],
+  "mode": "production",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": false,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /node_modules/,
+        "test": /\\\\\\.ts\\$/,
+        "use": Array [
+          Object {
+            "loader": "inspect-loader",
+            "options": Object {
+              "callback": [Function],
+              "loaderName": "BABEL-TS",
+            },
+          },
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "@imperium/babel-preset-imperium",
+                  Object {
+                    "client": false,
+                    "typescript": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "minimize": true,
+    "nodeEnv": false,
+  },
+  "output": Object {
+    "filename": "out.min.js",
+    "library": "commonWebpackTest",
+    "libraryTarget": "commonjs2",
+    "path": "/dist",
+  },
+  "resolve": Object {
+    "extensions": Array [
+      ".js",
+      ".mjs",
+      ".ts",
+      ".d.ts",
+    ],
+  },
+  "target": "node",
+}
+`;

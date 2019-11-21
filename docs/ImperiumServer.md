@@ -5,23 +5,25 @@ sidebar_label: ImperiumServer
 ---
 
 The instance of the current ImperiumServer is passed down to a lot of the module definition functions.
+ImperiumServer extends the `IImperiumServer`interface. 
 
-## constructor(options: ImperiumServerOptions)
+## constructor(config: ImperiumServerConfig)
 Creates a new instance of an Imperium server.
 
-The options object is comprised of the following keys:
+The config object is comprised of the following keys:
 
 #### `connectors: ImperiumConnectors`
 An instance of an `ImperiumConnectors` object.
 
 #### `serverModules: ImperiumServerModuleFunction[]`
-An array of `ImperiumServerModuleFunction`'s. These are functions that return the server module definition.
+An array of `ImperiumServerModuleFunction`'s. These are functions that return the server module definitions.
 
-#### `options`
-A function that returns an object. This object is used as the base for the server-wide options object.
+#### `environment`
+A function that returns an `ImperiumEnvironment` object. This object is merged together and can be used
+to define server-wide environment variables or other "global" data. 
 
 ## async start()
-This starts the server.
+This starts the server. Returns the instance of the `ImperiumServer` object.
 
 ## async stop()
 This stops the server, closing any open connectors.
@@ -32,17 +34,17 @@ An object that holds all the connectors that have been created. ie. `connectors.
 ## modules
 An object that holds all of the server module definitions.
 
-## options
-An object that holds the server-wide options.
+## environment
+An object that holds the server-wide environment variables.
 
-## app
+## expressApp
 The Express app.
 
-## server
+## httpServer
 The HTTP server.
 
 ## middleware
 An object that holds all the available middleware functions from all modules.
 
-## initialContext
-The initial context used for startup.
+## initialContextManager
+The initial ContextManager used for startup.

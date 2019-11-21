@@ -1,7 +1,0 @@
-# A user in the system
-type User {
-	id: ObjectId
-	email: Email
-	name: String
-}
-

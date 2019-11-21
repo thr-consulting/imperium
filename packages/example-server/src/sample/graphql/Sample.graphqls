@@ -1,0 +1,11 @@
+extend type Query {
+	getCounter: Int
+}
+
+extend type Mutation {
+	incCounter: Int
+}
+
+extend type Subscription {
+	counterChanged: Int
+}

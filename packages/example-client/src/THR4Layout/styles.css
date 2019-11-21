@@ -1,0 +1,62 @@
+/* Need to pass 100% height all the way down */
+:global(#root) {
+	height: 100%;
+}
+:global(#root) > div {
+	height: 100%;
+}
+
+:global(#coreRoutes) {
+	height: 100%;
+}
+
+.parent {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+}
+
+.wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 0 !important;
+	border: 0px solid transparent !important; /* this is a segment, and they seem to have a 1px white border by default */
+}
+
+.staticVerticalMenu {
+	border-radius: 0;
+	margin: 0;
+}
+
+.menu {
+	flex-basis: 185px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+@media only screen and (max-width: 768px) {
+	.menu {
+		flex-basis: 50px;
+	}
+}
+
+.menu > div {
+	height: 100%;
+}
+
+.menu > div > div {
+	/*height: 100%;*/
+	border: 1px solid rgb(90, 90, 90);
+	border-radius: 0;
+}
+
+.content {
+	flex: auto;
+	align-content: flex-start;
+	padding: 5px;
+}

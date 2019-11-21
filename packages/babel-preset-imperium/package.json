@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/babel-preset-imperium",
-	"version": "4.0.0-alpha.11",
+	"version": "4.0.0-alpha.16",
 	"description": "Babel preset used by Imperium.",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -23,6 +23,7 @@
 		"lint:fix": "eslint --cache --fix '*.js'",
 		"test": "jest",
 		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
@@ -44,15 +45,20 @@
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^2.5.0",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",
-		"babel-plugin-transform-react-remove-prop-types": "^0.4.24"
+		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+		"babel-jest": "^24.9.0"
 	},
 	"jest": {
 		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transformer.js"
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
 		},
 		"testPathIgnorePatterns": [
 			"/node_modules/",
 			"<rootDir>/test.js"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/babel-preset-imperium",
+		"collectCoverageFrom": [
+			"<rootDir>/*.js"
 		]
 	}
 }

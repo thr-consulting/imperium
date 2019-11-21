@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/dev",
-	"version": "4.0.0-alpha.11",
+	"version": "4.0.0-alpha.16",
 	"description": "Imperium Development package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -28,14 +28,13 @@
 	"scripts": {
 		"lint": "eslint --cache --ext js,ts,tsx scripts",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx scripts",
-		"ts": "tsc",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
 		"@babel/core": "^7.5.5",
 		"@babel/register": "^7.5.5",
-		"@imperium/babel-preset-imperium": "^4.0.0-alpha.11",
-		"@imperium/util": "^4.0.0-alpha.11",
+		"@imperium/babel-preset-imperium": "^4.0.0-alpha.16",
+		"@imperium/util": "^4.0.0-alpha.16",
 		"babel-loader": "^8.0.6",
 		"chalk": "^2.4.2",
 		"chokidar": "^3.0.2",
@@ -59,8 +58,5 @@
 		"webpack-cli": "^3.3.7",
 		"webpack-dev-server": "^3.8.0",
 		"webpack-node-externals": "^1.7.2"
-	},
-	"removedDeps": {
-		"@hot-loader/react-dom": "^16.9.0"
 	}
 }

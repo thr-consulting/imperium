@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/util",
-	"version": "4.0.0-alpha.11",
+	"version": "4.0.0-alpha.16",
 	"description": "Imperium Util package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -14,24 +14,44 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "lib/index.js",
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
 	"files": [
-		"lib"
+		"dist"
 	],
 	"scripts": {
-		"build": "NODE_ENV=production webpack --config webpack.js",
+		"build": "yarn clean && NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"yalc:publish": "yarn build && yalc publish --push"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh",
+		"yalc:publish": "yalc publish --push",
+		"prepublish": "yarn build && yarn ts"
 	},
 	"devDependencies": {
-		"@types/webpack-node-externals": "^1.6.3",
-		"webpack-cli": "^3.3.7"
+		"webpack-cli": "^3.3.10"
 	},
 	"dependencies": {
 		"debug": "^4.1.1",
 		"inspect-loader": "^1.0.0",
 		"webpack-node-externals": "^1.7.2"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+		},
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/util",
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.js",
+			"<rootDir>/src/**/*.jsx",
+			"<rootDir>/src/**/*.ts",
+			"<rootDir>/src/**/*.tsx"
+		]
 	}
 }

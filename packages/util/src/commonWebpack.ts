@@ -1,14 +1,15 @@
 import path from 'path';
 import nodeExternals from 'webpack-node-externals';
+import process from 'process';
 import inspectLoader from './inspectLoader';
 
-export interface CommonWebpackParams {
+interface CommonWebpackParams {
 	isProduction: boolean;
 	isClient: boolean;
 	name: string;
 	entry: string;
 	outputFile: string;
-	rules: any[];
+	rules?: any[];
 }
 
 export default function commonWebpack({isProduction, isClient, name, entry, outputFile, rules}: CommonWebpackParams) {
@@ -24,7 +25,7 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 		],
 		output: {
 			filename: isProduction ? `${path.basename(outputFile, path.extname(outputFile))}.min.js` : outputFile,
-			path: path.resolve(process.cwd(), 'lib'),
+			path: path.resolve(process.cwd(), 'dist'),
 			library: name,
 			libraryTarget: 'commonjs2',
 		},

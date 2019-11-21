@@ -1,11 +1,11 @@
-import {name} from '../package.json';
 import withRouter from './withRouter';
 
 export default function ImperiumRouterModule() {
 	return {
-		name,
+		name: '@imperium/router',
 		hocs: [withRouter],
 	};
 }
 
 export {default as RouteDirector} from './RouteDirector';
+export {ImperiumRoute, ImperiumRouterClientModule} from './types';

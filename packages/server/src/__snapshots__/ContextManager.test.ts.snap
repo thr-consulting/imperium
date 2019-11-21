@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Context should add modules properly 1`] = `
+Object {
+  "fakeApiFn": [Function],
+}
+`;
+
+exports[`Context should retrieve the connectors 1`] = `undefined`;
+
+exports[`Context should set and get auth data 1`] = `
+Object {
+  "name": "test",
+}
+`;

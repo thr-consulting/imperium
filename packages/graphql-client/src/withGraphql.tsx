@@ -9,16 +9,18 @@ import {WebSocketLink} from 'apollo-link-ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {getMainDefinition} from 'apollo-utilities';
-import {ImperiumClient} from '@imperium/client';
+import {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
+import {toString} from '@imperium/util';
+import {ImperiumGraphqlClientModule} from './types';
 
 const d = debug('imperium.graphql.withGraphql');
 
-export default function withGraphql(client: ImperiumClient) {
+export default function withGraphql(client: IImperiumClient): Hoc {
 	d('Creating Apollo client');
 
-	d(`Creating Apollo HTTP link: ${client.initialConf.graphql}`);
+	d(`Creating Apollo HTTP link: ${client.globalConst.graphql}`);
 	const httpLink = new HttpLink({
-		uri: client.initialConf.graphql,
+		uri: toString(client.globalConst.graphql),
 		credentials: 'same-origin',
 	});
 
@@ -35,9 +37,9 @@ export default function withGraphql(client: ImperiumClient) {
 	let finalLink: ApolloLink = httpLink;
 
 	// Split between normal http and ws for subscriptions
-	if (client.initialConf.graphqlws) {
-		d(`Creating subscription client: ${client.initialConf.graphqlws}`);
-		const subscriptionClient = new SubscriptionClient(client.initialConf.graphqlws, {
+	if (client.globalConst.graphqlws) {
+		d(`Creating subscription client: ${client.globalConst.graphqlws}`);
+		const subscriptionClient = new SubscriptionClient(toString(client.globalConst.graphqlws), {
 			reconnect: true,
 		});
 
@@ -55,8 +57,16 @@ export default function withGraphql(client: ImperiumClient) {
 		);
 	}
 
+	// Use links from other modules
+	const moduleLinks = client.modules.reduce((memo, module: ImperiumClientModule & ImperiumGraphqlClientModule) => {
+		if (module.apolloLinks) {
+			return [...memo, ...module.apolloLinks];
+		}
+		return memo;
+	}, [] as ApolloLink[]);
+
 	// Create complete link object
-	const link = ApolloLink.from([errorLink, ...(client.initialState.apolloLinks || []), finalLink]);
+	const link = ApolloLink.from([errorLink, ...moduleLinks, finalLink]);
 
 	// Configure Apollo GraphQL client
 	const apolloClient = new ApolloClient({
@@ -64,13 +74,19 @@ export default function withGraphql(client: ImperiumClient) {
 		cache: new InMemoryCache(),
 	});
 
-	return (WrappedComponent: () => JSX.Element) => {
-		return function includeGraphql(props: any): JSX.Element {
+	return function graphqlHoc(WrappedComponent: React.ComponentType) {
+		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+
+		function ComponentWithGraphql(props: any) {
 			return (
 				<ApolloProvider client={apolloClient}>
 					<WrappedComponent {...props} />
 				</ApolloProvider>
 			);
-		};
+		}
+
+		ComponentWithGraphql.displayName = `withGraphql(${displayName})`;
+
+		return ComponentWithGraphql;
 	};
 }

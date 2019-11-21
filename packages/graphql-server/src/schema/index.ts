@@ -1,3 +1,4 @@
+import {IResolvers} from 'graphql-tools';
 import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
 import GraphQLObjectId from 'graphql-scalar-objectid';
 // @ts-ignore
@@ -13,7 +14,7 @@ import Root from './Root.graphqls';
 
 export const schema = [Scalars, Root];
 
-export const resolvers = {
+export const resolvers: IResolvers = {
 	// These root resolvers are here to fill in the root placeholders because we can't define an empty Query or Mutation
 	Query: {
 		root: () => 'root',

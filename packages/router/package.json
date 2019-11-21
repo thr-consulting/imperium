@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/router",
-	"version": "4.0.0-alpha.11",
+	"version": "4.0.0-alpha.17",
 	"description": "Imperium Router package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -14,32 +14,50 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"types": "types.d.ts",
 	"main": "client.js",
+	"types": "./dist/index.d.ts",
 	"files": [
-		"client.js",
-		"lib",
-		"types.d.ts"
+		"dist",
+		"client.js"
 	],
 	"scripts": {
-		"build": "yarn build:client",
-		"build:client": "NODE_ENV=production webpack --config webpack/client.js && NODE_ENV=development webpack --config webpack/client.js",
+		"build": "yarn clean && yarn build:dev && yarn build:prod",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"yalc:publish": "yarn build && yalc publish --push"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh",
+		"yalc:publish": "yalc publish --push",
+		"prepublish": "yarn build && yarn ts"
 	},
 	"peerDependencies": {
-		"react": "16.x",
-		"react-dom": "16.x",
 		"react-router-dom": "5.x"
 	},
 	"devDependencies": {
-		"react-router-dom": "^5.1.2",
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.0-alpha.11",
+		"@imperium/client": "^4.0.0-alpha.17",
+		"@imperium/util": "^4.0.0-alpha.16",
 		"debug": "^4.1.1"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
+		},
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/router",
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.js",
+			"<rootDir>/src/**/*.jsx",
+			"<rootDir>/src/**/*.ts",
+			"<rootDir>/src/**/*.tsx"
+		]
 	}
 }
