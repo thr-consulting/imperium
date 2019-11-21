@@ -15,10 +15,12 @@
 		"clean": "lerna run clean && lerna clean && rimraf ./node_modules",
 		"lint": "lerna run lint",
 		"lint:fix": "lerna run lint:fix",
-		"ts": "lerna run ts",
+		"ts": "yarn ts:phase1 && yarn ts:phase2",
 		"test": "lerna run test",
 		"test:coverage": "lerna run test:coverage",
-		"yalc:publish": "lerna run yalc:publish"
+		"yalc:publish": "lerna run yalc:publish",
+		"ts:phase1": "lerna run ts --scope '@imperium/{client,util,server}'",
+		"ts:phase2": "lerna run ts"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^3.0.0",
