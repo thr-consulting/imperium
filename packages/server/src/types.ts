@@ -31,11 +31,8 @@ export type ImperiumServerModule = {
 	environment?: () => ImperiumEnvironment;
 	middleware?: (server: IImperiumServer) => MiddlewareMap;
 	endpoints?: (server: IImperiumServer) => void;
-	context?: ContextMapFunc;
 	startup?: StartupFunc;
-} & {
-	[key: string]: () => any | void;
-};
+} & ContextMap;
 export type ImperiumServerModuleFunction = () => ImperiumServerModule;
 
 export type ImperiumConnectorsMap = {[connectorName: string]: any};
