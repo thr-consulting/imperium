@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/router",
-	"version": "4.0.0-alpha.17",
+	"version": "4.0.0",
 	"description": "Imperium Router package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -41,8 +41,8 @@
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
-		"@imperium/client": "^4.0.0-alpha.17",
-		"@imperium/util": "^4.0.0-alpha.16",
+		"@imperium/client": "^4.0.0",
+		"@imperium/util": "^4.0.0",
 		"debug": "^4.1.1"
 	},
 	"jest": {

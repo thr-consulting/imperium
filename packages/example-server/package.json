@@ -22,8 +22,8 @@
     "Xts": "tsc"
   },
   "dependencies": {
-    "@imperium/graphql-server": "^4.0.0-alpha.17",
-    "@imperium/server": "^4.0.0-alpha.17",
+    "@imperium/graphql-server": "^4.0.0",
+    "@imperium/server": "^4.0.0",
     "dataloader": "^2.0.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
@@ -39,6 +39,6 @@
     "typeorm-revisions": "^0.0.5"
   },
   "devDependencies": {
-    "@imperium/dev": "^4.0.0-alpha.16"
+    "@imperium/dev": "^4.0.0"
   }
 }
