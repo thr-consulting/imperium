@@ -1,6 +1,7 @@
 import React from 'react';
 import debug from 'debug';
 import {Switch, Route} from 'react-router-dom';
+import {IImperiumClient} from '@imperium/client';
 import {ImperiumRoute} from '../types';
 import RouteErrorBoundary from './RouteErrorBoundary';
 
@@ -10,6 +11,7 @@ interface RouteDirectorProps {
 	routeDefaults?: ImperiumRoute;
 	rootRoute: ImperiumRoute;
 	routes?: ImperiumRoute[];
+	imperiumClient?: IImperiumClient;
 }
 
 export default function RouteDirector(props: RouteDirectorProps) {
@@ -33,14 +35,14 @@ export default function RouteDirector(props: RouteDirectorProps) {
 							if (routeProps.layout) {
 								return (
 									<RouteErrorBoundary>
-										<routeProps.layout route={routeProps} {...rProps} />
+										<routeProps.layout route={routeProps} imperiumClient={props.imperiumClient} {...rProps} />
 									</RouteErrorBoundary>
 								);
 							}
 							if (routeProps.content) {
 								return (
 									<RouteErrorBoundary>
-										<routeProps.content route={routeProps} {...rProps} />
+										<routeProps.content route={routeProps} imperiumClient={props.imperiumClient} {...rProps} />
 									</RouteErrorBoundary>
 								);
 							}
