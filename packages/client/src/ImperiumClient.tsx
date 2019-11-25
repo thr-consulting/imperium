@@ -94,7 +94,10 @@ export default class ImperiumClient implements IImperiumClient {
 		const RootWrappedComponent = hoc(Root);
 
 		d('Rendering root component');
-		render(<RootWrappedComponent render={this._renderProp} {...this._rootProps} />, document.getElementById('root'));
+		render(
+			<RootWrappedComponent render={this._renderProp} imperiumClient={this} {...this._rootProps} />,
+			document.getElementById('root'),
+		);
 	}
 
 	get modules() {
