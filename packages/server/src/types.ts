@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction, Application} from 'express';
+import {Application, RequestHandler} from 'express';
 import {Server} from 'http';
 
 export type ContextMapFunc = (server: IImperiumServer, contextManager: IContextManager) => ContextMap;
@@ -15,13 +15,8 @@ export type IContextManager<T extends ContextMap = any> = {
 export type ImperiumEnvironmentVar = string | number | boolean | ImperiumEnvironment;
 export type ImperiumEnvironment = {[key: string]: ImperiumEnvironmentVar | ImperiumEnvironmentVar[]};
 
-export interface ImperiumRequest extends Request {
-	contextManager: IContextManager;
-}
-export type ImperiumRequestHandler = (req: ImperiumRequest, res: Response, next: NextFunction) => void;
-
 export interface MiddlewareMap {
-	[key: string]: () => ImperiumRequestHandler;
+	[key: string]: () => RequestHandler;
 }
 
 export type StartupFunc = (server: IImperiumServer) => Promise<any | void>;
@@ -32,7 +27,8 @@ export type ImperiumServerModule = {
 	middleware?: (server: IImperiumServer) => MiddlewareMap;
 	endpoints?: (server: IImperiumServer) => void;
 	startup?: StartupFunc;
-} & ContextMap;
+	context?: ContextMapFunc;
+};
 export type ImperiumServerModuleFunction = () => ImperiumServerModule;
 
 export type ImperiumConnectorsMap = {[connectorName: string]: any};

@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/server",
+	"name": "@imperium/auth-server",
 	"version": "4.0.0",
-	"description": "Imperium core server",
+	"description": "Imperium Auth server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -14,11 +14,11 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "server.js",
 	"types": "./dist/index.d.ts",
+	"main": "server.js",
 	"files": [
-		"dist",
-		"server.js"
+		"server.js",
+		"dist"
 	],
 	"scripts": {
 		"build": "yarn clean && yarn build:dev && yarn build:prod",
@@ -32,16 +32,16 @@
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push",
-		"prepublish": "yarn build && yarn ts"
-	},
-	"devDependencies": {
-		"webpack-cli": "^3.3.9"
+		"prepublish": "yarn build && yarn ts",
+		"typedoc": "typedoc"
 	},
 	"dependencies": {
+		"@imperium/server": "^4.0.0",
 		"@imperium/util": "^4.0.0",
-		"chalk": "^2.4.2",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
+		"express-jwt": "^5.3.1",
+		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.15"
 	},
 	"jest": {
@@ -51,13 +51,12 @@
 		"testPathIgnorePatterns": [
 			"/node_modules/"
 		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/server",
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-server",
 		"collectCoverageFrom": [
 			"<rootDir>/src/**/*.js",
 			"<rootDir>/src/**/*.jsx",
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
-		],
-		"files": ["types/express.d.ts"]
+		]
 	}
 }

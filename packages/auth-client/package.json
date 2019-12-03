@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/server",
+	"name": "@imperium/auth-client",
 	"version": "4.0.0",
-	"description": "Imperium core server",
+	"description": "Imperium Auth client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -14,50 +14,45 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "server.js",
 	"types": "./dist/index.d.ts",
+	"main": "client.js",
 	"files": [
-		"dist",
-		"server.js"
+		"client.js",
+		"dist"
 	],
 	"scripts": {
 		"build": "yarn clean && yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"clean": "rimraf ./dist",
-		"lint": "eslint --cache --ext js,ts src",
-		"lint:fix": "eslint --cache --fix --ext js,ts src",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push",
-		"prepublish": "yarn build && yarn ts"
-	},
-	"devDependencies": {
-		"webpack-cli": "^3.3.9"
+		"prepublish": "yarn build && yarn ts",
+		"typedoc": "typedoc"
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.0",
-		"chalk": "^2.4.2",
 		"debug": "^4.1.1",
-		"express": "^4.17.1",
 		"lodash": "^4.17.15"
 	},
 	"jest": {
 		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
 		},
 		"testPathIgnorePatterns": [
 			"/node_modules/"
 		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/server",
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-client",
 		"collectCoverageFrom": [
 			"<rootDir>/src/**/*.js",
 			"<rootDir>/src/**/*.jsx",
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
-		],
-		"files": ["types/express.d.ts"]
+		]
 	}
 }
