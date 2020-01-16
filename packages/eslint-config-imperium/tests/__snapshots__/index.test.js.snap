@@ -56,7 +56,7 @@ Object {
       "off",
     ],
     "@typescript-eslint/no-unused-vars": Array [
-      "error",
+      "warn",
       Object {
         "varsIgnorePattern": "d",
       },
@@ -95,7 +95,7 @@ Object {
       },
     ],
     "no-unused-vars": Array [
-      "error",
+      "warn",
       Object {
         "varsIgnorePattern": "d",
       },
