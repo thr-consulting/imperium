@@ -1,7 +1,7 @@
 {
   "name": "@imperium/example-server",
   "description": "Imperium example server project",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "author": "Mike Kornelson <darkadept@durbn.net>",
   "repository": {
     "type": "git",
@@ -22,8 +22,8 @@
     "Xts": "tsc"
   },
   "dependencies": {
-    "@imperium/graphql-server": "^4.0.0",
-    "@imperium/server": "^4.0.0",
+    "@imperium/graphql-server": "^4.0.1",
+    "@imperium/server": "^4.0.1",
     "dataloader": "^2.0.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
@@ -39,6 +39,6 @@
     "typeorm-revisions": "^0.0.5"
   },
   "devDependencies": {
-    "@imperium/dev": "^4.0.0"
+    "@imperium/dev": "^4.0.1"
   }
 }
