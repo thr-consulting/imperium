@@ -39,12 +39,12 @@ module.exports = {
 		'no-return-assign': ['error', 'except-parens'],
 		'no-console': ['error'],
 		'no-plusplus': 'off',
-		'no-unused-vars': ['warn', {varsIgnorePattern: 'd'}],
+		'no-unused-vars': ['error', {varsIgnorePattern: ['d', 'server', 'contextManager']}],
 		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
-		'@typescript-eslint/no-unused-vars': ['warn', {varsIgnorePattern: 'd'}],
+		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: ['d', 'server', 'contextManager']}],
 		'@typescript-eslint/no-unused-expressions': ['off'], // This was disabled because some upgrade to airbnb rules.
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
 		'@typescript-eslint/explicit-function-return-type': [
