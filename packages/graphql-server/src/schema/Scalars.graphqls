@@ -4,6 +4,5 @@ scalar DateTime
 scalar Password
 scalar UUID
 scalar LocalDate
-scalar Moment
 scalar Money
 scalar ObjectId

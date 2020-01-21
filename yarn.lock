@@ -1240,10 +1240,20 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@js-joda/locale_en-us@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@js-joda/locale_en-us/-/locale_en-us-2.0.1.tgz#2f56645955fabd97279954a30756fc367e44cdb5"
-  integrity sha512-7af7QST8F7sk08xpv//rWNFBHRLFaj4XbYNBXT4V8QgpmwzY3TJorZ5Ok/L2s3Djf2/qB7kBb7zIg6Ox+RNrjg==
+"@js-joda/core@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@js-joda/core/-/core-2.0.0.tgz#e9a351ee6feb91262770e2a3d085aa0219ad6afb"
+  integrity sha512-OWm/xa9O9e4ugzNHoRT3IsXZZYfaV6Ia1aRwctOmCQ2GYWMnhKBzMC1WomqCh/oGxEZKNtPy5xv5//VIAOgMqw==
+
+"@js-joda/locale_en-us@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@js-joda/locale_en-us/-/locale_en-us-3.1.0.tgz#87799dd435af501bac94a266ff670039a9e23d65"
+  integrity sha512-YWeAk9D/zHv1oRrTktazf8qFA6g/m1eJXBs4IKUHZWsGqUJgTfKX89WHZtBeZz5SYqNkRnX6HxjMQHGYjpBtuA==
+
+"@js-joda/timezone@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@js-joda/timezone/-/timezone-2.2.0.tgz#6085937d83791cd0bda0b43b533273f2f76b678b"
+  integrity sha512-Ks1F35VAEhQjlXQd9iqkbCkYGOUmCtMPfrjurgdoAGFqy4Q83Ob/p865E6N+mFAhlpWW1iFpwsznhdrVmtSZ2w==
 
 "@lerna/add@3.20.0":
   version "3.20.0"
@@ -2091,27 +2101,24 @@
     prop-types "^15.7.2"
     react-is "^16.6.3"
 
-"@thx/date@^10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@thx/date/-/date-10.3.0.tgz#b7e7c859aed0edb13e4b639ed7b80355e908742b"
-  integrity sha512-o5zpovOCNzrMG6BLo4gG+LYzgTeSrTHA8ZJjEQ09KHV+EVW5/IGvULeGJ8F0wADbJnYfI9P2gMvsJGd4LBSpRQ==
+"@thx/date@^11.0.0-alpha.0":
+  version "11.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@thx/date/-/date-11.0.0-alpha.0.tgz#32671b72be92cd6e93f7bce9fcb3879a0a8f839f"
+  integrity sha512-2hv3I1CBHKxJGIqOX+MD+v22CyomNVmo8oYLOArVzoPAjh7PaOx20I7gLnQO8tkDH2dDyOo+KNXL3kZQAf3UdQ==
   dependencies:
-    "@js-joda/locale_en-us" "^2.0.1"
+    "@js-joda/core" "^2.0.0"
+    "@js-joda/locale_en-us" "^3.1.0"
+    "@js-joda/timezone" "^2.2.0"
     debug "^4.1.1"
-    js-joda "^1.9.3"
-    js-joda-timezone "^2.0.2"
-    lodash "^4.17.11"
-    moment "^2.24.0"
 
-"@thx/money@^10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@thx/money/-/money-10.1.1.tgz#12bde1afb006b46fedaad58962f43da8008c443d"
-  integrity sha512-+MXAnplepa68o463e1hdqVoNiBHuwAMtHsm3JK+9B8pSF/rf7hy5tOi/Wpwa9/dQ573qvcf1vJnc+Thwo5p2mg==
+"@thx/money@^11.0.0-alpha.0":
+  version "11.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@thx/money/-/money-11.0.0-alpha.0.tgz#e1841606f4f97a2d1a0e793e7db1fb6f700fba98"
+  integrity sha512-nXvB0WAKXmZC/Z6iGy7nfIDDbyADp59TCLUgh+dJJgVCIICu4fcHL9ztscEy0eMUvqaKKTOjgj0nOD5Sr8f4mQ==
   dependencies:
     accounting "^0.4.1"
     debug "^4.1.1"
     js-money "^0.6.3"
-    lodash "^4.17.11"
 
 "@types/accepts@*", "@types/accepts@^1.3.5":
   version "1.3.5"
@@ -2321,6 +2328,11 @@
   integrity sha512-dXvuABY9nM1xgsXlOtLQXJKdacxZJd7AtvLsKZ/0b57ruMXDKCOXAC/M75GbllQX6o1pcZ5hAG4JzYy7Z/wM2w==
   dependencies:
     jest-diff "^24.3.0"
+
+"@types/js-money@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@types/js-money/-/js-money-0.6.0.tgz#703c07e8afa78171e119fd521a4fe6fee3a27009"
+  integrity sha512-pYC91p2lvnu6ZlqetU2nx6paISuziRKQMiki9tuBG5eTxVOuSSALMXoDFXM+2Z8txbIJ7oGXisL9pA4MVV8sgA==
 
 "@types/json-schema@^7.0.3":
   version "7.0.4"
@@ -8110,16 +8122,6 @@ jquery@x.*:
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
   integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
 
-js-joda-timezone@^2.0.2:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/js-joda-timezone/-/js-joda-timezone-2.1.1.tgz#73b55e558f59a1490ce3e52d1a686689d6bdb416"
-  integrity sha512-l7PltQExLbI2gnzkvmzh+TFZcuAFiphmI93MUd6t/Zx3enVhjwXX3StD2QmibLdNXygqcxeBh4pkqcrlnGMTrQ==
-
-js-joda@^1.9.3:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/js-joda/-/js-joda-1.11.0.tgz#e0e424b049cf7a9db3ed7729a6ca1f7d96b2486e"
-  integrity sha512-/HJpRhwP2fPyuSsCaZuoVJuaSIt8tUXykV4wOMRXrFk7RP9h9VWaFdS9YHKdMepxb/3TdXpL6IhfC9L0sqYVBw==
-
 js-money@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/js-money/-/js-money-0.6.3.tgz#20b8fa9b958dac7f57b98d9027252e408e98d4fd"
@@ -9054,11 +9056,6 @@ modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
-
-moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 mongodb@3.4.1:
   version "3.4.1"
