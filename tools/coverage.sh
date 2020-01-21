@@ -10,7 +10,7 @@ rm -rf $COVERAGE/$NAME
 # Generage coverage info
 $BIN/jest --coverage
 
-# Generate coverbade svg
+# Generate coverbadge svg
 cat $COVERAGE/$NAME/lcov.info | $BIN/coverbadge -o $COVERAGE/$NAME/coverage.svg
 
 # Copy template index.html and replace text
