@@ -56,9 +56,13 @@ Object {
       "off",
     ],
     "@typescript-eslint/no-unused-vars": Array [
-      "warn",
+      "error",
       Object {
-        "varsIgnorePattern": "d",
+        "varsIgnorePattern": Array [
+          "d",
+          "server",
+          "contextManager",
+        ],
       },
     ],
     "class-methods-use-this": "off",
@@ -95,9 +99,13 @@ Object {
       },
     ],
     "no-unused-vars": Array [
-      "warn",
+      "error",
       Object {
-        "varsIgnorePattern": "d",
+        "varsIgnorePattern": Array [
+          "d",
+          "server",
+          "contextManager",
+        ],
       },
     ],
     "prefer-arrow-callback": Array [
