@@ -19,4 +19,4 @@ export default function(): ImperiumServerModule {
 	};
 }
 
-export {ImperiumGraphqlServerModule, ImperiumResolvers} from './types';
+export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers} from './types';

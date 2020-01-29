@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-server",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Imperium Graphql server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -37,7 +37,7 @@
 		"prepublish": "yarn build && yarn ts"
 	},
 	"dependencies": {
-		"@imperium/server": "^4.0.0",
+		"@imperium/server": "^4.0.1",
 		"@imperium/util": "^4.0.0",
 		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",
@@ -49,6 +49,7 @@
 		"graphql-custom-types": "^1.5.1",
 		"graphql-scalar-objectid": "^0.1.2",
 		"graphql-tag": "^2.10.1",
+		"graphql-tools": "^4.0.6",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"
 	},

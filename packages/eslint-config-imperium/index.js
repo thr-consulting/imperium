@@ -34,12 +34,12 @@ module.exports = {
 		'no-return-assign': ['error', 'except-parens'],
 		'no-console': ['error'],
 		'no-plusplus': 'off',
-		'no-unused-vars': ['error', {varsIgnorePattern: 'd', args: 'none'}],
+		'no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'}],
 		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
-		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd', args: 'none'}],
+		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'}],
 		'@typescript-eslint/no-unused-expressions': ['off'], // This was disabled because some upgrade to airbnb rules.
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
 		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],

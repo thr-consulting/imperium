@@ -1,13 +1,14 @@
 import {DocumentNode} from 'graphql';
 import {SchemaDirectiveVisitor, IResolvers} from 'graphql-tools';
-import {IImperiumServer} from '@imperium/server';
+import {IContextManager, IImperiumServer} from '@imperium/server';
 
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
-export type ImperiumResolvers = IResolvers;
+export {IResolvers, IResolverObject, IFieldResolver} from 'graphql-tools';
 
 export interface ImperiumGraphqlServerModule {
 	schema?: ApolloSchema;
 	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
-	resolvers?: (server: IImperiumServer) => ImperiumResolvers;
+	// Errors will arise if the any is changed to object
+	resolvers?: (server: IImperiumServer) => IResolvers<any, IContextManager>;
 }
