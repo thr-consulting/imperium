@@ -7,7 +7,10 @@ module.exports = {
 	mode: 'production',
 	context: path.resolve(__dirname, 'src'),
 	devtool: 'source-map',
-	externals: [nodeExternals({modulesDir: 'node_modules'}), nodeExternals({modulesDir: path.join('..', '..', 'node_modules')})],
+	externals: [
+		nodeExternals({modulesDir: 'node_modules'}),
+		nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
+	],
 	output: {
 		filename: 'index.js',
 		path: path.resolve(__dirname, 'dist'),

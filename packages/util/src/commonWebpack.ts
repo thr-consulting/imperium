@@ -19,7 +19,10 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 		context: path.resolve(process.cwd(), 'src'),
 		target: isClient ? 'web' : 'node',
 		devtool: isProduction ? 'source-map' : 'inline-source-map',
-		externals: [nodeExternals({modulesDir: 'node_modules'}), nodeExternals({modulesDir: path.join('..', '..', 'node_modules')})],
+		externals: [
+			nodeExternals({modulesDir: 'node_modules'}),
+			nodeExternals({modulesDir: path.join('..', '..', 'node_modules')}),
+		],
 		output: {
 			filename: isProduction ? `${path.basename(outputFile, path.extname(outputFile))}.min.js` : outputFile,
 			path: path.resolve(process.cwd(), 'dist'),

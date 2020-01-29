@@ -1,7 +1,12 @@
 module.exports = {
 	parser: '@typescript-eslint/parser',
 	plugins: ['jest', 'react-hooks'],
-	extends: ['airbnb-typescript', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+	extends: [
+		'airbnb-typescript',
+		'plugin:react/recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:prettier/recommended',
+	],
 	parserOptions: {
 		ecmaVersion: 2019,
 		sourceType: 'module',
@@ -39,10 +44,16 @@ module.exports = {
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
-		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'}],
+		'@typescript-eslint/no-unused-vars': [
+			'error',
+			{varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'},
+		],
 		'@typescript-eslint/no-unused-expressions': ['off'], // This was disabled because some upgrade to airbnb rules.
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
-		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
+		'@typescript-eslint/explicit-function-return-type': [
+			'off',
+			{allowExpressions: true, allowTypedFunctionExpressions: true},
+		],
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/ban-ts-ignore': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],

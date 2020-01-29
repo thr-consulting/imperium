@@ -1,44 +1,44 @@
 {
-  "name": "@imperium/example-server",
-  "description": "Imperium example server project",
-  "version": "4.0.1",
-  "author": "Mike Kornelson <darkadept@durbn.net>",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:darkadept/imperium.git"
-  },
-  "license": "UNLICENSED",
-  "private": true,
-  "engines": {
-    "node": ">=12"
-  },
-  "scripts": {
-    "start": "yarn start:dev",
-    "start:dev": "imperium dev-server imperium.js",
-    "start:prod": "imperium prod-server",
-    "build:prod": "imperium build-server imperium.js",
-    "Xlint": "eslint --cache --ext ts,js src",
-    "Xlint:fix": "eslint --cache --fix --ext ts,js src",
-    "Xts": "tsc"
-  },
-  "dependencies": {
-    "@imperium/graphql-server": "^4.0.1",
-    "@imperium/server": "^4.0.1",
-    "dataloader": "^2.0.0",
-    "debug": "^4.1.1",
-    "dotenv": "^8.2.0",
-    "faker": "^4.1.0",
-    "graphql": "^14.5.8",
-    "graphql-redis-subscriptions": "^2.1.1",
-    "graphql-subscriptions": "^1.1.0",
-    "lodash": "^4.17.15",
-    "mongoose": "^5.7.11",
-    "pg": "^7.12.1",
-    "redis": "^2.8.0",
-    "typeorm": "^0.2.20",
-    "typeorm-revisions": "^0.0.5"
-  },
-  "devDependencies": {
-    "@imperium/dev": "^4.0.1"
-  }
+	"name": "@imperium/example-server",
+	"description": "Imperium example server project",
+	"version": "4.0.1",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:darkadept/imperium.git"
+	},
+	"license": "UNLICENSED",
+	"private": true,
+	"engines": {
+		"node": ">=12"
+	},
+	"scripts": {
+		"start": "yarn start:dev",
+		"start:dev": "imperium dev-server imperium.js",
+		"start:prod": "imperium prod-server",
+		"build:prod": "imperium build-server imperium.js",
+		"Xlint": "eslint --cache --ext ts,js src",
+		"Xlint:fix": "eslint --cache --fix --ext ts,js src",
+		"Xts": "tsc"
+	},
+	"dependencies": {
+		"@imperium/graphql-server": "^4.0.1",
+		"@imperium/server": "^4.0.1",
+		"dataloader": "^2.0.0",
+		"debug": "^4.1.1",
+		"dotenv": "^8.2.0",
+		"faker": "^4.1.0",
+		"graphql": "^14.5.8",
+		"graphql-redis-subscriptions": "^2.1.1",
+		"graphql-subscriptions": "^1.1.0",
+		"lodash": "^4.17.15",
+		"mongoose": "^5.7.11",
+		"pg": "^7.12.1",
+		"redis": "^2.8.0",
+		"typeorm": "^0.2.20",
+		"typeorm-revisions": "^0.0.5"
+	},
+	"devDependencies": {
+		"@imperium/dev": "^4.0.1"
+	}
 }

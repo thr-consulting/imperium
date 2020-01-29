@@ -27,7 +27,9 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	d('Creating Apollo Error link');
 	const errorLink = onError(({graphQLErrors, networkError}) => {
 		if (graphQLErrors)
-			graphQLErrors.forEach(({message, locations, path}) => d(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`));
+			graphQLErrors.forEach(({message, locations, path}) =>
+				d(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
+			);
 		if (networkError) d(`[Network error]: ${networkError}`);
 	});
 

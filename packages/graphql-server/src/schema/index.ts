@@ -29,9 +29,14 @@ export const resolvers: IResolvers = {
 	URL: GraphQLURL,
 	DateTime: GraphQLDateTime,
 	UUID: GraphQLUUID,
-	Password: new GraphQLPassword(6, 64, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?', {
-		mixedCase: true,
-	}),
+	Password: new GraphQLPassword(
+		6,
+		64,
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?',
+		{
+			mixedCase: true,
+		},
+	),
 	LocalDate: GraphQLLocalDate,
 	Moment: GraphQLMoment,
 	Money: GraphQLMoney,

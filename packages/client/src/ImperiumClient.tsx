@@ -5,7 +5,15 @@ import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
 import Root from './Root';
-import {GlobalConst, HocCreator, IImperiumClient, ImperiumClientModule, ImperiumClientModuleFunction, ImperiumEnvironment, RootProps} from './types';
+import {
+	GlobalConst,
+	HocCreator,
+	IImperiumClient,
+	ImperiumClientModule,
+	ImperiumClientModuleFunction,
+	ImperiumEnvironment,
+	RootProps,
+} from './types';
 
 const d = debug('imperium.client');
 
@@ -86,7 +94,10 @@ export default class ImperiumClient implements IImperiumClient {
 		const RootWrappedComponent = hoc(Root);
 
 		d('Rendering root component');
-		render(<RootWrappedComponent render={this._renderProp} imperiumClient={this} {...this._rootProps} />, document.getElementById('root'));
+		render(
+			<RootWrappedComponent render={this._renderProp} imperiumClient={this} {...this._rootProps} />,
+			document.getElementById('root'),
+		);
 	}
 
 	get modules() {
