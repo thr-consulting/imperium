@@ -172,6 +172,8 @@ module.exports = function(api, opts, env) {
 						extensions: ['.graphqls'],
 					},
 				],
+
+			require('@babel/plugin-proposal-optional-chaining'),
 		].filter(Boolean),
 	};
 };
