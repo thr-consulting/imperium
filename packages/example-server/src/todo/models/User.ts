@@ -47,7 +47,10 @@ class User extends BaseEntity {
 	@Column('varchar', {select: false})
 	passwordHash?: string;
 
-	@OneToMany(type => Todo, todo => todo.user)
+	@OneToMany(
+		type => Todo,
+		todo => todo.user,
+	)
 	todos!: Todo[]; // TypeORM initialises this.
 
 	static createLoader() {
