@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-server",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"description": "Imperium Graphql server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -37,8 +37,8 @@
 		"prepublish": "yarn build && yarn ts"
 	},
 	"dependencies": {
-		"@imperium/server": "^4.0.1",
-		"@imperium/util": "^4.0.0",
+		"@imperium/server": "^4.0.2",
+		"@imperium/util": "^4.0.2",
 		"@thx/date": "^10.3.0",
 		"@thx/money": "^10.1.1",
 		"apollo-server-express": "^2.9.12",
