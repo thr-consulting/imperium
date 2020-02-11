@@ -30,6 +30,7 @@
 		"@types/express": "^4.17.1",
 		"@types/express-jwt": "^0.0.42",
 		"@types/faker": "^4.1.7",
+		"@types/js-money": "^0.6.0",
 		"@types/jest": "^25.1.2",
 		"@types/jsonwebtoken": "^8.3.4",
 		"@types/lodash": "^4.14.138",

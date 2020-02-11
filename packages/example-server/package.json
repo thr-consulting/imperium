@@ -1,5 +1,5 @@
 {
-	"name": "@imperium/example-server",
+  "name": "@imperium/example-server",
 	"description": "Imperium example server project",
 	"version": "4.0.2",
 	"author": "Mike Kornelson <darkadept@durbn.net>",

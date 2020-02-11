@@ -39,8 +39,9 @@
 	"dependencies": {
 		"@imperium/server": "^4.0.2",
 		"@imperium/util": "^4.0.2",
-		"@thx/date": "^10.3.0",
-		"@thx/money": "^10.1.1",
+    "@js-joda/core": "^2.0.0",
+    "@thx/date": "^11.0.0-alpha.2",
+		"@thx/money": "^11.0.0-alpha.2",
 		"apollo-server-express": "^2.9.12",
 		"cors": "^2.8.5",
 		"debug": "^4.1.1",
@@ -50,6 +51,7 @@
 		"graphql-scalar-objectid": "^0.1.2",
 		"graphql-tag": "^2.10.1",
 		"graphql-tools": "^4.0.6",
+		"js-money": "^0.6.3",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"
 	},
