@@ -2088,20 +2088,20 @@
     prop-types "^15.7.2"
     react-is "^16.6.3"
 
-"@thx/date@^11.0.0-alpha.0":
-  version "11.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@thx/date/-/date-11.0.0-alpha.0.tgz#32671b72be92cd6e93f7bce9fcb3879a0a8f839f"
-  integrity sha512-2hv3I1CBHKxJGIqOX+MD+v22CyomNVmo8oYLOArVzoPAjh7PaOx20I7gLnQO8tkDH2dDyOo+KNXL3kZQAf3UdQ==
+"@thx/date@^11.0.0-alpha.2":
+  version "11.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@thx/date/-/date-11.0.0-alpha.2.tgz#4b7bb08f8d748bb77518093846a3dc04053d01e7"
+  integrity sha512-iwk8szI/sziLdycVx9rJ7OKU1XXD739GRysCDQ9J+v95Z/sOEinhBhCHs3w/Zp3yCfO1Sb1pmfAWGGCOuJXISw==
   dependencies:
     "@js-joda/core" "^2.0.0"
     "@js-joda/locale_en-us" "^3.1.0"
     "@js-joda/timezone" "^2.2.0"
     debug "^4.1.1"
 
-"@thx/money@^11.0.0-alpha.0":
-  version "11.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@thx/money/-/money-11.0.0-alpha.0.tgz#e1841606f4f97a2d1a0e793e7db1fb6f700fba98"
-  integrity sha512-nXvB0WAKXmZC/Z6iGy7nfIDDbyADp59TCLUgh+dJJgVCIICu4fcHL9ztscEy0eMUvqaKKTOjgj0nOD5Sr8f4mQ==
+"@thx/money@^11.0.0-alpha.2":
+  version "11.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@thx/money/-/money-11.0.0-alpha.2.tgz#88b8640302d9fb4735ec9755c4c3664440d085e0"
+  integrity sha512-V4m3s7tONIiH5tHGmt1jWD6DVB9TpuYEYJsKyPfMol5+RgZRQEQH8r7L7HrM0JxNoGoe7qadSEnK8H5oV9nRiw==
   dependencies:
     accounting "^0.4.1"
     debug "^4.1.1"

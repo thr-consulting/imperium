@@ -1,9 +1,15 @@
 extend type Query {
 	getCounter: Int
+	getLocalDate: LocalDate
+	getLocalTime: LocalTime
+	getMoney: Money
 }
 
 extend type Mutation {
 	incCounter: Int
+	setLocalDate(date: LocalDate): Boolean
+	setLocalTime(time: LocalTime): Boolean
+	setMoney(amount: Money): Boolean
 }
 
 extend type Subscription {
