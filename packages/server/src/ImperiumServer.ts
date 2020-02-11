@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import express, {Application, RequestHandler} from 'express';
+import express, {NextFunction, Response, Application} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
@@ -9,6 +9,7 @@ import defaultEnvironment from './defaultEnvironment';
 import {
 	ImperiumConnectors,
 	ImperiumConnectorsMap,
+	ImperiumRequest,
 	ImperiumServerModule,
 	MiddlewareMap,
 	ImperiumServerModuleFunction,
@@ -100,8 +101,8 @@ export default class ImperiumServer implements IImperiumServer {
 				return memo;
 			},
 			{
-				contextManagerMiddleware: (): RequestHandler => {
-					return (req, res, next) => {
+				contextManagerMiddleware: () => {
+					return (req: ImperiumRequest, res: Response, next: NextFunction) => {
 						dd(`Creating context manager for request to: ${req.baseUrl}`);
 						const contextManager = new ContextManager(this);
 						this._serverModules.forEach(module => {
