@@ -11,6 +11,7 @@
 You can use Imperium's specialized Eslint configuration in your own projects.
 
 ## Usage
+
 Install the preset.
 
 ```bash

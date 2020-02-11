@@ -25,7 +25,10 @@ class Todo extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@ManyToOne(type => User, user => user.todos)
+	@ManyToOne(
+		type => User,
+		user => user.todos,
+	)
 	user!: User;
 
 	@Column('varchar')
