@@ -44,9 +44,7 @@ if (cluster.isMaster) {
 		if (workerCrashCounter < imperiumConfig.development.workerCrashMax) {
 			clusterWorker = cluster.fork();
 			workerForkTime = process.hrtime(); // Record new worker time
-			d(
-				`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`,
-			);
+			d(`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`);
 		} else {
 			console.error('Worker thread keeps crashing, exiting main app.');
 			process.exit(1);

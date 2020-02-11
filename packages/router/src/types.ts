@@ -1,7 +1,9 @@
 import {RouteProps} from 'react-router-dom';
+import {IImperiumClient} from '@imperium/client';
 
 interface RouteContentProps {
 	route: ImperiumRoute;
+	imperiumClient?: IImperiumClient; // todo : remove optional
 }
 
 export interface ImperiumRoute extends RouteProps {
