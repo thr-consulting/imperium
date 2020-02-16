@@ -36,8 +36,12 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@imperium/server": "^4.0.0",
-		"@imperium/util": "^4.0.0",
+		"@imperium/server": "^4.0.2",
+		"@imperium/util": "^4.0.2",
+		"@thx/ordereddataloader": "^11.0.0-alpha.2",
+		"@thx/sha256": "^11.0.0-alpha.2",
+		"bcrypt": "^3.0.8",
+		"body-parser": "^1.19.0",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
 		"express-jwt": "^5.3.1",

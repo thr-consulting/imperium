@@ -1,6 +1,24 @@
-import {IImperiumServer} from '@imperium/server';
-import refreshToken from './refreshToken';
+import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
+import {loginEndpoint} from './loginEndpoint';
+import {refreshEndpoint} from './refreshEndpoint';
+import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
+import {ImperiumAuthServerModule} from '../types';
 
-export default function endpoints(server: IImperiumServer): void {
-	// refreshToken(server);
+export function endpoints(server: IImperiumServer) {
+	const authModules = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumAuthServerModule) => {
+		if (module.auth) {
+			return [...memo, module];
+		}
+		return memo;
+	}, [] as ImperiumAuthServerModule[]);
+
+	if (authModules.length !== 1) {
+		throw new Error(
+			`Exactly 1 module must provide ImperiumAuthServerModule features. ${authModules.length} module(s) found.`,
+		);
+	}
+
+	loginEndpoint(authModules[0], server);
+	refreshEndpoint(authModules[0], server);
+	forgotPasswordEndpoint(authModules[0], server);
 }

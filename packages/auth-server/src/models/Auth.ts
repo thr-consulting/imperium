@@ -1,84 +1,129 @@
 import debug from 'debug';
+import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
-import {pseudoRandomBytes, randomBytes} from 'crypto';
-import {sign, decode} from 'jsonwebtoken';
-import get from 'lodash/get';
-import {Context, ImperiumOptions, ModelsOptions} from '@imperium/server';
-// @ts-ignore
-import {randomId, SharedCache, sha256} from '@thx/extras/server';
-import {ServerAuth, ClientAuth, LoginRet} from '../types';
-import {
-	IncorrectPasswordError,
-	InvalidHashAlgorithm,
-	TokenDeauthorized,
-	TokenExpired,
-	TokenNotValid,
-	TooManyLoginAttempts,
-	UserNotFoundError,
-} from './errors';
+import {decode, sign, SignOptions} from 'jsonwebtoken';
+import {Request} from 'express';
+import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, RefreshInfo, ServiceInfo} from '../types';
+import {AuthContextManager} from '../serverTypes';
 
 const d = debug('imperium.auth-server.Auth');
 
-interface ServicesField {
-	password: {
-		bcrypt: string;
-	};
-	token: {
-		recovery: string[];
-		blacklist: {
-			token: {
-				rnd: string;
-			};
-		}[];
-	};
-}
-
-interface PasswordObject {
-	algorithm: string;
-	digest: string;
-}
-type Password = PasswordObject | string;
-
-/**
- * Takes in a string or password object and returns the hashed password object. Enforces sha-256 algorithm.
- * @private
- * @param {string|object} password - The string password or password object with algorithm and digest fields.
- * @return {string} The password object.
- */
-function getPasswordString(password: Password): string {
+function getPasswordString(password: string | {algorithm: string; digest: string}): string {
 	if (typeof password === 'string') {
-		return sha256(password);
+		return sha256(password).toLowerCase();
 	}
-	if (password.algorithm !== 'sha-256') {
-		throw InvalidHashAlgorithm();
+
+	if (password.algorithm.toLowerCase() !== 'sha-256') {
+		throw new Error('Invalid Hash Algorithm');
 	}
 	return password.digest.toLowerCase();
 }
 
-/**
- * Validates a password.
- * @private
- * @param bcrypt - Encrypted hash of password.
- * @param password - Plaintext actual password.
- * @return {Promise<boolean>} True if passwords match.
- */
-export async function validatePassword(bcrypt: string, password: Password): Promise<boolean> {
-	const pword = getPasswordString(password);
-	return compare(pword, bcrypt);
+function encryptPassword(password: string, saltOrRounds: string | number = 10): Promise<string> {
+	return hash(getPasswordString(password), saltOrRounds);
 }
 
-/**
- * Model class for authentication. Uses a Mongo `roles` collection and has an opinionated user object.
- */
-export default class Auth {
-	/**
-	 * Returns a default (blank) authentication object
-	 */
-	static defaultAuth(): ServerAuth {
+function signJwt(payload: string | object = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
+	return sign(payload, secret, options);
+}
+
+export class Auth {
+	static validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
+		return compare(getPasswordString(loginInfo.password), serviceInfo.password.bcrypt);
+	}
+
+	static createAccessToken(serviceInfo: ServiceInfo, ctx: AuthContextManager): string {
+		return signJwt(
+			{
+				id: serviceInfo.id,
+				roles: serviceInfo.roles,
+			},
+			ctx.server.environment.authAccessTokenSecret as string,
+			{expiresIn: ctx.server.environment.authAccessTokenExpires as string},
+		);
+	}
+
+	static createRefreshToken(identifier: string, ctx: AuthContextManager): string {
+		return signJwt(
+			{
+				id: identifier,
+				type: 'r',
+			},
+			ctx.server.environment.authRefreshTokenSecret as string,
+			{expiresIn: ctx.server.environment.authRefreshTokenExpires as string},
+		);
+	}
+
+	static async login(loginInfo: LoginInfo, authModule: ImperiumAuthServerModule, req: Request, ctx: AuthContextManager) {
+		// 1. Check attempts
+		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
+		const attemptKey = `loginattempts:${loginInfo.identifier}_${req.connection.remoteAddress?.replace(/:/g, ';')}`;
+		const attempts = (await ctx.server.connectors[cacheConnectorKey].get(attemptKey)) || 0;
+		if (attempts > ctx.server.environment.authMaxFail) throw new Error('Too many login attempts');
+
+		// 2. Get service info from domain layer
+		const serviceInfo = authModule.auth?.getServiceInfo(loginInfo.identifier, ctx);
+		if (!serviceInfo) {
+			throw new Error('User not found');
+		} else {
+			// 3. Validate password
+			if (await Auth.validatePassword(serviceInfo, loginInfo)) {
+				// 4. Create and return access and refresh tokens
+				return {
+					id: serviceInfo.id,
+					access: Auth.createAccessToken(serviceInfo, ctx),
+					refresh: Auth.createRefreshToken(loginInfo.identifier, ctx),
+				};
+			}
+			// 5. Update cache with attempts and return error on non-valid password.
+			await ctx.server.connectors[cacheConnectorKey].set(attemptKey, attempts + 1, ctx.server.environment.authMaxCooldown);
+			throw new Error('Invalid password');
+		}
+	}
+
+	static async refresh(refreshInfo: RefreshInfo, authModule: ImperiumAuthServerModule, req: Request, ctx: AuthContextManager) {
+		// Todo this should probably read cookies because you can brute force this
+		const token = decode(refreshInfo.refresh);
+
+		// Check if token is invalid or expired
+		if (!token || typeof token === 'string' || !isRefreshToken(token)) {
+			throw new Error('Token not valid');
+		} else if (Date.now() / 1000 > token.exp) {
+			throw new Error('Token expired');
+		}
+
+		// Get service info from domain layer
+		const serviceInfo = authModule.auth?.getServiceInfo(token.id, ctx);
+		if (!serviceInfo) {
+			throw new Error('User not found');
+		}
+
+		// Check if token is blacklisted
+		const blacklistIndex = serviceInfo.blacklist?.indexOf(token.iat);
+		if (typeof blacklistIndex === 'number' && blacklistIndex >= 0) {
+			throw new Error('Token is blacklisted');
+		}
+
 		return {
-			userId: null,
-			user: async () => null,
-			permissions: [],
+			access: Auth.createAccessToken(serviceInfo, ctx),
 		};
 	}
+
+	async getCache(key: string | string[], ctx: AuthContextManager): Promise<boolean | null> {
+		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
+		const keyString = key instanceof Array ? key.join('_') : key;
+		return ctx.server.connectors[cacheConnectorKey].get(`auth:${keyString}`);
+	}
+
+	async setCache(key: string | string[], allowed: boolean, ctx: AuthContextManager): Promise<void> {
+		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
+		const keyString = key instanceof Array ? key.join('_') : key;
+		await ctx.server.connectors[cacheConnectorKey].set(`auth:${keyString}`, allowed);
+	}
+}
+
+export function AuthContext() {
+	return {
+		Auth,
+	};
 }

@@ -1,5 +1,4 @@
 // This is my "db"
-import {IImperiumServer} from '@imperium/server';
 
 let counter = 0;
 
@@ -14,7 +13,7 @@ export default class MyCounter {
 	}
 }
 
-export function MyCounterContext(server: IImperiumServer) {
+export function MyCounterContext() {
 	return {
 		MyCounter,
 	};
