@@ -7,4 +7,5 @@ export {
 	IContextManager,
 	IImperiumConfig,
 	ImperiumRequest,
+	AuthContext,
 } from './types';

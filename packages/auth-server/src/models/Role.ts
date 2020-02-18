@@ -105,7 +105,7 @@ export class Role {
 	static permissionsMatch(havePermissions: string | string[], needPermissions: string | string[]): boolean {
 		const have = havePermissions instanceof Array ? havePermissions : [havePermissions];
 		const need = needPermissions instanceof Array ? [...needPermissions] : [needPermissions];
-		return intersection(have, need).length > 0;
+		return intersection(have, need).length === need.length;
 	}
 }
 

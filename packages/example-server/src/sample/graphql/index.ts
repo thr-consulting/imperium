@@ -35,6 +35,9 @@ export function resolvers(server: IImperiumServer): SampleResolvers {
 			getJwt(obj, val, ctx) {
 				return sign({name: 'test'}, ctx.server.environment.authAccessTokenSecret);
 			},
+			getCounterSecured(obj, value, ctx) {
+				return MyCounter.getCounterSecured(ctx);
+			}
 		},
 		Mutation: {
 			incCounter() {

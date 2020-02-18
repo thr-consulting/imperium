@@ -1,5 +1,6 @@
 extend type Query {
 	getCounter: Int
+	getCounterSecured: Int
 	getLocalDate: LocalDate
 	getLocalTime: LocalTime
 	getMoney: Money

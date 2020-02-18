@@ -109,16 +109,22 @@ export class Auth {
 		};
 	}
 
-	async getCache(key: string | string[], ctx: AuthContextManager): Promise<boolean | null> {
+	static async getCache(key: string | string[], ctx: AuthContextManager): Promise<boolean | null> {
 		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
 		const keyString = key instanceof Array ? key.join('_') : key;
-		return ctx.server.connectors[cacheConnectorKey].get(`auth:${keyString}`);
+		return ctx.server.connectors[cacheConnectorKey].get(`auth:cache:${keyString}`);
 	}
 
-	async setCache(key: string | string[], allowed: boolean, ctx: AuthContextManager): Promise<void> {
+	static async setCache(key: string | string[], allowed = true, ctx: AuthContextManager, expire = 86400): Promise<void> {
 		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
 		const keyString = key instanceof Array ? key.join('_') : key;
-		await ctx.server.connectors[cacheConnectorKey].set(`auth:${keyString}`, allowed);
+		await ctx.server.connectors[cacheConnectorKey].set(`auth:cache:${keyString}`, allowed, expire);
+	}
+
+	static async invalidateCache(key: string | string[], ctx: AuthContextManager): Promise<void> {
+		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
+		const keyString = key instanceof Array ? key.join('_') : key;
+		await ctx.server.connectors[cacheConnectorKey].del(`auth:cache:${keyString}`);
 	}
 }
 

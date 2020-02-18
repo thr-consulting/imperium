@@ -40,7 +40,7 @@ export default function(): ImperiumServerModule {
 		},
 		context: (server: IImperiumServer) => AuthModuleContext(server),
 		endpoints: (server: IImperiumServer) => endpoints(server),
-		async startup(server) {
+		async startup(server: IImperiumServer) {
 			const cacheKey = server.environment.authSharedCacheConnectorKey;
 			if (!server.connectors[cacheKey as string]) {
 				throw new Error(`@imperium/auth-server expects a SharedCache instance called: ${cacheKey}`);
