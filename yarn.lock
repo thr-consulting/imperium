@@ -2096,13 +2096,13 @@
     "@babel/runtime" "^7.5.4"
     "@types/testing-library__react-hooks" "^3.0.0"
 
-"@thx/controls@^12.0.0-alpha.0":
-  version "12.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-12.0.0-alpha.0.tgz#3d801eaefe7f9a47f94568fc6b7a9e6fed6de943"
-  integrity sha512-n/sxDCdxGdr0peD978fbRuzGLwTubvd+uZa+ZVXSYVI63/vLsKoFEayxv8dBB8EmAOluAjn5cK/8pGzokWSxtQ==
+"@thx/controls@^12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-12.0.0.tgz#f155aeafe7a2d8aa6e4f820f3d3c3b677a85e315"
+  integrity sha512-rqktDyMew7GRDGYVXYMT2WGHN0hi3g0BYwi17vD5QUhWnZApEPbDQD22/KSJ+77132NkaX7ruvCZcupRIrdcMA==
   dependencies:
-    "@thx/date" "^11.0.0-alpha.2"
-    "@thx/money" "^11.0.0-alpha.2"
+    "@thx/date" "^11.0.0"
+    "@thx/money" "^11.0.0"
     debug "^4.1.1"
     eventemitter3 "^4.0.0"
     flat "^5.0.0"
@@ -2113,41 +2113,43 @@
     use-deep-compare-effect "^1.3.0"
     yup "^0.28.0"
 
-"@thx/date@^11.0.0-alpha.2":
-  version "11.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/date/-/date-11.0.0-alpha.2.tgz#4b7bb08f8d748bb77518093846a3dc04053d01e7"
-  integrity sha512-iwk8szI/sziLdycVx9rJ7OKU1XXD739GRysCDQ9J+v95Z/sOEinhBhCHs3w/Zp3yCfO1Sb1pmfAWGGCOuJXISw==
+"@thx/date@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/date/-/date-11.0.0.tgz#4b32da65df0d70bb6e6e0a1d79c6f4c2b3f94b76"
+  integrity sha512-uHzXFQsScu5teHJfaRN+wcVEBKqhJL5OPNEsO9vKlI7THSLflCBCFYGx1Ef2u6/tya5ytSbpo0ELcpZi/0buAg==
   dependencies:
     "@js-joda/core" "^2.0.0"
     "@js-joda/locale_en-us" "^3.1.0"
     "@js-joda/timezone" "^2.2.0"
     debug "^4.1.1"
 
-"@thx/money@^11.0.0-alpha.2":
-  version "11.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/money/-/money-11.0.0-alpha.2.tgz#88b8640302d9fb4735ec9755c4c3664440d085e0"
-  integrity sha512-V4m3s7tONIiH5tHGmt1jWD6DVB9TpuYEYJsKyPfMol5+RgZRQEQH8r7L7HrM0JxNoGoe7qadSEnK8H5oV9nRiw==
+"@thx/money@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/money/-/money-11.0.0.tgz#e320c1ec9799a5f0a281a50e609cc7e9e947bc7a"
+  integrity sha512-grvGSnVuGmDWleIp+IEu0YhK5e/dGcXYWy+rs+cfd3qHWxQUKMPT4b2uVTgyk4iLnGMw044Xx4BMidmC+BPtOQ==
   dependencies:
     accounting "^0.4.1"
     debug "^4.1.1"
     js-money "^0.6.3"
 
-"@thx/ordereddataloader@^11.0.0-alpha.2":
-  version "11.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/ordereddataloader/-/ordereddataloader-11.0.0-alpha.2.tgz#fcef1b8411d13e70f5521c15a440810b728f8467"
-  integrity sha512-Z132WjrGs48F2zpWjFM3TEmwJk6CSBOIFt3vyiJkLKdafR38KrQvmiH8pALlH+TQHAfQHAJ4rTWmVjOawVUCWA==
+"@thx/ordereddataloader@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/ordereddataloader/-/ordereddataloader-11.0.0.tgz#9fd68c1b9d624ee5a8d484d9bd467a664f93da0f"
+  integrity sha512-/xqWlZWu1STiecJm1kCl4LXBsEqFSbDzrAY11klMsR1bwca5oA6U9KWsKOm5NIs2gLdxIT/fEeTysmhcR02teg==
   dependencies:
     dataloader "^2.0.0"
     debug "^4.1.1"
     lodash "^4.17.15"
 
-"@thx/sha256@^11.0.0-alpha.2":
-  version "11.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/sha256/-/sha256-11.0.0-alpha.2.tgz#103c963b5f38df5714ec54f2c8ba73bfd5e86068"
-  integrity sha512-xfpLMi5b6CoSp++ZV5qAQaD0fu/PCQzMxEPz980pjLbNIEZrwZm2M9O68uk9yu6Bn9GvPo0PXcEY+zUSnnanRQ==
+"@thx/sha256@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/sha256/-/sha256-11.0.0.tgz#7afe2b6728ce5077c99f63b2bd2b00a44753ad5e"
+  integrity sha512-sgEOmzTMXMBioygz35HmkJjaOvyjaw/6acAU9KRvPYVpLozzE3dxEYOO9ZdrCGqa3PAJJRhs7z0u99aOpNQeIg==
 
-"@thx/sharedcache@file:packages/example-server/.yalc/@thx/sharedcache":
-  version "11.0.0-alpha.2-ebf6cbbc"
+"@thx/sharedcache@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-11.0.0.tgz#e482ec3af620ba4df0e9d4e7680e1a66812d4a7a"
+  integrity sha512-ncIpxwKVigGsHNcbt4x+MBXAIxmrLi4VQ0q5zXZ7bILk9P9DXp0UEsDHHOmhot9vp8MX48nP7d4z/y5wkHTtPw==
   dependencies:
     debug "^4.1.1"
 

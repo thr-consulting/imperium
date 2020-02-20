@@ -29,9 +29,9 @@
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:coverage": "../../tools/coverage.sh",
+		"Xtest": "jest",
+		"Xtest:watch": "jest --watch",
+		"Xtest:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push",
 		"prepublish": "yarn build && yarn ts",
 		"typedoc": "typedoc"
