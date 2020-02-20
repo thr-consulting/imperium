@@ -38,8 +38,8 @@
 	"dependencies": {
 		"@imperium/server": "^4.0.2",
 		"@imperium/util": "^4.0.2",
-		"@thx/ordereddataloader": "^11.0.0-alpha.2",
-		"@thx/sha256": "^11.0.0-alpha.2",
+		"@thx/ordereddataloader": "^11.0.0",
+		"@thx/sha256": "^11.0.0",
 		"bcrypt": "^3.0.8",
 		"body-parser": "^1.19.0",
 		"cors": "^2.8.5",

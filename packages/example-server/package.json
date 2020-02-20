@@ -25,7 +25,7 @@
     "@imperium/auth-server": "^4.0.0",
     "@imperium/graphql-server": "^4.0.2",
     "@imperium/server": "^4.0.2",
-    "@thx/sharedcache": "file:.yalc/@thx/sharedcache",
+    "@thx/sharedcache": "^11.0.0",
     "dataloader": "^2.0.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
