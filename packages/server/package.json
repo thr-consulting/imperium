@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "4.0.3",
+	"version": "4.0.4",
 	"description": "Imperium core server",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -38,7 +38,7 @@
 		"webpack-cli": "^3.3.9"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.2",
+		"@imperium/util": "^4.0.4",
 		"chalk": "^3.0.0",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
@@ -58,5 +58,6 @@
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
 		]
-	}
+	},
+	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
 }
