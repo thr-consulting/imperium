@@ -3,8 +3,7 @@ import {IImperiumServer, ImperiumRequest} from '@imperium/server';
 import {toString} from '@imperium/util';
 import {Response} from 'express';
 import {json} from 'body-parser';
-import {ImperiumAuthServerModule} from '../types';
-import {isRefreshInfo} from '../types';
+import {ImperiumAuthServerModule, isRefreshInfo} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 
@@ -23,15 +22,15 @@ export function refreshEndpoint(authModule: ImperiumAuthServerModule, server: II
 				// Perform refresh
 				req.contextManager.Auth.refresh(refreshInfo, authModule, req, req.contextManager)
 					.then((ret: any) => {
-						res.json(ret);
+						res.status(200).json(ret);
 						res.end();
 					})
 					.catch((err: Error) => {
-						res.send(err.toString());
+						res.status(400).send(err.toString());
 						res.end();
 					});
 			} else {
-				res.send('Invalid JSON body');
+				res.status(400).send('Invalid JSON body');
 				res.end();
 			}
 		},

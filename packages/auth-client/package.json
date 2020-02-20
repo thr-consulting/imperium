@@ -18,6 +18,7 @@
 	"main": "client.js",
 	"files": [
 		"client.js",
+		"config.js",
 		"dist"
 	],
 	"scripts": {
@@ -37,8 +38,12 @@
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.0",
+		"@thx/sha256": "^11.0.0-alpha.2",
 		"debug": "^4.1.1",
-		"lodash": "^4.17.15"
+		"js-cookie": "^2.2.1",
+		"jsonwebtoken": "^8.5.1",
+		"lodash": "^4.17.15",
+		"whatwg-fetch": "^3.0.0"
 	},
 	"jest": {
 		"transform": {

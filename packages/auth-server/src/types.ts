@@ -17,6 +17,12 @@ export function isLoginInfo(loginInfo: object): loginInfo is LoginInfo {
 	);
 }
 
+export interface LoginReturn {
+	id: string;
+	access: string;
+	refresh: string;
+}
+
 export interface RefreshInfo {
 	refresh: string;
 }
@@ -43,9 +49,7 @@ export interface RefreshToken {
 
 export function isRefreshToken(refreshToken: object): refreshToken is RefreshToken {
 	return (
-		(refreshToken as RefreshToken).id !== undefined &&
-		(refreshToken as RefreshToken).exp !== undefined &&
-		(refreshToken as RefreshToken).type === 'r'
+		(refreshToken as RefreshToken).id !== undefined && (refreshToken as RefreshToken).exp !== undefined && (refreshToken as RefreshToken).type === 'r'
 	);
 }
 
@@ -58,9 +62,7 @@ export interface AccessToken {
 
 export function isAccessToken(accessToken: object): accessToken is AccessToken {
 	return (
-		(accessToken as AccessToken).id !== undefined &&
-		(accessToken as AccessToken).iat !== undefined &&
-		(accessToken as AccessToken).exp !== undefined
+		(accessToken as AccessToken).id !== undefined && (accessToken as AccessToken).iat !== undefined && (accessToken as AccessToken).exp !== undefined
 	);
 }
 

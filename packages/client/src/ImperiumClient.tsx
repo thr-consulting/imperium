@@ -5,13 +5,38 @@ import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
 import Root from './Root';
-import {GlobalConst, HocCreator, IImperiumClient, ImperiumClientModule, ImperiumClientModuleFunction, ImperiumEnvironment, RootProps} from './types';
+import {ClientContext} from './ClientContext';
+import {
+	GlobalConst,
+	Hoc,
+	HocCreator,
+	IImperiumClient,
+	ImperiumClientModule,
+	ImperiumClientModuleFunction,
+	ImperiumEnvironment,
+	RootProps,
+} from './types';
 
 const d = debug('imperium.client');
 
 export interface ImperiumClientConfig {
 	clientModules?: ImperiumClientModuleFunction[];
 	render: (props?: any) => React.ReactNode;
+}
+
+function withClient(client: IImperiumClient): Hoc {
+	return function clientHoc(WrappedComponent: React.ComponentType) {
+		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+		function ComponentWithClient(props: any) {
+			return (
+				<ClientContext.Provider value={client}>
+					<WrappedComponent {...props} />
+				</ClientContext.Provider>
+			);
+		}
+		ComponentWithClient.displayName = `withClient(${displayName}`;
+		return ComponentWithClient;
+	};
 }
 
 export default class ImperiumClient implements IImperiumClient {
@@ -76,10 +101,13 @@ export default class ImperiumClient implements IImperiumClient {
 
 		// HOC's
 		d("Building HoC's");
-		const hocCreators = this._clientModules.reduce((memo, module) => {
-			if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
-			return memo;
-		}, [] as HocCreator[]);
+		const hocCreators = this._clientModules.reduce(
+			(memo, module) => {
+				if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
+				return memo;
+			},
+			[withClient] as HocCreator[],
+		);
 
 		// Execute HoC creators and compose HoC's.
 		const hoc = flowRight(hocCreators.map(v => v(this)));

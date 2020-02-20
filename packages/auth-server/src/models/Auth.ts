@@ -3,7 +3,7 @@ import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
 import {Request} from 'express';
-import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, RefreshInfo, ServiceInfo} from '../types';
+import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, LoginReturn, RefreshInfo, ServiceInfo} from '../types';
 import {AuthContextManager} from '../serverTypes';
 
 const d = debug('imperium.auth-server.Auth');
@@ -54,7 +54,7 @@ export class Auth {
 		);
 	}
 
-	static async login(loginInfo: LoginInfo, authModule: ImperiumAuthServerModule, req: Request, ctx: AuthContextManager) {
+	static async login(loginInfo: LoginInfo, authModule: ImperiumAuthServerModule, req: Request, ctx: AuthContextManager): Promise<LoginReturn> {
 		// 1. Check attempts
 		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
 		const attemptKey = `loginattempts:${loginInfo.identifier}_${req.connection.remoteAddress?.replace(/:/g, ';')}`;

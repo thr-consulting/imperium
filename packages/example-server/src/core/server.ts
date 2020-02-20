@@ -9,9 +9,6 @@ export default function() {
 	const server = new ImperiumServer({
 		connectors: new Connectors(),
 		serverModules,
-		environment: {
-			fdsa: 'fda',
-		},
 	});
 
 	return server.start();

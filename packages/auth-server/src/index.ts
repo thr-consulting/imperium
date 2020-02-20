@@ -28,6 +28,10 @@ export default function(): ImperiumServerModule {
 				// What is the key the SharedConnector stored as in Connectors?
 				authSharedCacheConnectorKey: process.env.AUTH_SHAREDCACHE_CONNECTOR || 'sharedCache',
 				authRoleCacheExpires: parseInt(process.env.AUTH_ROLE_CACHE_EXPIRES || '3600', 10), // How long does the role caching last in seconds
+				authCors: {
+					origin: process.env.AUTH_CORS_ORIGIN || false,
+					credentials: true,
+				},
 				// Used by?
 				authPasswordSaltRounds: parseInt(process.env.AUTH_PASSWORD_SALT_ROUNDS || '11', 10),
 				// authEnableSignup: process.env.AUTH_ENABLE_SIGNUP === 'true',
