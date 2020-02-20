@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import debug from 'debug';
-import {Hoc, IImperiumClient} from '@imperium/client';
+import {Hoc} from '@imperium/client';
 import {AuthContext, IAuth} from './AuthContext';
 
 const d = debug('imperium.auth-client.withAuth');
 
-export function withAuth(client: IImperiumClient): Hoc {
+export function withAuth(/* client: IImperiumClient */): Hoc {
 	d('Creating Auth client');
 
 	return function authHoc(WrappedComponent: React.ComponentType) {

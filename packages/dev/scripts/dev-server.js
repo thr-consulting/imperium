@@ -22,7 +22,8 @@ if (cluster.isMaster) {
 	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 	console.log(`Master process PID: ${process.pid}`);
 	console.log('Number of workers:  1');
-	console.log(`Server port:        ${process.env.PORT || 4001}`); // This is for display purposes only. See @imperium/server defaultOptions for PORT definition.
+	// This is for display purposes only. See @imperium/server defaultOptions for PORT definition.
+	console.log(`Server port:        ${process.env.PORT || 4001}`);
 	console.log('');
 
 	// For dev, only fork a single worker

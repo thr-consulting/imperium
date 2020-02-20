@@ -13,9 +13,7 @@ export function endpoints(server: IImperiumServer) {
 	}, [] as ImperiumAuthServerModule[]);
 
 	if (authModules.length !== 1) {
-		throw new Error(
-			`Exactly 1 module must provide ImperiumAuthServerModule features. ${authModules.length} module(s) found.`,
-		);
+		throw new Error(`Exactly 1 module must provide ImperiumAuthServerModule features. ${authModules.length} module(s) found.`);
 	}
 
 	loginEndpoint(authModules[0], server);

@@ -9,7 +9,7 @@ const d = debug('imperium.auth-client.useLogin');
 
 export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 	const client = useClient();
-	const auth = useAuth()
+	const auth = useAuth();
 
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
