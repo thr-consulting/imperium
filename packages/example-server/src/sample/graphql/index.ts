@@ -6,6 +6,7 @@ import {IResolvers} from '@imperium/graphql-server';
 import MyCounter from '../models/MyCounter';
 import Sample from './Sample.graphqls';
 import {ContextManager} from '../../serverTypes';
+import {sign, decode} from 'jsonwebtoken';
 
 const d = debug('app.sample.graphql');
 
@@ -18,7 +19,8 @@ export function resolvers(server: IImperiumServer): SampleResolvers {
 
 	const res = {
 		Query: {
-			getCounter() {
+			getCounter(obj, value, ctx) {
+				d(ctx.auth);
 				return MyCounter.getCounter();
 			},
 			getLocalDate() {
@@ -30,6 +32,12 @@ export function resolvers(server: IImperiumServer): SampleResolvers {
 			getMoney() {
 				return new Money(0, Money.CAD);
 			},
+			getJwt(obj, val, ctx) {
+				return sign({name: 'test'}, ctx.server.environment.authAccessTokenSecret);
+			},
+			getCounterSecured(obj, value, ctx) {
+				return MyCounter.getCounterSecured(ctx);
+			}
 		},
 		Mutation: {
 			incCounter() {

@@ -128,7 +128,7 @@ export default function endpoints(server: IImperiumServer): void {
 				credentialsRequired: !!server.environment.graphqlCredentialsRequired,
 			}),
 			server.middleware.contextManagerMiddleware(),
-			server.middleware.userAuthMiddleware ? server.middleware.userAuthMiddleware() : undefined,
+			server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
 		]),
 	);
 

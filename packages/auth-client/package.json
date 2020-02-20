@@ -1,0 +1,63 @@
+{
+	"name": "@imperium/auth-client",
+	"version": "4.0.0",
+	"description": "Imperium Auth client package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"types": "./dist/index.d.ts",
+	"main": "client.js",
+	"files": [
+		"client.js",
+		"config.js",
+		"dist"
+	],
+	"scripts": {
+		"build": "yarn clean && yarn build:dev && yarn build:prod",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"clean": "rimraf ./dist",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"ts": "tsc",
+		"Xtest": "jest",
+		"Xtest:watch": "jest --watch",
+		"Xtest:coverage": "../../tools/coverage.sh",
+		"yalc:publish": "yalc publish --push",
+		"prepublish": "yarn build && yarn ts",
+		"typedoc": "typedoc"
+	},
+	"dependencies": {
+		"@imperium/util": "^4.0.0",
+		"@thx/sha256": "^11.0.0",
+		"debug": "^4.1.1",
+		"js-cookie": "^2.2.1",
+		"jsonwebtoken": "^8.5.1",
+		"lodash": "^4.17.15",
+		"whatwg-fetch": "^3.0.0"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
+		},
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-client",
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.js",
+			"<rootDir>/src/**/*.jsx",
+			"<rootDir>/src/**/*.ts",
+			"<rootDir>/src/**/*.tsx"
+		]
+	}
+}

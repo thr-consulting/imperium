@@ -1,4 +1,4 @@
-import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
+import {ImperiumServerModule} from '@imperium/server';
 import {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
 import {schema, resolvers} from './graphql';
@@ -6,9 +6,9 @@ import {MyCounterContext} from './models/MyCounter';
 
 const d = debug('app.sample');
 
-export function SampleContext(server: IImperiumServer) {
+export function SampleContext() {
 	return {
-		...MyCounterContext(server),
+		...MyCounterContext(),
 	};
 }
 
@@ -17,5 +17,6 @@ export default function sample(): ImperiumServerModule & ImperiumGraphqlServerMo
 		name: 'Sample',
 		schema,
 		resolvers,
+		context: SampleContext,
 	};
 }

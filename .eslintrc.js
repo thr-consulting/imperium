@@ -1,1 +1,3 @@
-module.exports = {extends: ['@imperium/eslint-config-imperium']};
+module.exports = {
+	extends: ['@imperium/eslint-config-imperium'],
+};
