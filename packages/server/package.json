@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"description": "Imperium core server",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
