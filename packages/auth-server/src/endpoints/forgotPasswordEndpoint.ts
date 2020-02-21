@@ -1,9 +1,9 @@
-import debug from 'debug';
 import {IImperiumServer} from '@imperium/server';
 import {toString} from '@imperium/util';
-import {Request, Response} from 'express';
 import {json} from 'body-parser';
-import {ImperiumAuthServerModule} from '../types';
+import debug from 'debug';
+import {Request, Response} from 'express';
+import {ImperiumAuthServerModule} from '../AuthModuleType';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
 

@@ -1,5 +1,5 @@
+import {AuthContext, ImperiumRequest} from '@imperium/server';
 import debug from 'debug';
-import {ImperiumRequest, AuthContext} from '@imperium/server';
 import {NextFunction, Response} from 'express';
 import {AccessToken} from '../types';
 

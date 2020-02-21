@@ -1,10 +1,11 @@
-import debug from 'debug';
 import {IImperiumServer, ImperiumRequest} from '@imperium/server';
 import {toString} from '@imperium/util';
-import {Response} from 'express';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
-import {ImperiumAuthServerModule, isLoginInfo, LoginReturn} from '../types';
+import debug from 'debug';
+import {Response} from 'express';
+import {ImperiumAuthServerModule} from '../AuthModuleType';
+import {isLoginInfo, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 

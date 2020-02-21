@@ -1,10 +1,11 @@
-import OrderedDataLoader from '@thx/ordereddataloader';
-import {model, Schema, Types, Document} from 'mongoose';
-import uniq from 'lodash/uniq';
-import intersection from 'lodash/intersection';
-import debug from 'debug';
 import {IImperiumServer} from '@imperium/server';
-import {AuthContextManager} from '../serverTypes';
+import OrderedDataLoader from '@thx/ordereddataloader';
+import debug from 'debug';
+import intersection from 'lodash/intersection';
+import uniq from 'lodash/uniq';
+import {Document, model, Schema, Types} from 'mongoose';
+import {AuthContextManager} from '../AuthModuleType';
+// eslint-disable-next-line import/no-cycle
 
 const d = debug('imperium.auth-server.Role');
 
@@ -23,7 +24,7 @@ const RoleModel = model<IRole>('Role', roleSchema);
 
 export class Role {
 	static createDataLoader(server: IImperiumServer) {
-		return new OrderedDataLoader<string, IRole>(keys => (RoleModel.find({_id: {$in: keys}}) as unknown) as Promise<IRole[]>, {idField: '_id'});
+		return new OrderedDataLoader<string, IRole>(keys => RoleModel.find({_id: {$in: keys}}), {idField: '_id'});
 	}
 
 	static getByName(name: string, ctx: AuthContextManager) {

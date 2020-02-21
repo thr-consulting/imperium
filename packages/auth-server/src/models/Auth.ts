@@ -1,10 +1,11 @@
-import debug from 'debug';
 import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
-import {decode, sign, SignOptions} from 'jsonwebtoken';
+import debug from 'debug';
 import {Request} from 'express';
-import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, LoginReturn, RefreshInfo, ServiceInfo} from '../types';
-import {AuthContextManager} from '../serverTypes';
+import {decode, sign, SignOptions} from 'jsonwebtoken';
+// eslint-disable-next-line import/no-cycle
+import {AuthContextManager, ImperiumAuthServerModule} from '../AuthModuleType';
+import {isRefreshToken, LoginInfo, LoginReturn, RefreshInfo, ServiceInfo} from '../types';
 
 const d = debug('imperium.auth-server.Auth');
 
@@ -62,7 +63,7 @@ export class Auth {
 		if (attempts > ctx.server.environment.authMaxFail) throw new Error('Too many login attempts');
 
 		// 2. Get service info from domain layer
-		const serviceInfo = authModule.auth?.getServiceInfo(loginInfo.identifier, ctx);
+		const serviceInfo = await authModule.auth?.getServiceInfo(loginInfo.identifier, ctx);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		} else {
@@ -93,7 +94,7 @@ export class Auth {
 		}
 
 		// Get service info from domain layer
-		const serviceInfo = authModule.auth?.getServiceInfo(token.id, ctx);
+		const serviceInfo = await authModule.auth?.getServiceInfo(token.id, ctx);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		}

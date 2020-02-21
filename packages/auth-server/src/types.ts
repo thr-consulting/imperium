@@ -1,5 +1,3 @@
-import {AuthContextManager} from './serverTypes';
-
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -64,10 +62,4 @@ export function isAccessToken(accessToken: object): accessToken is AccessToken {
 	return (
 		(accessToken as AccessToken).id !== undefined && (accessToken as AccessToken).iat !== undefined && (accessToken as AccessToken).exp !== undefined
 	);
-}
-
-export interface ImperiumAuthServerModule {
-	auth?: {
-		getServiceInfo: (identifier: string, ctx: AuthContextManager) => ServiceInfo;
-	};
 }

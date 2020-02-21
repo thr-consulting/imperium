@@ -1,8 +1,8 @@
 import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
-import {authMiddleware} from './middleware/authMiddleware';
-import {RoleContext} from './models/Role';
-import {AuthContext} from './models/Auth';
 import {endpoints} from './endpoints';
+import {authMiddleware} from './middleware/authMiddleware';
+import {AuthContext} from './models/Auth';
+import {RoleContext} from './models/Role';
 
 export function AuthModuleContext(server: IImperiumServer) {
 	return {
@@ -53,4 +53,4 @@ export default function(): ImperiumServerModule {
 	};
 }
 
-export {ImperiumAuthServerModule, ServiceInfo} from './types';
+export {AuthContextManager, ImperiumAuthServerModule} from './AuthModuleType';
