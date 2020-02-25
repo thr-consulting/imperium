@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {AuthContext, ImperiumRequest} from '@imperium/server';
 import debug from 'debug';
 import {NextFunction, Response} from 'express';

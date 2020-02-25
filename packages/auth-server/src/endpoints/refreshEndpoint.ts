@@ -1,10 +1,11 @@
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer, ImperiumRequest} from '@imperium/server';
 import {toString} from '@imperium/util';
 import {json} from 'body-parser';
 import debug from 'debug';
 import {Response} from 'express';
-import {ImperiumAuthServerModule} from '../AuthModuleType';
-import {isRefreshInfo} from '../types';
+import {isRefreshInfo, AuthContextManager, ImperiumAuthServerModule} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 
@@ -16,7 +17,7 @@ export function refreshEndpoint(authModule: ImperiumAuthServerModule, server: II
 		json(),
 		// @ts-ignore
 		server.middleware.contextManagerMiddleware(),
-		(req: ImperiumRequest, res: Response) => {
+		(req: ImperiumRequest<AuthContextManager>, res: Response) => {
 			if (isRefreshInfo(req.body)) {
 				const refreshInfo = req.body;
 

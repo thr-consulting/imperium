@@ -25,10 +25,10 @@ export type ImperiumEnvironment<T = boolean | string | number> = {
 	[key: string]: T | ImperiumEnvironment;
 };
 
-export interface ImperiumRequest extends Request {
-	contextManager: IContextManager;
+export interface ImperiumRequest<T = any> extends Request {
+	contextManager: T extends IContextManager ? T : IContextManager<T>;
 }
-export type ImperiumRequestHandler = (req: ImperiumRequest, res: Response, next: NextFunction) => void;
+export type ImperiumRequestHandler<T = any> = (req: ImperiumRequest<T>, res: Response, next: NextFunction) => void;
 
 export interface MiddlewareMap {
 	[key: string]: () => ImperiumRequestHandler;

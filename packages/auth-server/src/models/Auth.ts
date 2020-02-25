@@ -1,11 +1,11 @@
 import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import debug from 'debug';
 import {Request} from 'express';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
-// eslint-disable-next-line import/no-cycle
-import {AuthContextManager, ImperiumAuthServerModule} from '../AuthModuleType';
-import {isRefreshToken, LoginInfo, LoginReturn, RefreshInfo, ServiceInfo} from '../types';
+import {isRefreshToken, LoginInfo, LoginReturn, RefreshInfo, ServiceInfo, AuthContextManager, ImperiumAuthServerModule} from '../types';
 
 const d = debug('imperium.auth-server.Auth');
 

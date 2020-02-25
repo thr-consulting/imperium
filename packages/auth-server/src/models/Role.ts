@@ -1,11 +1,12 @@
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer} from '@imperium/server';
 import OrderedDataLoader from '@thx/ordereddataloader';
 import debug from 'debug';
 import intersection from 'lodash/intersection';
 import uniq from 'lodash/uniq';
 import {Document, model, Schema, Types} from 'mongoose';
-import {AuthContextManager} from '../AuthModuleType';
-// eslint-disable-next-line import/no-cycle
+import {AuthContextManager} from '../types';
 
 const d = debug('imperium.auth-server.Role');
 

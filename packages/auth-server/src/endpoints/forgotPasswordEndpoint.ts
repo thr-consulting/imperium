@@ -1,9 +1,11 @@
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer} from '@imperium/server';
 import {toString} from '@imperium/util';
 import {json} from 'body-parser';
 import debug from 'debug';
 import {Request, Response} from 'express';
-import {ImperiumAuthServerModule} from '../AuthModuleType';
+import {ImperiumAuthServerModule} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
 

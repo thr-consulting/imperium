@@ -1,5 +1,7 @@
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
-import {ImperiumAuthServerModule} from '../AuthModuleType';
+import {ImperiumAuthServerModule} from '../types';
 import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
 import {loginEndpoint} from './loginEndpoint';
 import {refreshEndpoint} from './refreshEndpoint';
