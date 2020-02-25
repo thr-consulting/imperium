@@ -22,7 +22,6 @@ const webpackConfig = require('../webpack/client.dev')(imperiumConfig);
 
 const compiler = webpack(webpackConfig);
 const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-// TODO will I need to change the localhost here?
-server.listen(parseInt(imperiumConfig.development.clientPort, 10), '127.0.0.1', () => {
+server.listen(parseInt(imperiumConfig.development.clientPort, 10), imperiumConfig.development.clientHost, () => {
 	d(`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`);
 });
