@@ -1,2 +1,1 @@
-export {AuthContextManager, ImperiumAuthServerModule} from './types';
-export {AuthServerModule} from './AuthServerModule';
+export {AuthServerModule, AuthModuleContext} from './AuthServerModule';
