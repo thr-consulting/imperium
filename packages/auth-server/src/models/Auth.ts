@@ -1,7 +1,7 @@
-import sha256 from '@thx/sha256';
-import {compare, hash} from 'bcrypt';
 /* eslint-disable import/no-cycle */
 // see: https://github.com/babel/babel/issues/10981
+import sha256 from '@thx/sha256';
+import {compare, hash} from 'bcrypt';
 import debug from 'debug';
 import {Request} from 'express';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
