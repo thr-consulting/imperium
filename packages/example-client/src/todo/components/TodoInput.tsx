@@ -14,11 +14,7 @@ export default function TodoInput({value: {id, title, completed}}: Props) {
 	const [editTodo, {data}] = useMutation<{editTodo: Todo[]}>(editTodoMutation);
 	return (
 		<label>
-			<input
-				type="checkbox"
-				checked={completed}
-				onChange={({target: {checked}}) => editTodo({variables: {id, title, completed: checked}})}
-			/>
+			<input type="checkbox" checked={completed} onChange={({target: {checked}}) => editTodo({variables: {id, title, completed: checked}})} />
 			{title}
 			<br />
 		</label>
