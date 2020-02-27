@@ -29,7 +29,7 @@ export function authMiddleware() {
 				},
 			};
 		}
-		req.contextManager.auth = getAuthContextMethods([]);
+		req.contextManager.auth = {permissions: [], ...getAuthContextMethods([])};
 
 		if (req.user) {
 			req.contextManager.Role.getCachedPermissions(req.user.roles || [], req.contextManager).then((permissions: string[]) => {
