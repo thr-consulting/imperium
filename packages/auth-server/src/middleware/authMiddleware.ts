@@ -13,18 +13,20 @@ export function authMiddleware() {
 			throw new Error('ContextManager middleware needs to be called before calling authMiddleware.');
 		}
 
-		function getAuthContextMethods(permissions: string[]) {
+		function getAuthContextMethods(permissions: string[]): AuthContext {
 			return {
-				hasPermission(perms: string | string[]): boolean {
+				id: null,
+				permissions: null,
+				hasPermission(perms) {
 					return req.contextManager.Role.permissionsMatch(permissions, perms);
 				},
-				getCache(key: string | string[]): Promise<boolean | null> {
+				getCache(key) {
 					return req.contextManager.Auth.getCache(key, req.contextManager);
 				},
-				async setCache(key: string | string[], allowed: boolean, expire?: number): Promise<void> {
-					await req.contextManager.Auth.setCache(key, allowed, req.contextManager, expire);
+				setCache(key, allowed, expire) {
+					return req.contextManager.Auth.setCache(key, !!allowed, req.contextManager, expire);
 				},
-				invalidateCache(key: string | string[]): Promise<void> {
+				invalidateCache(key) {
 					return req.contextManager.Auth.invalidateCache(key, req.contextManager);
 				},
 			};

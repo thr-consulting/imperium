@@ -2,11 +2,11 @@ import {Request, Response, NextFunction, Application} from 'express';
 import {Server} from 'http';
 
 export interface AuthContext {
-	id: string;
-	permissions: string[];
+	id: string | null;
+	permissions: string[] | null;
 	hasPermission: (perms: string | string[]) => boolean;
 	getCache: (key: string | string[]) => Promise<boolean | null>;
-	setCache: (key: string | string[], allowed?: boolean, expire?: number) => Promise<void>;
+	setCache: (key: string | string[], allowed?: boolean, expire?: number) => Promise<typeof allowed>;
 	invalidateCache: (key: string | string[]) => Promise<void>;
 }
 

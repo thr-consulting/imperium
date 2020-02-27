@@ -116,10 +116,12 @@ export class Auth {
 		return ctx.server.connectors[cacheConnectorKey].get(`auth:cache:${keyString}`);
 	}
 
-	static async setCache(key: string | string[], allowed = true, ctx: AuthContextManager, expire = 86400): Promise<void> {
+	static async setCache(key: string | string[], allowed = true, ctx: AuthContextManager, expire = 86400) {
 		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
 		const keyString = key instanceof Array ? key.join('_') : key;
 		await ctx.server.connectors[cacheConnectorKey].set(`auth:cache:${keyString}`, allowed, expire);
+		// can be used to immediately use the value after setting the cache
+		return allowed;
 	}
 
 	static async invalidateCache(key: string | string[], ctx: AuthContextManager): Promise<void> {
