@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/client",
+	"name": "@imperium/auth-graphql-client",
 	"version": "4.0.4",
-	"description": "Imperium client core",
+	"description": "Imperium Auth Graphql client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -14,39 +14,36 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "client.js",
 	"types": "./dist/index.d.ts",
+	"main": "client.js",
 	"files": [
-		"dist",
-		"client.js"
+		"client.js",
+		"dist"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"clean": "rimraf ./dist",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:coverage": "../../tools/coverage.sh",
+		"Xtest": "jest",
+		"Xtest:watch": "jest --watch",
+		"Xtest:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push",
-		"prepublish": "yarn build && yarn ts"
-	},
-	"devDependencies": {
-		"webpack-cli": "^3.3.9"
-	},
-	"peerDependencies": {
-		"react": "^16.x",
-		"react-dom": "^16.x"
+		"prepublish": "yarn build && yarn ts",
+		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@hot-loader/react-dom": "^16.11.0",
-		"@imperium/util": "^4.0.4",
+		"@imperium/util": "^4.0.0",
+		"@imperium/client": "^4.0.4",
+		"@imperium/graphql-client": "^4.0.4",
+		"@imperium/auth-client": "^4.0.4",
+		"apollo-link": "^1.2.13",
+		"apollo-link-token-refresh": "^0.2.7",
 		"debug": "^4.1.1",
-		"lodash": "^4.17.15",
-		"react-hot-loader": "^4.12.18"
+		"jwt-decode": "^2.2.0"
 	},
 	"jest": {
 		"transform": {
@@ -55,13 +52,12 @@
 		"testPathIgnorePatterns": [
 			"/node_modules/"
 		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/client",
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-graphql-client",
 		"collectCoverageFrom": [
 			"<rootDir>/src/**/*.js",
 			"<rootDir>/src/**/*.jsx",
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
 		]
-	},
-	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
+	}
 }

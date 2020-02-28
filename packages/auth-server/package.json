@@ -22,7 +22,7 @@
 		"AuthModuleType.d.ts"
 	],
 	"scripts": {
-		"build": "yarn clean && yarn build:dev && yarn build:prod",
+		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist",
@@ -43,6 +43,7 @@
 		"@thx/sha256": "^11.0.0",
 		"bcrypt": "^3.0.8",
 		"body-parser": "^1.19.0",
+		"cookie-parser": "^1.4.4",
 		"cors": "^2.8.5",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",

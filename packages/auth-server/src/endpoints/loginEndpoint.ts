@@ -13,12 +13,17 @@ const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 export function loginEndpoint(authModule: ImperiumAuthServerModule, server: IImperiumServer) {
 	d(`Adding auth login endpoint: ${server.environment.authLoginUrl}`);
 
+	const corsOpts: CorsOptions = {
+		origin: server.environment.authCorsOrigin,
+		credentials: true,
+	} as CorsOptions;
+
 	// CORS options
-	server.expressApp.options(toString(server.environment.authLoginUrl), cors(server.environment.authCors as CorsOptions));
+	server.expressApp.options(toString(server.environment.authLoginUrl), cors(corsOpts));
 
 	server.expressApp.post(
 		toString(server.environment.authLoginUrl),
-		cors(server.environment.authCors as CorsOptions),
+		cors(corsOpts),
 		json(),
 		// @ts-ignore
 		server.middleware.contextManagerMiddleware(),
@@ -32,12 +37,15 @@ export function loginEndpoint(authModule: ImperiumAuthServerModule, server: IImp
 						// Login was successful, return id and access token and set refresh token as the cookie.
 						res
 							.status(200)
-							.cookie('token', ret.refresh, {
+							// Send refresh token as a cookie to browser
+							.cookie(toString(server.environment.authRefreshCookieName), ret.refresh, {
 								httpOnly: true,
 								secure: server.environment.production as boolean, // Secure in production
 								expires: new Date(Date.now() + 10 * 60000), // TODO this needs to be the same as environment.authRefreshTokenExpires
+								domain: toString(server.environment.authServerDomain),
 								path: toString(server.environment.authRefreshUrl), // Only set cookie for refresh URL
 							})
+							// Send user id and initial access token
 							.json({
 								id: ret.id,
 								access: ret.access,

@@ -7,3 +7,10 @@
 
 [![GitHub license](https://img.shields.io/github/license/darkadept/imperium.svg)](https://github.com/darkadept/imperium/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/darkadept/imperium.svg)](https://github.com/darkadept/imperium/graphs/contributors/)
+
+## Environment Variables
+These can be specified in a `.env` file in the server package. These variables are secret and not shared with the client.
+
+|Variable|Default|Description|
+|---|---|---|
+|SERVER_PORT|4001|What port the server is accessible at.|

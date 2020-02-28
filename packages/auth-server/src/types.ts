@@ -26,14 +26,6 @@ export interface LoginReturn {
 	refresh: string;
 }
 
-export interface RefreshInfo {
-	refresh: string;
-}
-
-export function isRefreshInfo(refreshInfo: object): refreshInfo is RefreshInfo {
-	return (refreshInfo as RefreshInfo).refresh !== undefined;
-}
-
 export interface ServiceInfo {
 	id: string;
 	roles: string[];

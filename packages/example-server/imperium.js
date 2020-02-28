@@ -1,7 +1,8 @@
 module.exports = {
 	source: {
 		watchPaths: [
-			'../auth-server/dist'
+			'../auth-server/dist',
+			'../graphql-server/dist',
 		],
 	},
 };
