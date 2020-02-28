@@ -9,6 +9,12 @@ export default function Links() {
 				<Label as={Link} to="/">
 					Route to Home
 				</Label>
+				<Label as={Link} to="sample">
+					Sample Route
+				</Label>
+				<Label as={Link} to="/graphqltest">
+					GraphQL Test
+				</Label>
 				<Label as={Link} to="/login">
 					Login
 				</Label>

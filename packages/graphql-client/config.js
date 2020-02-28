@@ -3,9 +3,9 @@ const {inspectLoader} = require('@imperium/util');
 const {name} = require('./package.json');
 
 module.exports = function() {
-	const proto = process.env.PROTOCOL || 'http';
-	const host = process.env.HOST || 'localhost';
-	const port = parseInt(process.env.PORT || '4001', 10);
+	const proto = process.env.SERVER_PROTOCOL || 'http';
+	const host = process.env.SERVER_HOST || 'localhost';
+	const port = parseInt(process.env.SERVER_PORT || '4001', 10);
 	const url = process.env.GRAPHQL_URL || '/api/graphql';
 	const enableGraphqlWs = process.env.GRAPHQL_WS === 'true';
 

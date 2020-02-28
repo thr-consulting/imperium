@@ -5,7 +5,7 @@ import sha256 from '@thx/sha256';
 import {Form, Input} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
 import {useLogin} from '@imperium/auth-client';
-import Links from './Links';
+import Links from '../../core/Links';
 
 const d = debug('app.AuthSample.Login');
 

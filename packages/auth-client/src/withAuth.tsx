@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import debug from 'debug';
-import {Hoc} from '@imperium/client';
+import {Hoc, IImperiumClient} from '@imperium/client';
 import {AuthContext, IAuth} from './AuthContext';
 
 const d = debug('imperium.auth-client.withAuth');
 
-export function withAuth(/* client: IImperiumClient */): Hoc {
+export function withAuth(client: IImperiumClient): Hoc {
 	d('Creating Auth client');
 
 	return function authHoc(WrappedComponent: React.ComponentType) {
@@ -15,10 +15,18 @@ export function withAuth(/* client: IImperiumClient */): Hoc {
 			const [auth, setAuth] = useState<IAuth | null>(null);
 
 			useEffect(() => {
-				setAuth({
-					id: localStorage.getItem('id') || '',
-					access: localStorage.getItem('access') || '',
-				});
+				const id = localStorage.getItem(client.globalConst.authLSIdKey as string) || '';
+				const access = localStorage.getItem(client.globalConst.authLSAccessTokenKey as string) || '';
+
+				if (id.length > 0 && access.length > 0) {
+					setAuth({
+						id,
+						access,
+					});
+				} else {
+					localStorage.removeItem(client.globalConst.authLSIdKey as string);
+					localStorage.removeItem(client.globalConst.authLSAccessTokenKey as string);
+				}
 			}, []);
 
 			return (
