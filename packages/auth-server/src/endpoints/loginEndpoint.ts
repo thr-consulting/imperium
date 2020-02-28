@@ -1,9 +1,11 @@
-import debug from 'debug';
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer, ImperiumRequest} from '@imperium/server';
 import {toString} from '@imperium/util';
-import {Response} from 'express';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
+import debug from 'debug';
+import {Response} from 'express';
 import {ImperiumAuthServerModule, isLoginInfo, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');

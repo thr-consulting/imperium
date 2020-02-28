@@ -1,8 +1,10 @@
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
+import {ImperiumAuthServerModule} from '../types';
+import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
 import {loginEndpoint} from './loginEndpoint';
 import {refreshEndpoint} from './refreshEndpoint';
-import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
-import {ImperiumAuthServerModule} from '../types';
 
 export function endpoints(server: IImperiumServer) {
 	const authModules = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumAuthServerModule) => {

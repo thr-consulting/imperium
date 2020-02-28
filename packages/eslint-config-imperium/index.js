@@ -4,11 +4,13 @@ module.exports = {
 	extends: [
 		'airbnb-typescript',
 		'plugin:react/recommended',
+		// Uses the recommended rules from the @typescript-eslint/eslint-plugin
 		'plugin:@typescript-eslint/recommended',
+		// Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
 		'plugin:prettier/recommended',
 	],
 	parserOptions: {
-		ecmaVersion: 2019,
+		ecmaVersion: 2020,
 		sourceType: 'module',
 		ecmaFeatures: {
 			jsx: true,
@@ -44,16 +46,10 @@ module.exports = {
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
-		'@typescript-eslint/no-unused-vars': [
-			'error',
-			{varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'},
-		],
+		'@typescript-eslint/no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'}],
 		'@typescript-eslint/no-unused-expressions': ['off'], // This was disabled because some upgrade to airbnb rules.
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
-		'@typescript-eslint/explicit-function-return-type': [
-			'off',
-			{allowExpressions: true, allowTypedFunctionExpressions: true},
-		],
+		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/ban-ts-ignore': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],

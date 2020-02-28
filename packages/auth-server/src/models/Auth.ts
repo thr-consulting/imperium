@@ -1,10 +1,11 @@
-import debug from 'debug';
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
-import {decode, sign, SignOptions} from 'jsonwebtoken';
+import debug from 'debug';
 import {Request} from 'express';
-import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, LoginReturn, ServiceInfo} from '../types';
-import {AuthContextManager} from '../serverTypes';
+import {decode, sign, SignOptions} from 'jsonwebtoken';
+import {LoginInfo, LoginReturn, ServiceInfo, AuthContextManager, ImperiumAuthServerModule, isRefreshToken} from '../types';
 
 const d = debug('imperium.auth-server.Auth');
 
@@ -62,7 +63,7 @@ export class Auth {
 		if (attempts > ctx.server.environment.authMaxFail) throw new Error('Too many login attempts');
 
 		// 2. Get service info from domain layer
-		const serviceInfo = authModule.auth?.getServiceInfo(loginInfo.identifier, ctx);
+		const serviceInfo = await authModule.auth?.getServiceInfo(loginInfo.identifier, ctx);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		} else {
@@ -93,7 +94,7 @@ export class Auth {
 		}
 
 		// Get service info from domain layer
-		const serviceInfo = authModule.auth?.getServiceInfo(token.id, ctx);
+		const serviceInfo = await authModule.auth?.getServiceInfo(token.id, ctx);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		}
@@ -116,10 +117,12 @@ export class Auth {
 		return ctx.server.connectors[cacheConnectorKey].get(`auth:cache:${keyString}`);
 	}
 
-	static async setCache(key: string | string[], allowed = true, ctx: AuthContextManager, expire = 86400): Promise<void> {
+	static async setCache(key: string | string[], allowed = true, ctx: AuthContextManager, expire = 86400) {
 		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
 		const keyString = key instanceof Array ? key.join('_') : key;
 		await ctx.server.connectors[cacheConnectorKey].set(`auth:cache:${keyString}`, allowed, expire);
+		// can be used to immediately use the value after setting the cache
+		return allowed;
 	}
 
 	static async invalidateCache(key: string | string[], ctx: AuthContextManager): Promise<void> {

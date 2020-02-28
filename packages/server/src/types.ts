@@ -2,11 +2,11 @@ import {Request, Response, NextFunction, Application} from 'express';
 import {Server} from 'http';
 
 export interface AuthContext {
-	id: string;
-	permissions: string[];
+	id: string | null;
+	permissions: string[] | null;
 	hasPermission: (perms: string | string[]) => boolean;
 	getCache: (key: string | string[]) => Promise<boolean | null>;
-	setCache: (key: string | string[], allowed?: boolean, expire?: number) => Promise<void>;
+	setCache: (key: string | string[], allowed?: boolean, expire?: number) => Promise<typeof allowed>;
 	invalidateCache: (key: string | string[]) => Promise<void>;
 }
 
@@ -25,10 +25,10 @@ export type ImperiumEnvironment<T = boolean | string | number> = {
 	[key: string]: T | ImperiumEnvironment;
 };
 
-export interface ImperiumRequest extends Request {
-	contextManager: IContextManager;
+export interface ImperiumRequest<T = any> extends Request {
+	contextManager: T extends IContextManager ? T : IContextManager<T>;
 }
-export type ImperiumRequestHandler = (req: ImperiumRequest, res: Response, next: NextFunction) => void;
+export type ImperiumRequestHandler<T = any> = (req: ImperiumRequest<T>, res: Response, next: NextFunction) => void;
 
 export interface MiddlewareMap {
 	[key: string]: () => ImperiumRequestHandler;

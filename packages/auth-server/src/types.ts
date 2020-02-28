@@ -1,4 +1,7 @@
-import {AuthContextManager} from './serverTypes';
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
+import {IContextManager} from '@imperium/server';
+import {AuthModuleContext} from './AuthServerModule';
 
 export interface LoginInfo {
 	identifier: string;
@@ -58,8 +61,10 @@ export function isAccessToken(accessToken: object): accessToken is AccessToken {
 	);
 }
 
-export interface ImperiumAuthServerModule {
+export type AuthContextManager = IContextManager<ReturnType<typeof AuthModuleContext>>;
+
+export interface ImperiumAuthServerModule<ContextManager extends AuthContextManager = AuthContextManager> {
 	auth?: {
-		getServiceInfo: (identifier: string, ctx: AuthContextManager) => ServiceInfo;
+		getServiceInfo: (identifier: string, ctx: ContextManager) => Promise<ServiceInfo | null>;
 	};
 }

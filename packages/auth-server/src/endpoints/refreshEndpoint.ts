@@ -1,10 +1,12 @@
-import debug from 'debug';
+/* eslint-disable import/no-cycle */
+// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer, ImperiumRequest} from '@imperium/server';
 import {toString} from '@imperium/util';
+import debug from 'debug';
 import {Response} from 'express';
 import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
-import {ImperiumAuthServerModule} from '../types';
+import {ImperiumAuthServerModule, AuthContextManager} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 
@@ -25,7 +27,7 @@ export function refreshEndpoint(authModule: ImperiumAuthServerModule, server: II
 		cookieParser(),
 		// @ts-ignore
 		server.middleware.contextManagerMiddleware(),
-		(req: ImperiumRequest, res: Response) => {
+		(req: ImperiumRequest<AuthContextManager>, res: Response) => {
 			if (req.cookies && req.cookies[toString(server.environment.authRefreshCookieName)]) {
 				const refreshTokenString = req.cookies[toString(server.environment.authRefreshCookieName)];
 

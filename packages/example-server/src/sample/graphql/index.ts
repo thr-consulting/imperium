@@ -3,10 +3,10 @@ import {LocalDate, LocalTime} from '@js-joda/core';
 import Money from 'js-money';
 import {IImperiumServer} from '@imperium/server';
 import {IResolvers} from '@imperium/graphql-server';
+import {sign, decode} from 'jsonwebtoken';
 import MyCounter from '../models/MyCounter';
 import Sample from './Sample.graphqls';
 import {ContextManager} from '../../serverTypes';
-import {sign, decode} from 'jsonwebtoken';
 
 const d = debug('app.sample.graphql');
 
@@ -17,7 +17,7 @@ type SampleResolvers = IResolvers<any, ContextManager>;
 export function resolvers(server: IImperiumServer): SampleResolvers {
 	const {pubsub} = server.connectors;
 
-	const res = {
+	const res: SampleResolvers = {
 		Query: {
 			getCounter(obj, value, ctx) {
 				d(ctx.auth);
@@ -37,7 +37,7 @@ export function resolvers(server: IImperiumServer): SampleResolvers {
 			},
 			getCounterSecured(obj, value, ctx) {
 				return MyCounter.getCounterSecured(ctx);
-			}
+			},
 		},
 		Mutation: {
 			incCounter() {
