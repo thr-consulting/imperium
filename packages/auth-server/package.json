@@ -18,8 +18,7 @@
 	"main": "server.js",
 	"files": [
 		"server.js",
-		"dist",
-		"AuthModuleType.d.ts"
+		"dist"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",

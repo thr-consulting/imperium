@@ -17,7 +17,7 @@ type SampleResolvers = IResolvers<any, ContextManager>;
 export function resolvers(server: IImperiumServer): SampleResolvers {
 	const {pubsub} = server.connectors;
 
-	const res = {
+	const res: SampleResolvers = {
 		Query: {
 			getCounter(obj, value, ctx) {
 				d(ctx.auth);
@@ -37,7 +37,7 @@ export function resolvers(server: IImperiumServer): SampleResolvers {
 			},
 			getCounterSecured(obj, value, ctx) {
 				return MyCounter.getCounterSecured(ctx);
-			}
+			},
 		},
 		Mutation: {
 			incCounter() {

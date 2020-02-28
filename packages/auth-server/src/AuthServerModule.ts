@@ -51,5 +51,3 @@ export function AuthServerModule(): ImperiumServerModule {
 		},
 	};
 }
-
-// export {ImperiumAuthServerModule, ServiceInfo} from './types';

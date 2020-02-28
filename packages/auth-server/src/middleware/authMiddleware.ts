@@ -45,5 +45,6 @@ export function authMiddleware() {
 				next();
 			});
 		}
+		next();
 	};
 }
