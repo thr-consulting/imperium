@@ -1,7 +1,7 @@
 import React from 'react';
 import {useAuth, useLogout} from '@imperium/auth-client';
 import {Button} from 'semantic-ui-react';
-import Links from './Links';
+import Links from '../../core/Links';
 
 export default function ComponentUsingAuth() {
 	const {auth} = useAuth();
