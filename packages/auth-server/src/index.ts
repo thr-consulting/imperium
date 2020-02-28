@@ -1,1 +1,1 @@
-export {AuthServerModule, AuthModuleContext} from './AuthServerModule';
+export {AuthServerModule as default, AuthModuleContext} from './AuthServerModule';

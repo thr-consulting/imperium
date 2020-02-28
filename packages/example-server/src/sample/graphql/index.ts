@@ -3,10 +3,10 @@ import {LocalDate, LocalTime} from '@js-joda/core';
 import Money from 'js-money';
 import {IImperiumServer} from '@imperium/server';
 import {IResolvers} from '@imperium/graphql-server';
+import {sign, decode} from 'jsonwebtoken';
 import MyCounter from '../models/MyCounter';
 import Sample from './Sample.graphqls';
 import {ContextManager} from '../../serverTypes';
-import {sign, decode} from 'jsonwebtoken';
 
 const d = debug('app.sample.graphql');
 
