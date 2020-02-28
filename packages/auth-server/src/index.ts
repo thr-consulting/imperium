@@ -16,6 +16,7 @@ export default function(): ImperiumServerModule {
 		name: '@imperium/auth-server',
 		environment() {
 			return {
+				authServerDomain: process.env.AUTH_SERVER_DOMAIN || 'localhost', // Which domain is the auth server running on. Used for cookies.
 				authLoginUrl: process.env.AUTH_LOGIN_URL || '/api/login', // URL for REST login
 				authRefreshUrl: process.env.AUTH_REFRESH_URL || '/api/refresh', // URL for REST refresh access token
 				authForgotPasswordUrl: process.env.AUTH_FORGOTPASSWORD_URL || '/api/forgot-password', // URL to request password reset
@@ -28,13 +29,9 @@ export default function(): ImperiumServerModule {
 				// What is the key the SharedConnector stored as in Connectors?
 				authSharedCacheConnectorKey: process.env.AUTH_SHAREDCACHE_CONNECTOR || 'sharedCache',
 				authRoleCacheExpires: parseInt(process.env.AUTH_ROLE_CACHE_EXPIRES || '3600', 10), // How long does the role caching last in seconds
-				authCors: {
-					origin: process.env.AUTH_CORS_ORIGIN || false,
-					credentials: true,
-				},
-				// Used by?
+				authCorsOrigin: process.env.CORS_ORIGIN || false,
+				authRefreshCookieName: process.env.AUTH_REFRESH_COOKIE_NAME || 'refresh',
 				authPasswordSaltRounds: parseInt(process.env.AUTH_PASSWORD_SALT_ROUNDS || '11', 10),
-				// authEnableSignup: process.env.AUTH_ENABLE_SIGNUP === 'true',
 			};
 		},
 		middleware() {

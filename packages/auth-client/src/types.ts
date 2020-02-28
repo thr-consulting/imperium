@@ -14,3 +14,10 @@ export interface LoginReturn {
 	id: string;
 	access: string;
 }
+
+export interface AccessToken {
+	id: string;
+	roles?: string[];
+	iat: number;
+	exp: number;
+}
