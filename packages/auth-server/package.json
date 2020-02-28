@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-server",
-	"version": "4.0.4",
+	"version": "4.0.5",
 	"description": "Imperium Auth server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -36,8 +36,8 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@imperium/server": "^4.0.4",
-		"@imperium/util": "^4.0.4",
+		"@imperium/server": "^4.0.5",
+		"@imperium/util": "^4.0.5",
 		"@thx/ordereddataloader": "^11.0.0",
 		"@thx/sha256": "^11.0.0",
 		"bcrypt": "^3.0.8",

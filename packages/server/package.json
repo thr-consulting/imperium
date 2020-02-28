@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "4.0.4",
+	"version": "4.0.5",
 	"description": "Imperium core server",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -38,7 +38,7 @@
 		"webpack-cli": "^3.3.9"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.4",
+		"@imperium/util": "^4.0.5",
 		"chalk": "^3.0.0",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
