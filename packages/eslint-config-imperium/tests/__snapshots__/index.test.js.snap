@@ -118,6 +118,9 @@ Object {
       "off",
     ],
     "react/forbid-prop-types": "error",
+    "react/jsx-curly-newline": Array [
+      "off",
+    ],
     "react/jsx-filename-extension": Array [
       "error",
       Object {
@@ -134,6 +137,9 @@ Object {
     ],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": Array [
+      "off",
+    ],
+    "react/jsx-wrap-multilines": Array [
       "off",
     ],
     "react/no-children-prop": "off",

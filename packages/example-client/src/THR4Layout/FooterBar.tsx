@@ -8,10 +8,7 @@ const d = debug('app.THR4Layout.FooterBar');
 
 export default function FooterBar() {
 	const [state] = useContext(MenuContext);
-	const profile = get(state, 'currentUser.profile.firstName', '').concat(
-		' ',
-		get(state, 'currentUser.profile.lastName', ''),
-	);
+	const profile = get(state, 'currentUser.profile.firstName', '').concat(' ', get(state, 'currentUser.profile.lastName', ''));
 
 	return (
 		<Menu inverted borderless style={{borderRadius: 0, margin: 0, backgroundColor: 'rgb(45, 45, 45)'}}>
