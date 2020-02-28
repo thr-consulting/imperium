@@ -25,9 +25,7 @@ export default function SideMenu(props: Props): JSX.Element {
 	const [menuState, setMenuState] = useContext(MenuContext);
 	const menuItems: MenuItem[] = [
 		{
-			component: () => (
-				<Input name="search" icon={<Icon name="search" inverted circular link />} placeholder="Search..." />
-			),
+			component: () => <Input name="search" icon={<Icon name="search" inverted circular link />} placeholder="Search..." />,
 			priority: 10,
 			isVisible: (contextType: string) => {
 				return contextType === '/';

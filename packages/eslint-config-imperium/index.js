@@ -66,8 +66,10 @@ module.exports = {
 		'react/no-typos': 'off',
 		'react/no-children-prop': 'off',
 		'react/destructuring-assignment': ['off', 'always'],
+		'react/jsx-curly-newline': ['off'],
 		'react/jsx-one-expression-per-line': 'off',
 		'react/jsx-props-no-spreading': ['off'],
+		'react/jsx-wrap-multilines': ['off'],
 		'react/display-name': ['off'],
 
 		// ES6 Import

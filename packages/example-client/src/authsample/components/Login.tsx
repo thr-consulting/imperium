@@ -57,7 +57,7 @@ export default function Login() {
 					);
 				}}
 			</TForm>
-			<Links/>
+			<Links />
 		</>
 	);
 }
