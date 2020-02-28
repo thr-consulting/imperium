@@ -23,7 +23,7 @@ if (cluster.isMaster) {
 	console.log(`Master process PID: ${process.pid}`);
 	console.log('Number of workers:  1');
 	// This is for display purposes only. See @imperium/server defaultOptions for PORT definition.
-	console.log(`Server port:        ${process.env.PORT || 4001}`);
+	console.log(`Server port:        ${process.env.SERVER_PORT || 4001}`);
 	console.log('');
 
 	// For dev, only fork a single worker
@@ -57,7 +57,7 @@ if (cluster.isMaster) {
 		() => {
 			clusterWorker.kill();
 		},
-		process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200,
+		imperiumConfig.development.chokidarTimeout,
 		{leading: true, trailing: false},
 	);
 

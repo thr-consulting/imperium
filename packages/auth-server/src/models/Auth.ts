@@ -3,7 +3,7 @@ import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
 import {Request} from 'express';
-import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, LoginReturn, RefreshInfo, ServiceInfo} from '../types';
+import {ImperiumAuthServerModule, isRefreshToken, LoginInfo, LoginReturn, ServiceInfo} from '../types';
 import {AuthContextManager} from '../serverTypes';
 
 const d = debug('imperium.auth-server.Auth');
@@ -81,9 +81,9 @@ export class Auth {
 		}
 	}
 
-	static async refresh(refreshInfo: RefreshInfo, authModule: ImperiumAuthServerModule, req: Request, ctx: AuthContextManager) {
+	static async refresh(refreshTokenString: string, authModule: ImperiumAuthServerModule, req: Request, ctx: AuthContextManager) {
 		// Todo this should probably read cookies because you can brute force this
-		const token = decode(refreshInfo.refresh);
+		const token = decode(refreshTokenString);
 
 		// Check if token is invalid or expired
 		if (!token || typeof token === 'string' || !isRefreshToken(token)) {
@@ -105,6 +105,7 @@ export class Auth {
 		}
 
 		return {
+			// Changing this fieldname requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
 			access: Auth.createAccessToken(serviceInfo, ctx),
 		};
 	}
