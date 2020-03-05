@@ -12,6 +12,7 @@ export function authMiddleware() {
 		if (!req.contextManager) {
 			throw new Error('ContextManager middleware needs to be called before calling authMiddleware.');
 		}
+		d(req.user);
 
 		function getAuthContextMethods(permissions: string[]): AuthContext {
 			return {
@@ -38,13 +39,15 @@ export function authMiddleware() {
 				// req.user is our decoded access token IF jwt() middleware was called first.
 				// If jwt() middleware was not called it will look like we are unauthenticated
 				req.contextManager.auth = {
+					...getAuthContextMethods(permissions),
 					id: req.user?.id,
 					permissions,
-					...getAuthContextMethods(permissions),
 				} as AuthContext;
 				next();
 			});
 		}
+
+		d(req.contextManager.auth);
 		next();
 	};
 }
