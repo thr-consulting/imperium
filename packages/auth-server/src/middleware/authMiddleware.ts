@@ -12,7 +12,6 @@ export function authMiddleware() {
 		if (!req.contextManager) {
 			throw new Error('ContextManager middleware needs to be called before calling authMiddleware.');
 		}
-		d(req.user);
 
 		function getAuthContextMethods(permissions: string[]): AuthContext {
 			return {
@@ -32,7 +31,6 @@ export function authMiddleware() {
 				},
 			};
 		}
-		req.contextManager.auth = {permissions: [], ...getAuthContextMethods([])};
 
 		if (req.user) {
 			req.contextManager.Role.getCachedPermissions(req.user.roles || [], req.contextManager).then((permissions: string[]) => {
@@ -45,9 +43,9 @@ export function authMiddleware() {
 				} as AuthContext;
 				next();
 			});
+		} else {
+			req.contextManager.auth = {permissions: [], ...getAuthContextMethods([])};
+			next();
 		}
-
-		d(req.contextManager.auth);
-		next();
 	};
 }
