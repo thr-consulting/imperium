@@ -31,20 +31,21 @@ export function authMiddleware() {
 				},
 			};
 		}
-		req.contextManager.auth = {permissions: [], ...getAuthContextMethods([])};
 
 		if (req.user) {
 			req.contextManager.Role.getCachedPermissions(req.user.roles || [], req.contextManager).then((permissions: string[]) => {
 				// req.user is our decoded access token IF jwt() middleware was called first.
 				// If jwt() middleware was not called it will look like we are unauthenticated
 				req.contextManager.auth = {
+					...getAuthContextMethods(permissions),
 					id: req.user?.id,
 					permissions,
-					...getAuthContextMethods(permissions),
 				} as AuthContext;
 				next();
 			});
+		} else {
+			req.contextManager.auth = {permissions: [], ...getAuthContextMethods([])};
+			next();
 		}
-		next();
 	};
 }
