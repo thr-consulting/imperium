@@ -3,6 +3,7 @@ import React from 'react';
 import TestQuery from './TestQuery';
 import TestSubscription from './TestSubscription';
 import TestMutation from './TestMutation';
+import TestCustomTypes from './TestCustomTypes';
 import Links from '../../core/Links';
 
 const d = debug('app.sample.GraphqlTest');
@@ -14,7 +15,8 @@ export default function GraphqlTest() {
 			<TestQuery />
 			<TestMutation />
 			<TestSubscription />
-			<Links/>
+			<TestCustomTypes />
+			<Links />
 		</>
 	);
 }
