@@ -9,7 +9,7 @@ extend type Query {
 
 extend type Mutation {
 	incCounter: Int
-	setLocalDate(date: LocalDate): Boolean
+	setLocalDate(date: LocalDate!): Boolean
 	setLocalTime(time: LocalTime): Boolean
 	setMoney(amount: Money): Boolean
 }

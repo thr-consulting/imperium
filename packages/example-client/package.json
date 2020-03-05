@@ -28,6 +28,7 @@
 		"@imperium/client": "^4.0.5",
 		"@imperium/graphql-client": "^4.0.5",
 		"@imperium/router": "^4.0.5",
+		"@js-joda/core": "^2.0.0",
 		"@loadable/component": "^5.10.3",
 		"@thx/controls": "^12.0.0",
 		"apollo-client": "^2.6.4",
