@@ -43,11 +43,9 @@
 		"react-dom": "^16.x"
 	},
 	"dependencies": {
-		"@hot-loader/react-dom": "^16.11.0",
 		"@imperium/util": "^4.0.6",
 		"debug": "^4.1.1",
-		"lodash": "^4.17.15",
-		"react-hot-loader": "^4.12.18"
+		"lodash": "^4.17.15"
 	},
 	"jest": {
 		"transform": {
