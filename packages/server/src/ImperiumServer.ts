@@ -32,8 +32,8 @@ export interface ImperiumServerConfig {
 export default class ImperiumServer implements IImperiumServer {
 	private _connectors: ImperiumConnectors;
 	private _connectorsMap: ImperiumConnectorsMap;
-	readonly _serverModules: ImperiumServerModule[];
-	readonly _environment: ImperiumEnvironment;
+	private readonly _serverModules: ImperiumServerModule[];
+	private readonly _environment: ImperiumEnvironment;
 	private _expressApp: Application | null;
 	private _httpServer: Server | null;
 	private _middleware: MiddlewareMap;

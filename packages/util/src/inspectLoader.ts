@@ -10,7 +10,7 @@ export function log(name: string, resource: string) {
 	d(`[${name}] ${resource}`);
 }
 
-export interface Inspection {
+interface Inspection {
 	options: {
 		loaderName: string;
 	};

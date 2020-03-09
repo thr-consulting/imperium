@@ -1,9 +1,0 @@
-{
-	"mode": "file",
-	"out": "../../docs/assets/api/util",
-	"exclude": ["*.test.js", "*.test.ts", "*.test.tsx", "*.test.jsx"],
-	"excludeExternals": true,
-	"hideGenerator": true,
-	"readme": "README.md",
-	"theme": "../../node_modules/typedoc-dark-theme/bin/default"
-}
