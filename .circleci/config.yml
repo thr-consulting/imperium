@@ -25,10 +25,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-      - run: yarn lint
-      - run: yarn ts
-      - run: yarn test
       - run: yarn build
+      - run: yarn ts
+      - run: yarn lint
+      - run: yarn test
 
 workflows:
   version: 2

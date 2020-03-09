@@ -171,7 +171,7 @@ module.exports = function(api, opts, env) {
 			// Inline import graphqls files
 			!isClient &&
 				enableGraphqls && [
-					require('babel-plugin-inline-import').default(),
+					require('babel-plugin-inline-import').default,
 					{
 						extensions: ['.graphqls'],
 					},
