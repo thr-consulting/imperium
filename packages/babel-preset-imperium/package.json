@@ -47,7 +47,8 @@
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^2.5.0",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",
-		"babel-plugin-transform-react-remove-prop-types": "^0.4.24"
+		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+		"react-refresh": "^0.8.0"
 	},
 	"jest": {
 		"transform": {
