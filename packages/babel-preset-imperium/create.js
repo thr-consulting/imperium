@@ -88,8 +88,9 @@ module.exports = function(api, opts, env) {
 			enableTypescript && [require('@babel/preset-typescript').default],
 		].filter(Boolean),
 		plugins: [
+			// Constraint: IS development client
 			// React Refresh
-			require.resolve('react-refresh/babel'),
+			isEnvDevelopment && isClient && require.resolve('react-refresh/babel'),
 
 			// Experimental macros support. Will be documented after it's had some time
 			// in the wild.
