@@ -33,13 +33,9 @@ export default function Users(props: RouteComponentProps<{id: number}>) {
 								<tr key={t.id}>
 									<td style={{border: '1px solid black', padding: '.5rem'}}>{t.action}</td>
 									<td style={{border: '1px solid black', padding: '.5rem'}}>
-										<pre style={{display: 'inline'}}>
-											{JSON.stringify({id: t.originalID, title: t.title, completed: t.completed})}
-										</pre>
+										<pre style={{display: 'inline'}}>{JSON.stringify({id: t.originalID, title: t.title, completed: t.completed})}</pre>
 									</td>
-									<td style={{border: '1px solid black', padding: '.5rem'}}>
-										{Moment(new Date(t.makeActionAt)).fromNow()}
-									</td>
+									<td style={{border: '1px solid black', padding: '.5rem'}}>{Moment(new Date(t.makeActionAt)).fromNow()}</td>
 								</tr>
 							))}
 						</tbody>

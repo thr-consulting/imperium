@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/prettier-config-imperium",
-	"version": "4.0.0",
+	"version": "4.0.4",
 	"description": "Prettier config",
 	"repository": "darkadept/imperium",
 	"license": "MIT",

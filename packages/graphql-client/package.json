@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-client",
-	"version": "4.0.0",
+	"version": "4.0.6",
 	"description": "Imperium Graphql client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -22,7 +22,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "yarn clean && yarn build:dev && yarn build:prod",
+		"build": "yarn build:dev && yarn build:prod",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"clean": "rimraf ./dist",
@@ -42,7 +42,7 @@
 		"apollo-utilities": "1.x"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.0",
+		"@imperium/util": "^4.0.6",
 		"apollo-cache-inmemory": "^1.6.3",
 		"apollo-link": "^1.2.13",
 		"apollo-link-error": "^1.1.12",

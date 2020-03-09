@@ -9,14 +9,12 @@ export default function(): ImperiumServerModule {
 				graphqlAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
 				graphqlUrl: process.env.GRAPHQL_URL || '/api/graphql',
 				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED === 'true',
-				graphqlCors: {
-					origin: process.env.GRAPHQL_CORS_ORIGIN || false,
-				},
-				graphqlWs: process.env.GRAPHQL_WS === 'true',
+				graphqlCorsOrigin: process.env.CORS_ORIGIN || false,
+				graphqlWs: process.env.GRAPHQL_ENABLE_SUBSCRIPTIONS === 'true',
 			};
 		},
 		endpoints,
 	};
 }
 
-export {ImperiumGraphqlServerModule, ImperiumResolvers} from './types';
+export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers} from './types';

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/router",
-	"version": "4.0.0",
+	"version": "4.0.6",
 	"description": "Imperium Router package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -21,7 +21,7 @@
 		"client.js"
 	],
 	"scripts": {
-		"build": "yarn clean && yarn build:dev && yarn build:prod",
+		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist",
@@ -42,8 +42,8 @@
 		"webpack-cli": "^3.3.7"
 	},
 	"dependencies": {
-		"@imperium/client": "^4.0.0",
-		"@imperium/util": "^4.0.0",
+		"@imperium/client": "^4.0.6",
+		"@imperium/util": "^4.0.6",
 		"debug": "^4.1.1"
 	},
 	"jest": {
@@ -60,5 +60,6 @@
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
 		]
-	}
+	},
+	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
 }

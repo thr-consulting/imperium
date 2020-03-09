@@ -134,18 +134,22 @@ export default function endpoints(server: IImperiumServer): void {
 		// @ts-ignore
 		compact([
 			jwt({
-				secret: toString(server.environment.graphqlAccessTokenSecret),
+				secret: toString(server.environment.graphqlAccessTokenSecret), // This is the same as ACCESS_TOKEN_SECRET from @imperium/auth-server package.
 				credentialsRequired: !!server.environment.graphqlCredentialsRequired,
 			}),
 			server.middleware.contextManagerMiddleware(),
-			server.middleware.userAuthMiddleware ? server.middleware.userAuthMiddleware() : undefined,
+			server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
 		]),
 	);
+
+	const corsOpts: CorsOptions = {
+		origin: server.environment.graphqlCorsOrigin as string,
+	};
 
 	apolloServer.applyMiddleware({
 		app: server.expressApp,
 		path: toString(server.environment.graphqlUrl),
-		cors: server.environment.graphqlCors as CorsOptions,
+		cors: corsOpts,
 	});
 
 	if (server.environment.graphqlWs) {

@@ -4,7 +4,7 @@ import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
-import ContextManager from './ContextManager';
+import {ContextManager} from './ContextManager';
 import defaultEnvironment from './defaultEnvironment';
 import {
 	ImperiumConnectors,
@@ -14,7 +14,6 @@ import {
 	MiddlewareMap,
 	ImperiumServerModuleFunction,
 	ImperiumEnvironment,
-	ImperiumEnvironmentVar,
 	IImperiumServer,
 } from './types';
 
@@ -180,7 +179,7 @@ export default class ImperiumServer implements IImperiumServer {
 		return this._environment;
 	}
 
-	addEnvironment(key: string, value: ImperiumEnvironmentVar) {
+	addEnvironment(key: string, value: ImperiumEnvironment) {
 		this._environment[key] = value;
 	}
 

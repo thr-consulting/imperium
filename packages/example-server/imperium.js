@@ -1,10 +1,8 @@
 module.exports = {
-	development: {
-		imperiumDevelopmentAliases: false,
-	},
-	production: {
-		server: {
-			devtool: 'source-map',
-		},
+	source: {
+		watchPaths: [
+			'../auth-server/dist',
+			'../graphql-server/dist',
+		],
 	},
 };

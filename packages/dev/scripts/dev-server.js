@@ -22,7 +22,8 @@ if (cluster.isMaster) {
 	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 	console.log(`Master process PID: ${process.pid}`);
 	console.log('Number of workers:  1');
-	console.log(`Server port:        ${process.env.PORT || 4001}`); // This is for display purposes only. See @imperium/server defaultOptions for PORT definition.
+	// This is for display purposes only. See @imperium/server defaultOptions for PORT definition.
+	console.log(`Server port:        ${process.env.SERVER_PORT || 4001}`);
 	console.log('');
 
 	// For dev, only fork a single worker
@@ -44,9 +45,7 @@ if (cluster.isMaster) {
 		if (workerCrashCounter < imperiumConfig.development.workerCrashMax) {
 			clusterWorker = cluster.fork();
 			workerForkTime = process.hrtime(); // Record new worker time
-			d(
-				`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`,
-			);
+			d(`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`);
 		} else {
 			console.error('Worker thread keeps crashing, exiting main app.');
 			process.exit(1);
@@ -58,7 +57,7 @@ if (cluster.isMaster) {
 		() => {
 			clusterWorker.kill();
 		},
-		process.env.IMPERIUM_DEV_CHOKIDAR_TIMEOUT || 200,
+		imperiumConfig.development.chokidarTimeout,
 		{leading: true, trailing: false},
 	);
 

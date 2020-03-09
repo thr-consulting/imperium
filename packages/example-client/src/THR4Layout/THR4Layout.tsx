@@ -34,9 +34,7 @@ export default function THR4Layout(props: Props) {
 		isMobile: window.innerWidth < 900,
 	});
 
-	const menu = props.route.menu ? (
-		<props.route.menu {...props} userMenu={<UserMenu MenuContext={MenuContext} />} />
-	) : null;
+	const menu = props.route.menu ? <props.route.menu {...props} userMenu={<UserMenu MenuContext={MenuContext} />} /> : null;
 
 	const statusbar = props.route.statusbar ? <props.route.statusbar {...props} /> : null;
 

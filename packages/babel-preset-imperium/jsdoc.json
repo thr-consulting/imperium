@@ -1,38 +1,32 @@
 {
-  "tags": {
-    "allowUnknownTags": true,
-    "dictionaries": [
-      "jsdoc",
-      "closure"
-    ]
-  },
-  "source": {
-    "include": ".",
-    "includePattern": ".+\\.[tj]s(doc|x)?$",
-    "excludePattern": "(^|\\/|\\\\)_"
-  },
-  "plugins": [
-    "../../node_modules/jsdoc-babel",
-    "../../tools/jsdoc.globals.js"
-  ],
-  "babel": {
-    "extensions": ["ts", "tsx", "js"],
-    "presets": [["@imperium/babel-preset-imperium", {"react": true, "forceModules": true, "typescript": true}]],
-    "babelrc": false
-  },
-  "templates": {
-    "cleverLinks": false,
-    "monospaceLinks": false,
-    "theme": "lumen",
-    "outputSourceFiles": true,
-    "linenums": true
-  },
-  "opts": {
-    "template": "../../node_modules/ink-docstrap/template",
-    "recurse": true,
-    "verbose": false,
-    "debug": false,
-    "readme": "README.md",
-    "destination": "docs/jsdoc"
-  }
+	"tags": {
+		"allowUnknownTags": true,
+		"dictionaries": ["jsdoc", "closure"]
+	},
+	"source": {
+		"include": ".",
+		"includePattern": ".+\\.[tj]s(doc|x)?$",
+		"excludePattern": "(^|\\/|\\\\)_"
+	},
+	"plugins": ["../../node_modules/jsdoc-babel", "../../tools/jsdoc.globals.js"],
+	"babel": {
+		"extensions": ["ts", "tsx", "js"],
+		"presets": [["@imperium/babel-preset-imperium", {"react": true, "forceModules": true, "typescript": true}]],
+		"babelrc": false
+	},
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false,
+		"theme": "lumen",
+		"outputSourceFiles": true,
+		"linenums": true
+	},
+	"opts": {
+		"template": "../../node_modules/ink-docstrap/template",
+		"recurse": true,
+		"verbose": false,
+		"debug": false,
+		"readme": "README.md",
+		"destination": "docs/jsdoc"
+	}
 }

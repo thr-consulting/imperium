@@ -15,3 +15,4 @@ build
 docs/assets/api/
 !docs/assets/coverage/**/coverage.svg
 docs/assets/coverage/
+packages/example-server/dist/

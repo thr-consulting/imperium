@@ -7,10 +7,12 @@ const pRoot = path.resolve(process.cwd());
 module.exports = {
 	// Only affects running in development mode
 	development: {
+		clientHost: '127.0.0.1',
 		clientPort: 4000, // Port the webpack-dev-server runs on
 		workerCrashDelay: 2, // Seconds to wait before restarting a worker process.
 		workerCrashMax: 5, // Number of times a worker is allowed to crash before killing the server.
 		imperiumDevelopmentAliases: false, // Enable this if you are working on the imperium library installed with yalc or npm link.
+		chokidarTimeout: 200, // Number of milliseconds to debounce the server restart in development mode.
 	},
 	// Only affects building production of apps
 	production: {

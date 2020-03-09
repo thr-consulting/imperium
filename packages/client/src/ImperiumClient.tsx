@@ -5,8 +5,10 @@ import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
 import Root from './Root';
+import {ClientContext} from './ClientContext';
 import {
 	GlobalConst,
+	Hoc,
 	HocCreator,
 	IImperiumClient,
 	ImperiumClientModule,
@@ -22,9 +24,21 @@ export interface ImperiumClientConfig {
 	render: (props?: any) => React.ReactNode;
 }
 
-/**
- * The main entry point to running Imperium on the client.
- */
+function withClient(client: IImperiumClient): Hoc {
+	return function clientHoc(WrappedComponent: React.ComponentType) {
+		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+		function ComponentWithClient(props: any) {
+			return (
+				<ClientContext.Provider value={client}>
+					<WrappedComponent {...props} />
+				</ClientContext.Provider>
+			);
+		}
+		ComponentWithClient.displayName = `withClient(${displayName}`;
+		return ComponentWithClient;
+	};
+}
+
 export default class ImperiumClient implements IImperiumClient {
 	private readonly _clientModules: ImperiumClientModule[];
 	private readonly _globalConst: GlobalConst;
@@ -87,17 +101,20 @@ export default class ImperiumClient implements IImperiumClient {
 
 		// HOC's
 		d("Building HoC's");
-		const hocCreators = this._clientModules.reduce((memo, module) => {
-			if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
-			return memo;
-		}, [] as HocCreator[]);
+		const hocCreators = this._clientModules.reduce(
+			(memo, module) => {
+				if (module.hocs && isArray(module.hocs)) return [...memo, ...module.hocs];
+				return memo;
+			},
+			[withClient] as HocCreator[],
+		);
 
 		// Execute HoC creators and compose HoC's.
 		const hoc = flowRight(hocCreators.map(v => v(this)));
 		const RootWrappedComponent = hoc(Root);
 
 		d('Rendering root component');
-		render(<RootWrappedComponent render={this._renderProp} {...this._rootProps} />, document.getElementById('root'));
+		render(<RootWrappedComponent render={this._renderProp} imperiumClient={this} {...this._rootProps} />, document.getElementById('root'));
 	}
 
 	get modules() {

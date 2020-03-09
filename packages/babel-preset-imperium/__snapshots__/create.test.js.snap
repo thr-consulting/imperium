@@ -32,6 +32,9 @@ Object {
       },
     ],
     [Function],
+    Object {
+      "default": [Function],
+    },
   ],
   "presets": Array [
     Array [
@@ -80,6 +83,9 @@ Object {
       },
     ],
     [Function],
+    Object {
+      "default": [Function],
+    },
   ],
   "presets": Array [
     Array [
@@ -129,6 +135,9 @@ Object {
     ],
     [Function],
     [Function],
+    Object {
+      "default": [Function],
+    },
   ],
   "presets": Array [
     Array [

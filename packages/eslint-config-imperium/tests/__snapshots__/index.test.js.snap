@@ -24,7 +24,7 @@ Object {
     "ecmaFeatures": Object {
       "jsx": true,
     },
-    "ecmaVersion": 2019,
+    "ecmaVersion": 2020,
     "sourceType": "module",
   },
   "plugins": Array [
@@ -58,6 +58,7 @@ Object {
     "@typescript-eslint/no-unused-vars": Array [
       "error",
       Object {
+        "argsIgnorePattern": "server|contextManager|ctx",
         "varsIgnorePattern": "d",
       },
     ],
@@ -97,6 +98,7 @@ Object {
     "no-unused-vars": Array [
       "error",
       Object {
+        "argsIgnorePattern": "server|contextManager|ctx",
         "varsIgnorePattern": "d",
       },
     ],
@@ -116,6 +118,9 @@ Object {
       "off",
     ],
     "react/forbid-prop-types": "error",
+    "react/jsx-curly-newline": Array [
+      "off",
+    ],
     "react/jsx-filename-extension": Array [
       "error",
       Object {
@@ -132,6 +137,9 @@ Object {
     ],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": Array [
+      "off",
+    ],
+    "react/jsx-wrap-multilines": Array [
       "off",
     ],
     "react/no-children-prop": "off",

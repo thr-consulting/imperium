@@ -3,12 +3,14 @@ import {Connection, createConnection} from 'typeorm';
 import redis from 'redis';
 import Mongoose, {connect} from 'mongoose';
 import {RedisPubSub} from 'graphql-redis-subscriptions';
+import SharedCache from '@thx/sharedcache';
 
 export default class Connectors implements ImperiumConnectors {
 	_postgresConnection?: Connection;
 	_redisClient?: redis.RedisClient;
 	_mongoose?: typeof Mongoose;
 	_pubsub?: RedisPubSub;
+	_sharedCache?: SharedCache;
 
 	private async createTypeORM(server: IImperiumServer) {
 		// This gets all the entities from all of my modules.
@@ -62,6 +64,15 @@ export default class Connectors implements ImperiumConnectors {
 		return this._pubsub;
 	}
 
+	private createSharedCache() {
+		if (!this._redisClient) throw new Error('Redis not created');
+		this._sharedCache = new SharedCache({
+			redis: this._redisClient,
+			prefix: 'imp',
+		});
+		return this._sharedCache;
+	}
+
 	async create(server: IImperiumServer) {
 		// Order matters here as some connections rely on others.
 		return {
@@ -70,6 +81,7 @@ export default class Connectors implements ImperiumConnectors {
 			mongoose: await this.createMongoose(),
 			mongo: this._mongoose ? this._mongoose.connection.db : null,
 			pubsub: this.createPubsub(),
+			sharedCache: this.createSharedCache(),
 		};
 	}
 

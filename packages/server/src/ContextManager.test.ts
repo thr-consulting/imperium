@@ -1,4 +1,4 @@
-import ContextManager from './ContextManager';
+import {ContextManager} from './ContextManager';
 import {IImperiumServer} from './types';
 
 // @ts-ignore

@@ -11,6 +11,7 @@
 This package includes the Babel preset used by [Imperium Framework](https://github.com/darkadept/imperium).
 
 ## Usage
+
 Install the preset.
 
 ```bash
@@ -20,38 +21,45 @@ yarn add @imperium/babel-preset-imperium -D
 ## Options
 
 #### `client`
+
 `boolean`, defaults to `false`.
 
 If `true` uses Babel options for create javascript code that runs in a browser. If `false` creates
 code that runs in Node.
 
 #### `debug`
+
 `boolean`, defaults to `false`,
 
 See [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env/#debug)'s debug option.
 
 #### `forceModules`
+
 `boolean`, defaults to `false`.
 
 Normally module transformations are on (commonjs) for `client` mode and off for `server` mode.
 This can force modules to be transformed.
 
 #### `react`
+
 `boolean`, defaults to `false`.
 
 Enables the React preset, even on the server.
 
 #### `typescript`
+
 `boolean`, defaults to `false`.
 
 Enables the Typescript preset.
 
 #### `graphqls`
+
 `boolean`, defaults to `false`.
 
 Enables including `*.graphqls` files using Babel.
 
 #### `decorators`
+
 `boolean`, defaults to `true`.
 
 Enables support for decorators.
