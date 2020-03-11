@@ -84,10 +84,14 @@ module.exports = function(api, opts, env) {
 				},
 			],
 
-			// Add typescript
+			// Constraint: IS Typescript - Add typescript support
 			enableTypescript && [require('@babel/preset-typescript').default],
 		].filter(Boolean),
 		plugins: [
+			// Constraint: IS development client
+			// React Refresh
+			isEnvDevelopment && isClient && require.resolve('react-refresh/babel'),
+
 			// Experimental macros support. Will be documented after it's had some time
 			// in the wild.
 			require('babel-plugin-macros'),
@@ -139,7 +143,7 @@ module.exports = function(api, opts, env) {
 
 			// Constraint: IS production client
 			isEnvProduction &&
-				isClient && [
+				(isClient || forceReact) && [
 					// Remove PropTypes from production build
 					require('babel-plugin-transform-react-remove-prop-types').default,
 					{

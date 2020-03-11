@@ -53,6 +53,7 @@ module.exports = {
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/ban-ts-ignore': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
+		'@typescript-eslint/no-before-define': ['off'], // TODO This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
 
 		// React
 		'react/forbid-prop-types': 'error',

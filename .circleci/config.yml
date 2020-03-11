@@ -1,20 +1,20 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:12.7
+
 jobs:
-  build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:12.7
+  test:
+    <<: *defaults
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
-          - dependency-cache-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
 
       - run: yarn global add lerna
       - run: yarn lerna bootstrap
@@ -22,40 +22,36 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-      - run: yarn lint
-      - run: yarn ts
-      - run: yarn test
       - run: yarn build
+      - run: yarn ts
+      - run: yarn lint
+      - run: yarn test
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
 
   publish:
-    docker:
-      - image: circleci/node:12.7
-    working_directory: ~/repo
+    <<: *defaults
     steps:
-      - checkout
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "yarn.lock" }}
-      - run: npm install lerna
-      - run: yarn lerna bootstrap
-      - run: yarn build
+      #      - checkout
+      - attach_workspace:
+          at: ~/repo
+
+      - run: yarn global add lerna
+      - run: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run: yarn lerna publish patch -c --preid alpha --yes
 
 workflows:
   version: 2
-  build-and-publish:
+  test-and-publish:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /^v.*/
+      - test
       - publish:
           requires:
-            - build
+            - test
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only: master

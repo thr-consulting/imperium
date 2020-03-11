@@ -9,6 +9,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const clientModuleRules = require('./clientModuleRules');
 
 // Webpack configuration
@@ -21,10 +22,7 @@ module.exports = function(imperiumConfig) {
 	// This will make sure we're not using different packages when yalc or npm link is being used.
 	if (imperiumConfig.development.imperiumDevelopmentAliases) {
 		alias['react-router-dom'] = path.resolve(imperiumConfig.source.projectRoot, './node_modules/react-router-dom');
-		alias['@apollo/react-hooks'] = path.resolve(
-			imperiumConfig.source.projectRoot,
-			'./node_modules/@apollo/react-hooks',
-		);
+		alias['@apollo/react-hooks'] = path.resolve(imperiumConfig.source.projectRoot, './node_modules/@apollo/react-hooks');
 	}
 
 	return {
@@ -43,7 +41,7 @@ module.exports = function(imperiumConfig) {
 		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
-			alias,
+			// alias,
 		},
 		optimization: {
 			minimize: false,
@@ -59,6 +57,7 @@ module.exports = function(imperiumConfig) {
 			new ProgressBarPlugin(),
 			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
 			new HtmlWebpackPlugin(imperiumConfig.html),
+			new ReactRefreshWebpackPlugin({disableRefreshCheck: true}), // TODO Disabled check because of this: https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/15
 			new HardSourceWebpackPlugin({
 				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
 			}),
