@@ -7,7 +7,7 @@ const pRoot = path.resolve(process.cwd());
 module.exports = {
 	// Only affects running in development mode
 	development: {
-		clientHost: '127.0.0.1',
+		clientHost: '0.0.0.0',
 		clientPort: 4000, // Port the webpack-dev-server runs on
 		workerCrashDelay: 2, // Seconds to wait before restarting a worker process.
 		workerCrashMax: 5, // Number of times a worker is allowed to crash before killing the server.
