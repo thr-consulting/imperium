@@ -1,21 +1,20 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:12.7
+
 jobs:
-  build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:12.7
+  test:
+    <<: *defaults
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
 
       - run: yarn global add lerna
       - run: yarn lerna bootstrap
@@ -30,8 +29,29 @@ jobs:
       - run: yarn lint
       - run: yarn test
 
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+
+  publish:
+    <<: *defaults
+    steps:
+      #      - checkout
+      - attach_workspace:
+          at: ~/repo
+
+      - run: yarn global add lerna
+      - run: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run: yarn lerna publish patch -c --preid alpha --yes
+
 workflows:
   version: 2
-  build:
+  test-and-publish:
     jobs:
-      - build
+      - test
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
