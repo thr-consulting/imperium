@@ -12,7 +12,7 @@ done
 DESC+="\n\`\`\`"
 
 # Build final JSON
-JSON="{\"embeds\":[{\"color\":65336,\"title\":\"THR-Addons Canary Release\",\"description\":\"$DESC\"}]}"
+JSON="{\"embeds\":[{\"color\":65336,\"title\":\"Imperium Canary Release\",\"description\":\"$DESC\"}]}"
 
 # Send to webhook
 curl -X POST -H "Content-Type: application/json" -d "$JSON" "$DISCORD_WEBHOOK"
