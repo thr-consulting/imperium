@@ -12,7 +12,8 @@ yarn-error.log*
 yalc.lock
 build
 .env
+/packages/example-server/dist/
+.npmrc
 docs/assets/api/
 !docs/assets/coverage/**/coverage.svg
 docs/assets/coverage/
-packages/example-server/dist/
