@@ -13,3 +13,4 @@ yalc.lock
 build
 .env
 /packages/example-server/dist/
+.npmrc
