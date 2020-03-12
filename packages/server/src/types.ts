@@ -6,7 +6,7 @@ export interface AuthContext {
 	permissions: string[] | null;
 	hasPermission: (perms: string | string[]) => boolean;
 	getCache: (key: string | string[]) => Promise<boolean | null>;
-	setCache: (key: string | string[], allowed?: boolean, expire?: number) => Promise<typeof allowed>;
+	setCache: (key: string | string[], allowed: boolean, expire?: number) => Promise<typeof allowed>;
 	invalidateCache: (key: string | string[]) => Promise<void>;
 }
 
@@ -47,7 +47,13 @@ export type ImperiumServerModule<
 	startup?: (server: IImperiumServer<Context, Connectors, Middleware, Environment>) => Promise<void>;
 	context?: (server: IImperiumServer<Context, Connectors, Middleware, Environment>) => ContextMap;
 };
-export type ImperiumServerModuleFunction = () => ImperiumServerModule;
+
+export type ImperiumServerModuleFunction<
+	Context extends IContextManager = IContextManager,
+	Connectors extends ImperiumConnectorsMap = ImperiumConnectorsMap,
+	Middleware extends MiddlewareMap = MiddlewareMap,
+	Environment extends ImperiumEnvironment = ImperiumEnvironment
+> = () => ImperiumServerModule<Context, Connectors, Middleware, Environment>;
 
 export type ImperiumConnectorsMap<T = any> = {[connectorName: string]: T};
 export interface ImperiumConnectors {
