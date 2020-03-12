@@ -1,3 +1,4 @@
 import {IImperiumConfig} from '@imperium/server';
 
-export = IImperiumConfig;
+declare const config: IImperiumConfig;
+export = config;
