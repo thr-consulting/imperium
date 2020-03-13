@@ -9,8 +9,15 @@ import merge from 'lodash/merge';
 import {schema as coreSchema, resolvers as coreResolvers} from './schema';
 import {ApolloSchema, ImperiumGraphqlServerModule} from './types';
 
+/**
+ * @ignore
+ */
 const d = debug('imperium.graphql-server.endpoints');
 
+/**
+ * Transforms
+ * @param schema
+ */
 function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 	if (Array.isArray(schema)) {
 		return (schema as Array<DocumentNode | string>).map(s => {
@@ -34,6 +41,9 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 	return [schema];
 }
 
+/**
+ * Apollo graphql Express endpoints
+ */
 export default function endpoints(server: IImperiumServer): void {
 	// Merge all the typeDefs from all modules
 	d('Merging graphql schema');

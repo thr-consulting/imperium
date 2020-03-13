@@ -33,7 +33,8 @@
 		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push",
-		"prepublish": "yarn build && yarn ts"
+		"prepublish": "yarn build && yarn ts",
+		"typedoc": "typedoc"
 	},
 	"peerDependencies": {
 		"@apollo/react-hooks": "3.x",
