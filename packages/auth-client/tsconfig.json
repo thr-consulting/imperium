@@ -13,6 +13,6 @@
 		"excludePrivate": true,
 		"hideGenerator": true,
 		"readme": "README.md",
-		"out": "../../docs/assets/api/auth-client"
+		"out": "../../website/static/apistatic/auth-client"
 	}
 }

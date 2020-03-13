@@ -13,6 +13,6 @@
 		"excludePrivate": true,
 		"hideGenerator": true,
 		"readme": "README.md",
-		"out": "../../docs/assets/api/auth-graphql-client"
+		"out": "../../website/static/apistatic/auth-graphql-client"
 	}
 }

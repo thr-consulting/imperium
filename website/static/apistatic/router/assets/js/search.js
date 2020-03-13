@@ -1,0 +1,3 @@
+var typedoc = typedoc || {};
+            typedoc.search = typedoc.search || {};
+            typedoc.search.data = {"kinds":{"64":"Function","65536":"Type literal"},"rows":[{"id":0,"kind":65536,"name":"__type","url":"classes/routeerrorboundary.html#refs.__type","classes":"tsd-kind-type-literal tsd-parent-kind-property","parent":"RouteErrorBoundary.refs"},{"id":1,"kind":64,"name":"ImperiumRouterModule","url":"globals.html#imperiumroutermodule","classes":"tsd-kind-function"}]};
