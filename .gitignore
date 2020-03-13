@@ -14,3 +14,5 @@ build
 .env
 /packages/example-server/dist/
 .npmrc
+!docs/assets/coverage/**/coverage.svg
+docs/assets/coverage/
