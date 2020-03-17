@@ -6,7 +6,7 @@ export interface AuthContext {
 	permissions: string[] | null;
 	hasPermission: (perms: string | string[]) => boolean;
 	getCache: (key: string | string[]) => Promise<boolean | null>;
-	setCache: (key: string | string[], allowed?: boolean, expire?: number) => Promise<typeof allowed>;
+	setCache: (key: string | string[], allowed: boolean, expire?: number) => Promise<typeof allowed>;
 	invalidateCache: (key: string | string[]) => Promise<void>;
 }
 
@@ -34,34 +34,49 @@ export interface MiddlewareMap {
 	[key: string]: () => ImperiumRequestHandler;
 }
 
-export type StartupFunc = (server: IImperiumServer) => Promise<any | void>;
-
-export type ImperiumServerModule = {
+export type ImperiumServerModule<
+	Context extends IContextManager = IContextManager,
+	Connectors extends ImperiumConnectorsMap = ImperiumConnectorsMap,
+	Middleware extends MiddlewareMap = MiddlewareMap,
+	Environment extends ImperiumEnvironment = ImperiumEnvironment
+> = {
 	name: string;
-	environment?: () => ImperiumEnvironment;
-	middleware?: (server: IImperiumServer) => MiddlewareMap;
-	endpoints?: (server: IImperiumServer) => void;
-	startup?: StartupFunc;
-} & ContextMap;
-export type ImperiumServerModuleFunction = () => ImperiumServerModule;
+	environment?: () => Environment;
+	middleware?: (server: IImperiumServer<Context, Connectors, Middleware, Environment>) => Middleware;
+	endpoints?: (server: IImperiumServer<Context, Connectors, Middleware, Environment>) => void;
+	startup?: (server: IImperiumServer<Context, Connectors, Middleware, Environment>) => Promise<void>;
+	context?: (server: IImperiumServer<Context, Connectors, Middleware, Environment>) => ContextMap;
+};
 
-export type ImperiumConnectorsMap = {[connectorName: string]: any};
+export type ImperiumServerModuleFunction<
+	Context extends IContextManager = IContextManager,
+	Connectors extends ImperiumConnectorsMap = ImperiumConnectorsMap,
+	Middleware extends MiddlewareMap = MiddlewareMap,
+	Environment extends ImperiumEnvironment = ImperiumEnvironment
+> = () => ImperiumServerModule<Context, Connectors, Middleware, Environment>;
+
+export type ImperiumConnectorsMap<T = any> = {[connectorName: string]: T};
 export interface ImperiumConnectors {
 	create(server: IImperiumServer): Promise<ImperiumConnectorsMap>;
 	close(): Promise<void>;
 }
 
-export interface IImperiumServer {
+export interface IImperiumServer<
+	Context extends IContextManager = IContextManager,
+	Connectors extends ImperiumConnectorsMap = ImperiumConnectorsMap,
+	Middleware extends MiddlewareMap = MiddlewareMap,
+	Environment extends ImperiumEnvironment = ImperiumEnvironment
+> {
 	addEnvironment(key: string, value: ImperiumEnvironment): void;
 	start(): Promise<this>;
 	stop(): Promise<void>;
-	readonly connectors: ImperiumConnectorsMap;
-	readonly modules: ImperiumServerModule[];
-	readonly environment: ImperiumEnvironment;
+	readonly connectors: Connectors;
+	readonly modules: ImperiumServerModule<Context, Connectors, Middleware, Environment>[];
+	readonly environment: Environment;
 	readonly expressApp: Application;
 	readonly httpServer: Server;
-	readonly middleware: MiddlewareMap;
-	readonly initialContextManager: IContextManager;
+	readonly middleware: Middleware;
+	readonly initialContextManager: Context;
 }
 
 export interface IImperiumConfig {
@@ -71,7 +86,7 @@ export interface IImperiumConfig {
 		workerCrashMax?: number;
 		imperiumDevelopmentAliases?: boolean;
 	};
-	production: {
+	production?: {
 		path?: string;
 		client?: {
 			minimize?: boolean;

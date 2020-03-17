@@ -43,6 +43,7 @@ jobs:
       - run: yarn global add lerna
       - run: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run: yarn lerna publish patch -c --preid alpha --yes
+      - run: DISCORD_WEBHOOK=$DISCORD_WEBHOOK bash ./tools/discordhook.sh
 
 workflows:
   version: 2
