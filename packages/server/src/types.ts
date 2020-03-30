@@ -21,7 +21,7 @@ export type IContextManager<T extends ContextMap = any> = {
 	readonly server: IImperiumServer;
 } & T;
 
-export type ImperiumEnvironment<T = boolean | string | number> = {
+export type ImperiumEnvironment<T = boolean | string | number | string[]> = {
 	[key: string]: T | ImperiumEnvironment;
 };
 
