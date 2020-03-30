@@ -1090,6 +1090,17 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@imperium/server@^4.0.7-alpha.11":
+  version "4.0.7-alpha.11"
+  resolved "https://registry.yarnpkg.com/@imperium/server/-/server-4.0.7-alpha.11.tgz#458572cc0466c380a0a2184127eef8f9e002dead"
+  integrity sha512-m3Zoz0l9X6y2M129yw2bpkmjYLfXXRaPosf+ORukDXcSKa32UXZ2wZd3U2EOllO5cmvS5fFWM55oQdCZKqkifQ==
+  dependencies:
+    "@imperium/util" "^4.0.6"
+    chalk "^3.0.0"
+    debug "^4.1.1"
+    express "^4.17.1"
+    lodash "^4.17.15"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.0.0.tgz#10602de5570baea82f8afbfa2630b24e7a8cfe5b"
