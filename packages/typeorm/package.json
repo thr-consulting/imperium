@@ -1,0 +1,61 @@
+{
+	"name": "@imperium/typeorm",
+	"version": "4.0.6",
+	"description": "Imperium TypeORM server package",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"engines": {
+		"node": ">=12"
+	},
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"types": "./dist/index.d.ts",
+	"main": "server.js",
+	"files": [
+		"server.js",
+		"dist"
+	],
+	"scripts": {
+		"build": "yarn build:dev && yarn build:prod",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist",
+		"lint": "eslint --cache --ext js,ts src",
+		"lint:fix": "eslint --cache --fix --ext js,ts src",
+		"ts": "tsc",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "../../tools/coverage.sh",
+		"yalc:publish": "yalc publish --push",
+		"prepublish": "yarn build && yarn ts",
+		"typedoc": "typedoc"
+	},
+	"devDependencies": {
+		"typeorm": "^0.2.24"
+	},
+	"dependencies": {
+		"@imperium/server": "^4.0.6",
+		"@imperium/util": "^4.0.6",
+		"debug": "^4.1.1"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+		},
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/typeorm",
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.js",
+			"<rootDir>/src/**/*.jsx",
+			"<rootDir>/src/**/*.ts",
+			"<rootDir>/src/**/*.tsx"
+		]
+	}
+}

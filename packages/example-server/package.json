@@ -25,6 +25,7 @@
     "@imperium/auth-server": "^4.0.6",
     "@imperium/graphql-server": "^4.0.6",
     "@imperium/server": "^4.0.6",
+    "@imperium/typeorm": "^4.0.6",
     "@thx/sharedcache": "^11.0.0",
     "dataloader": "^2.0.0",
     "debug": "^4.1.1",
@@ -35,9 +36,9 @@
     "graphql-subscriptions": "^1.1.0",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.11",
-    "pg": "^7.12.1",
+    "pg": "^8.0.0",
     "redis": "^2.8.0",
-    "typeorm": "^0.2.20",
+    "typeorm": "^0.2.24",
     "typeorm-revisions": "^0.0.5"
   },
   "devDependencies": {

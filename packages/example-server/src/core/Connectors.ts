@@ -1,9 +1,10 @@
 import {ImperiumConnectors, IImperiumServer} from '@imperium/server';
-import {Connection, createConnection} from 'typeorm';
+import {Connection, ConnectionOptions, createConnection} from 'typeorm';
 import redis from 'redis';
 import Mongoose, {connect} from 'mongoose';
 import {RedisPubSub} from 'graphql-redis-subscriptions';
 import SharedCache from '@thx/sharedcache';
+import {gatherEntities, gatherSubscribers} from '@imperium/typeorm';
 
 export default class Connectors implements ImperiumConnectors {
 	_postgresConnection?: Connection;
@@ -13,27 +14,19 @@ export default class Connectors implements ImperiumConnectors {
 	_sharedCache?: SharedCache;
 
 	private async createTypeORM(server: IImperiumServer) {
-		// This gets all the entities from all of my modules.
-		const entities = server.modules.reduce((memo, module) => {
-			if (module.entities && module.entities instanceof Function) {
-				return [...memo, ...module.entities()];
-			}
-			return memo;
-		}, []);
-		const subscribers = server.modules.reduce((memo, module) => {
-			if (module.subscribers && module.subscriber instanceof Function) {
-				return [...memo, ...module.subscribers()];
-			}
-			return memo;
-		}, []);
+		const entities = gatherEntities(server);
+		const subscribers = gatherSubscribers(server);
 
-		this._postgresConnection = await createConnection({
+		const postgresOptions: ConnectionOptions = {
 			type: 'postgres',
 			url: process.env.POSTGRESQL_URL,
-			synchronize: true, // dev only
+			synchronize: !!server.environment.development, // dev only
 			entities,
 			subscribers,
-		});
+			...(process.env.POSTGRESQL_SSL_CA ? {ssl: {ca: process.env.POSTGRESQL_SSL_CA}} : {}),
+		};
+
+		this._postgresConnection = await createConnection(postgresOptions);
 
 		return this._postgresConnection;
 	}
