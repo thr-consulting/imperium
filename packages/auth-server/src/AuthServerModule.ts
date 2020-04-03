@@ -31,7 +31,7 @@ export function AuthServerModule(): ImperiumServerModule {
 				// What is the key the SharedConnector stored as in Connectors?
 				authSharedCacheConnectorKey: process.env.AUTH_SHAREDCACHE_CONNECTOR || 'sharedCache',
 				authRoleCacheExpires: parseInt(process.env.AUTH_ROLE_CACHE_EXPIRES || '3600', 10), // How long does the role caching last in seconds
-				authCorsOrigin: process.env.CORS_ORIGIN || false,
+				authCorsOrigin: process.env.CORS_ORIGIN?.split(',') || false,
 				authRefreshCookieName: process.env.AUTH_REFRESH_COOKIE_NAME || 'refresh',
 				authPasswordSaltRounds: parseInt(process.env.AUTH_PASSWORD_SALT_ROUNDS || '11', 10),
 			};
