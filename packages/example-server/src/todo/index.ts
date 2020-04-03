@@ -1,14 +1,15 @@
-import {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
+import {ImperiumServerModule} from '@imperium/server';
+import {ImperiumTypeormServerModule} from '@imperium/typeorm';
 import faker from 'faker';
 import TodoSchema from './graphql/Todo.graphqls';
 import {Todo, TodoHistory, TodoHistorySubscriber, User, UserHistory, UserHistorySubscriber} from './models';
 
 const d = debug('app.todo.server');
 
-export default function TodoServerModule(): ImperiumServerModule {
+export default function TodoServerModule(): ImperiumServerModule & ImperiumTypeormServerModule {
 	return {
-		name: 'Users',
+		name: 'Todo',
 		async startup() {
 			if ((await User.count()) < 3) {
 				const user = await new User({
@@ -48,9 +49,8 @@ export default function TodoServerModule(): ImperiumServerModule {
 				TodoHistory: TodoHistory.createLoader(),
 			};
 		},
-		// TypeORM specific (custom)
 		entities() {
-			return [User, UserHistory, Todo, TodoHistory];
+			return [User, Todo, UserHistory, TodoHistory];
 		},
 		subscribers() {
 			return [UserHistorySubscriber, TodoHistorySubscriber];
