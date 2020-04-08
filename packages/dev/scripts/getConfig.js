@@ -30,7 +30,7 @@ module.exports = function getConfig() {
 			presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true, forceModules: true}]],
 			extensions: ['.js', '.ts', '.tsx'],
 			only: [
-				filepath => {
+				(filepath) => {
 					if (filepath === configModulePath) {
 						log('BABEL/REG-CONFIG', filepath);
 						return true;
@@ -44,7 +44,7 @@ module.exports = function getConfig() {
 
 	// Run configModule functions
 	const configModuleNames = [];
-	const configModules = configModuleFunctions.map(configModuleFunction => {
+	const configModules = configModuleFunctions.map((configModuleFunction) => {
 		if (!isFunction(configModuleFunction)) {
 			throw new Error('');
 		}

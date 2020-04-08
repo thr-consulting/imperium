@@ -1,5 +1,5 @@
 /* eslint-disable func-names, no-param-reassign, no-var, vars-on-top, global-require, operator-linebreak, prefer-template */
-module.exports = function(api, opts) {
+module.exports = function (api, opts) {
 	if (!opts) {
 		opts = {};
 	}

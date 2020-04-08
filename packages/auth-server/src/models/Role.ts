@@ -25,7 +25,8 @@ const RoleModel = model<IRole>('Role', roleSchema);
 
 export class Role {
 	static createDataLoader(server: IImperiumServer) {
-		return new OrderedDataLoader<string, IRole>(keys => RoleModel.find({_id: {$in: keys}}), {idField: '_id'});
+		// @ts-ignore
+		return new OrderedDataLoader<string, IRole>((keys) => RoleModel.find({_id: {$in: keys}}), {idField: '_id'});
 	}
 
 	static getByName(name: string, ctx: AuthContextManager) {
@@ -75,7 +76,7 @@ export class Role {
 
 			// Cache the missing roles' permissions
 			await Promise.all(
-				perms.map(async v => {
+				perms.map(async (v) => {
 					await ctx.server.connectors[cacheConnectorKey].hset('permissions', v.name, v.permissions);
 				}),
 			);

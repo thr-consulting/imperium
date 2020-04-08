@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import {ImperiumClientModule} from '@imperium/client';
 import {withAuth} from './withAuth';
 
-export default function(): ImperiumClientModule {
+export default function (): ImperiumClientModule {
 	return {
 		name: '@imperium/auth-client',
 		hocs: [withAuth],

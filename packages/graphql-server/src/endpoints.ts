@@ -20,7 +20,7 @@ const d = debug('imperium.graphql-server.endpoints');
  */
 function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 	if (Array.isArray(schema)) {
-		return (schema as Array<DocumentNode | string>).map(s => {
+		return (schema as Array<DocumentNode | string>).map((s) => {
 			if (isString(s)) {
 				return gql`
 					${s}
@@ -101,7 +101,7 @@ export default function endpoints(server: IImperiumServer): void {
 			return req.contextManager;
 		},
 		schemaDirectives,
-		formatError: error => {
+		formatError: (error) => {
 			// TODO Do more here
 			// eslint-disable-next-line no-console
 			console.error(error);
