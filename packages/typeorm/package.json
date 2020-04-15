@@ -36,11 +36,13 @@
 		"typedoc": "typedoc"
 	},
 	"devDependencies": {
+		"@imperium/util": "^4.0.6",
 		"typeorm": "^0.2.24"
 	},
+	"peerDependencies": {
+		"@imperium/server": "^4.0.6"
+	},
 	"dependencies": {
-		"@imperium/server": "^4.0.6",
-		"@imperium/util": "^4.0.6",
 		"debug": "^4.1.1"
 	},
 	"jest": {
