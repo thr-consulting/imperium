@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/client",
-	"version": "4.0.6",
+	"version": "4.0.7",
 	"description": "Imperium client core",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -43,7 +43,7 @@
 		"react-dom": "^16.x"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.6",
+		"@imperium/util": "^4.0.7",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15"
 	},

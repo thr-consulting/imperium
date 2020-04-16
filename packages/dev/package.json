@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/dev",
-	"version": "4.0.6",
+	"version": "4.0.7",
 	"description": "Imperium Development package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -33,8 +33,8 @@
 	"dependencies": {
 		"@babel/core": "^7.5.5",
 		"@babel/register": "^7.5.5",
-		"@imperium/babel-preset-imperium": "^4.0.4",
-		"@imperium/util": "^4.0.6",
+		"@imperium/babel-preset-imperium": "^4.0.7",
+		"@imperium/util": "^4.0.7",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
 		"babel-loader": "^8.0.6",
 		"chalk": "^4.0.0",

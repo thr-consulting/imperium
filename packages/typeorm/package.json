@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/typeorm",
-	"version": "4.0.6",
+	"version": "4.0.7",
 	"description": "Imperium TypeORM server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -36,7 +36,7 @@
 		"typedoc": "typedoc"
 	},
 	"devDependencies": {
-		"@imperium/util": "^4.0.6",
+		"@imperium/util": "^4.0.7",
 		"typeorm": "^0.2.24"
 	},
 	"peerDependencies": {

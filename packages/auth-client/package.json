@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "4.0.6",
+	"version": "4.0.7",
 	"description": "Imperium Auth client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -37,7 +37,7 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.6",
+		"@imperium/util": "^4.0.7",
 		"@thx/sha256": "^11.0.0",
 		"debug": "^4.1.1",
 		"js-cookie": "^2.2.1",
