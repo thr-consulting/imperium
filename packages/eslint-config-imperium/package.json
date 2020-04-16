@@ -33,7 +33,7 @@
 	},
 	"peerDependencies": {
 		"eslint": "^6.x",
-		"prettier": "^1.x",
+		"prettier": "^2.x",
 		"typescript": "^3.x"
 	},
 	"jest": {

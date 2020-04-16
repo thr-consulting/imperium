@@ -1,7 +1,7 @@
 import {ImperiumServerModule} from '@imperium/server';
 import endpoints from './endpoints';
 
-export default function(): ImperiumServerModule {
+export default function (): ImperiumServerModule {
 	return {
 		name: '@imperium/graphql-server',
 		environment() {

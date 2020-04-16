@@ -52,7 +52,7 @@ export default class ImperiumServer implements IImperiumServer {
 		const serverModuleNames: string[] = [];
 		if (config.serverModules) {
 			// Load module definitions
-			this._serverModules = config.serverModules.map(moduleFunc => {
+			this._serverModules = config.serverModules.map((moduleFunc) => {
 				const moduleDefinition = moduleFunc();
 				serverModuleNames.push(moduleDefinition.name || 'unnamed module');
 				return moduleDefinition;
@@ -104,7 +104,7 @@ export default class ImperiumServer implements IImperiumServer {
 					return (req: ImperiumRequest, res: Response, next: NextFunction) => {
 						dd(`Creating context manager for request to: ${req.baseUrl}`);
 						const contextManager = new ContextManager(this);
-						this._serverModules.forEach(module => {
+						this._serverModules.forEach((module) => {
 							if (module.context && isFunction(module.context)) contextManager.addContext(module.context);
 						});
 						// Add the context object to the req
@@ -117,14 +117,14 @@ export default class ImperiumServer implements IImperiumServer {
 
 		// Module endpoints
 		d('Creating module endpoints');
-		this._serverModules.forEach(module => {
+		this._serverModules.forEach((module) => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
 		});
 
 		// Create server startup Context
 		d('Creating initial context');
 		this._context = new ContextManager(this);
-		this._serverModules.forEach(module => {
+		this._serverModules.forEach((module) => {
 			if (module.context && isFunction(module.context) && this._context) this._context.addContext(module.context);
 		});
 
@@ -134,7 +134,7 @@ export default class ImperiumServer implements IImperiumServer {
 				const moduleStartupReturn = module.startup(this);
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
-					moduleStartupReturn.catch(err => {
+					moduleStartupReturn.catch((err) => {
 						console.log(chalk.bold.white('#######################################################'));
 						console.log(chalk.bold.red(' >>> Error running module startup\n'));
 						console.error(err);
@@ -149,7 +149,7 @@ export default class ImperiumServer implements IImperiumServer {
 
 		// Execute startup promises
 		d('Executing module startup');
-		Promise.all(startupPromises).catch(err => {
+		Promise.all(startupPromises).catch((err) => {
 			d(`Module startup problem: ${err}`);
 			throw err;
 		});

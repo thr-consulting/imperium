@@ -23,7 +23,7 @@ export default function RouteDirector(props: RouteDirectorProps) {
 
 	return (
 		<Switch>
-			{routes.map(route => {
+			{routes.map((route) => {
 				// Apply default route options and then apply specific route options
 				const routeProps: ImperiumRoute = {...(routeDefaults || {}), ...route};
 
