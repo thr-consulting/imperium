@@ -51,6 +51,7 @@
 		"merge-options": "^2.0.0",
 		"progress-bar-webpack-plugin": "^2.1.0",
 		"raw-loader": "^4.0.0",
+		"react-refresh": "^0.8.0",
 		"rimraf": "^3.0.0",
 		"style-loader": "^1.0.0",
 		"url-loader": "^4.1.0",

@@ -71,7 +71,7 @@ export default function endpoints(server: IImperiumServer): void {
 			};
 		}
 		return memo;
-	}, {} as {[key: string]: typeof SchemaDirectiveVisitor});
+	}, {} as Record<string, typeof SchemaDirectiveVisitor>);
 
 	// Let's not create a pubsub here. The app should be in charge of that.
 	// // Create PubSub for subscriptions

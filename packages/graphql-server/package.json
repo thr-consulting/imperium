@@ -51,7 +51,7 @@
 		"graphql-custom-types": "^1.5.1",
 		"graphql-scalar-objectid": "^0.1.2",
 		"graphql-tag": "^2.10.1",
-		"graphql-tools": "^4.0.6",
+		"graphql-tools": "^4.0.0",
 		"js-money": "^0.6.3",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"
