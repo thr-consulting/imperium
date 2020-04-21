@@ -1,68 +1,41 @@
-import {ContextMap, ContextMapFunc, IContextManager, IImperiumServer, Context} from './types';
+import {Context} from './types';
+import {Connector} from './Connector';
 
-export class ContextManager implements IContextManager {
-	[prop: string]: Context;
-	readonly _server: IImperiumServer;
-	private _context: ContextMap;
-	private _auth: any;
+export interface ContextCreators<C extends Connector> {
+	[key: string]: (conn: C) => Context;
+}
 
-	constructor(server: IImperiumServer) {
-		this._server = server;
-		this._context = {};
-		this._auth = null;
-	}
+export class ContextManager<T extends ContextCreators<C>, C extends Connector = Connector> {
+	readonly context = {} as {[P in keyof T]: ReturnType<T[P]>};
 
-	/**
-	 * Adds a module function to the registry. A module function has the
-	 * following signature: (connectors, context) => {} and returns
-	 * an object keyed with data model objects.
-	 * @param contextFunc
-	 */
-	addContext(contextFunc: ContextMapFunc): void {
-		const context = contextFunc(this._server, this);
-		const keys = Object.keys(context);
-		for (let i = 0; i < keys.length; i++) {
-			const key = keys[i];
-			if (this[key] === undefined) {
-				this[key] = context[key];
-			}
+	constructor(context: T, connectors: C) {
+		// ContextManager is meant to be created frequently, so the connectors should be connected already.
+		if (!connectors.isConnected) {
+			connectors.connect();
 		}
-	}
-
-	/**
-	 * Returns the model with the specified name
-	 * @param name
-	 * @returns {*}
-	 */
-	getContext(name: string): Context {
-		return this._context[name];
-	}
-
-	/**
-	 * Returns all the models
-	 * @returns {*}
-	 */
-	get context(): ContextMap {
-		return this._context;
-	}
-
-	/**
-	 * Sets new auth data
-	 * @param value
-	 */
-	set auth(value) {
-		this._auth = value;
-	}
-
-	/**
-	 * Returns the auth data
-	 * @returns {null|*}
-	 */
-	get auth(): any {
-		return this._auth;
-	}
-
-	get server(): IImperiumServer {
-		return this._server;
+		(Object.keys(context) as (keyof T)[]).forEach(key => {
+			// creating the contexts
+			if (typeof context[key] === 'function') {
+				this.context[key] = context[key](connectors);
+			}
+		});
 	}
 }
+
+const a = new ContextManager(
+	{
+		Client: conn => {
+			return conn.connections.client;
+		},
+	},
+	new Connector({
+		client: {
+			connect() {
+				return '';
+			},
+			close() {},
+		},
+	}),
+);
+
+a.context.Client
