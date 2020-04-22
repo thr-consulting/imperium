@@ -6,7 +6,7 @@ export interface ContextCreators<C extends Connector> {
 }
 
 export class ContextManager<T extends ContextCreators<C>, C extends Connector = Connector> {
-	readonly context = {} as {[P in keyof T]: ReturnType<T[P]>};
+	public readonly context = {} as {[P in keyof T]: ReturnType<T[P]>};
 
 	constructor(context: T, connectors: C) {
 		// ContextManager is meant to be created frequently, so the connectors should be connected already.
@@ -21,21 +21,3 @@ export class ContextManager<T extends ContextCreators<C>, C extends Connector = 
 		});
 	}
 }
-
-const a = new ContextManager(
-	{
-		Client: conn => {
-			return conn.connections.client;
-		},
-	},
-	new Connector({
-		client: {
-			connect() {
-				return '';
-			},
-			close() {},
-		},
-	}),
-);
-
-a.context.Client
