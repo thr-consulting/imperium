@@ -33,18 +33,14 @@ export interface MiddlewareMap<C> {
 	[key: string]: () => ImperiumRequestHandler<C>;
 }
 
-export type ImperiumServerModule<Connectors extends Connector, Environment extends ImperiumEnvironment = {}, Context = any> = {
+export type ImperiumServerModule<Connectors extends Connector = Connector, Environment extends ImperiumEnvironment = {}, Context = any> = {
 	name: string;
 	middleware?: (server: ImperiumServer<Connectors, Environment, Context>) => MiddlewareMap<any>;
 	endpoints?: (server: ImperiumServer<Connectors, Environment, Context>) => void;
 	startup?: (server: ImperiumServer<Connectors, Environment, Context>, context: Context) => Promise<void>;
 };
 
-export interface ImperiumServerConfig<
-	Connectors extends Connector = Connector,
-	Environment extends ImperiumEnvironment = ImperiumEnvironment,
-	Context
-> {
+export interface ImperiumServerConfig<Connectors extends Connector, Environment extends ImperiumEnvironment, Context> {
 	// Connection for the creation of ContextManager
 	connectors: Connectors;
 	environment?: Environment;

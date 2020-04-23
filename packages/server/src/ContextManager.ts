@@ -1,8 +1,7 @@
-import {Context} from './types';
 import {Connector} from './Connector';
 
 export interface ContextCreators<C extends Connector> {
-	[key: string]: (conn: C) => Context;
+	[key: string]: (conn: C) => any;
 }
 
 export class ContextManager<T extends ContextCreators<C>, C extends Connector = Connector> {

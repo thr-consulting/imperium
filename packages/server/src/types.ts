@@ -7,11 +7,6 @@ export interface AuthContext {
 	invalidateCache: (key: string | string[]) => Promise<void>;
 }
 
-export type Context = any; // In case we decide that we want to enforce something.
-export type ContextMap = {
-	readonly [prop: string]: Context;
-};
-
 export interface IImperiumConfig {
 	development?: {
 		clientPort?: number;
