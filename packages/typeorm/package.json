@@ -36,8 +36,7 @@
 		"typedoc": "typedoc"
 	},
 	"devDependencies": {
-		"@imperium/util": "^4.0.7",
-		"typeorm": "^0.2.24"
+		"@imperium/util": "^4.0.7"
 	},
 	"peerDependencies": {
 		"@imperium/server": "^4.x"
