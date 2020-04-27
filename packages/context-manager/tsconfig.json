@@ -3,9 +3,7 @@
 	"compilerOptions": {
 		"declarationDir": "dist"
 	},
-	"include": [
-		"src/index.ts"
-	],
+	"include": ["src/index.ts"],
 	"typedocOptions": {
 		"mode": "file",
 		"exclude": ["*.test.js", "*.test.ts", "*.test.tsx", "*.test.jsx"],

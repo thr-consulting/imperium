@@ -1,31 +1,28 @@
 /* eslint-disable no-console */
-import {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import express, {NextFunction, Response, Application, Request} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
-import {Connector} from './Connector';
-import {ContextCreators, ContextManager} from './ContextManager';
-import {Context} from './types';
+import {Connector} from '@imperium/context-mananger';
 
 const d = debug('imperium.server.ImperiumServer');
 const dd = debug('verbose.imperium.server.ImperiumServer');
 
-const defaultEnvironment: ImperiumEnvironment = {
+// basically a primitive recursive object.
+export type Environment<T = boolean | string | number | string[]> = {
+	[key: string]: T | Environment;
+};
+
+const defaultEnvironment: Environment = {
 	port: parseInt(process.env.SERVER_PORT || '4001', 10),
 	nodeEnv: process.env.NODE_ENV || '',
 	production: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === undefined,
 	development: process.env.NODE_ENV === 'development',
 };
 
-// basically a primitive recursive object.
-export type ImperiumEnvironment<T = boolean | string | number | string[]> = {
-	[key: string]: T | ImperiumEnvironment;
-};
-
 export interface ImperiumRequest<C> extends Request {
-	contextManager: C;
+	context: C;
 }
 export type ImperiumRequestHandler<C> = (req: ImperiumRequest<C>, res: Response, next: NextFunction) => void;
 
@@ -33,40 +30,36 @@ export interface MiddlewareMap<C> {
 	[key: string]: () => ImperiumRequestHandler<C>;
 }
 
-export type ImperiumServerModule<Connectors extends Connector = Connector, Environment extends ImperiumEnvironment = {}, Context = any> = {
+// Server modules don't define context, they consume it.
+export interface ImperiumServerModule<Context, Connectors extends Connector> {
 	name: string;
-	middleware?: (server: ImperiumServer<Connectors, Environment, Context>) => MiddlewareMap<any>;
-	endpoints?: (server: ImperiumServer<Connectors, Environment, Context>) => void;
-	startup?: (server: ImperiumServer<Connectors, Environment, Context>, context: Context) => Promise<void>;
-};
+	// Defines middleware for other modules to use.
+	middleware?: (server: ImperiumServer<Context, Connectors>) => MiddlewareMap<Context>;
+	// uses middleware to create an endpoint.
+	endpoints?: (server: ImperiumServer<Context, Connectors>) => void;
+	startup?: (server: ImperiumServer<Context, Connectors>, context: Context) => Promise<void>;
+}
 
-export interface ImperiumServerConfig<Connectors extends Connector, Environment extends ImperiumEnvironment, Context> {
+export interface ImperiumServerConfig<Context, Connectors extends Connector> {
 	// Connection for the creation of ContextManager
 	connectors: Connectors;
-	environment?: Environment;
-	serverModules: ImperiumServerModule<Connectors, Environment, Context>[];
+	serverModules: ImperiumServerModule<Context, Connectors>[];
 	contextCreator: (connector: Connectors) => Context;
 }
 
-export default class ImperiumServer<
-	Connectors extends Connector = Connector,
-	Environment extends ImperiumEnvironment = ImperiumEnvironment,
-	Context = any
-> {
+export default class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly contextCreator: (connector: Connectors) => Context;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 
 	public readonly connectors: Connectors;
-	public readonly environment: Environment;
 	public readonly middleware = {} as MiddlewareMap<Context>;
-	public readonly serverModules: ImperiumServerModule<Connectors, Environment, Context>[];
+	public readonly serverModules: ImperiumServerModule<Context, Connectors, Environment>[];
 
-	constructor(config: ImperiumServerConfig<Connectors, Environment, Context>) {
+	constructor(config: ImperiumServerConfig<Context, Connectors>) {
 		this.connectors = config.connectors;
 		this.contextCreator = config.contextCreator;
-		this.environment = config.environment || ({} as Environment);
-		this.serverModules = config.serverModules;
+		this.serverModules = config.serverModules.map((m) => m());
 
 		d('Compiling module middleware');
 		this.middleware = this.serverModules.reduce(
@@ -83,17 +76,17 @@ export default class ImperiumServer<
 				contextManagerMiddleware: () => {
 					return ((req, res, next) => {
 						dd(`Creating context manager for request to: ${req.baseUrl}`);
-						req.contextManager = this.contextCreator(this.connectors);
+						req.context = this.contextCreator(this.connectors);
 						next();
 					}) as ImperiumRequestHandler<Context>;
 				},
 			},
 		);
 
-		d(`Loaded modules: ${this.serverModules.map(module => module.name).join(', ')}`);
+		d(`Loaded modules: ${this.serverModules.map((module) => module.name).join(', ')}`);
 	}
 
-	async start() {
+	async start({port}: {port: number}) {
 		if (this._expressApp) throw new Error('Server already started');
 
 		d('Connecting connectors');
@@ -107,7 +100,7 @@ export default class ImperiumServer<
 
 		// Module endpoints
 		d('Creating module endpoints');
-		this.serverModules.forEach(module => {
+		this.serverModules.forEach((module) => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
 		});
 
@@ -118,7 +111,7 @@ export default class ImperiumServer<
 				const moduleStartupReturn = module.startup(this, startupContext);
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
-					moduleStartupReturn.catch(err => {
+					moduleStartupReturn.catch((err) => {
 						console.log(chalk.bold.white('#######################################################'));
 						console.log(chalk.bold.red(' >>> Error running module startup\n'));
 						console.error(err);
@@ -133,14 +126,14 @@ export default class ImperiumServer<
 
 		// Execute startup promises
 		d('Executing module startup');
-		Promise.all(startupPromises).catch(err => {
+		Promise.all(startupPromises).catch((err) => {
 			d(`Module startup problem: ${err}`);
 			throw err;
 		});
 
 		d('Starting server');
-		this._httpServer.listen(this.environment.port, () => {
-			d(`Now listening on port: ${this.environment.port}`);
+		this._httpServer.listen(port, () => {
+			d(`Now listening on port: ${port}`);
 		});
 
 		return this;
@@ -167,7 +160,7 @@ export default class ImperiumServer<
 const connectors = new Connector({
 	test: {
 		connect() {
-			return 'test';
+			return 'eeeee';
 		},
 		close() {},
 	},
@@ -176,27 +169,39 @@ const connectors = new Connector({
 function contextCreator(connector: typeof connectors) {
 	return new ContextManager(
 		{
-			MyContext: conn => conn.connections.test,
+			MyContext: (conn) => conn.connections.test,
 		},
 		connector,
 	);
 }
 
-const environment = {
-	test: 0,
-};
+type ServerModule = ImperiumServerModule<ReturnType<typeof contextCreator>, typeof connectors, Environment>;
 
-const serverModule = {
-	name: 'test module',
-	startup(server, context) {
-		console.log(server.environment.test);
-		console.log(context.context.MyContext);
+const uhtnoeashutno = (): ImperiumServerModule<ReturnType<typeof contextCreator>, typeof connectors> => ({
+	name: 'ueaou',
+	environment: {
+		workdamnit: 0,
 	},
-} as ImperiumServerModule<typeof connectors, typeof environment, ReturnType<typeof contextCreator>> & ImperiumGraphqlServerModule;
+	async startup(server, environment, context) {
+		environment.
+	},
+});
+
+// GOAL: localized server module environment.
 
 const test = new ImperiumServer({
 	contextCreator,
 	connectors,
-	serverModules: [serverModule],
-	environment,
+	serverModules: [
+		() => ({
+			name: 'Test Module',
+			environment: {
+				test: 'y',
+			},
+			async startup(server, environment, context) {
+				console.log(context.context.MyContext);
+				console.log(environment.test);
+			},
+		}),
+	],
 });

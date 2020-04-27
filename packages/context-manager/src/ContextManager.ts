@@ -1,6 +1,6 @@
 import {Connector} from './Connector';
 
-export interface ContextCreators<C extends Connector> {
+interface ContextCreators<C extends Connector> {
 	[key: string]: (conn: C) => any;
 }
 
