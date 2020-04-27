@@ -43,11 +43,11 @@
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.7",
-		"apollo-cache-inmemory": "^1.6.3",
-		"apollo-link": "^1.2.13",
-		"apollo-link-error": "^1.1.12",
-		"apollo-link-http": "^1.5.16",
-		"apollo-link-ws": "^1.0.19",
+		"apollo-cache-inmemory": "^1.6.5",
+		"apollo-link": "^1.2.14",
+		"apollo-link-error": "^1.1.13",
+		"apollo-link-http": "^1.5.17",
+		"apollo-link-ws": "^1.0.20",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"

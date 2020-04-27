@@ -36,7 +36,7 @@
 		"typedoc": "typedoc"
 	},
 	"devDependencies": {
-		"webpack-cli": "^3.3.9"
+		"webpack-cli": "^3.3.11"
 	},
 	"dependencies": {
 		"@imperium/util": "^4.0.7",
