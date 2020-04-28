@@ -1,2 +1,2 @@
 export {ContextManager} from './ContextManager';
-export {Connector} from './Connector';
+export {Connector, ConnectorsConfig} from './Connector';

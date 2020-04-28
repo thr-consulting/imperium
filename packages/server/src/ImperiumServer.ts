@@ -4,7 +4,7 @@ import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
-import {Connector} from '@imperium/context-mananger';
+import {Connector} from '@imperium/context-manager';
 
 const d = debug('imperium.server.ImperiumServer');
 const dd = debug('verbose.imperium.server.ImperiumServer');
@@ -12,13 +12,6 @@ const dd = debug('verbose.imperium.server.ImperiumServer');
 // basically a primitive recursive object.
 export type Environment<T = boolean | string | number | string[]> = {
 	[key: string]: T | Environment;
-};
-
-const defaultEnvironment: Environment = {
-	port: parseInt(process.env.SERVER_PORT || '4001', 10),
-	nodeEnv: process.env.NODE_ENV || '',
-	production: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === undefined,
-	development: process.env.NODE_ENV === 'development',
 };
 
 export interface ImperiumRequest<C> extends Request {
@@ -54,12 +47,12 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 
 	public readonly connectors: Connectors;
 	public readonly middleware = {} as MiddlewareMap<Context>;
-	public readonly serverModules: ImperiumServerModule<Context, Connectors, Environment>[];
+	public readonly serverModules: ImperiumServerModule<Context, Connectors>[];
 
 	constructor(config: ImperiumServerConfig<Context, Connectors>) {
 		this.connectors = config.connectors;
 		this.contextCreator = config.contextCreator;
-		this.serverModules = config.serverModules.map((m) => m());
+		this.serverModules = config.serverModules;
 
 		d('Compiling module middleware');
 		this.middleware = this.serverModules.reduce(
@@ -83,14 +76,14 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 			},
 		);
 
-		d(`Loaded modules: ${this.serverModules.map((module) => module.name).join(', ')}`);
+		d(`Loaded modules: ${this.serverModules.map(module => module.name).join(', ')}`);
 	}
 
 	async start({port}: {port: number}) {
 		if (this._expressApp) throw new Error('Server already started');
 
 		d('Connecting connectors');
-		this.connectors.connect();
+		await this.connectors.connect();
 
 		d('Creating express app');
 		this._expressApp = express();
@@ -100,10 +93,11 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 
 		// Module endpoints
 		d('Creating module endpoints');
-		this.serverModules.forEach((module) => {
+		this.serverModules.forEach(module => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
 		});
 
+		d('Creating startup context');
 		// Create startup promises (these are executed in the next section)
 		const startupContext = this.contextCreator(this.connectors);
 		const startupPromises = this.serverModules.reduce((memo, module) => {
@@ -111,7 +105,7 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 				const moduleStartupReturn = module.startup(this, startupContext);
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
-					moduleStartupReturn.catch((err) => {
+					moduleStartupReturn.catch(err => {
 						console.log(chalk.bold.white('#######################################################'));
 						console.log(chalk.bold.red(' >>> Error running module startup\n'));
 						console.error(err);
@@ -126,7 +120,7 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 
 		// Execute startup promises
 		d('Executing module startup');
-		Promise.all(startupPromises).catch((err) => {
+		await Promise.all(startupPromises).catch(err => {
 			d(`Module startup problem: ${err}`);
 			throw err;
 		});
@@ -154,54 +148,3 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 		throw new Error('Imperium server not started yet.');
 	}
 }
-
-// Example ====
-
-const connectors = new Connector({
-	test: {
-		connect() {
-			return 'eeeee';
-		},
-		close() {},
-	},
-});
-
-function contextCreator(connector: typeof connectors) {
-	return new ContextManager(
-		{
-			MyContext: (conn) => conn.connections.test,
-		},
-		connector,
-	);
-}
-
-type ServerModule = ImperiumServerModule<ReturnType<typeof contextCreator>, typeof connectors, Environment>;
-
-const uhtnoeashutno = (): ImperiumServerModule<ReturnType<typeof contextCreator>, typeof connectors> => ({
-	name: 'ueaou',
-	environment: {
-		workdamnit: 0,
-	},
-	async startup(server, environment, context) {
-		environment.
-	},
-});
-
-// GOAL: localized server module environment.
-
-const test = new ImperiumServer({
-	contextCreator,
-	connectors,
-	serverModules: [
-		() => ({
-			name: 'Test Module',
-			environment: {
-				test: 'y',
-			},
-			async startup(server, environment, context) {
-				console.log(context.context.MyContext);
-				console.log(environment.test);
-			},
-		}),
-	],
-});

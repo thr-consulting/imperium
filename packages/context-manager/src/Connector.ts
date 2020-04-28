@@ -1,6 +1,6 @@
-interface ConnectorsConfig {
-	connect: () => any;
-	close: () => void;
+export interface ConnectorsConfig<T = any> {
+	connect: () => Promise<T>;
+	close: (connection: T) => Promise<void>;
 }
 
 export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
@@ -17,26 +17,31 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 		return this.connected;
 	}
 
-	public connect() {
+	public async connect() {
 		if (!this.connected) {
-			(Object.keys(this.connectionConfigs) as (keyof T)[]).forEach(key => {
-				if (typeof this.connectionConfigs[key].connect === 'function') {
-					this.connections[key] = this.connectionConfigs[key].connect();
-				}
-			});
+			await Promise.all(
+				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
+					if (typeof this.connectionConfigs[key].connect === 'function') {
+						this.connections[key] = await this.connectionConfigs[key].connect();
+					}
+				}),
+			);
 			this.connected = true;
 			return this;
 		}
 		throw new Error('Connectors are already connected.');
 	}
 
-	public close() {
+	public async close() {
 		if (this.isConnected) {
-			(Object.keys(this.connectionConfigs) as (keyof T)[]).forEach(key => {
-				if (typeof this.connectionConfigs[key].close === 'function') {
-					delete this.connections[key];
-				}
-			});
+			await Promise.all(
+				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
+					if (typeof this.connectionConfigs[key].close === 'function') {
+						this.connectionConfigs[key].close(this.connections[key]);
+						delete this.connections[key];
+					}
+				}),
+			);
 			this.connected = false;
 			return this;
 		}
