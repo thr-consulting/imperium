@@ -1,7 +1,7 @@
 {
 	"name": "@imperium/example-client",
 	"description": "Imperium example client project",
-	"version": "4.0.8",
+	"version": "4.0.9",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"repository": {
 		"type": "git",
@@ -45,6 +45,6 @@
 		"yup": "^0.28.4"
 	},
 	"devDependencies": {
-		"@imperium/dev": "^4.0.8"
+		"@imperium/dev": "^4.0.9"
 	}
 }

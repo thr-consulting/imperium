@@ -1,7 +1,7 @@
 {
   "name": "@imperium/example-server",
   "description": "Imperium example server project",
-  "version": "4.0.8",
+  "version": "4.0.9",
   "author": "Mike Kornelson <darkadept@durbn.net>",
   "repository": {
     "type": "git",
@@ -42,6 +42,6 @@
     "typeorm-revisions": "^0.0.5"
   },
   "devDependencies": {
-    "@imperium/dev": "^4.0.8"
+    "@imperium/dev": "^4.0.9"
   }
 }
