@@ -28,6 +28,7 @@ module.exports = function (api, opts, env) {
 	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
 	var enableGraphqls = validateBoolOption('graphqls', opts.graphqls, false);
 	const enableDecorators = validateBoolOption('decorators', opts.decorators, true);
+	const enableReactRefresh = validateBoolOption('reactRefresh', opts.reactRefresh, true);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -90,7 +91,7 @@ module.exports = function (api, opts, env) {
 		plugins: [
 			// Constraint: IS development client
 			// React Refresh
-			isEnvDevelopment && isClient && require.resolve('react-refresh/babel'),
+			enableReactRefresh && isEnvDevelopment && isClient && require.resolve('react-refresh/babel'),
 
 			// Experimental macros support. Will be documented after it's had some time
 			// in the wild.
