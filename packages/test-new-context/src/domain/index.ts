@@ -1,27 +1,11 @@
-import {Connector, ContextManager} from '@imperium/context-manager';
+import {Connector, ContextManager, ConnectorsConfig} from '@imperium/context-manager';
 import {Todo} from './todo';
 
-export const connectors = new Connector({
-	mongo: {
-		async connect() {
-			// Return your mongo connection here
-			return new Promise<number>(resolve => {
-				setTimeout(() => {
-					// eslint-disable-next-line no-console
-					console.log('creating mongo connector for todo domain.');
-					resolve(5);
-				}, 2000);
-			});
-		},
-		async close(conn) {
-			// close your mongo connection here.
-			// eslint-disable-next-line no-console
-			console.log('Closing mongo connector for todo domain', conn);
-		},
-	},
-});
+type RequiredConnectors = Connector<{
+	mongo: ConnectorsConfig<number>;
+}>;
 
-export function createContext(connector: typeof connectors) {
+export function createContext(connector: RequiredConnectors) {
 	// eslint-disable-next-line no-console
 	console.log("creating todo's domain context");
 	return new ContextManager(
