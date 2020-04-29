@@ -47,15 +47,15 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 
 	public readonly connectors: Connectors;
 	public readonly middleware = {} as MiddlewareMap<Context>;
-	public readonly serverModules: ImperiumServerModule<Context, Connectors>[];
+	public readonly modules: ImperiumServerModule<Context, Connectors>[];
 
 	constructor(config: ImperiumServerConfig<Context, Connectors>) {
 		this.connectors = config.connectors;
 		this.contextCreator = config.contextCreator;
-		this.serverModules = config.serverModules;
+		this.modules = config.serverModules;
 
 		d('Compiling module middleware');
-		this.middleware = this.serverModules.reduce(
+		this.middleware = this.modules.reduce(
 			(memo, module) => {
 				if (module.middleware && isFunction(module.middleware)) {
 					return {
@@ -76,7 +76,7 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 			},
 		);
 
-		d(`Loaded modules: ${this.serverModules.map(module => module.name).join(', ')}`);
+		d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
 	}
 
 	async start({port}: {port: number}) {
@@ -93,14 +93,14 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 
 		// Module endpoints
 		d('Creating module endpoints');
-		this.serverModules.forEach(module => {
+		this.modules.forEach(module => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
 		});
 
 		d('Creating startup context');
 		// Create startup promises (these are executed in the next section)
 		const startupContext = this.contextCreator(this.connectors);
-		const startupPromises = this.serverModules.reduce((memo, module) => {
+		const startupPromises = this.modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
 				const moduleStartupReturn = module.startup(this, startupContext);
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
