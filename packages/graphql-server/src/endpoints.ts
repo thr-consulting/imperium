@@ -1,18 +1,22 @@
-import {IImperiumServer, ImperiumServerModule} from '@imperium/server';
+// eslint-disable-next-line import/no-named-default
+import type {default as ImperiumServer, ImperiumRequest} from '@imperium/server';
 import {isString, toString} from '@imperium/util';
+import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
-import {DocumentNode} from 'graphql';
-import {ApolloServer, SchemaDirectiveVisitor, ApolloServerExpressConfig, gql, CorsOptions} from 'apollo-server-express';
 import jwt from 'express-jwt';
+import {DocumentNode} from 'graphql';
 import compact from 'lodash/compact';
 import merge from 'lodash/merge';
-import {schema as coreSchema, resolvers as coreResolvers} from './schema';
-import {ApolloSchema, ImperiumGraphqlServerModule} from './types';
+import {ExecutionParams} from 'subscriptions-transport-ws';
+import {environment} from './environment';
+import {resolvers as coreResolvers, schema as coreSchema} from './schema';
+import {ApolloSchema, isImperiumGraphqlServerModule} from './types';
 
 /**
  * @ignore
  */
 const d = debug('imperium.graphql-server.endpoints');
+const env = environment();
 
 /**
  * Transforms
@@ -20,7 +24,7 @@ const d = debug('imperium.graphql-server.endpoints');
  */
 function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 	if (Array.isArray(schema)) {
-		return (schema as Array<DocumentNode | string>).map((s) => {
+		return (schema as Array<DocumentNode | string>).map(s => {
 			if (isString(s)) {
 				return gql`
 					${s}
@@ -44,12 +48,12 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 /**
  * Apollo graphql Express endpoints
  */
-export default function endpoints(server: IImperiumServer): void {
+export default function endpoints(server: ImperiumServer<any, any>) {
 	// Merge all the typeDefs from all modules
 	d('Merging graphql schema');
 	const typeDefs = server.modules.reduce(
-		(memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
-			if (module.schema) {
+		(memo, module) => {
+			if (isImperiumGraphqlServerModule(module) && module.schema) {
 				return [...memo, ...transformToSchemaObjectArray(module.schema)];
 			}
 			return memo;
@@ -63,8 +67,8 @@ export default function endpoints(server: IImperiumServer): void {
 
 	// Merge all the schema directives from all modules
 	d('Merging graphql schema directives');
-	const schemaDirectives = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
-		if (module.schemaDirectives) {
+	const schemaDirectives = server.modules.reduce((memo, module) => {
+		if (isImperiumGraphqlServerModule(module) && module.schemaDirectives) {
 			return {
 				...memo,
 				...module.schemaDirectives,
@@ -75,7 +79,7 @@ export default function endpoints(server: IImperiumServer): void {
 
 	// Let's not create a pubsub here. The app should be in charge of that.
 	// // Create PubSub for subscriptions
-	// if (server.environment.graphqlWs) {
+	// if (env.graphqlWs) {
 	// 	d('Creating graphql pub/sub');
 	// 	const pubsub = new PubSub();
 	// 	server.addEnvironment('graphqlPubSub', pubsub);
@@ -83,8 +87,8 @@ export default function endpoints(server: IImperiumServer): void {
 
 	// Merge all the resolvers from all modules
 	d('Merging graphql resolvers');
-	const resolvers = server.modules.reduce((memo, module: ImperiumServerModule & ImperiumGraphqlServerModule) => {
-		if (module.resolvers) return merge(memo, module.resolvers(server));
+	const resolvers = server.modules.reduce((memo, module) => {
+		if (isImperiumGraphqlServerModule(module) && module.resolvers) return merge(memo, module.resolvers(server));
 		return memo;
 	}, coreResolvers);
 
@@ -92,31 +96,31 @@ export default function endpoints(server: IImperiumServer): void {
 		typeDefs,
 		resolvers,
 		// @ts-ignore
-		context: ({req, connection}) => {
+		context: ({req, connection}: {req: ImperiumRequest<any>; connection: ExecutionParams}) => {
 			// ContextManager is stored in req. It is created in the contextMiddleware() from core
 			if (connection) {
 				return connection.context;
 			}
-			// @ts-ignore
-			return req.contextManager;
+			return req.context;
 		},
 		schemaDirectives,
-		formatError: (error) => {
+		formatError: error => {
 			// TODO Do more here
 			// eslint-disable-next-line no-console
 			console.error(error);
+			d(error);
 			return error;
 		},
-		playground: !!server.environment.development,
-		debug: !!server.environment.development,
-		introspection: !!server.environment.development,
+		playground: !!env.development,
+		debug: !!env.development,
+		introspection: !!env.development,
 	};
 
-	if (server.environment.graphqlWs) {
+	if (env.graphqlWs) {
 		d('Configuring subscriptions');
-		if (isString(server.environment.graphqlUrl)) {
+		if (isString(env.graphqlUrl)) {
 			apolloServerConfig.subscriptions = {
-				path: server.environment.graphqlUrl,
+				path: env.graphqlUrl,
 			};
 		}
 	}
@@ -124,18 +128,14 @@ export default function endpoints(server: IImperiumServer): void {
 	d('Creating apollo server');
 	const apolloServer = new ApolloServer(apolloServerConfig);
 
-	d(
-		`Adding graphql endpoint: ${server.environment.graphqlUrl} ${
-			server.environment.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'
-		}`,
-	);
+	d(`Adding graphql endpoint: ${env.graphqlUrl} ${env.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'}`);
 	server.expressApp.use(
-		toString(server.environment.graphqlUrl),
+		toString(env.graphqlUrl),
 		// @ts-ignore
 		compact([
 			jwt({
-				secret: toString(server.environment.graphqlAccessTokenSecret), // This is the same as ACCESS_TOKEN_SECRET from @imperium/auth-server package.
-				credentialsRequired: !!server.environment.graphqlCredentialsRequired,
+				secret: toString(env.graphqlAccessTokenSecret), // This is the same as ACCESS_TOKEN_SECRET from @imperium/auth-server package.
+				credentialsRequired: env.graphqlCredentialsRequired,
 			}),
 			server.middleware.contextManagerMiddleware(),
 			server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
@@ -143,16 +143,16 @@ export default function endpoints(server: IImperiumServer): void {
 	);
 
 	const corsOpts: CorsOptions = {
-		origin: server.environment.graphqlCorsOrigin as string,
+		origin: env.graphqlCorsOrigin,
 	};
 
 	apolloServer.applyMiddleware({
 		app: server.expressApp,
-		path: toString(server.environment.graphqlUrl),
+		path: toString(env.graphqlUrl),
 		cors: corsOpts,
 	});
 
-	if (server.environment.graphqlWs) {
+	if (env.graphqlWs) {
 		d('Installing subscription handlers');
 		apolloServer.installSubscriptionHandlers(server.httpServer);
 	}

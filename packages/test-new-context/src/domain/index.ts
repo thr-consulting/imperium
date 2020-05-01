@@ -1,18 +1,17 @@
-import {Connector, ContextManager, ConnectorsConfig} from '@imperium/context-manager';
+import {Connector, ConnectorsConfig, ContextManager} from '@imperium/context-manager';
+import debug from 'debug';
 import {Todo} from './todo';
+
+const d = debug('imperium.test-new-context.domain');
 
 type RequiredConnectors = Connector<{
 	mongo: ConnectorsConfig<number>;
 }>;
 
 export function createContext(connector: RequiredConnectors) {
-	// eslint-disable-next-line no-console
-	console.log("creating todo's domain context");
 	return new ContextManager(
 		{
 			Todo: conn => {
-				// eslint-disable-next-line no-console
-				console.log(conn.connections.mongo);
 				return Todo;
 			},
 		},

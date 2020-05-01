@@ -1,20 +1,10 @@
 import {ImperiumServerModule} from '@imperium/server';
 import endpoints from './endpoints';
 
-export default function (): ImperiumServerModule {
-	return {
-		name: '@imperium/graphql-server',
-		environment() {
-			return {
-				graphqlAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
-				graphqlUrl: process.env.GRAPHQL_URL || '/api/graphql',
-				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED === 'true',
-				graphqlCorsOrigin: process.env.CORS_ORIGIN?.split(',') || false,
-				graphqlWs: process.env.GRAPHQL_ENABLE_SUBSCRIPTIONS === 'true',
-			};
-		},
-		endpoints,
-	};
-}
+// import and call environment from './environment' to use env variables
+export const graphqlServerModule = {
+	name: '@imperium/graphql-server',
+	endpoints,
+} as ImperiumServerModule<any, any>;
 
 export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers} from './types';

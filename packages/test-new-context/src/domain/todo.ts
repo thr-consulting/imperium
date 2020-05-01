@@ -1,11 +1,13 @@
+import debug from 'debug';
 import type {Context} from './index';
+
+const d = debug('imperium.test-new-context.domain.todo');
 
 let id = 0;
 
 export class Todo {
 	static create({title, complete}: {title: string; complete: boolean}, context: Context) {
-		// eslint-disable-next-line no-console
-		console.log(context.context.Todo);
+		d('create new todo.');
 		return {id: id++, title, complete};
 	}
 }

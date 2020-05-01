@@ -1,12 +1,13 @@
 import {Connector} from '@imperium/context-manager';
+import {graphqlServerModule, ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import ImperiumServer, {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
 import {createContext} from '../domain';
 import {todoSeverModule} from './todo';
 
-export const serverModules: ServerModule[] = [todoSeverModule];
+export const serverModules: ImperiumServerModule<any, any>[] = [graphqlServerModule, todoSeverModule];
 
-const d = debug('imperium.main');
+const d = debug('imperium.test-new-context.server');
 
 // todo connectors should be the responsibility of the instantiating server. (in this case, the test server)
 const testServerConnectors = new Connector({
@@ -15,20 +16,19 @@ const testServerConnectors = new Connector({
 			return 5;
 		},
 		async close() {
-			// eslint-disable-next-line no-console
-			console.log();
+			d('closing test server connectors');
 		},
 	},
 });
 
 function contextCreator(conn: typeof testServerConnectors) {
 	return {
-		domain1: createContext(conn),
+		todoDomain: createContext(conn),
 		someOtherDomain: {},
 	};
 }
 
-export type ServerModule = ImperiumServerModule<ReturnType<typeof contextCreator>, typeof testServerConnectors>;
+export type ServerModule = ImperiumGraphqlServerModule<ReturnType<typeof contextCreator>, typeof testServerConnectors>;
 
 export const server = new ImperiumServer({
 	contextCreator,
