@@ -1,50 +1,50 @@
-/* eslint-disable import/no-cycle */
-// see: https://github.com/babel/babel/issues/10981
-import {AuthContext, ImperiumRequest} from '@imperium/server';
+import type {ImperiumRequest} from '@imperium/server';
 import debug from 'debug';
-import {NextFunction, Response} from 'express';
-import {AccessToken} from '../types';
+import type {NextFunction, Response} from 'express';
+import type {AuthRequiredContext} from '../AuthServerModule';
+import type {Context} from '../index';
+import type {AccessToken} from '../types';
 
 const d = debug('imperium.auth-server.authMiddleware');
 
-export function authMiddleware() {
-	return (req: ImperiumRequest & {user?: AccessToken}, res: Response, next: NextFunction) => {
-		if (!req.contextManager) {
+export function authMiddleware(context: AuthRequiredContext) {
+	return (req: ImperiumRequest<Context> & {user?: AccessToken}, res: Response, next: NextFunction) => {
+		if (!req.context) {
 			throw new Error('ContextManager middleware needs to be called before calling authMiddleware.');
 		}
 
-		function getAuthContextMethods(permissions: string[]): AuthContext {
+		function getAuthContextMethods(permissions: string[]): Context {
 			return {
 				id: null,
 				permissions: null,
 				hasPermission(perms) {
-					return req.contextManager.Role.permissionsMatch(permissions, perms);
+					return req.context.Role.permissionsMatch(permissions, perms);
 				},
 				getCache(key) {
-					return req.contextManager.Auth.getCache(key, req.contextManager);
+					return req.context.Auth.getCache(key, req.context);
 				},
 				setCache(key, allowed, expire) {
-					return req.contextManager.Auth.setCache(key, !!allowed, req.contextManager, expire);
+					return req.context.Auth.setCache(key, !!allowed, req.context, expire);
 				},
 				invalidateCache(key) {
-					return req.contextManager.Auth.invalidateCache(key, req.contextManager);
+					return req.context.Auth.invalidateCache(key, req.context);
 				},
 			};
 		}
 
 		if (req.user) {
-			req.contextManager.Role.getCachedPermissions(req.user.roles || [], req.contextManager).then((permissions: string[]) => {
+			req.context.Role.getCachedPermissions(req.user.roles || [], req.context).then((permissions: string[]) => {
 				// req.user is our decoded access token IF jwt() middleware was called first.
 				// If jwt() middleware was not called it will look like we are unauthenticated
-				req.contextManager.auth = {
+				req.context.auth = {
 					...getAuthContextMethods(permissions),
 					id: req.user?.id,
 					permissions,
-				} as AuthContext;
+				} as Context;
 				next();
 			});
 		} else {
-			req.contextManager.auth = {permissions: [], ...getAuthContextMethods([])};
+			req.context.auth = {permissions: [], ...getAuthContextMethods([])};
 			next();
 		}
 	};

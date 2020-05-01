@@ -20,7 +20,7 @@ export interface ImperiumRequest<C> extends Request {
 export type ImperiumRequestHandler<C> = (req: ImperiumRequest<C>, res: Response, next: NextFunction) => void;
 
 export interface MiddlewareMap<C> {
-	[key: string]: () => ImperiumRequestHandler<C>;
+	[key: string]: ImperiumRequestHandler<C>;
 }
 
 // Server modules don't define context, they consume it.
@@ -60,19 +60,17 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 				if (module.middleware && isFunction(module.middleware)) {
 					return {
 						...memo,
-						...module.middleware(this),
+						...module.middleware,
 					};
 				}
 				return memo;
 			},
 			{
-				contextManagerMiddleware: () => {
-					return ((req, res, next) => {
-						dd(`Creating context manager for request to: ${req.baseUrl}`);
-						req.context = this.contextCreator(this.connectors);
-						next();
-					}) as ImperiumRequestHandler<Context>;
-				},
+				contextManagerMiddleware: ((req, res, next) => {
+					dd(`Creating context manager for request to: ${req.baseUrl}`);
+					req.context = this.contextCreator(this.connectors);
+					next();
+				}) as ImperiumRequestHandler<Context>,
 			},
 		);
 

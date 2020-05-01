@@ -2,7 +2,7 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"declarationDir": "dist",
-		"importsNotUsedAsValues": "remove"
+		"importsNotUsedAsValues": "error"
 	},
 	"include": [
 		"src/index.ts"

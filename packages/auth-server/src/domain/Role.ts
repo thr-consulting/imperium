@@ -1,14 +1,14 @@
-/* eslint-disable import/no-cycle */
-// see: https://github.com/babel/babel/issues/10981
 import {IImperiumServer} from '@imperium/server';
 import OrderedDataLoader from '@thx/ordereddataloader';
 import debug from 'debug';
 import intersection from 'lodash/intersection';
 import uniq from 'lodash/uniq';
 import {Document, model, Schema, Types} from 'mongoose';
-import {AuthContextManager} from '../types';
+import {environment} from '../environment';
+import type {Context} from '../index';
 
 const d = debug('imperium.auth-server.Role');
+const env = environment();
 
 export interface IRole extends Document {
 	_id: Types.ObjectId;
@@ -26,14 +26,14 @@ const RoleModel = model<IRole>('Role', roleSchema);
 export class Role {
 	static createDataLoader(server: IImperiumServer) {
 		// @ts-ignore
-		return new OrderedDataLoader<string, IRole>((keys) => RoleModel.find({_id: {$in: keys}}), {idField: '_id'});
+		return new OrderedDataLoader<string, IRole>(keys => RoleModel.find({_id: {$in: keys}}), {idField: '_id'});
 	}
 
-	static getByName(name: string, ctx: AuthContextManager) {
+	static getByName(name: string, ctx: Context) {
 		return RoleModel.find({name});
 	}
 
-	static async getPermissions(roles: string[] = [], ctx: AuthContextManager): Promise<string[]> {
+	static async getPermissions(roles: string[] = [], ctx: Context): Promise<string[]> {
 		const perms = await RoleModel.find({name: {$in: roles}});
 
 		return uniq(
@@ -45,8 +45,8 @@ export class Role {
 		);
 	}
 
-	static async getCachedPermissions(roles: string[], ctx: AuthContextManager): Promise<string[]> {
-		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
+	static async getCachedPermissions(roles: string[], ctx: Context): Promise<string[]> {
+		const cacheConnectorKey = env.authSharedCacheConnectorKey as string;
 
 		// Get cached permissions. It will be an array of string arrays or null. ie. [ ['blah'], null, ['more'] ]
 		// The null's mean the role is not cached.
@@ -76,13 +76,13 @@ export class Role {
 
 			// Cache the missing roles' permissions
 			await Promise.all(
-				perms.map(async (v) => {
+				perms.map(async v => {
 					await ctx.server.connectors[cacheConnectorKey].hset('permissions', v.name, v.permissions);
 				}),
 			);
 
 			// Set the entire key to expire
-			const roleCacheExpires = ctx.server.environment.authRoleCacheExpires as number;
+			const roleCacheExpires = env.authRoleCacheExpires as number;
 			await ctx.server.connectors[cacheConnectorKey].expire('permissions', roleCacheExpires);
 
 			// Return unique permissions
@@ -100,14 +100,14 @@ export class Role {
 		return uniq(permissions);
 	}
 
-	static async uncachePermissions(ctx: AuthContextManager) {
-		const cacheConnectorKey = ctx.server.environment.authSharedCacheConnectorKey as string;
+	static async uncachePermissions(ctx: Context) {
+		const cacheConnectorKey = env.authSharedCacheConnectorKey as string;
 		await ctx.server.connectors[cacheConnectorKey].del('permissions');
 	}
 
 	static permissionsMatch(havePermissions: string | string[], needPermissions: string | string[]): boolean {
 		const have = havePermissions instanceof Array ? havePermissions : [havePermissions];
-		const need = needPermissions instanceof Array ? [...needPermissions] : [needPermissions];
+		const need = needPermissions instanceof Array ? needPermissions : [needPermissions];
 		return intersection(have, need).length === need.length;
 	}
 }
