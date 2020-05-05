@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import express, {NextFunction, Response, Application, Request} from 'express';
+import express, {NextFunction, Response, Application, Request, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import chalk from 'chalk';
@@ -9,15 +9,13 @@ import {Connector} from '@imperium/context-manager';
 const d = debug('imperium.server.ImperiumServer');
 const dd = debug('verbose.imperium.server.ImperiumServer');
 
-// basically a primitive recursive object.
-export type Environment<T = boolean | string | number | string[]> = {
-	[key: string]: T | Environment;
-};
-
 export interface ImperiumRequest<C> extends Request {
 	context: C;
 }
-export type ImperiumRequestHandler<C> = (req: ImperiumRequest<C>, res: Response, next: NextFunction) => void;
+// export type ImperiumRequestHandler<C> = (req: ImperiumRequest<C>, res: Response, next: NextFunction) => void;
+export interface ImperiumRequestHandler<C> extends RequestHandler {
+	(req: ImperiumRequest<C>, res: Response, next: NextFunction): any;
+}
 
 export interface MiddlewareMap<C> {
 	[key: string]: ImperiumRequestHandler<C>;
@@ -66,11 +64,11 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 				return memo;
 			},
 			{
-				contextManagerMiddleware: ((req, res, next) => {
-					dd(`Creating context manager for request to: ${req.baseUrl}`);
+				contextMiddleware: (req, res, next) => {
+					dd(`Creating context for request to: ${req.baseUrl}`);
 					req.context = this.contextCreator(this.connectors);
 					next();
-				}) as ImperiumRequestHandler<Context>,
+				},
 			},
 		);
 
@@ -104,10 +102,9 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
 					moduleStartupReturn.catch(err => {
-						console.log(chalk.bold.white('#######################################################'));
-						console.log(chalk.bold.red(' >>> Error running module startup\n'));
+						console.group('Error running module startup');
 						console.error(err);
-						console.log(chalk.bold.white('#######################################################'));
+						console.groupEnd();
 						return Promise.reject(err);
 					});
 				}

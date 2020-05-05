@@ -1,49 +1,49 @@
 import type {ImperiumServerModule} from '@imperium/server';
-import {endpoints} from './endpoints';
+import {createAuthEndpoints} from './endpoints';
 import {environment} from './environment';
-import {authMiddleware} from './middleware/authMiddleware';
+import {createAuthMiddleware} from './middleware/authMiddleware';
+import type {AuthRequiredDomain} from './types';
 
 const env = environment();
 
-export interface AuthContext {
-	// id: null,
-	// permissions: null,
-	// hasPermission(perms) {
-	// 	return req.context.Role.permissionsMatch(permissions, perms);
-	// },
-	// getCache(key) {
-	// 	return req.context.Auth.getCache(key, req.context);
-	// },
-	// setCache(key, allowed, expire) {
-	// 	return req.context.Auth.setCache(key, !!allowed, req.context, expire);
-	// },
-	// invalidateCache(key) {
-	// 	return req.context.Auth.invalidateCache(key, req.context);
-	// },
-}
+// mike said: write it from scratch
 
-interface User {
-	id: number;
-}
-
-export interface AuthRequiredContext {
-	getUserById(): User;
-}
-
-export function CreateAuthServerModule(context: AuthRequiredContext): ImperiumServerModule<any, any> {
+export function CreateAuthServerModule<Context = any>(options: AuthRequiredDomain): ImperiumServerModule<any, any> {
 	return {
 		name: '@imperium/auth-server',
 		middleware() {
 			return {
-				authMiddleware,
+				auth: createAuthMiddleware(options),
 			};
 		},
-		endpoints,
+		endpoints: createAuthEndpoints(options),
 		async startup(server) {
 			const cacheKey = env.authSharedCacheConnectorKey;
-			if (!server.connectors[cacheKey as string]) {
+			if (!server.connectors[cacheKey]) {
 				throw new Error(`@imperium/auth-server expects a SharedCache instance called: ${cacheKey}`);
 			}
 		},
 	};
 }
+
+const testContext = {
+	someshit: 'value',
+};
+
+const test = CreateAuthServerModule<typeof testContext>({
+	auth: {
+		async getPermissionsByRole(name: string[], context) {
+			return [''];
+		},
+		async getServiceInfo(identifier: string, context) {
+			return null;
+		},
+		async setAuthCache(key: string | string[], context) {
+			return true;
+		},
+		async getAuthCache(key: string | string[], context) {
+			return true;
+		},
+		async invalidateAuthCache(key: string | string[] | undefined, context) {},
+	},
+});

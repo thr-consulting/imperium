@@ -1,65 +1,58 @@
-/* eslint-disable import/no-cycle */
-// see: https://github.com/babel/babel/issues/10981
-import {IImperiumServer, ImperiumRequest} from '@imperium/server';
+import type {default as ImperiumServer} from '@imperium/server';
 import {toString} from '@imperium/util';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
-import {Response} from 'express';
-import {ImperiumAuthServerModule, isLoginInfo, LoginReturn} from '../types';
+import {environment} from '../environment';
+import {login} from '../lib';
+import {AuthRequiredDomain, isLoginInfo, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
+const env = environment();
 
-export function loginEndpoint(authModule: ImperiumAuthServerModule, server: IImperiumServer) {
-	d(`Adding auth login endpoint: ${server.environment.authLoginUrl}`);
+export function loginEndpoint(options: AuthRequiredDomain, server: ImperiumServer<any, any>) {
+	d(`Adding auth login endpoint: ${env.authLoginUrl}`);
 
 	const corsOpts: CorsOptions = {
-		origin: server.environment.authCorsOrigin,
+		origin: env.authCorsOrigin,
 		credentials: true,
 	} as CorsOptions;
 
 	// CORS options
-	server.expressApp.options(toString(server.environment.authLoginUrl), cors(corsOpts));
+	server.expressApp.options(env.authLoginUrl, cors(corsOpts));
 
-	server.expressApp.post(
-		toString(server.environment.authLoginUrl),
-		cors(corsOpts),
-		json(),
-		// @ts-ignore
-		server.middleware.contextManagerMiddleware(),
-		(req: ImperiumRequest, res: Response) => {
-			if (isLoginInfo(req.body)) {
-				const loginInfo = req.body;
+	server.expressApp.post(toString(env.authLoginUrl), cors(corsOpts), json(), server.middleware.contextMiddleware, (req, res) => {
+		if (isLoginInfo(req.body)) {
+			const loginInfo = req.body;
 
-				// Perform login
-				req.contextManager.Auth.login(loginInfo, authModule, req, req.contextManager)
-					.then((ret: LoginReturn) => {
-						// Login was successful, return id and access token and set refresh token as the cookie.
-						res
-							.status(200)
-							// Send refresh token as a cookie to browser
-							.cookie(toString(server.environment.authRefreshCookieName), ret.refresh, {
-								httpOnly: true,
-								secure: server.environment.production as boolean, // Secure in production
-								expires: new Date(Date.now() + 10 * 60000), // TODO this needs to be the same as environment.authRefreshTokenExpires
-								domain: toString(server.environment.authServerDomain),
-								path: toString(server.environment.authRefreshUrl), // Only set cookie for refresh URL
-							})
-							// Send user id and initial access token
-							.json({
-								id: ret.id,
-								access: ret.access,
-							});
-						res.end();
-					})
-					.catch((err: Error) => {
-						res.status(400).send(err.toString());
-						res.end();
-					});
-			} else {
-				res.status(400).send('Invalid JSON body');
-				res.end();
-			}
-		},
-	);
+			// Perform login
+			login(loginInfo, options, req.connection.remoteAddress)
+				.then((ret: LoginReturn) => {
+					// Login was successful, return id and access token and set refresh token as the cookie.
+					res
+						.status(200)
+						// Send refresh token as a cookie to browser
+						.cookie(toString(env.authRefreshCookieName), ret.refresh, {
+							httpOnly: true,
+							secure: env.production, // Secure in production
+							expires: new Date(Date.now() + 10 * 60000), // TODO this needs to be the same as env.authRefreshTokenExpires
+							domain: toString(env.authServerDomain),
+							path: toString(env.authRefreshUrl), // Only set cookie for refresh URL
+						})
+						// Send user id and initial access token
+						.json({
+							id: ret.id,
+							access: ret.access,
+						});
+					res.end();
+				})
+				.catch((err: Error) => {
+					res.status(400).send(err.toString());
+					res.end();
+				});
+		} else {
+			res.status(400).send('Invalid JSON body');
+			res.end();
+		}
+	});
 }

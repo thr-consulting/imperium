@@ -1,46 +1,42 @@
 import type {ImperiumRequest} from '@imperium/server';
 import debug from 'debug';
 import type {NextFunction, Response} from 'express';
-import type {AuthRequiredContext} from '../AuthServerModule';
-import type {Context} from '../index';
-import type {AccessToken} from '../types';
+import intersection from 'lodash/intersection';
+import type {AccessToken, AuthContext, AuthRequiredDomain} from '../types';
 
 const d = debug('imperium.auth-server.authMiddleware');
 
-export function authMiddleware(context: AuthRequiredContext) {
-	return (req: ImperiumRequest<Context> & {user?: AccessToken}, res: Response, next: NextFunction) => {
-		if (!req.context) {
-			throw new Error('ContextManager middleware needs to be called before calling authMiddleware.');
-		}
-
-		function getAuthContextMethods(permissions: string[]): Context {
+export function createAuthMiddleware(options: AuthRequiredDomain) {
+	return function authMiddleware(req: ImperiumRequest<{auth: AuthContext}> & {user?: AccessToken}, res: Response, next: NextFunction) {
+		function getAuthContextMethods(permissions: string[]): AuthContext {
 			return {
 				id: null,
 				permissions: null,
-				hasPermission(perms) {
-					return req.context.Role.permissionsMatch(permissions, perms);
+				hasPermission(need) {
+					// compare the length of permissions that exist in both arrays to the ones we need.
+					return intersection(permissions, need).length === need.length;
 				},
 				getCache(key) {
-					return req.context.Auth.getCache(key, req.context);
+					return options.getCache(key);
 				},
-				setCache(key, allowed, expire) {
-					return req.context.Auth.setCache(key, !!allowed, req.context, expire);
+				setCache(key, allowed, expire?) {
+					return options.setCache(key, allowed, expire);
 				},
 				invalidateCache(key) {
-					return req.context.Auth.invalidateCache(key, req.context);
+					return options.invalidateCache(key);
 				},
 			};
 		}
 
 		if (req.user) {
-			req.context.Role.getCachedPermissions(req.user.roles || [], req.context).then((permissions: string[]) => {
+			options.getPermissions(req.user.roles || []).then(permissions => {
 				// req.user is our decoded access token IF jwt() middleware was called first.
 				// If jwt() middleware was not called it will look like we are unauthenticated
 				req.context.auth = {
 					...getAuthContextMethods(permissions),
 					id: req.user?.id,
 					permissions,
-				} as Context;
+				} as AuthContext;
 				next();
 			});
 		} else {
