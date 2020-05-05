@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/util",
-	"version": "4.0.7",
+	"version": "4.0.8",
 	"description": "Imperium Util package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -33,7 +33,7 @@
 		"typedoc": "typedoc"
 	},
 	"devDependencies": {
-		"webpack-cli": "^3.3.10"
+		"webpack-cli": "^3.3.11"
 	},
 	"dependencies": {
 		"debug": "^4.1.1",

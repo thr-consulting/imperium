@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-graphql-client",
-	"version": "4.0.7",
+	"version": "4.0.8",
 	"description": "Imperium Auth Graphql client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -36,11 +36,11 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@imperium/auth-client": "^4.0.7",
-		"@imperium/client": "^4.0.7",
-		"@imperium/graphql-client": "^4.0.7",
-		"@imperium/util": "^4.0.7",
-		"apollo-link": "^1.2.13",
+		"@imperium/auth-client": "^4.0.8",
+		"@imperium/client": "^4.0.8",
+		"@imperium/graphql-client": "^4.0.8",
+		"@imperium/util": "^4.0.8",
+		"apollo-link": "^1.2.14",
 		"apollo-link-token-refresh": "^0.2.7",
 		"debug": "^4.1.1",
 		"jwt-decode": "^2.2.0"

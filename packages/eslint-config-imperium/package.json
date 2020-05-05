@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/eslint-config-imperium",
-	"version": "4.0.7",
+	"version": "4.0.8",
 	"description": "ESLint dependencies",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -20,16 +20,16 @@
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "^2.0.0",
-		"@typescript-eslint/parser": "^2.0.0",
+		"@typescript-eslint/eslint-plugin": "^2.29.0",
+		"@typescript-eslint/parser": "^2.29.0",
 		"eslint-config-airbnb-typescript": "^6.3.2",
-		"eslint-config-prettier": "^6.1.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-jest": "^23.0.4",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-import": "^2.20.2",
+		"eslint-plugin-jest": "^23.8.2",
 		"eslint-plugin-jsx-a11y": "^6.2.3",
-		"eslint-plugin-prettier": "^3.1.0",
-		"eslint-plugin-react": "^7.14.3",
-		"eslint-plugin-react-hooks": "^2.3.0"
+		"eslint-plugin-prettier": "^3.1.3",
+		"eslint-plugin-react": "^7.19.0",
+		"eslint-plugin-react-hooks": "^3.0.0"
 	},
 	"peerDependencies": {
 		"eslint": "^6.x",
