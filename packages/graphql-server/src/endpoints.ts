@@ -132,7 +132,6 @@ export default function endpoints(server: ImperiumServer<any, any>) {
 	d(`Adding graphql endpoint: ${env.graphqlUrl} ${env.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'}`);
 	server.expressApp.use(
 		toString(env.graphqlUrl),
-		// @ts-ignore
 		compact([
 			server.contextMiddleware(),
 			// server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,

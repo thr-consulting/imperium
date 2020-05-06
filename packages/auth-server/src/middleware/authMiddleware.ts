@@ -6,11 +6,12 @@ import type {AuthContext, AuthRequiredDomain} from '../types';
 import {environment} from '../environment';
 
 const d = debug('imperium.auth-server.authMiddleware');
+const env = environment();
 
 export function authMiddleware(options: AuthRequiredDomain): RequestHandler[] {
 	return [
 		jwt({
-			secret: environment().authAccessTokenSecret,
+			secret: env.authAccessTokenSecret,
 			credentialsRequired: false,
 		}),
 		(req, res, next) => {
