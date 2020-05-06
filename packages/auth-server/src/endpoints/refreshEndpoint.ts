@@ -1,4 +1,4 @@
-import type {default as ImperiumServer} from '@imperium/server';
+import type {ImperiumServer} from '@imperium/server';
 import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
@@ -25,7 +25,7 @@ export function refreshEndpoint(options: AuthRequiredDomain, server: ImperiumSer
 		cors(corsOpts),
 		cookieParser(),
 		// @ts-ignore
-		server.middleware.contextManagerMiddleware(),
+		server.contextMiddleware(),
 		(req, res) => {
 			if (req.cookies && req.cookies[env.authRefreshCookieName]) {
 				const refreshTokenString = req.cookies[env.authRefreshCookieName];

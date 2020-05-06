@@ -1,4 +1,4 @@
-import type {default as ImperiumServer} from '@imperium/server';
+import type {ImperiumServer} from '@imperium/server';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
@@ -20,7 +20,7 @@ export function loginEndpoint(options: AuthRequiredDomain, server: ImperiumServe
 	// CORS options
 	server.expressApp.options(env.authLoginUrl, cors(corsOpts));
 
-	server.expressApp.post(env.authLoginUrl, cors(corsOpts), json(), server.middleware.contextMiddleware, (req, res) => {
+	server.expressApp.post(env.authLoginUrl, cors(corsOpts), json(), server.contextMiddleware(), (req, res) => {
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 

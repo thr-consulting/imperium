@@ -21,6 +21,7 @@
 		"server.js"
 	],
 	"scripts": {
+		"start": "screen -c ./dev.screenrc",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",

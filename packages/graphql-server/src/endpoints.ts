@@ -100,7 +100,9 @@ export default function endpoints(server: ImperiumServer<any, any>) {
 			if (connection) {
 				return connection.context;
 			}
+
 			return req.context;
+
 		},
 		schemaDirectives,
 		formatError: error => {
@@ -132,10 +134,6 @@ export default function endpoints(server: ImperiumServer<any, any>) {
 		toString(env.graphqlUrl),
 		// @ts-ignore
 		compact([
-			jwt({
-				secret: toString(env.graphqlAccessTokenSecret), // This is the same as ACCESS_TOKEN_SECRET from @imperium/auth-server package.
-				credentialsRequired: env.graphqlCredentialsRequired,
-			}),
 			server.contextMiddleware(),
 			// server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
 		]),

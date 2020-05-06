@@ -1,4 +1,4 @@
-import type {default as ImperiumServer} from '@imperium/server';
+import type {ImperiumServer} from '@imperium/server';
 import {toString} from '@imperium/util';
 import {json} from 'body-parser';
 import debug from 'debug';

@@ -1,4 +1,4 @@
-import type {default as ImperiumServer} from '@imperium/server';
+import type {ImperiumServer} from '@imperium/server';
 import type {AuthRequiredDomain} from '../types';
 import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
 import {loginEndpoint} from './loginEndpoint';
