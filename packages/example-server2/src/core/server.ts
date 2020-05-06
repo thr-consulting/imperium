@@ -19,7 +19,7 @@ function contextCreator(conn: typeof connectors) {
 
 // We also need to export the return type of the context creator function.
 // This will be imported by server modules.
-export type ContextCreator = ReturnType<typeof contextCreator>;
+export type Context = ReturnType<typeof contextCreator>;
 
 export default function core() {
 	d('hello');
