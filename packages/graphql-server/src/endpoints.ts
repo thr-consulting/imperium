@@ -136,7 +136,6 @@ export default function endpoints(server: ImperiumServer<any, any>) {
 				secret: toString(env.graphqlAccessTokenSecret), // This is the same as ACCESS_TOKEN_SECRET from @imperium/auth-server package.
 				credentialsRequired: env.graphqlCredentialsRequired,
 			}),
-			// server.middleware.contextManagerMiddleware(),
 			server.contextMiddleware(),
 			// server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
 		]),
