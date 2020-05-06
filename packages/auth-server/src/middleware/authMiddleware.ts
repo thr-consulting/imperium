@@ -7,7 +7,7 @@ import type {AccessToken, AuthContext, AuthRequiredDomain} from '../types';
 const d = debug('imperium.auth-server.authMiddleware');
 
 export function createAuthMiddleware(options: AuthRequiredDomain) {
-	return function authMiddleware(req: ImperiumRequest<{auth: AuthContext}> & {user?: AccessToken}, res: Response, next: NextFunction) {
+	return function authMiddleware(req: ImperiumRequest<any> & {user?: AccessToken}, res: Response, next: NextFunction) {
 		function getAuthContextMethods(permissions: string[]): AuthContext {
 			return {
 				id: null,

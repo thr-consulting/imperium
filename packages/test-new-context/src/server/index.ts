@@ -28,7 +28,8 @@ function contextCreator(conn: typeof testServerConnectors) {
 	};
 }
 
-export type ServerModule = ImperiumGraphqlServerModule<ReturnType<typeof contextCreator>, typeof testServerConnectors>;
+export type GraphqlServerModule = ImperiumGraphqlServerModule<ReturnType<typeof contextCreator>, typeof testServerConnectors>;
+export type ServerModule = ImperiumServerModule<ReturnType<typeof contextCreator>, typeof testServerConnectors>;
 
 export const server = new ImperiumServer({
 	contextCreator,

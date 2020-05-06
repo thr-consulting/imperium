@@ -1,6 +1,5 @@
 import type {Connector} from '@imperium/context-manager';
 import type {ImperiumServerModule} from '@imperium/server';
-import intersection from 'lodash/intersection';
 
 export interface LoginInfo {
 	identifier: string;
@@ -31,6 +30,9 @@ export interface ServiceInfo {
 	password: {
 		bcrypt: string;
 	};
+	/**
+	 * Blacklisted refresh tokens.
+	 */
 	blacklist?: number[];
 }
 

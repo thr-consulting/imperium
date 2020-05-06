@@ -6,8 +6,6 @@ import type {AuthRequiredDomain} from './types';
 
 const env = environment();
 
-// mike said: write it from scratch
-
 export function CreateAuthServerModule<Context = any>(options: AuthRequiredDomain): ImperiumServerModule<any, any> {
 	return {
 		name: '@imperium/auth-server',
@@ -25,25 +23,3 @@ export function CreateAuthServerModule<Context = any>(options: AuthRequiredDomai
 		},
 	};
 }
-
-const testContext = {
-	someshit: 'value',
-};
-
-const test = CreateAuthServerModule<typeof testContext>({
-	auth: {
-		async getPermissionsByRole(name: string[], context) {
-			return [''];
-		},
-		async getServiceInfo(identifier: string, context) {
-			return null;
-		},
-		async setAuthCache(key: string | string[], context) {
-			return true;
-		},
-		async getAuthCache(key: string | string[], context) {
-			return true;
-		},
-		async invalidateAuthCache(key: string | string[] | undefined, context) {},
-	},
-});

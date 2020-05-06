@@ -1,9 +1,9 @@
 import debug from 'debug';
-import type {ServerModule} from './index';
+import type {GraphqlServerModule} from './index';
 
 const d = debug('imperium.test-new-context.server.todo');
 
-export const todoSeverModule: ServerModule = {
+export const todoSeverModule: GraphqlServerModule = {
 	name: 'Todo',
 	async startup(server, context) {
 		// do whatever startup you need in here.

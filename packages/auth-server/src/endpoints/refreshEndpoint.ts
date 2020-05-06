@@ -1,39 +1,38 @@
-/* eslint-disable import/no-cycle */
-// see: https://github.com/babel/babel/issues/10981
-import {IImperiumServer, ImperiumRequest} from '@imperium/server';
-import {toString} from '@imperium/util';
-import debug from 'debug';
-import {Response} from 'express';
+import type {default as ImperiumServer} from '@imperium/server';
 import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
-import {ImperiumAuthServerModule, AuthContextManager} from '../types';
+import debug from 'debug';
+import {environment} from '../environment';
+import {refresh} from '../lib';
+import type {AuthRequiredDomain} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
+const env = environment();
 
-export function refreshEndpoint(authModule: ImperiumAuthServerModule, server: IImperiumServer) {
-	d(`Adding auth refresh endpoint: ${server.environment.authRefreshUrl}`);
+export function refreshEndpoint(options: AuthRequiredDomain, server: ImperiumServer<any, any>) {
+	d(`Adding auth refresh endpoint: ${env.authRefreshUrl}`);
 
 	const corsOpts: CorsOptions = {
-		origin: server.environment.authCorsOrigin,
+		origin: env.authCorsOrigin,
 		credentials: true,
-	} as CorsOptions;
+	};
 
 	// CORS options
-	server.expressApp.options(toString(server.environment.authRefreshUrl), cors(corsOpts));
+	server.expressApp.options(env.authRefreshUrl, cors(corsOpts));
 
 	server.expressApp.post(
-		toString(server.environment.authRefreshUrl),
+		env.authRefreshUrl,
 		cors(corsOpts),
 		cookieParser(),
 		// @ts-ignore
 		server.middleware.contextManagerMiddleware(),
-		(req: ImperiumRequest<AuthContextManager>, res: Response) => {
-			if (req.cookies && req.cookies[toString(server.environment.authRefreshCookieName)]) {
-				const refreshTokenString = req.cookies[toString(server.environment.authRefreshCookieName)];
+		(req, res) => {
+			if (req.cookies && req.cookies[env.authRefreshCookieName]) {
+				const refreshTokenString = req.cookies[env.authRefreshCookieName];
 
 				// Perform refresh
-				req.contextManager.Auth.refresh(refreshTokenString, authModule, req, req.contextManager)
-					.then((ret: any) => {
+				refresh(refreshTokenString, options)
+					.then(ret => {
 						res.status(200).json(ret);
 						res.end();
 					})

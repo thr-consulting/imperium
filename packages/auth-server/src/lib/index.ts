@@ -1,10 +1,9 @@
-import type {ImperiumRequest} from '@imperium/server';
 import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
 import debug from 'debug';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
 import {environment} from '../environment';
-import {AuthRequiredDomain, ImperiumAuthServerModule, isRefreshToken, LoginInfo, LoginReturn, ServiceInfo} from '../types';
+import {AuthRequiredDomain, isRefreshToken, LoginInfo, LoginReturn, ServiceInfo} from '../types';
 
 const d = debug('imperium.auth-server.lib');
 const env = environment();
@@ -56,7 +55,7 @@ export function createRefreshToken(identifier: string): string {
 
 export async function login(loginInfo: LoginInfo, authOptions: AuthRequiredDomain, remoteAddress: string | undefined): Promise<LoginReturn> {
 	// 1. Check attempts
-	const attemptKey = `loginattempts:${loginInfo.identifier}_${req.connection.remoteAddress?.replace(/:/g, ';')}`;
+	const attemptKey = `loginattempts:${loginInfo.identifier}_${remoteAddress?.replace(/:/g, ';')}`;
 	const attempts = (await authOptions.getCache(attemptKey)) || 0;
 	if (attempts > env.authMaxFail) throw new Error('Too many login attempts');
 
@@ -80,7 +79,7 @@ export async function login(loginInfo: LoginInfo, authOptions: AuthRequiredDomai
 	}
 }
 
-export async function refresh(refreshTokenString: string, authModule: ImperiumAuthServerModule) {
+export async function refresh(refreshTokenString: string, options: AuthRequiredDomain) {
 	// Todo this should probably read cookies because you can brute force this
 	const token = decode(refreshTokenString);
 
@@ -92,7 +91,7 @@ export async function refresh(refreshTokenString: string, authModule: ImperiumAu
 	}
 
 	// Get service info from domain layer
-	const serviceInfo = await authModule.auth?.getServiceInfo(token.id);
+	const serviceInfo = await options.getServiceInfo(token.id);
 	if (!serviceInfo) {
 		throw new Error('User not found');
 	}

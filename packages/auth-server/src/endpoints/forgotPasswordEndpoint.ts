@@ -1,13 +1,12 @@
-/* eslint-disable import/no-cycle */
-// see: https://github.com/babel/babel/issues/10981
-import {IImperiumServer} from '@imperium/server';
+import type {default as ImperiumServer} from '@imperium/server';
 import {toString} from '@imperium/util';
 import {json} from 'body-parser';
 import debug from 'debug';
-import {Request, Response} from 'express';
-import {ImperiumAuthServerModule} from '../types';
+import {environment} from '../environment';
+import type {AuthRequiredDomain} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
+const env = environment();
 
 interface ForgotPasswordInfo {
 	email: string;
@@ -17,10 +16,10 @@ function isForgotPasswordInfo(forgotPasswordInfo: object): forgotPasswordInfo is
 	return (forgotPasswordInfo as ForgotPasswordInfo).email !== undefined;
 }
 
-export function forgotPasswordEndpoint(authModule: ImperiumAuthServerModule, server: IImperiumServer) {
-	d(`Adding auth forgot password endpoint: ${server.environment.authForgotPasswordUrl}`);
+export function forgotPasswordEndpoint(options: AuthRequiredDomain, server: ImperiumServer<any, any>) {
+	d(`Adding auth forgot password endpoint: ${env.authForgotPasswordUrl}`);
 
-	server.expressApp.post(toString(server.environment.authForgotPasswordUrl), json(), (req: Request, res: Response) => {
+	server.expressApp.post(toString(env.authForgotPasswordUrl), json(), (req, res) => {
 		if (isForgotPasswordInfo(req.body)) {
 			const forgotPasswordInfo = req.body;
 			res.send(forgotPasswordInfo.email);
