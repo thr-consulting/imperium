@@ -2,7 +2,6 @@
 import express, {NextFunction, Response, Application, Request, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
-import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
 import {Connector} from '@imperium/context-manager';
 

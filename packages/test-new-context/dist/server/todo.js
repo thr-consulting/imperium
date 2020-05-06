@@ -16,7 +16,6 @@ const todoSeverModule = {
   async startup(server, context) {
     // do whatever startup you need in here.
     // make sure you pass the correct context into your domain methods.
-    // eslint-disable-next-line no-console
     d("running todo's server module startup method. Contexts:", Object.keys(context));
   },
 
@@ -36,13 +35,14 @@ const todoSeverModule = {
 
   schema: `
 			type Todo {
+				id: Int
 				title: String
 				complete: Boolean
 			}
 			extend type Query {
 				someQuery: Todo
 			}
-		`
+			`
 };
 exports.todoSeverModule = todoSeverModule;
 //# sourceMappingURL=todo.js.map

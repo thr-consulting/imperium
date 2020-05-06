@@ -11,8 +11,11 @@ type RequiredConnectors = Connector<{
 export function createContext(connector: RequiredConnectors) {
 	return new ContextManager(
 		{
-			Todo: conn => {
+			Todo: () => {
 				return Todo;
+			},
+			DataLoaderThing: conn => {
+
 			},
 		},
 		connector,

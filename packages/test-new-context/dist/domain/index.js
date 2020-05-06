@@ -16,8 +16,6 @@ var _todo = require("./todo");
 const d = (0, _debug.default)('imperium.test-new-context.domain');
 
 function createContext(connector) {
-  // eslint-disable-next-line no-console
-  d('Creating context for Todo Domain.');
   return new _contextManager.ContextManager({
     Todo: conn => {
       return _todo.Todo;

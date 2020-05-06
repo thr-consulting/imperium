@@ -18,7 +18,6 @@ class Todo {
     complete
   }, context) {
     d('create new todo.');
-    d('context: ', context);
     return {
       id: id++,
       title,
