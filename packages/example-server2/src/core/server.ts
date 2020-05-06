@@ -1,4 +1,4 @@
-import ImperiumServer from '@imperium/server';
+import {ImperiumServer} from '@imperium/server';
 import debug from 'debug';
 import {connectors} from './connectors';
 import {createDomain1Context} from '../domain1/domain1';

@@ -1,4 +1,4 @@
-export interface IImperiumConfig {
+export interface ImperiumConfig {
 	development?: {
 		clientPort?: number;
 		workerCrashDelay?: number;

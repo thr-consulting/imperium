@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import express, {NextFunction, Response, Application, Request, RequestHandler} from 'express';
+import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
@@ -8,24 +8,9 @@ import {Connector} from '@imperium/context-manager';
 const d = debug('imperium.server.ImperiumServer');
 const dd = debug('verbose.imperium.server.ImperiumServer');
 
-export interface ImperiumRequest<C> extends Request {
-	context: C;
-}
-// export type ImperiumRequestHandler<C> = (req: ImperiumRequest<C>, res: Response, next: NextFunction) => void;
-export interface ImperiumRequestHandler<C> extends RequestHandler {
-	(req: ImperiumRequest<C>, res: Response, next: NextFunction): any;
-}
-
-export interface MiddlewareMap<C> {
-	[key: string]: ImperiumRequestHandler<C>;
-}
-
 // Server modules don't define context, they consume it.
 export interface ImperiumServerModule<Context, Connectors extends Connector> {
 	name: string;
-	// Defines middleware for other modules to use.
-	middleware?: (server: ImperiumServer<Context, Connectors>) => MiddlewareMap<Context>;
-	// uses middleware to create an endpoint.
 	endpoints?: (server: ImperiumServer<Context, Connectors>) => void;
 	startup?: (server: ImperiumServer<Context, Connectors>, context: Context) => Promise<void>;
 }
@@ -37,13 +22,12 @@ export interface ImperiumServerConfig<Context, Connectors extends Connector> {
 	contextCreator: (connector: Connectors) => Context;
 }
 
-export default class ImperiumServer<Context, Connectors extends Connector> {
+export class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly contextCreator: (connector: Connectors) => Context;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 
 	public readonly connectors: Connectors;
-	public readonly middleware = {} as MiddlewareMap<Context>;
 	public readonly modules: ImperiumServerModule<Context, Connectors>[];
 
 	constructor(config: ImperiumServerConfig<Context, Connectors>) {
@@ -51,27 +35,15 @@ export default class ImperiumServer<Context, Connectors extends Connector> {
 		this.contextCreator = config.contextCreator;
 		this.modules = config.serverModules;
 
-		d('Compiling module middleware');
-		this.middleware = this.modules.reduce(
-			(memo, module) => {
-				if (module.middleware && isFunction(module.middleware)) {
-					return {
-						...memo,
-						...module.middleware,
-					};
-				}
-				return memo;
-			},
-			{
-				contextMiddleware: (req, res, next) => {
-					dd(`Creating context for request to: ${req.baseUrl}`);
-					req.context = this.contextCreator(this.connectors);
-					next();
-				},
-			},
-		);
-
 		d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
+	}
+
+	contextMiddleware(): RequestHandler {
+		return (req, res, next) => {
+			// @ts-ignore
+			req.context = this.contextCreator(this.connectors);
+			next();
+		};
 	}
 
 	async start({port}: {port: number}) {

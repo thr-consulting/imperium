@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-named-default
-import type {default as ImperiumServer, ImperiumRequest} from '@imperium/server';
+import type {default as ImperiumServer} from '@imperium/server';
 import {isString, toString} from '@imperium/util';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
@@ -137,8 +137,9 @@ export default function endpoints(server: ImperiumServer<any, any>) {
 				secret: toString(env.graphqlAccessTokenSecret), // This is the same as ACCESS_TOKEN_SECRET from @imperium/auth-server package.
 				credentialsRequired: env.graphqlCredentialsRequired,
 			}),
-			server.middleware.contextManagerMiddleware(),
-			server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
+			// server.middleware.contextManagerMiddleware(),
+			server.contextMiddleware(),
+			// server.middleware.authMiddleware ? server.middleware.authMiddleware() : undefined,
 		]),
 	);
 

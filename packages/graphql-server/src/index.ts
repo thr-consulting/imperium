@@ -2,9 +2,9 @@ import {ImperiumServerModule} from '@imperium/server';
 import endpoints from './endpoints';
 
 // import and call environment from './environment' to use env variables
-export const graphqlServerModule = {
+export const graphqlServerModule: ImperiumServerModule<any, any> = {
 	name: '@imperium/graphql-server',
 	endpoints,
-} as ImperiumServerModule<any, any>;
+};
 
 export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers} from './types';
