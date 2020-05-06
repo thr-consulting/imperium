@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-named-default
-import type {default as ImperiumServer} from '@imperium/server';
+import type {ImperiumServer} from '@imperium/server';
 import {isString, toString} from '@imperium/util';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';

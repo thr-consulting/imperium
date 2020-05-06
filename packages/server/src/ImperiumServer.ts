@@ -30,7 +30,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	public readonly connectors: Connectors;
 	public readonly modules: ImperiumServerModule<Context, Connectors>[];
 
-	constructor(config: ImperiumServerConfig<Context, Connectors>) {
+	public constructor(config: ImperiumServerConfig<Context, Connectors>) {
 		this.connectors = config.connectors;
 		this.contextCreator = config.contextCreator;
 		this.modules = config.serverModules;
@@ -38,7 +38,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
 	}
 
-	contextMiddleware(): RequestHandler {
+	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
 			req.context = this.contextCreator(this.connectors);
@@ -46,7 +46,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		};
 	}
 
-	async start({port}: {port: number}) {
+	public async start({port}: {port: number}) {
 		if (this._expressApp) throw new Error('Server already started');
 
 		d('Connecting connectors');
@@ -99,17 +99,17 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		return this;
 	}
 
-	async stop() {
+	public async stop() {
 		d('Closing connectors');
 		await this.connectors.close();
 	}
 
-	get expressApp(): Application {
+	public get expressApp(): Application {
 		if (this._expressApp) return this._expressApp;
 		throw new Error('Imperium server not started yet.');
 	}
 
-	get httpServer(): Server {
+	public get httpServer(): Server {
 		if (this._httpServer) return this._httpServer;
 		throw new Error('Imperium server not started yet.');
 	}

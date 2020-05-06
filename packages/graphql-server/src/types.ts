@@ -1,7 +1,7 @@
 import {Connector} from '@imperium/context-manager';
+import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
 import {DocumentNode} from 'graphql';
-import {SchemaDirectiveVisitor, IResolvers} from 'graphql-tools';
-import type {default as ImperiumServer, ImperiumServerModule} from '@imperium/server';
+import {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
 
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
