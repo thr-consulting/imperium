@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export type ImperiumEnvironmentVar = string | number | boolean | ImperiumEnvironment;
 export type ImperiumEnvironment = {[key: string]: ImperiumEnvironmentVar | ImperiumEnvironmentVar[]};

@@ -3,24 +3,10 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
-import {Connector} from '@imperium/context-manager';
+import type {Connector} from '@imperium/context-manager';
+import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
-const dd = debug('verbose.imperium.server.ImperiumServer');
-
-// Server modules don't define context, they consume it.
-export interface ImperiumServerModule<Context, Connectors extends Connector> {
-	name: string;
-	endpoints?: (server: ImperiumServer<Context, Connectors>) => void;
-	startup?: (server: ImperiumServer<Context, Connectors>, context: Context) => Promise<void>;
-}
-
-export interface ImperiumServerConfig<Context, Connectors extends Connector> {
-	// Connection for the creation of ContextManager
-	connectors: Connectors;
-	serverModules: ImperiumServerModule<Context, Connectors>[];
-	contextCreator: (connector: Connectors) => Context;
-}
 
 export class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly contextCreator: (connector: Connectors) => Context;
@@ -38,6 +24,9 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
 	}
 
+	/**
+	 * Express middleware used to create a new context and place it on `req.context`.
+	 */
 	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
@@ -46,6 +35,10 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		};
 	}
 
+	/**
+	 * Start the Imperium server
+	 * @param port
+	 */
 	public async start({port}: {port: number}) {
 		if (this._expressApp) throw new Error('Server already started');
 
@@ -99,16 +92,25 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		return this;
 	}
 
+	/**
+	 * Stop the server, closing the connectors
+	 */
 	public async stop() {
 		d('Closing connectors');
 		await this.connectors.close();
 	}
 
+	/**
+	 * Return the express app
+	 */
 	public get expressApp(): Application {
 		if (this._expressApp) return this._expressApp;
 		throw new Error('Imperium server not started yet.');
 	}
 
+	/**
+	 * Return the HTTP server
+	 */
 	public get httpServer(): Server {
 		if (this._httpServer) return this._httpServer;
 		throw new Error('Imperium server not started yet.');

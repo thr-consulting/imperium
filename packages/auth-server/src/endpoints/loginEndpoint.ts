@@ -4,7 +4,8 @@ import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import {environment} from '../environment';
 import {login} from '../lib';
-import {AuthRequiredDomain, isLoginInfo} from '../types';
+import type {AuthRequiredDomain} from '../types';
+import {isLoginInfo} from '../lib/typeguards';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 const env = environment();

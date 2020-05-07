@@ -24,7 +24,8 @@
 		"declaration": true,
 		// Only emit .d.ts files
 		"emitDeclarationOnly": true,
-		"noImplicitAny": true
+		"noImplicitAny": true,
+		"importsNotUsedAsValues": "error"
 	},
 	"exclude": [
 		"src/**/*.test.ts",

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import debug from 'debug';
-import {Hoc, IImperiumClient} from '@imperium/client';
+import type {Hoc, IImperiumClient} from '@imperium/client';
 import {AuthContext, IAuth} from './AuthContext';
 
 const d = debug('imperium.auth-client.withAuth');

@@ -1,21 +1,9 @@
-import type {Connector} from '@imperium/context-manager';
-import type {ImperiumServerModule} from '@imperium/server';
-
 export interface LoginInfo {
 	identifier: string;
 	password: {
 		digest: string;
 		algorithm: string;
 	};
-}
-
-export function isLoginInfo(loginInfo: object): loginInfo is LoginInfo {
-	return (
-		(loginInfo as LoginInfo).identifier !== undefined &&
-		(loginInfo as LoginInfo).password !== undefined &&
-		(loginInfo as LoginInfo).password.algorithm !== undefined &&
-		(loginInfo as LoginInfo).password.digest !== undefined
-	);
 }
 
 export interface LoginReturn {
@@ -30,10 +18,7 @@ export interface ServiceInfo {
 	password: {
 		bcrypt: string;
 	};
-	/**
-	 * Blacklisted refresh tokens.
-	 */
-	blacklist?: number[];
+	blacklist?: number[]; // Blacklisted refresh tokens
 }
 
 export interface RefreshToken {
@@ -43,29 +28,11 @@ export interface RefreshToken {
 	exp: number;
 }
 
-export function isRefreshToken(refreshToken: object): refreshToken is RefreshToken {
-	return (
-		(refreshToken as RefreshToken).id !== undefined && (refreshToken as RefreshToken).exp !== undefined && (refreshToken as RefreshToken).type === 'r'
-	);
-}
-
 export interface AccessToken {
 	id: string;
 	roles?: string[];
 	iat: string;
 	exp: string;
-}
-
-export function isAccessToken(accessToken: object): accessToken is AccessToken {
-	return (
-		(accessToken as AccessToken).id !== undefined && (accessToken as AccessToken).iat !== undefined && (accessToken as AccessToken).exp !== undefined
-	);
-}
-
-export interface ImperiumAuthServerModule<Context = any, Connectors extends Connector = any> extends ImperiumServerModule<Context, Connectors> {
-	auth?: {
-		getServiceInfo: (identifier: string) => Promise<ServiceInfo | null>;
-	};
 }
 
 export interface AuthRequiredDomain {
@@ -94,4 +61,13 @@ export interface AuthContext {
 	getCache(key: string): ReturnType<AuthRequiredDomain['getCache']>;
 	setCache(key: string, allowed: boolean, expire?: number): ReturnType<AuthRequiredDomain['setCache']>;
 	invalidateCache(key: string): ReturnType<AuthRequiredDomain['invalidateCache']>;
+}
+
+export interface ApolloContext {
+	auth: AuthContext;
+}
+
+export interface AuthMiddlewareConfig {
+	requiredDomain: AuthRequiredDomain;
+	credentialsRequired?: boolean;
 }

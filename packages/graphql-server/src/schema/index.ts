@@ -1,4 +1,4 @@
-import {IResolvers} from 'graphql-tools';
+import type {IResolvers} from 'graphql-tools';
 import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
 import GraphQLObjectId from 'graphql-scalar-objectid';
 import {GraphQLLocalDate} from './GraphQLLocalDate';

@@ -3,7 +3,8 @@ import {compare, hash} from 'bcrypt';
 import debug from 'debug';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
 import {environment} from '../environment';
-import {AuthRequiredDomain, isRefreshToken, LoginInfo, LoginReturn, ServiceInfo} from '../types';
+import type {AuthRequiredDomain, LoginInfo, LoginReturn, ServiceInfo} from '../types';
+import {isRefreshToken} from './typeguards';
 
 const d = debug('imperium.auth-server.lib');
 const env = environment();

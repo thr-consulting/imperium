@@ -9,9 +9,8 @@ import {WebSocketLink} from 'apollo-link-ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {getMainDefinition} from 'apollo-utilities';
-import {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
-import {toString} from '@imperium/util';
-import {ImperiumGraphqlClientModule} from './types';
+import type {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
+import type {ImperiumGraphqlClientModule} from './types';
 
 /**
  * @ignore
@@ -23,7 +22,7 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 
 	d(`Creating Apollo HTTP link: ${client.globalConst.graphql}`);
 	const httpLink = new HttpLink({
-		uri: toString(client.globalConst.graphql),
+		uri: client.globalConst.graphql as string,
 		credentials: 'same-origin',
 	});
 
@@ -40,7 +39,7 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	// Split between normal http and ws for subscriptions
 	if (client.globalConst.graphqlws) {
 		d(`Creating subscription client: ${client.globalConst.graphqlws}`);
-		const subscriptionClient = new SubscriptionClient(toString(client.globalConst.graphqlws), {
+		const subscriptionClient = new SubscriptionClient(client.globalConst.graphqlws as string, {
 			reconnect: true,
 		});
 

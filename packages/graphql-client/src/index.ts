@@ -1,4 +1,4 @@
-import {ImperiumClientModule} from '@imperium/client';
+import type {ImperiumClientModule} from '@imperium/client';
 import withGraphql from './withGraphql';
 
 /**

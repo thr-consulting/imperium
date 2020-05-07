@@ -1,7 +1,6 @@
 import debug from 'debug';
 import {useClient} from '@imperium/client';
-import {toString} from '@imperium/util';
-import {LoginInfo, LoginReturn} from './types';
+import type {LoginInfo, LoginReturn} from './types';
 import {useAuth} from './useAuth';
 
 const d = debug('imperium.auth-client.useLogin');
@@ -13,7 +12,9 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
 
-		const res = await fetch(toString(client?.globalConst.authLoginUrl), {
+		const url = typeof client?.globalConst.authLoginUrl === 'string' ? client?.globalConst.authLoginUrl : '';
+
+		const res = await fetch(url, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',

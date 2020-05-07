@@ -22,8 +22,6 @@ function contextCreator(conn: typeof connectors) {
 export type Context = ReturnType<typeof contextCreator>;
 
 export default function core() {
-	d('hello');
-
 	// Create the imperium server instance
 	const server = new ImperiumServer({
 		contextCreator,

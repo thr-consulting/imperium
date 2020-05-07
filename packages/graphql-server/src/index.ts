@@ -1,10 +1,12 @@
-import {ImperiumServerModule} from '@imperium/server';
-import endpoints from './endpoints';
+import type {ImperiumServerModule} from '@imperium/server';
+import {endpoints} from './endpoints';
+import type {GraphqlServerModuleConfig} from './types';
 
-// import and call environment from './environment' to use env variables
-export const graphqlServerModule: ImperiumServerModule<any, any> = {
-	name: '@imperium/graphql-server',
-	endpoints,
-};
+export function graphqlServerModule(config?: GraphqlServerModuleConfig): ImperiumServerModule<any, any> {
+	return {
+		name: '@imperium/graphql-server',
+		endpoints: endpoints(config),
+	};
+}
 
-export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers} from './types';
+export {ApolloContext, ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers, GraphqlServerModuleConfig} from './types';

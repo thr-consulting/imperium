@@ -6,7 +6,7 @@ import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
 import Root from './Root';
 import {ClientContext} from './ClientContext';
-import {
+import type {
 	GlobalConst,
 	Hoc,
 	HocCreator,

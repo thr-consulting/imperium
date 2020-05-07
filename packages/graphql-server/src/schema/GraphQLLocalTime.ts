@@ -1,4 +1,4 @@
-import {LocalTime} from '@js-joda/core';
+import type {LocalTime} from '@js-joda/core';
 import {GraphQLError} from 'graphql/error';
 import {Kind} from 'graphql/language';
 import {GraphQLScalarType} from 'graphql/type';

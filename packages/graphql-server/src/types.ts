@@ -1,16 +1,26 @@
-import {Connector} from '@imperium/context-manager';
+import type {Connector} from '@imperium/context-manager';
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
-import {DocumentNode} from 'graphql';
-import {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
+import type {DocumentNode} from 'graphql';
+import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
+import type {Request, RequestHandler} from 'express';
 
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
 export type {IResolvers, IResolverObject, IFieldResolver} from 'graphql-tools';
 
-export interface ImperiumGraphqlServerModule<Context, Connectors extends Connector> extends ImperiumServerModule<Context, Connectors> {
-	resolvers: (server: ImperiumServer<Context, Connectors>) => IResolvers<any, Context>;
+export interface GraphqlServerModuleConfig {
+	middleware?: RequestHandler[];
+	contextMaker?: (req: Request) => Record<string, any>;
+}
+
+export interface ImperiumGraphqlServerModule<ApolloContext, Connectors extends Connector> extends ImperiumServerModule<ApolloContext, Connectors> {
+	resolvers: (server: ImperiumServer<ApolloContext, Connectors>) => IResolvers<any, ApolloContext>;
 	schema: ApolloSchema;
 	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
+}
+
+export interface ApolloContext<Context> {
+	context: Context;
 }
 
 export function isImperiumGraphqlServerModule<Context, Connectors extends Connector>(

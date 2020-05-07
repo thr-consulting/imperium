@@ -1,5 +1,5 @@
-import {RouteProps} from 'react-router-dom';
-import {IImperiumClient} from '@imperium/client';
+import type {RouteProps} from 'react-router-dom';
+import type {IImperiumClient} from '@imperium/client';
 
 interface RouteContentProps {
 	route: ImperiumRoute;

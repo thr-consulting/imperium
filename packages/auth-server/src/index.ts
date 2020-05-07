@@ -1,3 +1,3 @@
 export {CreateAuthServerModule} from './AuthServerModule';
-export {ImperiumAuthServerModule, ServiceInfo} from './types';
+export {ServiceInfo, AuthRequiredDomain, ApolloContext, AuthMiddlewareConfig} from './types';
 export {authMiddleware} from './middleware/authMiddleware';

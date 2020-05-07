@@ -1,6 +1,6 @@
-import {ImperiumServerModule} from '@imperium/server';
+import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
-import {RequestHandler} from 'express';
+import type {RequestHandler} from 'express';
 import jwt from 'express-jwt';
 import type {connectors} from '../core/connectors';
 import type {Context} from '../core/server';
@@ -9,10 +9,6 @@ const d = debug('imperium.example-server2.advancedModule');
 
 function myMiddleware(): RequestHandler {
 	return (req, res, next) => {
-		if (req.user) {
-
-		}
-
 		next();
 	};
 }

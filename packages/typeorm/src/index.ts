@@ -1,8 +1,8 @@
-import {ImperiumServer, ImperiumServerModule} from '@imperium/server';
-import {EntitySchema} from 'typeorm';
-import {ImperiumTypeormServerModule} from './types';
+import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
+import type {EntitySchema} from 'typeorm';
+import type {ImperiumTypeormServerModule} from './types';
 
-export function gatherEntities(server: ImperiumServer) {
+export function gatherEntities<Context>(server: ImperiumServer<Context>) {
 	return server.modules.reduce((memo, module: ImperiumServerModule & ImperiumTypeormServerModule) => {
 		if (module.entities) {
 			return [...memo, ...module.entities()];

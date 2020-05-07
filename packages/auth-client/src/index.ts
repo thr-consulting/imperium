@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import {ImperiumClientModule} from '@imperium/client';
+import type {ImperiumClientModule} from '@imperium/client';
 import {withAuth} from './withAuth';
 
 export default function (): ImperiumClientModule {

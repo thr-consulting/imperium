@@ -16,7 +16,7 @@
 		"lint": "lerna run lint",
 		"lint:fix": "lerna run lint:fix",
 		"ts": "yarn ts:phase1 && yarn ts:phase2",
-		"ts:phase1": "lerna run ts --scope '@imperium/{client,util,server}'",
+		"ts:phase1": "lerna run ts --scope '@imperium/{client,util,server,context-manager}'",
 		"ts:phase2": "lerna run ts",
 		"test": "lerna run test",
 		"test:coverage": "lerna run test:coverage",
