@@ -1,5 +1,5 @@
 import type {AuthRequiredDomain} from '@imperium/auth-server';
-import type {Context} from './server';
+import type {Context} from './context';
 
 export function authDomainBridge(ctx: Context): AuthRequiredDomain {
 	return {

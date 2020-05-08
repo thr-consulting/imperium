@@ -1,5 +1,9 @@
 import type {RequestHandler} from 'express';
 
+/**
+ * Combine express middleware into a single middleware.
+ * @param middleware
+ */
 export function compose(middleware: RequestHandler | RequestHandler[]): RequestHandler {
 	if (!(middleware instanceof Array)) {
 		return middleware;

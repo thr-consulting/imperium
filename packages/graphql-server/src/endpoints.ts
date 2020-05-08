@@ -91,7 +91,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 		const apolloServerConfig: ApolloServerExpressConfig = {
 			typeDefs,
 			resolvers,
-			context: ({req /* , connection */}: ExpressContext) => {
+			context: ({req /* , connection */}: ExpressContext) => { // This is ApolloContext
 				// TODO check into why I was using connection... probably subscribe or possibly auth.
 				// if (connection) {
 				// 	return connection.context;
@@ -134,6 +134,8 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 		const apolloServer = new ApolloServer(apolloServerConfig);
 
 		d(`Adding graphql endpoint: ${env.graphqlUrl} ${env.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'}`);
+
+		// Add middleware to graphql endpoint. Optional middleware can be passed in via constructor config object.
 		server.expressApp.use(env.graphqlUrl, compose([server.contextMiddleware(), ...(config?.middleware || [])]));
 
 		const corsOpts: CorsOptions = {

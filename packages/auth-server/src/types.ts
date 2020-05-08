@@ -1,3 +1,5 @@
+import type {AuthContext} from '@imperium/context-manager';
+
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -52,15 +54,6 @@ export interface AuthRequiredDomain {
 	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
 	getCache(key: string | string[]): Promise<any>;
 	invalidateCache(key: string | string[] | undefined): Promise<void>;
-}
-
-export interface AuthContext {
-	id: null | number | string;
-	permissions: null | string[];
-	hasPermission(need: string[]): boolean;
-	getCache(key: string): ReturnType<AuthRequiredDomain['getCache']>;
-	setCache(key: string, allowed: boolean, expire?: number): ReturnType<AuthRequiredDomain['setCache']>;
-	invalidateCache(key: string): ReturnType<AuthRequiredDomain['invalidateCache']>;
 }
 
 export interface ApolloContext {

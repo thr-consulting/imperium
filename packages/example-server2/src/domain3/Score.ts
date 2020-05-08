@@ -23,10 +23,6 @@ class Score extends BaseEntity {
 		this.winner = false;
 		this.score = 0;
 	}
-
-	static doSomething(ctx: Context) {
-
-	}
 }
 
 export {Score};

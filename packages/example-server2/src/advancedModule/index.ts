@@ -1,5 +1,6 @@
 import type {ImperiumServerModule} from '@imperium/server';
 import {authMiddleware} from '@imperium/auth-server';
+import type {AuthContext} from '@imperium/context-manager';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
 import {connectors} from '../core/connectors';
@@ -28,6 +29,9 @@ export const advancedModule: ImperiumServerModule<Context, typeof connectors> = 
 			}),
 			myMiddleware(),
 			(req, res) => {
+				// @ts-ignore
+				const {auth}: {auth: AuthContext} = req;
+				d(auth.hasPermission(['blah']));
 				res.send('Advanced endpoint');
 				res.end();
 			},

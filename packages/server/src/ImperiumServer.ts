@@ -12,16 +12,19 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly contextCreator: (connector: Connectors) => Context;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
+	private _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
 
+	public modules: ImperiumServerModule<Context, Connectors>[];
 	public readonly connectors: Connectors;
-	public readonly modules: ImperiumServerModule<Context, Connectors>[];
 
 	public constructor(config: ImperiumServerConfig<Context, Connectors>) {
 		this.connectors = config.connectors;
 		this.contextCreator = config.contextCreator;
-		this.modules = config.serverModules;
+		this._moduleFactoryFn = config.serverModules;
 
-		d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
+		this.modules = [];
+
+		// d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
 	}
 
 	/**
@@ -42,14 +45,15 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	public async start({port}: {port: number}) {
 		if (this._expressApp) throw new Error('Server already started');
 
-		// d('Connecting connectors');
+		// Connect connectors
 		await this.connectors.connect();
 
-		d('Creating express app');
+		d('Creating HTTP server and express app');
 		this._expressApp = express();
-
-		d('Creating HTTP server');
 		this._httpServer = createServer(this._expressApp);
+
+		d('Loading modules');
+		this.modules = this._moduleFactoryFn();
 
 		// Module endpoints
 		d('Creating module endpoints');

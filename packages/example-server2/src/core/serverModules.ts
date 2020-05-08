@@ -13,25 +13,24 @@ import {connectors} from './connectors';
 
 export type MyApolloContext = GraphqlApolloContext<Context> & AuthApolloContext;
 
-export const serverModules: ImperiumServerModule<any, any>[] = [
-	graphqlServerModule({
-		middleware: [
-			// authMiddleware({
-			// 	requiredDomain: authDomainBridge(contextCreator(connectors)),
-			// }),
-		],
-		contextMaker: (req: Request) => {
-			return {
-				// @ts-ignore
-				auth: req.auth,
-			};
-		},
-	}),
-	basicModule,
-	advancedModule,
-	graphqlModule,
-];
-
-const serverModulesFactory = () => {
-
-};
+export function serverModules(): ImperiumServerModule<any, any>[] {
+	return [
+		graphqlServerModule({
+			middleware: [
+				authMiddleware({
+					requiredDomain: authDomainBridge(contextCreator(connectors)),
+					credentialsRequired: false,
+				}),
+			],
+			contextMaker: (req: Request) => {
+				return {
+					// @ts-ignore
+					auth: req.auth,
+				};
+			},
+		}),
+		basicModule,
+		advancedModule,
+		graphqlModule,
+	];
+}

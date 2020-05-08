@@ -2,7 +2,8 @@ import debug from 'debug';
 import intersection from 'lodash/intersection';
 import jwt from 'express-jwt';
 import {compose} from '@imperium/server';
-import type {AuthContext, AuthMiddlewareConfig} from '../types';
+import type {AuthContext} from '@imperium/context-manager';
+import type {AuthMiddlewareConfig} from '../types';
 import {environment} from '../environment';
 
 const d = debug('imperium.auth-server.authMiddleware');
@@ -11,14 +12,14 @@ const env = environment();
 export function authMiddleware(config: AuthMiddlewareConfig) {
 	return compose([
 		jwt({
-			secret: environment().authAccessTokenSecret,
-			credentialsRequired: config.credentialsRequired,
+			secret: env.authAccessTokenSecret,
+			credentialsRequired: config.credentialsRequired === undefined ? false : config.credentialsRequired,
 		}),
 		(req, res, next) => {
-			function getAuthContextMethods(permissions: string[]): AuthContext {
+			function getAuthContextMethods(id: null | number | string, permissions: string[]): AuthContext {
 				return {
-					id: null,
-					permissions: null,
+					id,
+					permissions,
 					hasPermission(need) {
 						// compare the length of permissions that exist in both arrays to the ones we need.
 						return intersection(permissions, need).length === need.length;
@@ -37,21 +38,17 @@ export function authMiddleware(config: AuthMiddlewareConfig) {
 
 			// @ts-ignore
 			if (req.user) {
+				d('Auth token present and valid');
 				// @ts-ignore
 				config.requiredDomain.getPermissions(req.user.roles || []).then(permissions => {
-					// req.user is our decoded access token IF jwt() middleware was called first.
 					// @ts-ignore
-					req.auth = {
-						...getAuthContextMethods(permissions),
-						// @ts-ignore
-						id: req.user?.id,
-						permissions,
-					} as AuthContext;
+					req.auth = getAuthContextMethods(req.user?.id, permissions);
 					next();
 				});
 			} else {
+				d('Auth token not present');
 				// @ts-ignore
-				req.auth = {permissions: [], ...getAuthContextMethods([])};
+				req.auth = getAuthContextMethods(null, []);
 				next();
 			}
 		},
