@@ -42,7 +42,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	public async start({port}: {port: number}) {
 		if (this._expressApp) throw new Error('Server already started');
 
-		d('Connecting connectors');
+		// d('Connecting connectors');
 		await this.connectors.connect();
 
 		d('Creating express app');

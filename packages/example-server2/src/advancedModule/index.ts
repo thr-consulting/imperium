@@ -1,9 +1,10 @@
 import type {ImperiumServerModule} from '@imperium/server';
+import {authMiddleware} from '@imperium/auth-server';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
-import jwt from 'express-jwt';
-import type {connectors} from '../core/connectors';
-import type {Context} from '../core/server';
+import {connectors} from '../core/connectors';
+import {contextCreator, Context} from '../core/context';
+import {authDomainBridge} from '../core/authDomainBridge';
 
 const d = debug('imperium.example-server2.advancedModule');
 
@@ -21,8 +22,8 @@ export const advancedModule: ImperiumServerModule<Context, typeof connectors> = 
 	endpoints(server) {
 		server.expressApp.get(
 			'/adv',
-			jwt({
-				secret: 'secret',
+			authMiddleware({
+				requiredDomain: authDomainBridge(contextCreator(connectors)),
 				credentialsRequired: false,
 			}),
 			myMiddleware(),

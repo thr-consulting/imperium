@@ -6,17 +6,19 @@ import {authMiddleware, ApolloContext as AuthApolloContext} from '@imperium/auth
 import {basicModule} from '../basicModule';
 import {advancedModule} from '../advancedModule';
 import {graphqlModule} from '../graphqlModule';
-import type {Context} from './server';
+import type {Context} from './context';
 import {authDomainBridge} from './authDomainBridge';
+import {contextCreator} from './context';
+import {connectors} from './connectors';
 
 export type MyApolloContext = GraphqlApolloContext<Context> & AuthApolloContext;
 
 export const serverModules: ImperiumServerModule<any, any>[] = [
 	graphqlServerModule({
 		middleware: [
-			authMiddleware({
-				requiredDomain: authDomainBridge,
-			}),
+			// authMiddleware({
+			// 	requiredDomain: authDomainBridge(contextCreator(connectors)),
+			// }),
 		],
 		contextMaker: (req: Request) => {
 			return {
@@ -29,3 +31,7 @@ export const serverModules: ImperiumServerModule<any, any>[] = [
 	advancedModule,
 	graphqlModule,
 ];
+
+const serverModulesFactory = () => {
+
+};

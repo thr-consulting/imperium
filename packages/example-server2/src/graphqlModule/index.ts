@@ -16,6 +16,8 @@ export const graphqlModule: ImperiumGraphqlServerModule<MyApolloContext, typeof 
 				getData(obj, value, apolloContext) {
 					d('getData');
 					d(apolloContext);
+					const {MyModel1} = apolloContext.context.domain1.context;
+
 					// const {MyDataLoader1, MyModel1} = apolloContext.context.domain1.context;
 					// d(apolloContext.auth.id);
 				},

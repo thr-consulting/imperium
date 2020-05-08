@@ -46,7 +46,7 @@ export function createLinks(client: IImperiumClient) {
 				credentials: 'include',
 			});
 		},
-		handleFetch: (accessToken) => {
+		handleFetch: accessToken => {
 			d('Fetched access token');
 			window.localStorage.setItem(client.globalConst.authLSAccessTokenKey as string, accessToken);
 		},

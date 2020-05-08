@@ -30,7 +30,7 @@ export function withAuth(client: IImperiumClient): Hoc {
 			}, []);
 
 			return (
-				<AuthContext.Provider value={{auth, setAuth: (authVal) => setAuth(authVal)}}>
+				<AuthContext.Provider value={{auth, setAuth: authVal => setAuth(authVal)}}>
 					<WrappedComponent {...props} />
 				</AuthContext.Provider>
 			);

@@ -1,3 +1,7 @@
+import debug from 'debug';
+
+const d = debug('imperium.context-manager.Connectors');
+
 export interface ConnectorsConfig<T = any> {
 	connect: () => Promise<T>;
 	close: (connection: T) => Promise<void>;
@@ -22,6 +26,7 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
 					if (typeof this.connectionConfigs[key].connect === 'function') {
+						d(`Connecting ${key}`);
 						this.connections[key] = await this.connectionConfigs[key].connect();
 					}
 				}),
@@ -37,6 +42,7 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
 					if (typeof this.connectionConfigs[key].close === 'function') {
+						d(`Closing ${key}`);
 						this.connectionConfigs[key].close(this.connections[key]);
 						delete this.connections[key];
 					}
