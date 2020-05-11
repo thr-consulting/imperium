@@ -23,6 +23,7 @@ export const advancedModule: ImperiumServerModule<Context, typeof connectors> = 
 	endpoints(server) {
 		server.expressApp.get(
 			'/adv',
+			server.contextMiddleware(),
 			authMiddleware({
 				requiredDomain: authDomainBridge(contextCreator(connectors)),
 				credentialsRequired: false,

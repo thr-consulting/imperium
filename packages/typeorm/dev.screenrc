@@ -1,8 +1,0 @@
-split
-
-screen -t "@imperium/typeorm TS" yarn ts --watch
-screen -t "@imperium/typeorm Build" yarn build:dev --watch
-
-select 0
-focus down
-select 1
