@@ -1,8 +1,8 @@
 import {ImperiumServer} from '@imperium/server';
 import debug from 'debug';
 import {connectors} from './connectors';
-import {serverModules} from './serverModules';
 import {contextCreator} from './context';
+import {serverModules} from './serverModules';
 
 const d = debug('imperium.example-server2.server');
 

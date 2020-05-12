@@ -1,6 +1,6 @@
-import type {connectors} from './connectors';
 import {createDomain1Context} from '../domain1';
 import {createDomain3Context} from '../domain3';
+import type {connectors} from './connectors';
 
 // Define a context creator function for your domains.
 //  You can specify multiple domains but they are isolated from each other.

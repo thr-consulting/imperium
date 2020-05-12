@@ -1,3 +1,4 @@
+import type {Auth} from '@imperium/auth-server';
 import type {connectors} from './connectors';
 import {createDomain1Context} from './domain1';
 import {createDomain3Context} from './domain3';
@@ -6,9 +7,9 @@ import {createDomain3Context} from './domain3';
 //  You can specify multiple domains but they are isolated from each other.
 //  Domains can be ANYTHING but are usually an instance of ContextManager.
 //  that are created in the domain library.
-export function contextCreator(conn: typeof connectors) {
+export function contextCreator(conn: typeof connectors, auth: Auth) {
 	return {
-		domain1: createDomain1Context(conn),
+		domain1: createDomain1Context(conn, auth),
 		domain2: {anything: 5},
 		domain3: createDomain3Context(conn),
 	};

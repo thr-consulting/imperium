@@ -1,5 +1,3 @@
-import type {AuthContext} from '@imperium/context-manager';
-
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -37,30 +35,32 @@ export interface AccessToken {
 	exp: string;
 }
 
-export interface AuthRequiredDomain {
+// Used in endpoints
+export interface AuthRequiredDomain<C = any> {
 	/**
 	 * Gets user info for login use.
 	 * @param identifier Unique email or username.
 	 * @returns User password and roles, null if user does not exist.
 	 */
-	getServiceInfo(identifier: string): Promise<ServiceInfo | null>;
-	getPermissions(roles: string[]): Promise<string[]>;
+	getServiceInfo(identifier: string, context: C): Promise<ServiceInfo | null>;
+	getPermissions(roles: string[], context: C): Promise<string[]>;
 	/**
 	 * Sets a cache value.
-	 * @param key unique identifier for cache
-	 * @param value boolean value
-	 * @param expire time in seconds before this entry expires.
+	 * @param value
+	 * @param value.key unique identifier for cache
+	 * @param value.value boolean value
+	 * @param value.expire time in seconds before this entry expires.
+	 * @param context
 	 */
-	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
-	getCache(key: string | string[]): Promise<any>;
-	invalidateCache(key: string | string[] | undefined): Promise<void>;
+	setCache(value: {key: string | string | string[]; value: any; expire?: number}, context: C): Promise<typeof value>;
+	getCache(key: string | string[], context: C): Promise<any>;
+	invalidateCache(key: string | string[] | undefined, context: C): Promise<void>;
 }
 
 export interface ApolloContext {
-	auth: AuthContext;
+	auth: any;
 }
 
 export interface AuthMiddlewareConfig {
-	requiredDomain: AuthRequiredDomain;
 	credentialsRequired?: boolean;
 }

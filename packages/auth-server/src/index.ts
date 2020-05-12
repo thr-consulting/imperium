@@ -4,11 +4,11 @@ import {environment} from './environment';
 import type {AuthRequiredDomain} from './types';
 
 export {ServiceInfo, AuthRequiredDomain, ApolloContext, AuthMiddlewareConfig} from './types';
-export {authMiddleware} from './middleware/authMiddleware';
+export {authMiddleware, Auth} from './middleware/authMiddleware';
 
 const env = environment();
 
-export function CreateAuthServerModule<Context = any>(options: AuthRequiredDomain): ImperiumServerModule<any, any> {
+export function authServerModule<Context = any>(options: AuthRequiredDomain): ImperiumServerModule<any, any> {
 	return {
 		name: '@imperium/auth-server',
 		endpoints: createAuthEndpoints(options),

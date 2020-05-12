@@ -1,15 +1,13 @@
 // Define server modules that should be included in the server.
-import type {Request} from 'express';
+import {ApolloContext as AuthApolloContext, authMiddleware, authServerModule} from '@imperium/auth-server';
+import {ApolloContext as GraphqlApolloContext, graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
-import {graphqlServerModule, ApolloContext as GraphqlApolloContext} from '@imperium/graphql-server';
-import {authMiddleware, ApolloContext as AuthApolloContext} from '@imperium/auth-server';
-import {basicModule} from '../basicModule';
+import type {Request} from 'express';
 import {advancedModule} from '../advancedModule';
+import {basicModule} from '../basicModule';
 import {graphqlModule} from '../graphqlModule';
-import type {Context} from './context';
 import {authDomainBridge} from './authDomainBridge';
-import {contextCreator} from './context';
-import {connectors} from './connectors';
+import type {Context} from './context';
 
 export type MyApolloContext = GraphqlApolloContext<Context> & AuthApolloContext;
 
@@ -18,7 +16,6 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		graphqlServerModule({
 			middleware: [
 				authMiddleware({
-					requiredDomain: authDomainBridge(contextCreator(connectors)),
 					credentialsRequired: false,
 				}),
 			],
@@ -29,6 +26,7 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 				};
 			},
 		}),
+		authServerModule(authDomainBridge()),
 		basicModule,
 		advancedModule,
 		graphqlModule,

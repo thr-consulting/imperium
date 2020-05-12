@@ -1,9 +1,9 @@
 import type {AuthRequiredDomain} from '@imperium/auth-server';
 import type {Context} from './context';
 
-export function authDomainBridge(ctx: Context): AuthRequiredDomain {
+export function authDomainBridge(): AuthRequiredDomain {
 	return {
-		async getPermissions() {
+		async getPermissions(roles: string[], context: any) {
 			return ['admin'];
 			// ctx.
 		},
@@ -15,7 +15,6 @@ export function authDomainBridge(ctx: Context): AuthRequiredDomain {
 			};
 		},
 		async getCache() {
-
 			return null;
 		},
 		async invalidateCache() {},

@@ -1,4 +1,4 @@
-export {ContextManager, AuthContext} from './ContextManager';
+export {ContextManager} from './ContextManager';
 export {Connector, ConnectorsConfig} from './Connector';
 
 /**

@@ -1,11 +1,11 @@
-import type {ImperiumServerModule} from '@imperium/server';
 import {authMiddleware} from '@imperium/auth-server';
 import type {AuthContext} from '@imperium/context-manager';
+import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
-import {connectors} from '../core/connectors';
-import {contextCreator, Context} from '../core/context';
 import {authDomainBridge} from '../core/authDomainBridge';
+import {connectors} from '../core/connectors';
+import {Context, contextCreator} from '../core/context';
 
 const d = debug('imperium.example-server2.advancedModule');
 

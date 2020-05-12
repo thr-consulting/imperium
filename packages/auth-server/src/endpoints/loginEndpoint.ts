@@ -25,8 +25,8 @@ export function loginEndpoint(options: AuthRequiredDomain, server: ImperiumServe
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 
-			// Perform login
-			login(loginInfo, options, req.connection.remoteAddress)
+			// @ts-ignore Perform login
+			login(loginInfo, req.connection.remoteAddress, options, req.context)
 				.then(ret => {
 					// Login was successful, return id and access token and set refresh token as the cookie.
 					res

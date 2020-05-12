@@ -1,8 +1,8 @@
-import debug from 'debug';
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
+import debug from 'debug';
 import type {connectors} from '../core/connectors';
-import Sample from './Sample.graphqls';
 import type {MyApolloContext} from '../core/serverModules';
+import Sample from './Sample.graphqls';
 
 const d = debug('imperium.example-server2.graphqlModule');
 

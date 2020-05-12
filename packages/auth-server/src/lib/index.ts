@@ -54,14 +54,19 @@ export function createRefreshToken(identifier: string): string {
 	);
 }
 
-export async function login(loginInfo: LoginInfo, authOptions: AuthRequiredDomain, remoteAddress: string | undefined): Promise<LoginReturn> {
+export async function login(
+	loginInfo: LoginInfo,
+	remoteAddress: string | undefined,
+	authOptions: AuthRequiredDomain,
+	context: any,
+): Promise<LoginReturn> {
 	// 1. Check attempts
 	const attemptKey = `loginattempts:${loginInfo.identifier}_${remoteAddress?.replace(/:/g, ';')}`;
-	const attempts = (await authOptions.getCache(attemptKey)) || 0;
+	const attempts = (await authOptions.getCache(attemptKey, context)) || 0;
 	if (attempts > env.authMaxFail) throw new Error('Too many login attempts');
 
 	// 2. Get service info from domain layer
-	const serviceInfo = await authOptions.getServiceInfo(loginInfo.identifier);
+	const serviceInfo = await authOptions.getServiceInfo(loginInfo.identifier, context);
 	if (!serviceInfo) {
 		throw new Error('User not found');
 	} else {
@@ -75,12 +80,19 @@ export async function login(loginInfo: LoginInfo, authOptions: AuthRequiredDomai
 			};
 		}
 		// 5. Update cache with attempts and return error on non-valid password.
-		await authOptions.setCache(attemptKey, attempts + 1, env.authMaxCooldown);
+		await authOptions.setCache(
+			{
+				key: attemptKey,
+				value: attempts + 1,
+				expire: env.authMaxCooldown,
+			},
+			context,
+		);
 		throw new Error('Invalid password');
 	}
 }
 
-export async function refresh(refreshTokenString: string, options: AuthRequiredDomain) {
+export async function refresh(refreshTokenString: string, options: AuthRequiredDomain, context: any) {
 	// Todo this should probably read cookies because you can brute force this
 	const token = decode(refreshTokenString);
 
@@ -92,7 +104,7 @@ export async function refresh(refreshTokenString: string, options: AuthRequiredD
 	}
 
 	// Get service info from domain layer
-	const serviceInfo = await options.getServiceInfo(token.id);
+	const serviceInfo = await options.getServiceInfo(token.id, context);
 	if (!serviceInfo) {
 		throw new Error('User not found');
 	}

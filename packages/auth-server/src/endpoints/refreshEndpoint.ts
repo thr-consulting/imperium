@@ -30,8 +30,8 @@ export function refreshEndpoint(options: AuthRequiredDomain, server: ImperiumSer
 			if (req.cookies && req.cookies[env.authRefreshCookieName]) {
 				const refreshTokenString = req.cookies[env.authRefreshCookieName];
 
-				// Perform refresh
-				refresh(refreshTokenString, options)
+				// @ts-ignore Perform refresh
+				refresh(refreshTokenString, options, req.context)
 					.then(ret => {
 						res.status(200).json(ret);
 						res.end();

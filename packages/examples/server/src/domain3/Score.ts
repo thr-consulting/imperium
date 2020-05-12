@@ -1,6 +1,5 @@
 import debug from 'debug';
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
-import type {Context} from './index';
 
 const d = debug('imperium.example-server2.Score');
 
