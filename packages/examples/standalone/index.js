@@ -17,5 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 	});
 
 	const main = require('./src/index');
-	main.main();
+	main.main().then(() => {
+		process.exit(0);
+	});
 }

@@ -1,5 +1,5 @@
-import {createDomain1Context} from '../domain1';
-import {createDomain3Context} from '../domain3';
+import {createDomainSimpleContext} from '@imperium/domain-simple';
+import {createDomainAdvancedContext} from '@imperium/domain-advanced';
 import type {connectors} from './connectors';
 
 /*
@@ -12,11 +12,11 @@ import type {connectors} from './connectors';
 	This function is usually called on every network request or every operation.
  */
 
-export function contextCreator(conn: typeof connectors, auth) {
+export function contextCreator(conn: typeof connectors, auth: string) {
 	return {
-		domain1: createDomain1Context(conn),
-		domain2: {anything: 5},
-		domain3: createDomain3Context(conn, auth),
+		domainSimple: createDomainSimpleContext(conn),
+		domainAdvanced: createDomainAdvancedContext(conn, auth),
+		domainAnything: {anything: 5},
 	};
 }
 

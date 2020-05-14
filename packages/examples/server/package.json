@@ -1,6 +1,6 @@
 {
-  "name": "@imperium/example-server2",
-  "description": "Imperium example2 server project",
+  "name": "@imperium/example-server",
+  "description": "Imperium server example project",
   "version": "4.0.9",
   "author": "Mike Kornelson <darkadept@durbn.net>",
   "repository": {
@@ -23,23 +23,19 @@
   },
   "dependencies": {
     "@imperium/auth-server": "^4.0.8",
+    "@imperium/context-manager": "^4.0.7",
     "@imperium/graphql-server": "^4.0.8",
     "@imperium/server": "^4.0.8",
-    "@imperium/typeorm": "^4.0.8",
     "@thx/sharedcache": "^11.0.1",
-    "dataloader": "^2.0.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
-    "faker": "^4.1.0",
     "graphql": "^14.6.0",
     "graphql-redis-subscriptions": "^2.2.1",
     "graphql-subscriptions": "^1.1.0",
     "lodash": "^4.17.15",
-    "mongoose": "^5.9.10",
-    "pg": "^8.0.3",
+    "pg": "^8.2.0",
     "redis": "^3.0.2",
-    "typeorm": "^0.2.24",
-    "typeorm-revisions": "^0.0.5"
+    "typeorm": "^0.2.24"
   },
   "devDependencies": {
     "@imperium/dev": "^4.0.9"

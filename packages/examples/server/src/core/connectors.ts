@@ -3,7 +3,7 @@ import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {ConnectionOptions, createConnection} from 'typeorm';
 import redis from 'redis';
-import {typeormEntities} from '../domain3';
+import {typeormEntities} from '@imperium/domain-advanced';
 
 const d = debug('imperium.example.server.connectors');
 

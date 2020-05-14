@@ -4,7 +4,6 @@ import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import type {Request} from 'express';
-import {authDomainBridge} from '../domain3';
 import {advancedModule} from '../advancedModule';
 import {basicModule} from '../basicModule';
 import {graphqlModule} from '../graphqlModule';
@@ -26,7 +25,7 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 				};
 			},
 		}),
-		authServerModule(authDomainBridge()),
+		// authServerModule(),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),

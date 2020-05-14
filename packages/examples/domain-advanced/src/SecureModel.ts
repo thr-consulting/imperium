@@ -1,7 +1,7 @@
 import debug from 'debug';
 import type {Context} from './index';
 
-const d = debug('imperium.example.server.SecureModel');
+const d = debug('imperium.example.domain-advanced.SecureModel');
 
 class SecureModel {
 	static async canAccess() {

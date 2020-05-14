@@ -4,12 +4,12 @@ import {Connector, ConnectorsConfig, ContextManager} from '@imperium/context-man
 // to know the key and type of each connector.
 
 // 1. Define a type of connectors that this domain requires.
-type Domain1Connectors = Connector<{
+type DomainSimpleConnectors = Connector<{
 	mongo: ConnectorsConfig<number>;
 }>;
 
 // 2. Each domain should export a function that creates a context.
-export function createDomain1Context(connectors: Domain1Connectors) {
+export function createDomainSimpleContext(connectors: DomainSimpleConnectors) {
 	// Domain context creator functions can return ANYTHING but usually ContextManager instances.
 
 	// A ContextManager is constructed with:
@@ -27,4 +27,4 @@ export function createDomain1Context(connectors: Domain1Connectors) {
 }
 
 // 3. Each domain should also export the return type of the context creator function.
-export type Context = ReturnType<typeof createDomain1Context>;
+export type Context = ReturnType<typeof createDomainSimpleContext>;

@@ -2,7 +2,7 @@ import debug from 'debug';
 import type {AuthRequiredDomain} from '@imperium/auth-server';
 import type {Context} from './index';
 
-const d = debug('imperium.examples.server.domain3');
+const d = debug('imperium.examples.domain-advanced.authDomainBridge');
 
 export function authDomainBridge(): AuthRequiredDomain {
 	return {

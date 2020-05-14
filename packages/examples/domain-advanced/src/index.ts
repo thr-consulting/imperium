@@ -5,15 +5,15 @@ import {Score} from './Score';
 import {SecureModel} from './SecureModel';
 import {authDomainBridge} from './authDomainBridge';
 
-const d = debug('imperium.example.server.domain3');
+const d = debug('imperium.example.domain-advanced');
 
-type Domain3Connectors = Connector<{
+type DomainAdvancedConnectors = Connector<{
 	pg: ConnectorsConfig<Connection>;
 }>;
 
 export const typeormEntities = {Score};
 
-export function createDomain3Context(connectors: Domain3Connectors, id: string) {
+export function createDomainAdvancedContext(connectors: DomainAdvancedConnectors, id: string) {
 	return new ContextManager(
 		{
 			...spreadEntities(typeormEntities),
@@ -24,4 +24,4 @@ export function createDomain3Context(connectors: Domain3Connectors, id: string) 
 	);
 }
 
-export type Context = ReturnType<typeof createDomain3Context>;
+export type Context = ReturnType<typeof createDomainAdvancedContext>;

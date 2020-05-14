@@ -5,7 +5,7 @@ import type {RequestHandler} from 'express';
 import type {connectors} from '../core/connectors';
 import type {Context} from '../core/context';
 
-const d = debug('imperium.example-server2.advancedModule');
+const d = debug('imperium.examples.server.advancedModule');
 
 function myMiddleware(): RequestHandler {
 	return (req, res, next) => {
@@ -17,8 +17,8 @@ export const advancedModule = (): ImperiumServerModule<Context, typeof connector
 	name: 'Advanced Server Module',
 	async startup(server, context) {
 		d('Running startup code');
-		d(`Has access to server: ${Object.keys(server.connectors.connections)}`);
-		d(`Has access to context: ${context.domain2.anything}`);
+		// d(`Has access to server: ${Object.keys(server.connectors.connections)}`);
+		// d(`Has access to context: ${context.domain2.anything}`);
 	},
 	endpoints(server) {
 		server.expressApp.get(

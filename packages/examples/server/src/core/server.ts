@@ -4,7 +4,7 @@ import {connectors} from './connectors';
 import {contextCreator} from './context';
 import {serverModules} from './serverModules';
 
-const d = debug('imperium.example.server.server');
+const d = debug('imperium.examples.server');
 
 /*
   This default function export is required by the @imperium/dev scripts
