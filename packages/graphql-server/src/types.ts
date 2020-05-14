@@ -29,13 +29,6 @@ export interface ImperiumGraphqlServerModule<Context, Connectors extends Connect
 }
 
 /**
- * The default apollo context. This can be extended in an implementing app.
- */
-// export interface ApolloContext<Context> {
-// 	context: Context;
-// }
-
-/**
  * Typeguard to check if a module is a graphql server module.
  * @param object
  */

@@ -103,14 +103,13 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 				if (config?.apolloContextCreator) {
 					return {
 						// @ts-ignore
-						context: req.context,
+						...req.context,
 						...config?.apolloContextCreator(req),
 					};
 				}
-				return {
-					// @ts-ignore
-					context: req.context,
-				};
+
+				// @ts-ignore
+				return req.context;
 			},
 			schemaDirectives,
 			formatError: error => {

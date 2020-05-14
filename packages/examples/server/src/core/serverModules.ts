@@ -18,12 +18,12 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 	return [
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],
-			apolloContextCreator: (req: Request) => {
-				return {
-					// @ts-ignore
-					auth: req.auth,
-				};
-			},
+			// apolloContextCreator: (req: Request) => {
+			// 	return {
+			// 		// @ts-ignore
+			// 		auth: req.auth,
+			// 	};
+			// },
 		}),
 		// authServerModule(),
 		basicModule(),

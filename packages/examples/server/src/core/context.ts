@@ -12,10 +12,10 @@ import type {connectors} from './connectors';
 	This function is usually called on every network request or every operation.
  */
 
-export function contextCreator(conn: typeof connectors, auth: string) {
+export function contextCreator(conn: typeof connectors) {
 	return {
 		domainSimple: createDomainSimpleContext(conn),
-		domainAdvanced: createDomainAdvancedContext(conn, auth),
+		domainAdvanced: createDomainAdvancedContext(conn),
 		domainAnything: {anything: 5},
 	};
 }

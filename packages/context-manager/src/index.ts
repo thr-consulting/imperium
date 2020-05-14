@@ -1,6 +1,6 @@
 export {ContextManager} from './ContextManager';
 export {Connector, ConnectorsConfig} from './Connector';
-export {Auth} from './Auth';
+export {Auth, AuthImplementation} from './Auth';
 
 /**
  * Take each field's value in an object and map it to functions that return the values.

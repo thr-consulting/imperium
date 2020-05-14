@@ -12,13 +12,10 @@ export const graphqlModule = (): ImperiumGraphqlServerModule<Context, typeof con
 	resolvers(server) {
 		return {
 			Query: {
-				// apolloContext.context.
-				getData(obj, value, apolloContext) {
+				async getData(obj, value, apolloContext) {
 					d('getData');
-					// d(apolloContext.domain2.anything);
-					// apolloContext.domain1.context.MyModel1
-					// const {MyDataLoader1, MyModel1} = apolloContext.context.domain1.context;
-					// d(apolloContext.auth.id);
+					const a = await apolloContext.domainAdvanced.context.SecureModel.getSecureData('thing', apolloContext.domainAdvanced);
+					d(a);
 					return 5;
 				},
 			},

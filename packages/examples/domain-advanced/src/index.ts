@@ -1,11 +1,10 @@
 import debug from 'debug';
-import {Auth, ContextManager, spreadEntities, Connector, ConnectorsConfig} from '@imperium/context-manager';
+import {ContextManager, spreadEntities, Connector, ConnectorsConfig} from '@imperium/context-manager';
 import type {Connection} from 'typeorm';
 import {Score} from './Score';
 import {SecureModel} from './SecureModel';
-import {authDomainBridge} from './authDomainBridge';
 
-const d = debug('imperium.example.domain-advanced');
+const d = debug('imperium.examples.domain-advanced');
 
 type DomainAdvancedConnectors = Connector<{
 	pg: ConnectorsConfig<Connection>;
@@ -13,14 +12,14 @@ type DomainAdvancedConnectors = Connector<{
 
 export const typeormEntities = {Score};
 
-export function createDomainAdvancedContext(connectors: DomainAdvancedConnectors, id: string) {
+export function createDomainAdvancedContext(connectors: DomainAdvancedConnectors, id?: string) {
 	return new ContextManager(
 		{
 			...spreadEntities(typeormEntities),
 			SecureModel: () => SecureModel,
 		},
 		connectors,
-		new Auth(authDomainBridge(), id),
+		id,
 	);
 }
 

@@ -1,7 +1,7 @@
 import debug from 'debug';
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
-const d = debug('imperium.example.domain-advanced.Score');
+const d = debug('imperium.examples.domain-advanced.Score');
 
 @Entity()
 class Score extends BaseEntity {

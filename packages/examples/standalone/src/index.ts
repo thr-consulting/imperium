@@ -4,16 +4,12 @@ import {connectors} from './connectors';
 
 const d = debug('imperium.examples.standalone');
 
-// Being a standalone module, the authenticated user would never change.
-const auth = {
-	id: 'standalone-process-user',
-};
-
 export async function main() {
 	await connectors.connect();
-	const context = contextCreator(connectors, auth.id);
+	const context = contextCreator(connectors, 'abcd');
 
-	d(context.domainAdvanced.auth?.id);
+	const val = await context.domainAdvanced.context.SecureModel.getSecureData('mydata', context.domainAdvanced);
+	d(val);
 
 	await connectors.close();
 }

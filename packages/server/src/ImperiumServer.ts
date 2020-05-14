@@ -8,9 +8,9 @@ import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
 
-export class ImperiumServer<Context, Connectors extends Connector, Auth = any> {
+export class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
-	private readonly _contextCreator: (connector: Connectors, auth?: Auth) => Context;
+	private readonly _contextCreator: (connector: Connectors) => Context;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 	private _modules: ImperiumServerModule<Context, Connectors>[];
@@ -30,7 +30,7 @@ export class ImperiumServer<Context, Connectors extends Connector, Auth = any> {
 	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
-			req.context = this._contextCreator(this.connectors, req.auth);
+			req.context = this._contextCreator(this.connectors);
 			next();
 		};
 	}
