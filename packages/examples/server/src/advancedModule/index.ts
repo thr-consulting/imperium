@@ -1,11 +1,9 @@
 import {authMiddleware} from '@imperium/auth-server';
-import type {AuthContext} from '@imperium/context-manager';
 import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
-import {authDomainBridge} from '../core/authDomainBridge';
-import {connectors} from '../core/connectors';
-import {Context, contextCreator} from '../core/context';
+import type {connectors} from '../core/connectors';
+import type {Context} from '../core/context';
 
 const d = debug('imperium.example-server2.advancedModule');
 
@@ -15,27 +13,28 @@ function myMiddleware(): RequestHandler {
 	};
 }
 
-export const advancedModule: ImperiumServerModule<Context, typeof connectors> = {
+export const advancedModule = (): ImperiumServerModule<Context, typeof connectors> => ({
 	name: 'Advanced Server Module',
 	async startup(server, context) {
 		d('Running startup code');
+		d(`Has access to server: ${Object.keys(server.connectors.connections)}`);
+		d(`Has access to context: ${context.domain2.anything}`);
 	},
 	endpoints(server) {
 		server.expressApp.get(
 			'/adv',
-			server.contextMiddleware(),
 			authMiddleware({
-				requiredDomain: authDomainBridge(contextCreator(connectors)),
 				credentialsRequired: false,
 			}),
 			myMiddleware(),
 			(req, res) => {
 				// @ts-ignore
-				const {auth}: {auth: AuthContext} = req;
-				d(auth.hasPermission(['blah']));
+				d('User:', req.user);
+				// @ts-ignore
+				d('Auth:', req.auth);
 				res.send('Advanced endpoint');
 				res.end();
 			},
 		);
 	},
-};
+});

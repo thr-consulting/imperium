@@ -10,39 +10,36 @@ const d = debug('imperium.server.ImperiumServer');
 
 export class ImperiumServer<Context, Connectors extends Connector, Auth = any> {
 	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
-	private readonly contextCreator: (connector: Connectors, auth?: Auth) => Context;
+	private readonly _contextCreator: (connector: Connectors, auth?: Auth) => Context;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
+	private _modules: ImperiumServerModule<Context, Connectors>[];
 
-	public modules: ImperiumServerModule<Context, Connectors>[];
 	public readonly connectors: Connectors;
 
 	public constructor(config: ImperiumServerConfig<Context, Connectors>) {
 		this.connectors = config.connectors;
-		this.contextCreator = config.contextCreator;
+		this._contextCreator = config.contextCreator;
 		this._moduleFactoryFn = config.serverModules;
-
-		this.modules = [];
-
-		// d(`Loaded modules: ${this.modules.map(module => module.name).join(', ')}`);
+		this._modules = [];
 	}
 
 	/**
 	 * Express middleware used to create a new context and place it on `req.context`.
 	 */
-	public contextMiddleware({authKey}: {authKey: string} = {authKey: 'auth'}): RequestHandler {
+	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
-			req.context = this.contextCreator(this.connectors, req[authKey]);
+			req.context = this._contextCreator(this.connectors, req.auth);
 			next();
 		};
 	}
 
 	/**
 	 * Start the Imperium server
-	 * @param port
+	 * @param port Which TCP port to start the server on. Defaults to 4001.
 	 */
-	public async start({port}: {port: number}) {
+	public async start({port}: {port: number} = {port: 4001}) {
 		if (this._expressApp) throw new Error('Server already started');
 
 		// Connect connectors
@@ -52,8 +49,8 @@ export class ImperiumServer<Context, Connectors extends Connector, Auth = any> {
 		this._expressApp = express();
 		this._httpServer = createServer(this._expressApp);
 
-		d('Loading modules');
-		this.modules = this._moduleFactoryFn();
+		this._modules = this._moduleFactoryFn();
+		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
 
 		// Module endpoints
 		d('Creating module endpoints');
@@ -63,7 +60,7 @@ export class ImperiumServer<Context, Connectors extends Connector, Auth = any> {
 
 		d('Creating startup context');
 		// Create startup promises (these are executed in the next section)
-		const startupContext = this.contextCreator(this.connectors);
+		const startupContext = this._contextCreator(this.connectors);
 		const startupPromises = this.modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
 				const moduleStartupReturn = module.startup(this, startupContext);
@@ -102,6 +99,13 @@ export class ImperiumServer<Context, Connectors extends Connector, Auth = any> {
 	public async stop() {
 		d('Closing connectors');
 		await this.connectors.close();
+	}
+
+	/**
+	 * Return the loaded server modules.
+	 */
+	public get modules(): ImperiumServerModule<Context, Connectors>[] {
+		return this._modules;
 	}
 
 	/**

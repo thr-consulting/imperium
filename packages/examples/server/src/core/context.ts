@@ -2,15 +2,21 @@ import {createDomain1Context} from '../domain1';
 import {createDomain3Context} from '../domain3';
 import type {connectors} from './connectors';
 
-// Define a context creator function for your domains.
-//  You can specify multiple domains but they are isolated from each other.
-//  Domains can be ANYTHING but are usually an instance of ContextManager.
-//  that are created in the domain library.
-export function contextCreator(conn: typeof connectors) {
+/*
+	Domains are collections of models and model specific mechanisms like DataLoader (caching & batching).
+	Domains are not related to each other in code and won't know about each other.
+	Domains can actually be anything. Primitives, objects, or complex classes.
+	Domains are usually an instance of ContextManager.
+
+	The `contextCreator()` function is used to create an instance of context (state).
+	This function is usually called on every network request or every operation.
+ */
+
+export function contextCreator(conn: typeof connectors, auth) {
 	return {
 		domain1: createDomain1Context(conn),
 		domain2: {anything: 5},
-		domain3: createDomain3Context(conn),
+		domain3: createDomain3Context(conn, auth),
 	};
 }
 

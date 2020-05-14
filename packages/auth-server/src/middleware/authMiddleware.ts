@@ -20,12 +20,12 @@ export function authMiddleware(config: AuthMiddlewareConfig) {
 		(req, res, next) => {
 			// @ts-ignore
 			if (req.user) {
-				d('Auth token present and valid');
+				d('JWT present and valid');
 				// @ts-ignore
 				req.auth = {id: req.user.id} as Auth;
 				next();
 			} else {
-				d('Auth token not present');
+				d('JWT not present');
 				// @ts-ignore
 				req.auth = null;
 				next();

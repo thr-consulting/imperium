@@ -13,4 +13,4 @@ export function graphqlServerModule(config?: GraphqlServerModuleConfig): Imperiu
 	};
 }
 
-export {ApolloContext, ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers, GraphqlServerModuleConfig} from './types';
+export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers, GraphqlServerModuleConfig} from './types';

@@ -14,7 +14,7 @@ const d = debug('imperium.graphql-server.endpoints');
 const env = environment();
 
 /**
- * Transforms
+ * Transforms the various types of ApolloSchema into an array of DocumentNode.
  * @param schema
  */
 function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
@@ -42,6 +42,7 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
 
 /**
  * Apollo graphql Express endpoints
+ * @param config
  */
 export function endpoints(config?: GraphqlServerModuleConfig) {
 	return (server: ImperiumServer<any, any>) => {
@@ -92,16 +93,18 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			typeDefs,
 			resolvers,
 			context: ({req /* , connection */}: ExpressContext) => {
-				// This is ApolloContext
-				// TODO check into why I was using connection... probably subscribe or possibly auth.
+				// This is ApolloContext!
+
+				// TODO check into why I was using connection... probably subscribe
 				// if (connection) {
 				// 	return connection.context;
 				// }
-				if (config?.contextMaker) {
+
+				if (config?.apolloContextCreator) {
 					return {
 						// @ts-ignore
 						context: req.context,
-						...config.contextMaker(req),
+						...config?.apolloContextCreator(req),
 					};
 				}
 				return {
@@ -134,10 +137,10 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 		d('Creating apollo server');
 		const apolloServer = new ApolloServer(apolloServerConfig);
 
-		d(`Adding graphql endpoint: ${env.graphqlUrl} ${env.graphqlCredentialsRequired ? '[Credentials required]' : '[Credentials NOT required]'}`);
+		d(`Adding graphql endpoint: ${env.graphqlUrl}`);
 
 		// Add middleware to graphql endpoint. Optional middleware can be passed in via constructor config object.
-		// preContext and postContext middleware could be a thing.
+		// preContext and postContext middleware could be a thing, if needed.
 		server.expressApp.use(env.graphqlUrl, compose([...(config?.middleware || []), server.contextMiddleware()]));
 
 		const corsOpts: CorsOptions = {

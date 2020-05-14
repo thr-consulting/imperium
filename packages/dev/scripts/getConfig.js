@@ -52,7 +52,7 @@ module.exports = function getConfig() {
 		configModuleNames.push(configModuleDefinition.name || 'unnamed module');
 		return configModuleDefinition;
 	});
-	d(`Loaded modules: ${configModuleNames.join(', ')}`);
+	d(`Loaded config modules: ${configModuleNames.join(', ')}`);
 
 	// Merge initialConfig options
 	config.html.templateParameters = {

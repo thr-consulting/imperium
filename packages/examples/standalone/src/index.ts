@@ -1,5 +1,8 @@
+import debug from 'debug';
 import {contextCreator} from './context';
 import {connectors} from './connectors';
+
+const d = debug('imperium.example.standalone');
 
 // Being a standalone module, the authenticated user would never change.
 const auth = {
@@ -8,9 +11,9 @@ const auth = {
 
 export async function main() {
 	await connectors.connect();
-	const context = contextCreator(connectors);
+	const context = contextCreator(connectors, auth);
 
-	// context.domain3.
+	d(context.domain3.auth?.id);
 
 	await connectors.close();
 }

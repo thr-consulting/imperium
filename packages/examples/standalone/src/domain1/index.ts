@@ -1,4 +1,3 @@
-import type {Auth} from '@imperium/auth-server';
 import {Connector, ConnectorsConfig, ContextManager} from '@imperium/context-manager';
 
 // Connectors are created outside of the domain but the domain needs
@@ -10,7 +9,7 @@ type Domain1Connectors = Connector<{
 }>;
 
 // 2. Each domain should export a function that creates a context.
-export function createDomain1Context(connectors: Domain1Connectors, auth: Auth) {
+export function createDomain1Context(connectors: Domain1Connectors) {
 	// Domain context creator functions can return ANYTHING but usually ContextManager instances.
 
 	// A ContextManager is constructed with:
@@ -24,7 +23,6 @@ export function createDomain1Context(connectors: Domain1Connectors, auth: Auth) 
 			MyDataLoader1: conn => {},
 		},
 		connectors,
-		auth,
 	);
 }
 

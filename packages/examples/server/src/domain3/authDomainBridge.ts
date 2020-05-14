@@ -1,18 +1,21 @@
+import debug from 'debug';
 import type {AuthRequiredDomain} from '@imperium/auth-server';
-import type {Context} from './context';
+import type {Context} from './index';
+
+const d = debug('imperium.examples.server.domain3');
 
 export function authDomainBridge(): AuthRequiredDomain {
 	return {
-		async getPermissions(roles: string[], context: any) {
-			return ['admin'];
-			// ctx.
-		},
-		async getServiceInfo() {
+		async getServiceInfo(identifier: string, context: Context) {
+			d(`Id: ${identifier} User: ${context.auth}`);
 			return {
 				id: '1234',
 				password: {bcrypt: '1234'},
 				roles: ['admin'],
 			};
+		},
+		async getPermissions(roles: string[], context: any) {
+			return ['admin'];
 		},
 		async getCache() {
 			return null;

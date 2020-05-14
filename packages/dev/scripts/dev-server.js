@@ -63,7 +63,7 @@ if (cluster.isMaster) {
 
 	// Watch source folder for changes
 	const watchFolders = [...imperiumConfig.source.watchPaths, imperiumConfig.source.path];
-	chokidar.watch(watchFolders).on('change', (filePath) => {
+	chokidar.watch(watchFolders).on('change', filePath => {
 		console.log(`  >> File ${filePath} was modified, restarting server thread...`); // eslint-disable-line no-console
 		restartWorker();
 	});
@@ -80,7 +80,7 @@ if (cluster.isMaster) {
 		extensions: ['.js', '.ts'],
 		ignore: [/node_modules/],
 		only: [
-			(filepath) => {
+			filepath => {
 				log('BABEL/REG', filepath);
 				return true;
 			},
@@ -93,9 +93,9 @@ if (cluster.isMaster) {
 		console.error('Server index must export a default function');
 		process.exit(1);
 	}
-	worker().then((server) => {
-		if (!server) {
-			console.error('Server index function must return server.start()');
+	worker().then(server => {
+		if (!server && !isFunction(server.stop)) {
+			console.error('Server default function must return an object with a stop() method that returns a Promise.');
 			process.exit(2);
 		}
 
@@ -109,13 +109,13 @@ if (cluster.isMaster) {
 		});
 
 		// Catch uncaught exceptions
-		process.on('uncaughtException', (error) => {
+		process.on('uncaughtException', error => {
 			console.error('Fatal: Uncaught exception', error);
 			process.exit(3);
 		});
 
 		// Catch unhandled rejections
-		process.on('unhandledRejection', (error) => {
+		process.on('unhandledRejection', error => {
 			console.error('Fatal: Unhandled promise rejection', error);
 			process.exit(4);
 		});

@@ -57,10 +57,6 @@ export interface AuthRequiredDomain<C = any> {
 	invalidateCache(key: string | string[] | undefined, context: C): Promise<void>;
 }
 
-export interface ApolloContext {
-	auth: any;
-}
-
 export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;
 }

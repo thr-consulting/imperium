@@ -17,10 +17,16 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 		this.connections = {} as {[P in keyof T]: ReturnType<T[P]['connect']>};
 	}
 
+	/**
+	 * Returns true if the connectors are connected.
+	 */
 	public get isConnected() {
 		return this.connected;
 	}
 
+	/**
+	 * Connect each connector
+	 */
 	public async connect() {
 		if (!this.connected) {
 			await Promise.all(
@@ -37,6 +43,9 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 		throw new Error('Connectors are already connected.');
 	}
 
+	/**
+	 * Close each connector
+	 */
 	public async close() {
 		if (this.isConnected) {
 			await Promise.all(

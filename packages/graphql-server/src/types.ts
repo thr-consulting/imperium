@@ -16,14 +16,14 @@ export type {IResolvers, IResolverObject, IFieldResolver} from 'graphql-tools';
  */
 export interface GraphqlServerModuleConfig {
 	middleware?: RequestHandler[];
-	contextMaker?: (req: Request) => Record<string, any>;
+	apolloContextCreator?: (req: Request) => Record<string, any>;
 }
 
 /**
  * The interface for a module that provides graphql functionality.
  */
-export interface ImperiumGraphqlServerModule<ApolloContext, Connectors extends Connector> extends ImperiumServerModule<ApolloContext, Connectors> {
-	resolvers: (server: ImperiumServer<ApolloContext, Connectors>) => IResolvers<any, ApolloContext>;
+export interface ImperiumGraphqlServerModule<Context, Connectors extends Connector> extends ImperiumServerModule<Context, Connectors> {
+	resolvers: (server: ImperiumServer<Context, Connectors>) => IResolvers<any, Context>;
 	schema: ApolloSchema;
 	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
 }
@@ -31,9 +31,9 @@ export interface ImperiumGraphqlServerModule<ApolloContext, Connectors extends C
 /**
  * The default apollo context. This can be extended in an implementing app.
  */
-export interface ApolloContext<Context> {
-	context: Context;
-}
+// export interface ApolloContext<Context> {
+// 	context: Context;
+// }
 
 /**
  * Typeguard to check if a module is a graphql server module.
