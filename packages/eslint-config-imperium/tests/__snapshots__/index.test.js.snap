@@ -69,6 +69,7 @@ Object {
     "global-require": "error",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
+    "import/no-named-default": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": "off",
