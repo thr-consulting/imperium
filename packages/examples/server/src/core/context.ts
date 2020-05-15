@@ -13,7 +13,7 @@ import type {connectors} from './connectors';
 	This function is usually called on every network request or every operation.
  */
 
-export function contextCreator(conn: typeof connectors, data: AuthData) {
+export function contextCreator(conn: typeof connectors, data?: AuthData) {
 	const auth = new Auth(data);
 
 	const context = {
