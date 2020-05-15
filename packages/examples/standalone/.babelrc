@@ -1,0 +1,7 @@
+{
+	"presets": [["@imperium/babel-preset-imperium", {
+		"client": false,
+		"typescript": true,
+		"forceModules": true
+	}]]
+}
