@@ -1,5 +1,5 @@
-import {ApolloLink} from 'apollo-link';
-import {IImperiumClient} from '@imperium/client';
+import type {ApolloLink} from 'apollo-link';
+import type {IImperiumClient} from '@imperium/client';
 
 export interface ImperiumGraphqlClientModule {
 	apolloLinks?: (client: IImperiumClient) => ApolloLink[];

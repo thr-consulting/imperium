@@ -1,8 +1,8 @@
 import React from 'react';
 import debug from 'debug';
 import {Switch, Route} from 'react-router-dom';
-import {IImperiumClient} from '@imperium/client';
-import {ImperiumRoute} from '../types';
+import type {IImperiumClient} from '@imperium/client';
+import type {ImperiumRoute} from '../types';
 import RouteErrorBoundary from './RouteErrorBoundary';
 
 const d = debug('imperium.router.RouteDirector');
@@ -23,7 +23,7 @@ export default function RouteDirector(props: RouteDirectorProps) {
 
 	return (
 		<Switch>
-			{routes.map((route) => {
+			{routes.map(route => {
 				// Apply default route options and then apply specific route options
 				const routeProps: ImperiumRoute = {...(routeDefaults || {}), ...route};
 

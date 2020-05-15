@@ -1,6 +1,6 @@
 import debug from 'debug';
-import React from 'react';
-import {IImperiumClient, RootProps} from './types';
+import type React from 'react';
+import type {IImperiumClient, RootProps} from './types';
 
 const d = debug('imperium.client.Root');
 

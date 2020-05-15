@@ -6,7 +6,7 @@ import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
 import Root from './Root';
 import {ClientContext} from './ClientContext';
-import {
+import type {
 	GlobalConst,
 	Hoc,
 	HocCreator,
@@ -58,7 +58,7 @@ export default class ImperiumClient implements IImperiumClient {
 		const clientModuleNames: string[] = [];
 		if (config.clientModules) {
 			// Load module definitions
-			this._clientModules = config.clientModules.map((moduleFunc) => {
+			this._clientModules = config.clientModules.map(moduleFunc => {
 				const moduleDefinition = moduleFunc();
 				clientModuleNames.push(moduleDefinition.name || 'unnamed module');
 				return moduleDefinition;
@@ -110,7 +110,7 @@ export default class ImperiumClient implements IImperiumClient {
 		);
 
 		// Execute HoC creators and compose HoC's.
-		const hoc = flowRight(hocCreators.map((v) => v(this)));
+		const hoc = flowRight(hocCreators.map(v => v(this)));
 		const RootWrappedComponent = hoc(Root);
 
 		d('Rendering root component');

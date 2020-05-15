@@ -8,6 +8,8 @@ Object {
   "externals": Array [
     [Function],
     [Function],
+    [Function],
+    [Function],
   ],
   "mode": "development",
   "module": Object {
@@ -98,6 +100,8 @@ Object {
   "devtool": "inline-source-map",
   "entry": "entry.ts",
   "externals": Array [
+    [Function],
+    [Function],
     [Function],
     [Function],
   ],
@@ -191,6 +195,8 @@ Object {
   "externals": Array [
     [Function],
     [Function],
+    [Function],
+    [Function],
   ],
   "mode": "production",
   "module": Object {
@@ -281,6 +287,8 @@ Object {
   "devtool": "source-map",
   "entry": "entry.ts",
   "externals": Array [
+    [Function],
+    [Function],
     [Function],
     [Function],
   ],

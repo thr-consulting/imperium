@@ -1,23 +1,9 @@
-/* eslint-disable import/no-cycle */
-// see: https://github.com/babel/babel/issues/10981
-import {IContextManager} from '@imperium/server';
-import {AuthModuleContext} from './AuthServerModule';
-
 export interface LoginInfo {
 	identifier: string;
 	password: {
 		digest: string;
 		algorithm: string;
 	};
-}
-
-export function isLoginInfo(loginInfo: object): loginInfo is LoginInfo {
-	return (
-		(loginInfo as LoginInfo).identifier !== undefined &&
-		(loginInfo as LoginInfo).password !== undefined &&
-		(loginInfo as LoginInfo).password.algorithm !== undefined &&
-		(loginInfo as LoginInfo).password.digest !== undefined
-	);
 }
 
 export interface LoginReturn {
@@ -32,7 +18,7 @@ export interface ServiceInfo {
 	password: {
 		bcrypt: string;
 	};
-	blacklist?: number[];
+	blacklist?: number[]; // Blacklisted refresh tokens
 }
 
 export interface RefreshToken {
@@ -42,12 +28,6 @@ export interface RefreshToken {
 	exp: number;
 }
 
-export function isRefreshToken(refreshToken: object): refreshToken is RefreshToken {
-	return (
-		(refreshToken as RefreshToken).id !== undefined && (refreshToken as RefreshToken).exp !== undefined && (refreshToken as RefreshToken).type === 'r'
-	);
-}
-
 export interface AccessToken {
 	id: string;
 	roles?: string[];
@@ -55,16 +35,28 @@ export interface AccessToken {
 	exp: string;
 }
 
-export function isAccessToken(accessToken: object): accessToken is AccessToken {
-	return (
-		(accessToken as AccessToken).id !== undefined && (accessToken as AccessToken).iat !== undefined && (accessToken as AccessToken).exp !== undefined
-	);
+// Used in endpoints
+export interface AuthRequiredDomain<C = any> {
+	/**
+	 * Gets user info for login use.
+	 * @param identifier Unique email or username.
+	 * @returns User password and roles, null if user does not exist.
+	 */
+	getServiceInfo(identifier: string, context: C): Promise<ServiceInfo | null>;
+	getPermissions(roles: string[], context: C): Promise<string[]>;
+	/**
+	 * Sets a cache value.
+	 * @param value
+	 * @param value.key unique identifier for cache
+	 * @param value.value boolean value
+	 * @param value.expire time in seconds before this entry expires.
+	 * @param context
+	 */
+	setCache(value: {key: string | string | string[]; value: any; expire?: number}, context: C): Promise<typeof value>;
+	getCache(key: string | string[], context: C): Promise<any>;
+	invalidateCache(key: string | string[] | undefined, context: C): Promise<void>;
 }
 
-export type AuthContextManager = IContextManager<ReturnType<typeof AuthModuleContext>>;
-
-export interface ImperiumAuthServerModule<ContextManager extends AuthContextManager = AuthContextManager> {
-	auth?: {
-		getServiceInfo: (identifier: string, ctx: ContextManager) => Promise<ServiceInfo | null>;
-	};
+export interface AuthMiddlewareConfig {
+	credentialsRequired?: boolean;
 }

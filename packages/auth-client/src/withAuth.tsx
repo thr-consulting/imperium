@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import debug from 'debug';
-import {Hoc, IImperiumClient} from '@imperium/client';
+import type {Hoc, IImperiumClient} from '@imperium/client';
 import {AuthContext, IAuth} from './AuthContext';
 
 const d = debug('imperium.auth-client.withAuth');
@@ -30,7 +30,7 @@ export function withAuth(client: IImperiumClient): Hoc {
 			}, []);
 
 			return (
-				<AuthContext.Provider value={{auth, setAuth: (authVal) => setAuth(authVal)}}>
+				<AuthContext.Provider value={{auth, setAuth: authVal => setAuth(authVal)}}>
 					<WrappedComponent {...props} />
 				</AuthContext.Provider>
 			);

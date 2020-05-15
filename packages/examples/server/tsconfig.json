@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		// Target latest version of ECMAScript.
+		"target": "esnext",
+		"module": "commonjs",
+		// Search under node_modules for non-relative imports.
+		"moduleResolution": "node",
+		// Process & infer types from .js files.
+		"allowJs": false,
+		// Don't emit; allow Babel to transform files.
+		// "noEmit": true, // Can't have this active if I want to emit declarations
+		// Enable strictest settings like strictNullChecks & noImplicitAny.
+		"strict": true,
+		// Disallow features that require cross-file information for emit.
+		// "isolatedModules": true, // if I have declaration: true, I can't have this true
+		// Import non-ES modules as default imports.
+		"esModuleInterop": true,
+		// Output with colors
+		"pretty": true,
+		"noImplicitAny": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"declaration": true,
+		"declarationDir": "dist",
+		"emitDeclarationOnly": true,
+		"importsNotUsedAsValues": "error"
+	},
+	"include": ["src/core/server.ts", "src/core/configModules.ts"],
+	"files": ["types/graphqls.d.ts"]
+}

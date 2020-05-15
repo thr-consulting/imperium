@@ -2,8 +2,8 @@ import debug from 'debug';
 import {ApolloLink} from 'apollo-link';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import decode from 'jwt-decode';
-import {AccessToken} from '@imperium/auth-client';
-import {IImperiumClient} from '@imperium/client';
+import type {AccessToken} from '@imperium/auth-client';
+import type {IImperiumClient} from '@imperium/client';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
 
@@ -46,7 +46,7 @@ export function createLinks(client: IImperiumClient) {
 				credentials: 'include',
 			});
 		},
-		handleFetch: (accessToken) => {
+		handleFetch: accessToken => {
 			d('Fetched access token');
 			window.localStorage.setItem(client.globalConst.authLSAccessTokenKey as string, accessToken);
 		},

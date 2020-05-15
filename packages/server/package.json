@@ -21,6 +21,7 @@
 		"server.js"
 	],
 	"scripts": {
+		"start": "screen -c ./dev.screenrc",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
@@ -28,9 +29,9 @@
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"ts": "tsc",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:coverage": "../../tools/coverage.sh",
+		"Xtest": "jest",
+		"Xtest:watch": "jest --watch",
+		"Xtest:coverage": "../../tools/coverage.sh",
 		"yalc:publish": "yalc publish --push",
 		"prepublish": "yarn build && yarn ts",
 		"typedoc": "typedoc"
@@ -39,6 +40,7 @@
 		"webpack-cli": "^3.3.11"
 	},
 	"dependencies": {
+		"@imperium/context-manager": "^4.0.7",
 		"@imperium/util": "^4.0.8",
 		"chalk": "^4.0.0",
 		"debug": "^4.1.1",

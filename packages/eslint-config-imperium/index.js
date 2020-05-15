@@ -78,6 +78,7 @@ module.exports = {
 		'import/no-unresolved': 'off',
 		'import/prefer-default-export': 'off',
 		'import/extensions': 'off',
+		'import/no-named-default': 'off',
 
 		// JSX a11y
 		'jsx-a11y/label-has-for': 'off',

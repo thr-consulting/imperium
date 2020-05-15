@@ -1,3 +1,3 @@
-export {default} from './ImperiumServer';
-export {ContextManager} from './ContextManager';
-export {ImperiumServerModule, ImperiumConnectors, IImperiumServer, IContextManager, IImperiumConfig, ImperiumRequest, AuthContext} from './types';
+export {ImperiumServer} from './ImperiumServer';
+export {ImperiumConfig, ImperiumServerModule, ImperiumServerConfig} from './types';
+export {compose} from './lib/compose';

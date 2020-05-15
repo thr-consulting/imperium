@@ -31,12 +31,12 @@ function printOutput(err, stats) {
 
 	if (stats.hasErrors()) {
 		// log(chalk.blue('3----'));
-		info.errors.forEach((e) => error(chalk.bold.red(e)));
+		info.errors.forEach(e => error(chalk.bold.red(e)));
 	}
 
 	if (stats.hasWarnings()) {
 		// log(chalk.blue('4----'));
-		info.warnings.forEach((w) => warn(chalk.bold.yellow(w)));
+		info.warnings.forEach(w => warn(chalk.bold.yellow(w)));
 	}
 }
 

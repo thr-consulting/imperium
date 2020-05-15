@@ -1,20 +1,16 @@
-import {ImperiumServerModule} from '@imperium/server';
-import endpoints from './endpoints';
+import type {ImperiumServerModule} from '@imperium/server';
+import {endpoints} from './endpoints';
+import type {GraphqlServerModuleConfig} from './types';
 
-export default function (): ImperiumServerModule {
+/**
+ * The graphql server module needs to be added to Imperium server modules to enable graphql endpoints.
+ * @param config
+ */
+export function graphqlServerModule(config?: GraphqlServerModuleConfig): ImperiumServerModule<any, any> {
 	return {
 		name: '@imperium/graphql-server',
-		environment() {
-			return {
-				graphqlAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure',
-				graphqlUrl: process.env.GRAPHQL_URL || '/api/graphql',
-				graphqlCredentialsRequired: process.env.GRAPHQL_CREDENTIALS_REQUIRED === 'true',
-				graphqlCorsOrigin: process.env.CORS_ORIGIN?.split(',') || false,
-				graphqlWs: process.env.GRAPHQL_ENABLE_SUBSCRIPTIONS === 'true',
-			};
-		},
-		endpoints,
+		endpoints: endpoints(config),
 	};
 }
 
-export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers} from './types';
+export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers, GraphqlServerModuleConfig} from './types';

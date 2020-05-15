@@ -1,0 +1,43 @@
+{
+  "name": "@imperium/example-server",
+  "description": "Imperium server example project",
+  "version": "4.0.9",
+  "author": "Mike Kornelson <darkadept@durbn.net>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darkadept/imperium.git"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "start": "yarn start:dev",
+    "start:dev": "imperium dev-server imperium.js",
+    "start:prod": "imperium prod-server",
+    "build:prod": "imperium build-server imperium.js",
+    "lint": "eslint --cache --ext ts,js src",
+    "lint:fix": "eslint --cache --fix --ext ts,js src",
+    "ts": "tsc"
+  },
+  "dependencies": {
+    "@imperium/auth-server": "^4.0.8",
+    "@imperium/context-manager": "^4.0.7",
+    "@imperium/graphql-server": "^4.0.8",
+    "@imperium/server": "^4.0.8",
+    "@thx/sharedcache": "^11.0.1",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "graphql": "^14.6.0",
+    "graphql-redis-subscriptions": "^2.2.1",
+    "graphql-subscriptions": "^1.1.0",
+    "lodash": "^4.17.15",
+    "pg": "^8.2.0",
+    "redis": "^3.0.2",
+    "typeorm": "^0.2.24"
+  },
+  "devDependencies": {
+    "@imperium/dev": "^4.0.9"
+  }
+}

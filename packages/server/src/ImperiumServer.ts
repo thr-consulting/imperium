@@ -1,144 +1,75 @@
 /* eslint-disable no-console */
-import express, {NextFunction, Response, Application} from 'express';
+import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
-import chalk from 'chalk';
 import isFunction from 'lodash/isFunction';
-import {ContextManager} from './ContextManager';
-import defaultEnvironment from './defaultEnvironment';
-import {
-	ImperiumConnectors,
-	ImperiumConnectorsMap,
-	ImperiumRequest,
-	ImperiumServerModule,
-	MiddlewareMap,
-	ImperiumServerModuleFunction,
-	ImperiumEnvironment,
-	IImperiumServer,
-} from './types';
+import type {Connector, AuthData} from '@imperium/context-manager';
+import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
-const dd = debug('verbose.imperium.server.ImperiumServer');
 
-export interface ImperiumServerConfig {
-	connectors: ImperiumConnectors;
-	serverModules?: ImperiumServerModuleFunction[];
-	environment?: ImperiumEnvironment;
-}
+export class ImperiumServer<Context, Connectors extends Connector> {
+	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
+	private readonly _contextCreator: (connector: Connectors, data?: AuthData) => Context;
+	private _expressApp: Application | null = null;
+	private _httpServer: Server | null = null;
+	private _modules: ImperiumServerModule<Context, Connectors>[];
 
-/**
- * ImperiumServer
- */
-export default class ImperiumServer implements IImperiumServer {
-	private _connectors: ImperiumConnectors;
-	private _connectorsMap: ImperiumConnectorsMap;
-	private readonly _serverModules: ImperiumServerModule[];
-	private readonly _environment: ImperiumEnvironment;
-	private _expressApp: Application | null;
-	private _httpServer: Server | null;
-	private _middleware: MiddlewareMap;
-	private _context: ContextManager | null;
+	public readonly connectors: Connectors;
 
-	constructor(config: ImperiumServerConfig) {
-		this._connectors = config.connectors;
-		this._connectorsMap = {};
-		this._serverModules = [];
-		this._middleware = {};
-		this._expressApp = null;
-		this._httpServer = null;
-		this._context = null;
-
-		// Loading server module definitions
-		const serverModuleNames: string[] = [];
-		if (config.serverModules) {
-			// Load module definitions
-			this._serverModules = config.serverModules.map((moduleFunc) => {
-				const moduleDefinition = moduleFunc();
-				serverModuleNames.push(moduleDefinition.name || 'unnamed module');
-				return moduleDefinition;
-			});
-		}
-		d(`Loaded modules: ${serverModuleNames.join(', ')}`);
-
-		// Load Imperium environment
-		d('Loading environment');
-		this._environment = this._serverModules.reduce(
-			(memo, module) => {
-				if (module.environment && isFunction(module.environment)) {
-					return {
-						...memo,
-						...module.environment(),
-					};
-				}
-				return memo;
-			},
-			{...defaultEnvironment, ...(config.environment || {})},
-		);
+	public constructor(config: ImperiumServerConfig<Context, Connectors>) {
+		this.connectors = config.connectors;
+		this._contextCreator = config.contextCreator;
+		this._moduleFactoryFn = config.serverModules;
+		this._modules = [];
 	}
 
-	async start() {
+	/**
+	 * Express middleware used to create a new context and place it on `req.context`.
+	 */
+	public contextMiddleware(): RequestHandler {
+		return (req, res, next) => {
+			// @ts-ignore
+			req.context = this._contextCreator(this.connectors, req);
+			next();
+		};
+	}
+
+	/**
+	 * Start the Imperium server
+	 * @param port Which TCP port to start the server on. Defaults to 4001.
+	 */
+	public async start({port}: {port: number} = {port: 4001}) {
 		if (this._expressApp) throw new Error('Server already started');
 
-		d('Creating connectors');
-		this._connectorsMap = await this._connectors.create(this);
+		// Connect connectors
+		await this.connectors.connect();
 
-		d('Creating express app');
+		d('Creating HTTP server and express app');
 		this._expressApp = express();
-
-		d('Creating HTTP server');
 		this._httpServer = createServer(this._expressApp);
 
-		d('Creating module middleware');
-		this._middleware = this._serverModules.reduce(
-			(memo, module) => {
-				if (module.middleware && isFunction(module.middleware)) {
-					return {
-						...memo,
-						...module.middleware(this),
-					};
-				}
-				return memo;
-			},
-			{
-				contextManagerMiddleware: () => {
-					return (req: ImperiumRequest, res: Response, next: NextFunction) => {
-						dd(`Creating context manager for request to: ${req.baseUrl}`);
-						const contextManager = new ContextManager(this);
-						this._serverModules.forEach((module) => {
-							if (module.context && isFunction(module.context)) contextManager.addContext(module.context);
-						});
-						// Add the context object to the req
-						req.contextManager = contextManager;
-						next();
-					};
-				},
-			},
-		);
+		this._modules = this._moduleFactoryFn();
+		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
 
 		// Module endpoints
 		d('Creating module endpoints');
-		this._serverModules.forEach((module) => {
+		this.modules.forEach(module => {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
 		});
 
-		// Create server startup Context
-		d('Creating initial context');
-		this._context = new ContextManager(this);
-		this._serverModules.forEach((module) => {
-			if (module.context && isFunction(module.context) && this._context) this._context.addContext(module.context);
-		});
-
+		d('Creating startup context');
 		// Create startup promises (these are executed in the next section)
-		const startupPromises = this._serverModules.reduce((memo, module) => {
+		const startupContext = this._contextCreator(this.connectors);
+		const startupPromises = this.modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
-				const moduleStartupReturn = module.startup(this);
+				const moduleStartupReturn = module.startup(this, startupContext); // TODO startup functions are currently ran with NO auth
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
-					moduleStartupReturn.catch((err) => {
-						console.log(chalk.bold.white('#######################################################'));
-						console.log(chalk.bold.red(' >>> Error running module startup\n'));
+					moduleStartupReturn.catch(err => {
+						console.group('Error running module startup');
 						console.error(err);
-						console.log(chalk.bold.white('#######################################################'));
+						console.groupEnd();
 						return Promise.reject(err);
 					});
 				}
@@ -149,56 +80,47 @@ export default class ImperiumServer implements IImperiumServer {
 
 		// Execute startup promises
 		d('Executing module startup');
-		Promise.all(startupPromises).catch((err) => {
+		await Promise.all(startupPromises).catch(err => {
 			d(`Module startup problem: ${err}`);
 			throw err;
 		});
 
 		d('Starting server');
-		this._httpServer.listen(this._environment.port, () => {
-			d(`Now listening on port: ${this._environment.port}`);
+		this._httpServer.listen(port, () => {
+			d(`Now listening on port: ${port}`);
 		});
 
 		return this;
 	}
 
-	async stop() {
+	/**
+	 * Stop the server, closing the connectors
+	 */
+	public async stop() {
 		d('Closing connectors');
-		await this._connectors.close();
+		await this.connectors.close();
 	}
 
-	get connectors() {
-		return this._connectorsMap;
+	/**
+	 * Return the loaded server modules.
+	 */
+	public get modules(): ImperiumServerModule<Context, Connectors>[] {
+		return this._modules;
 	}
 
-	get modules() {
-		return this._serverModules;
-	}
-
-	get environment() {
-		return this._environment;
-	}
-
-	addEnvironment(key: string, value: ImperiumEnvironment) {
-		this._environment[key] = value;
-	}
-
-	get expressApp(): Application {
+	/**
+	 * Return the express app
+	 */
+	public get expressApp(): Application {
 		if (this._expressApp) return this._expressApp;
 		throw new Error('Imperium server not started yet.');
 	}
 
-	get httpServer(): Server {
+	/**
+	 * Return the HTTP server
+	 */
+	public get httpServer(): Server {
 		if (this._httpServer) return this._httpServer;
-		throw new Error('Imperium server not started yet.');
-	}
-
-	get middleware() {
-		return this._middleware;
-	}
-
-	get initialContextManager() {
-		if (this._context) return this._context;
 		throw new Error('Imperium server not started yet.');
 	}
 }
