@@ -2,7 +2,8 @@ import type {Connector} from '@imperium/context-manager';
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
 import type {DocumentNode} from 'graphql';
 import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
-import type {Request, RequestHandler} from 'express';
+import type {RequestHandler} from 'express';
+import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
 
 /**
  * Schema from Graphqls files.
@@ -16,7 +17,7 @@ export type {IResolvers, IResolverObject, IFieldResolver} from 'graphql-tools';
  */
 export interface GraphqlServerModuleConfig {
 	middleware?: RequestHandler[];
-	apolloContextCreator?: (req: Request) => Record<string, any>;
+	apolloContextCreator?: (expContext: ExpressContext) => Record<string, any>;
 }
 
 /**

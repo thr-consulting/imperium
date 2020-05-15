@@ -1,3 +1,4 @@
+import {Auth} from '@imperium/context-manager';
 import {createDomainSimpleContext} from '@imperium/domain-simple';
 import {createDomainAdvancedContext} from '@imperium/domain-advanced';
 import type {connectors} from './connectors';
@@ -13,11 +14,17 @@ import type {connectors} from './connectors';
  */
 
 export function contextCreator(conn: typeof connectors, id?: string) {
-	return {
+	const auth = new Auth({auth: {id}});
+
+	const context = {
 		domainSimple: createDomainSimpleContext(conn),
-		domainAdvanced: createDomainAdvancedContext(conn, id),
+		domainAdvanced: createDomainAdvancedContext(conn, auth),
 		domainAnything: {anything: 5},
 	};
+
+	// auth.setBridge({});
+
+	return context;
 }
 
 // We also need to export the return type of the context creator function.

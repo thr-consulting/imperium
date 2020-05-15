@@ -3,14 +3,14 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
-import type {Connector} from '@imperium/context-manager';
+import type {Connector, AuthData} from '@imperium/context-manager';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
 
 export class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
-	private readonly _contextCreator: (connector: Connectors) => Context;
+	private readonly _contextCreator: (connector: Connectors, data?: AuthData) => Context;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 	private _modules: ImperiumServerModule<Context, Connectors>[];
@@ -30,7 +30,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
-			req.context = this._contextCreator(this.connectors);
+			req.context = this._contextCreator(this.connectors, req);
 			next();
 		};
 	}
@@ -63,7 +63,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 		const startupContext = this._contextCreator(this.connectors);
 		const startupPromises = this.modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
-				const moduleStartupReturn = module.startup(this, startupContext);
+				const moduleStartupReturn = module.startup(this, startupContext); // TODO startup functions are currently ran with NO auth
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
 					moduleStartupReturn.catch(err => {

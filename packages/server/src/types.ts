@@ -15,8 +15,8 @@ export interface ImperiumServerModule<Context, Connectors extends Connector> {
  */
 export interface ImperiumServerConfig<Context, Connectors extends Connector> {
 	connectors: Connectors;
-	serverModules: () => ImperiumServerModule<Context, Connectors>[]; // TODO should this move now that it's a factory method?
-	contextCreator: (connector: Connectors) => Context;
+	serverModules: () => ImperiumServerModule<Context, Connectors>[];
+	contextCreator: (connector: Connectors) => Context; // TODO add auth here
 }
 
 /**

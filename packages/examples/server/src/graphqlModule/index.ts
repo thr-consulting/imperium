@@ -15,6 +15,7 @@ export const graphqlModule = (): ImperiumGraphqlServerModule<Context, typeof con
 				async getData(obj, value, apolloContext) {
 					d('getData');
 					const a = await apolloContext.domainAdvanced.context.SecureModel.getSecureData('thing', apolloContext.domainAdvanced);
+					d(apolloContext.domainAdvanced.auth.data);
 					d(a);
 					return 5;
 				},

@@ -92,7 +92,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 		const apolloServerConfig: ApolloServerExpressConfig = {
 			typeDefs,
 			resolvers,
-			context: ({req /* , connection */}: ExpressContext) => {
+			context: ({req, res, connection}: ExpressContext) => {
 				// This is ApolloContext!
 
 				// TODO check into why I was using connection... probably subscribe
@@ -104,7 +104,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 					return {
 						// @ts-ignore
 						...req.context,
-						...config?.apolloContextCreator(req),
+						...config?.apolloContextCreator({req, res, connection}),
 					};
 				}
 

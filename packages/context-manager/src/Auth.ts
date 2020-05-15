@@ -1,63 +1,50 @@
-import type {ContextManager} from './ContextManager';
+export interface AuthBridge {
+	hasPermission(perms: string | string[], id: string): boolean;
+	setCache(key: string | string[], allowed: boolean, expire?: number): Promise<boolean>;
+	getCache(key: string | string[]): Promise<boolean>;
+	invalidateCache(key: string | string[]): Promise<void>;
+}
 
-export class Auth<C extends ContextManager<any, any> = any> {
-	private _context: C;
-	public id?: string;
+export interface AuthData {
+	auth?: {
+		id?: string;
+	};
+}
 
-	constructor(params: {id?: string}, ctx: C) {
-		this._context = ctx;
-		this.id = params.id;
+export class Auth<T extends AuthData = AuthData> {
+	private _bridge?: AuthBridge;
+	public readonly data?: T;
+
+	constructor(data?: T) {
+		this.data = data;
+	}
+
+	setBridge(bridge: AuthBridge) {
+		this._bridge = bridge;
+	}
+
+	get id() {
+		return this.data?.auth?.id;
 	}
 
 	hasPermission(perms: string | string[]) {
-		return this.domain.hasPermission(perms, this.id);
+		if (!this.data?.auth?.id || !this._bridge) return false;
+		return this._bridge.hasPermission(perms, this.data.auth.id);
 	}
 
 	async setCache(key: string | string[], allowed: boolean, expire?: number) {
-		// return this.domain.setCache(key, allowed, expire);
+		if (!this._bridge) return allowed;
+		return this._bridge.setCache(key, allowed, expire);
 	}
 
 	async getCache(key: string | string[]) {
-		// return this.domain.getCache(key);
-		return false;
+		if (!this._bridge) return null;
+		return this._bridge.getCache(key);
 	}
 
 	async invalidateCache(key: string | string[]) {
-		// await this.domain.invalidateCache(key);
+		if (this._bridge) {
+			await this._bridge.invalidateCache(key);
+		}
 	}
 }
-
-// import {DefaultAuthImplementation} from './DefaultAuthImplementation';
-//
-// export interface AuthImplementation {
-// 	hasPermission: (perms: string | string[], id?: string) => boolean;
-// 	setCache: (key: string | string[], allowed: boolean, expire?: number) => Promise<typeof allowed>;
-// 	getCache: (key: string | string[]) => Promise<boolean | null>;
-// 	invalidateCache: (key: string | string[]) => Promise<void>;
-// }
-//
-// export class Auth {
-// 	public readonly id?: string;
-// 	private readonly domain: AuthImplementation;
-//
-// 	constructor(param?: {domain?: AuthImplementation; id?: string}) {
-// 		this.id = param?.id;
-// 		this.domain = param?.domain || new DefaultAuthImplementation();
-// 	}
-//
-// 	hasPermission(perms: string | string[]) {
-// 		return this.domain.hasPermission(perms, this.id);
-// 	}
-//
-// 	async setCache(key: string | string[], allowed: boolean, expire?: number) {
-// 		return this.domain.setCache(key, allowed, expire);
-// 	}
-//
-// 	async getCache(key: string | string[]) {
-// 		return this.domain.getCache(key);
-// 	}
-//
-// 	async invalidateCache(key: string | string[]) {
-// 		await this.domain.invalidateCache(key);
-// 	}
-// }

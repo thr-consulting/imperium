@@ -26,6 +26,7 @@ export const advancedModule = (): ImperiumServerModule<Context, typeof connector
 			authMiddleware({
 				credentialsRequired: false,
 			}),
+			server.contextMiddleware(),
 			myMiddleware(),
 			(req, res) => {
 				// @ts-ignore

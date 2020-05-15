@@ -1,3 +1,4 @@
+import {Auth, AuthData} from '@imperium/context-manager';
 import {createDomainSimpleContext} from '@imperium/domain-simple';
 import {createDomainAdvancedContext} from '@imperium/domain-advanced';
 import type {connectors} from './connectors';
@@ -12,12 +13,18 @@ import type {connectors} from './connectors';
 	This function is usually called on every network request or every operation.
  */
 
-export function contextCreator(conn: typeof connectors) {
-	return {
+export function contextCreator(conn: typeof connectors, data: AuthData) {
+	const auth = new Auth(data);
+
+	const context = {
 		domainSimple: createDomainSimpleContext(conn),
-		domainAdvanced: createDomainAdvancedContext(conn),
+		domainAdvanced: createDomainAdvancedContext(conn, auth),
 		domainAnything: {anything: 5},
 	};
+
+	// auth.setBridge({});
+
+	return context;
 }
 
 // We also need to export the return type of the context creator function.
