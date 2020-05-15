@@ -10,7 +10,6 @@ class SecureModel {
 
 		d(ctx.auth.id);
 
-
 		// Get cached access by passing in unique domain specific data
 		if (!ctx.auth.id) return false;
 

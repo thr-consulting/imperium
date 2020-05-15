@@ -50,6 +50,8 @@ export const connectors = new Connector({
 				redis: r,
 			});
 		},
-		async close() {},
+		async close() {
+			d('Closed shared cache');
+		},
 	},
 });

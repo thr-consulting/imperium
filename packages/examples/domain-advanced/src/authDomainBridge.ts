@@ -1,4 +1,6 @@
+/*
 import debug from 'debug';
+
 import type {AuthRequiredDomain} from '@imperium/auth-server';
 import type {Context} from './index';
 
@@ -26,3 +28,4 @@ export function authDomainBridge(): AuthRequiredDomain {
 		},
 	};
 }
+*/

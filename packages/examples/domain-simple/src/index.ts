@@ -20,7 +20,7 @@ export function createDomainSimpleContext(connectors: DomainSimpleConnectors) {
 	return new ContextManager(
 		{
 			MyModel1: () => {},
-			MyDataLoader1: conn => {},
+			MyDataLoader1: (/* connectors */) => {},
 		},
 		connectors,
 	);

@@ -1,9 +1,8 @@
 // Define server modules that should be included in the server.
 import debug from 'debug';
-import {authMiddleware, authServerModule} from '@imperium/auth-server';
+import {authMiddleware} from '@imperium/auth-server';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
-import type {Request} from 'express';
 import {advancedModule} from '../advancedModule';
 import {basicModule} from '../basicModule';
 import {graphqlModule} from '../graphqlModule';
