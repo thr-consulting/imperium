@@ -3,8 +3,8 @@ import debug from 'debug';
 const d = debug('imperium.context-manager.Connectors');
 
 export interface ConnectorsConfig<T = any> {
-	connect: () => Promise<T> | T;
-	close?: (connection: T) => Promise<void> | void;
+	connect: () => Promise<T>;
+	close?: (connection: T) => Promise<void>;
 }
 
 export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {

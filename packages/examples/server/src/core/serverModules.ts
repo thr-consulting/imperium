@@ -11,8 +11,9 @@ import type {Context} from './context';
 const d = debug('imperium.examples.server.serverModules');
 
 /*
-	Here is a factory function that returns an array of server modules that we
-	want included in our app. Some modules require additional configuration.
+	Server modules are created with a factory function that returns an array of
+	server modules that we want included in our app.
+	Some modules require additional configuration.
 */
 export function serverModules(): ImperiumServerModule<any, any>[] {
 	return [

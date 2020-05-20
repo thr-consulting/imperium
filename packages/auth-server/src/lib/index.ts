@@ -105,7 +105,7 @@ export async function refresh(refreshTokenString: string, auth: AuthDomain) {
 	}
 
 	return {
-		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file. <= thats a yikes from me
+		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file. <= thats a yikes from me. no yikes
 		access: createAccessToken(serviceInfo),
 	};
 }

@@ -14,12 +14,9 @@ const d = debug('imperium.examples.standalone.connectors');
  */
 
 export const connectors = new Connector({
-	mongo: {
+	basicConnector: {
 		async connect() {
 			return 5;
-		},
-		async close() {
-			d('Arbitrary closing connector debug statement');
 		},
 	},
 	pg: {
@@ -50,6 +47,5 @@ export const connectors = new Connector({
 				redis: r,
 			});
 		},
-		async close() {},
 	},
 });

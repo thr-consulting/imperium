@@ -3,6 +3,10 @@ import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 const d = debug('imperium.examples.domain-advanced.Score');
 
+/*
+	This is an example of a typeorm domain model.
+ */
+
 @Entity()
 class Score extends BaseEntity {
 	@PrimaryGeneratedColumn()

@@ -1,4 +1,4 @@
-import type {AuthBridge} from '@imperium/context-manager';
+import type {AuthAccessor} from '@imperium/context-manager';
 
 export interface LoginInfo {
 	identifier: string;
@@ -37,9 +37,8 @@ export interface ServiceInfo {
 	blacklist?: number[]; // Blacklisted refresh tokens
 }
 
-export interface AuthDomain extends AuthBridge {
+export interface AuthDomain extends AuthAccessor {
 	getServiceInfo(id: string): Promise<ServiceInfo | null>;
-	getPermissions(id: string): Promise<string[]>;
 }
 
 export type GetAuthFn<C> = (context: C) => AuthDomain;
