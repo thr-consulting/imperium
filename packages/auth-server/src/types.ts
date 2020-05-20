@@ -1,3 +1,5 @@
+import type {AuthBridge} from '@imperium/context-manager';
+
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -10,15 +12,6 @@ export interface LoginReturn {
 	id: string;
 	access: string;
 	refresh: string;
-}
-
-export interface ServiceInfo {
-	id: string;
-	roles: string[];
-	password: {
-		bcrypt: string;
-	};
-	blacklist?: number[]; // Blacklisted refresh tokens
 }
 
 export interface RefreshToken {
@@ -35,27 +28,21 @@ export interface AccessToken {
 	exp: string;
 }
 
-// Used in endpoints
-export interface AuthRequiredDomain<C = any> {
-	/**
-	 * Gets user info for login use.
-	 * @param identifier Unique email or username.
-	 * @returns User password and roles, null if user does not exist.
-	 */
-	getServiceInfo(identifier: string, context: C): Promise<ServiceInfo | null>;
-	getPermissions(roles: string[], context: C): Promise<string[]>;
-	/**
-	 * Sets a cache value.
-	 * @param value
-	 * @param value.key unique identifier for cache
-	 * @param value.value boolean value
-	 * @param value.expire time in seconds before this entry expires.
-	 * @param context
-	 */
-	setCache(value: {key: string | string | string[]; value: any; expire?: number}, context: C): Promise<typeof value>;
-	getCache(key: string | string[], context: C): Promise<any>;
-	invalidateCache(key: string | string[] | undefined, context: C): Promise<void>;
+export interface ServiceInfo {
+	id: string;
+	roles: string[];
+	password: {
+		bcrypt: string;
+	};
+	blacklist?: number[]; // Blacklisted refresh tokens
 }
+
+export interface AuthDomain extends AuthBridge {
+	getServiceInfo(id: string): Promise<ServiceInfo | null>;
+	getPermissions(id: string): Promise<string[]>;
+}
+
+export type GetAuthFn<C> = (context: C) => AuthDomain;
 
 export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;

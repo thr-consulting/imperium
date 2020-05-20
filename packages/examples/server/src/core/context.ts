@@ -22,7 +22,7 @@ export function contextCreator(conn: typeof connectors, data?: AuthData) {
 		domainAnything: {anything: 5},
 	};
 
-	// auth.setBridge({});
+	auth.setBridge(context.domainAdvanced.context.AuthModel);
 
 	return context;
 }

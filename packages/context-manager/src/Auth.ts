@@ -1,8 +1,12 @@
 export interface AuthBridge {
 	hasPermission(perms: string | string[], id: string): boolean;
-	setCache(key: string | string[], allowed: boolean, expire?: number): Promise<boolean>;
-	getCache(key: string | string[]): Promise<boolean>;
-	invalidateCache(key: string | string[]): Promise<void>;
+	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
+	getCache(key: string | string[]): Promise<any>;
+	invalidateCache(key: string | string[] | undefined): Promise<void>;
+	// hasPermission(perms: string | string[]): boolean;
+
+	// // getPermissions(roles: string[], context: C): Promise<string[]>;
+	// getServiceInfo(identifier: string, context: C): Promise<ServiceInfo | null>;
 }
 
 export interface AuthData {
@@ -34,12 +38,12 @@ export class Auth<T extends AuthData = AuthData> {
 
 	async setCache(key: string | string[], allowed: boolean, expire?: number) {
 		if (!this._bridge) return allowed;
-		return this._bridge.setCache(key, allowed, expire);
+		return this._bridge.setCache(key instanceof Array ? [...key, 'authCache'] : [key, 'authCache'], allowed, expire);
 	}
 
 	async getCache(key: string | string[]) {
 		if (!this._bridge) return null;
-		return this._bridge.getCache(key);
+		return this._bridge.getCache(key instanceof Array ? [...key, 'authCache'] : [key, 'authCache']);
 	}
 
 	async invalidateCache(key: string | string[]) {

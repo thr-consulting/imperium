@@ -4,13 +4,13 @@ import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import {environment} from '../environment';
 import {login} from '../lib';
-import type {AuthRequiredDomain} from '../types';
 import {isLoginInfo} from '../lib/typeguards';
+import type {LoginReturn, GetAuthFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 const env = environment();
 
-export function loginEndpoint(options: AuthRequiredDomain, server: ImperiumServer<any, any>) {
+export function loginEndpoint<C>(getAuthFn: GetAuthFn<C>, server: ImperiumServer<C, any>) {
 	d(`Adding auth login endpoint: ${env.authLoginUrl}`);
 
 	const corsOpts: CorsOptions = {
@@ -25,9 +25,12 @@ export function loginEndpoint(options: AuthRequiredDomain, server: ImperiumServe
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 
+			// @ts-ignore
+			const auth = getAuthFn(req.context);
+
 			// @ts-ignore Perform login
-			login(loginInfo, req.connection.remoteAddress, options, req.context)
-				.then(ret => {
+			login(loginInfo, req.connection.remoteAddress, auth, req.context)
+				.then((ret: LoginReturn) => {
 					// Login was successful, return id and access token and set refresh token as the cookie.
 					res
 						.status(200)

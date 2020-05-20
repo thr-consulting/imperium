@@ -1,11 +1,12 @@
 // Define server modules that should be included in the server.
 import debug from 'debug';
-import {authMiddleware} from '@imperium/auth-server';
+import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import {advancedModule} from '../advancedModule';
 import {basicModule} from '../basicModule';
 import {graphqlModule} from '../graphqlModule';
+import type {Context} from './context';
 
 const d = debug('imperium.examples.server.serverModules');
 
@@ -17,14 +18,8 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 	return [
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],
-			// apolloContextCreator: (req: Request) => {
-			// 	return {
-			// 		// @ts-ignore
-			// 		auth: req.auth,
-			// 	};
-			// },
 		}),
-		// authServerModule(),
+		authServerModule((ctx: Context) => ctx.domainAdvanced.context.AuthModel),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),

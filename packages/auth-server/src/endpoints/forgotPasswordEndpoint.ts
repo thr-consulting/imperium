@@ -2,7 +2,7 @@ import type {ImperiumServer} from '@imperium/server';
 import {json} from 'body-parser';
 import debug from 'debug';
 import {environment} from '../environment';
-import type {AuthRequiredDomain} from '../types';
+import type {GetAuthFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
 const env = environment();
@@ -15,7 +15,7 @@ function isForgotPasswordInfo(forgotPasswordInfo: object): forgotPasswordInfo is
 	return (forgotPasswordInfo as ForgotPasswordInfo).email !== undefined;
 }
 
-export function forgotPasswordEndpoint(options: AuthRequiredDomain, server: ImperiumServer<any, any>) {
+export function forgotPasswordEndpoint<C>(getAuthFn: GetAuthFn<C>, server: ImperiumServer<C, any>) {
 	d(`Adding auth forgot password endpoint: ${env.authForgotPasswordUrl}`);
 
 	server.expressApp.post(env.authForgotPasswordUrl, json(), (req, res) => {
