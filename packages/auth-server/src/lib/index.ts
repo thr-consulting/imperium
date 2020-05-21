@@ -28,7 +28,7 @@ function signJwt(payload: string | object = {}, secret: string, options: SignOpt
 	return sign(payload, secret, options);
 }
 
-export function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
+export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
 	return compare(getPasswordString(loginInfo.password), serviceInfo.password.bcrypt);
 }
 
@@ -36,7 +36,6 @@ export function createAccessToken(serviceInfo: ServiceInfo): string {
 	return signJwt(
 		{
 			id: serviceInfo.id,
-			roles: serviceInfo.roles,
 		},
 		env.authAccessTokenSecret,
 		{expiresIn: env.authAccessTokenExpires},

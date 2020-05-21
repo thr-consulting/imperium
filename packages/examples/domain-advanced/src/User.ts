@@ -18,7 +18,7 @@ class User {
 			name: 'John Doe',
 			services: {
 				roles: ['admin'],
-				password: {bcrypt: '$2y$12$i4svh4iIM7TbdKnVvFzgw.NayG1vCrZ/i2m1BET05bS0QnkuRFmru'}, // "password", 12 rounds
+				password: {bcrypt: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2'}, // "password", sha256 hashed and then bcrypt 12 rounds
 			},
 		};
 	}

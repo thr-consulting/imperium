@@ -20,6 +20,7 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],
 		}),
+		// TODO this technically creates another Auth instance but satisfies AuthDomain types
 		authServerModule((ctx: Context) => ctx.domainAdvanced.context.AuthModel.create(ctx.domainAdvanced)),
 		basicModule(),
 		advancedModule(),

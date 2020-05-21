@@ -29,7 +29,7 @@ export function loginEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, 
 			const auth = getAuthFn(req.context);
 
 			// @ts-ignore Perform login
-			login(loginInfo, req.connection.remoteAddress, auth, req.context)
+			login(loginInfo, req.connection.remoteAddress, auth)
 				.then((ret: LoginReturn) => {
 					// Login was successful, return id and access token and set refresh token as the cookie.
 					res

@@ -23,7 +23,6 @@ export interface RefreshToken {
 
 export interface AccessToken {
 	id: string;
-	roles?: string[];
 	iat: string;
 	exp: string;
 }
