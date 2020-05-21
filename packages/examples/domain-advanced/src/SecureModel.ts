@@ -20,7 +20,7 @@ class SecureModel {
 
 		const even = isEven ? 'even' : 'odd';
 
-		d(await ctx.auth.getCache([params.id, even, ctx.auth.id]));
+		// d(await ctx.auth.getCache([params.id, even, ctx.auth.id]));
 		const cachedAccess = await ctx.auth.getCache([params.id, even, ctx.auth.id]);
 		if (cachedAccess !== null) return cachedAccess;
 
@@ -31,8 +31,12 @@ class SecureModel {
 	}
 
 	static async getSecureData(id: string, ctx: Context) {
+		const hasAdmin = await ctx.auth.hasPermission('admin');
+		const authId = ctx.auth.id;
+		d(hasAdmin, authId);
+
 		if (!(await this.canAccess({id, date: new Date()}, ctx))) {
-			return 'Rejected';
+			throw new Error('Rejected');
 		}
 		return `My Super Secure Data: ${id}`;
 	}

@@ -41,7 +41,8 @@ export interface AuthDomain extends AuthAccessor {
 	getServiceInfo(id: string): Promise<ServiceInfo | null>;
 }
 
-export type GetAuthFn<C> = (context: C) => AuthDomain;
+// TODO any
+export type GetAuthFn = (context: any) => AuthDomain;
 
 export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;

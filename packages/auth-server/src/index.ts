@@ -5,7 +5,7 @@ import type {GetAuthFn} from './types';
 export {ServiceInfo, AuthMiddlewareConfig, AuthDomain, GetAuthFn} from './types';
 export {authMiddleware, Auth} from './middleware/authMiddleware';
 
-export function authServerModule<Context = any>(getAuthFn: GetAuthFn<Context>): ImperiumServerModule<Context, any> {
+export function authServerModule(getAuthFn: GetAuthFn): ImperiumServerModule<any, any> {
 	return {
 		name: '@imperium/auth-server',
 		endpoints: createAuthEndpoints(getAuthFn),

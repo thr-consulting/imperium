@@ -5,6 +5,7 @@ import type {Connection} from 'typeorm';
 import {Score} from './Score';
 import {SecureModel} from './SecureModel';
 import {AuthModel} from './AuthModel';
+import {User} from './User';
 
 const d = debug('imperium.examples.domain-advanced');
 
@@ -33,6 +34,7 @@ export function createDomainAdvancedContext(connectors: DomainAdvancedConnectors
 			AuthModel: () => new AuthModel(connectors),
 			// This is just a plain domain model
 			SecureModel: () => SecureModel,
+			User: () => User,
 		},
 		connectors,
 		auth,

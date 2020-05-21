@@ -4,8 +4,8 @@ import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
 import {loginEndpoint} from './loginEndpoint';
 import {refreshEndpoint} from './refreshEndpoint';
 
-export function createAuthEndpoints<C>(getAuthFn: GetAuthFn<C>) {
-	return function endpoints(server: ImperiumServer<C, any>) {
+export function createAuthEndpoints(getAuthFn: GetAuthFn) {
+	return function endpoints(server: ImperiumServer<any, any>) {
 		loginEndpoint(getAuthFn, server);
 		refreshEndpoint(getAuthFn, server);
 		forgotPasswordEndpoint(getAuthFn, server);

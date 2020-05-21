@@ -15,7 +15,7 @@ function isForgotPasswordInfo(forgotPasswordInfo: object): forgotPasswordInfo is
 	return (forgotPasswordInfo as ForgotPasswordInfo).email !== undefined;
 }
 
-export function forgotPasswordEndpoint<C>(getAuthFn: GetAuthFn<C>, server: ImperiumServer<C, any>) {
+export function forgotPasswordEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, any>) {
 	d(`Adding auth forgot password endpoint: ${env.authForgotPasswordUrl}`);
 
 	server.expressApp.post(env.authForgotPasswordUrl, json(), (req, res) => {

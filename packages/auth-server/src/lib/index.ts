@@ -58,7 +58,6 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 	// 1. Check attempts
 	const attemptKey = `loginattempts:${loginInfo.identifier}_${remoteAddress?.replace(/:/g, ';')}`;
 	const attempts = (await auth.getCache(attemptKey)) || 0;
-	// const attempts = (await authOptions.getCache(attemptKey, context)) || 0;
 	if (attempts > env.authMaxFail) throw new Error('Too many login attempts');
 
 	// 2. Get service info from domain layer

@@ -20,14 +20,13 @@ export const graphqlModule = (): ImperiumGraphqlServerModule<Context, typeof con
 		return {
 			Query: {
 				async getData(obj, value, apolloContext) {
-					d('getData resolver');
 					// The apollo context is technically different than imperium context but we spread imperium context across apollo context.
 					const fakeSecureData = await apolloContext.domainAdvanced.context.SecureModel.getSecureData('secure-thing', apolloContext.domainAdvanced);
-					d(fakeSecureData);
+					d(`Fake Secure Data: ${fakeSecureData}`);
 
 					// We also have access to auth (via ContextManager) on the domain that supplies auth.
-					d(apolloContext.domainAdvanced.auth.data?.auth?.id);
-					d(apolloContext.domainAdvanced.auth.hasPermission('admin'));
+					// d(apolloContext.domainAdvanced.auth.data?.auth?.id);
+					// d(apolloContext.domainAdvanced.auth.hasPermission('admin'));
 
 					return 5;
 				},

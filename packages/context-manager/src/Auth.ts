@@ -1,8 +1,9 @@
+/* eslint-disable react/static-property-placement */
 import intersection from 'lodash/intersection';
 import memoize from 'lodash/memoize';
 
 export interface AuthAccessor {
-	getPermissions(id: string): Promise<string[]>;
+	getPermissions(id: string, ctx: any): Promise<string[]>; // TODO any context
 	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
 	getCache(key: string | string[]): Promise<any>;
 	invalidateCache(key: string | string[]): Promise<void>;
@@ -14,24 +15,34 @@ export interface AuthData {
 	};
 }
 
-export class Auth<T extends AuthData = AuthData> {
+interface CheckPermissionParams {
+	id?: string;
+	perms: string | string[];
+	accessor?: AuthAccessor;
+	context?: any; // TODO any
+}
+
+export class Auth<C = any, T extends AuthData = AuthData> {
 	public readonly data?: T;
 
+	private context?: C;
 	private authAccessor?: AuthAccessor;
-	private readonly checkPermissions: (params: {id?: string; perms: string | string[]; accessor?: AuthAccessor}) => Promise<boolean>;
+	private readonly checkPermissions: (params: CheckPermissionParams) => Promise<boolean>;
 
 	constructor(data?: T) {
 		this.data = data;
-		this.checkPermissions = memoize(async ({id, perms, accessor}: {id?: string; perms: string | string[]; accessor?: AuthAccessor}) => {
-			if (!id || !accessor) return false;
-			const permissions = await accessor.getPermissions(id);
+		this.checkPermissions = memoize(async ({id, perms, accessor, context}: CheckPermissionParams) => {
+			if (!id || !accessor || !context) return false;
+			const permissions = await accessor.getPermissions(id, context);
 			const permsArray = perms instanceof Array ? perms : [perms];
 			return intersection(permsArray, permissions).length === permsArray.length;
 		});
 	}
 
-	setAccessor(authAccessor: AuthAccessor) {
+	setAccessor(authAccessor: AuthAccessor, context: any) {
+		// TODO any
 		this.authAccessor = authAccessor;
+		this.context = context;
 	}
 
 	get id() {

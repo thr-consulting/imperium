@@ -9,7 +9,7 @@ import type {GetAuthFn} from '../types';
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 const env = environment();
 
-export function refreshEndpoint<C>(getAuthFn: GetAuthFn<C>, server: ImperiumServer<C, any>) {
+export function refreshEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, any>) {
 	d(`Adding auth refresh endpoint: ${env.authRefreshUrl}`);
 
 	const corsOpts: CorsOptions = {

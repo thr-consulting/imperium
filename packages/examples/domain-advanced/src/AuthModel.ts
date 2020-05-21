@@ -1,6 +1,6 @@
 import debug from 'debug';
 import type {AuthDomain, ServiceInfo} from '@imperium/auth-server';
-import type {DomainAdvancedConnectors} from './index';
+import type {Context, DomainAdvancedConnectors} from './index';
 
 const d = debug('imperium.examples.domain-advanced.AuthModel');
 
@@ -31,16 +31,18 @@ export class AuthModel implements AuthDomain {
 	}
 
 	async getServiceInfo(id: string): Promise<ServiceInfo | null> {
-		return {
-			id,
-			password: {
-				bcrypt: 'dsklvfhsalkfhlsaf',
-			},
-			roles: ['admin'],
-		};
+		// const user = await ctx.context.User.getUserById(id, ctx);
+		// // if (!user) return null;
+		// return {
+		// 	id,
+		// 	// ...user.services,
+		// };
 	}
 
-	async getPermissions(/* id: string */): Promise<string[]> {
+	async getPermissions(id: string, context: Context): Promise<string[]> {
+		// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+		const user = await context.context.User.getUserById(id, context);
+		// Use user to look up permissions.
 		return ['admin'];
 	}
 }
