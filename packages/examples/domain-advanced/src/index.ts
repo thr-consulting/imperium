@@ -31,7 +31,7 @@ export function createDomainAdvancedContext(connectors: DomainAdvancedConnectors
 			// We can use the spreadEntities helper function to take our previously defined typeorm models and add them here.
 			...spreadEntities(typeormEntities),
 			// This model provides domain level authentication functionality.
-			AuthModel: () => new AuthModel(connectors),
+			AuthModel: () => AuthModel,
 			// This is just a plain domain model
 			SecureModel: () => SecureModel,
 			User: () => User,

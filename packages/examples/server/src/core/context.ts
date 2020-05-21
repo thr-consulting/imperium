@@ -27,7 +27,7 @@ export function contextCreator(conn: typeof connectors, data?: AuthData) {
 		domainAnything: {anything: 5},
 	};
 
-	auth.setAccessor(context.domainAdvanced.context.AuthModel, context.domainAdvanced);
+	auth.setAccessor(context.domainAdvanced.context.AuthModel.create(context.domainAdvanced));
 
 	return context;
 }

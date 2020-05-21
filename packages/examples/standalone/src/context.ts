@@ -22,7 +22,7 @@ export function contextCreator(conn: typeof connectors, id?: string) {
 		domainAnything: {anything: 5},
 	};
 
-	auth.setAccessor(context.domainAdvanced.context.AuthModel);
+	auth.setAccessor(context.domainAdvanced.context.AuthModel.create(context.domainAdvanced));
 
 	return context;
 }

@@ -31,9 +31,17 @@ class SecureModel {
 	}
 
 	static async getSecureData(id: string, ctx: Context) {
-		const hasAdmin = await ctx.auth.hasPermission('admin');
-		const authId = ctx.auth.id;
-		d(hasAdmin, authId);
+		// const hasAdmin = await ctx.auth.hasPermission('admin');
+		// const authId = ctx.auth.id;
+		// d(hasAdmin, authId);
+
+		// await ctx.auth.setCache('thing1', true);
+		// const v = await ctx.auth.getCache('thing1');
+		// d(v);
+		// await ctx.auth.invalidateCache('thing1');
+		// d(ctx.auth.id);
+		const a = await ctx.auth.hasPermission('admin');
+		d(`hasPermission: ${a}`);
 
 		if (!(await this.canAccess({id, date: new Date()}, ctx))) {
 			throw new Error('Rejected');

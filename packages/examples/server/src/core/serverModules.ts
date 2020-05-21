@@ -20,7 +20,7 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],
 		}),
-		authServerModule((ctx: Context) => ctx.domainAdvanced.context.AuthModel),
+		authServerModule((ctx: Context) => ctx.domainAdvanced.context.AuthModel.create(ctx.domainAdvanced)),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),

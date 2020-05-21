@@ -1,6 +1,7 @@
+/* eslint-disable react/static-property-placement */
 import debug from 'debug';
 import type {AuthDomain, ServiceInfo} from '@imperium/auth-server';
-import type {Context, DomainAdvancedConnectors} from './index';
+import type {Context} from './index';
 
 const d = debug('imperium.examples.domain-advanced.AuthModel');
 
@@ -10,39 +11,49 @@ const d = debug('imperium.examples.domain-advanced.AuthModel');
 	This domain should not do any caching as this is done elsewhere.
 */
 
-export class AuthModel implements AuthDomain {
-	private connectors: DomainAdvancedConnectors;
+const authKeyPrefix = 'auth';
 
-	constructor(connectors: DomainAdvancedConnectors) {
-		this.connectors = connectors;
+function getKey(key: string | string[]) {
+	return key instanceof Array ? [authKeyPrefix, ...key].join(':') : `${authKeyPrefix}:${key}`;
+}
+
+export class AuthModel implements AuthDomain {
+	private context: Context;
+
+	private constructor(context: Context) {
+		this.context = context;
+	}
+
+	static create(context: Context) {
+		return new AuthModel(context);
 	}
 
 	async setCache(key: string | string[], value: any, expire?: number): Promise<typeof value> {
-		await this.connectors.connections.sharedCache.set(key instanceof Array ? key.join('.') : key, value, expire);
+		await this.context.connectors.connections.sharedCache.set(getKey(key), value, expire);
 		return value;
 	}
 
 	async getCache(key: string | string[]): Promise<any> {
-		return this.connectors.connections.sharedCache.get(key instanceof Array ? key.join('.') : key);
+		return this.context.connectors.connections.sharedCache.get(getKey(key));
 	}
 
 	async invalidateCache(key: string | string[]): Promise<void> {
-		await this.connectors.connections.sharedCache.clear(key instanceof Array ? key.join('.') : key);
+		await this.context.connectors.connections.sharedCache.clear(getKey(key));
+	}
+
+	async getPermissions(id: string): Promise<string[]> {
+		// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+		const user = await this.context.context.User.getUserById(id, this.context);
+		// Use user to look up permissions.
+		return ['admin'];
 	}
 
 	async getServiceInfo(id: string): Promise<ServiceInfo | null> {
-		// const user = await ctx.context.User.getUserById(id, ctx);
-		// // if (!user) return null;
-		// return {
-		// 	id,
-		// 	// ...user.services,
-		// };
-	}
-
-	async getPermissions(id: string, context: Context): Promise<string[]> {
-		// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-		const user = await context.context.User.getUserById(id, context);
-		// Use user to look up permissions.
-		return ['admin'];
+		const user = await this.context.context.User.getUserById(id, this.context);
+		if (!user) return null;
+		return {
+			id,
+			...user.services,
+		};
 	}
 }

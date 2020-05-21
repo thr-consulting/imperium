@@ -41,7 +41,6 @@ export interface AuthDomain extends AuthAccessor {
 	getServiceInfo(id: string): Promise<ServiceInfo | null>;
 }
 
-// TODO any
 export type GetAuthFn = (context: any) => AuthDomain;
 
 export interface AuthMiddlewareConfig {
