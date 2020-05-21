@@ -8,6 +8,7 @@ interface ContextCreators<C extends Connector> {
 export class ContextManager<T extends ContextCreators<C>, C extends Connector> {
 	public readonly auth: Auth;
 	public readonly context = {} as {[P in keyof T]: ReturnType<T[P]>};
+	public readonly connectors: C;
 
 	constructor(context: T, connectors: C, auth: Auth = new Auth()) {
 		// ContextManager is meant to be created frequently, so the connectors should be connected already.
@@ -22,5 +23,6 @@ export class ContextManager<T extends ContextCreators<C>, C extends Connector> {
 		});
 
 		this.auth = auth;
+		this.connectors = connectors;
 	}
 }
