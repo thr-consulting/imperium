@@ -27,7 +27,7 @@ module.exports = function(imperiumConfig) {
 
 	return {
 		mode: 'development',
-		devtool: 'eval',
+		devtool: 'inline-source-map',
 		context: imperiumConfig.source.path,
 		entry: {
 			app: [imperiumConfig.source.clientIndex],

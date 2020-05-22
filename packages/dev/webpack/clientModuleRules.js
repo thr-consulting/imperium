@@ -40,6 +40,34 @@ module.exports = [
 		],
 	},
 	{
+		test: /\.s[ac]ss$/,
+		exclude: /node_modules/,
+		use: [
+			inspectLoader('SASS-MODULE'),
+			{loader: 'style-loader'},
+			{
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
+					// modules: {
+					// 	localIdentName: '[path][name]__[local]--[hash:base64:5]',
+					// },
+				},
+			},
+			{
+				loader: 'sass-loader',
+				options: {
+					// sourceMap: true,
+					// webpackImporter: false,
+					implementation: require('node-sass'),
+					// sassOptions: {
+					// 	includePaths: ['node_modules'],
+					// },
+				},
+			},
+		],
+	},
+	{
 		test: /\.css$/,
 		include: /node_modules/,
 		use: [
@@ -51,6 +79,21 @@ module.exports = [
 					modules: false,
 				},
 			},
+		],
+	},
+	{
+		test: /\.s[ac]ss$/,
+		include: /node_modules/,
+		use: [
+			inspectLoader('SASS'),
+			{loader: 'style-loader'},
+			{
+				loader: 'css-loader',
+				options: {
+					modules: false,
+				},
+			},
+			{loader: 'sass-loader'},
 		],
 	},
 	{
