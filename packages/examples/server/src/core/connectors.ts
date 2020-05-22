@@ -3,23 +3,20 @@ import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {ConnectionOptions, createConnection} from 'typeorm';
 import redis from 'redis';
-import {typeormEntities} from '@imperium/domain-advanced';
+import {typeormEntities} from '@imperium/example-domain-advanced';
 
 const d = debug('imperium.example.server.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.
 
-	The only requirement for a connector is that each key requires fields of connect and close.
+	The only requirement for a connector is that each key requires a connect() method.
  */
 
 export const connectors = new Connector({
-	mongo: {
+	basicConnector: {
 		async connect() {
 			return 5;
-		},
-		async close() {
-			d('Arbitrary closing connector debug statement');
 		},
 	},
 	pg: {
@@ -49,9 +46,6 @@ export const connectors = new Connector({
 			return new SharedCache({
 				redis: r,
 			});
-		},
-		async close() {
-			d('Closed shared cache');
 		},
 	},
 });

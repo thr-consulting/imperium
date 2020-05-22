@@ -1,13 +1,13 @@
 import type {ImperiumServer} from '@imperium/server';
-import type {AuthRequiredDomain} from '../types';
+import type {GetAuthFn} from '../types';
 import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
 import {loginEndpoint} from './loginEndpoint';
 import {refreshEndpoint} from './refreshEndpoint';
 
-export function createAuthEndpoints(options: AuthRequiredDomain) {
+export function createAuthEndpoints(getAuthFn: GetAuthFn) {
 	return function endpoints(server: ImperiumServer<any, any>) {
-		loginEndpoint(options, server);
-		refreshEndpoint(options, server);
-		forgotPasswordEndpoint(options, server);
+		loginEndpoint(getAuthFn, server);
+		refreshEndpoint(getAuthFn, server);
+		forgotPasswordEndpoint(getAuthFn, server);
 	};
 }

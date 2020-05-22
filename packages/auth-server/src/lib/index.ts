@@ -3,7 +3,7 @@ import {compare, hash} from 'bcrypt';
 import debug from 'debug';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
 import {environment} from '../environment';
-import type {AuthRequiredDomain, LoginInfo, LoginReturn, ServiceInfo} from '../types';
+import type {AuthDomain, LoginInfo, LoginReturn, ServiceInfo} from '../types';
 import {isRefreshToken} from './typeguards';
 
 const d = debug('imperium.auth-server.lib');
@@ -28,7 +28,7 @@ function signJwt(payload: string | object = {}, secret: string, options: SignOpt
 	return sign(payload, secret, options);
 }
 
-export function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
+export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
 	return compare(getPasswordString(loginInfo.password), serviceInfo.password.bcrypt);
 }
 
@@ -36,7 +36,6 @@ export function createAccessToken(serviceInfo: ServiceInfo): string {
 	return signJwt(
 		{
 			id: serviceInfo.id,
-			roles: serviceInfo.roles,
 		},
 		env.authAccessTokenSecret,
 		{expiresIn: env.authAccessTokenExpires},
@@ -54,19 +53,14 @@ export function createRefreshToken(identifier: string): string {
 	);
 }
 
-export async function login(
-	loginInfo: LoginInfo,
-	remoteAddress: string | undefined,
-	authOptions: AuthRequiredDomain,
-	context: any,
-): Promise<LoginReturn> {
+export async function login(loginInfo: LoginInfo, remoteAddress: string | undefined, auth: AuthDomain): Promise<LoginReturn> {
 	// 1. Check attempts
 	const attemptKey = `loginattempts:${loginInfo.identifier}_${remoteAddress?.replace(/:/g, ';')}`;
-	const attempts = (await authOptions.getCache(attemptKey, context)) || 0;
+	const attempts = (await auth.getCache(attemptKey)) || 0;
 	if (attempts > env.authMaxFail) throw new Error('Too many login attempts');
 
 	// 2. Get service info from domain layer
-	const serviceInfo = await authOptions.getServiceInfo(loginInfo.identifier, context);
+	const serviceInfo = await auth.getServiceInfo(loginInfo.identifier);
 	if (!serviceInfo) {
 		throw new Error('User not found');
 	} else {
@@ -80,19 +74,12 @@ export async function login(
 			};
 		}
 		// 5. Update cache with attempts and return error on non-valid password.
-		await authOptions.setCache(
-			{
-				key: attemptKey,
-				value: attempts + 1,
-				expire: env.authMaxCooldown,
-			},
-			context,
-		);
+		await auth.setCache(attemptKey, attempts + 1, env.authMaxCooldown);
 		throw new Error('Invalid password');
 	}
 }
 
-export async function refresh(refreshTokenString: string, options: AuthRequiredDomain, context: any) {
+export async function refresh(refreshTokenString: string, auth: AuthDomain) {
 	// Todo this should probably read cookies because you can brute force this
 	const token = decode(refreshTokenString);
 
@@ -104,7 +91,7 @@ export async function refresh(refreshTokenString: string, options: AuthRequiredD
 	}
 
 	// Get service info from domain layer
-	const serviceInfo = await options.getServiceInfo(token.id, context);
+	const serviceInfo = await auth.getServiceInfo(token.id);
 	if (!serviceInfo) {
 		throw new Error('User not found');
 	}
@@ -116,7 +103,7 @@ export async function refresh(refreshTokenString: string, options: AuthRequiredD
 	}
 
 	return {
-		// Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file. <= thats a yikes from me
+		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file. <= thats a yikes from me. no yikes
 		access: createAccessToken(serviceInfo),
 	};
 }

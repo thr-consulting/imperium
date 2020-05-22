@@ -4,17 +4,17 @@ const d = debug('imperium.context-manager.Connectors');
 
 export interface ConnectorsConfig<T = any> {
 	connect: () => Promise<T>;
-	close: (connection: T) => Promise<void>;
+	close?: (connection: T) => Promise<void>;
 }
 
 export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 	private readonly connectionConfigs: T;
 	private connected = false;
-	public readonly connections: {[P in keyof T]: ReturnType<T[P]['connect']>};
+	public readonly connections: {[P in keyof T]: ReturnType<T[P]['connect']> extends Promise<infer C> ? C : ReturnType<T[P]['connect']>};
 
 	constructor(connectorConfigs: T) {
 		this.connectionConfigs = connectorConfigs;
-		this.connections = {} as {[P in keyof T]: ReturnType<T[P]['connect']>};
+		this.connections = {} as this['connections'];
 	}
 
 	/**
@@ -50,11 +50,9 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
 		if (this.isConnected) {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
-					if (typeof this.connectionConfigs[key].close === 'function') {
-						d(`Closing ${key}`);
-						this.connectionConfigs[key].close(this.connections[key]);
-						delete this.connections[key];
-					}
+					d(`Closing ${key}`);
+					this.connectionConfigs[key].close?.(this.connections[key]);
+					delete this.connections[key];
 				}),
 			);
 			this.connected = false;

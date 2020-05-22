@@ -22,6 +22,8 @@
     "ts": "tsc"
   },
   "dependencies": {
+    "@imperium/example-domain-advanced": "^0.1.0",
+    "@imperium/example-domain-simple": "^0.1.0",
     "@imperium/auth-server": "^4.0.8",
     "@imperium/context-manager": "^4.0.7",
     "@imperium/graphql-server": "^4.0.8",

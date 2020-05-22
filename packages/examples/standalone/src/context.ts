@@ -1,6 +1,6 @@
 import {Auth} from '@imperium/context-manager';
-import {createDomainSimpleContext} from '@imperium/domain-simple';
-import {createDomainAdvancedContext} from '@imperium/domain-advanced';
+import {createDomainSimpleContext} from '@imperium/example-domain-simple';
+import {createDomainAdvancedContext} from '@imperium/example-domain-advanced';
 import type {connectors} from './connectors';
 
 /*
@@ -22,7 +22,7 @@ export function contextCreator(conn: typeof connectors, id?: string) {
 		domainAnything: {anything: 5},
 	};
 
-	// auth.setBridge({});
+	auth.setAccessor(context.domainAdvanced.context.AuthModel.create(context.domainAdvanced));
 
 	return context;
 }
