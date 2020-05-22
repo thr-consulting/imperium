@@ -19,6 +19,8 @@
     "build": "NODE_ENV=production babel src --extensions \".ts\" --out-dir dist --source-maps"
   },
   "dependencies": {
+    "@imperium/example-domain-advanced": "^0.1.0",
+    "@imperium/example-domain-simple": "^0.1.0",
     "@imperium/context-manager": "^4.0.7",
     "@thx/sharedcache": "^11.0.1",
     "debug": "^4.1.1",

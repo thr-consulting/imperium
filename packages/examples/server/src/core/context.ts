@@ -1,6 +1,6 @@
 import {Auth, AuthData} from '@imperium/context-manager';
-import {createDomainSimpleContext} from '@imperium/domain-simple';
-import {createDomainAdvancedContext} from '@imperium/domain-advanced';
+import {createDomainSimpleContext} from '@imperium/example-domain-simple';
+import {createDomainAdvancedContext} from '@imperium/example-domain-advanced';
 import type {connectors} from './connectors';
 
 /*
