@@ -8,4 +8,5 @@ module.exports = commonWebpack({
 	name,
 	entry: './index.ts',
 	outputFile: 'index.js',
+	jsxFactory: 'JsxPdf.createElement',
 });

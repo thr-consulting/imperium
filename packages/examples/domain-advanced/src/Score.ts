@@ -1,5 +1,7 @@
 import debug from 'debug';
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+// @ts-ignore
+import {genReport} from './genReport';
 
 const d = debug('imperium.examples.domain-advanced.Score');
 
@@ -25,6 +27,10 @@ class Score extends BaseEntity {
 		super();
 		this.winner = false;
 		this.score = 0;
+	}
+
+	static async genReport() {
+		await genReport();
 	}
 }
 
