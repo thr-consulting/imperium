@@ -10,9 +10,10 @@ interface CommonWebpackParams {
 	entry: string;
 	outputFile: string;
 	rules?: any[];
+	jsxFactory?: string;
 }
 
-export default function commonWebpack({isProduction, isClient, name, entry, outputFile, rules}: CommonWebpackParams) {
+export default function commonWebpack({isProduction, isClient, name, entry, outputFile, rules, jsxFactory}: CommonWebpackParams) {
 	return {
 		entry,
 		mode: isProduction ? 'production' : 'development',
@@ -32,7 +33,7 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 			libraryTarget: 'commonjs2',
 		},
 		resolve: {
-			extensions: ['.js', '.mjs', '.ts', '.d.ts'].concat(isClient ? ['.tsx'] : []),
+			extensions: ['.js', '.mjs', '.ts', '.d.ts'].concat(isClient || jsxFactory ? ['.tsx'] : []), // .concat(jsxFactory ? ['.jsx'] : []),
 		},
 		optimization: {
 			minimize: isProduction,
@@ -41,6 +42,7 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 		module: {
 			rules: [
 				{
+					// test: jsxFactory ? /\.jsx?$/ : /\.js$/,
 					test: /\.js$/,
 					exclude: /node_modules/,
 					use: [
@@ -55,7 +57,7 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 					],
 				},
 				{
-					test: isClient ? /\.tsx?$/ : /\.ts$/,
+					test: isClient || jsxFactory ? /\.tsx?$/ : /\.ts$/,
 					exclude: /node_modules/,
 					use: [
 						inspectLoader('BABEL-TS'),
@@ -63,7 +65,7 @@ export default function commonWebpack({isProduction, isClient, name, entry, outp
 							loader: 'babel-loader',
 							options: {
 								babelrc: false,
-								presets: [['@imperium/babel-preset-imperium', {client: isClient, typescript: true}]],
+								presets: [['@imperium/babel-preset-imperium', {client: isClient, typescript: true, jsxFactory}]],
 							},
 						},
 					],

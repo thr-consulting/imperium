@@ -26,10 +26,11 @@ function myMiddleware(): RequestHandler {
 
 export const advancedModule = (): ImperiumServerModule<Context, typeof connectors> => ({
 	name: 'Advanced Server Module',
-	async startup(/* server, context */) {
+	async startup(server, context) {
 		d('Running startup code');
 		// Has access to server: server.connectors.connections
 		// Has access to context: context.domainSimple.context.MyModel1
+		await context.domainAdvanced.context.Score.genReport();
 	},
 	endpoints(server) {
 		server.expressApp.get(
