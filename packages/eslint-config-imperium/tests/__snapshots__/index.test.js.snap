@@ -61,7 +61,7 @@ Object {
     "@typescript-eslint/no-unused-vars": Array [
       "error",
       Object {
-        "argsIgnorePattern": "server|contextManager|ctx",
+        "argsIgnorePattern": "server|context|ctx|type",
         "varsIgnorePattern": "d",
       },
     ],
