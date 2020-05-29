@@ -7,7 +7,7 @@ module.exports = function() {
 	const host = process.env.SERVER_HOST || 'localhost';
 	const port = parseInt(process.env.SERVER_PORT || '4001', 10);
 	const url = process.env.GRAPHQL_URL || '/api/graphql';
-	const enableGraphqlWs = process.env.GRAPHQL_WS === 'true';
+	const enableGraphqlWs = process.env.GRAPHQL_ENABLE_SUBSCRIPTIONS === 'true';
 
 	return {
 		name,
