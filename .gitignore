@@ -10,8 +10,9 @@ yarn-error.log*
 .eslintcache
 .yalc
 yalc.lock
-build
+build/
 .env
+env.js
 /packages/example-server/dist/
 .npmrc
 !docs/assets/coverage/**/coverage.svg

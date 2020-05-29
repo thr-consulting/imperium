@@ -4,6 +4,7 @@ import debug from 'debug';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import flowRight from 'lodash/flowRight';
+import mergeOptions from 'merge-options';
 import Root from './Root';
 import {ClientContext} from './ClientContext';
 import type {
@@ -47,8 +48,12 @@ export default class ImperiumClient implements IImperiumClient {
 	private readonly _renderProp: (props: RootProps) => React.ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
-		// @ts-ignore
-		this._globalConst = window.__INITIAL_CONF__; // eslint-disable-line no-underscore-dangle
+		this._globalConst = mergeOptions(
+			// @ts-ignore
+			window.__INITIAL_CONF__, // eslint-disable-line no-underscore-dangle
+			// @ts-ignore
+			window.__IMPERIUM_ENV__, // eslint-disable-line no-underscore-dangle
+		);
 		this._environment = {};
 		this._clientModules = [];
 		this._rootProps = {};
@@ -65,6 +70,9 @@ export default class ImperiumClient implements IImperiumClient {
 			});
 		}
 		d(`Loaded modules: ${clientModuleNames.join(', ')}`);
+
+		// @ts-ignore
+		window.__IMPERIUM_CLIENT__ = this; // eslint-disable-line no-underscore-dangle
 	}
 
 	async start() {

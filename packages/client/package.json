@@ -21,6 +21,7 @@
 		"client.js"
 	],
 	"scripts": {
+		"start": "screen -c ./dev.screenrc",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
@@ -45,7 +46,8 @@
 	"dependencies": {
 		"@imperium/util": "^4.1.0",
 		"debug": "^4.1.1",
-		"lodash": "^4.17.15"
+		"lodash": "^4.17.15",
+		"merge-options": "^2.0.0"
 	},
 	"jest": {
 		"transform": {
