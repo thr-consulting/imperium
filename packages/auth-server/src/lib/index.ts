@@ -42,14 +42,14 @@ export function createAccessToken(serviceInfo: ServiceInfo): string {
 	);
 }
 
-export function createRefreshToken(identifier: string): string {
+export function createRefreshToken(identifier: string, rememberDevice?: boolean): string {
 	return signJwt(
 		{
 			id: identifier,
 			type: 'r',
 		},
 		env.authRefreshTokenSecret as string,
-		{expiresIn: env.authRefreshTokenExpires as string},
+		{expiresIn: rememberDevice ? env.authRefreshTokenExpiresLong : env.authRefreshTokenExpiresShort},
 	);
 }
 
@@ -70,7 +70,7 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 			return {
 				id: serviceInfo.id,
 				access: createAccessToken(serviceInfo),
-				refresh: createRefreshToken(loginInfo.identifier),
+				refresh: createRefreshToken(loginInfo.identifier, loginInfo.rememberDevice),
 			};
 		}
 		// 5. Update cache with attempts and return error on non-valid password.

@@ -29,17 +29,24 @@ export function loginEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, 
 			// @ts-ignore
 			const auth = getAuthFn(req.context);
 
+			// TODO Researching getting additional info from the request. Maybe we should keep track of that info?
+			// d(req.hostname);
+			// d(req.ip);
+			// d(req.ips);
+
 			// @ts-ignore Perform login
 			login(loginInfo, req.connection.remoteAddress, auth)
 				.then((ret: LoginReturn) => {
 					// Login was successful, return id and access token and set refresh token as the cookie.
+					const expires = loginInfo.rememberDevice ? new Date(ms(env.authRefreshTokenExpiresLong)) : new Date(ms(env.authRefreshTokenExpiresShort));
+
 					res
 						.status(200)
 						// Send refresh token as a cookie to browser
 						.cookie(env.authRefreshCookieName, ret.refresh, {
 							httpOnly: true,
 							secure: env.production, // Secure in production
-							expires: new Date(ms(env.authRefreshTokenExpires)),
+							expires,
 							domain: env.authServerDomain,
 							path: env.authRefreshUrl, // Only set cookie for refresh URL
 						})

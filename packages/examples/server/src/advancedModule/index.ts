@@ -30,7 +30,7 @@ export const advancedModule = (): ImperiumServerModule<Context, typeof connector
 		d('Running startup code');
 		// Has access to server: server.connectors.connections
 		// Has access to context: context.domainSimple.context.MyModel1
-		await context.domainAdvanced.context.Score.genReport();
+		// await context.domainAdvanced.context.Score.genReport();
 	},
 	endpoints(server) {
 		server.expressApp.get(
