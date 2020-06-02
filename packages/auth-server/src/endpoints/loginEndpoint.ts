@@ -38,7 +38,9 @@ export function loginEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, 
 			login(loginInfo, req.connection.remoteAddress, auth)
 				.then((ret: LoginReturn) => {
 					// Login was successful, return id and access token and set refresh token as the cookie.
-					const expires = loginInfo.rememberDevice ? new Date(ms(env.authRefreshTokenExpiresLong)) : new Date(ms(env.authRefreshTokenExpiresShort));
+					const expires = loginInfo.rememberDevice
+						? new Date(Date.now() + ms(env.authRefreshTokenExpiresLong))
+						: new Date(Date.now() + ms(env.authRefreshTokenExpiresShort));
 
 					res
 						.status(200)
