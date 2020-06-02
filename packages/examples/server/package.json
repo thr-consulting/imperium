@@ -1,7 +1,7 @@
 {
   "name": "@imperium/example-server",
   "description": "Imperium server example project",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "author": "Mike Kornelson <darkadept@durbn.net>",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "ts": "tsc"
   },
   "dependencies": {
-    "@imperium/auth-server": "^4.1.1",
+    "@imperium/auth-server": "^4.1.2",
     "@imperium/context-manager": "^4.1.0",
     "@imperium/example-domain-advanced": "^4.1.0",
     "@imperium/example-domain-simple": "^4.1.0",
