@@ -2,10 +2,11 @@ import type {ImperiumServer} from '@imperium/server';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
+import ms from 'ms';
 import {environment} from '../environment';
 import {login} from '../lib';
 import {isLoginInfo} from '../lib/typeguards';
-import type {LoginReturn, GetAuthFn} from '../types';
+import type {GetAuthFn, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 const env = environment();
@@ -38,7 +39,7 @@ export function loginEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, 
 						.cookie(env.authRefreshCookieName, ret.refresh, {
 							httpOnly: true,
 							secure: env.production, // Secure in production
-							expires: new Date(Date.now() + 10 * 60000), // TODO this needs to be the same as env.authRefreshTokenExpires
+							expires: new Date(ms(env.authRefreshTokenExpires)),
 							domain: env.authServerDomain,
 							path: env.authRefreshUrl, // Only set cookie for refresh URL
 						})
