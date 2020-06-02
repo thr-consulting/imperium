@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-server",
-	"version": "4.1.0",
+	"version": "4.1.1",
 	"description": "Imperium Auth server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
