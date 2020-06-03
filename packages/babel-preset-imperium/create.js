@@ -10,25 +10,36 @@ const validateBoolOption = (name, value, defaultValue) => {
 	return value;
 };
 
+const validateStringOption = (name, value, defaultValue) => {
+	if (typeof value === 'undefined') {
+		value = defaultValue;
+	}
+	if (typeof value !== 'string' && typeof value !== 'undefined') {
+		throw new Error(`Preset imperium: '${name} option must be a string.`);
+	}
+	return value;
+};
+
 module.exports = function (api, opts, env) {
 	if (!opts) {
 		opts = {};
 	}
 
 	// Environment
-	var isEnvDevelopment = env === 'development';
-	var isEnvProduction = env === 'production';
-	var isEnvTest = env === 'test';
+	const isEnvDevelopment = env === 'development';
+	const isEnvProduction = env === 'production';
+	const isEnvTest = env === 'test';
 
 	// Options
-	var isDebug = validateBoolOption('debug', opts.debug, false);
-	var isClient = validateBoolOption('client', opts.client, false);
-	var forceModules = validateBoolOption('forceModules', opts.forceModules, false);
-	var forceReact = validateBoolOption('react', opts.react, false);
-	var enableTypescript = validateBoolOption('typescript', opts.typescript, false);
-	var enableGraphqls = validateBoolOption('graphqls', opts.graphqls, false);
+	const isDebug = validateBoolOption('debug', opts.debug, false);
+	const isClient = validateBoolOption('client', opts.client, false);
+	const forceModules = validateBoolOption('forceModules', opts.forceModules, false);
+	const forceReact = validateBoolOption('react', opts.react, false);
+	const enableTypescript = validateBoolOption('typescript', opts.typescript, false);
+	const enableGraphqls = validateBoolOption('graphqls', opts.graphqls, false);
 	const enableDecorators = validateBoolOption('decorators', opts.decorators, true);
 	const enableReactRefresh = validateBoolOption('reactRefresh', opts.reactRefresh, true);
+	const jsxFactory = validateStringOption('jsxFactory', opts.jsxFactory);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -160,6 +171,8 @@ module.exports = function (api, opts, env) {
 			// 		async: false,
 			// 	},
 			// ],
+
+			jsxFactory && [require('@babel/plugin-transform-react-jsx'), {pragma: jsxFactory}],
 
 			// Adds syntax support for import()
 			require('@babel/plugin-syntax-dynamic-import').default,

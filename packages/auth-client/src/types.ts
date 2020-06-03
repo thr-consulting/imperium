@@ -8,6 +8,7 @@ export interface LoginInfo {
 		digest: string;
 		algorithm: string;
 	};
+	rememberDevice?: boolean;
 }
 
 export interface LoginReturn {

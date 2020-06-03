@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-client",
-	"version": "4.0.8",
+	"version": "4.1.1",
 	"description": "Imperium Graphql client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -42,7 +42,7 @@
 		"apollo-utilities": "1.x"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.0.8",
+		"@imperium/util": "^4.1.0",
 		"apollo-cache-inmemory": "^1.6.5",
 		"apollo-link": "^1.2.14",
 		"apollo-link-error": "^1.1.13",

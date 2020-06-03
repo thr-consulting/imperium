@@ -61,6 +61,7 @@ Object {
                   "@imperium/babel-preset-imperium",
                   Object {
                     "client": true,
+                    "jsxFactory": undefined,
                     "typescript": true,
                   },
                 ],
@@ -155,6 +156,7 @@ Object {
                   "@imperium/babel-preset-imperium",
                   Object {
                     "client": false,
+                    "jsxFactory": undefined,
                     "typescript": true,
                   },
                 ],
@@ -248,6 +250,7 @@ Object {
                   "@imperium/babel-preset-imperium",
                   Object {
                     "client": true,
+                    "jsxFactory": undefined,
                     "typescript": true,
                   },
                 ],
@@ -342,6 +345,7 @@ Object {
                   "@imperium/babel-preset-imperium",
                   Object {
                     "client": false,
+                    "jsxFactory": undefined,
                     "typescript": true,
                   },
                 ],

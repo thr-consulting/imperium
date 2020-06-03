@@ -26,7 +26,8 @@
 		"emitDeclarationOnly": true,
 		"declarationDir": "dist",
 		"noImplicitAny": true,
-		"importsNotUsedAsValues": "error"
+		"importsNotUsedAsValues": "error",
+		"jsx": "react"
 	},
-	"include": ["src/index.ts"]
+	"include": ["src/index.ts", "types/jsx-pdf.d.ts"]
 }

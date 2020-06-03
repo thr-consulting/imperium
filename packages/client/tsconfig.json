@@ -6,6 +6,7 @@
 	"include": [
 		"src/index.ts"
 	],
+	"files": ["types/merge-options.d.ts"],
 	"typedocOptions": {
 		"mode": "file",
 		"exclude": ["*.test.js", "*.test.ts", "*.test.tsx", "*.test.jsx"],

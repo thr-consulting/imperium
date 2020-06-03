@@ -8,7 +8,8 @@ export const environment = memoize(() => ({
 	authAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure', // Secret for access tokens
 	authRefreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || 'notsecure', // Secret for refresh tokens
 	authAccessTokenExpires: process.env.AUTH_ACCESS_TOKEN_EXPIRES || '5m', // How often an access token expires
-	authRefreshTokenExpires: process.env.AUTH_REFRESH_TOKEN_EXPIRES || '7d', // How often a refresh token expires
+	authRefreshTokenExpiresShort: process.env.AUTH_REFRESH_TOKEN_EXPIRES_SHORT || '1d', // How often a refresh token expires
+	authRefreshTokenExpiresLong: process.env.AUTH_REFRESH_TOKEN_EXPIRES_LONG || '7d', // How often a refresh token expires
 	authMaxFail: parseInt(process.env.AUTH_MAX_FAIL || '5', 10), // How many failed login attempts allowed
 	authMaxCooldown: parseInt(process.env.AUTH_MAX_COOLDOWN || '300', 10), // How many seconds to lock failed login attempts out
 	authSharedCacheConnectorKey: process.env.AUTH_SHAREDCACHE_CONNECTOR || 'sharedCache', // What is the key the SharedConnector stored as in Connectors?

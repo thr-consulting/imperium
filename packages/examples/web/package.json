@@ -1,7 +1,7 @@
 {
 	"name": "@imperium/example-web",
 	"description": "Imperium example client project",
-	"version": "4.0.9",
+	"version": "4.1.1",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"repository": {
 		"type": "git",
@@ -23,11 +23,11 @@
 	},
 	"dependencies": {
 		"@apollo/react-hooks": "^3.1.5",
-		"@imperium/auth-client": "^4.0.8",
-		"@imperium/auth-graphql-client": "^4.0.8",
-		"@imperium/client": "^4.0.8",
-		"@imperium/graphql-client": "^4.0.8",
-		"@imperium/router": "^4.0.8",
+		"@imperium/auth-client": "^4.1.1",
+		"@imperium/auth-graphql-client": "^4.1.1",
+		"@imperium/client": "^4.1.1",
+		"@imperium/graphql-client": "^4.1.1",
+		"@imperium/router": "^4.1.1",
 		"@js-joda/core": "^2.0.0",
 		"@loadable/component": "^5.12.0",
 		"@thx/controls": "^12.1.1",
@@ -47,6 +47,6 @@
 		"yup": "^0.28.4"
 	},
 	"devDependencies": {
-		"@imperium/dev": "^4.0.9"
+		"@imperium/dev": "^4.1.1"
 	}
 }
