@@ -1,4 +1,5 @@
 import {isString} from '@imperium/util';
+import bodyParser from 'body-parser';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
 import {compose} from '@imperium/server';
@@ -140,7 +141,10 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 
 		// Add middleware to graphql endpoint. Optional middleware can be passed in via constructor config object.
 		// preContext and postContext middleware could be a thing, if needed.
-		server.expressApp.use(env.graphqlUrl, compose([...(config?.middleware || []), server.contextMiddleware()]));
+		server.expressApp.use(
+			env.graphqlUrl,
+			compose([bodyParser.json({limit: env.graphqlBodyLimit}), ...(config?.middleware || []), server.contextMiddleware()]),
+		);
 
 		const corsOpts: CorsOptions = {
 			origin: env.graphqlCorsOrigin,

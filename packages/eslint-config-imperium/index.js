@@ -41,8 +41,9 @@ module.exports = {
 		'no-return-assign': ['error', 'except-parens'],
 		'no-console': ['error'],
 		'no-plusplus': 'off',
-		'no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|contextManager|ctx'}],
+		'no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|context|ctx|type'}],
 		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
+		'no-use-before-define': ['off'],
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],

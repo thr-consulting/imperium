@@ -102,9 +102,12 @@ Object {
     "no-unused-vars": Array [
       "error",
       Object {
-        "argsIgnorePattern": "server|contextManager|ctx",
+        "argsIgnorePattern": "server|context|ctx|type",
         "varsIgnorePattern": "d",
       },
+    ],
+    "no-use-before-define": Array [
+      "off",
     ],
     "prefer-arrow-callback": Array [
       "error",
