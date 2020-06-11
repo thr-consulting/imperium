@@ -13,6 +13,7 @@ export function withAuth(client: IImperiumClient): Hoc {
 
 		function ComponentWithAuth(props: any) {
 			const [auth, setAuth] = useState<IAuth | null>(null);
+			const [authEffectFinished, setAuthEffectFinished] = useState<boolean>(false);
 
 			useEffect(() => {
 				const id = localStorage.getItem(client.globalConst.authLSIdKey as string) || '';
@@ -27,13 +28,17 @@ export function withAuth(client: IImperiumClient): Hoc {
 					localStorage.removeItem(client.globalConst.authLSIdKey as string);
 					localStorage.removeItem(client.globalConst.authLSAccessTokenKey as string);
 				}
+				setAuthEffectFinished(true);
 			}, []);
 
-			return (
-				<AuthContext.Provider value={{auth, setAuth: authVal => setAuth(authVal)}}>
-					<WrappedComponent {...props} />
-				</AuthContext.Provider>
-			);
+			if (authEffectFinished) {
+				return (
+					<AuthContext.Provider value={{auth, setAuth: authVal => setAuth(authVal)}}>
+						<WrappedComponent {...props} />
+					</AuthContext.Provider>
+				);
+			}
+			return null;
 		}
 
 		ComponentWithAuth.displayName = `withAuth(${displayName}`;
