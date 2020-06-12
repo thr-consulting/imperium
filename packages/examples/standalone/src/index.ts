@@ -11,5 +11,9 @@ export async function main() {
 	const val = await context.domainAdvanced.context.SecureModel.getSecureData('mydata', context.domainAdvanced);
 	d(val);
 
-	await connectors.close();
+	// To have the process end, uncomment these two lines and uncomment the process.exit() in index.js.
+	const noop = Function(); // eslint-disable-line no-new-func
+	setInterval(noop, 10000);
+
+	// await connectors.close();
 }
