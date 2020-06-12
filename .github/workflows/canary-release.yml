@@ -1,0 +1,49 @@
+name: Canary release workflow
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Canary release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node 12
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "12.7"
+
+      - name: Restore lerna node_modules
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          yarn global add lerna
+          yarn lerna bootstrap
+
+      - name: Run build
+        run: |
+          yarn build
+
+      - name: NPM Registry Login
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+
+      - name: Publish canary
+        run: |
+          yarn lerna publish patch -c --preid alpha --yes
+
+      - name: Notify discord
+        run: |
+          DISCORD_WEBHOOK=${{ secrets.DISCORD_WEBHOOK }} bash ./tools/discordhook.sh
