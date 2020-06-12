@@ -14,7 +14,7 @@ export const environment = memoize(() => ({
 	authMaxCooldown: parseInt(process.env.AUTH_MAX_COOLDOWN || '300', 10), // How many seconds to lock failed login attempts out
 	authSharedCacheConnectorKey: process.env.AUTH_SHAREDCACHE_CONNECTOR || 'sharedCache', // What is the key the SharedConnector stored as in Connectors?
 	authRoleCacheExpires: parseInt(process.env.AUTH_ROLE_CACHE_EXPIRES || '3600', 10), // How long does the role caching last in seconds
-	authCorsOrigin: process.env.CORS_ORIGIN?.split(',') || false,
+	authCorsOrigin: process.env.CORS_ORIGIN?.split(',').map(s => s.trim()) || false,
 	authRefreshCookieName: process.env.AUTH_REFRESH_COOKIE_NAME || 'refresh',
 	authPasswordSaltRounds: parseInt(process.env.AUTH_PASSWORD_SALT_ROUNDS || '11', 10),
 	production: process.env.NODE_ENV === 'production',
