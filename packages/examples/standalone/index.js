@@ -18,6 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 
 	const main = require('./src/index');
 	main.main().then(() => {
-		process.exit(0);
+		// If you want the process to exit, uncomment the following line and remove the noop code from index.ts.
+		// process.exit(0);
 	});
 }
