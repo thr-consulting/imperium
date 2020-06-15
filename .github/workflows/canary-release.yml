@@ -38,10 +38,8 @@ jobs:
           yarn build
 
       - name: Publish canary
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > $NPM_CONFIG_USERCONFIG
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > /home/runner/work/imperium/imperium/.npmrc
           yarn lerna publish patch -c --preid alpha --yes
 
       - name: Notify discord
