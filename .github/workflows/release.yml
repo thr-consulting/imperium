@@ -1,13 +1,15 @@
-name: Canary release workflow
+name: Release workflow
 on:
-  push:
-    branches:
-      - master
+  release:
+    types:
+      - created
 
 jobs:
   deploy:
-    name: Canary release
+    name: Release
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,13 +39,9 @@ jobs:
         run: |
           yarn build
 
-      - name: Publish canary
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPMRC: ${{ github.workspace }}
+      - name: Publish release
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "$NPMRC/.npmrc"
-          yarn lerna publish patch -c --preid alpha --yes
+          yarn lerna publish patch -c --yes
 
       - name: Notify discord
         env:
