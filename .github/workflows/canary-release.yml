@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: '10'
 
       - name: Setup node 12
         uses: actions/setup-node@v2-beta
