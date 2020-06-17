@@ -20,7 +20,7 @@ function getPasswordString(password: string | {algorithm: string; digest: string
 	return password.digest.toLowerCase();
 }
 
-function encryptPassword(password: string, saltOrRounds: string | number = 10): Promise<string> {
+export function encryptPassword(password: string | {algorithm: string; digest: string}, saltOrRounds: string | number = 10): Promise<string> {
 	return hash(getPasswordString(password), saltOrRounds);
 }
 
