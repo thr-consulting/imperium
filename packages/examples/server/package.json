@@ -1,7 +1,7 @@
 {
   "name": "@imperium/example-server",
   "description": "Imperium server example project",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "author": "Mike Kornelson <darkadept@durbn.net>",
   "repository": {
     "type": "git",
@@ -22,12 +22,12 @@
     "ts": "tsc"
   },
   "dependencies": {
-    "@imperium/auth-server": "^4.1.2",
-    "@imperium/context-manager": "^4.1.0",
-    "@imperium/example-domain-advanced": "^4.1.0",
-    "@imperium/example-domain-simple": "^4.1.0",
-    "@imperium/graphql-server": "^4.1.0",
-    "@imperium/server": "^4.1.0",
+    "@imperium/auth-server": "^4.2.0",
+    "@imperium/context-manager": "^4.2.0",
+    "@imperium/example-domain-advanced": "^4.2.0",
+    "@imperium/example-domain-simple": "^4.2.0",
+    "@imperium/graphql-server": "^4.2.0",
+    "@imperium/server": "^4.2.0",
     "@thx/sharedcache": "^11.0.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
@@ -40,6 +40,6 @@
     "typeorm": "^0.2.24"
   },
   "devDependencies": {
-    "@imperium/dev": "^4.1.1"
+    "@imperium/dev": "^4.2.0"
   }
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/context-manager",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "Imperium Context Manager package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
