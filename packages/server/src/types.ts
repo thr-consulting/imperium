@@ -7,7 +7,7 @@ import type {ImperiumServer} from './ImperiumServer';
 export interface ImperiumServerModule<Context, Connectors extends Connector> {
 	name: string;
 	endpoints?: (server: ImperiumServer<Context, Connectors>) => void;
-	startup?: (server: ImperiumServer<Context, Connectors>, context: Context) => Promise<void>;
+	startup?: (server: ImperiumServer<Context, Connectors>) => Promise<void>;
 }
 
 /**
@@ -16,7 +16,7 @@ export interface ImperiumServerModule<Context, Connectors extends Connector> {
 export interface ImperiumServerConfig<Context, Connectors extends Connector> {
 	connectors: Connectors;
 	serverModules: () => ImperiumServerModule<Context, Connectors>[];
-	contextCreator: (connector: Connectors) => Context; // TODO add auth here
+	contextCreator: (connector: Connectors) => Promise<Context>; // TODO add authentication info here
 }
 
 /**

@@ -1,7 +1,5 @@
 import debug from 'debug';
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
-// @ts-ignore
-import {genReport} from './genReport';
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 const d = debug('imperium.examples.domain-advanced.Score');
 
@@ -10,11 +8,11 @@ const d = debug('imperium.examples.domain-advanced.Score');
  */
 
 @Entity()
-class Score extends BaseEntity {
-	@PrimaryGeneratedColumn()
-	id!: number;
+class Score {
+	@PrimaryGeneratedColumn('uuid')
+	id!: string;
 
-	@Column('varchar')
+	@Column('text')
 	name!: string;
 
 	@Column('boolean')
@@ -24,13 +22,8 @@ class Score extends BaseEntity {
 	score: number;
 
 	constructor() {
-		super();
 		this.winner = false;
 		this.score = 0;
-	}
-
-	static async genReport() {
-		await genReport();
 	}
 }
 

@@ -1,11 +1,13 @@
 // Define server modules that should be included in the server.
 import debug from 'debug';
 import {authMiddleware, authServerModule} from '@imperium/auth-server';
+import {Authentication} from '@imperium/example-domain-advanced';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import {advancedModule} from '../advancedModule';
 import {basicModule} from '../basicModule';
 import {graphqlModule} from '../graphqlModule';
+import {authorizationModule} from '../authorizationModule';
 import type {Context} from './context';
 
 const d = debug('imperium.examples.server.serverModules');
@@ -20,10 +22,10 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],
 		}),
-		// TODO this technically creates another Auth instance but satisfies AuthDomain types
-		authServerModule((ctx: Context) => ctx.domainAdvanced.context.AuthModel.create(ctx.domainAdvanced)),
+		authServerModule((ctx: Context) => new Authentication(ctx.domainAdvanced)),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),
+		authorizationModule(),
 	];
 }

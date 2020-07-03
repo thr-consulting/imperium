@@ -1,4 +1,4 @@
-import {Auth, AuthData} from '@imperium/context-manager';
+import type {AuthenticatedUser, TypeOfPromise} from '@imperium/context-manager';
 import {createDomainSimpleContext} from '@imperium/example-domain-simple';
 import {createDomainAdvancedContext} from '@imperium/example-domain-advanced';
 import type {connectors} from './connectors';
@@ -18,20 +18,14 @@ import type {connectors} from './connectors';
 	implementation, which usually is extend in a AuthDomain implementation (AuthModel in this example).
  */
 
-export function contextCreator(conn: typeof connectors, data?: AuthData) {
-	const auth = new Auth(data);
-
-	const context = {
+export async function contextCreator(conn: typeof connectors, authenticatedUser?: AuthenticatedUser) {
+	return {
 		domainSimple: createDomainSimpleContext(conn),
-		domainAdvanced: createDomainAdvancedContext(conn, auth),
+		domainAdvanced: await createDomainAdvancedContext(conn, authenticatedUser),
 		domainAnything: {anything: 5},
 	};
-
-	auth.setAccessor(context.domainAdvanced.context.AuthModel.create(context.domainAdvanced));
-
-	return context;
 }
 
 // We also need to export the return type of the context creator function.
 // This will be imported by server modules.
-export type Context = ReturnType<typeof contextCreator>;
+export type Context = TypeOfPromise<ReturnType<typeof contextCreator>>;

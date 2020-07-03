@@ -1,15 +1,9 @@
 /* eslint-disable react/static-property-placement */
 import debug from 'debug';
-import type {AuthDomain, ServiceInfo} from '@imperium/auth-server';
+import type {AuthenticationDomain, ServiceInfo} from '@imperium/auth-server';
 import type {Context} from './index';
 
-const d = debug('imperium.examples.domain-advanced.AuthModel');
-
-/*
-	This domain model implements AuthDomain (which extends from AuthAccessor).
-
-	This domain should not do any caching as this is done elsewhere.
-*/
+const d = debug('imperium.examples.domain-advanced.AuthenticationModel');
 
 const authKeyPrefix = 'auth';
 
@@ -17,15 +11,11 @@ function getKey(key: string | string[]) {
 	return key instanceof Array ? [authKeyPrefix, ...key].join(':') : `${authKeyPrefix}:${key}`;
 }
 
-export class AuthModel implements AuthDomain {
+export class Authentication implements AuthenticationDomain {
 	private context: Context;
 
-	private constructor(context: Context) {
+	constructor(context: Context) {
 		this.context = context;
-	}
-
-	static create(context: Context) {
-		return new AuthModel(context);
 	}
 
 	async setCache(key: string | string[], value: any, expire?: number): Promise<typeof value> {
@@ -41,18 +31,11 @@ export class AuthModel implements AuthDomain {
 		await this.context.connectors.connections.sharedCache.clear(getKey(key));
 	}
 
-	async getPermissions(id: string): Promise<string[]> {
-		// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-		const user = await this.context.context.User.getUserById(id, this.context);
-		// Use user to look up permissions.
-		return ['admin'];
-	}
-
-	async getServiceInfo(id: string): Promise<ServiceInfo | null> {
-		const user = await this.context.context.User.getUserById(id, this.context);
+	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
+		const user = await this.context.connectors.connections.pg.getRepository(this.context.context.User).findOne({name: identifier});
 		if (!user) return null;
 		return {
-			id,
+			id: user.id,
 			...user.services,
 		};
 	}

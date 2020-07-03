@@ -4,12 +4,12 @@ import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import {environment} from '../environment';
 import {refresh} from '../lib';
-import type {GetAuthFn} from '../types';
+import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 const env = environment();
 
-export function refreshEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, any>) {
+export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any, any>) {
 	d(`Adding auth refresh endpoint: ${env.authRefreshUrl}`);
 
 	const corsOpts: CorsOptions = {

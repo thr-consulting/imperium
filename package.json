@@ -75,7 +75,7 @@
 		"rimraf": "^3.0.2",
 		"typedoc": "^0.17.6",
 		"typeorm": "^0.2.24",
-		"typescript": "^3.8.3",
+		"typescript": "^3.9.5",
 		"webpack": "^4.43.0"
 	}
 }

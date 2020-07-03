@@ -23,6 +23,7 @@ export const connectors = new Connector({
 		async connect() {
 			const postgresOptions: ConnectionOptions = {
 				type: 'postgres',
+				logging: process.env.POSTGRESQL_LOGGING === 'true',
 				url: process.env.POSTGRESQL_URL,
 				synchronize: process.env.NODE_ENV === 'development',
 				entities: Object.values(typeormEntities),

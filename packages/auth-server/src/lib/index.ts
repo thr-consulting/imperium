@@ -3,7 +3,7 @@ import {compare, hash} from 'bcrypt';
 import debug from 'debug';
 import {decode, sign, SignOptions} from 'jsonwebtoken';
 import {environment} from '../environment';
-import type {AuthDomain, LoginInfo, LoginReturn, ServiceInfo} from '../types';
+import type {AuthenticationDomain, LoginInfo, LoginReturn, ServiceInfo} from '../types';
 import {isRefreshToken} from './typeguards';
 
 const d = debug('imperium.auth-server.lib');
@@ -53,7 +53,7 @@ export function createRefreshToken(identifier: string, rememberDevice?: boolean)
 	);
 }
 
-export async function login(loginInfo: LoginInfo, remoteAddress: string | undefined, auth: AuthDomain): Promise<LoginReturn> {
+export async function login(loginInfo: LoginInfo, remoteAddress: string | undefined, auth: AuthenticationDomain): Promise<LoginReturn> {
 	// 1. Check attempts
 	const attemptKey = `loginattempts:${loginInfo.identifier}_${remoteAddress?.replace(/:/g, ';')}`;
 	const attempts = (await auth.getCache(attemptKey)) || 0;
@@ -79,7 +79,7 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 	}
 }
 
-export async function refresh(refreshTokenString: string, auth: AuthDomain) {
+export async function refresh(refreshTokenString: string, auth: AuthenticationDomain) {
 	// Todo this should probably read cookies because you can brute force this
 	const token = decode(refreshTokenString);
 
