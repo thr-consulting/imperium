@@ -18,12 +18,12 @@ export class Category {
 	}
 
 	static async getByName(name: string, ctx: Context): Promise<Category | undefined> {
-		ctx.context.Authorization.throwUnlessCan('read', Category);
+		// ctx.context.Authorization.throwUnlessCan('read', Category);
 		return getRepository(Category).findOne({name});
 	}
 
 	static async add(cat: Category, ctx: Context) {
-		ctx.context.Authorization.throwUnlessCan('create', 'Category');
+		// ctx.context.Authorization.throwUnlessCan('create', 'Category');
 		await getRepository(Category).save(cat);
 	}
 }

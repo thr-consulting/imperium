@@ -1,18 +1,8 @@
 import type {Connector} from './Connector';
+import type {AuthenticatedUser} from './types';
 
 interface ContextCreators<C extends Connector> {
 	[key: string]: (conn: C) => any;
-}
-
-export interface AuthenticatedUser {
-	auth?: {
-		id?: string;
-	};
-	hostname?: string;
-	ip?: string;
-	headers?: {
-		[key: string]: string;
-	};
 }
 
 export class ContextManager<T extends ContextCreators<C>, C extends Connector> {

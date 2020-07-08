@@ -36,9 +36,7 @@ async function getOrCreateUsers(ctx: Context) {
 			name: 'John Doe',
 			email: 'john@example.com',
 			services: {
-				password: {
-					bcrypt: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2', // "password", sha256 hashed and then bcrypt 12 rounds
-				},
+				password: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2', // "password", sha256 hashed and then bcrypt 12 rounds
 				roles: ['admin'],
 			},
 		});
@@ -51,9 +49,7 @@ async function getOrCreateUsers(ctx: Context) {
 			name: 'Jane Doe',
 			email: 'jane@example.com',
 			services: {
-				password: {
-					bcrypt: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2', // "password", sha256 hashed and then bcrypt 12 rounds
-				},
+				password: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2', // "password", sha256 hashed and then bcrypt 12 rounds
 				roles: [],
 			},
 		});

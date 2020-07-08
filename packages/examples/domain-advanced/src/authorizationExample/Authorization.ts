@@ -1,68 +1,37 @@
-import {Ability, AbilityBuilder} from '@casl/ability';
-import {permittedFieldsOf, rulesToQuery} from '@casl/ability/extra';
+import {Ability, AbilityTupleType, AbilityTypes} from '@casl/ability';
+import {packRules, permittedFieldsOf, unpackRules} from '@casl/ability/extra';
+import type {AnyAbility, PureAbility, RawRuleOf} from '@casl/ability/dist/types/PureAbility';
+import type {Abilities, CanParameters} from '@casl/ability/dist/types/types';
 import debug from 'debug';
-import type {AuthenticatedUser} from '@imperium/context-manager';
 import type {Context} from '../index';
-import type {User} from '../User';
 
 const d = debug('imperium.examples.domain-advanced.Authorization');
 
-type Actions = 'read' | 'update' | 'delete' | 'create' | 'manage';
-type Entities = 'Photo' | 'Metadata' | 'Category' | 'User' | 'Comment' | 'SecureModel' | 'all';
-type AppAbility = Ability<[Actions, Entities]>;
+export class Authorization<U, A extends Ability> {
+	private ability!: A;
+	private readonly id?: string;
+	private readonly defineRulesFor: (u?: U) => RawRuleOf<T>[];
 
-// TODO these are hardcoded here right now... maybe we should gather these permissions from feature module directories.
-function defineAbilityFor(user?: User) {
-	const {can, rules} = new AbilityBuilder<AppAbility>();
-
-	if (user && user.services.roles.indexOf('admin') >= 0) {
-		can('manage', 'all');
+	constructor(defineRulesFor: (u?: U) => RawRuleOf<T>[], id?: string) {
+		this.id = id;
+		this.defineRulesFor = defineRulesFor;
 	}
 
-	if (user?.id) {
-		can('read', 'User', ['name', 'email'], {id: user.id}); // Can read own user
-		can('read', 'User', ['name']); // Public fields
-
-		can('read', 'Photo', {owner: user.id}); // Can read own photos
-		can('read', 'Photo', ['name', 'public', 'metadata.location', 'categories.*', 'owner.*'], {public: true}); // Can read public photos
-
-		can('read', 'Comment');
-
-		can('read', 'SecureModel');
-	}
-
-	return new Ability(rules);
-}
-
-function symbolize(query) {
-	return JSON.parse(JSON.stringify(query), function keyToSymbol(key, value) {
-		if (key[0] === '$') {
-			const symbol = `Op_${key.slice(1)}`;
-			this[symbol] = value;
+	public async prepare(getU: (id: string) => Promise<U | undefined>, ctx: Context) {
+		const cacheKey = `imp:auth:rules:${this.id}`;
+		const packedRules = await ctx.connectors.connections.sharedCache.get(cacheKey);
+		if (packedRules) {
+			this.ability = new Ability(unpackRules(packedRules)) as T;
 			return;
 		}
-		return value;
-	});
-}
 
-function ruleToSql(rule) {
-	return rule.inverted ? {$not: rule.conditions} : rule.conditions;
-}
-
-export class Authorization {
-	private authenticatedUser?: AuthenticatedUser;
-	private ability!: Ability; // TODO this probably needs to be a more specific type.
-
-	constructor(authenticatedUser?: AuthenticatedUser) {
-		this.authenticatedUser = authenticatedUser;
-	}
-
-	public async prepare(ctx: Context) {
-		if (this.authenticatedUser?.auth?.id) {
-			const user = await ctx.connectors.connections.pg.getRepository(ctx.context.User).findOne(this.authenticatedUser.auth.id);
-			this.ability = defineAbilityFor(user);
+		if (this.id) {
+			const u = await getU(this.id);
+			const rules = this.defineRulesFor(u);
+			await ctx.connectors.connections.sharedCache.set(cacheKey, packRules(rules), 60);
+			this.ability = (new Ability(rules) as unknown) as T;
 		} else {
-			this.ability = defineAbilityFor();
+			this.ability = (new Ability() as unknown) as T;
 		}
 	}
 
@@ -76,19 +45,18 @@ export class Authorization {
 		if (!result) throw new Error(`Unauthorized: ${action}`);
 	}
 
-	public can(action: Actions, subject: any | Entities | undefined, field?: string | string[]): boolean {
-		if (Array.isArray(field)) {
-			return field.reduce<boolean>((m, f) => this.can(action, subject, f) || m, false);
-		}
-		return this.ability.can(action, subject, field);
+	// action: Actions, subject: any | Entities | undefined, field?: string | string[]
+	public can(...args: CanParameters<A>): boolean {
+		// if (Array.isArray(field)) {
+		// 	return field.reduce<boolean>((m, f) => this.can(action, subject, f) || m, false);
+		// }
+
+		// this.ability.can()
+
+		return this.ability.can(...args);
 	}
 
 	public permittedFieldsOf(action: Actions, subject: any | Entities | undefined) {
 		return permittedFieldsOf(this.ability, action, subject);
-	}
-
-	public rulesToQuery(action: Actions, subject: any | Entities | undefined) {
-		const query = rulesToQuery(this.ability, action, subject, ruleToSql);
-		return query === null ? query : symbolize(query);
 	}
 }

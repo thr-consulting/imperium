@@ -1,23 +1,22 @@
 /* eslint-disable max-classes-per-file */
 import debug from 'debug';
 import type {ServiceInfo} from '@imperium/auth-server';
+import pick from 'lodash/pick';
 import {Column, Entity, getRepository, PrimaryGeneratedColumn} from 'typeorm';
 import type {DeepPartial} from 'typeorm/common/DeepPartial';
 import type {Context} from './index';
 
 const d = debug('imperium.examples.domain-advanced.User');
 
-class Password {
-	@Column('text')
-	bcrypt!: string;
-}
-
 class Services implements Omit<ServiceInfo, 'id'> {
-	@Column(() => Password)
-	password!: Password;
+	@Column('text')
+	password!: string;
 
 	@Column('text', {array: true})
 	roles!: string[];
+
+	@Column('text', {array: true, nullable: true})
+	blacklist?: string[];
 }
 
 @Entity()
@@ -35,21 +34,37 @@ export class User {
 	services!: Services;
 
 	static async getById(id: string, ctx: Context): Promise<User | undefined> {
-		ctx.context.Authorization.throwUnlessCan('read', 'User');
+		// ctx.context.Authorization.throwUnlessCan('read', 'User');
 		const u = await getRepository(User).findOne(id);
-		// const p = ctx.context.Authorization.can('read', u);
+		if (!u) return u;
+
 		d(`Current user: ${ctx.authenticatedUser?.auth?.id}`);
 		d(` Lookup user: ${u?.id}`);
 		d(`Can read?: ${ctx.context.Authorization.can('read', u)}`);
-
 		const permittedFields = ctx.context.Authorization.permittedFieldsOf('read', u);
 		d(`Permitted fields: ${JSON.stringify(permittedFields)}`);
 
-		const y = ctx.context.Authorization.rulesToQuery('read', u);
-		d(`Rules to query: ${JSON.stringify(y)}`);
+		const propNames = Object.getOwnPropertyNames(u);
+		d(`Property names: ${propNames}`);
+
+		const uu = pick(u, permittedFields);
+		d(uu);
 
 		ctx.context.Authorization.throwUnlessCan('read', u);
-		return u;
+
+		// const z = getRepository(User).metadata;
+		// const q = z.ownColumns.map(v => v.propertyPath);
+		// const r = z.columns.map(v => v.propertyPath);
+		// // const s = z.generatedColumns.map(v => v.propertyPath);
+		// // const t = z.descendantColumns.map(v => v.propertyPath);
+		// // const x = z.relationsWithJoinColumns.map(v => v.propertyPath);
+		// d(q);
+		// d(r);
+		// // d(s);
+		// // d(t);
+		// // d(x);
+
+		return uu as User;
 	}
 
 	static async createSystemUser() {
@@ -60,9 +75,7 @@ export class User {
 				name: 'SYSTEM',
 				email: 'system@example.com',
 				services: {
-					password: {
-						bcrypt: 'NOPASSWORD',
-					},
+					password: 'NOPASSWORD',
 					roles: ['admin'],
 				},
 			});
@@ -71,9 +84,9 @@ export class User {
 	}
 
 	static async getByName(name: string, ctx: Context) {
-		ctx.context.Authorization.throwUnlessCan('read', 'User');
+		// ctx.context.Authorization.throwUnlessCan('read', 'User');
 		const u = await getRepository(User).findOne({name});
-		ctx.context.Authorization.throwUnlessCan('read', u);
+		// ctx.context.Authorization.throwUnlessCan('read', u);
 		return u;
 	}
 

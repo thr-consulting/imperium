@@ -1,5 +1,6 @@
-export {ContextManager, AuthenticatedUser} from './ContextManager';
+export {ContextManager} from './ContextManager';
 export {Connector, ConnectorsConfig} from './Connector';
+export {AuthenticatedUser} from './types';
 
 /**
  * Take each field's value in an object and map it to functions that return the values.

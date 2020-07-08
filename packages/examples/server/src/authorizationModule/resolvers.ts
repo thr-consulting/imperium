@@ -20,9 +20,8 @@ export function resolvers(server: ImperiumServer<Context, any>) {
 		},
 		Query: {
 			async getPhoto(obj: undefined, {name}: {name: string}, ctx: Context, info: GraphQLResolveInfo) {
-				const p = await ctx.domainAdvanced.context.Photo.getByName(name, ctx.domainAdvanced);
-				ctx.domainAdvanced.context.Authorization.throwUnlessCan('read', p, getSelectionFields(info));
-				return p;
+				return ctx.domainAdvanced.context.Photo.getByName(name, ctx.domainAdvanced);
+				// ctx.domainAdvanced.context.Authorization.throwUnlessCan('read', p, getSelectionFields(info));
 			},
 			async getPhotoUsingLoader(obj: undefined, {name}: {name: string}, ctx: Context, info: GraphQLResolveInfo) {},
 			async getPhotoUsingIds(obj: undefined, {name}: {name: string}, ctx: Context) {},

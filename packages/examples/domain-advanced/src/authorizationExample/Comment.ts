@@ -19,7 +19,7 @@ export class Comment {
 	user!: User;
 
 	static async getById(id: string, ctx: Context): Promise<Comment | undefined> {
-		ctx.context.Authorization.throwUnlessCan('read', ' Comment');
+		// ctx.context.Authorization.throwUnlessCan('read', ' Comment');
 		return getRepository(Comment).findOne(id, {loadRelationIds: true});
 	}
 
@@ -28,7 +28,7 @@ export class Comment {
 	}
 
 	static async add(comment: Comment, ctx: Context) {
-		ctx.context.Authorization.throwUnlessCan('create', 'Comment');
+		// ctx.context.Authorization.throwUnlessCan('create', 'Comment');
 		await getRepository(Comment).save(comment);
 	}
 }

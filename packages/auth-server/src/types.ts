@@ -28,11 +28,8 @@ export interface AccessToken {
 
 export interface ServiceInfo {
 	id: string;
-	roles: string[];
-	password: {
-		bcrypt: string;
-	};
-	blacklist?: number[]; // TODO should not be a number. Blacklisted refresh tokens
+	password: string; // Bcrypt hash password
+	blacklist?: string[]; // Blacklisted refresh tokens
 }
 
 export interface AuthenticationDomain {

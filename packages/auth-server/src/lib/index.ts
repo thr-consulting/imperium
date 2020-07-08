@@ -29,7 +29,7 @@ function signJwt(payload: string | object = {}, secret: string, options: SignOpt
 }
 
 export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
-	return compare(getPasswordString(loginInfo.password), serviceInfo.password.bcrypt);
+	return compare(getPasswordString(loginInfo.password), serviceInfo.password);
 }
 
 export function createAccessToken(serviceInfo: ServiceInfo): string {
@@ -80,7 +80,6 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 }
 
 export async function refresh(refreshTokenString: string, auth: AuthenticationDomain) {
-	// Todo this should probably read cookies because you can brute force this
 	const token = decode(refreshTokenString);
 
 	// Check if token is invalid or expired
@@ -97,13 +96,13 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 	}
 
 	// Check if token is blacklisted
-	const blacklistIndex = serviceInfo.blacklist?.indexOf(token.iat);
+	const blacklistIndex = serviceInfo.blacklist?.indexOf(refreshTokenString);
 	if (typeof blacklistIndex === 'number' && blacklistIndex >= 0) {
 		throw new Error('Token is blacklisted');
 	}
 
 	return {
-		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file. <= thats a yikes from me. no yikes
+		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
 		access: createAccessToken(serviceInfo),
 	};
 }

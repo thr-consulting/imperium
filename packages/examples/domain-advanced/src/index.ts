@@ -3,11 +3,12 @@ import {GraphQLDatabaseLoader} from '@mando75/typeorm-graphql-loader';
 import {ContextManager, spreadEntities, Connector, ConnectorsConfig, AuthenticatedUser, TypeOfPromise} from '@imperium/context-manager';
 import type SharedCache from '@thx/sharedcache';
 import type {Connection} from 'typeorm';
-import {ForbiddenError} from '@casl/ability';
+import {Ability, ForbiddenError} from '@casl/ability';
 import {Score} from './Score';
 import {SecureModel} from './SecureModel';
 import {User} from './User';
 import {Authorization, entities as authorizationEntities} from './authorizationExample';
+import {AppAbility, defineRulesFor} from './authorizationExample/defineRulesFor';
 
 const d = debug('imperium.examples.domain-advanced');
 
@@ -40,14 +41,21 @@ export async function createDomainAdvancedContext(connectors: DomainAdvancedConn
 			SecureModel: () => SecureModel,
 			// Magic typeorm loader
 			typeormLoader: () => new GraphQLDatabaseLoader(connectors.connections.pg),
-			Authorization: () => new Authorization(authenticatedUser),
+			Authorization: () => {
+				return new Authorization<User, AppAbility>(defineRulesFor, authenticatedUser?.auth?.id);
+			},
 			ForbiddenError: () => ForbiddenError,
 		},
 		connectors,
 		authenticatedUser,
 	);
 
-	await cm.context.Authorization.prepare(cm);
+	await cm.context.Authorization.prepare(async (id: string) => {
+		d(`Fetching user for authorization: ${id}`);
+		return cm.connectors.connections.pg.getRepository(User).findOne(id);
+	}, cm);
+	const a = cm.context.Authorization;
+	d(a.can('read', 'User'));
 
 	return cm;
 }
