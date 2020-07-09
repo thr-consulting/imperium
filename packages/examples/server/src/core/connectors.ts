@@ -1,9 +1,9 @@
 import {Connector} from '@imperium/context-manager';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
-import {ConnectionOptions, createConnection} from 'typeorm';
+import {MikroORM, Options} from 'mikro-orm';
 import redis from 'redis';
-import {typeormEntities} from '@imperium/example-domain-advanced';
+import {entities} from '@imperium/example-domain-advanced';
 
 const d = debug('imperium.example.server.connectors');
 
@@ -21,20 +21,19 @@ export const connectors = new Connector({
 	},
 	pg: {
 		async connect() {
-			const postgresOptions: ConnectionOptions = {
-				type: 'postgres',
-				logging: process.env.POSTGRESQL_LOGGING === 'true',
-				url: process.env.POSTGRESQL_URL,
-				synchronize: process.env.NODE_ENV === 'development',
-				entities: Object.values(typeormEntities),
-				// subscribers,
-				...(process.env.POSTGRESQL_SSL_CA ? {ssl: {ca: process.env.POSTGRESQL_SSL_CA}} : {}),
+			const mikroOrmOptions: Options = {
+				entities: Object.values(entities),
+				clientUrl: process.env.POSTGRESQL_URL,
+				type: 'postgresql',
+				// logging: process.env.POSTGRESQL_LOGGING === 'true',
+				// synchronize: process.env.NODE_ENV === 'development',
+				// ...(process.env.POSTGRESQL_SSL_CA ? {ssl: {ca: process.env.POSTGRESQL_SSL_CA}} : {}),
 			};
 
-			return createConnection(postgresOptions);
+			return MikroORM.init(mikroOrmOptions);
 		},
 		async close(pg) {
-			await pg.close();
+			await pg.close(true);
 		},
 	},
 	sharedCache: {

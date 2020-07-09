@@ -19,7 +19,8 @@
     "build:prod": "imperium build-server imperium.js",
     "lint": "eslint --cache --ext ts,js src",
     "lint:fix": "eslint --cache --fix --ext ts,js src",
-    "ts": "tsc"
+    "ts": "tsc",
+    "orm": "mikro-orm"
   },
   "dependencies": {
     "@imperium/auth-server": "^4.2.0",
@@ -35,11 +36,18 @@
     "graphql-redis-subscriptions": "^2.2.1",
     "graphql-subscriptions": "^1.1.0",
     "lodash": "^4.17.15",
+    "mikro-orm": "^3.6.15",
     "pg": "^8.2.1",
-    "redis": "^3.0.2",
-    "typeorm": "^0.2.24"
+    "redis": "^3.0.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^4.2.0"
+    "@imperium/dev": "^4.2.0",
+    "ts-node": "^8.10.2"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts"
+    ]
   }
 }

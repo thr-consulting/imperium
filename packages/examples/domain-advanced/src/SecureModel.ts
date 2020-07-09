@@ -12,7 +12,7 @@ const d = debug('imperium.examples.domain-advanced.SecureModel');
 
 class SecureModel {
 	static async getSecureData(id: string, ctx: Context) {
-		ctx.context.Authorization.throwUnlessCan('read', 'SecureModel');
+		// ctx.context.Authorization.throwUnlessCan('read', 'SecureModel');
 
 		return `My Super Secure Data: ${id}`;
 	}

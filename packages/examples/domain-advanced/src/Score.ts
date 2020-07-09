@@ -1,24 +1,25 @@
 import debug from 'debug';
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {v4} from 'uuid';
+import {PrimaryKey, Entity, Property, BigIntType} from 'mikro-orm';
 
 const d = debug('imperium.examples.domain-advanced.Score');
 
 /*
-	This is an example of a typeorm domain model.
+	This is an example of a mikro-orm domain model.
  */
 
 @Entity()
 class Score {
-	@PrimaryGeneratedColumn('uuid')
-	id!: string;
+	@PrimaryKey({type: 'uuid'})
+	id = v4();
 
-	@Column('text')
+	@Property({type: 'text'})
 	name!: string;
 
-	@Column('boolean')
+	@Property({type: 'boolean'})
 	winner: boolean;
 
-	@Column('bigint')
+	@Property({type: BigIntType})
 	score: number;
 
 	constructor() {

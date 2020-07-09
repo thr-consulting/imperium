@@ -136,17 +136,17 @@ export const authorizationModule = (): ImperiumGraphqlServerModule<Context, type
 	schema: [schema, query],
 	resolvers,
 	async startup(server) {
-		const systemUser = await User.createSystemUser();
-
-		const context = await contextCreator(server.connectors, {
-			auth: {
-				id: systemUser?.id,
-			},
-		});
-
-		const categories = await getOrCreateCategories(context);
-		const users = await getOrCreateUsers(context);
-		const photos = await getOrCreatePhotos(categories, users, context);
-		await createComments(photos, users, context);
+		// const systemUser = await User.createSystemUser();
+		//
+		// const context = await contextCreator(server.connectors, {
+		// 	auth: {
+		// 		id: systemUser?.id,
+		// 	},
+		// });
+		//
+		// const categories = await getOrCreateCategories(context);
+		// const users = await getOrCreateUsers(context);
+		// const photos = await getOrCreatePhotos(categories, users, context);
+		// await createComments(photos, users, context);
 	},
 });

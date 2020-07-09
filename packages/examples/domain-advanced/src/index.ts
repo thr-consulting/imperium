@@ -1,14 +1,14 @@
 import debug from 'debug';
-import {GraphQLDatabaseLoader} from '@mando75/typeorm-graphql-loader';
 import {ContextManager, spreadEntities, Connector, ConnectorsConfig, AuthenticatedUser, TypeOfPromise} from '@imperium/context-manager';
 import type SharedCache from '@thx/sharedcache';
-import type {Connection} from 'typeorm';
-import {Ability, ForbiddenError} from '@casl/ability';
+import type {MikroORM} from 'mikro-orm';
+// import {Ability, ForbiddenError} from '@casl/ability';
 import {Score} from './Score';
 import {SecureModel} from './SecureModel';
 import {User} from './User';
-import {Authorization, entities as authorizationEntities} from './authorizationExample';
-import {AppAbility, defineRulesFor} from './authorizationExample/defineRulesFor';
+import {Services} from './Services';
+// import {entities as authorizationEntities} from './authorizationExample';
+// import {AppAbility, defineRulesFor} from './authorizationExample/defineRulesFor';
 
 const d = debug('imperium.examples.domain-advanced');
 
@@ -19,16 +19,17 @@ const d = debug('imperium.examples.domain-advanced');
 
 // We export the required type of connectors this domain needs.
 export type DomainAdvancedConnectors = Connector<{
-	pg: ConnectorsConfig<Connection>;
+	pg: ConnectorsConfig<MikroORM>;
 	sharedCache: ConnectorsConfig<SharedCache>;
 }>;
 
 // The typeorm connector requires all of the typeorm models to be included when we create the connector
 // so we export these entities here.
-export const typeormEntities = {
+export const entities = {
 	Score,
 	User,
-	...authorizationEntities,
+	Services,
+	// ...authorizationEntities,
 };
 
 // This domain requires an Auth instance to be passed into it and we will pass that to the ContextManager instance.
@@ -36,26 +37,23 @@ export async function createDomainAdvancedContext(connectors: DomainAdvancedConn
 	const cm = new ContextManager(
 		{
 			// We can use the spreadEntities helper function to take our previously defined typeorm models and add them here.
-			...spreadEntities(typeormEntities),
+			...spreadEntities(entities),
 			// This is just a plain domain model
 			SecureModel: () => SecureModel,
-			// Magic typeorm loader
-			typeormLoader: () => new GraphQLDatabaseLoader(connectors.connections.pg),
-			Authorization: () => {
-				return new Authorization<User, AppAbility>(defineRulesFor, authenticatedUser?.auth?.id);
-			},
-			ForbiddenError: () => ForbiddenError,
+			// Authorization: () => {
+			// 	return new Authorization<User, AppAbility>(defineRulesFor, authenticatedUser?.auth?.id);
+			// },
 		},
 		connectors,
 		authenticatedUser,
 	);
 
-	await cm.context.Authorization.prepare(async (id: string) => {
-		d(`Fetching user for authorization: ${id}`);
-		return cm.connectors.connections.pg.getRepository(User).findOne(id);
-	}, cm);
-	const a = cm.context.Authorization;
-	d(a.can('read', 'User'));
+	// await cm.context.Authorization.prepare(async (id: string) => {
+	// 	d(`Fetching user for authorization: ${id}`);
+	// 	return cm.connectors.connections.pg.getRepository(User).findOne(id);
+	// }, cm);
+	// const a = cm.context.Authorization;
+	// d(a.can('read', 'User'));
 
 	return cm;
 }
