@@ -1,5 +1,5 @@
 import debug from 'debug';
-import type {Context} from './index';
+import type {Context} from '../index';
 
 const d = debug('imperium.examples.domain.SecureModel');
 

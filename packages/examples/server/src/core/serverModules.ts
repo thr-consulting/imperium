@@ -4,10 +4,11 @@ import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
-import {advancedModule} from '../advancedModule';
-import {basicModule} from '../basicModule';
-import {graphqlModule} from '../graphqlModule';
+// import {advancedModule} from '../advancedModule';
+// import {basicModule} from '../basicModule';
+// import {graphqlModule} from '../graphqlModule';
 // import {authorizationModule} from '../authorizationModule';
+import {demoDataModule} from '../demoData';
 import type {Context} from './context';
 
 const d = debug('imperium.examples.server.serverModules');
@@ -23,9 +24,10 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 			middleware: [authMiddleware({credentialsRequired: false})],
 		}),
 		authServerModule((ctx: Context) => new Authentication(ctx)),
-		basicModule(),
-		advancedModule(),
-		graphqlModule(),
+		demoDataModule(),
+		// basicModule(),
+		// advancedModule(),
+		// graphqlModule(),
 		// authorizationModule(),
 	];
 }

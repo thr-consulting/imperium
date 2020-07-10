@@ -1,32 +1,9 @@
-/* eslint-disable max-classes-per-file */
-import debug from 'debug';
-import {Entity, OneToOne, PrimaryKey, Property} from 'mikro-orm';
-import {v4} from 'uuid';
-import pick from 'lodash/pick';
-import type {Context} from './index';
-import {Services} from './Services';
+import {BaseRepository} from '../BaseRepository';
+import type {User} from './User';
 
-const d = debug('imperium.examples.domain.User');
-
-@Entity()
-export class User {
-	@PrimaryKey({type: 'uuid'})
-	id = v4();
-
-	@Property({type: 'text'})
-	name!: string;
-
-	@Property({type: 'text'})
-	email!: string;
-
-	// @Property({type: Services})
-	@OneToOne({type: Services})
-	services!: Services;
-
-	static async getById(id: string, ctx: Context): Promise<User | null> {
-		const repo = ctx.connectors.connections.pg.em.getRepository(User);
-
-		return repo.findOne(id);
+export class UserRepository extends BaseRepository<User> {
+	async getByName(name: string) {
+		return this.repo.findOne({name});
 	}
 
 	// static async getById(id: string, ctx: Context): Promise<User | undefined> {
@@ -94,4 +71,9 @@ export class User {
 	// 	// ctx.context.Authorization.throwUnlessCan('create', 'User');
 	// 	await getRepository(User).save(user);
 	// }
+
+	// eslint-disable-next-line @typescript-eslint/camelcase
+	async getByEmail__direct(email: string) {
+		return this.repo.findOne({email});
+	}
 }

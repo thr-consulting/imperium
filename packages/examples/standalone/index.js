@@ -1,6 +1,8 @@
 'use strict';
 require('dotenv').config();
 
+const runAsService = process.env.RUN_AS_SERVICE === 'true';
+
 if (process.env.NODE_ENV === 'production') {
 	const main = require('./dist/index.js');
 	main.main();
@@ -18,7 +20,6 @@ if (process.env.NODE_ENV === 'production') {
 
 	const main = require('./src/index');
 	main.main().then(() => {
-		// If you want the process to exit, uncomment the following line and remove the noop code from index.ts.
-		// process.exit(0);
+		if (!runAsService) process.exit(0);
 	});
 }

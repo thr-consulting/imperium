@@ -4,6 +4,15 @@ import {v4} from 'uuid';
 
 @Entity()
 export class Services implements Omit<ServiceInfo, 'id'> {
+	constructor(servicesLike?: Partial<Services>) {
+		Object.assign(this, servicesLike);
+		// if (servicesLike) {
+		// 	Object.keys(servicesLike).forEach(key => {
+		// 		Object.defineProperty(this, key, servicesLike[key]);
+		// 	});
+		// }
+	}
+
 	@PrimaryKey({type: 'uuid'})
 	id = v4();
 

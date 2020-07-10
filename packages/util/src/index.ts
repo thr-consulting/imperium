@@ -17,3 +17,4 @@ export function valuesToFunctions<T extends object>(obj: T) {
 }
 
 export type TypeOfPromise<T> = T extends Promise<infer U> ? U : never;
+export type DeepPartial<T> = T extends Function ? T : T extends object ? {[P in keyof T]?: DeepPartial<T[P]>} : T;

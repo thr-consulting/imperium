@@ -32,12 +32,11 @@ export class Authentication implements AuthenticationDomain {
 	}
 
 	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
-		return null;
-		// const user = await this.context.connectors.connections.pg.getRepository(this.context.context.User).findOne({name: identifier});
-		// if (!user) return null;
-		// return {
-		// 	id: user.id,
-		// 	...user.services,
-		// };
+		const user = await this.context.User.getByEmail__direct(identifier);
+		if (!user) return null;
+		return {
+			...user.services,
+			id: user.id,
+		};
 	}
 }
