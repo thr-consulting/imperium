@@ -1,3 +1,5 @@
+export {Connector, ConnectorsConfig} from './Connector';
+
 export interface AuthenticatedUser {
 	auth?: {
 		id?: string;

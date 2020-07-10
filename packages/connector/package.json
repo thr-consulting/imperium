@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/context-manager",
+	"name": "@imperium/connector",
 	"version": "4.2.0",
-	"description": "Imperium Context Manager package",
+	"description": "Imperium Connector package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -45,7 +45,7 @@
 		"testPathIgnorePatterns": [
 			"/node_modules/"
 		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/context-manager",
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/connector",
 		"collectCoverageFrom": [
 			"<rootDir>/src/**/*.js",
 			"<rootDir>/src/**/*.jsx",

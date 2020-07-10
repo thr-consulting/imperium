@@ -6,7 +6,7 @@ import type {User} from '../User';
 import type {Comment} from './Comment';
 import type {Context} from '../index';
 
-const d = debug('imperium.examples.domain-advanced.Photo');
+const d = debug('imperium.examples.domain.Photo');
 
 @Entity()
 export class Photo {

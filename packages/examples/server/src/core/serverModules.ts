@@ -1,7 +1,7 @@
 // Define server modules that should be included in the server.
 import debug from 'debug';
 import {authMiddleware, authServerModule} from '@imperium/auth-server';
-import {Authentication} from '@imperium/example-domain-advanced';
+import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import {advancedModule} from '../advancedModule';
@@ -22,7 +22,7 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],
 		}),
-		authServerModule((ctx: Context) => new Authentication(ctx.domainAdvanced)),
+		authServerModule((ctx: Context) => new Authentication(ctx)),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),

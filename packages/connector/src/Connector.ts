@@ -1,6 +1,6 @@
 import debug from 'debug';
 
-const d = debug('imperium.context-manager.Connectors');
+const d = debug('imperium.connector.Connectors');
 
 export interface ConnectorsConfig<T = any> {
 	connect: () => Promise<T>;

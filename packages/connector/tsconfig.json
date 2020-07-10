@@ -11,6 +11,6 @@
 		"excludePrivate": true,
 		"hideGenerator": true,
 		"readme": "README.md",
-		"out": "../../website/static/apistatic/context-manager"
+		"out": "../../website/static/apistatic/connector"
 	}
 }

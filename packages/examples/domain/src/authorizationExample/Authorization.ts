@@ -5,7 +5,7 @@ import type {Abilities, CanParameters} from '@casl/ability/dist/types/types';
 import debug from 'debug';
 import type {Context} from '../index';
 
-const d = debug('imperium.examples.domain-advanced.Authorization');
+const d = debug('imperium.examples.domain.Authorization');
 
 export class Authorization<U, A extends Ability> {
 	private ability!: A;

@@ -3,7 +3,7 @@ import debug from 'debug';
 import type {AuthenticationDomain, ServiceInfo} from '@imperium/auth-server';
 import type {Context} from './index';
 
-const d = debug('imperium.examples.domain-advanced.AuthenticationModel');
+const d = debug('imperium.examples.domain.AuthenticationModel');
 
 const authKeyPrefix = 'auth';
 

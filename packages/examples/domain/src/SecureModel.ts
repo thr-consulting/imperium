@@ -1,7 +1,7 @@
 import debug from 'debug';
 import type {Context} from './index';
 
-const d = debug('imperium.examples.domain-advanced.SecureModel');
+const d = debug('imperium.examples.domain.SecureModel');
 
 /*
 	This is an example of a plain domain model that uses auth to check who is making the

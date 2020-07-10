@@ -1,9 +1,9 @@
-import {Connector} from '@imperium/context-manager';
+import {Connector} from '@imperium/connector';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {MikroORM, Options} from 'mikro-orm';
 import redis from 'redis';
-import {entities} from '@imperium/example-domain-advanced';
+import {entities} from '@imperium/example-domain';
 
 const d = debug('imperium.example.server.connectors');
 

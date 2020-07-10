@@ -24,9 +24,8 @@
   },
   "dependencies": {
     "@imperium/auth-server": "^4.2.0",
-    "@imperium/context-manager": "^4.2.0",
-    "@imperium/example-domain-advanced": "^4.2.0",
-    "@imperium/example-domain-simple": "^4.2.0",
+    "@imperium/connector": "^4.2.0",
+    "@imperium/example-domain": "^4.2.0",
     "@imperium/graphql-server": "^4.2.0",
     "@imperium/server": "^4.2.0",
     "@thx/sharedcache": "^11.0.1",

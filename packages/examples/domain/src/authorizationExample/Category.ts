@@ -2,7 +2,7 @@ import debug from 'debug';
 import {Column, Entity, getRepository, PrimaryGeneratedColumn} from 'typeorm';
 import type {Context} from '../index';
 
-const d = debug('imperium.examples.domain-advanced.Category');
+const d = debug('imperium.examples.domain.Category');
 
 @Entity()
 export class Category {

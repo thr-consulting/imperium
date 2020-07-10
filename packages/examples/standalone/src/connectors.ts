@@ -1,9 +1,9 @@
-import {Connector} from '@imperium/context-manager';
+import {Connector} from '@imperium/connector';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {ConnectionOptions, createConnection} from 'typeorm';
 import redis from 'redis';
-import {typeormEntities} from '@imperium/example-domain-advanced';
+import {typeormEntities} from '@imperium/example-domain';
 
 const d = debug('imperium.examples.standalone.connectors');
 

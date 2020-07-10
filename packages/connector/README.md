@@ -1,6 +1,6 @@
-# @imperium/context-manager
+# @imperium/connector
 
-[![Coverage_badge](../../docs/assets/coverage/graphql-server/coverage.svg)](assets/coverage/graphql-server/index.html)
+[![Coverage_badge](../../docs/assets/coverage/connector/coverage.svg)](assets/coverage/connector/index.html)
 [![GitHub tag](https://img.shields.io/github/tag/darkadept/imperium.svg)](https://github.com/darkadept/imperium/tags/)
 [![GitHub issues](https://img.shields.io/github/issues/darkadept/imperium.svg)](https://github.com/darkadept/imperium/issues/)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/darkadept/imperium.svg)](https://GitHub.com/darkadept/imperium/pull/)

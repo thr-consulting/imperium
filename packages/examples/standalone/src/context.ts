@@ -1,6 +1,6 @@
-import {Auth} from '@imperium/context-manager';
-import {createDomainSimpleContext} from '@imperium/example-domain-simple';
-import {createDomainAdvancedContext} from '@imperium/example-domain-advanced';
+import {AuthenticatedUser} from '@imperium/connector';
+import type {TypeOfPromise} from '@imperium/util';
+import {createDomain} from '@imperium/example-domain';
 import type {connectors} from './connectors';
 
 /*
@@ -13,20 +13,10 @@ import type {connectors} from './connectors';
 	This function is usually called on every network request or every operation.
  */
 
-export function contextCreator(conn: typeof connectors, id?: string) {
-	const auth = new Auth({auth: {id}});
-
-	const context = {
-		domainSimple: createDomainSimpleContext(conn),
-		domainAdvanced: createDomainAdvancedContext(conn, auth),
-		domainAnything: {anything: 5},
-	};
-
-	auth.setAccessor(context.domainAdvanced.context.AuthModel.create(context.domainAdvanced));
-
-	return context;
+export async function contextCreator(conn: typeof connectors, auth?: AuthenticatedUser) {
+	return createDomain(conn, auth);
 }
 
 // We also need to export the return type of the context creator function.
 // This will be imported by server modules.
-export type Context = ReturnType<typeof contextCreator>;
+export type Context = TypeOfPromise<ReturnType<typeof contextCreator>>;

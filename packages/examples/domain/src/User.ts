@@ -6,7 +6,7 @@ import pick from 'lodash/pick';
 import type {Context} from './index';
 import {Services} from './Services';
 
-const d = debug('imperium.examples.domain-advanced.User');
+const d = debug('imperium.examples.domain.User');
 
 @Entity()
 export class User {

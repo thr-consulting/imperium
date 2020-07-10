@@ -1,4 +1,4 @@
-import type {Connector} from '@imperium/context-manager';
+import type {Connector} from '@imperium/connector';
 import type {ImperiumServer} from './ImperiumServer';
 
 /**
