@@ -12,7 +12,7 @@ function getKey(key: string | string[]) {
 }
 
 export class Authentication implements AuthenticationDomain {
-	private context: Context;
+	private readonly context: Context;
 
 	constructor(context: Context) {
 		this.context = context;

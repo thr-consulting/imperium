@@ -40,38 +40,6 @@ export class UserService extends AbstractEntityService<User, DomainConnectors> {
 	//
 	// 	return u as User;
 	// }
-	//
-	// static async createSystemUser() {
-	// 	const repo = getRepository(User);
-	// 	const sys = await repo.findOne({name: 'SYSTEM'});
-	// 	if (!sys) {
-	// 		await repo.insert({
-	// 			name: 'SYSTEM',
-	// 			email: 'system@example.com',
-	// 			services: {
-	// 				password: 'NOPASSWORD',
-	// 				roles: ['admin'],
-	// 			},
-	// 		});
-	// 	}
-	// 	return repo.findOne({name: 'SYSTEM'});
-	// }
-	//
-	// static async getByName(name: string, ctx: Context) {
-	// 	// ctx.context.Authorization.throwUnlessCan('read', 'User');
-	// 	const u = await getRepository(User).findOne({name});
-	// 	// ctx.context.Authorization.throwUnlessCan('read', u);
-	// 	return u;
-	// }
-	//
-	// static create(entityLike: DeepPartial<User>) {
-	// 	return getRepository(User).create(entityLike);
-	// }
-	//
-	// static async add(user: User, ctx: Context) {
-	// 	// ctx.context.Authorization.throwUnlessCan('create', 'User');
-	// 	await getRepository(User).save(user);
-	// }
 
 	// eslint-disable-next-line @typescript-eslint/camelcase
 	async getByEmail__direct(email: string) {

@@ -2,16 +2,15 @@ import type {EntityData, EntityRepository, EntityManager, FilterQuery} from 'mik
 import type {AuthenticatedUser, Connector} from '@imperium/connector';
 
 /**
- * This abstract class can be extended to provide Domain Services for a single
- * mikro-orm entity type.
+ * This abstract class can be extended to provide Domain Services for a single mikro-orm entity type.
  */
-export abstract class AbstractEntityService<T, DC extends Connector> {
-	protected readonly connectors: DC;
+export abstract class AbstractEntityService<T, C extends Connector> {
+	protected readonly connectors: C;
 	protected readonly authenticatedUser?: AuthenticatedUser;
 	protected readonly repo: EntityRepository<T>;
 	protected readonly em: EntityManager;
 
-	constructor(em: EntityManager, repo: EntityRepository<T>, conn: DC, authenticatedUser?: AuthenticatedUser) {
+	constructor(em: EntityManager, repo: EntityRepository<T>, conn: C, authenticatedUser?: AuthenticatedUser) {
 		this.connectors = conn;
 		this.authenticatedUser = authenticatedUser;
 		this.repo = repo;

@@ -17,8 +17,6 @@ export const demoDataModule = (): ImperiumServerModule<Context, typeof connector
 			},
 		});
 
-		// const systemUser = await context.UserService.getById(systemUserId);
-
 		const categories = await getOrCreateCategories(context);
 		const users = await getOrCreateUsers(context);
 		const photos = await getOrCreatePhotos(categories, users, context);

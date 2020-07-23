@@ -5,6 +5,9 @@ import type {DomainConnectors} from './DomainConnectors';
 import {CategoryService, PhotoService, CommentService} from './photo';
 import {entities} from './entities';
 
+/*
+	Services usually need instances created for the current request, we create those here.
+ */
 export function services(em: EntityManager, conn: DomainConnectors, authenticatedUser?: AuthenticatedUser) {
 	return {
 		UserService: new UserService(em, em.getRepository(entities.User), conn, authenticatedUser),
