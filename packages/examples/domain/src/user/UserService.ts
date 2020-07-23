@@ -1,7 +1,8 @@
-import {BaseRepository} from '../BaseRepository';
+import {AbstractEntityService} from '../AbstractEntityService';
 import type {User} from './User';
+import type {DomainConnectors} from '../DomainConnectors';
 
-export class UserRepository extends BaseRepository<User> {
+export class UserService extends AbstractEntityService<User, DomainConnectors> {
 	async getByName(name: string) {
 		return this.repo.findOne({name});
 	}

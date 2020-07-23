@@ -1,6 +1,9 @@
+import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
 import {entities} from '@imperium/example-domain';
 import type {Context} from '../core/context';
+
+const d = debug('imperium.examples.server.createData');
 
 export async function createSystemUser(server: ImperiumServer<any, any>) {
 	const userEntityRepository = server.connectors.connections.orm.em.getRepository(entities.User);
@@ -22,47 +25,49 @@ export async function createSystemUser(server: ImperiumServer<any, any>) {
 }
 
 export async function getOrCreateCategories(ctx: Context) {
-	let cat1 = await ctx.Category.getByName('Category 1');
-	let cat2 = await ctx.Category.getByName('Category 2');
+	let cat1 = await ctx.CategoryService.getByName('Category 1');
+	let cat2 = await ctx.CategoryService.getByName('Category 2');
+	d(cat1);
+	d(cat2);
 	if (!cat1) {
-		cat1 = new ctx.entities.Category();
+		cat1 = new ctx.Category();
 		cat1.name = 'Category 1';
-		ctx.Category.add(cat1);
+		ctx.CategoryService.add(cat1);
 	}
 	if (!cat2) {
-		cat2 = new ctx.entities.Category();
+		cat2 = new ctx.Category();
 		cat2.name = 'Category 2';
-		ctx.Category.add(cat2);
+		ctx.CategoryService.add(cat2);
 	}
 
 	return [cat1, cat2];
 }
 
 export async function getOrCreateUsers(ctx: Context) {
-	let user1 = await ctx.User.getByName('John Doe');
+	let user1 = await ctx.UserService.getByName('John Doe');
 	if (!user1) {
-		user1 = ctx.User.create({
+		user1 = ctx.UserService.create({
 			name: 'John Doe',
 			email: 'john@example.com',
-			services: new ctx.entities.Services({
+			services: new ctx.Services({
 				password: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2', // "password", sha256 hashed and then bcrypt 12 rounds
 				roles: ['admin'],
 			}),
 		});
-		ctx.User.add(user1);
+		ctx.UserService.add(user1);
 	}
 
-	let user2 = await ctx.User.getByName('Jane Doe');
+	let user2 = await ctx.UserService.getByName('Jane Doe');
 	if (!user2) {
-		user2 = ctx.User.create({
+		user2 = ctx.UserService.create({
 			name: 'Jane Doe',
 			email: 'jane@example.com',
-			services: new ctx.entities.Services({
+			services: new ctx.Services({
 				password: '$2a$10$SKS6TmYxF7QWRcOC7rn3celhRbGbR27Al8KjtvmPve.dYa9R3pG/2', // "password", sha256 hashed and then bcrypt 12 rounds
 				roles: [],
 			}),
 		});
-		ctx.User.add(user2);
+		ctx.UserService.add(user2);
 	}
 
 	return [user1, user2];
@@ -103,7 +108,7 @@ export async function getOrCreateUsers(ctx: Context) {
 //
 // 	return [photo1, photo2];
 // }
-//
+
 // export async function createComments(photos: Photo[], users: User[], ctx: Context) {
 // 	const {Comment} = ctx.domainAdvanced.context;
 // 	const [photo1, photo2] = photos;

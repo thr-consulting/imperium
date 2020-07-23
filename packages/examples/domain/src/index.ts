@@ -1,36 +1,28 @@
 import debug from 'debug';
-import type {Connector, ConnectorsConfig, AuthenticatedUser} from '@imperium/connector';
+import type {AuthenticatedUser} from '@imperium/connector';
 import type {TypeOfPromise} from '@imperium/util';
-import type SharedCache from '@thx/sharedcache';
-import type {MikroORM} from 'mikro-orm';
 import {entities} from './entities';
-import {repositories} from './repositories';
+import {services} from './services';
 import {SecureModel} from './other';
 // import {AppAbility, defineRulesFor} from './authorizationExample/defineRulesFor';
+import type {DomainConnectors} from './DomainConnectors';
 
 const d = debug('imperium.examples.domain');
-
-// We export the required type of connectors this domain needs.
-export type DomainConnectors = Connector<{
-	orm: ConnectorsConfig<MikroORM>;
-	sharedCache: ConnectorsConfig<SharedCache>;
-}>;
 
 export async function createDomain(connectors: DomainConnectors, authenticatedUser?: AuthenticatedUser) {
 	// const authorization = new Authorization(authenticatedUser?.auth?.id);
 
+	// Create a new, blank Entity Manager
 	const em = connectors.connections.orm.em.fork(true, true);
 
 	const ctx = {
-		entities,
-		...repositories(em, connectors, authenticatedUser),
+		...entities,
+		...services(em, connectors, authenticatedUser),
 		SecureModel,
 		// Authorization: authorization,
 		connectors,
 		authenticatedUser,
-		async flush() {
-			await em.flush();
-		},
+		entityManager: em,
 	};
 
 	// await ctx.context.Authorization.prepare(async (id: string) => {
@@ -42,5 +34,6 @@ export async function createDomain(connectors: DomainConnectors, authenticatedUs
 }
 
 export type Context = TypeOfPromise<ReturnType<typeof createDomain>>;
-export {Authentication} from './Authentication';
+export {Authentication} from './user';
 export {entities};
+export {services};

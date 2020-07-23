@@ -1,9 +1,9 @@
 /* eslint-disable react/static-property-placement */
 import debug from 'debug';
 import type {AuthenticationDomain, ServiceInfo} from '@imperium/auth-server';
-import type {Context} from './index';
+import type {Context} from '../index';
 
-const d = debug('imperium.examples.domain.AuthenticationModel');
+const d = debug('imperium.examples.domain.user.Authentication');
 
 const authKeyPrefix = 'auth';
 
@@ -32,7 +32,7 @@ export class Authentication implements AuthenticationDomain {
 	}
 
 	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
-		const user = await this.context.User.getByEmail__direct(identifier);
+		const user = await this.context.UserService.getByEmail__direct(identifier);
 		if (!user) return null;
 		return {
 			...user.services,

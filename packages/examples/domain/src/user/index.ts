@@ -1,3 +1,4 @@
 export {User} from './User';
 export {Services} from './Services';
-export {UserRepository} from './UserRepository';
+export {UserService} from './UserService';
+export {Authentication} from './Authentication';
