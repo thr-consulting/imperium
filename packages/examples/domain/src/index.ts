@@ -34,6 +34,7 @@ export async function createDomain(connectors: DomainConnectors, authenticatedUs
 }
 
 export type Context = TypeOfPromise<ReturnType<typeof createDomain>>;
-export {Authentication} from './user';
 export {entities};
 export {services};
+export * from './photo';
+export * from './user';

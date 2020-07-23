@@ -1,34 +1,19 @@
-import {Column, DeepPartial, Entity, getRepository, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Entity, ManyToOne, PrimaryKey, Property} from 'mikro-orm';
+import {v4} from 'uuid';
 import type {Photo} from './Photo';
-import type {User} from '../User';
-import type {Context} from '../index';
+import {User} from '../user';
 
 @Entity()
 export class Comment {
-	@PrimaryGeneratedColumn('uuid')
-	id!: string;
+	@PrimaryKey({type: 'uuid'})
+	id = v4();
 
-	@Column('text')
+	@Property({type: 'text'})
 	comment!: string;
 
-	@ManyToOne('Photo', (photo: Photo) => photo.comments)
+	@ManyToOne('Photo')
 	photo!: Photo;
 
-	@ManyToOne('User')
-	@JoinColumn()
+	@ManyToOne(() => User)
 	user!: User;
-
-	static async getById(id: string, ctx: Context): Promise<Comment | undefined> {
-		// ctx.context.Authorization.throwUnlessCan('read', ' Comment');
-		return getRepository(Comment).findOne(id, {loadRelationIds: true});
-	}
-
-	static create(entityLike: DeepPartial<Comment>) {
-		return getRepository(Comment).create(entityLike);
-	}
-
-	static async add(comment: Comment, ctx: Context) {
-		// ctx.context.Authorization.throwUnlessCan('create', 'Comment');
-		await getRepository(Comment).save(comment);
-	}
 }

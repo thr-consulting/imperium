@@ -1,6 +1,6 @@
 import {User, Services} from './user';
 import {Score} from './other';
-import {Category, Photo} from './photo';
+import {Category, Photo, Comment} from './photo';
 
 export const entities = {
 	User,
@@ -8,4 +8,5 @@ export const entities = {
 	Score,
 	Category,
 	Photo,
+	Comment,
 };

@@ -1,8 +1,9 @@
 import debug from 'debug';
-import {Entity, ManyToMany, ManyToOne, PrimaryKey, Property} from 'mikro-orm';
+import {Collection, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryKey, Property} from 'mikro-orm';
+import {v4} from 'uuid';
 import {Category} from './Category';
 import {User} from '../user';
-// import type {Comment} from './Comment';
+import {Comment} from './Comment';
 // import {Metadata} from './Metadata';
 
 const d = debug('imperium.examples.domain.Photo');
@@ -10,7 +11,7 @@ const d = debug('imperium.examples.domain.Photo');
 @Entity()
 export class Photo {
 	@PrimaryKey({type: 'uuid'})
-	id!: string;
+	id = v4();
 
 	@Property({type: 'text'})
 	name!: string;
@@ -22,10 +23,10 @@ export class Photo {
 	// metadata!: Metadata;
 
 	@ManyToMany(() => Category)
-	categories!: Category[];
+	categories = new Collection<Category>(this);
 
-	// @OneToMany('Comment', (comment: Comment) => comment.photo)
-	// comments!: Comment[];
+	@OneToMany(() => Comment, comment => comment.photo)
+	comments = new Collection<Comment>(this);
 
 	@ManyToOne(() => User)
 	owner!: User;

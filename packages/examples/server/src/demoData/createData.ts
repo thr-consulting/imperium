@@ -1,6 +1,6 @@
 import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
-import {entities} from '@imperium/example-domain';
+import {entities, Category, User, Photo} from '@imperium/example-domain';
 import type {Context} from '../core/context';
 
 const d = debug('imperium.examples.server.createData');
@@ -27,8 +27,7 @@ export async function createSystemUser(server: ImperiumServer<any, any>) {
 export async function getOrCreateCategories(ctx: Context) {
 	let cat1 = await ctx.CategoryService.getByName('Category 1');
 	let cat2 = await ctx.CategoryService.getByName('Category 2');
-	d(cat1);
-	d(cat2);
+
 	if (!cat1) {
 		cat1 = new ctx.Category();
 		cat1.name = 'Category 1';
@@ -73,74 +72,75 @@ export async function getOrCreateUsers(ctx: Context) {
 	return [user1, user2];
 }
 
-// export async function getOrCreatePhotos(categories: Category[], users: User[], ctx: Context) {
-// 	const {Photo: PhotoModel} = ctx.domainAdvanced.context;
-//
-// 	let photo1 = await PhotoModel.getByName('Photo 1', ctx.domainAdvanced);
-// 	if (!photo1) {
-// 		photo1 = PhotoModel.create({
-// 			name: 'Photo 1',
-// 			categories,
-// 			metadata: {
-// 				location: 'Earth',
-// 				privateData: 'This is private data for photo1',
-// 			},
-// 			public: false,
-// 			owner: users[0],
-// 		});
-// 		await PhotoModel.add(photo1, ctx.domainAdvanced);
-// 	}
-//
-// 	let photo2 = await PhotoModel.getByName('Photo 2', ctx.domainAdvanced);
-// 	if (!photo2) {
-// 		photo2 = PhotoModel.create({
-// 			name: 'Photo 2',
-// 			categories,
-// 			metadata: {
-// 				location: 'The ISS',
-// 				privateData: 'This is private data for photo 2',
-// 			},
-// 			public: true,
-// 			owner: users[0],
-// 		});
-// 		await PhotoModel.add(photo2, ctx.domainAdvanced);
-// 	}
-//
-// 	return [photo1, photo2];
-// }
+export async function getOrCreatePhotos(categories: Category[], users: User[], ctx: Context) {
+	let photo1 = await ctx.PhotoService.getByName('Photo 1');
+	if (!photo1) {
+		photo1 = ctx.PhotoService.create({
+			name: 'Photo 1',
+			categories,
+			metadata: {
+				location: 'Earth',
+				privateData: 'This is private data for photo1',
+			},
+			public: false,
+			owner: users[0],
+		});
+		ctx.PhotoService.add(photo1);
+	}
 
-// export async function createComments(photos: Photo[], users: User[], ctx: Context) {
-// 	const {Comment} = ctx.domainAdvanced.context;
-// 	const [photo1, photo2] = photos;
-// 	const [user1, user2] = users;
-//
-// 	if (!photo1.comments || photo1.comments.length === 0) {
-// 		const comment1 = Comment.create({
-// 			comment: 'This is a comment',
-// 			user: user1,
-// 			photo: photo1,
-// 		});
-// 		await Comment.add(comment1, ctx.domainAdvanced);
-// 		const comment2 = Comment.create({
-// 			comment: 'Comment number two',
-// 			user: user1,
-// 			photo: photo1,
-// 		});
-// 		await Comment.add(comment2, ctx.domainAdvanced);
-// 	}
-//
-// 	if (!photo2.comments || photo2.comments.length === 0) {
-// 		const comment1 = Comment.create({
-// 			comment: 'A comment on a public photo.',
-// 			user: user1,
-// 			photo: photo2,
-// 		});
-// 		await Comment.add(comment1, ctx.domainAdvanced);
-// 		const comment2 = Comment.create({
-// 			comment: 'Another comment on a public photo.',
-// 			user: user2,
-// 			photo: photo2,
-// 		});
-// 		await Comment.add(comment2, ctx.domainAdvanced);
-// 	}
-// }
+	let photo2 = await ctx.PhotoService.getByName('Photo 2');
+	if (!photo2) {
+		photo2 = ctx.PhotoService.create({
+			name: 'Photo 2',
+			categories,
+			metadata: {
+				location: 'The ISS',
+				privateData: 'This is private data for photo 2',
+			},
+			public: true,
+			owner: users[0],
+		});
+		await ctx.PhotoService.add(photo2);
+	}
+
+	return [photo1, photo2];
+}
+
+export async function createComments(photos: Photo[], users: User[], ctx: Context) {
+	const [photo1, photo2] = photos;
+	const [user1, user2] = users;
+
+	await photo1.comments.loadItems();
+	if (photo1.comments.length === 0) {
+		const comment1 = ctx.CommentService.create({
+			comment: 'This is a comment',
+			user: user1,
+			photo: photo1,
+		});
+		ctx.CommentService.add(comment1);
+
+		const comment2 = ctx.CommentService.create({
+			comment: 'Comment number two',
+			user: user1,
+			photo: photo1,
+		});
+		ctx.CommentService.add(comment2);
+	}
+
+	await photo2.comments.loadItems();
+	if (photo2.comments.length === 0) {
+		const comment1 = ctx.CommentService.create({
+			comment: 'A comment on a public photo.',
+			user: user1,
+			photo: photo2,
+		});
+		ctx.CommentService.add(comment1);
+
+		const comment2 = ctx.CommentService.create({
+			comment: 'Another comment on a public photo.',
+			user: user2,
+			photo: photo2,
+		});
+		ctx.CommentService.add(comment2);
+	}
+}
