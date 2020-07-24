@@ -1,6 +1,6 @@
-import {AbstractEntityService} from '../AbstractEntityService';
+import {AbstractEntityService} from '../lib/AbstractEntityService';
 import type {User} from './User';
-import type {DomainConnectors} from '../DomainConnectors';
+import type {DomainConnectors} from '../core/DomainConnectors';
 
 export class UserService extends AbstractEntityService<User, DomainConnectors> {
 	async getByName(name: string) {
@@ -44,5 +44,9 @@ export class UserService extends AbstractEntityService<User, DomainConnectors> {
 	// eslint-disable-next-line @typescript-eslint/camelcase
 	async getByEmail__direct(email: string) {
 		return this.repo.findOne({email});
+	}
+
+	async getById__direct(id: string) {
+		return this.repo.findOne(id);
 	}
 }

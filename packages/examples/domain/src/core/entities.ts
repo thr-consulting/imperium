@@ -1,6 +1,6 @@
-import {User, Services} from './user';
-import {Score} from './other';
-import {Category, Photo, Comment} from './photo';
+import {User, Services} from '../user';
+import {Score} from '../other';
+import {Category, Photo, Comment} from '../photo';
 
 /*
 	Mikro-orm connector requires that we notify it of our entities.

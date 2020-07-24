@@ -25,27 +25,27 @@ export async function createSystemUser(server: ImperiumServer<any, any>) {
 }
 
 export async function getOrCreateCategories(ctx: Context) {
-	let cat1 = await ctx.CategoryService.getByName('Category 1');
-	let cat2 = await ctx.CategoryService.getByName('Category 2');
+	let cat1 = await ctx.categoryService.getByName('Category 1');
+	let cat2 = await ctx.categoryService.getByName('Category 2');
 
 	if (!cat1) {
 		cat1 = new ctx.Category();
 		cat1.name = 'Category 1';
-		ctx.CategoryService.add(cat1);
+		ctx.categoryService.add(cat1);
 	}
 	if (!cat2) {
 		cat2 = new ctx.Category();
 		cat2.name = 'Category 2';
-		ctx.CategoryService.add(cat2);
+		ctx.categoryService.add(cat2);
 	}
 
 	return [cat1, cat2];
 }
 
 export async function getOrCreateUsers(ctx: Context) {
-	let user1 = await ctx.UserService.getByName('John Doe');
+	let user1 = await ctx.userService.getByName('John Doe');
 	if (!user1) {
-		user1 = ctx.UserService.create({
+		user1 = ctx.userService.create({
 			name: 'John Doe',
 			email: 'john@example.com',
 			services: new ctx.Services({
@@ -53,12 +53,12 @@ export async function getOrCreateUsers(ctx: Context) {
 				roles: ['admin'],
 			}),
 		});
-		ctx.UserService.add(user1);
+		ctx.userService.add(user1);
 	}
 
-	let user2 = await ctx.UserService.getByName('Jane Doe');
+	let user2 = await ctx.userService.getByName('Jane Doe');
 	if (!user2) {
-		user2 = ctx.UserService.create({
+		user2 = ctx.userService.create({
 			name: 'Jane Doe',
 			email: 'jane@example.com',
 			services: new ctx.Services({
@@ -66,16 +66,16 @@ export async function getOrCreateUsers(ctx: Context) {
 				roles: [],
 			}),
 		});
-		ctx.UserService.add(user2);
+		ctx.userService.add(user2);
 	}
 
 	return [user1, user2];
 }
 
 export async function getOrCreatePhotos(categories: Category[], users: User[], ctx: Context) {
-	let photo1 = await ctx.PhotoService.getByName('Photo 1');
+	let photo1 = await ctx.photoService.getByName('Photo 1');
 	if (!photo1) {
-		photo1 = ctx.PhotoService.create({
+		photo1 = ctx.photoService.create({
 			name: 'Photo 1',
 			categories,
 			metadata: {
@@ -85,12 +85,12 @@ export async function getOrCreatePhotos(categories: Category[], users: User[], c
 			public: false,
 			owner: users[0],
 		});
-		ctx.PhotoService.add(photo1);
+		ctx.photoService.add(photo1);
 	}
 
-	let photo2 = await ctx.PhotoService.getByName('Photo 2');
+	let photo2 = await ctx.photoService.getByName('Photo 2');
 	if (!photo2) {
-		photo2 = ctx.PhotoService.create({
+		photo2 = ctx.photoService.create({
 			name: 'Photo 2',
 			categories,
 			metadata: {
@@ -100,7 +100,7 @@ export async function getOrCreatePhotos(categories: Category[], users: User[], c
 			public: true,
 			owner: users[0],
 		});
-		await ctx.PhotoService.add(photo2);
+		await ctx.photoService.add(photo2);
 	}
 
 	return [photo1, photo2];
@@ -112,35 +112,35 @@ export async function createComments(photos: Photo[], users: User[], ctx: Contex
 
 	await photo1.comments.loadItems();
 	if (photo1.comments.length === 0) {
-		const comment1 = ctx.CommentService.create({
+		const comment1 = ctx.commentService.create({
 			comment: 'This is a comment',
 			user: user1,
 			photo: photo1,
 		});
-		ctx.CommentService.add(comment1);
+		ctx.commentService.add(comment1);
 
-		const comment2 = ctx.CommentService.create({
+		const comment2 = ctx.commentService.create({
 			comment: 'Comment number two',
 			user: user1,
 			photo: photo1,
 		});
-		ctx.CommentService.add(comment2);
+		ctx.commentService.add(comment2);
 	}
 
 	await photo2.comments.loadItems();
 	if (photo2.comments.length === 0) {
-		const comment1 = ctx.CommentService.create({
+		const comment1 = ctx.commentService.create({
 			comment: 'A comment on a public photo.',
 			user: user1,
 			photo: photo2,
 		});
-		ctx.CommentService.add(comment1);
+		ctx.commentService.add(comment1);
 
-		const comment2 = ctx.CommentService.create({
+		const comment2 = ctx.commentService.create({
 			comment: 'Another comment on a public photo.',
 			user: user2,
 			photo: photo2,
 		});
-		ctx.CommentService.add(comment2);
+		ctx.commentService.add(comment2);
 	}
 }

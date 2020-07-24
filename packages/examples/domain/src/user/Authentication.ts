@@ -32,7 +32,7 @@ export class Authentication implements AuthenticationDomain {
 	}
 
 	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
-		const user = await this.context.UserService.getByEmail__direct(identifier);
+		const user = await this.context.userService.getByEmail__direct(identifier);
 		if (!user) return null;
 		return {
 			...user.services,

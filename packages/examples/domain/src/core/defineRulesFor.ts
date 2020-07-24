@@ -1,11 +1,12 @@
 import {Ability, AbilityBuilder} from '@casl/ability';
-import type {User} from '../User';
+import type {User} from '../user';
 
 type Actions = 'read' | 'update' | 'delete' | 'create' | 'manage';
 type Entities = 'Photo' | 'Metadata' | 'Category' | 'User' | 'Comment' | 'SecureModel' | 'all';
-export type AppAbility = Ability<[Actions, Entities]>;
+export type AppAbilityTuple = [Actions, Entities];
+export type AppAbility = Ability<AppAbilityTuple>;
 
-export function defineRulesFor(user?: User) {
+export function defineRulesFor(user: User | null) {
 	const {can, rules} = new AbilityBuilder<AppAbility>();
 
 	if (user && user.services.roles.indexOf('admin') >= 0) {

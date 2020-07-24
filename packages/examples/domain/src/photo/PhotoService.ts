@@ -1,5 +1,5 @@
-import {AbstractEntityService} from '../AbstractEntityService';
-import type {DomainConnectors} from '../DomainConnectors';
+import {AbstractEntityService} from '../lib/AbstractEntityService';
+import type {DomainConnectors} from '../core/DomainConnectors';
 import type {Photo} from './Photo';
 
 export class PhotoService extends AbstractEntityService<Photo, DomainConnectors> {
