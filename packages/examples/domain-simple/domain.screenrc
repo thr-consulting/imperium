@@ -1,8 +1,0 @@
-split
-
-screen -t "Simple Domain TS" yarn ts --watch
-screen -t "Simple Domain Build" yarn build:dev --watch
-
-select 0
-focus down
-select 1

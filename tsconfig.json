@@ -25,7 +25,8 @@
 		// Only emit .d.ts files
 		"emitDeclarationOnly": true,
 		"noImplicitAny": true,
-		"importsNotUsedAsValues": "error"
+		"importsNotUsedAsValues": "error",
+		"experimentalDecorators": true
 	},
 	"exclude": [
 		"src/**/*.test.ts",

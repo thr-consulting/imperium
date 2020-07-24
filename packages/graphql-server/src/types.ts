@@ -1,4 +1,4 @@
-import type {Connector} from '@imperium/context-manager';
+import type {Connector} from '@imperium/connector';
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
 import type {DocumentNode} from 'graphql';
 import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';

@@ -3,14 +3,14 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
-import type {Connector, AuthData} from '@imperium/context-manager';
+import type {Connector, AuthenticatedUser} from '@imperium/connector';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
 
 export class ImperiumServer<Context, Connectors extends Connector> {
 	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
-	private readonly _contextCreator: (connector: Connectors, data?: AuthData) => Context;
+	private readonly _contextCreator: (connector: Connectors, authenticatedUser?: AuthenticatedUser) => Promise<Context>;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 	private _modules: ImperiumServerModule<Context, Connectors>[];
@@ -30,8 +30,11 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
-			req.context = this._contextCreator(this.connectors, req);
-			next();
+			this._contextCreator(this.connectors, req).then(ctx => {
+				// @ts-ignore
+				req.context = ctx;
+				next();
+			});
 		};
 	}
 
@@ -58,12 +61,9 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
 		});
 
-		d('Creating startup context');
-		// Create startup promises (these are executed in the next section)
-		const startupContext = this._contextCreator(this.connectors);
 		const startupPromises = this.modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
-				const moduleStartupReturn = module.startup(this, startupContext); // TODO startup functions are currently ran with NO auth
+				const moduleStartupReturn = module.startup(this);
 				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
 					// Add a catch function to the promise
 					moduleStartupReturn.catch(err => {
