@@ -38,6 +38,7 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
+		"@imperium/connector": "^4.2.0",
 		"@imperium/server": "^4.2.0",
 		"@imperium/util": "^4.2.0",
 		"@js-joda/core": "^2.0.0",

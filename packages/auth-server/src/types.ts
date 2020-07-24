@@ -1,5 +1,3 @@
-import type {AuthAccessor} from '@imperium/context-manager';
-
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -30,18 +28,18 @@ export interface AccessToken {
 
 export interface ServiceInfo {
 	id: string;
-	roles: string[];
-	password: {
-		bcrypt: string;
-	};
-	blacklist?: number[]; // Blacklisted refresh tokens
+	password: string; // Bcrypt hash password
+	blacklist?: string[]; // Blacklisted refresh tokens
 }
 
-export interface AuthDomain extends AuthAccessor {
+export interface AuthenticationDomain {
 	getServiceInfo(id: string): Promise<ServiceInfo | null>;
+	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
+	getCache(key: string | string[]): Promise<any>;
+	invalidateCache(key: string | string[]): Promise<void>;
 }
 
-export type GetAuthFn = (context: any) => AuthDomain;
+export type GetAuthenticationFn = (context: any) => AuthenticationDomain;
 
 export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;

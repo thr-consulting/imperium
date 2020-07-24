@@ -1,6 +1,5 @@
 import debug from 'debug';
 import jwt from 'express-jwt';
-import type {RequestHandler} from 'express';
 import {compose} from '@imperium/server';
 import type {AuthMiddlewareConfig} from '../types';
 import {environment} from '../environment';
@@ -12,7 +11,7 @@ export interface Auth {
 	id: string;
 }
 
-export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
+export function authMiddleware(config: AuthMiddlewareConfig) {
 	return compose([
 		jwt({
 			secret: env.authAccessTokenSecret,
