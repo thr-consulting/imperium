@@ -1,30 +1,37 @@
 import {inspect} from 'util';
 import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
-import type {GraphQLResolveInfo} from 'graphql';
+import type {IResolvers} from '@imperium/graphql-server';
+import type {Photo} from '@imperium/example-domain';
 import type {Context} from '../core/context';
-import {getSelectionFields} from './getSelectionFields';
+import {getSelectionFields} from '../lib/getSelectionFields';
 
 const d = debug('imperium.examples.server.authorizationModule.resolvers');
 const dd = (obj: any) => d(inspect(obj, false, null, true));
 
-export function resolvers(server: ImperiumServer<Context, any>) {
+export function resolvers(server: ImperiumServer<Context, any>): IResolvers<any, Context> {
 	return {
-		// Photo: {
-		// 	async categories(obj: any, params: undefined, ctx: Context) {
-		// 		return Promise.all(obj.categories.map(async (id: string) => ctx.domainAdvanced.context.Category.getById(id, ctx.domainAdvanced)));
-		// 	},
-		// 	async owner(obj: any, params: undefined, ctx: Context) {
-		// 		return ctx.domainAdvanced.context.User.getById(obj.owner, ctx.domainAdvanced);
-		// 	},
-		// },
-		Query: {
-			async getPhoto(obj: undefined, {name}: {name: string}, ctx: Context, info: GraphQLResolveInfo) {
-				// return ctx.domainAdvanced.context.Photo.getByName(name, ctx.domainAdvanced);
-				// ctx.domainAdvanced.context.Authorization.throwUnlessCan('read', p, getSelectionFields(info));
+		Photo: {
+			async categories(obj: Photo) {
+				if (!obj.categories.isInitialized()) {
+					await obj.categories.loadItems();
+				}
+				return obj.categories;
 			},
-			async getPhotoUsingLoader(obj: undefined, {name}: {name: string}, ctx: Context, info: GraphQLResolveInfo) {},
-			async getPhotoUsingIds(obj: undefined, {name}: {name: string}, ctx: Context) {},
+			async owner(obj: Photo, params: undefined, ctx) {
+				return ctx.userService.getById(obj.owner.id);
+			},
+			async comments(obj: Photo) {
+				if (!obj.comments.isInitialized()) {
+					await obj.comments.loadItems();
+				}
+				return obj.comments;
+			},
+		},
+		Query: {
+			async getPhoto(obj: undefined, {name}: {name: string}, ctx) {
+				return ctx.photoService.getByName(name);
+			},
 		},
 	};
 }

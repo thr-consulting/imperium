@@ -43,10 +43,11 @@ export class UserService extends AbstractEntityService<User, DomainConnectors> {
 
 	// eslint-disable-next-line @typescript-eslint/camelcase
 	async getByEmail__direct(email: string) {
-		return this.repo.findOne({email});
+		return this.repo.findOne({email}, ['services']);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/camelcase
 	async getById__direct(id: string) {
-		return this.repo.findOne(id);
+		return this.repo.findOne(id, ['services']);
 	}
 }

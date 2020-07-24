@@ -1,5 +1,8 @@
+import debug from 'debug';
 import {Ability, AbilityBuilder} from '@casl/ability';
 import type {User} from '../user';
+
+const d = debug('imperium.examples.domain.defineRulesFor');
 
 type Actions = 'read' | 'update' | 'delete' | 'create' | 'manage';
 type Entities = 'Photo' | 'Metadata' | 'Category' | 'User' | 'Comment' | 'SecureModel' | 'all';

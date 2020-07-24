@@ -7,7 +7,7 @@ import type {ImperiumServerModule} from '@imperium/server';
 import {basicModule} from '../basicModule';
 import {advancedModule} from '../advancedModule';
 import {graphqlModule} from '../graphqlModule';
-// import {authorizationModule} from '../authorizationModule';
+import {authorizationModule} from '../authorizationModule';
 import {demoDataModule} from '../demoData';
 import type {Context} from './context';
 
@@ -28,6 +28,6 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),
-		// authorizationModule(),
+		authorizationModule(),
 	];
 }
