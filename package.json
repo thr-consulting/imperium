@@ -22,7 +22,7 @@
 		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,dev,client,server}'",
 		"ts:phase-server": "lerna run ts --scope '@imperium/{auth-server,graphql-server}'",
 		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router}'",
-		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain-advanced,example-domain-simple,example-server,example-standalone,example-web}'",
+		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
 		"ts": "yarn ts:phase-build && yarn ts:phase-core && yarn ts:phase-server && yarn ts:phase-client && yarn ts:phase-example",
 		"test": "lerna run test",
 		"test:coverage": "lerna run test:coverage",
