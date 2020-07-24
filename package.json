@@ -19,7 +19,7 @@
 		"lint": "lerna run lint",
 		"lint:fix": "lerna run lint:fix",
 		"ts:phase-build": "lerna run ts --scope '@imperium/{util,babel-preset-imperium,eslint-config-imperium,prettier-config-imperium}'",
-		"ts:phase-core": "lerna run ts --scope '@imperium/{dev,client,server,context-manager}'",
+		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,dev,client,server}'",
 		"ts:phase-server": "lerna run ts --scope '@imperium/{auth-server,graphql-server}'",
 		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router}'",
 		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain-advanced,example-domain-simple,example-server,example-standalone,example-web}'",
