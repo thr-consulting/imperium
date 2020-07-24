@@ -4,10 +4,9 @@ import type {User} from '../user';
 type Actions = 'read' | 'update' | 'delete' | 'create' | 'manage';
 type Entities = 'Photo' | 'Metadata' | 'Category' | 'User' | 'Comment' | 'SecureModel' | 'all';
 export type AppAbilityTuple = [Actions, Entities];
-export type AppAbility = Ability<AppAbilityTuple>;
 
 export function defineRulesFor(user: User | null) {
-	const {can, rules} = new AbilityBuilder<AppAbility>();
+	const {can, rules} = new AbilityBuilder<Ability<AppAbilityTuple>>();
 
 	if (user && user.services.roles.indexOf('admin') >= 0) {
 		can('manage', 'all');
