@@ -39,6 +39,10 @@ jobs:
         run: |
           yarn build
 
+      - name: Run typescript
+        run: |
+          yarn ts
+
       - name: Publish canary
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
