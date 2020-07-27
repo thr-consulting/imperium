@@ -23,7 +23,6 @@ export default function UserMenu(props: Props) {
 			<Menu.Item onClick={() => handleClick({first: 'Mike', last: 'Kornelsen', id: '1234'})}>Select Mike Kornelsen</Menu.Item>
 			<Menu.Item onClick={() => handleClick({first: 'Shayne', last: 'Thiessen', id: '1235'})}>Select Shayne Thiessen</Menu.Item>
 			<Menu.Item onClick={() => handleClick({first: 'Jonathan', last: 'Spomer', id: '1236'})}>Select Jonathan Spomer</Menu.Item>
-			<Menu.Item onClick={() => handleClick({first: 'Matthew', last: 'Sawatzky', id: '1237'})}>Select Matthew Sawatzky</Menu.Item>
 		</Menu>
 	);
 }

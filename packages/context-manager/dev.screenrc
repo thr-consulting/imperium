@@ -1,8 +1,0 @@
-split
-
-screen -t "@imperium/context-manager TS" yarn ts --watch
-screen -t "@imperium/context-manager Build" yarn build:dev --watch
-
-select 0
-focus down
-select 1

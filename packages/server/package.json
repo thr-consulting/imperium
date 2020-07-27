@@ -39,7 +39,7 @@
 		"webpack-cli": "^3.3.11"
 	},
 	"dependencies": {
-		"@imperium/context-manager": "^4.2.0",
+		"@imperium/connector": "^4.2.0",
 		"@imperium/util": "^4.2.0",
 		"chalk": "^4.0.0",
 		"debug": "^4.1.1",

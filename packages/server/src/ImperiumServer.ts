@@ -3,7 +3,7 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
-import type {Connector, AuthenticatedUser} from '@imperium/context-manager';
+import type {Connector, AuthenticatedUser} from '@imperium/connector';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
