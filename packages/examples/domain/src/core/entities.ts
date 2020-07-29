@@ -1,6 +1,6 @@
 import {User, Services} from '../user';
 import {Score} from '../other';
-import {Category, Photo, Comment} from '../photo';
+import {Category, Photo, Comment, Metadata} from '../photo';
 
 /*
 	Mikro-orm connector requires that we notify it of our entities.
@@ -12,5 +12,6 @@ export const entities = {
 	Score,
 	Category,
 	Photo,
+	Metadata,
 	Comment,
 };

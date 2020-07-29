@@ -24,7 +24,7 @@ export function encryptPassword(password: string | {algorithm: string; digest: s
 	return hash(getPasswordString(password), saltOrRounds);
 }
 
-function signJwt(payload: string | object = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
+function signJwt(payload: string | Record<string, unknown> = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
 	return sign(payload, secret, options);
 }
 

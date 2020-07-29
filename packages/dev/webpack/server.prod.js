@@ -7,7 +7,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const serverModuleRules = require('./serverModuleRules');
 
-module.exports = function(imperiumConfig) {
+module.exports = function (imperiumConfig) {
 	return {
 		mode: 'production',
 		context: imperiumConfig.source.path,
@@ -34,12 +34,9 @@ module.exports = function(imperiumConfig) {
 				reportFilename: path.join('..', 'report-server.html'),
 				openAnalyzer: false,
 			}),
-			new CopyWebpackPlugin([
-				{
-					from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'),
-					to: '.',
-				},
-			]),
+			new CopyWebpackPlugin({
+				patterns: [{from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'), to: '.'}],
+			}),
 		]),
 		module: {
 			rules: serverModuleRules.concat(imperiumConfig.webpack.server.rules),

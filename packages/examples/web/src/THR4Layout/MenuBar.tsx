@@ -10,7 +10,7 @@ const d = debug('app.THR4Layout.MenuBar');
 interface MenuItem {
 	component: JSX.Element; // the element to render
 	priority?: number; // if no priority is given it will be added to the end
-	isVisible: (contextType: string, contextObject?: object) => boolean; // the route at which to display the component. If not specified, the component will always be shown
+	isVisible: (contextType: string, contextObject?: Record<string, unknown>) => boolean; // the route at which to display the component. If not specified, the component will always be shown
 	// permissions?: string[]; // if no permission is given everyone will be able to see this
 	// contextType?: string[]; // if no context type is given it will always be displayed
 }

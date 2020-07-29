@@ -1,9 +1,19 @@
-import {Column} from 'typeorm';
+import {Entity, PrimaryKey, Property} from 'mikro-orm';
+import {v4} from 'uuid';
 
+@Entity()
 export class Metadata {
-	@Column('text')
-	location!: string;
+	constructor({location, privateData}: {location?: string; privateData?: string}) {
+		this.location = location;
+		this.privateData = privateData;
+	}
 
-	@Column('text')
-	privateData!: string;
+	@PrimaryKey({type: 'uuid'})
+	id = v4();
+
+	@Property({type: 'text'})
+	location?: string;
+
+	@Property({type: 'text'})
+	privateData?: string;
 }

@@ -32,6 +32,9 @@ Object {
     "react-hooks",
   ],
   "rules": Object {
+    "@typescript-eslint/ban-ts-comment": Array [
+      "off",
+    ],
     "@typescript-eslint/ban-ts-ignore": Array [
       "off",
     ],
@@ -51,10 +54,15 @@ Object {
     "@typescript-eslint/interface-name-prefix": Array [
       "off",
     ],
+    "@typescript-eslint/lines-between-class-members": Array [
+      "off",
+    ],
     "@typescript-eslint/no-before-define": Array [
       "off",
     ],
-    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-explicit-any": Array [
+      "off",
+    ],
     "@typescript-eslint/no-unused-expressions": Array [
       "off",
     ],
@@ -76,11 +84,7 @@ Object {
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
     "lines-between-class-members": Array [
-      "error",
-      "always",
-      Object {
-        "exceptAfterSingleLine": true,
-      },
+      "off",
     ],
     "no-console": Array [
       "error",

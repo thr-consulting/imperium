@@ -56,7 +56,9 @@ module.exports = function(imperiumConfig) {
 				reportFilename: path.join('..', '..', 'report-client.html'),
 				openAnalyzer: false,
 			}),
-			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
+			new CopyWebpackPlugin({
+				patterns: [{from: path.resolve('assets'), to: 'assets/'}],
+			}),
 			new HtmlWebpackPlugin({
 				...imperiumConfig.html,
 				filename: '../index.html',

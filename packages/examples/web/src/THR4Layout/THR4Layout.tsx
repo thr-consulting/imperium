@@ -24,7 +24,7 @@ interface MenuState {
 	isMobile: boolean;
 }
 // @ts-ignore
-export const MenuContext = createContext<[MenuState, () => {}]>([{}, () => {}]);
+export const MenuContext = createContext<[MenuState, () => any]>([{}, () => {}]);
 
 export default function THR4Layout(props: Props) {
 	const [menuState, setMenuState] = useState({
