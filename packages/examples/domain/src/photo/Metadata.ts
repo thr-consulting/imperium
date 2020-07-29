@@ -3,7 +3,7 @@ import {v4} from 'uuid';
 
 @Entity()
 export class Metadata {
-	constructor({location, privateData}: {location?: string, privateData?: string}) {
+	constructor({location, privateData}: {location?: string; privateData?: string}) {
 		this.location = location;
 		this.privateData = privateData;
 	}
