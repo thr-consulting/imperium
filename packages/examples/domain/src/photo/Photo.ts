@@ -1,10 +1,10 @@
 import debug from 'debug';
-import {Collection, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryKey, Property} from 'mikro-orm';
+import {Collection, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryKey, Property} from 'mikro-orm';
 import {v4} from 'uuid';
 import {Category} from './Category';
 import {User} from '../user';
 import {Comment} from './Comment';
-// import {Metadata} from './Metadata';
+import {Metadata} from './Metadata';
 
 const d = debug('imperium.examples.domain.Photo');
 
@@ -19,8 +19,8 @@ export class Photo {
 	@Property({type: 'boolean'})
 	public!: boolean;
 
-	// @Property({type: Metadata})
-	// metadata!: Metadata;
+	@OneToOne(() => Metadata)
+	metadata?: Metadata;
 
 	@ManyToMany(() => Category)
 	categories = new Collection<Category>(this);

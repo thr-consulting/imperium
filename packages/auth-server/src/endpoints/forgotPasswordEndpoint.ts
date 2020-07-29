@@ -11,7 +11,7 @@ interface ForgotPasswordInfo {
 	email: string;
 }
 
-function isForgotPasswordInfo(forgotPasswordInfo: object): forgotPasswordInfo is ForgotPasswordInfo {
+function isForgotPasswordInfo(forgotPasswordInfo: unknown): forgotPasswordInfo is ForgotPasswordInfo {
 	return (forgotPasswordInfo as ForgotPasswordInfo).email !== undefined;
 }
 

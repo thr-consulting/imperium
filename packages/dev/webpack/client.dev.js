@@ -55,9 +55,11 @@ module.exports = function(imperiumConfig) {
 		stats: 'errors-warnings',
 		plugins: compact([
 			new ProgressBarPlugin(),
-			new CopyWebpackPlugin([{from: path.resolve('assets'), to: 'assets/'}]),
+			new CopyWebpackPlugin({
+				patterns: [{from: path.resolve('assets'), to: 'assets/'}],
+			}),
 			new HtmlWebpackPlugin(imperiumConfig.html),
-			new ReactRefreshWebpackPlugin({disableRefreshCheck: true}), // TODO Disabled check because of this: https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/15
+			new ReactRefreshWebpackPlugin(),
 			new HardSourceWebpackPlugin({
 				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
 			}),

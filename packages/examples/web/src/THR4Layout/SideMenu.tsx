@@ -16,7 +16,7 @@ interface MenuItem {
 	component: (props) => JSX.Element; // the component to render
 	priority?: number; // if no priority is given it will be added to the end
 	selectedRoute?: string | string[]; // this route will be used to set the components as selected in the menu when we hit the route
-	isVisible: (contextType: string, contextObject?: object) => boolean; // a function that we can call to know if this components should be displayed or not
+	isVisible: (contextType: string, contextObject?: Record<string, unknown>) => boolean; // a function that we can call to know if this components should be displayed or not
 	// permissions?: string[]; // if no permission is given everyone will be able to see this
 	// contextType?: string[]; // if no context type is given it will always be displayed
 }

@@ -16,12 +16,15 @@
   "scripts": {
     "start": "NODE_ENV=development node index.js",
     "start:prod": "NODE_ENV=production node index.js",
-    "build": "NODE_ENV=production babel src --extensions \".ts\" --out-dir dist --source-maps"
+    "build": "NODE_ENV=production babel src --extensions \".ts\" --out-dir dist --source-maps",
+    "lint": "eslint --cache --ext ts,js src",
+    "lint:fix": "eslint --cache --fix --ext ts,js src",
+    "ts": "tsc"
   },
   "dependencies": {
     "@imperium/connector": "^4.2.0",
     "@imperium/example-domain": "^4.2.0",
-    "@thx/sharedcache": "^11.0.1",
+    "@thx/sharedcache": "^11.0.2",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "lodash": "^4.17.15",

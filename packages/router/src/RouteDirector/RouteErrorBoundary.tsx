@@ -7,8 +7,8 @@ interface State {
 	hasError: boolean;
 }
 
-export default class RouteErrorBoundary extends React.Component<Readonly<{}>, State> {
-	constructor(props: Readonly<{}>) {
+export default class RouteErrorBoundary extends React.Component<Record<string, unknown>, State> {
+	constructor(props: Record<string, unknown>) {
 		super(props);
 		this.state = {hasError: false};
 	}

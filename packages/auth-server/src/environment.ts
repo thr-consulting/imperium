@@ -6,6 +6,7 @@ export const environment = memoize(() => ({
 	authRefreshUrl: process.env.AUTH_REFRESH_URL || '/api/refresh', // URL for REST refresh access token
 	authForgotPasswordUrl: process.env.AUTH_FORGOTPASSWORD_URL || '/api/forgot-password', // URL to request password reset
 	authAccessTokenSecret: process.env.ACCESS_TOKEN_SECRET || 'notsecure', // Secret for access tokens
+	authAccessTokenAlgorithms: process.env.ACCESS_TOKEN_ALGORITHMS?.split(',').map(s => s.trim()) || ['HS256'], // Algorithms allowed
 	authRefreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || 'notsecure', // Secret for refresh tokens
 	authAccessTokenExpires: process.env.AUTH_ACCESS_TOKEN_EXPIRES || '5m', // How often an access token expires
 	authRefreshTokenExpiresShort: process.env.AUTH_REFRESH_TOKEN_EXPIRES_SHORT || '1d', // How often a refresh token expires
