@@ -14,7 +14,6 @@ export interface Auth {
 export function authMiddleware(config: AuthMiddlewareConfig) {
 	return compose([
 		jwt({
-			algorithms: env.authAccessTokenAlgorithms,
 			secret: env.authAccessTokenSecret,
 			credentialsRequired: config.credentialsRequired === undefined ? false : config.credentialsRequired,
 		}),

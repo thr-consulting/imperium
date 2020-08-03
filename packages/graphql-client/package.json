@@ -36,11 +36,17 @@
 		"typedoc": "typedoc"
 	},
 	"peerDependencies": {
-		"@apollo/client": "3.x"
+		"@apollo/react-hooks": "3.x",
+		"apollo-client": "2.x",
+		"apollo-utilities": "1.x"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.1",
 		"@imperium/util": "^4.3.0",
+		"apollo-cache-inmemory": "^1.6.5",
+		"apollo-link": "^1.2.14",
+		"apollo-link-error": "^1.1.13",
+		"apollo-link-http": "^1.5.17",
+		"apollo-link-ws": "^1.0.20",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"

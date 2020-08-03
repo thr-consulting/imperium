@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useQuery} from '@apollo/client';
+import {useQuery} from '@apollo/react-hooks';
 import {User} from '../lib/types';
 import getUsers from '../graphql/getUsers.graphql';
 

@@ -23,25 +23,27 @@
 		"Xts": "tsc"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.1",
+		"@apollo/react-hooks": "^3.1.5",
 		"@imperium/auth-client": "^4.3.0",
 		"@imperium/auth-graphql-client": "^4.3.0",
 		"@imperium/client": "^4.3.0",
 		"@imperium/graphql-client": "^4.3.0",
 		"@imperium/router": "^4.3.0",
-		"@js-joda/core": "^3.0.0",
+		"@js-joda/core": "^2.0.0",
 		"@loadable/component": "^5.12.0",
 		"@thx/controls": "^12.1.2",
+		"apollo-client": "^2.6.8",
+		"apollo-utilities": "^1.3.3",
 		"debug": "^4.1.1",
 		"dotenv": "^8.2.0",
-		"graphql": "^15.3.0",
+		"graphql": "^14.6.0",
 		"lodash": "^4.17.15",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.1.2",
 		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^0.88.2",
-		"yup": "^0.29.2"
+		"yup": "^0.28.4"
 	},
 	"devDependencies": {
 		"@imperium/dev": "^4.3.0"

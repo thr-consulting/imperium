@@ -1,6 +1,6 @@
 import debug from 'debug';
 import {Menu} from 'semantic-ui-react';
-import React, {Context} from 'react';
+import React, {Context, useContext} from 'react';
 
 const d = debug('app.THR4Layout.UserMenu');
 
@@ -9,15 +9,13 @@ interface Props {
 }
 
 export default function UserMenu(props: Props) {
-	d(props);
-	// const [menuState, setMenuState] = useContext(props.MenuContext);
+	const [menuState, setMenuState] = useContext(props.MenuContext);
 
-	const handleClick = (a: Record<string, unknown>) => {
-		d(a);
-		// setMenuState(prevState => ({
-		// 	...prevState,
-		// 	currentUser: {profile: {firstName: first, lastName: last, id}},
-		// }));
+	const handleClick = ({first, last, id}) => {
+		setMenuState(prevState => ({
+			...prevState,
+			currentUser: {profile: {firstName: first, lastName: last, id}},
+		}));
 	};
 
 	return (

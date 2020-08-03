@@ -4,8 +4,7 @@
 		"declarationDir": "dist"
 	},
 	"include": [
-		"src/index.ts",
-		"src/**/*.test.ts"
+		"src/index.ts"
 	],
 	"files": ["types/graphqls.d.ts", "types/graphql-scalar-objectid.d.ts"],
 	"typedocOptions": {

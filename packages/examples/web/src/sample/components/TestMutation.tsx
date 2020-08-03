@@ -1,6 +1,6 @@
 import debug from 'debug';
 import React from 'react';
-import {useMutation} from '@apollo/client';
+import {useMutation} from '@apollo/react-hooks';
 import mutate from '../graphql/mutate.graphql';
 
 const d = debug('app.core.TestMutation');

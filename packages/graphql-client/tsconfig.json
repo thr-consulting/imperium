@@ -4,9 +4,7 @@
 		"declarationDir": "dist"
 	},
 	"include": [
-		"src/index.ts",
-		"src/**/*.test.ts",
-		"src/**/*.test.tsx"
+		"src/index.ts"
 	],
 	"typedocOptions": {
 		"mode": "file",

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useQuery} from '@apollo/client';
+import {useQuery} from '@apollo/react-hooks';
 import Moment from 'moment';
 import {RouteComponentProps} from 'react-router-dom';
 import TodoInput from '../components/TodoInput';

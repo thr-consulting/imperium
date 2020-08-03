@@ -1,5 +1,6 @@
 import type {IResolvers} from 'graphql-tools';
-import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID} from 'graphql-custom-types';
+import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
+import GraphQLObjectId from 'graphql-scalar-objectid';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLMoney} from './GraphQLMoney';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
@@ -23,7 +24,11 @@ export const resolvers: IResolvers = {
 	URL: GraphQLURL,
 	DateTime: GraphQLDateTime,
 	UUID: GraphQLUUID,
+	Password: new GraphQLPassword(6, 64, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?', {
+		mixedCase: true,
+	}),
 	LocalDate: GraphQLLocalDate,
 	LocalTime: GraphQLLocalTime,
 	Money: GraphQLMoney,
+	ObjectId: GraphQLObjectId,
 };

@@ -5,7 +5,7 @@ import {ImperiumRouterClientModule} from '@imperium/router';
 const Login = loadable(() => import('./components/Login'));
 const ComponentUsingAuth = loadable(() => import('./components/ComponentUsingAuth'));
 
-export default function authsample(): ImperiumClientModule & ImperiumRouterClientModule {
+export default function(): ImperiumClientModule & ImperiumRouterClientModule {
 	return {
 		name: 'AuthSample',
 		routes: [

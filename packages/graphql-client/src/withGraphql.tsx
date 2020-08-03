@@ -1,10 +1,14 @@
 import debug from 'debug';
 import React from 'react';
-import {ApolloClient, ApolloProvider, ApolloLink, HttpLink, InMemoryCache, split} from '@apollo/client';
-import {onError} from '@apollo/client/link/error';
-import {WebSocketLink} from '@apollo/client/link/ws';
+import {ApolloProvider} from '@apollo/react-hooks';
+import {ApolloClient} from 'apollo-client';
+import {ApolloLink, split} from 'apollo-link';
+import {HttpLink} from 'apollo-link-http';
+import {onError} from 'apollo-link-error';
+import {WebSocketLink} from 'apollo-link-ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
-import {getMainDefinition} from '@apollo/client/utilities';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {getMainDefinition} from 'apollo-utilities';
 import type {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
 import type {ImperiumGraphqlClientModule} from './types';
 

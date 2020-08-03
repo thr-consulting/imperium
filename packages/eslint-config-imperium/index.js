@@ -42,8 +42,7 @@ module.exports = {
 		'no-console': ['error'],
 		'no-plusplus': 'off',
 		'no-unused-vars': ['error', {varsIgnorePattern: 'd', argsIgnorePattern: 'server|context|ctx|type'}],
-		// 'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
-		'lines-between-class-members': ['off'],
+		'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 		'no-use-before-define': ['off'],
 
 		// Typescript
@@ -52,13 +51,10 @@ module.exports = {
 		'@typescript-eslint/no-unused-expressions': ['off'], // This was disabled because some upgrade to airbnb rules.
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
 		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
-		'@typescript-eslint/no-explicit-any': ['off'], // TODO probably turn this back to warn at some point...
+		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/ban-ts-ignore': ['off'],
-		'@typescript-eslint/ban-ts-comment': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
 		'@typescript-eslint/no-before-define': ['off'], // TODO This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
-		'@typescript-eslint/lines-between-class-members': ['off'],
-		// '@typescript-eslint/camelcase': ['off'], // TODO disabled because airbnb isn't up to date yet: https://github.com/typescript-eslint/typescript-eslint/issues/2077
 
 		// React
 		'react/forbid-prop-types': 'error',

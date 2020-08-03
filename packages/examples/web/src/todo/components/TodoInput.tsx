@@ -1,6 +1,6 @@
 import debug from 'debug';
 import React from 'react';
-import {useMutation} from '@apollo/client';
+import {useMutation} from '@apollo/react-hooks';
 import editTodoMutation from '../graphql/editTodo.graphql';
 import {Todo} from '../lib/types';
 

@@ -4,4 +4,3 @@ export {Comment} from './Comment';
 export {CategoryService} from './CategoryService';
 export {PhotoService} from './PhotoService';
 export {CommentService} from './CommentService';
-export {Metadata} from './Metadata';

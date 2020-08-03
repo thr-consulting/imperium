@@ -19,7 +19,7 @@ export function compose(middleware: RequestHandler | RequestHandler[]): RequestH
 	const tail = middleware.slice(1);
 
 	return (req, res, next) => {
-		head(req, res, (err: any) => {
+		head(req, res, err => {
 			if (err) return next(err);
 			return compose(tail)(req, res, next);
 		});

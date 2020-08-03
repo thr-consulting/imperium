@@ -14,8 +14,8 @@ export async function main() {
 	d(val);
 
 	if (env.runAsService) {
-		const noop = Function(); // eslint-disable-line no-new-func, @typescript-eslint/no-implied-eval
-		setInterval(noop, 10000); // eslint-disable-line @typescript-eslint/no-implied-eval
+		const noop = Function(); // eslint-disable-line no-new-func
+		setInterval(noop, 10000);
 	} else {
 		await connectors.close();
 	}
