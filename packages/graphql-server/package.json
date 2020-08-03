@@ -48,7 +48,6 @@
 		"body-parser": "^1.19.0",
 		"cors": "^2.8.5",
 		"debug": "^4.1.1",
-		"express-jwt": "^5.3.3",
 		"graphql": "^14.6.0",
 		"graphql-custom-types": "^1.5.1",
 		"graphql-scalar-objectid": "^0.1.2",
