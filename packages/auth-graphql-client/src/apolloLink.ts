@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {ApolloLink} from 'apollo-link';
+import {ApolloLink} from '@apollo/client';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import decode from 'jwt-decode';
 import type {AccessToken} from '@imperium/auth-client';

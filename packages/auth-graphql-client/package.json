@@ -35,17 +35,17 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
+		"@apollo/client": "^3.1.2",
 		"@imperium/auth-client": "^4.3.0",
 		"@imperium/client": "^4.3.0",
 		"@imperium/graphql-client": "^4.3.0",
 		"@imperium/util": "^4.3.0",
-		"apollo-link": "^1.2.14",
-		"apollo-link-token-refresh": "^0.2.7",
+		"apollo-link-token-refresh": "^0.3.2",
 		"debug": "^4.1.1",
 		"jwt-decode": "^2.2.0"
 	},
-	"Xresolutions": {
-		"apollo-link-token-refresh/**/@apollo/client": "3.1.1"
+	"resolutions": {
+		"apollo-link-token-refresh/**/@apollo/client": "3.1.2"
 	},
 	"jest": {
 		"transform": {

@@ -1,7 +1,7 @@
 import debug from 'debug';
 import React from 'react';
 import {LocalDate} from '@js-joda/core';
-import {useMutation} from '@apollo/react-hooks';
+import {useMutation} from '@apollo/client';
 import mutate from '../graphql/customtypes.graphql';
 
 const d = debug('app.core.TestCustomTypes');
