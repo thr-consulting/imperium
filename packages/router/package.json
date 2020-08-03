@@ -24,7 +24,7 @@
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",

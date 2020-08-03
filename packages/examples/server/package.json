@@ -17,6 +17,7 @@
     "start:dev": "imperium dev-server imperium.js",
     "start:prod": "imperium prod-server",
     "build:prod": "imperium build-server imperium.js",
+    "clean": "rimraf ./dist && rimraf .eslintcache",
     "lint": "eslint --cache --ext ts,js src",
     "lint:fix": "eslint --cache --fix --ext ts,js src",
     "ts": "tsc",
