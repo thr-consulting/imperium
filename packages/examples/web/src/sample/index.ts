@@ -8,7 +8,7 @@ import {ImperiumRouterClientModule} from '@imperium/router';
 const HelloWorld = loadable(() => import('./components/HelloWorld'));
 const GraphqlTest = loadable(() => import('./components/GraphqlTest'));
 
-export default function(): ImperiumClientModule & ImperiumRouterClientModule {
+export default function (): ImperiumClientModule & ImperiumRouterClientModule {
 	return {
 		name: 'Sample',
 		routes: [

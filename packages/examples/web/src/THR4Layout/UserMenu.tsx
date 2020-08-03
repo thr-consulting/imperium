@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function UserMenu(props: Props) {
-	const [menuState, setMenuState] = useContext(props.MenuContext);
+	const [setMenuState] = useContext(props.MenuContext);
 
 	const handleClick = ({first, last, id}) => {
 		setMenuState(prevState => ({
