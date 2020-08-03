@@ -21,6 +21,7 @@
 		"dist"
 	],
 	"scripts": {
+		"start": "screen -c ./dev.screenrc",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
@@ -41,8 +42,7 @@
 		"@imperium/util": "^4.2.0",
 		"apollo-link": "^1.2.14",
 		"apollo-link-token-refresh": "^0.2.7",
-		"debug": "^4.1.1",
-		"jwt-decode": "^2.2.0"
+		"debug": "^4.1.1"
 	},
 	"jest": {
 		"transform": {

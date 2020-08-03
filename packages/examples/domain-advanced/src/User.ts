@@ -12,7 +12,6 @@ export interface IUser {
 
 class User {
 	static async getUserById(id: string, ctx: Context): Promise<IUser> {
-		d(id);
 		return {
 			id: '1234567890',
 			name: 'John Doe',
