@@ -34,13 +34,13 @@
 		"@thx/controls": "^12.1.2",
 		"debug": "^4.1.1",
 		"dotenv": "^8.2.0",
-		"graphql": "^14.6.0",
+		"graphql": "^14.7.0",
 		"lodash": "^4.17.15",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.1.2",
 		"semantic-ui-css": "^2.4.1",
-		"semantic-ui-react": "^0.88.2",
+		"semantic-ui-react": "^1.1.1",
 		"yup": "^0.29.2"
 	},
 	"devDependencies": {
