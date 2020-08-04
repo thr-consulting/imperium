@@ -48,6 +48,11 @@
 		"lodash": "^4.17.15",
 		"merge-options": "^2.0.0"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"

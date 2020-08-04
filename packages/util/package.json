@@ -39,6 +39,11 @@
 		"inspect-loader": "^1.0.0",
 		"webpack-node-externals": "^2.5.0"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"

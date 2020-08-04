@@ -44,6 +44,11 @@
 		"lodash": "^4.17.15",
 		"whatwg-fetch": "^3.0.0"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"

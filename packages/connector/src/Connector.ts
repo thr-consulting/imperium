@@ -7,7 +7,7 @@ export interface ConnectorsConfig<T = any> {
 	close?: (connection: T) => Promise<void>;
 }
 
-export class Connector<T extends {[key: string]: ConnectorsConfig} = {}> {
+export class Connector<T extends {[key: string]: ConnectorsConfig} = any> {
 	private readonly connectionConfigs: T;
 	private connected = false;
 	public readonly connections: {[P in keyof T]: ReturnType<T[P]['connect']> extends Promise<infer C> ? C : ReturnType<T[P]['connect']>};

@@ -18,8 +18,8 @@
 		"clean": "lerna run clean && lerna clean && rimraf ./node_modules",
 		"lint": "lerna run lint",
 		"lint:fix": "lerna run lint:fix",
-		"ts:phase-build": "lerna run ts --scope '@imperium/{util,babel-preset-imperium,eslint-config-imperium,prettier-config-imperium}'",
-		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,dev,client,server}'",
+		"ts:phase-build": "lerna run ts --scope '@imperium/{util}'",
+		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,client,server}'",
 		"ts:phase-server": "lerna run ts --scope '@imperium/{auth-server,graphql-server}'",
 		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router}'",
 		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
@@ -60,7 +60,7 @@
 		"enzyme": "^3.11.0",
 		"enzyme-adapter-react-16": "^1.15.2",
 		"enzyme-to-json": "^3.4.4",
-		"eslint": "^6.8.0",
+		"eslint": "^7.6.0",
 		"graphql": "^14.7.0",
 		"identity-obj-proxy": "^3.0.0",
 		"jest": "^26.2.2",
@@ -73,7 +73,7 @@
 		"react-router-dom": "^5.1.2",
 		"rimraf": "^3.0.2",
 		"typedoc": "^0.17.6",
-		"typescript": "^3.9.5",
+		"typescript": "^3.9.7",
 		"webpack": "^4.43.0"
 	}
 }

@@ -24,6 +24,9 @@
 		"ts": "tsc",
 		"prettier": "prettier"
 	},
+	"resolutions": {
+		"mikro-orm/**/typescript": "3.9.7"
+	},
 	"dependencies": {
 		"@casl/ability": "^4.1.5",
 		"@imperium/connector": "^4.3.0",

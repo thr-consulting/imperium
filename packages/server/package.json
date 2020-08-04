@@ -46,6 +46,11 @@
 		"express": "^4.17.1",
 		"lodash": "^4.17.15"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"

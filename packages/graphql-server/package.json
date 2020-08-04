@@ -57,6 +57,11 @@
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
