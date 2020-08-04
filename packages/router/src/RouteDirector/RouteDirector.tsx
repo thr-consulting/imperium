@@ -14,7 +14,7 @@ interface RouteDirectorProps {
 	imperiumClient?: IImperiumClient;
 }
 
-export default function RouteDirector(props: RouteDirectorProps) {
+export default function RouteDirector(props: RouteDirectorProps): JSX.Element {
 	const {routeDefaults} = props;
 	let routes = [props.rootRoute];
 	if (props.routes) {

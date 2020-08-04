@@ -35,5 +35,10 @@
 		"mikro-orm": "^3.6.15",
 		"pg": "^8.2.0",
 		"uuid": "^8.2.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig.json"
+		}
 	}
 }

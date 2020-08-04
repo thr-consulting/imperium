@@ -1,4 +1,5 @@
 import path from 'path';
+import type {Configuration} from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 import process from 'process';
 import inspectLoader from './inspectLoader';
@@ -13,7 +14,7 @@ interface CommonWebpackParams {
 	jsxFactory?: string;
 }
 
-export default function commonWebpack({isProduction, isClient, name, entry, outputFile, rules, jsxFactory}: CommonWebpackParams) {
+export default function commonWebpack({isProduction, isClient, name, entry, outputFile, rules, jsxFactory}: CommonWebpackParams): Configuration {
 	return {
 		entry,
 		mode: isProduction ? 'production' : 'development',

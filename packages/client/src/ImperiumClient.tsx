@@ -75,7 +75,7 @@ export default class ImperiumClient implements IImperiumClient {
 		window.__IMPERIUM_CLIENT__ = this; // eslint-disable-line no-underscore-dangle
 	}
 
-	async start() {
+	async start(): Promise<void> {
 		d('Starting ImperiumClient...');
 
 		// Load environment
@@ -125,15 +125,15 @@ export default class ImperiumClient implements IImperiumClient {
 		render(<RootWrappedComponent render={this._renderProp} imperiumClient={this} {...this._rootProps} />, document.getElementById('root'));
 	}
 
-	get modules() {
+	get modules(): ImperiumClientModule[] {
 		return this._clientModules;
 	}
 
-	get environment() {
+	get environment(): ImperiumEnvironment {
 		return this._environment;
 	}
 
-	get globalConst() {
+	get globalConst(): GlobalConst {
 		return this._globalConst;
 	}
 }

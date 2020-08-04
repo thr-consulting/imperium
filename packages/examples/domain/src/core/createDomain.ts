@@ -11,7 +11,7 @@ import {entities} from './entities';
 import {services} from './services';
 import {SecureModel} from '../other';
 
-export async function createDomain(connectors: DomainConnectors, authenticatedUser?: AuthenticatedUser) {
+export async function createDomain(connectors: DomainConnectors, authenticatedUser?: AuthenticatedUser): DomainConnectors {
 	// const authorization = new Authorization(authenticatedUser?.auth?.id);
 	const authorization = new Authorization<AppAbilityTuple, User>(authenticatedUser?.auth?.id);
 

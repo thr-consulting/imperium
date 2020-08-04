@@ -47,6 +47,11 @@
 	"resolutions": {
 		"apollo-link-token-refresh/**/@apollo/client": "3.1.2"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"

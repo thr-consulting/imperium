@@ -20,14 +20,14 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = any> {
 	/**
 	 * Returns true if the connectors are connected.
 	 */
-	public get isConnected() {
+	public get isConnected(): boolean {
 		return this.connected;
 	}
 
 	/**
 	 * Connect each connector
 	 */
-	public async connect() {
+	public async connect(): Promise<this> {
 		if (!this.connected) {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
@@ -46,7 +46,7 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = any> {
 	/**
 	 * Close each connector
 	 */
-	public async close() {
+	public async close(): Promise<this> {
 		if (this.isConnected) {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {

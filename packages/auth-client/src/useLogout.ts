@@ -5,7 +5,7 @@ import {AuthContext} from './AuthContext';
 
 const d = debug('imperium.auth-client.useLogout');
 
-export function useLogout() {
+export function useLogout(): () => void {
 	const authContext = useContext(AuthContext);
 	const client = useClient();
 

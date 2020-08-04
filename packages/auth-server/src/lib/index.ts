@@ -79,7 +79,7 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 	}
 }
 
-export async function refresh(refreshTokenString: string, auth: AuthenticationDomain) {
+export async function refresh(refreshTokenString: string, auth: AuthenticationDomain): Promise<{access: string}> {
 	const token = decode(refreshTokenString);
 
 	// Check if token is invalid or expired
