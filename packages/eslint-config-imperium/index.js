@@ -59,7 +59,7 @@ module.exports = {
 		'@typescript-eslint/lines-between-class-members': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
 		'@typescript-eslint/no-before-define': ['off'], // TODO This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
-		'@typescript-eslint/explicit-module-boundary-types': ['error', {allowArgumentsExplicitlyTypedAsAny: true, allowedNames: ['services']}],
+		'@typescript-eslint/explicit-module-boundary-types': ['warn', {allowArgumentsExplicitlyTypedAsAny: true, allowedNames: ['services']}],
 
 		// React
 		'react/forbid-prop-types': 'error',

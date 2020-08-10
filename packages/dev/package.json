@@ -26,8 +26,8 @@
 		"imperium": "./bin/imperium.js"
 	},
 	"scripts": {
-		"lint": "eslint --cache --ext js,ts,tsx scripts",
-		"lint:fix": "eslint --cache --fix --ext js,ts,tsx scripts",
+		"lint": "eslint --cache --ext js,ts scripts",
+		"lint:fix": "eslint --cache --fix --ext js,ts scripts",
 		"yalc:publish": "yalc publish --push"
 	},
 	"dependencies": {
@@ -61,6 +61,11 @@
 		"webpack-dev-server": "^3.10.3",
 		"webpack-hot-middleware": "^2.25.0",
 		"webpack-node-externals": "^2.5.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
 }

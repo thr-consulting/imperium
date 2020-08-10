@@ -43,7 +43,6 @@
 		"react-dom": "^16.x"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.3.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"merge-options": "^2.0.0"

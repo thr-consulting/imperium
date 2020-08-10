@@ -42,7 +42,6 @@
 	},
 	"dependencies": {
 		"@imperium/client": "^4.3.0",
-		"@imperium/util": "^4.3.0",
 		"debug": "^4.1.1"
 	},
 	"eslintConfig": {

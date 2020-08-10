@@ -51,6 +51,11 @@
 		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
 		"react-refresh": "^0.8.1"
 	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
+	},
 	"jest": {
 		"transform": {
 			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"

@@ -40,7 +40,6 @@
 	},
 	"dependencies": {
 		"@imperium/connector": "^4.3.0",
-		"@imperium/util": "^4.3.0",
 		"chalk": "^4.0.0",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",

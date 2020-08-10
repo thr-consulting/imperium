@@ -37,7 +37,6 @@
 	},
 	"dependencies": {
 		"@imperium/server": "^4.3.0",
-		"@imperium/util": "^4.3.0",
 		"@thx/sha256": "^11.0.0",
 		"bcrypt": "^5.0.0",
 		"body-parser": "^1.19.0",

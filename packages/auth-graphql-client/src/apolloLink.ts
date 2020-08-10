@@ -23,7 +23,7 @@ export function createLinks(client: IImperiumClient): ApolloLink[] {
 	});
 
 	d('Creating refresh Apollo link');
-	const refreshLink = new TokenRefreshLink({
+	const refreshLink = (new TokenRefreshLink({
 		// This fieldname is set in the @imperium/auth-server:src/models/Auth.ts file in the refresh() method.
 		accessTokenField: 'access',
 		isTokenValidOrUndefined: () => {
@@ -56,7 +56,7 @@ export function createLinks(client: IImperiumClient): ApolloLink[] {
 			window.localStorage.removeItem(client.globalConst.authLSIdKey as string);
 			// TODO If we could forward to the login page at this point, that would be great!
 		},
-	});
+	}) as unknown) as ApolloLink;
 
 	// This order matters!
 	return [refreshLink, authLink];

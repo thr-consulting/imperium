@@ -39,7 +39,6 @@
 		"@imperium/auth-client": "^4.3.0",
 		"@imperium/client": "^4.3.0",
 		"@imperium/graphql-client": "^4.3.0",
-		"@imperium/util": "^4.3.0",
 		"apollo-link-token-refresh": "^0.3.2",
 		"debug": "^4.1.1",
 		"jwt-decode": "^2.2.0"

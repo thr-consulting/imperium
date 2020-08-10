@@ -18,8 +18,8 @@
 		"start:prod": "imperium prod-client",
 		"build:prod": "imperium build-client imperium.js",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"lint": "eslint --cache --ext ts,js,tsx src",
-		"lint:fix": "eslint --cache --fix --ext ts,js,tsx src",
+		"Xlint": "eslint --cache --ext ts,js,tsx src",
+		"Xlint:fix": "eslint --cache --fix --ext ts,js,tsx src",
 		"Xts": "tsc"
 	},
 	"dependencies": {
@@ -45,5 +45,10 @@
 	},
 	"devDependencies": {
 		"@imperium/dev": "^4.3.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	}
 }
