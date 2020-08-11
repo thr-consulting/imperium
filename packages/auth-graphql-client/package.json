@@ -24,7 +24,7 @@
 		"build": "yarn build:dev && yarn build:prod",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
@@ -35,17 +35,21 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.1",
+		"@apollo/client": "^3.1.2",
 		"@imperium/auth-client": "^4.3.0",
 		"@imperium/client": "^4.3.0",
 		"@imperium/graphql-client": "^4.3.0",
-		"@imperium/util": "^4.3.0",
-		"apollo-link-token-refresh": "^0.3.1",
+		"apollo-link-token-refresh": "^0.3.2",
 		"debug": "^4.1.1",
 		"jwt-decode": "^2.2.0"
 	},
 	"resolutions": {
-		"apollo-link-token-refresh/**/@apollo/client": "3.1.1"
+		"apollo-link-token-refresh/**/@apollo/client": "3.1.2"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"jest": {
 		"transform": {

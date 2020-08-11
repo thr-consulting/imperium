@@ -17,12 +17,13 @@
 		"start:dev": "imperium dev-client imperium.js",
 		"start:prod": "imperium prod-client",
 		"build:prod": "imperium build-client imperium.js",
-		"lint": "eslint --cache --ext ts,js,tsx src",
-		"lint:fix": "eslint --cache --fix --ext ts,js,tsx src",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
+		"Xlint": "eslint --cache --ext ts,js,tsx src",
+		"Xlint:fix": "eslint --cache --fix --ext ts,js,tsx src",
 		"Xts": "tsc"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.1",
+		"@apollo/client": "^3.1.2",
 		"@imperium/auth-client": "^4.3.0",
 		"@imperium/auth-graphql-client": "^4.3.0",
 		"@imperium/client": "^4.3.0",
@@ -33,16 +34,21 @@
 		"@thx/controls": "^12.1.2",
 		"debug": "^4.1.1",
 		"dotenv": "^8.2.0",
-		"graphql": "^15.3.0",
+		"graphql": "^14.7.0",
 		"lodash": "^4.17.15",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.1.2",
 		"semantic-ui-css": "^2.4.1",
-		"semantic-ui-react": "^0.88.2",
+		"semantic-ui-react": "^1.1.1",
 		"yup": "^0.29.2"
 	},
 	"devDependencies": {
 		"@imperium/dev": "^4.3.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	}
 }

@@ -5,7 +5,7 @@ import {loginEndpoint} from './loginEndpoint';
 import {refreshEndpoint} from './refreshEndpoint';
 
 export function createAuthEndpoints(getAuthFn: GetAuthenticationFn) {
-	return function endpoints(server: ImperiumServer<any, any>) {
+	return function endpoints(server: ImperiumServer<any, any>): void {
 		loginEndpoint(getAuthFn, server);
 		refreshEndpoint(getAuthFn, server);
 		forgotPasswordEndpoint(getAuthFn, server);

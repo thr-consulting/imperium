@@ -11,7 +11,7 @@ import type {GetAuthenticationFn, LoginReturn} from '../types';
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 const env = environment();
 
-export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any, any>) {
+export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any, any>): void {
 	d(`Adding auth login endpoint: ${env.authLoginUrl}`);
 
 	const corsOpts: CorsOptions = {

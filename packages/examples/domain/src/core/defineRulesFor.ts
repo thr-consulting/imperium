@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {Ability, AbilityBuilder} from '@casl/ability';
+import {Ability, AbilityBuilder, RawRule, RawRuleOf} from '@casl/ability';
 import type {User} from '../user';
 
 const d = debug('imperium.examples.domain.defineRulesFor');
@@ -8,7 +8,7 @@ type Actions = 'read' | 'update' | 'delete' | 'create' | 'manage';
 type Entities = 'Photo' | 'Metadata' | 'Category' | 'User' | 'Comment' | 'SecureModel' | 'all';
 export type AppAbilityTuple = [Actions, Entities];
 
-export function defineRulesFor(user: User | null) {
+export function defineRulesFor(user: User | null): RawRuleOf<Ability<AppAbilityTuple>>[] {
 	const {can, rules} = new AbilityBuilder<Ability<AppAbilityTuple>>();
 
 	if (user && user.services.roles.indexOf('admin') >= 0) {

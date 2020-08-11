@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign, func-names, global-require, no-var, vars-on-top, prefer-template, operator-linebreak,@typescript-eslint/no-var-requires */
+/* eslint-disable no-param-reassign, func-names, global-require, no-var, vars-on-top, prefer-template, operator-linebreak, @typescript-eslint/no-var-requires */
 
 const validateBoolOption = (name, value, defaultValue) => {
 	if (typeof value === 'undefined') {

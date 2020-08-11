@@ -1,6 +1,6 @@
 import {isString} from '@imperium/util';
 import bodyParser from 'body-parser';
-import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql} from 'apollo-server-express';
+import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
 import {compose} from '@imperium/server';
 import merge from 'lodash/merge';
@@ -46,7 +46,7 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
  * @param config
  */
 export function endpoints(config?: GraphqlServerModuleConfig) {
-	return (server: ImperiumServer<any, any>) => {
+	return (server: ImperiumServer<any, any>): void => {
 		// Merge all the typeDefs from all modules
 		d('Merging graphql schema');
 		const typeDefs = server.modules.reduce(
@@ -73,7 +73,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 				};
 			}
 			return memo;
-		}, {});
+		}, {} as Record<string, typeof SchemaDirectiveVisitor>);
 
 		// Let's not create a pubsub here. The app should be in charge of that.
 		// // Create PubSub for subscriptions

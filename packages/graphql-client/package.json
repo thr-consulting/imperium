@@ -25,7 +25,7 @@
 		"build": "yarn build:dev && yarn build:prod",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
@@ -39,11 +39,15 @@
 		"@apollo/client": "3.x"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.1",
-		"@imperium/util": "^4.3.0",
+		"@apollo/client": "^3.1.2",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
-		"subscriptions-transport-ws": "^0.9.16"
+		"subscriptions-transport-ws": "^0.9.17"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"jest": {
 		"transform": {

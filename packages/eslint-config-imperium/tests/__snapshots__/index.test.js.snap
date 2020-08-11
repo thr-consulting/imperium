@@ -48,6 +48,15 @@ Object {
     "@typescript-eslint/explicit-member-accessibility": Array [
       "off",
     ],
+    "@typescript-eslint/explicit-module-boundary-types": Array [
+      "warn",
+      Object {
+        "allowArgumentsExplicitlyTypedAsAny": true,
+        "allowedNames": Array [
+          "services",
+        ],
+      },
+    ],
     "@typescript-eslint/indent": Array [
       "off",
     ],
@@ -74,8 +83,13 @@ Object {
       },
     ],
     "class-methods-use-this": "off",
+    "func-names": Array [
+      "error",
+      "always",
+    ],
     "global-require": "error",
     "import/extensions": "off",
+    "import/no-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-named-default": "off",
     "import/no-unresolved": "off",

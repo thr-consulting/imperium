@@ -45,6 +45,7 @@ module.exports = {
 		// 'lines-between-class-members': ['error', 'always', {exceptAfterSingleLine: true}],
 		'lines-between-class-members': ['off'],
 		'no-use-before-define': ['off'],
+		'func-names': ['error', 'always'],
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
@@ -55,10 +56,10 @@ module.exports = {
 		'@typescript-eslint/no-explicit-any': ['off'], // TODO probably turn this back to warn at some point...
 		'@typescript-eslint/ban-ts-ignore': ['off'],
 		'@typescript-eslint/ban-ts-comment': ['off'],
+		'@typescript-eslint/lines-between-class-members': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
 		'@typescript-eslint/no-before-define': ['off'], // TODO This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
-		'@typescript-eslint/lines-between-class-members': ['off'],
-		// '@typescript-eslint/camelcase': ['off'], // TODO disabled because airbnb isn't up to date yet: https://github.com/typescript-eslint/typescript-eslint/issues/2077
+		'@typescript-eslint/explicit-module-boundary-types': ['warn', {allowArgumentsExplicitlyTypedAsAny: true, allowedNames: ['services']}],
 
 		// React
 		'react/forbid-prop-types': 'error',
@@ -84,6 +85,7 @@ module.exports = {
 		'import/prefer-default-export': 'off',
 		'import/extensions': 'off',
 		'import/no-named-default': 'off',
+		'import/no-default-export': 'off',
 
 		// JSX a11y
 		'jsx-a11y/label-has-for': 'off',

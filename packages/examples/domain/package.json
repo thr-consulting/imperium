@@ -18,11 +18,14 @@
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist",
-		"lint": "eslint --cache --ext js,ts src",
-		"lint:fix": "eslint --cache --fix --ext js,ts src",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
+		"Xlint": "eslint --cache --ext js,ts src",
+		"Xlint:fix": "eslint --cache --fix --ext js,ts src",
 		"ts": "tsc",
 		"prettier": "prettier"
+	},
+	"resolutions": {
+		"mikro-orm/**/typescript": "3.9.7"
 	},
 	"dependencies": {
 		"@casl/ability": "^4.1.5",
@@ -32,5 +35,10 @@
 		"mikro-orm": "^3.6.15",
 		"pg": "^8.2.0",
 		"uuid": "^8.2.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig.json"
+		}
 	}
 }

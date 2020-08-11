@@ -1,13 +1,10 @@
-export {log, default as inspectLoader} from './inspectLoader';
-export type {Inspection} from './inspectLoader';
-export {default as commonWebpack} from './commonWebpack';
 export {isString} from './typeguards';
 
 /**
  * Take each field's value in an object and map it to functions that return the values.
  * @param obj
  */
-export function valuesToFunctions<T extends Record<string, unknown>>(obj: T) {
+export function valuesToFunctions<T extends Record<string, unknown>>(obj: T): {[P in keyof T]: () => T[P]} {
 	return (Object.keys(obj) as (keyof T)[]).reduce((memo, v) => {
 		return {
 			...memo,

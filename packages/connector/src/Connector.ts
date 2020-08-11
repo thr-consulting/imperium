@@ -7,7 +7,7 @@ export interface ConnectorsConfig<T = any> {
 	close?: (connection: T) => Promise<void>;
 }
 
-export class Connector<T extends {[key: string]: ConnectorsConfig} = Record<string, ConnectorsConfig>> {
+export class Connector<T extends {[key: string]: ConnectorsConfig} = any> {
 	private readonly connectionConfigs: T;
 	private connected = false;
 	public readonly connections: {[P in keyof T]: ReturnType<T[P]['connect']> extends Promise<infer C> ? C : ReturnType<T[P]['connect']>};
@@ -27,7 +27,7 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = Record<stri
 	/**
 	 * Connect each connector
 	 */
-	public async connect(): Promise<Connector<T>> {
+	public async connect(): Promise<this> {
 		if (!this.connected) {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
@@ -46,7 +46,7 @@ export class Connector<T extends {[key: string]: ConnectorsConfig} = Record<stri
 	/**
 	 * Close each connector
 	 */
-	public async close(): Promise<Connector<T>> {
+	public async close(): Promise<this> {
 		if (this.isConnected) {
 			await Promise.all(
 				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {

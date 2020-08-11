@@ -1,6 +1,6 @@
 import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
-import {entities, Category, User, Photo, Metadata} from '@imperium/example-domain';
+import {entities, Category, User, Photo} from '@imperium/example-domain';
 import type {Context} from '../core/context';
 
 const d = debug('imperium.examples.server.createData');
@@ -78,10 +78,10 @@ export async function getOrCreatePhotos(categories: Category[], users: User[], c
 		photo1 = ctx.photoService.create({
 			name: 'Photo 1',
 			categories,
-			metadata: new Metadata({
+			metadata: {
 				location: 'Earth',
 				privateData: 'This is private data for photo1',
-			}),
+			},
 			public: false,
 			owner: users[0],
 		});
@@ -93,10 +93,10 @@ export async function getOrCreatePhotos(categories: Category[], users: User[], c
 		photo2 = ctx.photoService.create({
 			name: 'Photo 2',
 			categories,
-			metadata: new Metadata({
+			metadata: {
 				location: 'The ISS',
 				privateData: 'This is private data for photo 2',
-			}),
+			},
 			public: true,
 			owner: users[0],
 		});

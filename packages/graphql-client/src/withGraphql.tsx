@@ -1,6 +1,6 @@
 import debug from 'debug';
 import React from 'react';
-import {ApolloClient, ApolloProvider, ApolloLink, HttpLink, InMemoryCache, split} from '@apollo/client';
+import {ApolloProvider, ApolloClient, ApolloLink, split, HttpLink, InMemoryCache} from '@apollo/client';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
@@ -54,12 +54,12 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	}
 
 	// Use links from other modules
-	const moduleLinks = client.modules.reduce((memo, module: ImperiumClientModule & ImperiumGraphqlClientModule) => {
+	const moduleLinks = client.modules.reduce((memo: ApolloLink[], module: ImperiumClientModule & ImperiumGraphqlClientModule) => {
 		if (module.apolloLinks && typeof module.apolloLinks === 'function') {
 			return [...memo, ...module.apolloLinks(client)];
 		}
 		return memo;
-	}, [] as ApolloLink[]);
+	}, []);
 
 	// Create complete link object
 	const link = ApolloLink.from([errorLink, ...moduleLinks, finalLink]);

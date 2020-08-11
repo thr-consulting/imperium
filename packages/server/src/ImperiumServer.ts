@@ -42,7 +42,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	 * Start the Imperium server
 	 * @param port Which TCP port to start the server on. Defaults to 4001.
 	 */
-	public async start({port}: {port: number} = {port: 4001}) {
+	public async start({port}: {port: number} = {port: 4001}): Promise<this> {
 		if (this._expressApp) throw new Error('Server already started');
 
 		// Connect connectors
@@ -96,7 +96,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	/**
 	 * Stop the server, closing the connectors
 	 */
-	public async stop() {
+	public async stop(): Promise<void> {
 		d('Closing connectors');
 		await this.connectors.close();
 	}

@@ -7,13 +7,16 @@ interface State {
 	hasError: boolean;
 }
 
-export default class RouteErrorBoundary extends React.Component<Record<string, unknown>, State> {
-	constructor(props: Record<string, unknown>) {
-		super(props);
+export default class RouteErrorBoundary extends React.Component {
+	// eslint-disable-next-line react/state-in-constructor
+	state: State;
+
+	constructor() {
+		super({});
 		this.state = {hasError: false};
 	}
 
-	static getDerivedStateFromError(/* error */) {
+	static getDerivedStateFromError(/* error */): Record<string, unknown> {
 		return {hasError: true};
 	}
 
@@ -22,10 +25,11 @@ export default class RouteErrorBoundary extends React.Component<Record<string, u
 		d(errorInfo);
 	}
 
-	render() {
+	render(): React.ReactNode {
 		if (this.state.hasError) {
 			return <h1>Something went wrong.</h1>;
 		}
+		// eslint-disable-next-line react/prop-types
 		return this.props.children;
 	}
 }

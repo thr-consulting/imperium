@@ -25,7 +25,7 @@
 		"build": "yarn build:dev && yarn build:prod",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"ts": "tsc",
@@ -36,13 +36,17 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@imperium/util": "^4.3.0",
 		"@thx/sha256": "^11.0.0",
 		"debug": "^4.1.1",
 		"js-cookie": "^2.2.1",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.15",
 		"whatwg-fetch": "^3.0.0"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"jest": {
 		"transform": {
