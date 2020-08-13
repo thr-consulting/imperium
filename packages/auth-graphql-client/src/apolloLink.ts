@@ -1,8 +1,7 @@
 import debug from 'debug';
 import {ApolloLink} from '@apollo/client';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
-import decode from 'jwt-decode';
-import type {AccessToken} from '@imperium/auth-client';
+import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
 import type {IImperiumClient} from '@imperium/client';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
@@ -27,24 +26,10 @@ export function createLinks(client: IImperiumClient): ApolloLink[] {
 		// This fieldname is set in the @imperium/auth-server:src/models/Auth.ts file in the refresh() method.
 		accessTokenField: 'access',
 		isTokenValidOrUndefined: () => {
-			const token = window.localStorage.getItem(client.globalConst.authLSAccessTokenKey as string);
-			if (!token) return true; // Empty token should be valid
-			try {
-				const decodedToken = decode(token) as AccessToken;
-				if (!decodedToken || !decodedToken.exp) return false;
-				return Date.now() / 1000 <= decodedToken.exp;
-			} catch (err) {
-				d('Error decoding access token');
-				return false;
-			}
+			return isTokenValidOrUndefined(client);
 		},
 		fetchAccessToken: async () => {
-			d('Fetching new access token');
-			return fetch(client.globalConst.authRefreshUrl as string, {
-				method: 'POST',
-				mode: 'cors',
-				credentials: 'include',
-			});
+			return fetchAccessToken(client);
 		},
 		handleFetch: accessToken => {
 			d('Fetched access token');

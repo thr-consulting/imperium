@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import debug from 'debug';
 import type {Hoc, IImperiumClient} from '@imperium/client';
 import {AuthContext, IAuth} from './AuthContext';
+import {fetchAccessTokenString, fetchAuth, isTokenValidOrUndefined} from './lib';
 
 const d = debug('imperium.auth-client.withAuth');
 
@@ -33,7 +34,22 @@ export function withAuth(client: IImperiumClient): Hoc {
 
 			if (authEffectFinished) {
 				return (
-					<AuthContext.Provider value={{auth, setAuth: authVal => setAuth(authVal)}}>
+					<AuthContext.Provider
+						value={{
+							auth,
+							setAuth: authVal => setAuth(authVal),
+							getAuth: async () => {
+								if (!isTokenValidOrUndefined(client, auth?.access)) {
+									const newAuth = await fetchAuth(client);
+									localStorage.setItem(client?.globalConst.authLSIdKey as string, newAuth.id);
+									localStorage.setItem(client?.globalConst.authLSAccessTokenKey as string, newAuth.access);
+									setAuth(newAuth);
+									return newAuth;
+								}
+								return auth;
+							},
+						}}
+					>
 						<WrappedComponent {...props} />
 					</AuthContext.Provider>
 				);

@@ -49,11 +49,11 @@
 		"babel-plugin-macros": "^2.8.0",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",
 		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-		"react-refresh": "^0.8.1"
+		"react-refresh": "^0.8.3"
 	},
 	"eslintConfig": {
 		"parserOptions": {
-			"project": "../../tsconfig.json"
+			"project": "./tsconfig.json"
 		}
 	},
 	"jest": {

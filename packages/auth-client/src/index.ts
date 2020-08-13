@@ -14,3 +14,4 @@ export {useForgetPassword} from './useForgetPassword';
 export {useLogin} from './useLogin';
 export {useLogout} from './useLogout';
 export {ImperiumAuthClientModule, LoginInfo, LoginReturn, AccessToken} from './types';
+export {isTokenValidOrUndefined, fetchAccessToken} from './lib';
