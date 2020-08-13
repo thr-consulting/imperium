@@ -34,7 +34,6 @@
 		"@babel/core": "^7.9.0",
 		"@babel/register": "^7.9.0",
 		"@imperium/babel-preset-imperium": "^4.3.0",
-		"@imperium/util": "^4.3.0",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
 		"@thx/common-webpack": "^5.0.0",
 		"babel-loader": "^8.1.0",
