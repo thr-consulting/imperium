@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-server",
-	"version": "4.2.0",
+	"version": "4.3.0",
 	"description": "Imperium Auth server package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
@@ -25,7 +25,7 @@
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"ts": "tsc",
@@ -36,20 +36,23 @@
 		"typedoc": "typedoc"
 	},
 	"dependencies": {
-		"@imperium/server": "^4.2.0",
-		"@imperium/util": "^4.2.0",
-		"@thx/ordereddataloader": "^11.0.1",
+		"@imperium/server": "^4.3.0",
 		"@thx/sha256": "^11.0.0",
-		"bcrypt": "^4.0.1",
+		"bcrypt": "^5.0.0",
 		"body-parser": "^1.19.0",
 		"cookie-parser": "^1.4.5",
 		"cors": "^2.8.5",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
-		"express-jwt": "^5.3.3",
+		"express-jwt": "^6.0.0",
 		"jsonwebtoken": "^8.5.1",
 		"lodash": "^4.17.15",
 		"ms": "^2.1.2"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"jest": {
 		"transform": {

@@ -1,11 +1,13 @@
-import {Connector} from '@imperium/context-manager';
+import {Connector} from '@imperium/connector';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
-import {ConnectionOptions, createConnection} from 'typeorm';
+import {MikroORM} from 'mikro-orm';
 import redis from 'redis';
-import {typeormEntities} from '@imperium/example-domain-advanced';
+import {mikroOrmConfig} from './mikro-orm.config';
+import {environment} from './environment';
 
-const d = debug('imperium.example.server.connectors');
+const d = debug('imperium.examples.server.connectors');
+const env = environment();
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.
@@ -19,32 +21,23 @@ export const connectors = new Connector({
 			return 5;
 		},
 	},
-	pg: {
+	orm: {
 		async connect() {
-			const postgresOptions: ConnectionOptions = {
-				type: 'postgres',
-				url: process.env.POSTGRESQL_URL,
-				synchronize: process.env.NODE_ENV === 'development',
-				entities: Object.values(typeormEntities),
-				// subscribers,
-				...(process.env.POSTGRESQL_SSL_CA ? {ssl: {ca: process.env.POSTGRESQL_SSL_CA}} : {}),
-			};
-
-			return createConnection(postgresOptions);
+			return MikroORM.init(mikroOrmConfig);
 		},
-		async close(pg) {
-			await pg.close();
+		async close(orm) {
+			await orm.close(true);
 		},
 	},
 	sharedCache: {
 		async connect() {
-			const r = redis.createClient({
-				host: process.env.REDIS_HOST,
-				port: parseInt(process.env.REDIS_PORT || '6379', 10),
-				db: parseInt(process.env.REDIS_DB || '0', 10),
+			const redisClient = redis.createClient({
+				host: env.redisHost,
+				port: env.redisPort,
+				db: env.redisDb,
 			});
 			return new SharedCache({
-				redis: r,
+				redis: redisClient,
 			});
 		},
 	},

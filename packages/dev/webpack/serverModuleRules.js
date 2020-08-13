@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {inspectLoader} = require('@imperium/util');
+const {inspectLoader} = require('@thx/common-webpack');
 
 /* ************************************************************
 	Common server webpack module rules

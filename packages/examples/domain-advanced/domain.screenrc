@@ -1,8 +1,0 @@
-split
-
-screen -t "Advanced Domain TS" yarn ts --watch
-screen -t "Advanced Domain Build" yarn build:dev --watch
-
-select 0
-focus down
-select 1

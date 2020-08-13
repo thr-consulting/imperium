@@ -1,6 +1,6 @@
 /* eslint-disable global-require,@typescript-eslint/no-var-requires,import/no-dynamic-require */
 const mergeOptions = require('merge-options');
-const {log} = require('@imperium/util');
+const {log} = require('@thx/common-webpack');
 const path = require('path');
 const fs = require('fs');
 const isFunction = require('lodash/isFunction');

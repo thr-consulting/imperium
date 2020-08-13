@@ -6,12 +6,12 @@ import ms from 'ms';
 import {environment} from '../environment';
 import {login} from '../lib';
 import {isLoginInfo} from '../lib/typeguards';
-import type {GetAuthFn, LoginReturn} from '../types';
+import type {GetAuthenticationFn, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 const env = environment();
 
-export function loginEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, any>) {
+export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any, any>): void {
 	d(`Adding auth login endpoint: ${env.authLoginUrl}`);
 
 	const corsOpts: CorsOptions = {
@@ -26,13 +26,10 @@ export function loginEndpoint(getAuthFn: GetAuthFn, server: ImperiumServer<any, 
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 
+			d(`Login attempt: ${loginInfo.identifier}`);
+
 			// @ts-ignore
 			const auth = getAuthFn(req.context);
-
-			// TODO Researching getting additional info from the request. Maybe we should keep track of that info?
-			// d(req.hostname);
-			// d(req.ip);
-			// d(req.ips);
 
 			// @ts-ignore Perform login
 			login(loginInfo, req.connection.remoteAddress, auth)

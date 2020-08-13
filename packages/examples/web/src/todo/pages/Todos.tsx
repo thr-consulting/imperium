@@ -1,5 +1,5 @@
 import React from 'react';
-import {useQuery} from '@apollo/react-hooks';
+import {useQuery} from '@apollo/client';
 import {Todo} from '../lib/types';
 import TodoInput from '../components/TodoInput';
 import getTodos from '../graphql/getTodos.graphql';
