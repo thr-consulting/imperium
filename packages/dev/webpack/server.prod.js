@@ -35,7 +35,7 @@ module.exports = function (imperiumConfig) {
 				openAnalyzer: false,
 			}),
 			new CopyWebpackPlugin({
-				patterns: [{from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'), to: '.'}],
+				patterns: [{from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'), to: '.', noErrorOnMissing: true}],
 			}),
 		]),
 		module: {

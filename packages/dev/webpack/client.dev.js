@@ -13,7 +13,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const clientModuleRules = require('./clientModuleRules');
 
 // Webpack configuration
-module.exports = function(imperiumConfig) {
+module.exports = function (imperiumConfig) {
 	// Default alias for development is to replace react-dom with HMR one.
 	const alias = {
 		'react-dom': '@hot-loader/react-dom',
@@ -56,7 +56,7 @@ module.exports = function(imperiumConfig) {
 		plugins: compact([
 			new ProgressBarPlugin(),
 			new CopyWebpackPlugin({
-				patterns: [{from: path.resolve('assets'), to: 'assets/'}],
+				patterns: [{from: path.resolve('assets'), to: 'assets/', noErrorOnMissing: true}],
 			}),
 			new HtmlWebpackPlugin(imperiumConfig.html),
 			new ReactRefreshWebpackPlugin({disableRefreshCheck: true}), // TODO Disabled check because of this: https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/15

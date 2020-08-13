@@ -57,7 +57,7 @@ module.exports = function(imperiumConfig) {
 				openAnalyzer: false,
 			}),
 			new CopyWebpackPlugin({
-				patterns: [{from: path.resolve('assets'), to: 'assets/'}],
+				patterns: [{from: path.resolve('assets'), to: 'assets/', noErrorOnMissing: true}],
 			}),
 			new HtmlWebpackPlugin({
 				...imperiumConfig.html,
