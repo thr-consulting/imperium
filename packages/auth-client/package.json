@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "4.3.0",
+	"version": "4.4.0",
 	"description": "Imperium Auth client package",
 	"repository": "darkadept/imperium",
 	"license": "MIT",
