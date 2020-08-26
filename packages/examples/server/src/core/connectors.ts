@@ -3,6 +3,7 @@ import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {MikroORM} from 'mikro-orm';
 import redis from 'redis';
+import {PubSub} from 'apollo-server-express';
 import {mikroOrmConfig} from './mikro-orm.config';
 import {environment} from './environment';
 
@@ -39,6 +40,11 @@ export const connectors = new Connector({
 			return new SharedCache({
 				redis: redisClient,
 			});
+		},
+	},
+	pubsub: {
+		async connect() {
+			return new PubSub();
 		},
 	},
 });

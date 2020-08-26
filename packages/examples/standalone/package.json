@@ -26,9 +26,11 @@
     "@imperium/connector": "^4.4.0",
     "@imperium/example-domain": "^4.4.0",
     "@thx/sharedcache": "^11.0.2",
+    "apollo-server-express": "^2.16.1",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "lodash": "^4.17.15",
+    "mikro-orm": "^3.6.15",
     "pg": "^8.2.0",
     "redis": "^3.0.2",
     "typeorm": "^0.2.24"

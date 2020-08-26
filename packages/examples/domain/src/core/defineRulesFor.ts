@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {Ability, AbilityBuilder, RawRule, RawRuleOf} from '@casl/ability';
+import {Ability, AbilityBuilder, RawRuleOf} from '@casl/ability';
 import type {User} from '../user';
 
 const d = debug('imperium.examples.domain.defineRulesFor');

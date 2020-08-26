@@ -1,3 +1,4 @@
+import {inspect} from 'util';
 import {isString} from '@imperium/util';
 import bodyParser from 'body-parser';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
@@ -75,14 +76,6 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			return memo;
 		}, {} as Record<string, typeof SchemaDirectiveVisitor>);
 
-		// Let's not create a pubsub here. The app should be in charge of that.
-		// // Create PubSub for subscriptions
-		// if (env.graphqlWs) {
-		// 	d('Creating graphql pub/sub');
-		// 	const pubsub = new PubSub();
-		// 	server.addEnvironment('graphqlPubSub', pubsub);
-		// }
-
 		// Merge all the resolvers from all modules
 		d('Merging graphql resolvers');
 		const resolvers = server.modules.reduce((memo, module) => {
@@ -94,16 +87,42 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			typeDefs,
 			resolvers,
 			context: ({req, res, connection}: ExpressContext) => {
-				// This is ApolloContext!
+				if (connection) {
+					// This is a subscription request and therefore we don't get a normal req and res (they are undefined).
+					// So we will construct a middleware the same way we are below for normal requests.
+					const subscriptionMiddleware = compose([...(config?.middleware || []), server.contextMiddleware()]);
 
-				// TODO check into why I was using connection... probably subscribe
-				// if (connection) {
-				// 	return connection.context;
-				// }
+					// We now execute the middleware by calling it in a promise.
+					return new Promise((resolve, reject) => {
+						// Since we don't have a req object we will create a "fake" one here and prime it with what would be
+						// needed for authentication. We don't have any other identifying pieces of data so we can't supply
+						// that here. Authorization headers are not required here.
+						const customSubscriptionRequest = {
+							headers: {
+								authorization: connection.context.Authorization,
+							},
+							context: {}, // This will be filled in by the contextMiddleware
+						};
+
+						// Execute the actual middleware
+						subscriptionMiddleware(customSubscriptionRequest as any, {} as any, (err?: any) => {
+							if (err) {
+								reject(err);
+							} else if (config?.apolloContextCreator) {
+								resolve({
+									...customSubscriptionRequest.context,
+									...config?.apolloContextCreator({req, res, connection}),
+								});
+							} else {
+								resolve(customSubscriptionRequest.context);
+							}
+						});
+					});
+				}
 
 				if (config?.apolloContextCreator) {
 					return {
-						// @ts-ignore
+						// @ts-ignore It's too much work to place "context" on the Request type.
 						...req.context,
 						...config?.apolloContextCreator({req, res, connection}),
 					};
@@ -114,10 +133,9 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			},
 			schemaDirectives,
 			formatError: error => {
-				// TODO Do more here
+				// TODO Do more here, like logging.
 				// eslint-disable-next-line no-console
-				console.error(error);
-				d(error);
+				console.error(inspect(error, false, null, true));
 				return error;
 			},
 			playground: !!env.development,

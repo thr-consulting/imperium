@@ -13,4 +13,6 @@ export const environment = memoize(() => ({
 	redisHost: process.env.REDIS_HOST,
 	redisPort: parseInt(process.env.REDIS_PORT || '6379', 10),
 	redisDb: parseInt(process.env.REDIS_DB || '0', 10),
+
+	subscriptions: process.env.GRAPHQL_ENABLE_SUBSCRIPTIONS === 'true',
 }));
