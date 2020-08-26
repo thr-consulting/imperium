@@ -49,5 +49,10 @@
     "configPaths": [
       "./mikroorm.ts"
     ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig-eslint.json"
+    }
   }
 }

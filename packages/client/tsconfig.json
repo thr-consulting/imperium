@@ -1,7 +1,8 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"declarationDir": "dist"
+		"declarationDir": "dist",
+		"jsx": "react"
 	},
 	"include": [
 		"src/index.ts"
