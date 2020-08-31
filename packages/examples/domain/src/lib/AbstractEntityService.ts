@@ -1,4 +1,4 @@
-import type {EntityData, EntityRepository, EntityManager, FilterQuery} from 'mikro-orm';
+import type {EntityData, EntityRepository, EntityManager, FilterQuery} from '@mikro-orm/core';
 import type {AuthenticatedUser, Connector} from '@imperium/connector';
 
 /**

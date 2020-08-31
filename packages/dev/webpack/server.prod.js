@@ -21,7 +21,7 @@ module.exports = function (imperiumConfig) {
 			libraryTarget: 'commonjs2',
 		},
 		resolve: {
-			extensions: ['.js', '.mjs', '.ts', '.d.ts'],
+			extensions: ['.mjs', '.js', '.ts', '.d.ts'],
 		},
 		optimization: {
 			minimize: imperiumConfig.production.server.minimize,
