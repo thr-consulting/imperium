@@ -2,7 +2,7 @@ import type {Options} from '@mikro-orm/core';
 import {PostgreSqlDriver} from '@mikro-orm/postgresql';
 // import {TsMorphMetadataProvider} from '@mikro-orm/reflection';
 // import path from 'path';
-import {getInstalledPathSync} from 'get-installed-path';
+// import {getInstalledPathSync} from 'get-installed-path';
 import {entities} from '@imperium/example-domain';
 
 // const domainPath = getInstalledPathSync('@imperium/example-domain', {local: true, paths: process.mainModule.paths});
