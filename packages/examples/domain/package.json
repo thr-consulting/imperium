@@ -11,7 +11,8 @@
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist",
-		"index.js"
+		"index.js",
+		"src"
 	],
 	"scripts": {
 		"start": "screen -c ./domain.screenrc",
@@ -35,9 +36,10 @@
 		"@thx/sharedcache": "^11.0.3",
 		"apollo-server-express": "^2.16.1",
 		"debug": "^4.1.1",
-		"mikro-orm": "^3.6.15",
-		"pg": "^8.2.0",
 		"uuid": "^8.2.0"
+	},
+	"peerDependencies": {
+		"@mikro-orm/core": "^4.0.0-rc.6"
 	},
 	"eslintConfig": {
 		"parserOptions": {

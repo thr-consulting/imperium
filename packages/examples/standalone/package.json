@@ -20,7 +20,7 @@
     "clean": "rimraf ./dist && rimraf .eslintcache",
     "Xlint": "eslint --cache --ext ts,js src",
     "Xlint:fix": "eslint --cache --fix --ext ts,js src",
-    "ts": "tsc"
+    "Xts": "tsc"
   },
   "dependencies": {
     "@imperium/connector": "^4.4.0",
@@ -30,10 +30,7 @@
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "lodash": "^4.17.15",
-    "mikro-orm": "^3.6.15",
-    "pg": "^8.2.0",
-    "redis": "^3.0.2",
-    "typeorm": "^0.2.24"
+    "redis": "^3.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

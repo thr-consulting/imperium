@@ -7,21 +7,23 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const serverModuleRules = require('./serverModuleRules');
 
-module.exports = function (imperiumConfig) {
+module.exports = function serverWebpack(imperiumConfig) {
 	return {
 		mode: 'production',
 		context: imperiumConfig.source.path,
 		target: 'node',
 		devtool: imperiumConfig.production.server.devtool,
 		entry: imperiumConfig.source.serverIndex,
-		externals: imperiumConfig.production.server.externals.map(v => nodeExternals({modulesDir: v})),
+		externals: nodeExternals({
+			additionalModuleDirs: imperiumConfig.production.server.externals,
+		}),
 		output: {
 			filename: 'worker.js',
 			path: path.join(imperiumConfig.production.path, 'server'),
 			libraryTarget: 'commonjs2',
 		},
 		resolve: {
-			extensions: ['.js', '.mjs', '.ts', '.d.ts'],
+			extensions: ['.mjs', '.js', '.ts', '.d.ts'],
 		},
 		optimization: {
 			minimize: imperiumConfig.production.server.minimize,

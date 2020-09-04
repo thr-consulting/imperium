@@ -28,7 +28,9 @@ module.exports = {
 			// Externals aren't included in webpack. (See https://webpack.js.org/configuration/externals/#externals)
 			externals: [
 				path.join(pRoot, 'node_modules'),
-				path.join(pRoot, '..', '..', 'node_modules'), // Needed if the project is a lerna project
+				path.join(pRoot, '..', 'node_modules'),
+				path.join(pRoot, '..', '..', 'node_modules'),
+				path.join(pRoot, '..', '..', '..', 'node_modules'),
 			],
 		},
 	},

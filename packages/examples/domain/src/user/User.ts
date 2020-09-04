@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {Entity, OneToOne, PrimaryKey, Property} from 'mikro-orm';
+import {Entity, OneToOne, PrimaryKey, Property} from '@mikro-orm/core';
 import {v4} from 'uuid';
 import {Services} from './Services';
 

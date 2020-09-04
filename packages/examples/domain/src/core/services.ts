@@ -1,4 +1,4 @@
-import type {EntityManager} from 'mikro-orm';
+import type {EntityManager} from '@mikro-orm/core';
 import type {AuthenticatedUser} from '@imperium/connector';
 import {UserService} from '../user';
 import type {DomainConnectors} from './DomainConnectors';
