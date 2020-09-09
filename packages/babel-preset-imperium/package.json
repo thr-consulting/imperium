@@ -49,6 +49,7 @@
 		"babel-plugin-macros": "^2.8.0",
 		"babel-plugin-transform-dynamic-import": "^2.1.0",
 		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+		"babel-plugin-transform-typescript-metadata": "^0.3.0",
 		"react-refresh": "^0.8.3"
 	},
 	"eslintConfig": {

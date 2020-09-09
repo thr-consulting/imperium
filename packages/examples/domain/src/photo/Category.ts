@@ -1,6 +1,6 @@
 import {v4} from 'uuid';
 import debug from 'debug';
-import {Entity, PrimaryKey, Property} from 'mikro-orm';
+import {Entity, PrimaryKey, Property} from '@mikro-orm/core';
 
 const d = debug('imperium.examples.domain.Category');
 

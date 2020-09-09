@@ -12,7 +12,8 @@
 		"emitDeclarationOnly": true,
 		"noImplicitAny": true,
 		"importsNotUsedAsValues": "error",
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	},
 	"exclude": [
 		"src/**/*.test.ts",

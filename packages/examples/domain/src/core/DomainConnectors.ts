@@ -1,5 +1,5 @@
 import type {Connector, ConnectorsConfig} from '@imperium/connector';
-import type {MikroORM} from 'mikro-orm';
+import type {MikroORM} from '@mikro-orm/core';
 import type SharedCache from '@thx/sharedcache';
 import type {PubSub} from 'apollo-server-express';
 
