@@ -138,9 +138,10 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 				console.error(inspect(error, false, null, true));
 				return error;
 			},
-			playground: !!env.development,
-			debug: !!env.development,
-			introspection: !!env.development,
+			playground: env.development,
+			debug: env.development,
+			introspection: env.development,
+			tracing: env.development,
 		};
 
 		if (env.graphqlWs) {
