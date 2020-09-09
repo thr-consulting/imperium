@@ -28,7 +28,7 @@ export interface AccessToken {
 
 export interface ServiceInfo {
 	id: string;
-	password: string; // Bcrypt hash password
+	password?: string; // Bcrypt hash password
 	blacklist?: string[]; // Blacklisted refresh tokens
 }
 
