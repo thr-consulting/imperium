@@ -2324,15 +2324,15 @@
     hoist-non-react-statics "^3.3.1"
     react-is "^16.12.0"
 
-"@mikro-orm/cli@^4.0.0-rc.8":
-  version "4.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/cli/-/cli-4.0.0-rc.8.tgz#cd3690453f8261da0c6343fd2543cd4650074ff2"
-  integrity sha512-t44ShuQ/sTDIPxN4dyqi6Eo9LgbUx64aUrah+ddlJRkWdQYktYVKjhXlwaKdPpORVegPs0dxdZenXmuhA18mtA==
+"@mikro-orm/cli@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/cli/-/cli-4.0.0.tgz#774fc4f8a3c7fdc90202865a8f9397668c201c64"
+  integrity sha512-9uTE0zoSfkVIm8f/MlDRMyP41K7km/JEzZdS5r8xW79rTTa8GKOAJ0Ta1x4t18/lvhtOi4W0OnHsD+JA7DIh3g==
   dependencies:
-    "@mikro-orm/core" "^4.0.0-rc.8"
-    "@mikro-orm/entity-generator" "^4.0.0-rc.8"
-    "@mikro-orm/knex" "^4.0.0-rc.8"
-    "@mikro-orm/migrations" "^4.0.0-rc.8"
+    "@mikro-orm/core" "^4.0.0"
+    "@mikro-orm/entity-generator" "^4.0.0"
+    "@mikro-orm/knex" "^4.0.0"
+    "@mikro-orm/migrations" "^4.0.0"
     ansi-colors "^4.1.1"
     cli-table3 "^0.6.0"
     fs-extra "^9.0.1"
@@ -2340,14 +2340,14 @@
     yargonaut "^1.1.4"
     yargs "^15.3.1"
 
-"@mikro-orm/core@^4.0.0-rc.8":
-  version "4.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.0.0-rc.8.tgz#73a0429bbe30d0868122bafd571ca4755e9581b3"
-  integrity sha512-bwZoWVlTERcQ3GLoR1nO+Ew3QRcFS4ovMdNW7IO1SvY6x5ptNriGK/0tCtnJcOfuuGPLmWi3lRkpm2Q/cBI4Tg==
+"@mikro-orm/core@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.0.0.tgz#b779676257c6c26f5efde9884566fafeb86c91bb"
+  integrity sha512-5O0aY8LjNy0UZ5hEAGCmojLcjL+PkSmum4UIHrLp5o4soSyZ7jhli7NozgX681L2zMbP68lCZsKi920QLTvQgA==
   dependencies:
     ansi-colors "^4.1.1"
     clone "^2.1.2"
-    escaya "^0.0.37"
+    escaya "^0.0.40"
     fast-deep-equal "^3.1.3"
     fs-extra "^9.0.1"
     globby "^11.0.1"
@@ -2355,40 +2355,40 @@
     strip-json-comments "^3.1.1"
     uuid "^8.3.0"
 
-"@mikro-orm/entity-generator@^4.0.0-rc.8":
-  version "4.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/entity-generator/-/entity-generator-4.0.0-rc.8.tgz#cacda037ea376daa910842b2cfb61325805bd81e"
-  integrity sha512-4pN2I/0DljoPArHcAlBBz+caY1rT3IT0oxNTtRAHb4nUdfT3HmEIZQdHzjkdPOGPJp+4k5Dn5m0ihV7/p2eoHQ==
+"@mikro-orm/entity-generator@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/entity-generator/-/entity-generator-4.0.0.tgz#a8961c35b12f4f596573a52746607ef72b23c006"
+  integrity sha512-hPNbZdF97QJ4oWMB7W4TWRWwO88uePypVouNa2FUNRGOcDb7qs4C/fnoyclJ+OehHo+l6pZd1UkB1QU8crKaQA==
   dependencies:
-    "@mikro-orm/knex" "^4.0.0-rc.8"
+    "@mikro-orm/knex" "^4.0.0"
     fs-extra "^9.0.1"
     ts-morph "^8.0.0"
 
-"@mikro-orm/knex@^4.0.0-rc.8":
-  version "4.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.0.0-rc.8.tgz#6acaecf732901c8a65ef249ec426409382689ea7"
-  integrity sha512-z2YQ9BaAgz3com87XcbFvuQab1Xxg18kDbVII5m0jAjZqhbcnQ2PQxYV6g40NStLHvqPmZUREqpKw7vq1rTJRA==
+"@mikro-orm/knex@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.0.0.tgz#5c64015cd2e8a073ab0cdd24dbf9dae07b799e53"
+  integrity sha512-qBG0+3veAM1wMBodHhOVWprQLsU7qAmklXXKCM7grFb97cbVY2bEhQAvYubnW0XJaBBj2GttIasLjdujzWGbPQ==
   dependencies:
     fs-extra "^9.0.1"
     knex "^0.21.1"
 
-"@mikro-orm/migrations@^4.0.0-rc.8":
-  version "4.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/migrations/-/migrations-4.0.0-rc.8.tgz#d0e3dfed89db5f5470c8753e4e0766d550e383da"
-  integrity sha512-QZM66XJqc7M1pQcuulBdffHXqjNef7kGGBP4Rec7j+3Xh+mPyFy1ZghG2xF4vk+1VweMQ5xgSaKue/owwE0NFg==
+"@mikro-orm/migrations@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/migrations/-/migrations-4.0.0.tgz#a58e3117dd8c61cd06162511f7d2766bdb6d913f"
+  integrity sha512-Qw8GXBwlbNqSDs7GnQO55h9U3cWZGUbEuakvtgp84mwwe129/8jMvVDZSsH2AetcVFISdvNTA59txp6xD4NZtw==
   dependencies:
-    "@mikro-orm/knex" "^4.0.0-rc.8"
+    "@mikro-orm/knex" "^4.0.0"
     "@types/umzug" "^2.2.3"
     fs-extra "^9.0.1"
     ts-morph "^8.0.0"
     umzug "^2.3.0"
 
-"@mikro-orm/postgresql@^4.0.0-rc.8":
-  version "4.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/postgresql/-/postgresql-4.0.0-rc.8.tgz#954e790a927dca2f704b3b03a598f5907b2b1643"
-  integrity sha512-Gf5CZ0vx2m/UxhInNOVSvQa8YMj4Nqn+nD+4XNyfX2y9GpMUkJhncH6sqEVjgDqeoqZryKGj4nmc0sRnla06Cg==
+"@mikro-orm/postgresql@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/postgresql/-/postgresql-4.0.0.tgz#0edff8ff2a313b4c5b0ce954e428299d54d80c50"
+  integrity sha512-BVlpjxojdBfjbhTaOMN0wEG9eHiAPHNNQuwgS7zl+yI4P05n7aLSYKmwL3pc4IbnIwZX9DSSNfI7EIFRwoHf3g==
   dependencies:
-    "@mikro-orm/knex" "^4.0.0-rc.8"
+    "@mikro-orm/knex" "^4.0.0"
     pg "^8.2.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
@@ -6714,10 +6714,10 @@ escape-string-regexp@^2.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
   integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
-escaya@^0.0.37:
-  version "0.0.37"
-  resolved "https://registry.yarnpkg.com/escaya/-/escaya-0.0.37.tgz#072480094717cd6c4d71753f4d796de2ffcdabb8"
-  integrity sha512-FFKyKpeez0wE1LxyXc5naY6iFfePu0hYSeFTyDdyw7iK/t6f7nDtavmvKdoEOL9eHQdux2QkQz8sMNTOEZvbLw==
+escaya@^0.0.40:
+  version "0.0.40"
+  resolved "https://registry.yarnpkg.com/escaya/-/escaya-0.0.40.tgz#d0d110af73e6d50b9b22baa4734a70b170ea3162"
+  integrity sha512-na9XXhkdu6PA59eMnK+ib4FgFhbdawbAb9JGAbohLPLspoiOh8wkYgMdqf4HKC39Sjt07ZWLJeAb8mW70E/XRg==
   dependencies:
     "@babel/parser" "^7.11.5"
 
