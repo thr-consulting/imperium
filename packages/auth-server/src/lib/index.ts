@@ -29,7 +29,7 @@ function signJwt(payload: string | Record<string, unknown> = {}, secret: string,
 }
 
 export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
-	return compare(getPasswordString(loginInfo.password), serviceInfo.password);
+	return compare(getPasswordString(loginInfo.password), serviceInfo.password || '');
 }
 
 export function createAccessToken(serviceInfo: ServiceInfo): string {
