@@ -1,7 +1,0 @@
-query {
-	getTodos {
-		id
-		title
-		completed
-	}
-}

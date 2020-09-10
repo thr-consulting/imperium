@@ -13,7 +13,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const clientModuleRules = require('./clientModuleRules');
 
 // Webpack configuration
-module.exports = function (imperiumConfig) {
+module.exports = function webpackConfig(imperiumConfig) {
 	// Default alias for development is to replace react-dom with HMR one.
 	const alias = {
 		'react-dom': '@hot-loader/react-dom',
@@ -27,7 +27,7 @@ module.exports = function (imperiumConfig) {
 
 	return {
 		mode: 'development',
-		devtool: 'eval',
+		devtool: 'source-map',
 		context: imperiumConfig.source.path,
 		entry: {
 			app: [imperiumConfig.source.clientIndex],

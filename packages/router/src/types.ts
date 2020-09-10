@@ -1,9 +1,9 @@
 import type {RouteProps} from 'react-router-dom';
-import type {IImperiumClient} from '@imperium/client';
+import type {ImperiumClient, ImperiumClientModule} from '@imperium/client';
 
 interface RouteContentProps {
 	route: ImperiumRoute;
-	imperiumClient?: IImperiumClient; // todo : remove optional
+	imperiumClient?: ImperiumClient; // todo : remove optional
 }
 
 export interface ImperiumRoute extends RouteProps {
@@ -18,6 +18,10 @@ export interface ImperiumRoute extends RouteProps {
 	redirect?: boolean;
 }
 
-export interface ImperiumRouterClientModule {
-	routes?: ImperiumRoute[];
+export interface ImperiumRouterClientModule extends ImperiumClientModule {
+	routes: ImperiumRoute[];
+}
+
+export function isImperiumRouterClientModule(value: ImperiumClientModule): value is ImperiumRouterClientModule {
+	return (value as ImperiumRouterClientModule).routes !== undefined;
 }

@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import debug from 'debug';
-import type {Hoc, IImperiumClient} from '@imperium/client';
+import type {Hoc, ImperiumClient} from '@imperium/client';
 import {AuthContext, IAuth} from './AuthContext';
 import {fetchAuth, isTokenValidOrUndefined} from './lib';
+import {environment} from './environment';
 
 const d = debug('imperium.auth-client.withAuth');
 
-export function withAuth(client: IImperiumClient): Hoc {
+export function withAuth(client: ImperiumClient): Hoc {
 	d('Creating Auth client');
+
+	const env = environment(client?.environment);
 
 	return function authHoc(WrappedComponent: React.ComponentType) {
 		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -17,8 +20,8 @@ export function withAuth(client: IImperiumClient): Hoc {
 			const [authEffectFinished, setAuthEffectFinished] = useState<boolean>(false);
 
 			useEffect(() => {
-				const id = localStorage.getItem(client.globalConst.authLSIdKey as string) || '';
-				const access = localStorage.getItem(client.globalConst.authLSAccessTokenKey as string) || '';
+				const id = localStorage.getItem(env.localStorageIdKey) || '';
+				const access = localStorage.getItem(env.localStorageAccessTokenKey) || '';
 
 				if (id.length > 0 && access.length > 0) {
 					setAuth({
@@ -26,8 +29,8 @@ export function withAuth(client: IImperiumClient): Hoc {
 						access,
 					});
 				} else {
-					localStorage.removeItem(client.globalConst.authLSIdKey as string);
-					localStorage.removeItem(client.globalConst.authLSAccessTokenKey as string);
+					localStorage.removeItem(env.localStorageIdKey);
+					localStorage.removeItem(env.localStorageAccessTokenKey);
 				}
 				setAuthEffectFinished(true);
 			}, []);
@@ -41,8 +44,8 @@ export function withAuth(client: IImperiumClient): Hoc {
 							getAuth: async () => {
 								if (!isTokenValidOrUndefined(client, auth?.access)) {
 									const newAuth = await fetchAuth(client);
-									localStorage.setItem(client?.globalConst.authLSIdKey as string, newAuth.id);
-									localStorage.setItem(client?.globalConst.authLSAccessTokenKey as string, newAuth.access);
+									localStorage.setItem(env.localStorageIdKey, newAuth.id);
+									localStorage.setItem(env.localStorageAccessTokenKey, newAuth.access);
 									setAuth(newAuth);
 									return newAuth;
 								}

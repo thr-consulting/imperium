@@ -1,0 +1,62 @@
+/* Need to pass 100% height all the way down */
+:global(#root) {
+	height: 100%;
+}
+:global(#root) > div {
+	height: 100%;
+}
+
+.parent {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.menu {
+	border-radius: 0 !important;
+	margin: 0 !important;
+	background-color: #101010 !important;
+}
+
+.menuHeader {
+	padding: 0.5em !important;
+	color: rgb(217, 128, 48) !important;
+}
+
+.infoBar {
+	margin: 0 !important;
+	border-radius: 0 !important;
+	background-color: rgb(23, 23, 23) !important;
+}
+
+.contentWrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: 0 !important;
+	border: 0 solid transparent !important; /* this is a segment, and they seem to have a 1px white border by default */
+	border-top: 2px solid rgb(217, 128, 48) !important;
+	overflow-y: auto; /* added to make the content scroll and not the whole layout */
+}
+
+.content {
+	flex: 1; /* changed this to have a flex of one instead of auto so the side menu doesn't get squished */
+	align-content: flex-start;
+	padding: 1em 1em;
+	height: 100%;
+	max-height: 100%; /* added to make the content scroll and not the whole layout */
+	overflow-x: hidden; /* added to make the content scroll and not the whole layout */
+	background-color: #222222;
+	color: #bfbfbf;
+}
+
+.sidebar {
+	min-width: 220px !important;
+	width: 100% !important;
+	height: 100% !important;
+	border-radius: 0 !important;
+	margin: 0 !important;
+	overflow-x: auto; /* added to make the content scroll and not the whole layout */
+	background-color: rgb(23, 23, 23) !important;
+}

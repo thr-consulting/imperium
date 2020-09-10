@@ -2,14 +2,11 @@
 	"name": "@imperium/babel-preset-imperium",
 	"version": "4.4.0",
 	"description": "Babel preset used by Imperium.",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
 	"files": [
 		"index.js",
 		"create.js",
@@ -21,10 +18,28 @@
 	"scripts": {
 		"lint": "eslint --cache '*.js'",
 		"lint:fix": "eslint --cache --fix '*.js'",
+		"sort": "npx sort-package-json",
 		"test": "jest",
-		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
-		"yalc:publish": "yalc publish --push"
+		"test:watch": "jest --watch"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
+	},
+	"jest": {
+		"collectCoverageFrom": [
+			"<rootDir>/*.js"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/babel-preset-imperium",
+		"testPathIgnorePatterns": [
+			"/node_modules/",
+			"<rootDir>/test.js"
+		],
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+		}
 	},
 	"dependencies": {
 		"@babel/core": "^7.9.0",
@@ -52,22 +67,7 @@
 		"babel-plugin-transform-typescript-metadata": "^0.3.0",
 		"react-refresh": "^0.8.3"
 	},
-	"eslintConfig": {
-		"parserOptions": {
-			"project": "./tsconfig-eslint.json"
-		}
-	},
-	"jest": {
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
-		},
-		"testPathIgnorePatterns": [
-			"/node_modules/",
-			"<rootDir>/test.js"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/babel-preset-imperium",
-		"collectCoverageFrom": [
-			"<rootDir>/*.js"
-		]
+	"publishConfig": {
+		"access": "public"
 	}
 }

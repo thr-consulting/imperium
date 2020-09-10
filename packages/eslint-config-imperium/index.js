@@ -46,6 +46,7 @@ module.exports = {
 		'lines-between-class-members': ['off'],
 		'no-use-before-define': ['off'],
 		'func-names': ['error', 'always'],
+		'no-alert': ['error'],
 
 		// Typescript
 		'@typescript-eslint/indent': ['off'],
@@ -59,7 +60,7 @@ module.exports = {
 		'@typescript-eslint/lines-between-class-members': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
 		'@typescript-eslint/no-before-define': ['off'], // TODO This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
-		'@typescript-eslint/explicit-module-boundary-types': ['warn', {allowArgumentsExplicitlyTypedAsAny: true, allowedNames: ['services']}],
+		'@typescript-eslint/explicit-module-boundary-types': ['off'],
 
 		// React
 		'react/forbid-prop-types': 'error',
@@ -78,6 +79,7 @@ module.exports = {
 		'react/jsx-props-no-spreading': ['off'],
 		'react/jsx-wrap-multilines': ['off'],
 		'react/display-name': ['off'],
+		'react/prop-types': ['off'],
 
 		// ES6 Import
 		'import/no-extraneous-dependencies': 'off',

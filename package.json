@@ -1,39 +1,51 @@
 {
-	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"license": "MIT",
+	"private": true,
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/darkadept/imperium.git"
 	},
-	"private": true,
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"workspaces": [
 		"packages/*",
 		"packages/examples/*"
 	],
 	"scripts": {
-		"lerna": "lerna",
 		"build": "lerna run build",
 		"clean": "lerna run clean && lerna clean && rimraf ./node_modules",
+		"lerna": "lerna",
 		"lint": "lerna run lint",
 		"lint:fix": "lerna run lint:fix",
-		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,client,server,util}'",
-		"ts:phase-server": "lerna run ts --scope '@imperium/{auth-server,graphql-server}'",
-		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router}'",
-		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
-		"ts": "yarn ts:phase-core && yarn ts:phase-server && yarn ts:phase-client && yarn ts:phase-example",
+		"sort": "npx sort-package-json && lerna run sort",
 		"test": "lerna run test",
 		"test:coverage": "lerna run test:coverage",
-		"yalc:publish": "lerna run yalc:publish",
+		"ts": "yarn ts:phase-core && yarn ts:phase-server && yarn ts:phase-client && yarn ts:phase-example",
+		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router}'",
+		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,client,server,util}'",
+		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
+		"ts:phase-server": "lerna run ts --scope '@imperium/{auth-server,graphql-server}'",
 		"typedoc": "lerna run typedoc"
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
 	},
 	"devDependencies": {
 		"@apollo/client": "^3.1.2",
 		"@babel/core": "^7.9.0",
 		"@commitlint/cli": "^9.1.2",
 		"@commitlint/config-conventional": "^9.1.2",
+		"@graphql-codegen/add": "^1.12.2",
+		"@graphql-codegen/cli": "^1.17.8",
+		"@graphql-codegen/time": "^1.13.0",
+		"@graphql-codegen/typescript": "^1.13.0",
+		"@graphql-codegen/typescript-operations": "^1.13.0",
+		"@graphql-codegen/typescript-react-apollo": "^1.13.0",
 		"@mikro-orm/cli": "^4.0.0",
 		"@mikro-orm/core": "^4.0.0",
 		"@thx/common-webpack": "^5.0.0",
+		"@thx/sharedcache": "^11.0.3",
 		"@types/bcrypt": "^3.0.0",
 		"@types/cookie-parser": "^1.4.2",
 		"@types/debug": "^4.1.5",
@@ -46,6 +58,7 @@
 		"@types/js-money": "^0.6.0",
 		"@types/jsonwebtoken": "^8.3.9",
 		"@types/jwt-decode": "^2.2.1",
+		"@types/loadable__component": "^5.13.0",
 		"@types/lodash": "^4.14.150",
 		"@types/mongoose": "^5.7.12",
 		"@types/ms": "^0.7.31",
@@ -53,11 +66,13 @@
 		"@types/pdfmake": "^0.1.13",
 		"@types/react": "^16.9.34",
 		"@types/react-dom": "^16.9.6",
+		"@types/react-responsive": "^8.0.2",
 		"@types/react-router-dom": "^5.1.4",
 		"@types/redis": "^2.8.18",
 		"@types/uuid": "^8.0.0",
 		"@types/webpack-node-externals": "^2.5.0",
-		"@types/yup": "^0.29.4",
+		"@types/yup": "^0.26.37",
+		"apollo-server-express": "^2.17.0",
 		"babel-jest": "^26.2.2",
 		"coverbadge": "^0.5.5",
 		"enzyme": "^3.11.0",
@@ -75,15 +90,11 @@
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.1.2",
+		"redis": "^3.0.2",
 		"rimraf": "^3.0.2",
 		"subscriptions-transport-ws": "^0.9.17",
 		"typedoc": "^0.17.6",
 		"typescript": "^3.9.7",
 		"webpack": "^4.43.0"
-	},
-	"husky": {
-		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
 	}
 }

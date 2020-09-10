@@ -1,15 +1,17 @@
 import debug from 'debug';
 import decode from 'jwt-decode';
-import type {IImperiumClient} from '@imperium/client';
+import type {ImperiumClient} from '@imperium/client';
 import type {AccessToken, LoginReturn} from './types';
 import type {IAuth} from './AuthContext';
+import {environment} from './environment';
 
 const d = debug('imperium.auth-client.lib');
 
-export function isTokenValidOrUndefined(client: IImperiumClient, token?: string): boolean {
+export function isTokenValidOrUndefined(client: ImperiumClient, token?: string): boolean {
 	let accessToken: string | null | undefined = token;
 	if (!token) {
-		accessToken = window.localStorage.getItem(client.globalConst.authLSAccessTokenKey as string);
+		const env = environment(client?.environment);
+		accessToken = window.localStorage.getItem(env.localStorageAccessTokenKey);
 	}
 
 	if (!accessToken) return true; // Empty token should be valid
@@ -23,15 +25,16 @@ export function isTokenValidOrUndefined(client: IImperiumClient, token?: string)
 	}
 }
 
-export async function fetchAccessToken(client: IImperiumClient): Promise<Response> {
-	return fetch(client.globalConst.authRefreshUrl as string, {
+export async function fetchAccessToken(client: ImperiumClient): Promise<Response> {
+	const env = environment(client?.environment);
+	return fetch(env.refreshUrl, {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include',
 	});
 }
 
-export async function fetchAccessTokenString(client: IImperiumClient): Promise<string> {
+export async function fetchAccessTokenString(client: ImperiumClient): Promise<string> {
 	const res = await fetchAccessToken(client);
 	if (res.status === 200) {
 		const resObject = JSON.parse(await res.text()) as LoginReturn;
@@ -41,7 +44,7 @@ export async function fetchAccessTokenString(client: IImperiumClient): Promise<s
 	throw new Error('Failed to fetch access token');
 }
 
-export async function fetchAuth(client: IImperiumClient): Promise<IAuth> {
+export async function fetchAuth(client: ImperiumClient): Promise<IAuth> {
 	const newAccessTokenString = await fetchAccessTokenString(client);
 	const decodedToken = decode(newAccessTokenString) as AccessToken;
 	return {

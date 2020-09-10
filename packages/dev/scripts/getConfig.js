@@ -54,20 +54,14 @@ module.exports = function getConfig() {
 	});
 	d(`Loaded config modules: ${configModuleNames.join(', ')}`);
 
-	// Merge initialConfig options
+	// Add imperium system variables that will get added to ImperiumClient environment.
+	// These are included at compile time, and not really useful for providing config options.
 	config.html.templateParameters = {
 		...config.html.templateParameters,
-		initialConfig: JSON.stringify(
-			mergeOptions(
-				config.html.templateParameters.initialConfig,
-				configModules.reduce((memo, configModule) => {
-					if (configModule.initialConfig) {
-						return Object.assign(memo, configModule.initialConfig);
-					}
-					return memo;
-				}, {}),
-			),
-		),
+		imperiumSystem: JSON.stringify({
+			development: process.env.NODE_ENV === 'development',
+			production: process.env.NODE_ENV === 'production',
+		}),
 	};
 
 	// Merge webpack client rules

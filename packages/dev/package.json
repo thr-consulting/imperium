@@ -2,19 +2,16 @@
 	"name": "@imperium/dev",
 	"version": "4.4.0",
 	"description": "Imperium Development package",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"main": "lib/index.js",
+	"bin": {
+		"imperium": "./bin/imperium.js"
+	},
 	"files": [
 		"bin",
 		"scripts",
@@ -22,13 +19,15 @@
 		"defaultConfig.js",
 		"resource"
 	],
-	"bin": {
-		"imperium": "./bin/imperium.js"
-	},
 	"scripts": {
 		"lint": "eslint --cache --ext js,ts scripts",
 		"lint:fix": "eslint --cache --fix --ext js,ts scripts",
-		"yalc:publish": "yalc publish --push"
+		"sort": "npx sort-package-json"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"dependencies": {
 		"@babel/core": "^7.9.0",
@@ -62,10 +61,11 @@
 		"webpack-hot-middleware": "^2.25.0",
 		"webpack-node-externals": "^2.5.0"
 	},
-	"eslintConfig": {
-		"parserOptions": {
-			"project": "../../tsconfig.json"
-		}
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
 }

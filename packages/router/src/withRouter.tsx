@@ -1,16 +1,17 @@
 import React from 'react';
 import debug from 'debug';
 import {BrowserRouter} from 'react-router-dom';
-import type {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
+import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import type {ImperiumRoute, ImperiumRouterClientModule} from './types';
+import {isImperiumRouterClientModule} from './types';
 
 const d = debug('imperium.router.withRouter');
 
-export default function withRouter(client: IImperiumClient): Hoc {
+export default function withRouter(client: ImperiumClient): Hoc {
 	// Load routes
 	d('Loading routes');
-	const routes = client.modules.reduce((memo, module: ImperiumClientModule & ImperiumRouterClientModule) => {
-		if (module.routes) {
+	const routes = client.modules.reduce((memo, module) => {
+		if (isImperiumRouterClientModule(module)) {
 			return [...memo, ...module.routes];
 		}
 		return memo;

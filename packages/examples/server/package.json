@@ -18,8 +18,8 @@
     "start:prod": "imperium prod-server",
     "build:prod": "imperium build-server imperium.js",
     "clean": "rimraf ./dist && rimraf .eslintcache",
-    "Xlint": "eslint --cache --ext ts,js src",
-    "Xlint:fix": "eslint --cache --fix --ext ts,js src",
+    "lint": "eslint --cache --ext ts,js src",
+    "lint:fix": "eslint --cache --fix --ext ts,js src",
     "ts": "tsc",
     "orm": "mikro-orm"
   },

@@ -1,7 +1,7 @@
 import React from 'react';
 import debug from 'debug';
 import {Switch, Route} from 'react-router-dom';
-import type {IImperiumClient} from '@imperium/client';
+import type {ImperiumClient} from '@imperium/client';
 import type {ImperiumRoute} from '../types';
 import RouteErrorBoundary from './RouteErrorBoundary';
 
@@ -11,7 +11,7 @@ interface RouteDirectorProps {
 	routeDefaults?: ImperiumRoute;
 	rootRoute: ImperiumRoute;
 	routes?: ImperiumRoute[];
-	imperiumClient?: IImperiumClient;
+	imperiumClient?: ImperiumClient;
 }
 
 export default function RouteDirector(props: RouteDirectorProps): JSX.Element {

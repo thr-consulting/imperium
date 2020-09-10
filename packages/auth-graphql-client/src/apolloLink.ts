@@ -2,15 +2,18 @@ import debug from 'debug';
 import {ApolloLink} from '@apollo/client';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
-import type {IImperiumClient} from '@imperium/client';
+import type {ImperiumClient} from '@imperium/client';
+import {environment} from './environment';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
 
-export function createLinks(client: IImperiumClient): ApolloLink[] {
+export function createLinks(client: ImperiumClient): ApolloLink[] {
+	const env = environment(client?.environment);
+
 	// Create Apollo middleware link (for authorization)
 	d('Creating auth Apollo link');
 	const authLink = new ApolloLink((operation, forward) => {
-		const token = window.localStorage.getItem(client.globalConst.authLSAccessTokenKey as string);
+		const token = window.localStorage.getItem(env.localStorageAccessTokenKey);
 		if (token) {
 			operation.setContext({
 				headers: {
@@ -33,12 +36,12 @@ export function createLinks(client: IImperiumClient): ApolloLink[] {
 		},
 		handleFetch: accessToken => {
 			d('Fetched access token');
-			window.localStorage.setItem(client.globalConst.authLSAccessTokenKey as string, accessToken);
+			window.localStorage.setItem(env.localStorageAccessTokenKey, accessToken);
 		},
 		handleError: () => {
 			d('There was a problem refreshing the access token. Re-login required.');
-			window.localStorage.removeItem(client.globalConst.authLSAccessTokenKey as string);
-			window.localStorage.removeItem(client.globalConst.authLSIdKey as string);
+			window.localStorage.removeItem(env.localStorageAccessTokenKey);
+			window.localStorage.removeItem(env.localStorageIdKey);
 			// TODO If we could forward to the login page at this point, that would be great!
 		},
 	}) as unknown) as ApolloLink;

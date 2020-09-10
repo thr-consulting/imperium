@@ -14,13 +14,14 @@
 	},
 	"scripts": {
 		"start": "yarn start:dev",
-		"start:dev": "imperium dev-client imperium.js",
+		"start:dev": "imperium dev-client",
 		"start:prod": "imperium prod-client",
-		"build:prod": "imperium build-client imperium.js",
+		"build:prod": "imperium build-client",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"Xlint": "eslint --cache --ext ts,js,tsx src",
-		"Xlint:fix": "eslint --cache --fix --ext ts,js,tsx src",
-		"Xts": "tsc"
+		"lint": "eslint --cache --ext ts,js,tsx src",
+		"lint:fix": "eslint --cache --fix --ext ts,js,tsx src",
+		"ts": "tsc",
+		"codegen": "graphql-codegen"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.1.2",
@@ -39,6 +40,7 @@
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.1.2",
+		"react-responsive": "^8.1.0",
 		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^1.1.1",
 		"yup": "^0.29.2"
