@@ -1,30 +1,36 @@
 {
   "name": "@imperium/example-standalone",
-  "description": "Imperium standalone example project",
   "version": "4.4.0",
-  "author": "Mike Kornelson <darkadept@durbn.net>",
+  "private": true,
+  "description": "Imperium standalone example project",
   "repository": {
     "type": "git",
     "url": "git@github.com:darkadept/imperium.git"
   },
   "license": "UNLICENSED",
-  "private": true,
-  "engines": {
-    "node": ">=12"
-  },
+  "author": "Mike Kornelson <darkadept@durbn.net>",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node index.js",
-    "start:prod": "NODE_ENV=production node index.js",
     "build": "NODE_ENV=production babel src --extensions \".ts\" --out-dir dist --source-maps",
     "clean": "rimraf ./dist && rimraf .eslintcache",
-    "Xlint": "eslint --cache --ext ts,js src",
-    "Xlint:fix": "eslint --cache --fix --ext ts,js src",
-    "Xts": "tsc"
+    "lint": "eslint --cache --ext ts,js src",
+    "lint:fix": "eslint --cache --fix --ext ts,js src",
+    "sort": "npx sort-package-json",
+    "start": "NODE_ENV=development node index.js",
+    "start:prod": "NODE_ENV=production node index.js",
+    "ts": "tsc"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig-eslint.json"
+    }
   },
   "dependencies": {
     "@imperium/connector": "^4.4.0",
     "@imperium/example-domain": "^4.4.0",
+    "@mikro-orm/cli": "^4.0.2",
+    "@mikro-orm/core": "^4.0.2",
+    "@mikro-orm/postgresql": "^4.0.2",
     "@thx/sharedcache": "^11.0.2",
     "apollo-server-express": "^2.16.1",
     "debug": "^4.1.1",
@@ -36,19 +42,15 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/register": "^7.9.0",
-    "@imperium/babel-preset-imperium": "^4.4.0",
-    "@types/debug": "^4.1.5",
-    "@types/lodash": "^4.14.149"
+    "@imperium/babel-preset-imperium": "^4.4.0"
+  },
+  "engines": {
+    "node": ">=12"
   },
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
       "./mikroorm.ts"
     ]
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "project": "./tsconfig-eslint.json"
-    }
   }
 }
