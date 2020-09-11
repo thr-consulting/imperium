@@ -59,7 +59,7 @@ module.exports = function webpackConfig(imperiumConfig) {
 				patterns: [{from: path.resolve('assets'), to: 'assets/', noErrorOnMissing: true}],
 			}),
 			new HtmlWebpackPlugin(imperiumConfig.html),
-			new ReactRefreshWebpackPlugin({disableRefreshCheck: true}), // TODO Disabled check because of this: https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/15
+			new ReactRefreshWebpackPlugin({disableRefreshCheck: true}), // Disabled check because of this: https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/15
 			new HardSourceWebpackPlugin({
 				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
 			}),

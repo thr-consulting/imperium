@@ -54,12 +54,12 @@ module.exports = {
 		'@typescript-eslint/no-unused-expressions': ['off'], // This was disabled because some upgrade to airbnb rules.
 		'@typescript-eslint/explicit-member-accessibility': ['off'],
 		'@typescript-eslint/explicit-function-return-type': ['off', {allowExpressions: true, allowTypedFunctionExpressions: true}],
-		'@typescript-eslint/no-explicit-any': ['off'], // TODO probably turn this back to warn at some point...
+		'@typescript-eslint/no-explicit-any': ['off'],
 		'@typescript-eslint/ban-ts-ignore': ['off'],
 		'@typescript-eslint/ban-ts-comment': ['off'],
 		'@typescript-eslint/lines-between-class-members': ['off'],
 		'@typescript-eslint/interface-name-prefix': ['off'],
-		'@typescript-eslint/no-before-define': ['off'], // TODO This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
+		'@typescript-eslint/no-before-define': ['off'], // This was disabled to support optional chaining: https://github.com/typescript-eslint/typescript-eslint/issues/1116
 		'@typescript-eslint/explicit-module-boundary-types': ['off'],
 
 		// React

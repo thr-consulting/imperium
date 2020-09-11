@@ -60,7 +60,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			[...coreSchema],
 		);
 
-		// TODO There is a bug where Babel's cache is not invalidated if a graphqls file changes.
+		// There is a bug where Babel's cache is not invalidated if a graphqls file changes.
 		// This is being addressed in https://github.com/babel/babel/issues/8497.
 		// For now, I've disabled the @babel/register cache in `dev.js` in @imperium/dev.
 
@@ -133,9 +133,10 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			},
 			schemaDirectives,
 			formatError: error => {
-				// TODO Do more here, like logging.
-				// eslint-disable-next-line no-console
-				console.error(inspect(error, false, null, true));
+				d(inspect(error, false, null));
+				if (config?.formatError) {
+					return config.formatError(error);
+				}
 				return error;
 			},
 			playground: env.development,

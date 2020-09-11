@@ -4,6 +4,7 @@ import type {DocumentNode} from 'graphql';
 import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
 import type {RequestHandler} from 'express';
 import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
+import type {GraphQLError} from 'graphql';
 
 /**
  * Schema from Graphqls files.
@@ -18,6 +19,7 @@ export type {IResolvers, IResolverObject, IFieldResolver} from 'graphql-tools';
 export interface GraphqlServerModuleConfig {
 	middleware?: RequestHandler[];
 	apolloContextCreator?: (expContext: ExpressContext) => Record<string, any>;
+	formatError?: (error: GraphQLError) => Error;
 }
 
 /**
