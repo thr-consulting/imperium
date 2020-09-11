@@ -77,8 +77,9 @@ export class ImperiumClient {
 		d('Rendering root component');
 		render(<RootWrappedComponent render={this.render} imperiumClient={this} />, document.getElementById('root'));
 
-		// TODO only in dev mode
-		window.__IMPERIUM_CLIENT__ = this; // eslint-disable-line no-underscore-dangle
+		if (this.environment.development) {
+			window.__IMPERIUM_CLIENT__ = this; // eslint-disable-line no-underscore-dangle
+		}
 		return this;
 	}
 

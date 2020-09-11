@@ -31,7 +31,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 
 		d('Creating refresh Apollo link');
 		const refreshLink = (new TokenRefreshLink({
-			// This fieldname is set in the @imperium/auth-server:src/models/Auth.ts file in the refresh() method.
+			// WARNING: This fieldname is set in the @imperium/auth-server:src/models/Auth.ts file in the refresh() method.
 			accessTokenField: 'access',
 			isTokenValidOrUndefined: () => {
 				return isTokenValidOrUndefined(client);
