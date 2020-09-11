@@ -1,8 +1,8 @@
 import React from 'react';
 import debug from 'debug';
 import {BrowserRouter} from 'react-router-dom';
-import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
-import type {ImperiumRoute, ImperiumRouterClientModule} from './types';
+import type {Hoc, ImperiumClient} from '@imperium/client';
+import type {ImperiumRoute} from './types';
 import {isImperiumRouterClientModule} from './types';
 
 const d = debug('imperium.router.withRouter');
