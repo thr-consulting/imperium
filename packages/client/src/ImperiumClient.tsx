@@ -7,12 +7,7 @@ import flowRight from 'lodash/flowRight';
 import mergeOptions from 'merge-options';
 import Root, {RootProps} from './Root';
 import {ClientContext} from './ClientContext';
-import type {
-	Hoc,
-	HocCreator,
-	ImperiumClientConfig,
-	ImperiumClientModule,
-} from './types';
+import type {Hoc, HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
 
 const d = debug('imperium.client');
 

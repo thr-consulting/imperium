@@ -6,7 +6,6 @@ import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {getMainDefinition} from '@apollo/client/utilities';
 import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
-// import type {ImperiumGraphqlClientModule} from './types';
 import {environment} from './environment';
 import {isImperiumGraphqlClientModule} from './types';
 
@@ -55,7 +54,7 @@ export default function withGraphql(client: ImperiumClient): Hoc {
 	}
 
 	// Use links from other modules
-	const moduleLinks = client.modules.reduce((memo: ApolloLink[], module) => {
+	const moduleLinks = client.modules.reduce((memo: ApolloLink[], module: ImperiumClientModule) => {
 		if (isImperiumGraphqlClientModule(module) && module.apolloLinks && typeof module.apolloLinks === 'function') {
 			return [...memo, ...module.apolloLinks(client)];
 		}
@@ -69,6 +68,7 @@ export default function withGraphql(client: ImperiumClient): Hoc {
 	const apolloClient = new ApolloClient({
 		link,
 		cache: new InMemoryCache(),
+		defaultOptions: env.apolloDefaults,
 	});
 
 	return function graphqlHoc(WrappedComponent: React.ComponentType) {
