@@ -1,10 +1,9 @@
 import type {Connector} from '@imperium/connector';
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
-import type {DocumentNode} from 'graphql';
+import type {DocumentNode, GraphQLError} from 'graphql';
 import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
 import type {RequestHandler} from 'express';
 import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
-import type {GraphQLError} from 'graphql';
 
 /**
  * Schema from Graphqls files.
