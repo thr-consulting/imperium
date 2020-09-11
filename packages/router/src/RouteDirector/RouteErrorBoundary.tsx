@@ -11,8 +11,8 @@ export default class RouteErrorBoundary extends React.Component {
 	// eslint-disable-next-line react/state-in-constructor
 	state: State;
 
-	constructor() {
-		super({});
+	constructor(props: any) {
+		super(props);
 		this.state = {hasError: false};
 	}
 

@@ -1,29 +1,30 @@
 {
 	"name": "@imperium/example-domain",
 	"version": "4.4.0",
+	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"private": true,
-	"engines": {
-		"node": ">=12"
-	},
 	"main": "index.js",
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist",
-		"index.js",
-		"src"
+		"index.js"
 	],
 	"scripts": {
-		"start": "screen -c ./domain.screenrc",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
-		"ts": "tsc",
-		"prettier": "prettier"
+		"sort": "npx sort-package-json",
+		"start": "screen -c ./domain.screenrc",
+		"ts": "tsc"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
 	},
 	"resolutions": {
 		"mikro-orm/**/typescript": "3.9.7"
@@ -33,17 +34,15 @@
 		"@imperium/auth-server": "^4.4.0",
 		"@imperium/connector": "^4.4.0",
 		"@imperium/util": "^4.4.0",
-		"@thx/sharedcache": "^11.0.3",
-		"apollo-server-express": "^2.16.1",
 		"debug": "^4.1.1",
 		"uuid": "^8.2.0"
 	},
 	"peerDependencies": {
-		"@mikro-orm/core": "^4.0.0"
+		"@mikro-orm/core": "^4.x",
+		"@thx/sharedcache": "^11.x",
+		"apollo-server-express": "^2.x"
 	},
-	"eslintConfig": {
-		"parserOptions": {
-			"project": "./tsconfig-eslint.json"
-		}
+	"engines": {
+		"node": ">=12"
 	}
 }

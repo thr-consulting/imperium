@@ -49,13 +49,7 @@ Object {
       "off",
     ],
     "@typescript-eslint/explicit-module-boundary-types": Array [
-      "warn",
-      Object {
-        "allowArgumentsExplicitlyTypedAsAny": true,
-        "allowedNames": Array [
-          "services",
-        ],
-      },
+      "off",
     ],
     "@typescript-eslint/indent": Array [
       "off",
@@ -99,6 +93,9 @@ Object {
     "jsx-a11y/label-has-for": "off",
     "lines-between-class-members": Array [
       "off",
+    ],
+    "no-alert": Array [
+      "error",
     ],
     "no-console": Array [
       "error",
@@ -179,6 +176,9 @@ Object {
     ],
     "react/no-unused-prop-types": "off",
     "react/prefer-stateless-function": "error",
+    "react/prop-types": Array [
+      "off",
+    ],
     "react/require-default-props": "off",
   },
   "settings": Object {

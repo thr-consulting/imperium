@@ -102,7 +102,7 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 	}
 
 	return {
-		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
+		// WARNING: Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
 		access: createAccessToken(serviceInfo),
 	};
 }

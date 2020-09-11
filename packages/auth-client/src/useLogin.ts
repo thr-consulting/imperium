@@ -2,6 +2,7 @@ import debug from 'debug';
 import {useClient} from '@imperium/client';
 import type {LoginInfo, LoginReturn} from './types';
 import {useAuth} from './useAuth';
+import {environment} from './environment';
 
 const d = debug('imperium.auth-client.useLogin');
 
@@ -9,12 +10,11 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 	const client = useClient();
 	const auth = useAuth();
 
+	const env = environment(client?.environment);
+
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
-
-		const url = typeof client?.globalConst.authLoginUrl === 'string' ? client?.globalConst.authLoginUrl : '';
-
-		const res = await fetch(url, {
+		const res = await fetch(env.loginUrl, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -30,7 +30,7 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 		// Set the id and access token in React context
 		auth.setAuth({id: info.id, access: info.access});
 		// Save id and access token to localstorage
-		localStorage.setItem(client?.globalConst.authLSIdKey as string, info.id);
-		localStorage.setItem(client?.globalConst.authLSAccessTokenKey as string, info.access);
+		localStorage.setItem(env.localStorageIdKey, info.id);
+		localStorage.setItem(env.localStorageAccessTokenKey, info.access);
 	};
 }

@@ -2,19 +2,19 @@
 	"name": "@imperium/prettier-config-imperium",
 	"version": "4.1.0",
 	"description": "Prettier config",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
 	"main": "index.json",
 	"scripts": {
-		"yalc:publish": "yalc publish --push"
+		"sort": "npx sort-package-json"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

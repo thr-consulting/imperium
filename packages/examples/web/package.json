@@ -1,26 +1,30 @@
 {
 	"name": "@imperium/example-web",
-	"description": "Imperium example client project",
 	"version": "4.4.1",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"private": true,
+	"description": "Imperium example client project",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:darkadept/imperium.git"
 	},
 	"license": "UNLICENSED",
-	"private": true,
-	"engines": {
-		"node": ">=12"
-	},
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"scripts": {
-		"start": "yarn start:dev",
-		"start:dev": "imperium dev-client imperium.js",
-		"start:prod": "imperium prod-client",
-		"build:prod": "imperium build-client imperium.js",
+		"build:prod": "imperium build-client",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"Xlint": "eslint --cache --ext ts,js,tsx src",
-		"Xlint:fix": "eslint --cache --fix --ext ts,js,tsx src",
-		"Xts": "tsc"
+		"codegen": "graphql-codegen",
+		"lint": "eslint --cache --ext ts,js,tsx src",
+		"lint:fix": "eslint --cache --fix --ext ts,js,tsx src",
+		"sort": "npx sort-package-json",
+		"start": "yarn start:dev",
+		"start:dev": "imperium dev-client",
+		"start:prod": "imperium prod-client",
+		"ts": "tsc"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
 	},
 	"dependencies": {
 		"@apollo/client": "^3.1.2",
@@ -31,13 +35,14 @@
 		"@imperium/router": "^4.4.0",
 		"@js-joda/core": "^3.0.0",
 		"@loadable/component": "^5.12.0",
-		"@thx/controls": "^12.1.2",
+		"@thx/controls": "^12.1.3",
 		"debug": "^4.1.1",
 		"dotenv": "^8.2.0",
 		"graphql": "^14.7.0",
 		"lodash": "^4.17.15",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
+		"react-responsive": "^8.1.0",
 		"react-router-dom": "^5.1.2",
 		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^1.1.1",
@@ -46,9 +51,7 @@
 	"devDependencies": {
 		"@imperium/dev": "^4.4.0"
 	},
-	"eslintConfig": {
-		"parserOptions": {
-			"project": "./tsconfig-eslint.json"
-		}
+	"engines": {
+		"node": ">=12"
 	}
 }

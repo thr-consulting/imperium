@@ -2,20 +2,14 @@
 	"name": "@imperium/graphql-server",
 	"version": "4.4.0",
 	"description": "Imperium Graphql server package",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"types": "./dist/index.d.ts",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"main": "server.js",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"server.js",
 		"config.js",
@@ -23,19 +17,39 @@
 		"dist"
 	],
 	"scripts": {
-		"start": "screen -c ./dev.screenrc",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
-		"ts": "tsc",
+		"sort": "npx sort-package-json",
+		"start": "screen -c ./dev.screenrc",
 		"test": "jest",
-		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
-		"yalc:publish": "yalc publish --push",
+		"test:watch": "jest --watch",
+		"ts": "tsc",
 		"typedoc": "typedoc"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
+	},
+	"jest": {
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.js",
+			"<rootDir>/src/**/*.jsx",
+			"<rootDir>/src/**/*.ts",
+			"<rootDir>/src/**/*.tsx"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/graphql-server",
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+		}
 	},
 	"dependencies": {
 		"@imperium/connector": "^4.4.0",
@@ -58,25 +72,11 @@
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.16"
 	},
-	"eslintConfig": {
-		"parserOptions": {
-			"project": "./tsconfig-eslint.json"
-		}
+	"engines": {
+		"node": ">=12"
 	},
-	"jest": {
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
-		},
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/graphql-server",
-		"collectCoverageFrom": [
-			"<rootDir>/src/**/*.js",
-			"<rootDir>/src/**/*.jsx",
-			"<rootDir>/src/**/*.ts",
-			"<rootDir>/src/**/*.tsx"
-		]
+	"publishConfig": {
+		"access": "public"
 	},
 	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
 }

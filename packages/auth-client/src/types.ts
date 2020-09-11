@@ -1,7 +1,3 @@
-export interface ImperiumAuthClientModule {
-	thing?: string;
-}
-
 export interface LoginInfo {
 	identifier: string;
 	password: {

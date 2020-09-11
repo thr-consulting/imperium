@@ -2,22 +2,28 @@
 	"name": "@imperium/eslint-config-imperium",
 	"version": "4.4.0",
 	"description": "ESLint dependencies",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
 	"scripts": {
+		"sort": "npx sort-package-json",
 		"test": "jest",
-		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
-		"yalc:publish": "yalc publish --push"
+		"test:watch": "jest --watch"
+	},
+	"jest": {
+		"collectCoverageFrom": [
+			"<rootDir>/*.js"
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/eslint-config-imperium",
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
+		}
 	},
 	"dependencies": {
 		"@typescript-eslint/eslint-plugin": "^3.8.0",
@@ -36,16 +42,10 @@
 		"prettier": "^2.x",
 		"typescript": "^3.x"
 	},
-	"jest": {
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
-		},
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/eslint-config-imperium",
-		"collectCoverageFrom": [
-			"<rootDir>/*.js"
-		]
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

@@ -20,7 +20,7 @@ module.exports = {
 		client: {
 			minimize: true, // Minimize the production output
 			devtool: false, // Devtool built for production (See https://webpack.js.org/configuration/devtool/#devtool)
-			vendorChunk: ['react', 'react-dom', 'lodash', 'debug'], // Vendor packages to split into their own chunk
+			vendorChunk: ['react', 'react-dom', 'lodash', 'debug', 'semantic-ui-css', 'semantic-ui-react', 'graphql', 'react-router-dom', '@apollo/client'], // Vendor packages to split into their own chunk
 		},
 		server: {
 			minimize: true, // Minimize the production output

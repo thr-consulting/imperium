@@ -1,7 +1,9 @@
 {
 	"extends": "../../../tsconfig.json",
 	"compilerOptions": {
-		"jsx": "react"
+		"jsx": "react",
+		"noEmit": true,
+		"emitDeclarationOnly": false
 	},
 	"include": ["src/core/client.tsx", "src/core/configModules.ts", "types/*.d.ts"]
 }
