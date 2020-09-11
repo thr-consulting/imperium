@@ -95,6 +95,7 @@
 		"subscriptions-transport-ws": "^0.9.17",
 		"typedoc": "^0.17.6",
 		"typescript": "^3.9.7",
+		"terser-webpack-plugin": "^4.1.0",
 		"webpack": "^4.43.0"
 	}
 }
