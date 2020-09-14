@@ -1,0 +1,11 @@
+extend type Subscription {
+	subscriptionValueChanged: SubscriptionValue
+}
+
+extend type Query {
+	getSubscriptionValue: SubscriptionValue
+}
+
+extend type Mutation {
+	changeSubscriptionValue: SubscriptionValue
+}

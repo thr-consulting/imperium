@@ -32,6 +32,9 @@ Object {
     "react-hooks",
   ],
   "rules": Object {
+    "@typescript-eslint/ban-ts-comment": Array [
+      "off",
+    ],
     "@typescript-eslint/ban-ts-ignore": Array [
       "off",
     ],
@@ -45,16 +48,24 @@ Object {
     "@typescript-eslint/explicit-member-accessibility": Array [
       "off",
     ],
+    "@typescript-eslint/explicit-module-boundary-types": Array [
+      "off",
+    ],
     "@typescript-eslint/indent": Array [
       "off",
     ],
     "@typescript-eslint/interface-name-prefix": Array [
       "off",
     ],
+    "@typescript-eslint/lines-between-class-members": Array [
+      "off",
+    ],
     "@typescript-eslint/no-before-define": Array [
       "off",
     ],
-    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-explicit-any": Array [
+      "off",
+    ],
     "@typescript-eslint/no-unused-expressions": Array [
       "off",
     ],
@@ -66,8 +77,13 @@ Object {
       },
     ],
     "class-methods-use-this": "off",
+    "func-names": Array [
+      "error",
+      "always",
+    ],
     "global-require": "error",
     "import/extensions": "off",
+    "import/no-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-named-default": "off",
     "import/no-unresolved": "off",
@@ -76,11 +92,10 @@ Object {
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
     "lines-between-class-members": Array [
+      "off",
+    ],
+    "no-alert": Array [
       "error",
-      "always",
-      Object {
-        "exceptAfterSingleLine": true,
-      },
     ],
     "no-console": Array [
       "error",
@@ -161,6 +176,9 @@ Object {
     ],
     "react/no-unused-prop-types": "off",
     "react/prefer-stateless-function": "error",
+    "react/prop-types": Array [
+      "off",
+    ],
     "react/require-default-props": "off",
   },
   "settings": Object {

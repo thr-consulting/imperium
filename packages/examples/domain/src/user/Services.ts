@@ -1,5 +1,5 @@
 import type {ServiceInfo} from '@imperium/auth-server';
-import {Entity, PrimaryKey, Property} from 'mikro-orm';
+import {Entity, PrimaryKey, Property} from '@mikro-orm/core';
 import {v4} from 'uuid';
 
 @Entity()

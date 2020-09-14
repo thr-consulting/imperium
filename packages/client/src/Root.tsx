@@ -1,14 +1,14 @@
 import debug from 'debug';
 import type React from 'react';
-import type {IImperiumClient, RootProps} from './types';
+import type {ImperiumClient} from './ImperiumClient';
 
 const d = debug('imperium.client.Root');
 
-interface Props {
-	render: (props: RootProps) => React.ReactNode;
-	imperiumClient: IImperiumClient;
+export interface RootProps {
+	render: (props?: any) => React.ReactNode;
+	imperiumClient: ImperiumClient;
 }
 
-export default function Root(props: Props) {
+export default function Root(props: RootProps): React.ReactNode {
 	return props.render(props);
 }

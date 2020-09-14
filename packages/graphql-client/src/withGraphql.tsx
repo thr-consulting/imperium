@@ -1,28 +1,24 @@
 import debug from 'debug';
 import React from 'react';
-import {ApolloProvider} from '@apollo/react-hooks';
-import {ApolloClient} from 'apollo-client';
-import {ApolloLink, split} from 'apollo-link';
-import {HttpLink} from 'apollo-link-http';
-import {onError} from 'apollo-link-error';
-import {WebSocketLink} from 'apollo-link-ws';
+import {ApolloProvider, ApolloClient, ApolloLink, split, HttpLink, InMemoryCache} from '@apollo/client';
+import {onError} from '@apollo/client/link/error';
+import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
-import {InMemoryCache} from 'apollo-cache-inmemory';
-import {getMainDefinition} from 'apollo-utilities';
-import type {Hoc, IImperiumClient, ImperiumClientModule} from '@imperium/client';
-import type {ImperiumGraphqlClientModule} from './types';
+import {getMainDefinition} from '@apollo/client/utilities';
+import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
+import {environment} from './environment';
+import {isImperiumGraphqlClientModule} from './types';
 
-/**
- * @ignore
- */
 const d = debug('imperium.graphql.withGraphql');
 
-export default function withGraphql(client: IImperiumClient): Hoc {
+export default function withGraphql(client: ImperiumClient): Hoc {
 	d('Creating Apollo client');
 
-	d(`Creating Apollo HTTP link: ${client.globalConst.graphql}`);
+	const env = environment(client.environment);
+
+	d(`Creating Apollo HTTP link: ${env.graphqlUri}`);
 	const httpLink = new HttpLink({
-		uri: client.globalConst.graphql as string,
+		uri: env.graphqlUri as string,
 		credentials: 'same-origin',
 	});
 
@@ -37,9 +33,9 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	let finalLink: ApolloLink = httpLink;
 
 	// Split between normal http and ws for subscriptions
-	if (client.globalConst.graphqlws) {
-		d(`Creating subscription client: ${client.globalConst.graphqlws}`);
-		const subscriptionClient = new SubscriptionClient(client.globalConst.graphqlws as string, {
+	if (env.graphqlSubscriptionUri) {
+		d(`Creating subscription client: ${env.graphqlSubscriptionUri}`);
+		const subscriptionClient = new SubscriptionClient(env.graphqlSubscriptionUri, {
 			reconnect: true,
 		});
 
@@ -58,12 +54,12 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	}
 
 	// Use links from other modules
-	const moduleLinks = client.modules.reduce((memo, module: ImperiumClientModule & ImperiumGraphqlClientModule) => {
-		if (module.apolloLinks && typeof module.apolloLinks === 'function') {
+	const moduleLinks = client.modules.reduce((memo: ApolloLink[], module: ImperiumClientModule) => {
+		if (isImperiumGraphqlClientModule(module) && module.apolloLinks && typeof module.apolloLinks === 'function') {
 			return [...memo, ...module.apolloLinks(client)];
 		}
 		return memo;
-	}, [] as ApolloLink[]);
+	}, []);
 
 	// Create complete link object
 	const link = ApolloLink.from([errorLink, ...moduleLinks, finalLink]);
@@ -72,6 +68,7 @@ export default function withGraphql(client: IImperiumClient): Hoc {
 	const apolloClient = new ApolloClient({
 		link,
 		cache: new InMemoryCache(),
+		defaultOptions: env.apolloDefaults,
 	});
 
 	return function graphqlHoc(WrappedComponent: React.ComponentType) {

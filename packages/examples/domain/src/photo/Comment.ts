@@ -1,4 +1,4 @@
-import {Entity, ManyToOne, PrimaryKey, Property} from 'mikro-orm';
+import {Entity, ManyToOne, PrimaryKey, Property} from '@mikro-orm/core';
 import {v4} from 'uuid';
 import type {Photo} from './Photo';
 import {User} from '../user';

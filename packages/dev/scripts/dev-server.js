@@ -22,7 +22,6 @@ if (cluster.isMaster) {
 	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 	console.log(`Master process PID: ${process.pid}`);
 	console.log('Number of workers:  1');
-	// This is for display purposes only. See @imperium/server defaultOptions for PORT definition.
 	console.log(`Server port:        ${process.env.SERVER_PORT || 4001}`);
 	console.log('');
 
@@ -73,7 +72,7 @@ if (cluster.isMaster) {
 	 **************************************************************************************** */
 	const path = require('path');
 	const isFunction = require('lodash/isFunction');
-	const {log} = require('@imperium/util');
+	const {log} = require('@thx/common-webpack');
 
 	require('@babel/register')({
 		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true, graphqls: true}]],

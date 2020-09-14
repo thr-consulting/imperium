@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {commonWebpack, inspectLoader} = require('@imperium/util');
+const {commonWebpack, inspectLoader} = require('@thx/common-webpack');
 const {name} = require('./package.json');
 
 module.exports = commonWebpack({

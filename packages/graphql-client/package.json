@@ -1,69 +1,69 @@
 {
 	"name": "@imperium/graphql-client",
-	"version": "4.2.0",
+	"version": "4.4.1",
 	"description": "Imperium Graphql client package",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"types": "./dist/index.d.ts",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"main": "client.js",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"client.js",
 		"config.js",
+		"config.d.ts",
 		"dist"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
-		"ts": "tsc",
+		"sort": "npx sort-package-json",
+		"start": "screen -c ./dev.screenrc",
 		"test": "jest",
-		"test:watch": "jest --watch",
 		"test:coverage": "../../tools/coverage.sh",
-		"yalc:publish": "yalc publish --push",
+		"test:watch": "jest --watch",
+		"ts": "tsc",
 		"typedoc": "typedoc"
 	},
-	"peerDependencies": {
-		"@apollo/react-hooks": "3.x",
-		"apollo-client": "2.x",
-		"apollo-utilities": "1.x"
-	},
-	"dependencies": {
-		"@imperium/util": "^4.2.0",
-		"apollo-cache-inmemory": "^1.6.5",
-		"apollo-link": "^1.2.14",
-		"apollo-link-error": "^1.1.13",
-		"apollo-link-http": "^1.5.17",
-		"apollo-link-ws": "^1.0.20",
-		"debug": "^4.1.1",
-		"lodash": "^4.17.15",
-		"subscriptions-transport-ws": "^0.9.16"
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
 	},
 	"jest": {
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
-		},
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/graphql-client",
 		"collectCoverageFrom": [
 			"<rootDir>/src/**/*.js",
 			"<rootDir>/src/**/*.jsx",
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
-		]
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/graphql-client",
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
+		}
+	},
+	"dependencies": {
+		"@apollo/client": "^3.1.2",
+		"debug": "^4.1.1",
+		"lodash": "^4.17.15",
+		"subscriptions-transport-ws": "^0.9.17"
+	},
+	"peerDependencies": {
+		"@apollo/client": "3.x"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

@@ -1,7 +1,0 @@
-mutation($id: Int!, $title: String, $completed: Boolean) {
-	editTodo(id: $id, title: $title, completed: $completed) {
-		id
-		title
-		completed
-	}
-}

@@ -4,14 +4,18 @@ import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
+import type {ExcludeFalse} from '@imperium/util';
 import {basicModule} from '../basicModule';
 import {advancedModule} from '../advancedModule';
 import {graphqlModule} from '../graphqlModule';
 import {authorizationModule} from '../authorizationModule';
 import {demoDataModule} from '../demoData';
 import type {Context} from './context';
+import {environment} from './environment';
+import {subscriptionModule} from '../subscriptionModule';
 
 const d = debug('imperium.examples.server.serverModules');
+const env = environment();
 
 /*
 	Server modules are created with a factory function that returns an array of
@@ -29,5 +33,6 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		advancedModule(),
 		graphqlModule(),
 		authorizationModule(),
-	];
+		env.subscriptions && subscriptionModule(),
+	].filter((Boolean as any) as ExcludeFalse);
 }

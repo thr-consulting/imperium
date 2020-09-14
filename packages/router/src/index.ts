@@ -1,6 +1,7 @@
+import type {ImperiumClientModule} from '@imperium/client';
 import withRouter from './withRouter';
 
-export default function ImperiumRouterModule() {
+export function routerClientModule(): ImperiumClientModule {
 	return {
 		name: '@imperium/router',
 		hocs: [withRouter],

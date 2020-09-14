@@ -1,12 +1,12 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"declarationDir": "dist"
+		"declarationDir": "dist",
+		"jsx": "react"
 	},
 	"include": [
-		"src/index.ts"
+		"src/index.ts", "types/*.d.ts"
 	],
-	"files": ["types/merge-options.d.ts"],
 	"typedocOptions": {
 		"mode": "file",
 		"exclude": ["*.test.js", "*.test.ts", "*.test.tsx", "*.test.jsx"],

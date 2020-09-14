@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign, func-names, global-require, no-var, vars-on-top, prefer-template, operator-linebreak */
+/* eslint-disable no-param-reassign, func-names, global-require, no-var, vars-on-top, prefer-template, operator-linebreak, @typescript-eslint/no-var-requires */
 
 const validateBoolOption = (name, value, defaultValue) => {
 	if (typeof value === 'undefined') {
@@ -112,6 +112,8 @@ module.exports = function (api, opts, env) {
 			// in practice some other transforms (such as object-rest-spread)
 			// don't work without it: https://github.com/babel/babel/issues/7215
 			require('@babel/plugin-transform-destructuring').default,
+
+			enableDecorators && [require('babel-plugin-transform-typescript-metadata').default],
 
 			// Must be before "@babel/plugin-proposal-class-properties" and
 			// "@babel/plugin-proposal-class-properties" must be in 'loose' mode

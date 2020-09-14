@@ -1,0 +1,5 @@
+subscription onStuff {
+	subscriptionValueChanged {
+		id
+	}
+}

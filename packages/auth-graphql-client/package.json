@@ -1,62 +1,70 @@
 {
 	"name": "@imperium/auth-graphql-client",
-	"version": "4.2.0",
+	"version": "4.4.1",
 	"description": "Imperium Auth Graphql client package",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"types": "./dist/index.d.ts",
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"main": "client.js",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"client.js",
 		"dist"
 	],
 	"scripts": {
+		"Xtest": "jest",
+		"Xtest:coverage": "../../tools/coverage.sh",
+		"Xtest:watch": "jest --watch",
 		"build": "yarn build:dev && yarn build:prod",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"clean": "rimraf ./dist",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
 		"lint": "eslint --cache --ext js,ts,tsx src",
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"sort": "npx sort-package-json",
+		"start": "screen -c ./dev.screenrc",
 		"ts": "tsc",
-		"Xtest": "jest",
-		"Xtest:watch": "jest --watch",
-		"Xtest:coverage": "../../tools/coverage.sh",
-		"yalc:publish": "yalc publish --push",
 		"typedoc": "typedoc"
 	},
-	"dependencies": {
-		"@imperium/auth-client": "^4.2.0",
-		"@imperium/client": "^4.2.0",
-		"@imperium/graphql-client": "^4.2.0",
-		"@imperium/util": "^4.2.0",
-		"apollo-link": "^1.2.14",
-		"apollo-link-token-refresh": "^0.2.7",
-		"debug": "^4.1.1",
-		"jwt-decode": "^2.2.0"
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
 	},
 	"jest": {
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
-		},
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-graphql-client",
 		"collectCoverageFrom": [
 			"<rootDir>/src/**/*.js",
 			"<rootDir>/src/**/*.jsx",
 			"<rootDir>/src/**/*.ts",
 			"<rootDir>/src/**/*.tsx"
-		]
+		],
+		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-graphql-client",
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"transform": {
+			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
+		}
+	},
+	"resolutions": {
+		"apollo-link-token-refresh/**/@apollo/client": "3.1.2"
+	},
+	"dependencies": {
+		"@apollo/client": "^3.1.2",
+		"@imperium/auth-client": "^4.4.0",
+		"@imperium/client": "^4.4.0",
+		"@imperium/graphql-client": "^4.4.1",
+		"apollo-link-token-refresh": "^0.3.2",
+		"debug": "^4.1.1",
+		"jwt-decode": "^2.2.0"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

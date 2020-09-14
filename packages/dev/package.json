@@ -1,20 +1,17 @@
 {
 	"name": "@imperium/dev",
-	"version": "4.2.0",
+	"version": "4.4.0",
 	"description": "Imperium Development package",
-	"repository": "darkadept/imperium",
-	"license": "MIT",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"engines": {
-		"node": ">=12"
-	},
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"main": "lib/index.js",
+	"bin": {
+		"imperium": "./bin/imperium.js"
+	},
 	"files": [
 		"bin",
 		"scripts",
@@ -22,26 +19,28 @@
 		"defaultConfig.js",
 		"resource"
 	],
-	"bin": {
-		"imperium": "./bin/imperium.js"
-	},
 	"scripts": {
-		"lint": "eslint --cache --ext js,ts,tsx scripts",
-		"lint:fix": "eslint --cache --fix --ext js,ts,tsx scripts",
-		"yalc:publish": "yalc publish --push"
+		"lint": "eslint --cache --ext js,ts scripts",
+		"lint:fix": "eslint --cache --fix --ext js,ts scripts",
+		"sort": "npx sort-package-json"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "../../tsconfig.json"
+		}
 	},
 	"dependencies": {
 		"@babel/core": "^7.9.0",
 		"@babel/register": "^7.9.0",
-		"@imperium/babel-preset-imperium": "^4.1.0",
-		"@imperium/util": "^4.2.0",
+		"@imperium/babel-preset-imperium": "^4.4.0",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
+		"@thx/common-webpack": "^5.0.0",
 		"babel-loader": "^8.1.0",
 		"chalk": "^4.0.0",
 		"chokidar": "^3.3.1",
-		"copy-webpack-plugin": "^5.1.1",
+		"copy-webpack-plugin": "^6.0.3",
 		"cross-spawn": "^7.0.2",
-		"css-loader": "^3.5.3",
+		"css-loader": "^4.2.0",
 		"debug": "^4.1.1",
 		"dotenv": "^8.2.0",
 		"file-loader": "^6.0.0",
@@ -60,7 +59,13 @@
 		"webpack-cli": "^3.3.11",
 		"webpack-dev-server": "^3.10.3",
 		"webpack-hot-middleware": "^2.25.0",
-		"webpack-node-externals": "^1.7.2"
+		"webpack-node-externals": "^2.5.0"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
 }

@@ -24,12 +24,12 @@ export function encryptPassword(password: string | {algorithm: string; digest: s
 	return hash(getPasswordString(password), saltOrRounds);
 }
 
-function signJwt(payload: string | object = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
+function signJwt(payload: string | Record<string, unknown> = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
 	return sign(payload, secret, options);
 }
 
 export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
-	return compare(getPasswordString(loginInfo.password), serviceInfo.password);
+	return compare(getPasswordString(loginInfo.password), serviceInfo.password || '');
 }
 
 export function createAccessToken(serviceInfo: ServiceInfo): string {
@@ -79,7 +79,7 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 	}
 }
 
-export async function refresh(refreshTokenString: string, auth: AuthenticationDomain) {
+export async function refresh(refreshTokenString: string, auth: AuthenticationDomain): Promise<{access: string}> {
 	const token = decode(refreshTokenString);
 
 	// Check if token is invalid or expired
@@ -102,7 +102,7 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 	}
 
 	return {
-		// TODO Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
+		// WARNING: Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
 		access: createAccessToken(serviceInfo),
 	};
 }

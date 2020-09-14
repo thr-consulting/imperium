@@ -7,7 +7,8 @@ export interface IAuth {
 
 export interface IAuthContext {
 	auth: IAuth | null;
+	getAuth: () => Promise<IAuth | null>;
 	setAuth: (auth: IAuth | null) => void;
 }
 
-export const AuthContext = React.createContext({auth: null, setAuth() {}} as IAuthContext);
+export const AuthContext = React.createContext({auth: null, setAuth() {}, getAuth: async () => null} as IAuthContext);

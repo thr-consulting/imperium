@@ -1,6 +1,6 @@
 /*
 	This is the main export from the domain package. This function creates a new domain context
-	and should be called on every request.
+	and should be called on every request/operation.
  */
 import type {AuthenticatedUser} from '@imperium/connector';
 import {Authorization} from '../lib/Authorization';

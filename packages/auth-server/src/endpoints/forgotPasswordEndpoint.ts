@@ -11,11 +11,11 @@ interface ForgotPasswordInfo {
 	email: string;
 }
 
-function isForgotPasswordInfo(forgotPasswordInfo: object): forgotPasswordInfo is ForgotPasswordInfo {
+function isForgotPasswordInfo(forgotPasswordInfo: any): forgotPasswordInfo is ForgotPasswordInfo {
 	return (forgotPasswordInfo as ForgotPasswordInfo).email !== undefined;
 }
 
-export function forgotPasswordEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any, any>) {
+export function forgotPasswordEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any, any>): void {
 	d(`Adding auth forgot password endpoint: ${env.authForgotPasswordUrl}`);
 
 	server.expressApp.post(env.authForgotPasswordUrl, json(), (req, res) => {
