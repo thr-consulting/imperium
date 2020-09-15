@@ -1,0 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [4.5.0](https://github.com/darkadept/imperium/compare/v4.4.1...v4.5.0) (2020-09-15)
+
+
+### Bug Fixes
+
+* **auth-graphql-client:** fixed export ([404a93f](https://github.com/darkadept/imperium/commit/404a93f102a27fabac97637671aeb83bf7a6494e))
+
+
+### Features
+
+* refactored all client packages ([#241](https://github.com/darkadept/imperium/issues/241)) ([be010ad](https://github.com/darkadept/imperium/commit/be010ad96e0ddb6f40b189561568df2327025e0e)), closes [#234](https://github.com/darkadept/imperium/issues/234) [#242](https://github.com/darkadept/imperium/issues/242)
