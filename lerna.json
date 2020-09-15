@@ -7,5 +7,10 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "concurrency": 4,
-  "registry": "https://registry.npmjs.org/"
+  "registry": "https://registry.npmjs.org/",
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  }
 }
