@@ -14,7 +14,7 @@ const d = debug('imperium.examples.server.apolloCacheModule');
 	schema, resolvers and schemaDirectives (not shown here).
  */
 
-const data = [];
+const data: any[] = [];
 for (let i = 0; i < 10; i++) {
 	data.push({
 		id: randomId(),

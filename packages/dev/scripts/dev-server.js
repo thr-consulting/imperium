@@ -56,9 +56,9 @@ if (cluster.isMaster) {
 			);
 		} else {
 			log.error('Worker thread keeps crashing, exiting main app...');
-			// log.end(() => {
+			setTimeout(() => {
 				process.exit(1);
-			// });
+			}, 400);
 		}
 	});
 
@@ -119,18 +119,18 @@ if (cluster.isMaster) {
 	worker().then(server => {
 		if (!server && !isFunction(server.stop)) {
 			log.error('Server default function must return an object with a stop() method that returns a Promise.');
-			// log.end(() => {
+			setTimeout(() => {
 				process.exit(2);
-			// });
+			}, 400);
 		}
 
 		// Exit when SIGINT sent
 		process.on('SIGINT', () => {
 			log.info('Caught interrupt signal, shutting down');
 			server.stop().finally(() => {
-				// log.end(() => {
+				setTimeout(() => {
 					process.exit(0);
-				// });
+				}, 400);
 			});
 		});
 
@@ -141,9 +141,9 @@ if (cluster.isMaster) {
 				message: `Fatal: Uncaught exception: ${error.message}`,
 				error,
 			});
-			// log.end(() => {
+			setTimeout(() => {
 				process.exit(3);
-			// });
+			}, 400);
 		});
 
 		// Catch unhandled rejections
@@ -153,9 +153,9 @@ if (cluster.isMaster) {
 				message: `Fatal: Unhandled promise rejection: ${error.message}`,
 				error,
 			});
-			// log.end(() => {
+			setTimeout(() => {
 				process.exit(4);
-			// });
+			}, 400);
 		});
 	});
 }

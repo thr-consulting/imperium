@@ -28,7 +28,7 @@ export default function ApolloCache() {
 				Filter for Email
 			</Button>
 			<ul>
-				{data.getCacheList.map(v => (
+				{data.getCacheList.map((v: any) => (
 					<li key={v.name}>
 						{v.id}: {v.name} {v.type}
 					</li>
