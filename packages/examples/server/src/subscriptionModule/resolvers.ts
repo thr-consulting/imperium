@@ -22,8 +22,6 @@ export function resolvers(server: ImperiumServer<Context, any>): IResolvers<any,
 				// Perform the mutation
 				data.id = randomLetters(10);
 
-				throw new Error(`Error in a graphql resolver: ${data.id}`);
-
 				// Notify the pubsub that the value changed. We can send the changed
 				// data to the client via the subscription by passing it as the payload
 				// to pubsub.publish(). The payload is an object with the key of the

@@ -13,6 +13,7 @@ import {demoDataModule} from '../demoData';
 import type {Context} from './context';
 import {environment} from './environment';
 import {subscriptionModule} from '../subscriptionModule';
+import {apolloCacheModule} from '../apolloCacheModule';
 
 const d = debug('imperium.examples.server.serverModules');
 const env = environment();
@@ -34,5 +35,6 @@ export function serverModules(): ImperiumServerModule<any, any>[] {
 		graphqlModule(),
 		authorizationModule(),
 		env.subscriptions && subscriptionModule(),
+		apolloCacheModule(),
 	].filter((Boolean as any) as ExcludeFalse);
 }
