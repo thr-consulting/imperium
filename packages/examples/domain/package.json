@@ -33,14 +33,14 @@
 		"@casl/ability": "^4.1.5",
 		"@imperium/auth-server": "^4.5.1",
 		"@imperium/connector": "^4.5.1",
-		"@imperium/util": "^4.5.1",
 		"debug": "^4.1.1",
 		"uuid": "^8.2.0"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "^4.x",
 		"@thx/sharedcache": "^11.x",
-		"apollo-server-express": "^2.x"
+		"apollo-server-express": "^2.x",
+		"winston": "^3.x"
 	},
 	"engines": {
 		"node": ">=12"

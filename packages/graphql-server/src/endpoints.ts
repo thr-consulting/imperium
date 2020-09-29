@@ -1,4 +1,3 @@
-import {inspect} from 'util';
 import {isString} from '@imperium/util';
 import bodyParser from 'body-parser';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
@@ -11,6 +10,7 @@ import type {DocumentNode} from 'graphql';
 import {environment} from './environment';
 import {resolvers as coreResolvers, schema as coreSchema} from './schema';
 import {ApolloSchema, isImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';
+import {ApolloErrorHandler} from './ApolloErrorHandler';
 
 const d = debug('imperium.graphql-server.endpoints');
 const env = environment();
@@ -120,6 +120,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 					});
 				}
 
+				// If we have custom apollo context functions, run them here.
 				if (config?.apolloContextCreator) {
 					return {
 						// @ts-ignore It's too much work to place "context" on the Request type.
@@ -133,7 +134,6 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			},
 			schemaDirectives,
 			formatError: error => {
-				d(inspect(error, false, null));
 				if (config?.formatError) {
 					return config.formatError(error);
 				}
@@ -143,6 +143,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			debug: env.development,
 			introspection: env.development,
 			tracing: env.development,
+			plugins: [ApolloErrorHandler],
 		};
 
 		if (env.graphqlWs) {

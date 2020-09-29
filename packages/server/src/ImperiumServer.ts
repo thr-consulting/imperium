@@ -3,6 +3,7 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
+import {randomId} from '@thx/random';
 import type {Connector, AuthenticatedUser} from '@imperium/connector';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
@@ -32,7 +33,10 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 			// @ts-ignore
 			this._contextCreator(this.connectors, req).then(ctx => {
 				// @ts-ignore
-				req.context = ctx;
+				req.context = {
+					...ctx,
+					__session: randomId(8),
+				};
 				next();
 			});
 		};

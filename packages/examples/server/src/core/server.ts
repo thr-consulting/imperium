@@ -20,6 +20,11 @@ export default function core() {
 		serverModules,
 	});
 
+	// setTimeout(() => {
+	// 	throw new Error('timed error');
+	// 	const y = Promise.reject('this is rejected');
+	// }, 5000);
+
 	// Start the imperium server
 	// ImperiumServer's start() method returns the required stop() method.
 	return server.start({

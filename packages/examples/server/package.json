@@ -18,7 +18,7 @@
     "sort": "npx sort-package-json",
     "start": "yarn start:dev",
     "start:dev": "imperium dev-server imperium.js",
-    "start:prod": "imperium prod-server",
+    "start:prod": "imperium prod-server imperium.js",
     "ts": "tsc"
   },
   "eslintConfig": {

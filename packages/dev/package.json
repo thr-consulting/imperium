@@ -33,6 +33,7 @@
 		"@babel/core": "^7.9.0",
 		"@babel/register": "^7.9.0",
 		"@imperium/babel-preset-imperium": "^4.5.1",
+		"@thx/log": "^11.0.4-alpha.8",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
 		"@thx/common-webpack": "^5.0.0",
 		"babel-loader": "^8.1.0",
@@ -59,7 +60,8 @@
 		"webpack-cli": "^3.3.11",
 		"webpack-dev-server": "^3.10.3",
 		"webpack-hot-middleware": "^2.25.0",
-		"webpack-node-externals": "^2.5.0"
+		"webpack-node-externals": "^2.5.0",
+		"winston": "^3.3.3"
 	},
 	"engines": {
 		"node": ">=12"

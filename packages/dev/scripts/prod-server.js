@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 const child_process = require('child_process');
+const os = require('os');
 
 const rootPath = path.resolve(process.cwd());
 const buildPath = path.resolve(rootPath, 'build', 'server');
@@ -29,7 +30,6 @@ console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 console.log(chalk.bold.white('  Imperium Framework - Production'));
 console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
 console.log(`Master process PID: ${process.pid}`);
-console.log('Number of workers:  1');
-console.log(`Server port:        ${process.env.SERVER_PORT || 4001}`);
+console.log(`Number of workers:  ${process.env.PROCESSES || os.cpus().length}`);
 console.log('');
-spawnSync('node', 'index.js', {env: {...process.env, PROCESSES: 1}, cwd: buildPath});
+spawnSync('node', 'index.js', {cwd: buildPath});
