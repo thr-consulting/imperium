@@ -9,6 +9,7 @@ export const ApolloErrorHandler: ApolloServerPlugin = {
 		return {
 			didEncounterErrors(requestContext: GraphQLRequestContext) {
 				requestContext.errors?.forEach(error => {
+					// eslint-disable-next-line no-underscore-dangle
 					log.error(error.message, {error, session: requestContext.context.__session, group: 'graphql'});
 				});
 			},

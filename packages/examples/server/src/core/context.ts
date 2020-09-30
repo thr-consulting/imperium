@@ -9,4 +9,4 @@ export async function contextCreator(conn: typeof connectors, authenticatedUser?
 	return createDomain(conn, authenticatedUser);
 }
 
-export type Context = ImperiumContext<typeof createDomain>;
+export type Context = ImperiumContext<typeof contextCreator>;

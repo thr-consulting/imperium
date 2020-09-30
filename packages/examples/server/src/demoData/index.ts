@@ -11,11 +11,14 @@ export const demoDataModule = (): ImperiumServerModule<Context, typeof connector
 	async startup(server) {
 		const systemUserId = await createSystemUser(server);
 
-		const context = await contextCreator(server.connectors, {
-			auth: {
-				id: systemUserId?.id,
-			},
-		});
+		const context: Context = {
+			...(await contextCreator(server.connectors, {
+				auth: {
+					id: systemUserId?.id,
+				},
+			})),
+			__session: 'demoDataModule',
+		};
 
 		const categories = await getOrCreateCategories(context);
 		const users = await getOrCreateUsers(context);

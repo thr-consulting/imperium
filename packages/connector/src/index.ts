@@ -1,4 +1,5 @@
 import type {TypeOfPromise} from '@imperium/util';
+import {randomId} from '@thx/random';
 
 export {Connector, ConnectorsConfig} from './Connector';
 
@@ -13,8 +14,10 @@ export interface AuthenticatedUser {
 	};
 }
 
-interface ImperiumBaseContext {
-	__session: string;
+export function ImperiumBaseContext() {
+	return {
+		__session: randomId(8),
+	};
 }
 
-export type ImperiumContext<C extends (...args: any) => any> = TypeOfPromise<ReturnType<C>> & ImperiumBaseContext;
+export type ImperiumContext<C extends (...args: any) => any> = TypeOfPromise<ReturnType<C>>;

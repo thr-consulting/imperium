@@ -33,10 +33,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 			// @ts-ignore
 			this._contextCreator(this.connectors, req).then(ctx => {
 				// @ts-ignore
-				req.context = {
-					...ctx,
-					__session: randomId(8),
-				};
+				req.context = ctx;
 				next();
 			});
 		};

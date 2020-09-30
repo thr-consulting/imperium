@@ -3,6 +3,7 @@
 	and should be called on every request/operation.
  */
 import type {AuthenticatedUser} from '@imperium/connector';
+import {ImperiumBaseContext} from '@imperium/connector';
 import {Authorization} from '../lib/Authorization';
 import {AppAbilityTuple, defineRulesFor} from './defineRulesFor';
 import type {DomainConnectors} from './DomainConnectors';
@@ -20,6 +21,7 @@ export async function createDomain(connectors: DomainConnectors, authenticatedUs
 
 	// This is the main context object that will be returned. You can make this look however you wish.
 	const ctx = {
+		...ImperiumBaseContext(),
 		...entities,
 		...services(entityManager, connectors, authenticatedUser),
 		SecureModel,
