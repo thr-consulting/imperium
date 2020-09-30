@@ -125,13 +125,17 @@ if (cluster.isMaster) {
 		}
 
 		// Exit when SIGINT sent
+		let catchOnce = false;
 		process.on('SIGINT', () => {
-			log.info('Caught interrupt signal, shutting down');
-			server.stop().finally(() => {
-				setTimeout(() => {
-					process.exit(0);
-				}, 400);
-			});
+			if (catchOnce === false) {
+				catchOnce = true;
+				log.info('Caught interrupt signal, shutting down');
+				server.stop().finally(() => {
+					setTimeout(() => {
+						process.exit(0);
+					}, 400);
+				});
+			}
 		});
 
 		// Catch uncaught exceptions
