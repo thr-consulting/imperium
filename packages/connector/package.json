@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/connector",
-	"version": "4.5.1",
+	"version": "4.6.0",
 	"description": "Imperium Connector package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
