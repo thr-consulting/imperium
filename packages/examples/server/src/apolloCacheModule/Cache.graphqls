@@ -1,0 +1,9 @@
+type CacheList {
+	id: String!
+	name: String!
+	type: String!
+}
+
+extend type Query {
+	getCacheList(filter: String!): [CacheList]
+}

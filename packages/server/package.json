@@ -54,10 +54,8 @@
 		"chalk": "^4.0.0",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",
-		"lodash": "^4.17.15"
-	},
-	"devDependencies": {
-		"webpack-cli": "^3.3.11"
+		"lodash": "^4.17.15",
+		"source-map-support": "^0.5.19"
 	},
 	"engines": {
 		"node": ">=12"

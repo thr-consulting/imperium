@@ -9,8 +9,6 @@ module.exports = {
 	development: {
 		clientHost: '127.0.0.1',
 		clientPort: 4000, // Port the webpack-dev-server runs on
-		workerCrashDelay: 2, // Seconds to wait before restarting a worker process.
-		workerCrashMax: 5, // Number of times a worker is allowed to crash before killing the server.
 		imperiumDevelopmentAliases: false, // Enable this if you are working on the imperium library installed with yalc or npm link.
 		chokidarTimeout: 200, // Number of milliseconds to debounce the server restart in development mode.
 	},
@@ -24,7 +22,8 @@ module.exports = {
 		},
 		server: {
 			minimize: true, // Minimize the production output
-			devtool: false, // Devtool build for production
+			devtool: 'source-map', // Devtool build for production
+			sourceMapSupport: true, // Add support for sourcemaps in production
 			// Externals aren't included in webpack. (See https://webpack.js.org/configuration/externals/#externals)
 			externals: [
 				path.join(pRoot, 'node_modules'),

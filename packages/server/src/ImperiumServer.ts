@@ -3,6 +3,7 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
+import {randomId} from '@thx/random';
 import type {Connector, AuthenticatedUser} from '@imperium/connector';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 

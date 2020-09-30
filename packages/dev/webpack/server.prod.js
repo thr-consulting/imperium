@@ -5,6 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const webpack = require('webpack');
 const serverModuleRules = require('./serverModuleRules');
 
 module.exports = function serverWebpack(imperiumConfig) {
@@ -39,6 +40,13 @@ module.exports = function serverWebpack(imperiumConfig) {
 			new CopyWebpackPlugin({
 				patterns: [{from: path.resolve(imperiumConfig.source.imperiumRoot, 'resource', 'index.js'), to: '.', noErrorOnMissing: true}],
 			}),
+			imperiumConfig.production.server.sourceMapSupport
+				? new webpack.BannerPlugin({
+						banner: "require('source-map-support').install();",
+						raw: true,
+						entryOnly: false,
+				  })
+				: null,
 		]),
 		module: {
 			rules: serverModuleRules.concat(imperiumConfig.webpack.server.rules),

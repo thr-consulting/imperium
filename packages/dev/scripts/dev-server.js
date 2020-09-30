@@ -13,41 +13,52 @@ if (cluster.isMaster) {
 	 * SERVER MASTER ENTRY POINT
 	 **************************************************************************************** */
 	const chalk = require('chalk');
+	const util = require('util');
 	const chokidar = require('chokidar');
 	const debounce = require('lodash/debounce');
+	const {configureLogger} = require('@thx/log');
+	const winston = require('winston');
 
-	// Display banner and info
-	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
-	console.log(chalk.bold.white('  Imperium Framework - Development'));
-	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
-	console.log(`Master process PID: ${process.pid}`);
-	console.log('Number of workers:  1');
-	console.log(`Server port:        ${process.env.SERVER_PORT || 4001}`);
-	console.log('');
+	const log = configureLogger(winston.createLogger());
+
+	log.info('Imperium Master startup (Workers: 1)', {environment: util.inspect(process.env, true, null, false)});
+
+	const workerCrashDelay = parseInt(process.env.WORKER_CRASH_DELAY || '4000', 10); // Milliseconds to wait before restarting a worker process instead of counting towards crash max.
+	const workerCrashMax = parseInt(process.env.WORKER_CRASH_MAX || '3', 10); // Number of times a worker is allowed to crash before killing the server.
+
+	let workerCrashCounter = 0;
+	let workerForkTime = process.hrtime.bigint(); // Record time worker is forked.
 
 	// For dev, only fork a single worker
 	let clusterWorker = cluster.fork(process.env);
 
-	let workerCrashCounter = 0;
-	let workerForkTime = process.hrtime(); // Record time worker is forked.
-
 	// Event: Fires when a worker exists
 	cluster.on('exit', (deadWorker, code, signal) => {
-		const workerForkTimeDifference = process.hrtime(workerForkTime); // Calculate time since last worker fork
+		const workerForkTimeDifference = (process.hrtime.bigint() - workerForkTime) / 1000000n; // Calculate time since last worker fork and convert to milliseconds
 
 		// If time between forks is less than the crash delay, increase the counter
-		if (workerForkTimeDifference[0] < imperiumConfig.development.workerCrashDelay) {
+		if (workerForkTimeDifference < workerCrashDelay) {
 			workerCrashCounter++;
+		} else {
+			workerCrashCounter = 0;
 		}
 
 		// If the crash counter is less than the max, fork a new worker
-		if (workerCrashCounter < imperiumConfig.development.workerCrashMax) {
+		if (workerCrashCounter < workerCrashMax) {
 			clusterWorker = cluster.fork();
-			workerForkTime = process.hrtime(); // Record new worker time
-			d(`${workerCrashCounter} Worker PID ${deadWorker.process.pid} died (${code}) [${signal}] -> New PID: ${clusterWorker.process.pid}`);
+			workerForkTime = process.hrtime.bigint(); // Record new worker time
+			log.error(
+				`Worker PID ${deadWorker.process.pid} died (code: ${code}) [${signal}] -> New PID: ${clusterWorker.process.pid} [Crash count: ${workerCrashCounter}]`,
+				{
+					workerForkTimeDifference: workerForkTimeDifference.toString(10),
+					workerCrashCounter,
+				},
+			);
 		} else {
-			console.error('Worker thread keeps crashing, exiting main app.');
-			process.exit(1);
+			log.error('Worker thread keeps crashing, exiting main app...');
+			setTimeout(() => {
+				process.exit(1);
+			}, 400);
 		}
 	});
 
@@ -63,16 +74,29 @@ if (cluster.isMaster) {
 	// Watch source folder for changes
 	const watchFolders = [...imperiumConfig.source.watchPaths, imperiumConfig.source.path];
 	chokidar.watch(watchFolders).on('change', filePath => {
-		console.log(`  >> File ${filePath} was modified, restarting server thread...`); // eslint-disable-line no-console
+		d(`  >> File ${filePath} was modified, restarting server thread...`);
 		restartWorker();
 	});
+
+	// Display banner and info
+	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
+	console.log(chalk.bold.white('  Imperium Framework - Development'));
+	console.log(chalk.bold.white('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='));
+	console.log(`Master process PID: ${process.pid}`);
+	console.log('Number of workers:  1');
+	console.log(`Watching folders: ${watchFolders.join(', ')}`);
+	console.log('');
 } else {
 	/* ****************************************************************************************
 	 * SERVER WORKER ENTRY POINT
 	 **************************************************************************************** */
 	const path = require('path');
 	const isFunction = require('lodash/isFunction');
-	const {log} = require('@thx/common-webpack');
+	const {log: webpackLog} = require('@thx/common-webpack');
+	const log = require('winston');
+	const {configureLogger} = require('@thx/log');
+
+	configureLogger(log);
 
 	require('@babel/register')({
 		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true, graphqls: true}]],
@@ -80,7 +104,7 @@ if (cluster.isMaster) {
 		ignore: [/node_modules/],
 		only: [
 			filepath => {
-				log('BABEL/REG', filepath);
+				webpackLog('BABEL/REG', filepath);
 				return true;
 			},
 		],
@@ -89,34 +113,53 @@ if (cluster.isMaster) {
 
 	const worker = require(path.resolve(imperiumConfig.source.path, imperiumConfig.source.serverIndex)).default;
 	if (!isFunction(worker)) {
-		console.error('Server index must export a default function');
+		log.error('Server index must export a default function');
 		process.exit(1);
 	}
 	worker().then(server => {
 		if (!server && !isFunction(server.stop)) {
-			console.error('Server default function must return an object with a stop() method that returns a Promise.');
-			process.exit(2);
+			log.error('Server default function must return an object with a stop() method that returns a Promise.');
+			setTimeout(() => {
+				process.exit(2);
+			}, 400);
 		}
 
 		// Exit when SIGINT sent
+		let catchOnce = false;
 		process.on('SIGINT', () => {
-			console.log('\n'); // eslint-disable-line no-console
-			console.log('Caught interrupt signal, shutting down');
-			server.stop().finally(() => {
-				process.exit(0);
-			});
+			if (catchOnce === false) {
+				catchOnce = true;
+				log.info('Caught interrupt signal, shutting down');
+				server.stop().finally(() => {
+					setTimeout(() => {
+						process.exit(0);
+					}, 400);
+				});
+			}
 		});
 
 		// Catch uncaught exceptions
 		process.on('uncaughtException', error => {
-			console.error('Fatal: Uncaught exception', error);
-			process.exit(3);
+			log.log({
+				level: 'error',
+				message: `Fatal: Uncaught exception: ${error.message}`,
+				error,
+			});
+			setTimeout(() => {
+				process.exit(3);
+			}, 400);
 		});
 
 		// Catch unhandled rejections
 		process.on('unhandledRejection', error => {
-			console.error('Fatal: Unhandled promise rejection', error);
-			process.exit(4);
+			log.log({
+				level: 'error',
+				message: `Fatal: Unhandled promise rejection: ${error.message}`,
+				error,
+			});
+			setTimeout(() => {
+				process.exit(4);
+			}, 400);
 		});
 	});
 }

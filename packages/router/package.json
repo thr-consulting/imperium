@@ -53,9 +53,6 @@
 		"@imperium/client": "^4.5.1",
 		"debug": "^4.1.1"
 	},
-	"devDependencies": {
-		"webpack-cli": "^3.3.11"
-	},
 	"peerDependencies": {
 		"react-router-dom": "5.x"
 	},

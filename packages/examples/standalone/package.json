@@ -31,12 +31,14 @@
     "@mikro-orm/cli": "^4.0.2",
     "@mikro-orm/core": "^4.0.2",
     "@mikro-orm/postgresql": "^4.0.2",
+    "@thx/log": "^11.1.0",
     "@thx/sharedcache": "^11.0.2",
     "apollo-server-express": "^2.16.1",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "lodash": "^4.17.15",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

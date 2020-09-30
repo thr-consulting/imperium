@@ -54,12 +54,9 @@
 		"lodash": "^4.17.15",
 		"merge-options": "^2.0.0"
 	},
-	"devDependencies": {
-		"webpack-cli": "^3.3.11"
-	},
 	"peerDependencies": {
-		"react": "^16.x",
-		"react-dom": "^16.x"
+		"react": "16.x || 17.x",
+		"react-dom": "16.x || 17.x"
 	},
 	"engines": {
 		"node": ">=12"
