@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/eslint-config-imperium",
-	"version": "4.5.1",
+	"version": "4.6.1",
 	"description": "ESLint dependencies",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
