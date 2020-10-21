@@ -14,10 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup node 12
+      - name: Setup node 12.19
         uses: actions/setup-node@v2-beta
         with:
-          node-version: "12.7"
+          node-version: "12.19"
           registry-url: "https://registry.npmjs.org"
 
       - name: Restore lerna node_modules
