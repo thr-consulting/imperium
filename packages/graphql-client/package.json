@@ -58,7 +58,8 @@
 		"subscriptions-transport-ws": "^0.9.17"
 	},
 	"peerDependencies": {
-		"@apollo/client": "3.x"
+		"@apollo/client": "3.x",
+		"graphql": "14.x || 15.x"
 	},
 	"engines": {
 		"node": ">=12"
