@@ -6,7 +6,7 @@ import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {getMainDefinition} from '@apollo/client/utilities';
 import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
-import type {ExcludeFalse} from '@imperium/util';
+import type {ExcludeFalse} from '@thx/util';
 import {environment} from './environment';
 import {isImperiumGraphqlClientModule} from './types';
 import {removeTypeNameLink} from './removeTypeNameLink';

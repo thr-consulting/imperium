@@ -52,7 +52,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/util": "^4.6.1",
+		"@thx/util": "^11.0.5-alpha.265",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.17"

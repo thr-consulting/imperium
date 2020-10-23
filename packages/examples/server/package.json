@@ -32,7 +32,7 @@
     "@imperium/example-domain": "^4.6.0",
     "@imperium/graphql-server": "^4.6.0",
     "@imperium/server": "^4.6.0",
-    "@imperium/util": "^4.5.1",
+    "@thx/util": "^11.0.5-alpha.265",
     "@mikro-orm/cli": "^4.0.2",
     "@mikro-orm/core": "^4.0.2",
     "@mikro-orm/postgresql": "^4.0.2",

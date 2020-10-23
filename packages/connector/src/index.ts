@@ -1,4 +1,4 @@
-import type {TypeOfPromise} from '@imperium/util';
+import type {TypeOfPromise} from '@thx/util';
 import {randomId} from '@thx/random';
 
 export {Connector, ConnectorsConfig} from './Connector';
