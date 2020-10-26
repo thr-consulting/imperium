@@ -37,10 +37,10 @@
 		"uuid": "^8.2.0"
 	},
 	"peerDependencies": {
-		"@mikro-orm/core": "^4.x",
-		"@thx/sharedcache": "^11.x",
-		"apollo-server-express": "^2.x",
-		"winston": "^3.x"
+		"@mikro-orm/core": "4.x",
+		"@thx/sharedcache": "13.x",
+		"apollo-server-express": "2.x",
+		"winston": "3.x"
 	},
 	"engines": {
 		"node": ">=12"

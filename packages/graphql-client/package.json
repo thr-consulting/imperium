@@ -52,7 +52,7 @@
 		}
 	},
 	"dependencies": {
-		"@thx/util": "^11.0.5-alpha.265",
+		"@thx/util": "^13.0.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.17"
