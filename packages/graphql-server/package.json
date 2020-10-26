@@ -54,11 +54,11 @@
 	"dependencies": {
 		"@imperium/connector": "^4.6.0",
 		"@imperium/server": "^4.6.0",
-		"@thx/util": "^11.0.5-alpha.265",
 		"@js-joda/core": "^3.0.0",
 		"@thx/common-webpack": "^5.0.2-alpha.16",
 		"@thx/date": "^11.2.1-alpha.3",
 		"@thx/money": "^11.0.2",
+		"@thx/util": "^11.0.5-alpha.265",
 		"apollo-server-express": "^2.12.0",
 		"body-parser": "^1.19.0",
 		"cors": "^2.8.5",
