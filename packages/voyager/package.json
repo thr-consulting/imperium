@@ -1,14 +1,18 @@
 {
-	"name": "@imperium/example-domain",
+	"name": "@imperium/voyager",
 	"version": "4.6.1",
-	"private": true,
-	"description": "Imperium Domain Example",
+	"description": "Imperium Voyager dev module",
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "index.js",
+	"main": "server.js",
 	"types": "./dist/index.d.ts",
 	"files": [
-		"dist",
-		"index.js"
+		"server.js",
+		"dist"
 	],
 	"scripts": {
 		"build": "yarn build:dev && yarn build:prod",
@@ -18,31 +22,22 @@
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"sort": "npx sort-package-json",
-		"start": "screen -c ./domain.screenrc",
-		"ts": "tsc"
+		"start": "screen -c ./dev.screenrc",
+		"ts": "tsc",
+		"typedoc": "typedoc"
 	},
 	"eslintConfig": {
 		"parserOptions": {
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"resolutions": {
-		"mikro-orm/**/typescript": "3.9.7"
-	},
 	"dependencies": {
-		"@casl/ability": "^4.1.5",
-		"@imperium/auth-server": "^4.6.1",
-		"@imperium/connector": "^4.6.1",
-		"debug": "^4.1.1",
-		"uuid": "^8.2.0"
-	},
-	"peerDependencies": {
-		"@mikro-orm/core": "4.x",
-		"@thx/sharedcache": "13.x",
-		"apollo-server-express": "2.x",
-		"winston": "3.x"
+		"@imperium/server": "^4.6.1"
 	},
 	"engines": {
 		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

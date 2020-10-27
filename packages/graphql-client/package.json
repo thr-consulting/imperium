@@ -52,12 +52,14 @@
 		}
 	},
 	"dependencies": {
+		"@thx/util": "^13.0.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"subscriptions-transport-ws": "^0.9.17"
 	},
 	"peerDependencies": {
-		"@apollo/client": "3.x"
+		"@apollo/client": "3.x",
+		"graphql": "14.x || 15.x"
 	},
 	"engines": {
 		"node": ">=12"

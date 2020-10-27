@@ -51,7 +51,7 @@
 	},
 	"dependencies": {
 		"@imperium/util": "^4.6.1",
-		"@thx/random": "^11.1.4",
+		"@thx/random": "^13.0.0",
 		"debug": "^4.1.1"
 	},
 	"engines": {

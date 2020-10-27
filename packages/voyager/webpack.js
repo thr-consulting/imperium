@@ -7,5 +7,5 @@ module.exports = commonWebpack({
 	isClient: false,
 	name,
 	entry: './index.ts',
-	outputFile: 'index.js',
+	outputFile: 'server.js',
 });

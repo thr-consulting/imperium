@@ -1,14 +1,15 @@
 import type {ImperiumClientModule} from '@imperium/client';
-import withGraphql from './withGraphql';
+import {withGraphql, GraphqlClientOptions} from './withGraphql';
 
 /**
  * Imperium Graphql Module
  */
-export function graphqlClientModule(): ImperiumClientModule {
+export function graphqlClientModule(opts?: GraphqlClientOptions): ImperiumClientModule {
 	return {
 		name: '@imperium/graphql-client',
-		hocs: [withGraphql],
+		hocs: [withGraphql(opts)],
 	};
 }
 
 export {ImperiumGraphqlClientModule} from './types';
+export {isFragmentSpreadNode, isFieldNode, isDirectiveDefinitionNode} from './typeguards';

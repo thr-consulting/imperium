@@ -1,7 +1,8 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"declarationDir": "dist"
+		"declarationDir": "dist",
+		"importsNotUsedAsValues": "error"
 	},
 	"include": [
 		"src/index.ts"
@@ -13,6 +14,6 @@
 		"excludePrivate": true,
 		"hideGenerator": true,
 		"readme": "README.md",
-		"out": "../../website/static/apistatic/util"
+		"out": "../../website/static/apistatic/auth-server"
 	}
 }

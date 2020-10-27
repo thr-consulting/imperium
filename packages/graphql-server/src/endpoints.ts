@@ -1,4 +1,4 @@
-import {isString} from '@imperium/util';
+import {isString} from '@thx/util';
 import bodyParser from 'body-parser';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
