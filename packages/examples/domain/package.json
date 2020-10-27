@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "4.6.1",
+	"version": "5.0.0",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -31,8 +31,8 @@
 	},
 	"dependencies": {
 		"@casl/ability": "^4.1.5",
-		"@imperium/auth-server": "^4.6.1",
-		"@imperium/connector": "^4.6.1",
+		"@imperium/auth-server": "^5.0.0",
+		"@imperium/connector": "^5.0.0",
 		"debug": "^4.1.1",
 		"uuid": "^8.2.0"
 	},

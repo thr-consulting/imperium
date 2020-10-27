@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/babel-preset-imperium",
-	"version": "4.6.1",
+	"version": "5.0.0",
 	"description": "Babel preset used by Imperium.",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
