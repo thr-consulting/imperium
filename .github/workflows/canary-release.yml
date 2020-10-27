@@ -14,10 +14,10 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - name: Setup node 12.19
+      - name: Setup node 14.14
         uses: actions/setup-node@v2-beta
         with:
-          node-version: "12.19"
+          node-version: "14.14"
           registry-url: "https://registry.npmjs.org"
 
       - name: Restore lerna node_modules
