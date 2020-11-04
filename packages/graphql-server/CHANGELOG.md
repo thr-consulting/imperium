@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/darkadept/imperium/compare/v5.0.0...v5.1.0) (2020-11-04)
+
+
+### Features
+
+* **babel-preset-imperium:** added an option for aliasPaths via babel-plugin-module-resolver ([#246](https://github.com/darkadept/imperium/issues/246)) ([da00cc5](https://github.com/darkadept/imperium/commit/da00cc58014134df5991fe7b62bf470172b27d4b))
+
+
+
+
+
 # [5.0.0](https://github.com/darkadept/imperium/compare/v4.6.1...v5.0.0) (2020-10-27)
 
 **Note:** Version bump only for package @imperium/graphql-server

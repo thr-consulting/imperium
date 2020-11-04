@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -49,7 +49,7 @@
 		"yup": "^0.29.2"
 	},
 	"devDependencies": {
-		"@imperium/dev": "^5.0.0"
+		"@imperium/dev": "^5.1.0"
 	},
 	"engines": {
 		"node": ">=12"
