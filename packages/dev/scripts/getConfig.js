@@ -1,8 +1,6 @@
 /* eslint-disable global-require,@typescript-eslint/no-var-requires,import/no-dynamic-require */
-import {getTsconfigAliasPaths} from '@thx/common-webpack';
-
 const mergeOptions = require('merge-options');
-const {log} = require('@thx/common-webpack');
+const {log, getTsconfigAliasPaths} = require('@thx/common-webpack');
 const path = require('path');
 const fs = require('fs');
 const isFunction = require('lodash/isFunction');
