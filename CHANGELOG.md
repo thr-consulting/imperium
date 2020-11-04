@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://github.com/darkadept/imperium/compare/v5.1.0...v5.1.1) (2020-11-04)
+
+
+### Bug Fixes
+
+* **dev:** import bug ([9b32f11](https://github.com/darkadept/imperium/commit/9b32f119fad2735797de8f549560984830e0be56))
+
+
+
+
+
 # [5.1.0](https://github.com/darkadept/imperium/compare/v5.0.0...v5.1.0) (2020-11-04)
 
 
