@@ -19,7 +19,7 @@
 		"start": "yarn start:dev",
 		"start:dev": "imperium dev-client",
 		"start:prod": "imperium prod-client",
-		"ts": "tsc"
+		"ts": "ttsc"
 	},
 	"eslintConfig": {
 		"parserOptions": {

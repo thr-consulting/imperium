@@ -3,7 +3,11 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"noEmit": true,
-		"emitDeclarationOnly": false
+		"emitDeclarationOnly": false,
+		"baseUrl": ".",
+		"paths": {
+			"~common/*": ["./src/common/*"]
+		}
 	},
 	"include": ["src/core/client.tsx", "src/core/configModules.ts", "types/*.d.ts"]
 }

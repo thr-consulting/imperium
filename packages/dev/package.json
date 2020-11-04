@@ -34,7 +34,7 @@
 		"@babel/register": "^7.9.0",
 		"@imperium/babel-preset-imperium": "^5.0.0",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
-		"@thx/common-webpack": "^13.0.0",
+		"@thx/common-webpack": "^13.2.0",
 		"@thx/log": "^13.0.0",
 		"babel-loader": "^8.1.0",
 		"chalk": "^4.0.0",

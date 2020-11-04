@@ -3,8 +3,8 @@ import debug from 'debug';
 import 'semantic-ui-css/semantic.min.css';
 import {RouteDirector} from '@imperium/router';
 import {ImperiumClient} from '@imperium/client';
+import DefaultComponent from '~common/DefaultComponent';
 import {clientModules} from './clientModules';
-import DefaultComponent from './DefaultComponent';
 import {routeDefaults} from '../layout';
 
 const d = debug('app.client');

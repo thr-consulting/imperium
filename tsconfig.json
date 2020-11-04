@@ -13,7 +13,12 @@
 		"noImplicitAny": true,
 		"importsNotUsedAsValues": "error",
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"plugins": [
+			{
+				"transform": "@zerollup/ts-transform-paths"
+			}
+		]
 	},
 	"exclude": [
 		"src/**/*.test.ts",
