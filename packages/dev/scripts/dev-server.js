@@ -99,7 +99,17 @@ if (cluster.isMaster) {
 	configureLogger(log);
 
 	require('@babel/register')({
-		presets: [['@imperium/babel-preset-imperium', {client: false, typescript: true, graphqls: true}]],
+		presets: [
+			[
+				'@imperium/babel-preset-imperium',
+				{
+					client: false,
+					typescript: true,
+					graphqls: true,
+					alias: imperiumConfig.source.aliasPaths,
+				},
+			],
+		],
 		extensions: ['.js', '.ts'],
 		ignore: [/node_modules/],
 		only: [

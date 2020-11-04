@@ -2,7 +2,12 @@
 	"extends": "../../../tsconfig.json",
 	"compilerOptions": {
 		"emitDeclarationOnly": false,
-		"noEmit": true
+		"noEmit": true,
+		"baseUrl": ".",
+		"paths": {
+			"~core/*": ["./src/core/*"],
+			"~basicModule/*": ["./src/basicModule/*"]
+		}
 	},
 	"include": ["src/core/server.ts", "src/core/configModules.ts", "types/*.d.ts"]
 }

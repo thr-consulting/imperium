@@ -56,7 +56,6 @@
 		"@imperium/server": "^5.0.0",
 		"@imperium/util": "^4.6.1",
 		"@js-joda/core": "^3.0.0",
-		"@thx/common-webpack": "^13.0.0",
 		"@thx/date": "^13.0.0",
 		"@thx/money": "^13.0.0",
 		"@thx/util": "^13.0.0",

@@ -49,7 +49,7 @@ module.exports = function serverWebpack(imperiumConfig) {
 				: null,
 		]),
 		module: {
-			rules: serverModuleRules.concat(imperiumConfig.webpack.server.rules),
+			rules: serverModuleRules(imperiumConfig).concat(imperiumConfig.webpack.server.rules),
 		},
 	};
 };

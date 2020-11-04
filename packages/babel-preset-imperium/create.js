@@ -20,6 +20,16 @@ const validateStringOption = (name, value, defaultValue) => {
 	return value;
 };
 
+const validateObjectOption = (name, value, defaultValue) => {
+	if (typeof value === 'undefined' || value === null) {
+		return defaultValue;
+	}
+	if (typeof value === 'object') {
+		return value;
+	}
+	throw new Error(`Preset imperium: '${name}' option must be an object.`);
+};
+
 module.exports = function (api, opts, env) {
 	if (!opts) {
 		opts = {};
@@ -40,6 +50,7 @@ module.exports = function (api, opts, env) {
 	const enableDecorators = validateBoolOption('decorators', opts.decorators, true);
 	const enableReactRefresh = validateBoolOption('reactRefresh', opts.reactRefresh, true);
 	const jsxFactory = validateStringOption('jsxFactory', opts.jsxFactory);
+	const aliasPaths = validateObjectOption('alias', opts.alias, null);
 
 	if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
 		throw new Error(
@@ -195,6 +206,13 @@ module.exports = function (api, opts, env) {
 				],
 
 			require('@babel/plugin-proposal-optional-chaining'),
+
+			aliasPaths && [
+				require('babel-plugin-module-resolver').default,
+				{
+					alias: aliasPaths,
+				},
+			],
 		].filter(Boolean),
 	};
 };

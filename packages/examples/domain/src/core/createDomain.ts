@@ -4,7 +4,7 @@
  */
 import type {AuthenticatedUser} from '@imperium/connector';
 import {ImperiumBaseContext} from '@imperium/connector';
-import {Authorization} from '../lib/Authorization';
+import {Authorization} from '~lib/Authorization';
 import {AppAbilityTuple, defineRulesFor} from './defineRulesFor';
 import type {DomainConnectors} from './DomainConnectors';
 import type {User} from '../user';

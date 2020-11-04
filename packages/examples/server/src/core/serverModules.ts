@@ -5,7 +5,7 @@ import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import type {ExcludeFalse} from '@thx/util';
-import {basicModule} from '../basicModule';
+import {basicModule} from '~basicModule/index';
 import {advancedModule} from '../advancedModule';
 import {graphqlModule} from '../graphqlModule';
 import {authorizationModule} from '../authorizationModule';

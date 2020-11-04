@@ -52,6 +52,10 @@ module.exports = {
 		configModules: './core/configModules.ts', // This file needs to be isomorphic (client/server)
 		// You can add more paths to the client/server auto-restart/HMR watching tools
 		watchPaths: [],
+		// This will use tsconfig.json to generate aliasPaths
+		useTsconfigAlias: true,
+		// Alias folders in your source. Like {'~aliasname1': './src/myfolder'}
+		aliasPaths: null,
 	},
 	// Configuration for HTML generation (production and development) (See https://github.com/jantimon/html-webpack-plugin#options)
 	html: {

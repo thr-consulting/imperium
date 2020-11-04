@@ -1,4 +1,6 @@
 /* eslint-disable global-require,@typescript-eslint/no-var-requires,import/no-dynamic-require */
+import {getTsconfigAliasPaths} from '@thx/common-webpack';
+
 const mergeOptions = require('merge-options');
 const {log} = require('@thx/common-webpack');
 const path = require('path');
@@ -83,6 +85,14 @@ module.exports = function getConfig() {
 			return memo;
 		}, []),
 	);
+
+	// Convert tsconfig paths to aliasPaths for babel-plugin-module-resolver
+	if (config.source.useTsconfigAlias) {
+		if (fs.existsSync(path.join(config.source.projectRoot, 'tsconfig.json'))) {
+			const tsconfig = require(path.join(config.source.projectRoot, 'tsconfig.json'));
+			config.source.aliasPaths = getTsconfigAliasPaths(tsconfig, config.source.aliasPaths);
+		}
+	}
 
 	return config;
 };

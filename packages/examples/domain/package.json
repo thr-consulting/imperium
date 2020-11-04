@@ -19,7 +19,7 @@
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"sort": "npx sort-package-json",
 		"start": "screen -c ./domain.screenrc",
-		"ts": "tsc"
+		"ts": "ttsc"
 	},
 	"eslintConfig": {
 		"parserOptions": {

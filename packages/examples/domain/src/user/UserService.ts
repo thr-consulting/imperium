@@ -1,4 +1,4 @@
-import {AbstractEntityService} from '../lib/AbstractEntityService';
+import {AbstractEntityService} from '~lib/AbstractEntityService';
 import type {User} from './User';
 import type {DomainConnectors} from '../core/DomainConnectors';
 

@@ -11,7 +11,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const clientModuleRules = require('./clientModuleRules');
 
 // Webpack configuration
-module.exports = function(imperiumConfig) {
+module.exports = function clientWebpack(imperiumConfig) {
 	return {
 		mode: 'production',
 		context: imperiumConfig.source.path,
@@ -65,7 +65,7 @@ module.exports = function(imperiumConfig) {
 			}),
 		]),
 		module: {
-			rules: clientModuleRules.concat(imperiumConfig.webpack.client.rules),
+			rules: clientModuleRules(imperiumConfig).concat(imperiumConfig.webpack.client.rules),
 		},
 	};
 };

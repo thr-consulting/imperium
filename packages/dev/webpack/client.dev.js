@@ -65,7 +65,7 @@ module.exports = function webpackConfig(imperiumConfig) {
 			}),
 		]),
 		module: {
-			rules: clientModuleRules.concat(imperiumConfig.webpack.client.rules),
+			rules: clientModuleRules(imperiumConfig).concat(imperiumConfig.webpack.client.rules),
 		},
 	};
 };
