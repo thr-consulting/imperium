@@ -43,4 +43,5 @@ export type GetAuthenticationFn = (context: any) => AuthenticationDomain;
 
 export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;
+	authQueryToken?: boolean;
 }

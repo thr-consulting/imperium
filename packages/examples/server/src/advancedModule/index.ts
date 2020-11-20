@@ -46,5 +46,19 @@ export const advancedModule = (): ImperiumServerModule<Context, typeof connector
 				res.end();
 			},
 		);
+
+		server.expressApp.get(
+			'/authTokenTest',
+			authMiddleware({
+				credentialsRequired: true,
+				authQueryToken: true,
+			}),
+			(req, res) => {
+				// @ts-ignore
+				d('Auth:', req.auth);
+				res.send('Auth token test endpoint');
+				res.end();
+			},
+		);
 	},
 });
