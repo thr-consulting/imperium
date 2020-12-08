@@ -53,7 +53,7 @@
 		"apollo-link-token-refresh/**/@apollo/client": "3.1.2"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.2",
+		"@apollo/client": "^3.3.4",
 		"@imperium/auth-client": "^5.0.0",
 		"@imperium/client": "^5.0.0",
 		"@imperium/graphql-client": "^5.0.0",

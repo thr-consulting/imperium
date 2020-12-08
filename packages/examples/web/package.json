@@ -27,7 +27,7 @@
 		}
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.2",
+		"@apollo/client": "^3.3.4",
 		"@imperium/auth-client": "^5.0.0",
 		"@imperium/auth-graphql-client": "^5.0.0",
 		"@imperium/client": "^5.0.0",
@@ -45,8 +45,8 @@
 		"react-responsive": "^8.1.0",
 		"react-router-dom": "^5.1.2",
 		"semantic-ui-css": "^2.4.1",
-		"semantic-ui-react": "^1.1.1",
-		"yup": "^0.29.2"
+		"semantic-ui-react": "^2.0.1",
+		"yup": "0.29.3"
 	},
 	"devDependencies": {
 		"@imperium/dev": "^5.1.1"
