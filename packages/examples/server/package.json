@@ -39,7 +39,7 @@
     "@thx/random": "^13.0.0",
     "@thx/sharedcache": "^13.0.0",
     "@thx/util": "^13.0.0",
-    "apollo-server-express": "^2.16.1",
+    "apollo-server-express": "^2.19.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "graphql": "^14.7.0",
