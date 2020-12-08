@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.2](https://github.com/darkadept/imperium/compare/v5.1.1...v5.1.2) (2020-12-08)
+
+
+### Features
+
+* **auth-server:** added ability to pass the access token to an endpoint via a query parameter ([#247](https://github.com/darkadept/imperium/issues/247)) ([23375b9](https://github.com/darkadept/imperium/commit/23375b936d9c84904934e158e311528a47ab08a9))
+
+
+
+
+
 # [5.0.0](https://github.com/darkadept/imperium/compare/v4.6.1...v5.0.0) (2020-10-27)
 
 **Note:** Version bump only for package @imperium/auth-server
