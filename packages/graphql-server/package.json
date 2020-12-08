@@ -59,7 +59,7 @@
 		"@thx/date": "^13.0.0",
 		"@thx/money": "^13.0.0",
 		"@thx/util": "^13.0.0",
-		"apollo-server-express": "^2.12.0",
+		"apollo-server-express": "^2.19.0",
 		"body-parser": "^1.19.0",
 		"cors": "^2.8.5",
 		"debug": "^4.1.1",
