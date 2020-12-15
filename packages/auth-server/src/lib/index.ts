@@ -28,6 +28,10 @@ function signJwt(payload: string | Record<string, unknown> = {}, secret: string,
 	return sign(payload, secret, options);
 }
 
+export function signPayload(payload: string | Record<string, unknown> = {}): string {
+	return signJwt(payload, env.authAccessTokenSecret, {expiresIn: env.authAccessTokenExpires});
+}
+
 export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
 	return compare(getPasswordString(loginInfo.password), serviceInfo.password || '');
 }
