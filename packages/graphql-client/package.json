@@ -55,6 +55,7 @@
 		"@thx/util": "^13.0.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
+		"merge-options": "^3.0.4",
 		"subscriptions-transport-ws": "^0.9.17"
 	},
 	"peerDependencies": {

@@ -1,10 +1,11 @@
 import debug from 'debug';
 import React from 'react';
-import {ApolloProvider, ApolloClient, ApolloLink, split, HttpLink, InMemoryCache} from '@apollo/client';
+import {ApolloProvider, ApolloClient, ApolloLink, split, HttpLink, InMemoryCache, ApolloClientOptions, NormalizedCacheObject} from '@apollo/client';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {getMainDefinition} from '@apollo/client/utilities';
+import mergeOptions from 'merge-options';
 import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import type {ExcludeFalse} from '@thx/util';
 import {environment} from './environment';
@@ -13,8 +14,9 @@ import {removeTypeNameLink} from './removeTypeNameLink';
 
 const d = debug('imperium.graphql.withGraphql');
 
-export interface GraphqlClientOptions {
+export interface GraphqlClientOptions<TCacheShape = NormalizedCacheObject> {
 	removeTypenameOnInput: boolean;
+	apolloClientOptions: ApolloClientOptions<TCacheShape>;
 }
 
 export function withGraphql(opts?: GraphqlClientOptions) {
@@ -73,12 +75,17 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 			[errorLink, !!opts?.removeTypenameOnInput && removeTypeNameLink(), ...moduleLinks, finalLink].filter((Boolean as any) as ExcludeFalse),
 		);
 
+		const apolloClientOptions = mergeOptions(
+			{
+				link,
+				cache: new InMemoryCache(),
+				defaultOptions: env.apolloDefaults,
+			},
+			opts?.apolloClientOptions,
+		);
+
 		// Configure Apollo GraphQL client
-		const apolloClient = new ApolloClient({
-			link,
-			cache: new InMemoryCache(),
-			defaultOptions: env.apolloDefaults,
-		});
+		const apolloClient = new ApolloClient(apolloClientOptions);
 
 		return function graphqlHoc(WrappedComponent: React.ComponentType) {
 			const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
