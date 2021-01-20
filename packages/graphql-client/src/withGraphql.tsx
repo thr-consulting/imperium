@@ -16,7 +16,7 @@ const d = debug('imperium.graphql.withGraphql');
 
 export interface GraphqlClientOptions<TCacheShape = NormalizedCacheObject> {
 	removeTypenameOnInput: boolean;
-	apolloClientOptions: ApolloClientOptions<TCacheShape>;
+	apolloClientOptions: Partial<ApolloClientOptions<TCacheShape>>;
 }
 
 export function withGraphql(opts?: GraphqlClientOptions) {
