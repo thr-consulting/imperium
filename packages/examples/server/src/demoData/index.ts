@@ -1,8 +1,7 @@
 import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
 import type {connectors} from '../core/connectors';
-import {Context, contextCreator} from '../core/context';
-import {createComments, createSystemUser, getOrCreateCategories, getOrCreatePhotos, getOrCreateUsers} from './createData';
+import type {Context} from '~core/context';
 
 const d = debug('imperium.examples.server.demoData');
 

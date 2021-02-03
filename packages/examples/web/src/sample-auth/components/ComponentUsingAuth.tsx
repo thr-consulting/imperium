@@ -1,14 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import debug from 'debug';
-import {
-	useAuth,
-	useLogout,
-	IAuthContext,
-	AuthLevel,
-	AbstractAuthSelector,
-	useAuthId,
-	useLazyAuth,
-} from '@imperium/auth-client';
+import {useAuth, useLogout, IAuthContext, AuthLevel, AbstractAuthSelector, useAuthId} from '@imperium/auth-client';
 import {Button} from 'semantic-ui-react';
 
 const d = debug('app.sample-auth.ComponentUsingAuth');
