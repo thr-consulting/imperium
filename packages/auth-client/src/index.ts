@@ -10,8 +10,13 @@ export function authClientModule(): ImperiumClientModule {
 }
 
 export {useAuth} from './useAuth';
+export {useLazyAuth} from './useLazyAuth';
+export {useAuthId} from './useAuthId';
 export {useForgetPassword} from './useForgetPassword';
 export {useLogin} from './useLogin';
 export {useLogout} from './useLogout';
-export {LoginInfo, LoginReturn, AccessToken} from './types';
+export type {LoginInfo, LoginReturn, AccessToken} from './types';
+export {AbstractAuthSelector} from './AbstractAuthSelector';
 export {isTokenValidOrUndefined, fetchAccessToken} from './lib';
+export {AuthLevel} from './AuthLevel';
+export type {IAuthContext} from './AuthContext';

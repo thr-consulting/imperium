@@ -1,14 +1,14 @@
 import debug from 'debug';
 import {useClient} from '@imperium/client';
 import type {LoginInfo, LoginReturn} from './types';
-import {useAuth} from './useAuth';
+import {useAuthId} from './useAuthId';
 import {environment} from './environment';
 
 const d = debug('imperium.auth-client.useLogin');
 
 export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 	const client = useClient();
-	const auth = useAuth();
+	const auth = useAuthId();
 
 	const env = environment(client?.environment);
 

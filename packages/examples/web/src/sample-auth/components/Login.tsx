@@ -6,7 +6,7 @@ import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
 import {useLogin} from '@imperium/auth-client';
 
-const d = debug('app.AuthSample.Login');
+const d = debug('app.sample-auth.Login');
 
 const loginValidation = obj().shape({
 	email: string().email('Must be a valid email address').required('Email is required'),
