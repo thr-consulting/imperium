@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "5.1.2",
+	"version": "5.2.0",
 	"description": "Imperium Auth client package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -50,7 +50,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^5.1.2",
+		"@imperium/authorization": "^5.2.0",
 		"@imperium/client": "^5.1.2",
 		"debug": "^4.1.1",
 		"dexie": "^3.0.3",

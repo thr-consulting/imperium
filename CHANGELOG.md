@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/darkadept/imperium/compare/v5.1.2...v5.2.0) (2021-02-04)
+
+
+### Bug Fixes
+
+* ts ([51e3c01](https://github.com/darkadept/imperium/commit/51e3c010be5c898a1e6be6fa95d05c0af52b96da))
+* **graphql-client:** made a type optional ([a707e72](https://github.com/darkadept/imperium/commit/a707e7214ad3614806f8da954bc4a87af234ce68))
+
+
+### Features
+
+* **graphql-client:** added ability to merge apollo client options ([#251](https://github.com/darkadept/imperium/issues/251)) ([fb14e8b](https://github.com/darkadept/imperium/commit/fb14e8b5f00852e4e58029211a8ebf020f3190ee))
+
+
+### Reverts
+
+* Revert "v5.1.1" ([be599bc](https://github.com/darkadept/imperium/commit/be599bc0c80b385beb6b30e592ba41ee941da299))
+
+
+
+
+
 ## [5.1.2](https://github.com/darkadept/imperium/compare/v5.1.1...v5.1.2) (2020-12-08)
 
 
