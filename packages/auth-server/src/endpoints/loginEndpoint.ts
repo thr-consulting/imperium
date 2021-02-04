@@ -4,7 +4,7 @@ import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import ms from 'ms';
 import {environment} from '../environment';
-import {login} from '../lib';
+import {login} from '../lib/login';
 import {isLoginInfo} from '../lib/typeguards';
 import type {GetAuthenticationFn, LoginReturn} from '../types';
 

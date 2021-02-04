@@ -1,23 +1,20 @@
 {
-	"name": "@imperium/auth-client",
+	"name": "@imperium/authorization",
 	"version": "5.1.2",
-	"description": "Imperium Auth client package",
+	"description": "Imperium Authorization package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "client.js",
+	"main": "index.js",
 	"types": "./dist/index.d.ts",
 	"files": [
-		"client.js",
+		"index.js",
 		"dist"
 	],
 	"scripts": {
-		"Xtest": "jest",
-		"Xtest:coverage": "../../tools/coverage.sh",
-		"Xtest:watch": "jest --watch",
 		"build": "yarn build:dev && yarn build:prod",
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
@@ -34,38 +31,14 @@
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"jest": {
-		"collectCoverageFrom": [
-			"<rootDir>/src/**/*.js",
-			"<rootDir>/src/**/*.jsx",
-			"<rootDir>/src/**/*.ts",
-			"<rootDir>/src/**/*.tsx"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/auth-client",
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
-		}
-	},
 	"dependencies": {
-		"@imperium/authorization": "^5.1.2",
-		"@imperium/client": "^5.1.2",
 		"debug": "^4.1.1",
-		"dexie": "^3.0.3",
-		"jwt-decode": "^3.1.2",
-		"lodash": "^4.17.15",
-		"whatwg-fetch": "^3.0.0"
-	},
-	"peerDependencies": {
-		"react": "16.x || 17.x"
+		"@imperium/connector": "^5.0.0"
 	},
 	"engines": {
 		"node": ">=12"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
+	}
 }

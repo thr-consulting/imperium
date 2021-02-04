@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import debug from 'debug';
-import {useAuth, useLogout, IAuthContext, AuthLevel, AbstractAuthSelector, useAuthId} from '@imperium/auth-client';
+import {useAuth, useLogout, IAuthContext, useAuthId} from '@imperium/auth-client';
 import {Button} from 'semantic-ui-react';
+import {AbstractAuthSelector, AuthLevel} from '@imperium/authorization';
 
 const d = debug('app.sample-auth.ComponentUsingAuth');
 
@@ -57,7 +58,7 @@ export default function ComponentUsingAuth() {
 			<p>ID: {id}</p>
 			<p>Access Token: {access}</p>
 			<p>Level: {level.name()}</p>
-			<p>Has Access to admin: {hasAccess(AuthLevel.fromString('manager.system.50')) ? 'Yes' : 'No'}</p>
+			<p>Has Access to admin: {hasAccess(AuthLevel.fromString('manager.system.50')).exec() ? 'Yes' : 'No'}</p>
 			<Button
 				onClick={async () => {
 					await logout();

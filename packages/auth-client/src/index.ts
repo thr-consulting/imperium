@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import type {ImperiumClientModule} from '@imperium/client';
-import {withAuth} from './withAuth';
+import {withAuth} from './hoc/withAuth';
 
 export function authClientModule(): ImperiumClientModule {
 	return {
@@ -9,14 +9,12 @@ export function authClientModule(): ImperiumClientModule {
 	};
 }
 
-export {useAuth} from './useAuth';
-export {useLazyAuth} from './useLazyAuth';
-export {useAuthId} from './useAuthId';
-export {useForgetPassword} from './useForgetPassword';
-export {useLogin} from './useLogin';
-export {useLogout} from './useLogout';
+export {useAuth} from './hooks/useAuth';
+export {useLazyAuth} from './hooks/useLazyAuth';
+export {useAuthId} from './hooks/useAuthId';
+export {useForgetPassword} from './hooks/useForgetPassword';
+export {useLogin} from './hooks/useLogin';
+export {useLogout} from './hooks/useLogout';
 export type {LoginInfo, LoginReturn, AccessToken} from './types';
-export {AbstractAuthSelector} from './AbstractAuthSelector';
-export {isTokenValidOrUndefined, fetchAccessToken} from './lib';
-export {AuthLevel} from './AuthLevel';
+export {isTokenValidOrUndefined, fetchAccessToken} from './lib/fetching';
 export type {IAuthContext} from './AuthContext';

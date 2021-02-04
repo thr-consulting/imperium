@@ -1,0 +1,8 @@
+split
+
+screen -t "@imperium/authorization TS" yarn ts --watch
+screen -t "@imperium/authorization Build" yarn build:dev --watch
+
+select 0
+focus down
+select 1

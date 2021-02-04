@@ -2,10 +2,10 @@ import type {Hoc, ImperiumClient} from '@imperium/client';
 import React, {useEffect, useRef, useState} from 'react';
 import debug from 'debug';
 import Dexie from 'dexie';
-import {AuthContext, IAuth} from './AuthContext';
-import {fetchAuth, isTokenValidOrUndefined} from './lib';
-import {environment} from './environment';
-import {AuthLevel} from './AuthLevel';
+import {AuthLevel} from '@imperium/authorization';
+import {AuthContext, IAuth} from '../AuthContext';
+import {fetchAuth, isTokenValidOrUndefined} from '../lib/fetching';
+import {environment} from '../environment';
 
 const d = debug('imperium.auth-client.withAuth');
 
@@ -53,6 +53,7 @@ export function withAuth(client: ImperiumClient): Hoc {
 							access,
 						});
 					} else {
+						await cache.current.table('auth').clear();
 						localStorage.removeItem(env.localStorageIdKey);
 						localStorage.removeItem(env.localStorageAccessTokenKey);
 					}

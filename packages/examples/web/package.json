@@ -30,6 +30,7 @@
 		"@apollo/client": "^3.3.4",
 		"@imperium/auth-client": "^5.1.2",
 		"@imperium/auth-graphql-client": "^5.1.2",
+		"@imperium/authorization": "^5.1.2",
 		"@imperium/client": "^5.1.2",
 		"@imperium/graphql-client": "^5.0.0",
 		"@imperium/router": "^5.1.2",

@@ -1,9 +1,9 @@
 import debug from 'debug';
 import decode from 'jwt-decode';
 import type {ImperiumClient} from '@imperium/client';
-import type {AccessToken, LoginReturn} from './types';
-import type {IAuth} from './AuthContext';
-import {environment} from './environment';
+import type {AccessToken, LoginReturn} from '../types';
+import type {IAuth} from '../AuthContext';
+import {environment} from '../environment';
 
 const d = debug('imperium.auth-client.lib');
 

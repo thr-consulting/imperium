@@ -1,6 +1,6 @@
 import debug from 'debug';
 import {useContext} from 'react';
-import {AuthContext} from './AuthContext';
+import {AuthContext} from '../AuthContext';
 
 const d = debug('imperium.auth-client.useAuthId');
 

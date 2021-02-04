@@ -49,7 +49,12 @@ export default function Login() {
 							</Form.Field>
 							<Form.Field>
 								<label>Password</label>
-								<Input type="password" value={values.password} onChange={(ev, v) => handleChange('password')(v.value)} />
+								<Input
+									autoComplete="current-password"
+									type="password"
+									value={values.password}
+									onChange={(ev, v) => handleChange('password')(v.value)}
+								/>
 							</Form.Field>
 							<Form.Button type="submit">Login</Form.Button>
 							<Segment inverted>
