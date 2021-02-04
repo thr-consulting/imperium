@@ -23,7 +23,7 @@
 		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router}'",
 		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,client,server}'",
 		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
-		"ts:phase-server": "lerna run ts --scope '@imperium/{auth-server,graphql-server,voyager}'",
+		"ts:phase-server": "lerna run ts --scope '@imperium/{authorization,auth-server,graphql-server,voyager}'",
 		"typedoc": "lerna run typedoc"
 	},
 	"husky": {
