@@ -1,14 +1,17 @@
+import {useContext} from 'react';
 import debug from 'debug';
 import {useClient} from '@imperium/client';
-import type {LoginInfo, LoginReturn} from './types';
-import {useAuth} from './useAuth';
-import {environment} from './environment';
+import type {LoginInfo, LoginReturn} from '../types';
+import {useAuthId} from './useAuthId';
+import {environment} from '../environment';
+import {AuthContext} from '../AuthContext';
 
 const d = debug('imperium.auth-client.useLogin');
 
 export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
+	const authContext = useContext(AuthContext);
 	const client = useClient();
-	const auth = useAuth();
+	const auth = useAuthId();
 
 	const env = environment(client?.environment);
 
@@ -32,5 +35,6 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 		// Save id and access token to localstorage
 		localStorage.setItem(env.localStorageIdKey, info.id);
 		localStorage.setItem(env.localStorageAccessTokenKey, info.access);
+		await authContext.clearCache();
 	};
 }

@@ -6,7 +6,7 @@ import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
 import {useLogin} from '@imperium/auth-client';
 
-const d = debug('app.AuthSample.Login');
+const d = debug('app.sample-auth.Login');
 
 const loginValidation = obj().shape({
 	email: string().email('Must be a valid email address').required('Email is required'),
@@ -49,7 +49,12 @@ export default function Login() {
 							</Form.Field>
 							<Form.Field>
 								<label>Password</label>
-								<Input type="password" value={values.password} onChange={(ev, v) => handleChange('password')(v.value)} />
+								<Input
+									autoComplete="current-password"
+									type="password"
+									value={values.password}
+									onChange={(ev, v) => handleChange('password')(v.value)}
+								/>
 							</Form.Field>
 							<Form.Button type="submit">Login</Form.Button>
 							<Segment inverted>

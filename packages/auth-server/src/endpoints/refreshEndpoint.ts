@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import {environment} from '../environment';
-import {refresh} from '../lib';
+import {refresh} from '../lib/refresh';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');

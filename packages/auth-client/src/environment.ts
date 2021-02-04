@@ -7,5 +7,6 @@ export const environment = memoize((env?: Record<string, unknown>) => {
 		refreshUrl: (env?.authRefreshUrl as string) || 'http://localhost:4001/api/refresh',
 		loginUrl: (env?.authLoginUrl as string) || 'http://localhost:4001/api/login',
 		forgotPasswordUrl: (env?.authForgotPasswordUrl as string) || 'http://localhost:4001/api/forgot-password',
+		authCacheStaleMs: parseInt((env?.authCacheStaleMs as string) || '60000', 10),
 	};
 });
