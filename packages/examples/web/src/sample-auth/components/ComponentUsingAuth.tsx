@@ -39,6 +39,10 @@ class MySelector extends AbstractAuthSelector {
 	public getCacheId() {
 		return this.id;
 	}
+
+	public getName() {
+		return 'MySelector';
+	}
 }
 
 export default function ComponentUsingAuth() {
