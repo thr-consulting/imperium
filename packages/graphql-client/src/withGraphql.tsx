@@ -1,6 +1,7 @@
 import debug from 'debug';
 import React from 'react';
-import {ApolloProvider, ApolloClient, ApolloLink, split, HttpLink, InMemoryCache, ApolloClientOptions, NormalizedCacheObject} from '@apollo/client';
+import {ApolloProvider, ApolloClient, ApolloLink, split, InMemoryCache, ApolloClientOptions, NormalizedCacheObject} from '@apollo/client';
+import {BatchHttpLink} from '@apollo/client/link/batch-http';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
@@ -15,8 +16,10 @@ import {removeTypeNameLink} from './removeTypeNameLink';
 const d = debug('imperium.graphql.withGraphql');
 
 export interface GraphqlClientOptions<TCacheShape = NormalizedCacheObject> {
-	removeTypenameOnInput: boolean;
+	removeTypenameOnInput?: boolean;
 	apolloClientOptions: Partial<ApolloClientOptions<TCacheShape>>;
+	batchMax?: number;
+	batchInterval?: number;
 }
 
 export function withGraphql(opts?: GraphqlClientOptions) {
@@ -26,9 +29,11 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 		const env = environment(client.environment);
 
 		d(`Creating Apollo HTTP link: ${env.graphqlUri}`);
-		const httpLink = new HttpLink({
+		const httpLink = new BatchHttpLink({
 			uri: env.graphqlUri as string,
 			credentials: 'same-origin',
+			batchInterval: opts?.batchInterval,
+			batchMax: opts?.batchMax,
 		});
 
 		d('Creating Apollo Error link');
