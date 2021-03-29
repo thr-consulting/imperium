@@ -1,0 +1,12 @@
+{
+	"extends": "../../../tsconfig.json",
+	"compilerOptions": {
+		"emitDeclarationOnly": false,
+		"noEmit": true,
+		"baseUrl": ".",
+		"paths": {
+			"~core/*": ["./src/core/*"]
+		}
+	},
+	"include": ["src/core/server.ts", "types/*.d.ts"]
+}

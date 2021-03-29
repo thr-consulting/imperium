@@ -16,7 +16,8 @@ export interface ImperiumServerModule<Context, Connectors extends Connector> {
 export interface ImperiumServerConfig<Context, Connectors extends Connector> {
 	connectors: Connectors;
 	serverModules: () => ImperiumServerModule<Context, Connectors>[];
-	contextCreator: (connector: Connectors) => Promise<Context>; // TODO add authentication info here
+	contextCreator: (connector: Connectors) => Promise<Context>;
+	httpPort?: number;
 }
 
 /**

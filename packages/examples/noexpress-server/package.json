@@ -1,0 +1,55 @@
+{
+  "name": "@imperium/example-noexpress-server",
+  "version": "5.2.0",
+  "private": true,
+  "description": "Imperium server example project without Express",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darkadept/imperium.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Mike Kornelson <darkadept@durbn.net>",
+  "scripts": {
+    "build:prod": "imperium build-server imperium.js",
+    "clean": "rimraf ./dist && rimraf .eslintcache",
+    "lint": "eslint --cache --ext ts,js src",
+    "lint:fix": "eslint --cache --fix --ext ts,js src",
+    "orm": "mikro-orm",
+    "sort": "npx sort-package-json",
+    "start": "yarn start:dev",
+    "start:dev": "imperium dev-server imperium.js",
+    "start:prod": "imperium prod-server imperium.js",
+    "ts": "ttsc"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig-eslint.json"
+    }
+  },
+  "dependencies": {
+    "@imperium/connector": "^5.0.0",
+    "@imperium/example-domain": "^5.2.0",
+    "@imperium/server": "^5.0.0",
+    "@imperium/util": "^4.6.1",
+    "@mikro-orm/cli": "^4.0.2",
+    "@mikro-orm/core": "^4.0.2",
+    "@mikro-orm/postgresql": "^4.0.2",
+    "@thx/util": "^13.0.0",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@imperium/dev": "^5.1.2",
+    "ts-node": "^9.1.1"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./mikroorm.ts"
+    ]
+  }
+}

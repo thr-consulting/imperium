@@ -4,7 +4,7 @@ import {connectors} from './connectors';
 import {contextCreator} from './context';
 import {serverModules} from './serverModules';
 
-const d = debug('imperium.examples.server');
+const d = debug('imperium.examples.noexpress-server');
 
 /*
   This default function export is required by the @imperium/dev scripts
@@ -18,7 +18,6 @@ export default function core() {
 		contextCreator,
 		connectors,
 		serverModules,
-		httpPort: parseInt(process.env.SERVER_PORT || '4001', 10),
 	});
 
 	// Start the imperium server
