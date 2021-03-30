@@ -9,7 +9,7 @@ import {getSelectionFields} from '../lib/getSelectionFields';
 const d = debug('imperium.examples.server.authorizationModule.resolvers');
 const dd = (obj: any) => d(inspect(obj, false, null, true));
 
-export function resolvers(server: ImperiumServer<Context, any>): IResolvers<any, Context> {
+export function resolvers(server: ImperiumServer<Context>): IResolvers<any, Context> {
 	return {
 		Photo: {
 			async categories(obj: Photo) {

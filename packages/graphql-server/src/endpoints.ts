@@ -47,7 +47,7 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
  * @param config
  */
 export function endpoints(config?: GraphqlServerModuleConfig) {
-	return (server: ImperiumServer<any, any>): void => {
+	return (server: ImperiumServer<any>): void => {
 		// Merge all the typeDefs from all modules
 		d('Merging graphql schema');
 		const typeDefs = server.modules.reduce(

@@ -2,6 +2,7 @@
 import debug from 'debug';
 import type {AuthenticationDomain, ServiceInfo} from '@imperium/auth-server';
 import type {Context} from '../index';
+import {getConnector} from '../core/connectors';
 
 const d = debug('imperium.examples.domain.user.Authentication');
 
@@ -19,16 +20,16 @@ export class Authentication implements AuthenticationDomain {
 	}
 
 	async setCache(key: string | string[], value: any, expire?: number): Promise<typeof value> {
-		await this.context.connectors.connections.sharedCache.set(getKey(key), value, expire);
+		await getConnector('sharedCache', this.context.connectors).set(getKey(key), value, expire);
 		return value;
 	}
 
 	async getCache(key: string | string[]): Promise<any> {
-		return this.context.connectors.connections.sharedCache.get(getKey(key));
+		return getConnector('sharedCache', this.context.connectors).get(getKey(key));
 	}
 
 	async invalidateCache(key: string | string[]): Promise<void> {
-		await this.context.connectors.connections.sharedCache.clear(getKey(key));
+		await getConnector('sharedCache', this.context.connectors).clear(getKey(key));
 	}
 
 	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {

@@ -3,22 +3,22 @@ import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import debug from 'debug';
 import isFunction from 'lodash/isFunction';
-import type {Connector, AuthenticatedUser} from '@imperium/connector';
+import type {AuthenticatedUser, Connectors} from '@imperium/connector';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
 
-export class ImperiumServer<Context, Connectors extends Connector> {
-	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context, Connectors>[];
+export class ImperiumServer<Context> {
+	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context>[];
 	private readonly _contextCreator: (connector: Connectors, authenticatedUser?: AuthenticatedUser) => Promise<Context>;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 	private _httpPort: number;
-	private _modules: ImperiumServerModule<Context, Connectors>[];
+	private _modules: ImperiumServerModule<Context>[];
 
 	public readonly connectors: Connectors;
 
-	public constructor(config: ImperiumServerConfig<Context, Connectors>) {
+	public constructor(config: ImperiumServerConfig<Context>) {
 		this.connectors = config.connectors;
 		this._contextCreator = config.contextCreator;
 		this._moduleFactoryFn = config.serverModules;
@@ -42,7 +42,6 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 
 	/**
 	 * Start the Imperium server
-	 * @param port Which TCP port to start the server on. Defaults to 4001.
 	 */
 	public async start(): Promise<this> {
 		d('Starting ImperiumServer...');
@@ -117,7 +116,7 @@ export class ImperiumServer<Context, Connectors extends Connector> {
 	/**
 	 * Return the loaded server modules.
 	 */
-	public get modules(): ImperiumServerModule<Context, Connectors>[] {
+	public get modules(): ImperiumServerModule<Context>[] {
 		return this._modules;
 	}
 

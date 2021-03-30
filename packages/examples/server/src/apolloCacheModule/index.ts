@@ -1,7 +1,6 @@
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
 import {randomId, randomLetters} from '@thx/random';
-import type {connectors} from '../core/connectors';
 import type {Context} from '../core/context';
 import Cache from './Cache.graphqls';
 
@@ -30,7 +29,7 @@ for (let i = 0; i < 10; i++) {
 	});
 }
 
-export const apolloCacheModule = (): ImperiumGraphqlServerModule<Context, typeof connectors> => ({
+export const apolloCacheModule = (): ImperiumGraphqlServerModule<Context> => ({
 	name: 'Server Module with cache GraphQL',
 	schema: [Cache],
 	resolvers(server) {

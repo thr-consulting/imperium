@@ -2,8 +2,7 @@ import {authMiddleware} from '@imperium/auth-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
-import type {connectors} from '../core/connectors';
-import type {Context} from '../core/context';
+import type {Context} from '~core/context';
 
 const d = debug('imperium.examples.server.advancedModule');
 
@@ -24,7 +23,7 @@ function myMiddleware(): RequestHandler {
 	The contextMiddleware() places a `context` key on the request.
  */
 
-export const advancedModule = (): ImperiumServerModule<Context, typeof connectors> => ({
+export const advancedModule = (): ImperiumServerModule<Context> => ({
 	name: 'Advanced Server Module',
 	async startup(/* server */) {
 		d('Running startup code');

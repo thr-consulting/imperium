@@ -1,13 +1,14 @@
 import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
-import {entities, Category, User, Photo} from '@imperium/example-domain';
+import {entities, Category, User, Photo, getConnector} from '@imperium/example-domain';
 import type {Context} from '../core/context';
 
 const d = debug('imperium.examples.server.createData');
 
-export async function createSystemUser(server: ImperiumServer<any, any>) {
-	const userEntityRepository = server.connectors.connections.orm.em.getRepository(entities.User);
-	const serviceEntityRepository = server.connectors.connections.orm.em.getRepository(entities.Services);
+export async function createSystemUser(server: ImperiumServer<any>) {
+	const orm = getConnector('orm', server.connectors);
+	const userEntityRepository = orm.em.getRepository(entities.User);
+	const serviceEntityRepository = orm.em.getRepository(entities.Services);
 	const systemUser = await userEntityRepository.findOne({name: 'SYSTEM'});
 	if (systemUser) return systemUser.id;
 
@@ -19,8 +20,8 @@ export async function createSystemUser(server: ImperiumServer<any, any>) {
 			roles: ['admin'],
 		}),
 	});
-	userEntityRepository.persist(nu);
-	await server.connectors.connections.orm.em.flush();
+	await userEntityRepository.persist(nu);
+	await orm.em.flush();
 	return nu.id;
 }
 

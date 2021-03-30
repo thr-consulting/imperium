@@ -23,7 +23,7 @@ const env = environment();
 	server modules that we want included in our app.
 	Some modules require additional configuration.
 */
-export function serverModules(): ImperiumServerModule<any, any>[] {
+export function serverModules(): ImperiumServerModule<any>[] {
 	return [
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: false})],

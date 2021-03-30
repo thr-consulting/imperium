@@ -1,5 +1,5 @@
-import {Connector} from '@imperium/connector';
 import SharedCache from '@thx/sharedcache';
+import {Connectors, Connector} from '@imperium/connector';
 import debug from 'debug';
 import {MikroORM} from '@mikro-orm/core';
 import redis from 'redis';
@@ -12,25 +12,29 @@ const env = environment();
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.
-
-	The only requirement for a connector is that each key requires a connect() method.
  */
 
-export const connectors = new Connector({
-	basicConnector: {
+export const connectors = new Connectors([
+	new Connector<number>('basicConnector', {
 		async connect() {
 			return 5;
 		},
-	},
-	orm: {
+		async isReady() {
+			return true;
+		},
+	}),
+	new Connector<MikroORM>('orm', {
 		async connect() {
 			return MikroORM.init(mikroOrmConfig);
 		},
 		async close(orm) {
 			await orm.close(true);
 		},
-	},
-	sharedCache: {
+		async isReady(orm) {
+			return orm.isConnected();
+		},
+	}),
+	new Connector<SharedCache>('sharedCache', {
 		async connect() {
 			const redisClient = redis.createClient({
 				host: env.redisHost,
@@ -41,10 +45,16 @@ export const connectors = new Connector({
 				redis: redisClient,
 			});
 		},
-	},
-	pubsub: {
+		async isReady() {
+			return true;
+		},
+	}),
+	new Connector<PubSub>('pubsub', {
 		async connect() {
 			return new PubSub();
 		},
-	},
-});
+		async isReady() {
+			return true;
+		},
+	}),
+]);
