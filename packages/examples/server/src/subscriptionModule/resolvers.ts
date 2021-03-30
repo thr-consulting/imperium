@@ -1,6 +1,7 @@
 import {inspect} from 'util';
 import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
+import {getConnector} from '@imperium/example-domain';
 import type {IResolvers} from '@imperium/graphql-server';
 import {randomLetters} from '@thx/random';
 import type {Context} from '../core/context';
@@ -9,7 +10,7 @@ import {data} from './data';
 const d = debug('imperium.examples.server.subscriptionModule.resolvers');
 const dd = (obj: any) => d(inspect(obj, false, null, true));
 
-export function resolvers(server: ImperiumServer<Context, any>): IResolvers<any, Context> {
+export function resolvers(server: ImperiumServer<Context>): IResolvers<any, Context> {
 	return {
 		Query: {
 			getSubscriptionValue() {
@@ -26,7 +27,7 @@ export function resolvers(server: ImperiumServer<Context, any>): IResolvers<any,
 				// data to the client via the subscription by passing it as the payload
 				// to pubsub.publish(). The payload is an object with the key of the
 				// subscription name.
-				ctx.connectors.connections.pubsub.publish('VALUECHANGED', {
+				getConnector('pubsub', ctx.connectors).publish('VALUECHANGED', {
 					subscriptionValueChanged: data,
 				});
 
@@ -37,7 +38,7 @@ export function resolvers(server: ImperiumServer<Context, any>): IResolvers<any,
 		Subscription: {
 			subscriptionValueChanged: {
 				subscribe(obj, params, ctx) {
-					return ctx.connectors.connections.pubsub.asyncIterator(['VALUECHANGED']);
+					return getConnector('pubsub', ctx.connectors).asyncIterator(['VALUECHANGED']);
 				},
 			},
 		},

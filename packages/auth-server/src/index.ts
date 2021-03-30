@@ -7,7 +7,7 @@ export {authMiddleware, Auth} from './middleware/authMiddleware';
 export {createAccessToken, createRefreshToken} from './lib/token';
 export {encryptPassword} from './lib/password';
 
-export function authServerModule(getAuthFn: GetAuthenticationFn): ImperiumServerModule<any, any> {
+export function authServerModule(getAuthFn: GetAuthenticationFn): ImperiumServerModule<any> {
 	return {
 		name: '@imperium/auth-server',
 		endpoints: createAuthEndpoints(getAuthFn),

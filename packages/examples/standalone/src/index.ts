@@ -1,6 +1,6 @@
 import debug from 'debug';
-import {configureLogger} from '@thx/log';
-import {log} from 'winston';
+// import {configureLogger} from '@thx/log';
+// import {log} from 'winston';
 import {contextCreator} from './context';
 import {connectors} from './connectors';
 import {environment} from './environment';
@@ -10,7 +10,7 @@ const env = environment();
 
 export async function main() {
 	// @ts-ignore
-	configureLogger(log);
+	// configureLogger(log);
 
 	await connectors.connect();
 	const ctx = await contextCreator(connectors);

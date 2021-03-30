@@ -12,6 +12,6 @@ const d = debug('imperium.examples.noexpress-server.serverModules');
 	server modules that we want included in our app.
 	Some modules require additional configuration.
 */
-export function serverModules(): ImperiumServerModule<any, any>[] {
+export function serverModules(): ImperiumServerModule<any>[] {
 	return [].filter((Boolean as any) as ExcludeFalse);
 }

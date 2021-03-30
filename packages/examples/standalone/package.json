@@ -28,16 +28,13 @@
   "dependencies": {
     "@imperium/connector": "^5.0.0",
     "@imperium/example-domain": "^5.2.0",
-    "@mikro-orm/cli": "^4.0.2",
-    "@mikro-orm/core": "^4.0.2",
-    "@mikro-orm/postgresql": "^4.0.2",
     "@thx/log": "^13.0.0",
     "@thx/sharedcache": "^13.0.0",
-    "apollo-server-express": "^2.19.0",
+    "@mikro-orm/core": "^4.0.2",
+    "@mikro-orm/postgresql": "^4.0.2",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "lodash": "^4.17.15",
-    "redis": "^3.0.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -48,11 +45,5 @@
   },
   "engines": {
     "node": ">=12"
-  },
-  "mikro-orm": {
-    "useTsNode": true,
-    "configPaths": [
-      "./mikroorm.ts"
-    ]
   }
 }

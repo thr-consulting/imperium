@@ -1,14 +1,13 @@
 import type {EntityManager} from '@mikro-orm/core';
-import type {AuthenticatedUser} from '@imperium/connector';
+import type {AuthenticatedUser, Connectors} from '@imperium/connector';
 import {UserService} from '../user';
-import type {DomainConnectors} from './DomainConnectors';
 import {CategoryService, PhotoService, CommentService} from '../photo';
 import {entities} from './entities';
 
 /*
 	Services usually need instances created for the current request, we create those here.
  */
-export function services(em: EntityManager, conn: DomainConnectors, authenticatedUser?: AuthenticatedUser) {
+export function services(em: EntityManager, conn: Connectors, authenticatedUser?: AuthenticatedUser) {
 	return {
 		userService: new UserService(em, em.getRepository(entities.User), conn, authenticatedUser),
 		categoryService: new CategoryService(em, em.getRepository(entities.Category), conn, authenticatedUser),

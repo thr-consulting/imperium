@@ -1,11 +1,10 @@
 import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
-import type {connectors} from '../core/connectors';
 import type {Context} from '~core/context';
 
 const d = debug('imperium.examples.server.demoData');
 
-export const demoDataModule = (): ImperiumServerModule<Context, typeof connectors> => ({
+export const demoDataModule = (): ImperiumServerModule<Context> => ({
 	name: 'Demo Data Module',
 	// async startup(server) {
 	// 	const systemUserId = await createSystemUser(server);

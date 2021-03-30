@@ -1,6 +1,5 @@
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
-import type {connectors} from '../core/connectors';
 import type {Context} from '../core/context';
 import Sample from './Sample.graphqls';
 
@@ -13,7 +12,7 @@ const d = debug('imperium.examples.server.graphqlModule');
 	schema, resolvers and schemaDirectives (not shown here).
  */
 
-export const graphqlModule = (): ImperiumGraphqlServerModule<Context, typeof connectors> => ({
+export const graphqlModule = (): ImperiumGraphqlServerModule<Context> => ({
 	name: 'Server Module with GraphQL',
 	schema: [Sample],
 	resolvers(server) {

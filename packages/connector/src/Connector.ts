@@ -1,63 +1,38 @@
-import debug from 'debug';
-
-const d = debug('imperium.connector.Connectors');
-
-export interface ConnectorsConfig<T = any> {
+interface ConnectorConfig<T> {
 	connect: () => Promise<T>;
-	close?: (connection: T) => Promise<void>;
+	close?: (instance: T) => Promise<void>;
+	isReady: (instance: T) => Promise<boolean>;
 }
 
-export class Connector<T extends {[key: string]: ConnectorsConfig} = any> {
-	private readonly connectionConfigs: T;
-	private connected = false;
-	public readonly connections: {[P in keyof T]: ReturnType<T[P]['connect']> extends Promise<infer C> ? C : ReturnType<T[P]['connect']>};
+export class Connector<T = unknown> {
+	public readonly name: string;
+	readonly #connect: ConnectorConfig<T>['connect'];
+	readonly #close?: ConnectorConfig<T>['close'];
+	readonly #isReady: ConnectorConfig<T>['isReady'];
+	#instance?: T;
 
-	constructor(connectorConfigs: T) {
-		this.connectionConfigs = connectorConfigs;
-		this.connections = {} as this['connections'];
+	constructor(name: string, config: ConnectorConfig<T>) {
+		this.name = name;
+		this.#connect = config.connect;
+		this.#close = config.close;
+		this.#isReady = config.isReady;
 	}
 
-	/**
-	 * Returns true if the connectors are connected.
-	 */
-	public get isConnected(): boolean {
-		return this.connected;
+	public get() {
+		if (!this.#instance) throw new Error(`Can't get connector: ${this.name}`);
+		return this.#instance;
 	}
 
-	/**
-	 * Connect each connector
-	 */
-	public async connect(): Promise<this> {
-		if (!this.connected) {
-			await Promise.all(
-				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
-					if (typeof this.connectionConfigs[key].connect === 'function') {
-						d(`Connecting ${key}`);
-						this.connections[key] = await this.connectionConfigs[key].connect();
-					}
-				}),
-			);
-			this.connected = true;
-			return this;
-		}
-		throw new Error('Connectors are already connected.');
+	async connect() {
+		this.#instance = await this.#connect();
 	}
 
-	/**
-	 * Close each connector
-	 */
-	public async close(): Promise<this> {
-		if (this.isConnected) {
-			await Promise.all(
-				(Object.keys(this.connectionConfigs) as (keyof T)[]).map(async key => {
-					d(`Closing ${key}`);
-					this.connectionConfigs[key].close?.(this.connections[key]);
-					delete this.connections[key];
-				}),
-			);
-			this.connected = false;
-			return this;
-		}
-		throw new Error('Connectors are not connected.');
+	async close() {
+		if (this.#close && this.#instance) await this.#close(this.#instance);
+	}
+
+	async isReady() {
+		if (!this.#instance) return false;
+		return this.#isReady(this.#instance);
 	}
 }
