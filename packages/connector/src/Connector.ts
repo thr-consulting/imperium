@@ -1,14 +1,14 @@
 interface ConnectorConfig<T> {
 	connect: () => Promise<T>;
 	close?: (instance: T) => Promise<void>;
-	isReady: (instance: T) => Promise<boolean>;
+	isReady?: (instance: T) => Promise<boolean>;
 }
 
 export class Connector<T = unknown> {
 	public readonly name: string;
 	readonly #connect: ConnectorConfig<T>['connect'];
 	readonly #close?: ConnectorConfig<T>['close'];
-	readonly #isReady: ConnectorConfig<T>['isReady'];
+	readonly #isReady?: ConnectorConfig<T>['isReady'];
 	#instance?: T;
 
 	constructor(name: string, config: ConnectorConfig<T>) {
@@ -33,6 +33,7 @@ export class Connector<T = unknown> {
 
 	async isReady() {
 		if (!this.#instance) return false;
+		if (!this.#isReady) return true;
 		return this.#isReady(this.#instance);
 	}
 }
