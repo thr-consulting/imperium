@@ -1,14 +1,15 @@
-interface EnvironmentDict {
-	[key: string]: string | undefined;
+interface Dict<T> {
+	[key: string]: T;
 }
 
 export class Environment {
 	private static instance: Environment;
-
-	readonly #dict: EnvironmentDict;
+	readonly #dict: Dict<string | undefined>;
+	readonly #defaults: Dict<string | number>;
 
 	private constructor() {
 		this.#dict = {};
+		this.#defaults = {};
 	}
 
 	public static getInstance(): Environment {
@@ -18,12 +19,21 @@ export class Environment {
 		return Environment.instance;
 	}
 
-	public static addEnvironment(env: EnvironmentDict) {
+	public static addEnvironment(env: Dict<string | undefined>) {
 		Environment.getInstance().addEnvironment(env);
 	}
-	public addEnvironment(env: EnvironmentDict) {
+	public addEnvironment(env: Dict<string | undefined>) {
 		Object.keys(env).forEach(key => {
 			this.#dict[key] = env[key];
+		});
+	}
+
+	public static addDefaults(defaults: Dict<string | number>) {
+		Environment.getInstance().addDefaults(defaults);
+	}
+	public addDefaults(defaults: Dict<string | number>) {
+		Object.keys(defaults).forEach(key => {
+			this.#defaults[key] = defaults[key];
 		});
 	}
 
@@ -39,7 +49,9 @@ export class Environment {
 		if (key in this.#dict) {
 			return this.#dict[key];
 		}
-		return def;
+		if (def !== undefined) return def;
+		if (key in this.#defaults && typeof this.#defaults[key] === 'string') return this.#defaults[key];
+		return undefined;
 	}
 
 	public static getInt(key: string): number | undefined;
@@ -57,7 +69,9 @@ export class Environment {
 				return parseInt(val, 10);
 			}
 		}
-		return def;
+		if (def !== undefined) return def;
+		if (key in this.#defaults && typeof this.#defaults[key] === 'number') return this.#defaults[key];
+		return undefined;
 	}
 
 	public static getFloat(key: string): number | undefined;
@@ -75,6 +89,8 @@ export class Environment {
 				return parseFloat(val);
 			}
 		}
-		return def;
+		if (def !== undefined) return def;
+		if (key in this.#defaults && typeof this.#defaults[key] === 'number') return this.#defaults[key];
+		return undefined;
 	}
 }
