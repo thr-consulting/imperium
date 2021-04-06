@@ -5,7 +5,7 @@ interface Dict<T> {
 export class Environment {
 	private static instance: Environment;
 	readonly #dict: Dict<string | undefined>;
-	readonly #defaults: Dict<string | number>;
+	readonly #defaults: Dict<string | number | boolean>;
 
 	private constructor() {
 		this.#dict = {};
@@ -28,10 +28,10 @@ export class Environment {
 		});
 	}
 
-	public static addDefaults(defaults: Dict<string | number>) {
+	public static addDefaults(defaults: Dict<string | number | boolean>) {
 		Environment.getInstance().addDefaults(defaults);
 	}
-	public addDefaults(defaults: Dict<string | number>) {
+	public addDefaults(defaults: Dict<string | number | boolean>) {
 		Object.keys(defaults).forEach(key => {
 			this.#defaults[key] = defaults[key];
 		});
@@ -91,6 +91,26 @@ export class Environment {
 		}
 		if (def !== undefined) return def;
 		if (key in this.#defaults && typeof this.#defaults[key] === 'number') return this.#defaults[key];
+		return undefined;
+	}
+
+	public static getBool(key: string): boolean | undefined;
+	public static getBool(key: string, def: boolean): boolean;
+	public static getBool(key: string, def?: boolean) {
+		if (def === undefined) return Environment.getInstance().getBool(key);
+		return Environment.getInstance().getBool(key, def);
+	}
+	public getBool(key: string): boolean | undefined;
+	public getBool(key: string, def: boolean): boolean;
+	public getBool(key: string, def?: boolean | undefined) {
+		if (key in this.#dict) {
+			const val = this.#dict[key];
+			if (val !== undefined) {
+				return this.#dict[key] === 'true';
+			}
+		}
+		if (def !== undefined) return def;
+		if (key in this.#defaults && typeof this.#defaults[key] === 'boolean') return this.#defaults[key];
 		return undefined;
 	}
 }
