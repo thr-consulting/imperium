@@ -7,3 +7,4 @@ scalar LocalDate
 scalar LocalTime
 scalar Money
 scalar ObjectId
+scalar Decimal

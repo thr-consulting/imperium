@@ -4,6 +4,7 @@ import GraphQLObjectId from 'graphql-scalar-objectid';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLMoney} from './GraphQLMoney';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
+import {GraphQLDecimal} from './GraphQLDecimal';
 import Scalars from './Scalars.graphqls';
 import Root from './Root.graphqls';
 
@@ -28,6 +29,7 @@ export const resolvers: IResolvers = {
 	}),
 	LocalDate: GraphQLLocalDate,
 	LocalTime: GraphQLLocalTime,
+	Decimal: GraphQLDecimal,
 	Money: GraphQLMoney,
 	ObjectId: GraphQLObjectId,
 };
