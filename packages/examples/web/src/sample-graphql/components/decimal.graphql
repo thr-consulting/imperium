@@ -1,0 +1,3 @@
+mutation getDecimal($num: Decimal) {
+	getDecimal(num: $num)
+}

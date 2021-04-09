@@ -1,0 +1,3 @@
+mutation getFloat($num: Float) {
+	getFloat(num: $num)
+}

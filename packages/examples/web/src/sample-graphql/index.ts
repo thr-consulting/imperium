@@ -2,6 +2,7 @@ import loadable from '@loadable/component';
 import type {ImperiumRouterClientModule} from '@imperium/router';
 
 const GraphqlTest = loadable<any>(() => import('./components/GraphqlTest'));
+const GraphqlTypes = loadable<any>(() => import('./components/GraphqlTypes'));
 
 export function sampleGraphqlModule(): ImperiumRouterClientModule {
 	return {
@@ -10,6 +11,10 @@ export function sampleGraphqlModule(): ImperiumRouterClientModule {
 			{
 				path: '/sample-graphql',
 				content: GraphqlTest,
+			},
+			{
+				path: '/graphql-types',
+				content: GraphqlTypes,
 			},
 		],
 	};

@@ -25,6 +25,18 @@ export const graphqlModule = (): ImperiumGraphqlServerModule<Context> => ({
 					return 5;
 				},
 			},
+			Mutation: {
+				async getDecimal(obj, {num}) {
+					d(num);
+					const y: number = 0.07;
+					return y;
+				},
+				async getFloat(obj, {num}) {
+					d(num);
+					const y: number = 0.07;
+					return y;
+				},
+			},
 		};
 	},
 });
