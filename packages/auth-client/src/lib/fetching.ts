@@ -1,22 +1,19 @@
 import debug from 'debug';
 import decode from 'jwt-decode';
-import type {ImperiumClient} from '@imperium/client';
+import {Environment} from '@thx/env';
 import type {AccessToken, LoginReturn} from '../types';
 import type {IAuth} from '../AuthContext';
-import {environment} from '../environment';
 
 const d = debug('imperium.auth-client.lib');
 
 /**
  * Returns true when an access token is valid or undefined.
- * @param client
  * @param token
  */
-export function isTokenValidOrUndefined(client: ImperiumClient, token?: string): boolean {
+export function isTokenValidOrUndefined(token?: string): boolean {
 	let accessToken: string | null | undefined = token;
 	if (!token) {
-		const env = environment(client?.environment);
-		accessToken = window.localStorage.getItem(env.localStorageAccessTokenKey);
+		accessToken = window.localStorage.getItem(Environment.getString('authAccessTokenKey'));
 	}
 
 	if (!accessToken) return true; // Empty token should be valid
@@ -32,11 +29,9 @@ export function isTokenValidOrUndefined(client: ImperiumClient, token?: string):
 
 /**
  * Fetches a new access token as a Response promise from the refresh url.
- * @param client
  */
-export async function fetchAccessToken(client: ImperiumClient): Promise<Response> {
-	const env = environment(client?.environment);
-	return fetch(env.refreshUrl, {
+export async function fetchAccessToken(): Promise<Response> {
+	return fetch(Environment.getString('authRefreshUrl'), {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include',
@@ -45,10 +40,9 @@ export async function fetchAccessToken(client: ImperiumClient): Promise<Response
 
 /**
  * Fetches a new access token string from the refresh url.
- * @param client
  */
-export async function fetchAccessTokenString(client: ImperiumClient): Promise<string> {
-	const res = await fetchAccessToken(client);
+export async function fetchAccessTokenString(): Promise<string> {
+	const res = await fetchAccessToken();
 	if (res.status === 200) {
 		const resObject = JSON.parse(await res.text()) as LoginReturn;
 		return resObject.access;
@@ -59,10 +53,9 @@ export async function fetchAccessTokenString(client: ImperiumClient): Promise<st
 
 /**
  * Fetches a new decoded auth object from the refresh url.
- * @param client
  */
-export async function fetchAuth(client: ImperiumClient): Promise<IAuth> {
-	const newAccessTokenString = await fetchAccessTokenString(client);
+export async function fetchAuth(): Promise<IAuth> {
+	const newAccessTokenString = await fetchAccessTokenString();
 	const decodedToken = decode(newAccessTokenString) as AccessToken;
 	return {
 		id: decodedToken.id,

@@ -1,28 +1,36 @@
 import type {ImperiumServer} from '@imperium/server';
+import {getCorsOrigin} from '@imperium/server';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
+import {Environment} from '@thx/env';
 import debug from 'debug';
 import ms from 'ms';
-import {environment} from '../environment';
 import {login} from '../lib/login';
 import {isLoginInfo} from '../lib/typeguards';
 import type {GetAuthenticationFn, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
-const env = environment();
 
 export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	d(`Adding auth login endpoint: ${env.authLoginUrl}`);
+	const authLoginUrl = Environment.getString('AUTH_LOGIN_URL');
+	const authRefreshTokenExpiresLong = Environment.getInt('AUTH_REFRESH_TOKEN_EXPIRES_LONG');
+	const authRefreshTokenExpiresShort = Environment.getInt('AUTH_REFRESH_TOKEN_EXPIRES_SHORT');
+	const authRefreshCookieName = Environment.getString('AUTH_REFRESH_COOKIE_NAME');
+	const secure = Environment.getString('NODE_ENV') === 'production';
+	const authServerDomain = Environment.getString('AUTH_SERVER_DOMAIN');
+	const authRefreshUrl = Environment.getString('AUTH_REFRESH_URL');
+
+	d(`Adding auth login endpoint: ${authLoginUrl}`);
 
 	const corsOpts: CorsOptions = {
-		origin: env.authCorsOrigin,
+		origin: getCorsOrigin(),
 		credentials: true,
 	} as CorsOptions;
 
 	// CORS options
-	server.expressApp.options(env.authLoginUrl, cors(corsOpts));
+	server.expressApp.options(authLoginUrl, cors(corsOpts));
 
-	server.expressApp.post(env.authLoginUrl, cors(corsOpts), json(), server.contextMiddleware(), (req, res) => {
+	server.expressApp.post(authLoginUrl, cors(corsOpts), json(), server.contextMiddleware(), (req, res) => {
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 
@@ -36,18 +44,18 @@ export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumSe
 				.then((ret: LoginReturn) => {
 					// Login was successful, return id and access token and set refresh token as the cookie.
 					const expires = loginInfo.rememberDevice
-						? new Date(Date.now() + ms(env.authRefreshTokenExpiresLong))
-						: new Date(Date.now() + ms(env.authRefreshTokenExpiresShort));
+						? new Date(Date.now() + ms(authRefreshTokenExpiresLong))
+						: new Date(Date.now() + ms(authRefreshTokenExpiresShort));
 
 					res
 						.status(200)
 						// Send refresh token as a cookie to browser
-						.cookie(env.authRefreshCookieName, ret.refresh, {
+						.cookie(authRefreshCookieName, ret.refresh, {
 							httpOnly: true,
-							secure: env.production, // Secure in production
+							secure, // Secure in production
 							expires,
-							domain: env.authServerDomain,
-							path: env.authRefreshUrl, // Only set cookie for refresh URL
+							domain: authServerDomain,
+							path: authRefreshUrl, // Only set cookie for refresh URL
 						})
 						// Send user id and initial access token
 						.json({

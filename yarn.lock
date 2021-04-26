@@ -1826,6 +1826,15 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
+"@imperium/connector@^5.2.2-alpha.7":
+  version "5.2.2-alpha.7"
+  resolved "https://registry.yarnpkg.com/@imperium/connector/-/connector-5.2.2-alpha.7.tgz#2b0db8147b0f1d8b93d411c7420c3efbf93051c3"
+  integrity sha512-vlsvRNuGlZwVKVCv2gUGinv13v0+9QMGhYLMXuqAlY/IT8j2x81xIqaglK3ATlJeQB7ZOQzXQse+99Eck8NTrw==
+  dependencies:
+    "@imperium/util" "^4.6.1"
+    "@thx/random" "^13.0.0"
+    debug "^4.1.1"
+
 "@imperium/util@^4.6.1":
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/@imperium/util/-/util-4.6.1.tgz#b623a0ad6c9d9f8173f90121443d7aee72913e7e"
@@ -3114,10 +3123,27 @@
     "@js-joda/timezone" "^2.3.0"
     debug "^4.1.1"
 
+"@thx/env@^13.6.0":
+  version "13.6.0"
+  resolved "https://registry.yarnpkg.com/@thx/env/-/env-13.6.0.tgz#3e1e9c3e63c7c00dd13e78dfc1663728f0632d2b"
+  integrity sha512-OU4QJdRzR4u8YJwqfatxWKj2l34orv8Dk7YOytwJFok9Hf+pz3esALjC8u8DCxNgoQguB08ZmTXRWoduNuRfEw==
+
 "@thx/log@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@thx/log/-/log-13.0.0.tgz#6dafa8c13ac79efc911053798c1990af51c81a72"
   integrity sha512-BjKTB6kmlsVJwrgp7zYdc7XbPqI9yFp1Nf722WZAUdTklM5pGCrQ9XePdXQVpnR2KrG6AaS3/ZHDizrg41JyDw==
+  dependencies:
+    colors "^1.4.0"
+    debug "^4.1.1"
+    fast-file-rotate "^1.0.1"
+    gelf-pro "^1.3.4"
+    lodash "^4.17.15"
+    winston "^3.3.3"
+
+"@thx/log@^13.4.0":
+  version "13.4.0"
+  resolved "https://registry.yarnpkg.com/@thx/log/-/log-13.4.0.tgz#3a63d7eaa0138c04748a84e1179f822907ff3539"
+  integrity sha512-y96+Ve/uwucPRBoMQf4g2BNPtbVo71GmGQedJCfeJjeBmS7PlJbZtgqRu2IJPV134Dw/d07uudVi42vqG0s1wQ==
   dependencies:
     colors "^1.4.0"
     debug "^4.1.1"
@@ -3160,6 +3186,16 @@
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@thx/util/-/util-13.0.0.tgz#58b82cc6a9181604e609f2b95eba99ada86477bc"
   integrity sha512-3RSvcNI2DbCKRoestJSK1feUdGw1OKSugVa2ljYBbis8T914jW5mhKlL2Y+CsjnFVTkIQO7Es9lnbHCXjmauWw==
+  dependencies:
+    debug "^4.1.1"
+    inspect-loader "^1.0.0"
+    lodash "^4.17.20"
+    webpack-node-externals "^2.5.0"
+
+"@thx/util@^13.4.0":
+  version "13.4.0"
+  resolved "https://registry.yarnpkg.com/@thx/util/-/util-13.4.0.tgz#3725322d858fb1e047f22e1cec009ff8d488bde6"
+  integrity sha512-t4I6I37IfshxexlD462iOkr8HgJqjq8499kjRq9fZOFRIUabK1loV6qXEKc2a1HVLysKbTJkEzFmCq7zHDBu1Q==
   dependencies:
     debug "^4.1.1"
     inspect-loader "^1.0.0"

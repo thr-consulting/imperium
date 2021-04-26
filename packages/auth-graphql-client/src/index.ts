@@ -5,5 +5,10 @@ export function authGraphqlClientModule(options?: AuthGraphqlClientOptions): Imp
 	return {
 		name: '@imperium/auth-graphql-client',
 		apolloLinks: createLinks(options),
+		environmentDefaults: {
+			// These defaults are defined in @imperium/auth-client but we use the values in this package.
+			// authAccessTokenKey
+			// authIdKey
+		},
 	};
 }

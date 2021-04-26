@@ -1,11 +1,11 @@
-import type {Hoc, ImperiumClient} from '@imperium/client';
+import type {Hoc} from '@imperium/client';
 import React, {useEffect, useRef, useState} from 'react';
 import debug from 'debug';
 import Dexie from 'dexie';
 import {AuthLevel} from '@imperium/authorization';
+import {Environment} from '@thx/env';
 import {AuthContext, IAuth} from '../AuthContext';
 import {fetchAuth, isTokenValidOrUndefined} from '../lib/fetching';
-import {environment} from '../environment';
 
 const d = debug('imperium.auth-client.withAuth');
 
@@ -15,10 +15,8 @@ interface CacheItem {
 	value: string;
 }
 
-export function withAuth(client: ImperiumClient): Hoc {
+export function withAuth(): Hoc {
 	d('Creating Auth client');
-
-	const env = environment(client?.environment);
 
 	return function authHoc(WrappedComponent: React.ComponentType) {
 		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -39,12 +37,12 @@ export function withAuth(client: ImperiumClient): Hoc {
 					await cache.current
 						.table('auth')
 						.where('timestamp')
-						.below(Date.now() - env.authCacheStaleMs)
+						.below(Date.now() - Environment.getInt('authCacheStaleMs'))
 						.delete();
 
 					// Retrieve id and access from storage
-					const id = localStorage.getItem(env.localStorageIdKey) || '';
-					const access = localStorage.getItem(env.localStorageAccessTokenKey) || '';
+					const id = localStorage.getItem(Environment.getString('authIdKey')) || '';
+					const access = localStorage.getItem(Environment.getString('authAccessTokenKey')) || '';
 
 					// Check the id and access code to make sure they are both valid
 					if (id.length > 0 && access.length > 0) {
@@ -54,8 +52,8 @@ export function withAuth(client: ImperiumClient): Hoc {
 						});
 					} else {
 						await cache.current.table('auth').clear();
-						localStorage.removeItem(env.localStorageIdKey);
-						localStorage.removeItem(env.localStorageAccessTokenKey);
+						localStorage.removeItem(Environment.getString('authIdKey'));
+						localStorage.removeItem(Environment.getString('authAccessTokenKey'));
 					}
 
 					setAuthEffectFinished(true);
@@ -66,10 +64,10 @@ export function withAuth(client: ImperiumClient): Hoc {
 			 * Get authentication information, renewing if necessary.
 			 */
 			async function getAuth() {
-				if (!isTokenValidOrUndefined(client, auth?.access)) {
-					const newAuth = await fetchAuth(client);
-					localStorage.setItem(env.localStorageIdKey, newAuth.id);
-					localStorage.setItem(env.localStorageAccessTokenKey, newAuth.access);
+				if (!isTokenValidOrUndefined(auth?.access)) {
+					const newAuth = await fetchAuth();
+					localStorage.setItem(Environment.getString('authIdKey'), newAuth.id);
+					localStorage.setItem(Environment.getString('authAccessTokenKey'), newAuth.access);
 					setAuth(newAuth);
 					return newAuth;
 				}
@@ -82,7 +80,7 @@ export function withAuth(client: ImperiumClient): Hoc {
 			 */
 			async function getCache(key: string) {
 				const item = (await cache.current.table('auth').get(key)) as CacheItem | undefined;
-				if (item && Date.now() - item.timestamp < env.authCacheStaleMs) {
+				if (item && Date.now() - item.timestamp < Environment.getInt('authCacheStaleMs')) {
 					d(`Cache hit: ${key}`);
 					return AuthLevel.fromString(item.value);
 				}

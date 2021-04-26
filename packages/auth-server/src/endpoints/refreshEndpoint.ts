@@ -1,28 +1,31 @@
 import type {ImperiumServer} from '@imperium/server';
+import {getCorsOrigin} from '@imperium/server';
+import {Environment} from '@thx/env';
 import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
-import {environment} from '../environment';
 import {refresh} from '../lib/refresh';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
-const env = environment();
 
 export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	d(`Adding auth refresh endpoint: ${env.authRefreshUrl}`);
+	const authRefreshUrl = Environment.getString('AUTH_REFRESH_URL');
+	const authRefreshCookieName = Environment.getString('AUTH_REFRESH_COOKIE_NAME');
+
+	d(`Adding auth refresh endpoint: ${authRefreshUrl}`);
 
 	const corsOpts: CorsOptions = {
-		origin: env.authCorsOrigin,
+		origin: getCorsOrigin(),
 		credentials: true,
 	};
 
 	// CORS options
-	server.expressApp.options(env.authRefreshUrl, cors(corsOpts));
+	server.expressApp.options(authRefreshUrl, cors(corsOpts));
 
-	server.expressApp.post(env.authRefreshUrl, cors(corsOpts), cookieParser(), server.contextMiddleware(), (req, res) => {
-		if (req.cookies && req.cookies[env.authRefreshCookieName]) {
-			const refreshTokenString = req.cookies[env.authRefreshCookieName];
+	server.expressApp.post(authRefreshUrl, cors(corsOpts), cookieParser(), server.contextMiddleware(), (req, res) => {
+		if (req.cookies && req.cookies[authRefreshCookieName]) {
+			const refreshTokenString = req.cookies[authRefreshCookieName];
 
 			// @ts-ignore
 			const auth = getAuthFn(req.context);

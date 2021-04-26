@@ -4,8 +4,6 @@ import {randomId} from '@thx/random';
 export {Connector} from './Connector';
 export {Connectors} from './Connectors';
 
-export {Environment} from './Environment';
-
 export interface AuthenticatedUser {
 	auth?: {
 		id?: string;
