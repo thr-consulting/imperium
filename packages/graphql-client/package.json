@@ -52,7 +52,8 @@
 		}
 	},
 	"dependencies": {
-		"@thx/util": "^13.0.0",
+		"@thx/util": "^13.4.0",
+		"@thx/env": "^13.6.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15",
 		"merge-options": "^3.0.4",

@@ -1,19 +1,18 @@
 import {isString} from '@thx/util';
+import {Environment} from '@thx/env';
 import bodyParser from 'body-parser';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
-import {compose} from '@imperium/server';
+import {compose, getCorsOrigin} from '@imperium/server';
 import merge from 'lodash/merge';
 import type {ImperiumServer} from '@imperium/server';
 import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
 import type {DocumentNode} from 'graphql';
-import {environment} from './environment';
 import {resolvers as coreResolvers, schema as coreSchema} from './schema';
 import {ApolloSchema, isImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';
 import {ApolloErrorHandler} from './ApolloErrorHandler';
 
 const d = debug('imperium.graphql-server.endpoints');
-const env = environment();
 
 /**
  * Transforms the various types of ApolloSchema into an array of DocumentNode.
@@ -48,6 +47,11 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
  */
 export function endpoints(config?: GraphqlServerModuleConfig) {
 	return (server: ImperiumServer<any>): void => {
+		const isDevelopment = Environment.getString('NODE_ENV') === 'development';
+		const graphqlUrl = Environment.getString('GRAPHQL_URL');
+		const enableSubscriptions = Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS');
+		const graphqlBodyLimit = Environment.getString('GRAPHQL_BODY_LIMIT');
+
 		// Merge all the typeDefs from all modules
 		d('Merging graphql schema');
 		const typeDefs = server.modules.reduce(
@@ -139,18 +143,18 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 				}
 				return error;
 			},
-			playground: env.development,
-			debug: env.development,
-			introspection: env.development,
-			tracing: env.development,
+			playground: isDevelopment,
+			debug: isDevelopment,
+			introspection: isDevelopment,
+			tracing: isDevelopment,
 			plugins: [ApolloErrorHandler],
 		};
 
-		if (env.graphqlWs) {
+		if (enableSubscriptions) {
 			d('Configuring subscriptions');
-			if (isString(env.graphqlUrl)) {
+			if (isString(graphqlUrl)) {
 				apolloServerConfig.subscriptions = {
-					path: env.graphqlUrl,
+					path: graphqlUrl,
 				};
 			}
 		}
@@ -158,26 +162,26 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 		d('Creating apollo server');
 		const apolloServer = new ApolloServer(apolloServerConfig);
 
-		d(`Adding graphql endpoint: ${env.graphqlUrl}`);
+		d(`Adding graphql endpoint: ${graphqlUrl}`);
 
 		// Add middleware to graphql endpoint. Optional middleware can be passed in via constructor config object.
 		// preContext and postContext middleware could be a thing, if needed.
 		server.expressApp.use(
-			env.graphqlUrl,
-			compose([bodyParser.json({limit: env.graphqlBodyLimit}), ...(config?.middleware || []), server.contextMiddleware()]),
+			graphqlUrl,
+			compose([bodyParser.json({limit: graphqlBodyLimit}), ...(config?.middleware || []), server.contextMiddleware()]),
 		);
 
 		const corsOpts: CorsOptions = {
-			origin: env.graphqlCorsOrigin,
+			origin: getCorsOrigin(),
 		};
 
 		apolloServer.applyMiddleware({
 			app: server.expressApp,
-			path: env.graphqlUrl,
+			path: graphqlUrl,
 			cors: corsOpts,
 		});
 
-		if (env.graphqlWs) {
+		if (enableSubscriptions) {
 			d('Installing subscription handlers');
 			apolloServer.installSubscriptionHandlers(server.httpServer);
 		}

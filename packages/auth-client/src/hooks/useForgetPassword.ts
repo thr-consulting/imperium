@@ -1,3 +1,3 @@
-export function useForgetPassword(): unknown {
+export function useForgotPassword(): unknown {
 	return {};
 }

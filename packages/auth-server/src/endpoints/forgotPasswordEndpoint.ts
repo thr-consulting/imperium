@@ -1,11 +1,10 @@
 import type {ImperiumServer} from '@imperium/server';
+import {Environment} from '@thx/env';
 import {json} from 'body-parser';
 import debug from 'debug';
-import {environment} from '../environment';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
-const env = environment();
 
 interface ForgotPasswordInfo {
 	email: string;
@@ -16,9 +15,11 @@ function isForgotPasswordInfo(forgotPasswordInfo: any): forgotPasswordInfo is Fo
 }
 
 export function forgotPasswordEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	d(`Adding auth forgot password endpoint: ${env.authForgotPasswordUrl}`);
+	const authForgotPasswordUrl = Environment.getString('AUTH_FORGOTPASSWORD_URL');
 
-	server.expressApp.post(env.authForgotPasswordUrl, json(), (req, res) => {
+	d(`Adding auth forgot password endpoint: ${authForgotPasswordUrl}`);
+
+	server.expressApp.post(authForgotPasswordUrl, json(), (req, res) => {
 		if (isForgotPasswordInfo(req.body)) {
 			const forgotPasswordInfo = req.body;
 			res.send(forgotPasswordInfo.email);

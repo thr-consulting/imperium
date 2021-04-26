@@ -1,13 +1,12 @@
 import debug from 'debug';
+import {Environment} from '@thx/env';
 import jwt from 'express-jwt';
 import {verify, Algorithm} from 'jsonwebtoken';
 import {compose} from '@imperium/server';
 import type {RequestHandler} from 'express';
 import type {AuthMiddlewareConfig} from '../types';
-import {environment} from '../environment';
 
 const d = debug('imperium.auth-server.authMiddleware');
-const env = environment();
 
 export interface Auth {
 	id: string;
@@ -15,12 +14,15 @@ export interface Auth {
 
 function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 	return (req, res, next) => {
+		const authAccessTokenAlgorithms = Environment.getString('ACCESS_TOKEN_ALGORITHMS')
+			.split(',')
+			.map(s => s.trim()) as Algorithm[];
 		const {token} = req.query;
 
 		if (token && typeof token === 'string') {
 			// @ts-ignore
 			req.user = verify(token, env.authAccessTokenSecret, {
-				algorithms: env.authAccessTokenAlgorithms as Algorithm[],
+				algorithms: authAccessTokenAlgorithms,
 			});
 		} else if (config.credentialsRequired) {
 			throw new Error('Credentials are required');
@@ -30,6 +32,11 @@ function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 }
 
 export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
+	const authAccessTokenSecret = Environment.getString('ACCESS_TOKEN_SECRET');
+	const authAccessTokenAlgorithms = Environment.getString('ACCESS_TOKEN_ALGORITHMS')
+		.split(',')
+		.map(s => s.trim()) as Algorithm[];
+
 	const middlewareArr: RequestHandler[] = [];
 
 	// Use either query token middleware or jwt header middleware
@@ -38,8 +45,8 @@ export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
 	} else {
 		middlewareArr.push(
 			jwt({
-				secret: env.authAccessTokenSecret,
-				algorithms: env.authAccessTokenAlgorithms,
+				secret: authAccessTokenSecret,
+				algorithms: authAccessTokenAlgorithms,
 				credentialsRequired: config.credentialsRequired === undefined ? false : config.credentialsRequired,
 			}),
 		);

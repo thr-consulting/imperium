@@ -1,15 +1,26 @@
 import debug from 'debug';
 import React from 'react';
-import {ApolloProvider, ApolloClient, ApolloLink, split, InMemoryCache, ApolloClientOptions, NormalizedCacheObject} from '@apollo/client';
+import {
+	ApolloProvider,
+	ApolloClient,
+	ApolloLink,
+	split,
+	InMemoryCache,
+	ApolloClientOptions,
+	NormalizedCacheObject,
+	QueryOptions,
+	WatchQueryOptions,
+	MutationOptions,
+} from '@apollo/client';
 import {BatchHttpLink} from '@apollo/client/link/batch-http';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
+import {Environment} from '@thx/env';
 import {getMainDefinition} from '@apollo/client/utilities';
 import mergeOptions from 'merge-options';
 import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import type {ExcludeFalse} from '@thx/util';
-import {environment} from './environment';
 import {isImperiumGraphqlClientModule} from './types';
 import {removeTypeNameLink} from './removeTypeNameLink';
 
@@ -22,15 +33,26 @@ export interface GraphqlClientOptions<TCacheShape = NormalizedCacheObject> {
 	batchInterval?: number;
 }
 
+interface ApolloDefaults {
+	query: Pick<QueryOptions, 'fetchPolicy' | 'errorPolicy'>;
+	watchQuery: Pick<
+		WatchQueryOptions,
+		'errorPolicy' | 'fetchPolicy' | 'nextFetchPolicy' | 'notifyOnNetworkStatusChange' | 'partialRefetch' | 'pollInterval' | 'returnPartialData'
+	>;
+	mutate: Pick<MutationOptions, 'awaitRefetchQueries' | 'errorPolicy' | 'fetchPolicy'>;
+}
+
 export function withGraphql(opts?: GraphqlClientOptions) {
 	return (client: ImperiumClient): Hoc => {
 		d('Creating Apollo client');
 
-		const env = environment(client.environment);
+		const graphqlUri = Environment.getString('graphql');
+		const graphqlSubscriptionUri = Environment.getString('graphqlws');
+		const apolloDefaults = (Environment.getRecord('apolloDefaults') as unknown) as ApolloDefaults;
 
-		d(`Creating Apollo HTTP link: ${env.graphqlUri}`);
+		d(`Creating Apollo HTTP link: ${graphqlUri}`);
 		const httpLink = new BatchHttpLink({
-			uri: env.graphqlUri as string,
+			uri: graphqlUri as string,
 			credentials: 'same-origin',
 			batchInterval: opts?.batchInterval,
 			batchMax: opts?.batchMax,
@@ -47,9 +69,9 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 		let finalLink: ApolloLink = httpLink;
 
 		// Split between normal http and ws for subscriptions
-		if (env.graphqlSubscriptionUri) {
-			d(`Creating subscription client: ${env.graphqlSubscriptionUri}`);
-			const subscriptionClient = new SubscriptionClient(env.graphqlSubscriptionUri, {
+		if (graphqlSubscriptionUri.length > 0) {
+			d(`Creating subscription client: ${graphqlSubscriptionUri}`);
+			const subscriptionClient = new SubscriptionClient(graphqlSubscriptionUri, {
 				reconnect: true,
 			});
 
@@ -84,7 +106,7 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 			{
 				link,
 				cache: new InMemoryCache(),
-				defaultOptions: env.apolloDefaults,
+				defaultOptions: apolloDefaults,
 			},
 			opts?.apolloClientOptions,
 		);

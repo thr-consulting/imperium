@@ -1,9 +1,8 @@
 import debug from 'debug';
 import {ApolloLink} from '@apollo/client';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
+import {Environment} from '@thx/env';
 import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
-import type {ImperiumClient} from '@imperium/client';
-import {environment} from './environment';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
 
@@ -12,13 +11,11 @@ export interface AuthGraphqlClientOptions {
 }
 
 export function createLinks(options?: AuthGraphqlClientOptions) {
-	return (client: ImperiumClient): ApolloLink[] => {
-		const env = environment(client?.environment);
-
+	return (): ApolloLink[] => {
 		// Create Apollo middleware link (for authorization)
 		d('Creating auth Apollo link');
 		const authLink = new ApolloLink((operation, forward) => {
-			const token = window.localStorage.getItem(env.localStorageAccessTokenKey);
+			const token = window.localStorage.getItem(Environment.getString('authAccessTokenKey'));
 			if (token) {
 				operation.setContext({
 					headers: {
@@ -34,19 +31,19 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 			// WARNING: This fieldname is set in the @imperium/auth-server:src/models/Auth.ts file in the refresh() method.
 			accessTokenField: 'access',
 			isTokenValidOrUndefined: () => {
-				return isTokenValidOrUndefined(client);
+				return isTokenValidOrUndefined();
 			},
 			fetchAccessToken: async () => {
-				return fetchAccessToken(client);
+				return fetchAccessToken();
 			},
 			handleFetch: accessToken => {
 				d('Fetched access token');
-				window.localStorage.setItem(env.localStorageAccessTokenKey, accessToken);
+				window.localStorage.setItem(Environment.getString('authAccessTokenKey'), accessToken);
 			},
 			handleError: err => {
 				d('There was a problem refreshing the access token. Re-login required.');
-				window.localStorage.removeItem(env.localStorageAccessTokenKey);
-				window.localStorage.removeItem(env.localStorageIdKey);
+				window.localStorage.removeItem(Environment.getString('authAccessTokenKey'));
+				window.localStorage.removeItem(Environment.getString('authIdKey'));
 				if (options?.refreshFailed) {
 					options.refreshFailed(err);
 				}

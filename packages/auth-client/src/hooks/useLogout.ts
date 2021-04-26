@@ -1,21 +1,17 @@
 import debug from 'debug';
+import {Environment} from '@thx/env';
 import {useContext} from 'react';
-import {useClient} from '@imperium/client';
 import {AuthContext} from '../AuthContext';
-import {environment} from '../environment';
 
 const d = debug('imperium.auth-client.useLogout');
 
 export function useLogout(): () => Promise<void> {
 	const authContext = useContext(AuthContext);
-	const client = useClient();
-
-	const env = environment(client?.environment);
 
 	return async () => {
 		d('Logging out');
-		localStorage.removeItem(env.localStorageIdKey);
-		localStorage.removeItem(env.localStorageAccessTokenKey);
+		localStorage.removeItem(Environment.getString('authIdKey'));
+		localStorage.removeItem(Environment.getString('authAccessTokenKey'));
 		authContext.setAuth(null);
 		await authContext.clearCache();
 

@@ -50,9 +50,9 @@
 		}
 	},
 	"dependencies": {
+		"@imperium/connector": "^5.2.2-alpha.7",
 		"debug": "^4.1.1",
-		"lodash": "^4.17.15",
-		"merge-options": "^3.0.4"
+		"lodash": "^4.17.15"
 	},
 	"peerDependencies": {
 		"react": "16.x || 17.x",
