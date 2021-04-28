@@ -50,7 +50,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^5.2.2-alpha.7",
+		"@imperium/connector": "^5.0.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15"
 	},
