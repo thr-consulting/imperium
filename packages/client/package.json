@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/client",
-	"version": "5.1.2",
+	"version": "5.3.0",
 	"description": "Imperium client core",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -50,7 +50,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^5.0.0",
+		"@imperium/connector": "^5.3.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.15"
 	},

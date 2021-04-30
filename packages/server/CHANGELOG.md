@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/darkadept/imperium/compare/v5.2.1...v5.3.0) (2021-04-30)
+
+
+### Bug Fixes
+
+* upgrade packages and fix bugs ([eb855ee](https://github.com/darkadept/imperium/commit/eb855ee31b7a9122bfe712a6b2d6cf7dcfcf7c73))
+
+
+### Features
+
+* finished env ([c977d9b](https://github.com/darkadept/imperium/commit/c977d9bd465a79467efca46e32785c8719ed7764))
+* if no port specified, imperium doesn't start express ([87ff529](https://github.com/darkadept/imperium/commit/87ff529215cdae0b0f2165d6a5f1bbde791d64c3))
+* moved everything over to @thx/env ([#258](https://github.com/darkadept/imperium/issues/258)) ([1fefb95](https://github.com/darkadept/imperium/commit/1fefb955f37702395fc9e00866120fbb0abe8ee9))
+* overhauled how connectors work ([#256](https://github.com/darkadept/imperium/issues/256)) ([22c0281](https://github.com/darkadept/imperium/commit/22c02813778c71d76f6c57aa03695fbeae312c40))
+
+
+
+
+
 # [5.0.0](https://github.com/darkadept/imperium/compare/v4.6.1...v5.0.0) (2020-10-27)
 
 **Note:** Version bump only for package @imperium/server

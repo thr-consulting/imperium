@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/darkadept/imperium/compare/v5.2.1...v5.3.0) (2021-04-30)
+
+
+### Bug Fixes
+
+* upgrade packages and fix bugs ([eb855ee](https://github.com/darkadept/imperium/commit/eb855ee31b7a9122bfe712a6b2d6cf7dcfcf7c73))
+* **connector:** fixed Environment method signatures ([a8b9025](https://github.com/darkadept/imperium/commit/a8b9025bf22cddf11408e21ff2678bb8084d6343))
+* update connectors ([9f2fb49](https://github.com/darkadept/imperium/commit/9f2fb49540d48a5346413b3df89954da5994fceb))
+
+
+### Features
+
+* moved everything over to @thx/env ([#258](https://github.com/darkadept/imperium/issues/258)) ([1fefb95](https://github.com/darkadept/imperium/commit/1fefb955f37702395fc9e00866120fbb0abe8ee9))
+* **connector:** added boolean option to Environment ([f922a2e](https://github.com/darkadept/imperium/commit/f922a2ef319b70b5d3d8213cba8d04e27ea99a46))
+* **connector:** added Environment singleton to package ([6f2d4fb](https://github.com/darkadept/imperium/commit/6f2d4fbbb1093bc42b8eaa6823321a6f703e9269))
+* **controller:** added method to add defaults to the environment ([174bdc4](https://github.com/darkadept/imperium/commit/174bdc41efa9bf103a779acd8f4bcb231feac006))
+* overhauled how connectors work ([#256](https://github.com/darkadept/imperium/issues/256)) ([22c0281](https://github.com/darkadept/imperium/commit/22c02813778c71d76f6c57aa03695fbeae312c40))
+
+
+
+
+
 # [5.0.0](https://github.com/darkadept/imperium/compare/v4.6.1...v5.0.0) (2020-10-27)
 
 **Note:** Version bump only for package @imperium/connector

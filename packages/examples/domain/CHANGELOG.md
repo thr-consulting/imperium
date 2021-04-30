@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/darkadept/imperium/compare/v5.2.1...v5.3.0) (2021-04-30)
+
+
+### Features
+
+* overhauled how connectors work ([#256](https://github.com/darkadept/imperium/issues/256)) ([22c0281](https://github.com/darkadept/imperium/commit/22c02813778c71d76f6c57aa03695fbeae312c40))
+
+
+
+
+
 # [5.2.0](https://github.com/darkadept/imperium/compare/v5.1.2...v5.2.0) (2021-02-04)
 
 **Note:** Version bump only for package @imperium/example-domain

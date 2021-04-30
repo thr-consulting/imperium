@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/darkadept/imperium/compare/v5.2.1...v5.3.0) (2021-04-30)
+
+
+### Bug Fixes
+
+* upgrade packages and fix bugs ([eb855ee](https://github.com/darkadept/imperium/commit/eb855ee31b7a9122bfe712a6b2d6cf7dcfcf7c73))
+
+
+### Features
+
+* finished env ([c977d9b](https://github.com/darkadept/imperium/commit/c977d9bd465a79467efca46e32785c8719ed7764))
+
+
+
+
+
 ## [5.2.1](https://github.com/darkadept/imperium/compare/v5.2.0...v5.2.1) (2021-02-05)
 
 
