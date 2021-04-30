@@ -3082,14 +3082,14 @@
     webpack "^4.44.1"
     webpack-node-externals "^2.5.0"
 
-"@thx/controls@^13.6.1-alpha.0":
-  version "13.7.0"
-  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-13.7.0.tgz#99e6821ac37cb8674069d00b68c3a34241323fdb"
-  integrity sha512-NDJIwI16RAPKoL/mBHJMTBdH0SbTaoS4EO0nTrxeXbkXz4WOST+kb7H7v9L1pMednYg5KYfHP/4xlwnqf4PFUw==
+"@thx/controls@^13.8.0":
+  version "13.8.0"
+  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-13.8.0.tgz#b4245fd3e91ac8840d39abbc3d41f62faf232191"
+  integrity sha512-K9vDgvRHqE36Rni+58m02tZUoQjamId4gfT+Ya8luGSKO1XQWo1+/FFNKLjqfSrTPEutgUW/RT1dfWPVH/xBuA==
   dependencies:
     "@js-joda/core" "^3.0.0"
     "@thx/date" "^13.0.0"
-    "@thx/money" "^13.0.0"
+    "@thx/money" "^13.8.0"
     "@thx/yup-types" "^13.7.0"
     "@types/inputmask" "^4.0.1"
     "@types/react-datepicker" "^3.1.1"
@@ -3143,10 +3143,10 @@
     lodash "^4.17.15"
     winston "^3.3.3"
 
-"@thx/money@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@thx/money/-/money-13.0.0.tgz#b2c0c80881fbf0d3c1996746c4d86f98b2c3865d"
-  integrity sha512-mUry7Inb+HDoxx+tWSjJIdQhgZhfafBPr03T9OSf9Wk9rFyZOZ5X+RcP/o4QeWq/yW6NYvIz3M9Fdql5GB2Ijw==
+"@thx/money@^13.8.0":
+  version "13.8.0"
+  resolved "https://registry.yarnpkg.com/@thx/money/-/money-13.8.0.tgz#9178c9075b860410f30ef38ceb93d5d481a14e53"
+  integrity sha512-rekzMkz0efyixu7c+5kL8rRxQn6I7BqvQGUnZbOqAfdU5my7ORrU5W6m5ZN7Qv/xS98EkVAHbk67KFLJwY5KIQ==
   dependencies:
     accounting "^0.4.1"
     debug "^4.1.1"
