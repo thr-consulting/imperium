@@ -1,6 +1,6 @@
 import debug from 'debug';
 import React from 'react';
-import {TForm, TFormChildrenProps} from '@thx/controls';
+import {TForm, TFormProps} from '@thx/controls';
 import sha256 from '@thx/sha256';
 import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
@@ -40,7 +40,7 @@ export default function Login() {
 				}}
 				validationSchema={loginValidation}
 			>
-				{({handleSubmit, values, handleChange}: TFormChildrenProps<LoginValidation>) => {
+				{({handleSubmit, values, handleChange}: TFormProps<LoginValidation>) => {
 					return (
 						<Form onSubmit={handleSubmit} inverted>
 							<Form.Field>

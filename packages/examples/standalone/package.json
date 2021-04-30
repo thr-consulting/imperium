@@ -28,8 +28,8 @@
   "dependencies": {
     "@imperium/connector": "^5.0.0",
     "@imperium/example-domain": "^5.2.0",
-    "@thx/log": "^13.0.0",
-    "@thx/sharedcache": "^13.0.0",
+    "@thx/log": "^13.8.2",
+    "@thx/sharedcache": "^13.8.2",
     "@mikro-orm/core": "^4.0.2",
     "@mikro-orm/postgresql": "^4.0.2",
     "debug": "^4.1.1",

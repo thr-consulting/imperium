@@ -1,6 +1,5 @@
 import type {ImperiumServer} from '@imperium/server';
-import {getCorsOrigin} from '@imperium/server';
-import {Environment} from '@thx/env';
+import {Environment, getCorsOrigin} from '@thx/env';
 import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';

@@ -1,9 +1,9 @@
 import {isString} from '@thx/util';
-import {Environment} from '@thx/env';
+import {Environment, getCorsOrigin} from '@thx/env';
 import bodyParser from 'body-parser';
 import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import debug from 'debug';
-import {compose, getCorsOrigin} from '@imperium/server';
+import {compose} from '@imperium/server';
 import merge from 'lodash/merge';
 import type {ImperiumServer} from '@imperium/server';
 import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
