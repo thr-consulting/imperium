@@ -1,11 +1,11 @@
-import type {IResolvers} from 'graphql-tools';
 import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
 import GraphQLObjectId from 'graphql-scalar-objectid';
+import type {IResolvers} from 'graphql-tools';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
-import {GraphQLMoney} from './GraphQLMoney';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
-import Scalars from './Scalars.graphqls';
+import {GraphQLMoney} from './GraphQLMoney';
 import Root from './Root.graphqls';
+import Scalars from './Scalars.graphqls';
 
 export const schema = [Scalars, Root];
 export const resolvers: IResolvers = {

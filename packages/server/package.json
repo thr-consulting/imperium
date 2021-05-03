@@ -27,7 +27,8 @@
 		"sort": "npx sort-package-json",
 		"start": "screen -c ./dev.screenrc",
 		"ts": "tsc",
-		"typedoc": "typedoc"
+		"typedoc": "typedoc",
+		"depcheck": "depcheck"
 	},
 	"eslintConfig": {
 		"parserOptions": {

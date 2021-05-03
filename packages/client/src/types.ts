@@ -1,5 +1,5 @@
-import type React from 'react';
 import type {EnvironmentDefaultDict} from '@thx/env';
+import type React from 'react';
 import type {ImperiumClient} from './ImperiumClient';
 
 export interface ImperiumClientConfig {

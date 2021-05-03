@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
 import {AbstractAuthSelector, AuthLevel, generateCacheKey} from '@imperium/authorization';
+import {useEffect, useState} from 'react';
 import type {IAuthContext} from '../AuthContext';
 
 export function useAuthEffect(ctx: IAuthContext, selector: AbstractAuthSelector, execute: boolean) {

@@ -1,7 +1,7 @@
 import {decode} from 'jsonwebtoken';
 import type {AuthenticationDomain} from '../types';
-import {isRefreshToken} from './typeguards';
 import {createAccessToken} from './token';
+import {isRefreshToken} from './typeguards';
 
 export async function refresh(refreshTokenString: string, auth: AuthenticationDomain): Promise<{access: string}> {
 	const token = decode(refreshTokenString);

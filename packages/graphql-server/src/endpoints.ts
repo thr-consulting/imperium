@@ -1,16 +1,16 @@
-import {isString} from '@thx/util';
-import {Environment, getCorsOrigin} from '@thx/env';
-import bodyParser from 'body-parser';
-import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
-import debug from 'debug';
 import {compose} from '@imperium/server';
-import merge from 'lodash/merge';
 import type {ImperiumServer} from '@imperium/server';
+import {Environment, getCorsOrigin} from '@thx/env';
+import {isString} from '@thx/util';
+import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
 import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
+import bodyParser from 'body-parser';
+import debug from 'debug';
 import type {DocumentNode} from 'graphql';
+import merge from 'lodash/merge';
+import {ApolloErrorHandler} from './ApolloErrorHandler';
 import {resolvers as coreResolvers, schema as coreSchema} from './schema';
 import {ApolloSchema, isImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';
-import {ApolloErrorHandler} from './ApolloErrorHandler';
 
 const d = debug('imperium.graphql-server.endpoints');
 

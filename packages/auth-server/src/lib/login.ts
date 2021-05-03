@@ -1,7 +1,7 @@
 import {Environment} from '@thx/env';
 import type {AuthenticationDomain, LoginInfo, LoginReturn} from '../types';
-import {createAccessToken, createRefreshToken} from './token';
 import {validatePassword} from './password';
+import {createAccessToken, createRefreshToken} from './token';
 
 export async function login(loginInfo: LoginInfo, remoteAddress: string | undefined, auth: AuthenticationDomain): Promise<LoginReturn> {
 	const authMaxFail = Environment.getInt('AUTH_MAX_FAIL');

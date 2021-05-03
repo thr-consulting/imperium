@@ -1,5 +1,5 @@
-import React from 'react';
 import {AuthLevel} from '@imperium/authorization';
+import React from 'react';
 
 export interface IAuth {
 	readonly id: string;

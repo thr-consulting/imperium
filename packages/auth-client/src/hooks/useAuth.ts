@@ -1,10 +1,10 @@
+import {AuthLevel, AbstractAuthSelector, SyncHasAccessOptions, SyncAuthorizationResult} from '@imperium/authorization';
 import debug from 'debug';
 import {useContext} from 'react';
-import {AuthLevel, AbstractAuthSelector, SyncHasAccessOptions, SyncAuthorizationResult} from '@imperium/authorization';
 import {AuthContext} from '../AuthContext';
 import {useAuthEffect} from './useAuthEffect';
 
-const d = debug('imperium.auth-client.useAuth');
+const d = debug('imperium.auth-client.hooks.useAuth');
 
 export function useAuth(selector: AbstractAuthSelector) {
 	const ctx = useContext(AuthContext);

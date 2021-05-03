@@ -1,11 +1,11 @@
-import {useContext} from 'react';
-import debug from 'debug';
 import {Environment} from '@thx/env';
+import debug from 'debug';
+import {useContext} from 'react';
+import {AuthContext} from '../AuthContext';
 import type {LoginInfo, LoginReturn} from '../types';
 import {useAuthId} from './useAuthId';
-import {AuthContext} from '../AuthContext';
 
-const d = debug('imperium.auth-client.useLogin');
+const d = debug('imperium.auth-client.hooks.useLogin');
 
 export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 	const authContext = useContext(AuthContext);

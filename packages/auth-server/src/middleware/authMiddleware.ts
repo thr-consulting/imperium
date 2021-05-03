@@ -1,12 +1,12 @@
-import debug from 'debug';
+import {compose} from '@imperium/server';
 import {Environment} from '@thx/env';
+import debug from 'debug';
+import type {RequestHandler} from 'express';
 import jwt from 'express-jwt';
 import {verify, Algorithm} from 'jsonwebtoken';
-import {compose} from '@imperium/server';
-import type {RequestHandler} from 'express';
 import type {AuthMiddlewareConfig} from '../types';
 
-const d = debug('imperium.auth-server.authMiddleware');
+const d = debug('imperium.auth-server.middleware.authMiddleware');
 
 export interface Auth {
 	id: string;

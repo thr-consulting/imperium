@@ -1,0 +1,8 @@
+split
+
+screen -t "@imperium/domaindriven TS" yarn ts --watch
+screen -t "@imperium/domaindriven Build" yarn build:dev --watch
+
+select 0
+focus down
+select 1

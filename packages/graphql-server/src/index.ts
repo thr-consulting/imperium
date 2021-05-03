@@ -1,4 +1,5 @@
 import type {ImperiumServerModule} from '@imperium/server';
+import './defaults';
 import {endpoints} from './endpoints';
 import type {GraphqlServerModuleConfig} from './types';
 
@@ -10,12 +11,6 @@ export function graphqlServerModule(config?: GraphqlServerModuleConfig): Imperiu
 	return {
 		name: '@imperium/graphql-server',
 		endpoints: endpoints(config),
-		environmentDefaults: {
-			GRAPHQL_URL: '/api/graphql',
-			// CORS_ORIGIN: '', // No default
-			GRAPHQL_ENABLE_SUBSCRIPTIONS: true,
-			GRAPHQL_BODY_LIMIT: '1mb',
-		},
 	};
 }
 

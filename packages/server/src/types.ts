@@ -1,5 +1,4 @@
 import type {Connectors} from '@imperium/connector';
-import type {EnvironmentDefaultDict} from '@thx/env';
 import type {ImperiumServer} from './ImperiumServer';
 
 /**
@@ -9,7 +8,6 @@ export interface ImperiumServerModule<Context> {
 	name: string;
 	endpoints?: (server: ImperiumServer<Context>) => void;
 	startup?: (server: ImperiumServer<Context>) => Promise<void>;
-	environmentDefaults?: EnvironmentDefaultDict;
 }
 
 /**

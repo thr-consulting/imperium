@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
+import type {AuthenticatedUser, Connectors} from '@imperium/connector';
+import debug from 'debug';
 import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
-import debug from 'debug';
-import {Environment} from '@thx/env';
 import isFunction from 'lodash/isFunction';
-import type {AuthenticatedUser, Connectors} from '@imperium/connector';
+/* eslint-disable no-console */
+import './defaults';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
@@ -59,13 +59,6 @@ export class ImperiumServer<Context> {
 
 		this._modules = this._moduleFactoryFn();
 		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
-
-		d('Loading module environment defaults');
-		this._modules.forEach(module => {
-			if (module.environmentDefaults) {
-				Environment.addDefaults(module.environmentDefaults);
-			}
-		});
 
 		// Module endpoints
 		d('Creating module endpoints');

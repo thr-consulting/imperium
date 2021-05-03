@@ -57,6 +57,7 @@
 		"@imperium/util": "^4.6.1",
 		"@js-joda/core": "^3.0.0",
 		"@thx/date": "^13.8.2",
+		"@thx/env": "^13.8.2",
 		"@thx/money": "^13.8.2",
 		"@thx/util": "^13.8.2",
 		"apollo-server-express": "^2.19.0",

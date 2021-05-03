@@ -1,11 +1,11 @@
 import type {AuthenticatedUser} from '@imperium/connector';
 import debug from 'debug';
 import type {AbstractAuthSelector} from './AbstractAuthSelector';
-import {AuthLevel} from './AuthLevel';
 import {AsyncAuthorizationResult, AsyncHasAccessOptions} from './AsyncAuthorizationResult';
+import {AuthLevel} from './AuthLevel';
 import {generateCacheKey} from './generateCacheKey';
 
-const d = debug('domain.lib.auth.Authorization');
+const d = debug('imperium.authorization.Authorization');
 
 interface AuthorizationPrepareParams<User> {
 	getUserById: (id: string) => Promise<User | null>;

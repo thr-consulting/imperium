@@ -1,24 +1,26 @@
 import debug from 'debug';
+import {Environment} from '@thx/env';
+import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
 // import {configureLogger} from '@thx/log';
 // import {log} from 'winston';
-import {contextCreator} from './context';
+// import {contextCreator} from './context';
+import {defaultEnvironment} from './defaultEnvironment';
 import {connectors} from './connectors';
-import {environment} from './environment';
 
 const d = debug('imperium.examples.standalone');
-const env = environment();
 
 export async function main() {
+	Environment.addDefaults(defaultEnvironment);
+	Environment.addDefaults(domainDefaultEnvironment);
+	Environment.addEnvironment(process.env);
+
 	// @ts-ignore
 	// configureLogger(log);
 
 	await connectors.connect();
-	const ctx = await contextCreator(connectors);
+	// const ctx = await contextCreator(connectors);
 
-	const val = await ctx.SecureModel.getSecureData('mydata', ctx);
-	d(val);
-
-	if (env.runAsService) {
+	if (Environment.getBool('RUN_AS_SERVICE')) {
 		// eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
 		const noop = Function();
 		// eslint-disable-next-line @typescript-eslint/no-implied-eval
