@@ -1,6 +1,9 @@
 import {ImperiumServer} from '@imperium/server';
+import {Environment} from '@thx/env';
+import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
 import debug from 'debug';
 import {connectors} from './connectors';
+import {defaultEnvironment} from './defaultEnvironment';
 import {contextCreator} from './context';
 import {serverModules} from './serverModules';
 
@@ -13,6 +16,10 @@ const d = debug('imperium.examples.noexpress-server');
   a Promise.
 */
 export default function core() {
+	Environment.addDefaults(defaultEnvironment);
+	Environment.addDefaults(domainDefaultEnvironment);
+	Environment.addEnvironment(process.env);
+
 	// Create the imperium server instance
 	const server = new ImperiumServer({
 		contextCreator,

@@ -34,6 +34,7 @@
     "@mikro-orm/cli": "^4.0.2",
     "@mikro-orm/core": "^4.0.2",
     "@mikro-orm/postgresql": "^4.0.2",
+    "@thx/env": "^13.8.2",
     "@thx/util": "^13.8.2",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",

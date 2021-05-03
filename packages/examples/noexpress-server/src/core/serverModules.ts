@@ -2,10 +2,8 @@
 import debug from 'debug';
 import type {ImperiumServerModule} from '@imperium/server';
 import type {ExcludeFalse} from '@thx/util';
-// import {environment} from './environment';
 
 const d = debug('imperium.examples.noexpress-server.serverModules');
-// const env = environment();
 
 /*
 	Server modules are created with a factory function that returns an array of

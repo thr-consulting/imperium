@@ -30,6 +30,7 @@
     "@imperium/example-domain": "^5.3.0",
     "@mikro-orm/core": "^4.0.2",
     "@mikro-orm/postgresql": "^4.0.2",
+    "@thx/env": "^13.8.2",
     "@thx/log": "^13.8.2",
     "@thx/sharedcache": "^13.8.2",
     "debug": "^4.1.1",
