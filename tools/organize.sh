@@ -27,11 +27,11 @@ do
   fi
 done
 
-#mapfile -t M < <( ls -l "$DIR/../packages/examples/" )
-#for i in "${M[@]}"
-#do
-#  SRCDIRS+="packages/examples/$i/src"$'\n'
-#done
+mapfile -t M < <( ls -l "$DIR/../packages/examples/" )
+for i in "${M[@]}"
+do
+  SRCDIRS+="packages/examples/$i/src"$'\n'
+done
 
 banner () {
   printf "\n${LCYAN}#################################################${NC}\n"
