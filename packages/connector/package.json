@@ -22,6 +22,7 @@
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
+		"depcheck": "depcheck",
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"sort": "npx sort-package-json",
@@ -50,9 +51,8 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/util": "^4.6.1",
 		"@thx/random": "^13.8.2",
-		"debug": "^4.1.1"
+		"@thx/util": "^13.8.2"
 	},
 	"engines": {
 		"node": ">=12"

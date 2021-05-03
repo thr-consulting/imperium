@@ -21,6 +21,7 @@
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
+		"depcheck": "depcheck",
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"sort": "npx sort-package-json",
@@ -52,26 +53,26 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^5.3.0",
 		"@imperium/server": "^5.3.0",
-		"@imperium/util": "^4.6.1",
 		"@js-joda/core": "^3.0.0",
 		"@thx/date": "^13.8.2",
 		"@thx/env": "^13.8.2",
 		"@thx/money": "^13.8.2",
 		"@thx/util": "^13.8.2",
 		"apollo-server-express": "^2.19.0",
+		"apollo-server-plugin-base": "^0.12.0",
 		"body-parser": "^1.19.0",
-		"cors": "^2.8.5",
 		"debug": "^4.1.1",
 		"graphql": "^14.7.0",
 		"graphql-custom-types": "^1.5.1",
 		"graphql-scalar-objectid": "^0.1.2",
-		"graphql-tag": "^2.10.3",
 		"graphql-tools": "^4.0.8",
 		"js-money": "^0.6.3",
 		"lodash": "^4.17.15",
-		"subscriptions-transport-ws": "^0.9.16"
+		"winston": "^3.3.3"
+	},
+	"peerDependencies": {
+		"express": "4.x"
 	},
 	"engines": {
 		"node": ">=12"

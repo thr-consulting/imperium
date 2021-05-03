@@ -22,6 +22,7 @@
 		"build:dev": "NODE_ENV=development webpack --config webpack.js",
 		"build:prod": "NODE_ENV=production webpack --config webpack.js",
 		"clean": "rimraf ./dist && rimraf .eslintcache",
+		"depcheck": "depcheck",
 		"lint": "eslint --cache --ext js,ts src",
 		"lint:fix": "eslint --cache --fix --ext js,ts src",
 		"sort": "npx sort-package-json",
@@ -61,7 +62,6 @@
 		"express": "^4.17.1",
 		"express-jwt": "^6.0.0",
 		"jsonwebtoken": "^8.5.1",
-		"lodash": "^4.17.15",
 		"ms": "^2.1.2"
 	},
 	"engines": {
