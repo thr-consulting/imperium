@@ -33,7 +33,7 @@ export class ImperiumClient {
 	private render: (props: RootProps) => React.ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
-		this._moduleFactoryFn = config.clientModules;
+		this._moduleFactoryFn = config.clientModules
 		// eslint-disable-next-line no-underscore-dangle
 		Environment.addDefaults(window.__IMPERIUM_SYS__);
 		// eslint-disable-next-line no-underscore-dangle

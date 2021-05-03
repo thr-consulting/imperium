@@ -4,7 +4,7 @@ import type {ImperiumServer} from '@imperium/server';
 import {getConnector} from '@imperium/example-domain';
 import type {IResolvers} from '@imperium/graphql-server';
 import {randomLetters} from '@thx/random';
-import type {Context} from '../core/context';
+import type {Context} from '~core/context';
 import {data} from './data';
 
 const d = debug('imperium.examples.server.subscriptionModule.resolvers');

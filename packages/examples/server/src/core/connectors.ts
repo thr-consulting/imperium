@@ -1,14 +1,13 @@
 import SharedCache from '@thx/sharedcache';
 import {Connectors, Connector} from '@imperium/connector';
+import {Environment} from '@thx/env';
 import debug from 'debug';
 import {MikroORM} from '@mikro-orm/core';
 import redis from 'redis';
 import {PubSub} from 'apollo-server-express';
 import {mikroOrmConfig} from './mikro-orm.config';
-import {environment} from './environment';
 
 const d = debug('imperium.examples.server.connectors');
-const env = environment();
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.
@@ -37,9 +36,9 @@ export const connectors = new Connectors([
 	new Connector<SharedCache>('sharedCache', {
 		async connect() {
 			const redisClient = redis.createClient({
-				host: env.redisHost,
-				port: env.redisPort,
-				db: env.redisDb,
+				host: Environment.getString('REDIS_HOST'),
+				port: Environment.getInt('REDIS_PORT'),
+				db: Environment.getInt('REDIS_DB'),
 			});
 			return new SharedCache({
 				redis: redisClient,

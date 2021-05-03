@@ -1,3 +1,0 @@
-extend type Query {
-	getPhoto(name: String): Photo
-}

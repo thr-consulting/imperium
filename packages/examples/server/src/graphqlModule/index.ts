@@ -1,6 +1,6 @@
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
-import type {Context} from '../core/context';
+import type {Context} from '~core/context';
 import Sample from './Sample.graphqls';
 
 const d = debug('imperium.examples.server.graphqlModule');
@@ -18,10 +18,11 @@ export const graphqlModule = (): ImperiumGraphqlServerModule<Context> => ({
 	resolvers(server) {
 		return {
 			Query: {
-				async getData(obj, value, apolloContext) {
+				async getData(/* obj, value, apolloContext */) {
 					// The apollo context is technically different than imperium context but we spread imperium context across apollo context.
-					const fakeSecureData = apolloContext.SecureModel.getSecureData('secure-thing', apolloContext);
-					d(`Fake Secure Data: ${fakeSecureData}`);
+					// const data = apolloContext.scoreController
+					// const fakeSecureData = apolloContext.SecureModel.getSecureData('secure-thing', apolloContext);
+					// d(`Fake Secure Data: ${fakeSecureData}`);
 					return 5;
 				},
 			},

@@ -1,7 +1,7 @@
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
 import {randomId, randomLetters} from '@thx/random';
-import type {Context} from '../core/context';
+import type {Context} from '~core/context';
 import Cache from './Cache.graphqls';
 
 const d = debug('imperium.examples.server.apolloCacheModule');

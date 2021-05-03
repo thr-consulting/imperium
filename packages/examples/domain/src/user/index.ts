@@ -1,4 +1,3 @@
-export {User} from './User';
-export {Services} from './Services';
-export {UserService} from './UserService';
-export {Authentication} from './Authentication';
+export {User} from './entities/User';
+export {Service} from './entities/Service';
+export {Authentication} from './auth/Authentication';
