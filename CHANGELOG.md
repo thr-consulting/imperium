@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.2](https://github.com/darkadept/imperium/compare/v5.3.1...v5.3.2) (2021-05-03)
+
+
+### Bug Fixes
+
+* fixed missing packages ([bdb2273](https://github.com/darkadept/imperium/commit/bdb2273546543a6758002855fd83de61372f3d6c))
+* fixed missing packages ([1b1b08c](https://github.com/darkadept/imperium/commit/1b1b08c1e22cd33520ff3d268b627cdfd86fb446))
+
+
+
+
+
 ## [5.3.1](https://github.com/darkadept/imperium/compare/v5.3.0...v5.3.1) (2021-05-03)
 
 

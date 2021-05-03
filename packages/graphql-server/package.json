@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-server",
-	"version": "5.3.1",
+	"version": "5.3.2",
 	"description": "Imperium Graphql server package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -53,7 +53,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/server": "^5.3.1",
+		"@imperium/server": "^5.3.2",
 		"@js-joda/core": "^3.0.0",
 		"@thx/date": "^13.8.2",
 		"@thx/env": "^13.8.2",

@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-standalone",
-  "version": "5.3.1",
+  "version": "5.3.2",
   "private": true,
   "description": "Imperium standalone example project",
   "repository": {
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@imperium/connector": "^5.3.1",
-    "@imperium/example-domain": "^5.3.1",
+    "@imperium/example-domain": "^5.3.2",
     "@mikro-orm/core": "^4.0.2",
     "@mikro-orm/postgresql": "^4.0.2",
     "@thx/env": "^13.8.2",
