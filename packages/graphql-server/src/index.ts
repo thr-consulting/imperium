@@ -1,5 +1,5 @@
-import './defaults';
 import type {ImperiumServerModule} from '@imperium/server';
+import './defaults';
 import {endpoints} from './endpoints';
 import type {GraphqlServerModuleConfig} from './types';
 

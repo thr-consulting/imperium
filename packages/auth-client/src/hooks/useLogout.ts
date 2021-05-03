@@ -1,9 +1,9 @@
-import debug from 'debug';
 import {Environment} from '@thx/env';
+import debug from 'debug';
 import {useContext} from 'react';
 import {AuthContext} from '../AuthContext';
 
-const d = debug('imperium.auth-client.useLogout');
+const d = debug('imperium.auth-client.hooks.useLogout');
 
 export function useLogout(): () => Promise<void> {
 	const authContext = useContext(AuthContext);

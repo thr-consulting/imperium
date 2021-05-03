@@ -1,11 +1,11 @@
 import type {LocalDate} from '@js-joda/core';
+import {toLocalDate, toEpochDay} from '@thx/date';
+import debug from 'debug';
 import {GraphQLError} from 'graphql/error';
 import {Kind} from 'graphql/language';
 import {GraphQLScalarType} from 'graphql/type';
-import debug from 'debug';
-import {toLocalDate, toEpochDay} from '@thx/date';
 
-const d = debug('imperium.graphql-server.GraphQLLocalDate');
+const d = debug('imperium.graphql-server.schema.GraphQLLocalDate');
 
 export const GraphQLLocalDate = new GraphQLScalarType({
 	name: 'LocalDate',

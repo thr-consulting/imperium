@@ -1,15 +1,15 @@
+import {Environment} from '@thx/env';
+import debug from 'debug';
+import flowRight from 'lodash/flowRight';
+import isArray from 'lodash/isArray';
+import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {render} from 'react-dom';
-import debug from 'debug';
-import isFunction from 'lodash/isFunction';
-import {Environment} from '@thx/env';
-import isArray from 'lodash/isArray';
-import flowRight from 'lodash/flowRight';
-import Root, {RootProps} from './Root';
 import {ClientContext} from './ClientContext';
+import Root, {RootProps} from './Root';
 import type {Hoc, HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
 
-const d = debug('imperium.client');
+const d = debug('imperium.client.ImperiumClient');
 
 // HoC that injects Imperium client as a prop
 function withClient(client: ImperiumClient): Hoc {
@@ -33,7 +33,7 @@ export class ImperiumClient {
 	private render: (props: RootProps) => React.ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
-		this._moduleFactoryFn = config.clientModules
+		this._moduleFactoryFn = config.clientModules;
 		// eslint-disable-next-line no-underscore-dangle
 		Environment.addDefaults(window.__IMPERIUM_SYS__);
 		// eslint-disable-next-line no-underscore-dangle

@@ -2,7 +2,7 @@ import debug from 'debug';
 import {useContext} from 'react';
 import {AuthContext} from '../AuthContext';
 
-const d = debug('imperium.auth-client.useAuthId');
+const d = debug('imperium.auth-client.hooks.useAuthId');
 
 export function useAuthId() {
 	const ctx = useContext(AuthContext);

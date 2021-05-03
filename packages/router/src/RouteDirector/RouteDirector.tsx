@@ -1,5 +1,5 @@
-import React from 'react';
 import debug from 'debug';
+import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import type {ImperiumRoute} from '../types';
 import RouteErrorBoundary from './RouteErrorBoundary';

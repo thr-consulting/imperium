@@ -1,10 +1,10 @@
+import {AuthLevel, AbstractAuthSelector, SyncAuthorizationResult, SyncHasAccessOptions} from '@imperium/authorization';
 import debug from 'debug';
 import {useContext, useState} from 'react';
-import {AuthLevel, AbstractAuthSelector, SyncAuthorizationResult, SyncHasAccessOptions} from '@imperium/authorization';
 import {AuthContext} from '../AuthContext';
 import {useAuthEffect} from './useAuthEffect';
 
-const d = debug('imperium.auth-client.useLazyAuth');
+const d = debug('imperium.auth-client.hooks.useLazyAuth');
 
 type StartLazyAuthFn = () => void;
 interface LazyAuthData {

@@ -1,5 +1,5 @@
-import type {TypeOfPromise} from '@thx/util';
 import {randomId} from '@thx/random';
+import type {TypeOfPromise} from '@thx/util';
 
 export {Connector} from './Connector';
 export {Connectors} from './Connectors';

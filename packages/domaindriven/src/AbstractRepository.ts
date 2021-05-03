@@ -18,7 +18,7 @@ import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 
-const d = debug('domain.lib.AbstractRepository');
+const d = debug('imperium.domaindriven.AbstractRepository');
 
 export abstract class AbstractRepository<EntityType> {
 	protected readonly repo: EntityRepository<EntityType>;

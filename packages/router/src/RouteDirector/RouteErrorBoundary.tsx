@@ -1,7 +1,7 @@
-import React from 'react';
 import debug from 'debug';
+import React from 'react';
 
-const d = debug('imperium.router.RouteErrorBoundary');
+const d = debug('imperium.router.RouteDirector.RouteErrorBoundary');
 
 interface State {
 	hasError: boolean;

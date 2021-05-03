@@ -1,11 +1,11 @@
 import type {LocalTime} from '@js-joda/core';
+import {toLocalTime} from '@thx/date';
+import debug from 'debug';
 import {GraphQLError} from 'graphql/error';
 import {Kind} from 'graphql/language';
 import {GraphQLScalarType} from 'graphql/type';
-import debug from 'debug';
-import {toLocalTime} from '@thx/date';
 
-const d = debug('imperium.graphql-server.GraphQLLocalTime');
+const d = debug('imperium.graphql-server.schema.GraphQLLocalTime');
 
 export const GraphQLLocalTime = new GraphQLScalarType({
 	name: 'LocalTime',

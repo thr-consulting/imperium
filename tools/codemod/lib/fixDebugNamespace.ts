@@ -20,7 +20,7 @@ export function fixDebugNamespace(root: Collection, j: JSCodeshift, fileInfo: Fi
 	const parsed = path.parse(pathMatched[2]);
 
 	// Build the debug namespace string
-	const nameArr = [pkgName, ...parsed.dir.split(path.sep), parsed.name === 'index' ? null : parsed.name];
+	const nameArr = ['imperium', pkgName, ...parsed.dir.split(path.sep), parsed.name === 'index' ? null : parsed.name];
 	const name = nameArr
 		.filter((v, index) => {
 			if (index !== 0 && nameArr[index - 1] === v) {

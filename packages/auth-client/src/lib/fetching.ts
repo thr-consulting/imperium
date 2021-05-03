@@ -1,10 +1,10 @@
+import {Environment} from '@thx/env';
 import debug from 'debug';
 import decode from 'jwt-decode';
-import {Environment} from '@thx/env';
-import type {AccessToken, LoginReturn} from '../types';
 import type {IAuth} from '../AuthContext';
+import type {AccessToken, LoginReturn} from '../types';
 
-const d = debug('imperium.auth-client.lib');
+const d = debug('imperium.auth-client.lib.fetching');
 
 /**
  * Returns true when an access token is valid or undefined.

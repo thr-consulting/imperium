@@ -1,5 +1,3 @@
-import debug from 'debug';
-import React from 'react';
 import {
 	ApolloProvider,
 	ApolloClient,
@@ -15,16 +13,18 @@ import {
 import {BatchHttpLink} from '@apollo/client/link/batch-http';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
-import {SubscriptionClient} from 'subscriptions-transport-ws';
-import {Environment} from '@thx/env';
 import {getMainDefinition} from '@apollo/client/utilities';
-import mergeOptions from 'merge-options';
 import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
+import {Environment} from '@thx/env';
 import type {ExcludeFalse} from '@thx/util';
-import {isImperiumGraphqlClientModule} from './types';
+import debug from 'debug';
+import mergeOptions from 'merge-options';
+import React from 'react';
+import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {removeTypeNameLink} from './removeTypeNameLink';
+import {isImperiumGraphqlClientModule} from './types';
 
-const d = debug('imperium.graphql.withGraphql');
+const d = debug('imperium.graphql-client.withGraphql');
 
 export interface GraphqlClientOptions<TCacheShape = NormalizedCacheObject> {
 	removeTypenameOnInput?: boolean;

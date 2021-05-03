@@ -1,9 +1,9 @@
-import debug from 'debug';
 import {Environment} from '@thx/env';
+import debug from 'debug';
 import {sign, SignOptions} from 'jsonwebtoken';
 import type {ServiceInfo} from '../types';
 
-const d = debug('imperium.auth-server.lib');
+const d = debug('imperium.auth-server.lib.token');
 
 function signJwt(payload: string | Record<string, unknown> = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
 	return sign(payload, secret, options);

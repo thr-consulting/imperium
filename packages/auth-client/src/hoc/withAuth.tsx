@@ -1,13 +1,13 @@
+import {AuthLevel} from '@imperium/authorization';
 import type {Hoc} from '@imperium/client';
-import React, {useEffect, useRef, useState} from 'react';
+import {Environment} from '@thx/env';
 import debug from 'debug';
 import Dexie from 'dexie';
-import {AuthLevel} from '@imperium/authorization';
-import {Environment} from '@thx/env';
+import React, {useEffect, useRef, useState} from 'react';
 import {AuthContext, IAuth} from '../AuthContext';
 import {fetchAuth, isTokenValidOrUndefined} from '../lib/fetching';
 
-const d = debug('imperium.auth-client.withAuth');
+const d = debug('imperium.auth-client.hoc.withAuth');
 
 interface CacheItem {
 	key: string;

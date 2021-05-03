@@ -1,7 +1,7 @@
 import type {ImperiumServer} from '@imperium/server';
+import {Environment, getCorsOrigin} from '@thx/env';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
-import {Environment, getCorsOrigin} from '@thx/env';
 import debug from 'debug';
 import ms from 'ms';
 import {login} from '../lib/login';
