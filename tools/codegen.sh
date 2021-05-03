@@ -27,11 +27,11 @@ do
   fi
 done
 
-#mapfile -t M < <( ls -l "$DIR/../packages/examples/" )
-#for i in "${M[@]}"
-#do
-#  SRCDIRS+="packages/examples/$i/src"$'\n'
-#done
+mapfile -t M < <( ls -l "$DIR/../packages/examples/" )
+for i in "${M[@]}"
+do
+  SRCDIRS+="packages/examples/$i/src"$'\n'
+done
 
 banner () {
   printf "\n${LCYAN}#################################################${NC}\n"
@@ -39,26 +39,20 @@ banner () {
   printf "${LCYAN}#################################################${NC}\n"
 }
 
-banner "Sorting package.json files"
-npx sort-package-json
-yarn lerna run sort
-
 banner "Patching jscodeshift"
 patch -Nu "$DIR/../node_modules/jscodeshift/src/Runner.js" -i "$DIR/jscodeshift.patch"
 
 banner "Codemod"
-echo "${SRCDIRS::-1}" | yarn codemod -t "$DIR/codemod/cmOrganize.ts" --stdin
+echo "${SRCDIRS::-1}" | yarn codemod -t "$DIR/codemod/cmCodegen.ts" --stdin
 ret=$?
 if [ $ret -ne 0 ]; then
   printf "\n${LRED}[ERROR] Error running codemod. Lint fixing will continue to prevent many changed files.${NC}\n"
 fi
 
 banner "Fixing lint issues"
-yarn lerna run lint:fix
+yarn lerna run lint:fix --scope '@tacs/{server,web,domain,caller-id-lookup,document-processor,exchangerate-service,file-upload,mail-parser}'
 
 if [ $ret -ne 0 ]; then
   printf "\n${LRED}Errors occured during generation. Some files may be left in an inconsistent state.${NC}\n"
 fi
 exit $ret
-
-cd "$DIR/.." || exit
