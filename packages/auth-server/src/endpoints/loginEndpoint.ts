@@ -12,8 +12,8 @@ const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 
 export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
 	const authLoginUrl = Environment.getString('AUTH_LOGIN_URL');
-	const authRefreshTokenExpiresLong = Environment.getInt('AUTH_REFRESH_TOKEN_EXPIRES_LONG');
-	const authRefreshTokenExpiresShort = Environment.getInt('AUTH_REFRESH_TOKEN_EXPIRES_SHORT');
+	const authRefreshTokenExpiresLong = Environment.getString('AUTH_REFRESH_TOKEN_EXPIRES_LONG');
+	const authRefreshTokenExpiresShort = Environment.getString('AUTH_REFRESH_TOKEN_EXPIRES_SHORT');
 	const authRefreshCookieName = Environment.getString('AUTH_REFRESH_COOKIE_NAME');
 	const secure = Environment.getString('NODE_ENV') === 'production';
 	const authServerDomain = Environment.getString('AUTH_SERVER_DOMAIN');
