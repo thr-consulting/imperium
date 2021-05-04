@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/darkadept/imperium/compare/v5.3.2...v5.3.3) (2021-05-04)
+
+
+### Bug Fixes
+
+* **auth-server:** fixed type issue ([6050ce2](https://github.com/darkadept/imperium/commit/6050ce26444743b8945dbf48b640423fc61182df))
+
+
+
+
+
 ## [5.3.2](https://github.com/darkadept/imperium/compare/v5.3.1...v5.3.2) (2021-05-03)
 
 **Note:** Version bump only for package @imperium/auth-server

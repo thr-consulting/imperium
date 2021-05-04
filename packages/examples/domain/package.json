@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "5.3.2",
+	"version": "5.3.3",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -27,7 +27,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-server": "^5.3.2",
+		"@imperium/auth-server": "^5.3.3",
 		"@imperium/authorization": "^5.3.1",
 		"@imperium/connector": "^5.3.1",
 		"@imperium/domaindriven": "^5.3.1",
