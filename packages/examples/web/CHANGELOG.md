@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.4](https://github.com/darkadept/imperium/compare/v5.3.3...v5.3.4) (2021-05-11)
+
+**Note:** Version bump only for package @imperium/example-web
+
+
+
+
+
 ## [5.3.1](https://github.com/darkadept/imperium/compare/v5.3.0...v5.3.1) (2021-05-03)
 
 **Note:** Version bump only for package @imperium/example-web

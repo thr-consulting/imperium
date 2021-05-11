@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.4](https://github.com/darkadept/imperium/compare/v5.3.3...v5.3.4) (2021-05-11)
+
+
+### Features
+
+* upgrade the 3 preset packages ([667e093](https://github.com/darkadept/imperium/commit/667e09336aa97c28184c7795ba16f94802c78735))
+
+
+
+
+
 ## [5.1.2](https://github.com/darkadept/imperium/compare/v5.1.1...v5.1.2) (2020-12-08)
 
 **Note:** Version bump only for package @imperium/eslint-config-imperium

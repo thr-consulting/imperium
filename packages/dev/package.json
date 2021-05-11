@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/dev",
-	"version": "5.3.0",
+	"version": "5.3.4",
 	"description": "Imperium Development package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -32,7 +32,7 @@
 	"dependencies": {
 		"@babel/core": "^7.14.0",
 		"@babel/register": "^7.13.16",
-		"@imperium/babel-preset-imperium": "^5.1.2",
+		"@imperium/babel-preset-imperium": "^5.3.4",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.2.0",
 		"@thx/common-webpack": "^13.8.2",
 		"@thx/log": "^13.8.2",
