@@ -1,2 +1,2 @@
 ignorePatterns: ['dist/*', 'types/*', 'webpack.js']
-ignores: ['~*']
+ignores: ['~*', 'chalk', 'source-map-support']

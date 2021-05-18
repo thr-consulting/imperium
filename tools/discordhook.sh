@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-# Check lerna for changed packages
-PKGS=($(yarn -s lerna changed --json | jq -r '.[].name'))
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "$DIR/../node_modules/.bin/common"
+
+# Get changed packages
+PKGS=()
+get_changed_packages PKGS
 
 # Build newline separated string of package names and versions
 DESC="\`\`\`\n"
@@ -11,8 +15,5 @@ do
 done
 DESC+="\n\`\`\`"
 
-# Build final JSON
-JSON="{\"embeds\":[{\"color\":65336,\"title\":\"Imperium Canary Release\",\"description\":\"$DESC\"}]}"
-
-# Send to webhook
-curl -X POST -H "Content-Type: application/json" -d "$JSON" "$DISCORD_WEBHOOK"
+# Send to discord
+"$DIR/../node_modules/.bin/discord" "Imperium Canary Release" "$DESC"

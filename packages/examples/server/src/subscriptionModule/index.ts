@@ -1,5 +1,5 @@
-import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
+import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import schema from './Schema.graphqls';
 import query from './Query.graphqls';
 import {resolvers} from './resolvers';

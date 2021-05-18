@@ -1,3 +1,4 @@
+// I don't know why these two file need lint disabled. -mk
 import {Environment} from '@thx/env';
 import debug from 'debug';
 import flowRight from 'lodash/flowRight';
@@ -5,27 +6,14 @@ import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import React from 'react';
 import {render} from 'react-dom';
-import {ClientContext} from './ClientContext';
-import Root, {RootProps} from './Root';
-import type {Hoc, HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
+// eslint-disable-next-line import/no-cycle
+import {Root} from './Root';
+import type {RootProps} from './Root';
+import type {HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
+// eslint-disable-next-line import/no-cycle
+import {withClient} from './withClient';
 
 const d = debug('imperium.client.ImperiumClient');
-
-// HoC that injects Imperium client as a prop
-function withClient(client: ImperiumClient): Hoc {
-	return function clientHoc(WrappedComponent: React.ComponentType) {
-		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-		function ComponentWithClient(props: any) {
-			return (
-				<ClientContext.Provider value={client}>
-					<WrappedComponent {...props} />
-				</ClientContext.Provider>
-			);
-		}
-		ComponentWithClient.displayName = `withClient(${displayName}`;
-		return ComponentWithClient;
-	};
-}
 
 export class ImperiumClient {
 	private readonly _moduleFactoryFn: () => ImperiumClientModule[];

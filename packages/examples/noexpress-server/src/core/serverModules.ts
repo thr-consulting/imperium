@@ -11,5 +11,5 @@ const d = debug('imperium.examples.noexpress-server.serverModules');
 	Some modules require additional configuration.
 */
 export function serverModules(): ImperiumServerModule<any>[] {
-	return [].filter((Boolean as any) as ExcludeFalse);
+	return [].filter(Boolean as any as ExcludeFalse);
 }

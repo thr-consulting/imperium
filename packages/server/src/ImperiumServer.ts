@@ -1,8 +1,8 @@
-import type {AuthenticatedUser, Connectors} from '@imperium/connector';
 import debug from 'debug';
 import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import isFunction from 'lodash/isFunction';
+import type {AuthenticatedUser, Connectors} from '@imperium/connector';
 /* eslint-disable no-console */
 import './defaults';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';

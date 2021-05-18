@@ -1,6 +1,6 @@
-import type {EntityData} from '@mikro-orm/core';
 import {AbstractRepository} from '@imperium/domaindriven';
 import debug from 'debug';
+import type {EntityData} from '@mikro-orm/core';
 import type {User} from '../entities/User';
 
 const d = debug('domain.users.repositories.UserRepository');

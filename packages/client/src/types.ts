@@ -7,9 +7,7 @@ export interface ImperiumClientConfig {
 	render: (props?: any) => React.ReactNode;
 }
 
-export type Hoc = (
-	WrappedComponent: React.ComponentType,
-) => {
+export type Hoc = (WrappedComponent: React.ComponentType) => {
 	(props: any): React.ReactNode;
 	displayName: string;
 };

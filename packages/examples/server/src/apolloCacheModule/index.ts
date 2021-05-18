@@ -1,6 +1,6 @@
-import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
 import {randomId, randomLetters} from '@thx/random';
+import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import type {Context} from '~core/context';
 import Cache from './Cache.graphqls';
 

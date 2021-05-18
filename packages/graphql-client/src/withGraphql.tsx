@@ -14,13 +14,13 @@ import {BatchHttpLink} from '@apollo/client/link/batch-http';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {getMainDefinition} from '@apollo/client/utilities';
-import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import {Environment} from '@thx/env';
-import type {ExcludeFalse} from '@thx/util';
 import debug from 'debug';
 import mergeOptions from 'merge-options';
 import React from 'react';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
+import type {ExcludeFalse} from '@thx/util';
+import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import {removeTypeNameLink} from './removeTypeNameLink';
 import {isImperiumGraphqlClientModule} from './types';
 
@@ -48,7 +48,7 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 
 		const graphqlUri = Environment.getString('graphql');
 		const graphqlSubscriptionUri = Environment.getString('graphqlws');
-		const apolloDefaults = (Environment.getRecord('apolloDefaults') as unknown) as ApolloDefaults;
+		const apolloDefaults = Environment.getRecord('apolloDefaults') as unknown as ApolloDefaults;
 
 		d(`Creating Apollo HTTP link: ${graphqlUri}`);
 		const httpLink = new BatchHttpLink({
@@ -99,7 +99,7 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 
 		// Create complete link object (errorLink is first, final link is last)
 		const link = ApolloLink.from(
-			[errorLink, !!opts?.removeTypenameOnInput && removeTypeNameLink(), ...moduleLinks, finalLink].filter((Boolean as any) as ExcludeFalse),
+			[errorLink, !!opts?.removeTypenameOnInput && removeTypeNameLink(), ...moduleLinks, finalLink].filter(Boolean as any as ExcludeFalse),
 		);
 
 		const apolloClientOptions = mergeOptions(

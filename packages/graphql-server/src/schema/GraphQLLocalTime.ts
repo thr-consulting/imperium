@@ -1,9 +1,9 @@
-import type {LocalTime} from '@js-joda/core';
 import {toLocalTime} from '@thx/date';
 import debug from 'debug';
 import {GraphQLError} from 'graphql/error';
 import {Kind} from 'graphql/language';
 import {GraphQLScalarType} from 'graphql/type';
+import type {LocalTime} from '@js-joda/core';
 
 const d = debug('imperium.graphql-server.schema.GraphQLLocalTime');
 
