@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/domaindriven",
-	"version": "5.3.1",
+	"version": "6.0.0",
 	"description": "Imperium Domain Driven Design package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -51,8 +51,8 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^5.3.1",
-		"@imperium/connector": "^5.3.1",
+		"@imperium/authorization": "^6.0.0",
+		"@imperium/connector": "^6.0.0",
 		"dataloader": "^2.0.0",
 		"debug": "^4.1.1"
 	},
