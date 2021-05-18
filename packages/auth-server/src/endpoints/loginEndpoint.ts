@@ -27,9 +27,10 @@ export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumSe
 	} as CorsOptions;
 
 	// CORS options
-	server.expressApp.options(authLoginUrl, cors(corsOpts));
+	const corsMiddleware = cors(corsOpts);
+	server.expressApp.options(authLoginUrl, corsMiddleware);
 
-	server.expressApp.post(authLoginUrl, cors(corsOpts), json(), server.contextMiddleware(), (req, res) => {
+	server.expressApp.post(authLoginUrl, corsMiddleware, json(), server.contextMiddleware(), (req, res) => {
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 

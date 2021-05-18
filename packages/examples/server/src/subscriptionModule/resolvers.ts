@@ -2,7 +2,7 @@ import {inspect} from 'util';
 import debug from 'debug';
 import type {ImperiumServer} from '@imperium/server';
 import {getConnector} from '@imperium/example-domain';
-import type {IResolvers} from '@imperium/graphql-server';
+import type {IResolvers} from 'graphql-tools';
 import {randomLetters} from '@thx/random';
 import type {Context} from '~core/context';
 import {data} from './data';

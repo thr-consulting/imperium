@@ -20,7 +20,8 @@ export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: Imperium
 	};
 
 	// CORS options
-	server.expressApp.options(authRefreshUrl, cors(corsOpts));
+	const corsMiddleware = cors(corsOpts);
+	server.expressApp.options(authRefreshUrl, corsMiddleware);
 
 	server.expressApp.post(authRefreshUrl, cors(corsOpts), cookieParser(), server.contextMiddleware(), (req, res) => {
 		if (req.cookies && req.cookies[authRefreshCookieName]) {

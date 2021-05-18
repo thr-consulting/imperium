@@ -52,7 +52,7 @@
 	},
 	"dependencies": {
 		"@imperium/connector": "^5.3.1",
-		"@thx/env": "^13.8.2",
+		"@thx/env": "^14.0.0",
 		"chalk": "^4.0.0",
 		"debug": "^4.1.1",
 		"express": "^4.17.1",

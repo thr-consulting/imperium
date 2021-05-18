@@ -9,8 +9,6 @@ import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
  */
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
-export type {IResolvers, IResolverObject, IFieldResolver} from 'graphql-tools';
-
 /**
  * The configuration object for the graphql server module.
  */

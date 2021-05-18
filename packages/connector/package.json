@@ -51,8 +51,8 @@
 		}
 	},
 	"dependencies": {
-		"@thx/random": "^13.8.2",
-		"@thx/util": "^13.8.2"
+		"@thx/random": "^14.0.0",
+		"@thx/util": "^14.0.0"
 	},
 	"engines": {
 		"node": ">=12"
