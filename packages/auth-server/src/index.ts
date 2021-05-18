@@ -1,11 +1,12 @@
-import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
+import type {ImperiumServerModule} from '@imperium/server';
 import './defaults';
 import {createAuthEndpoints} from './endpoints';
 import type {GetAuthenticationFn} from './types';
 
 export {ServiceInfo, AuthMiddlewareConfig, AuthenticationDomain, GetAuthenticationFn} from './types';
-export {authMiddleware, Auth} from './middleware/authMiddleware';
+export {authMiddleware} from './middleware/authMiddleware';
+export type {Auth} from './middleware/authMiddleware';
 export {createAccessToken, createRefreshToken} from './lib/token';
 export {encryptPassword} from './lib/password';
 

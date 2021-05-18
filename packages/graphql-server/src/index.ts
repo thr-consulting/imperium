@@ -14,4 +14,4 @@ export function graphqlServerModule(config?: GraphqlServerModuleConfig): Imperiu
 	};
 }
 
-export {ImperiumGraphqlServerModule, IResolverObject, IFieldResolver, IResolvers, GraphqlServerModuleConfig} from './types';
+export type {ImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';

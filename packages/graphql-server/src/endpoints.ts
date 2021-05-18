@@ -1,13 +1,14 @@
 import {compose} from '@imperium/server';
-import type {ImperiumServer} from '@imperium/server';
 import {Environment, getCorsOrigin} from '@thx/env';
 import {isString} from '@thx/util';
-import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql, SchemaDirectiveVisitor} from 'apollo-server-express';
-import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
+import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql} from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import debug from 'debug';
-import type {DocumentNode} from 'graphql';
 import merge from 'lodash/merge';
+import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
+import type {DocumentNode} from 'graphql';
+import type {SchemaDirectiveVisitor} from 'graphql-tools';
+import type {ImperiumServer} from '@imperium/server';
 import {ApolloErrorHandler} from './ApolloErrorHandler';
 import {resolvers as coreResolvers, schema as coreSchema} from './schema';
 import {ApolloSchema, isImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';

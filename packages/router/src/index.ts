@@ -9,4 +9,4 @@ export function routerClientModule(): ImperiumClientModule {
 }
 
 export {default as RouteDirector} from './RouteDirector';
-export {ImperiumRoute, ImperiumRouterClientModule} from './types';
+export type {ImperiumRoute, ImperiumRouterClientModule} from './types';

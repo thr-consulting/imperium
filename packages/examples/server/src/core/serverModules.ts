@@ -3,9 +3,9 @@ import debug from 'debug';
 import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
-import type {ImperiumServerModule} from '@imperium/server';
 import {voyagerServerModule} from '@imperium/voyager';
 import {Environment} from '@thx/env';
+import type {ImperiumServerModule} from '@imperium/server';
 import type {ExcludeFalse} from '@thx/util';
 import {basicModule} from '~basicModule/index';
 import {advancedModule} from '../advancedModule';
@@ -33,5 +33,5 @@ export function serverModules(): ImperiumServerModule<any>[] {
 		Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS') && subscriptionModule(),
 		apolloCacheModule(),
 		voyagerServerModule(),
-	].filter((Boolean as any) as ExcludeFalse);
+	].filter(Boolean as any as ExcludeFalse);
 }

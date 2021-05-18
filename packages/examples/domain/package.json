@@ -31,13 +31,13 @@
 		"@imperium/authorization": "^5.3.1",
 		"@imperium/connector": "^5.3.1",
 		"@imperium/domaindriven": "^5.3.1",
-		"@thx/env": "^13.8.2",
+		"@thx/env": "^14.0.0",
 		"debug": "^4.1.1",
 		"uuid": "^8.2.0"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "4.x",
-		"@thx/sharedcache": "13.x",
+		"@thx/sharedcache": "14.x",
 		"apollo-server-express": "2.x",
 		"winston": "3.x"
 	},

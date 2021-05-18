@@ -8,7 +8,7 @@ const compact = require('lodash/compact');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const clientModuleRules = require('./clientModuleRules');
 
@@ -36,16 +36,13 @@ module.exports = function webpackConfig(imperiumConfig) {
 			filename: 'app.js',
 			publicPath: '/',
 		},
-		node: {
-			fs: 'empty',
-		},
 		resolve: {
 			extensions: ['.js', '.mjs', '.ts', '.tsx', '.d.ts'],
 			// alias,
 		},
 		optimization: {
 			minimize: false,
-			noEmitOnErrors: true,
+			emitOnErrors: false,
 		},
 		devServer: {
 			stats: 'errors-warnings',
@@ -59,10 +56,7 @@ module.exports = function webpackConfig(imperiumConfig) {
 				patterns: [{from: path.resolve('assets'), to: 'assets/', noErrorOnMissing: true}],
 			}),
 			new HtmlWebpackPlugin(imperiumConfig.html),
-			new ReactRefreshWebpackPlugin({disableRefreshCheck: true}), // Disabled check because of this: https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/15
-			new HardSourceWebpackPlugin({
-				cacheDirectory: path.resolve(imperiumConfig.source.projectRoot, 'node_modules', '.cache', 'hard-source'),
-			}),
+			new ReactRefreshWebpackPlugin(),
 		]),
 		module: {
 			rules: clientModuleRules(imperiumConfig).concat(imperiumConfig.webpack.client.rules),

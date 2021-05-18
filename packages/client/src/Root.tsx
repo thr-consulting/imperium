@@ -9,6 +9,6 @@ export interface RootProps {
 	imperiumClient: ImperiumClient;
 }
 
-export default function Root(props: RootProps): React.ReactNode {
+export function Root(props: RootProps): React.ReactNode {
 	return props.render(props);
 }

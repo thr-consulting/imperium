@@ -2,9 +2,9 @@
 	This is the main export from the domain package. This function creates a new domain context
 	and should be called on every request/operation.
  */
-import type {AuthenticatedUser} from '@imperium/connector';
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
 import {Authorization} from '@imperium/authorization';
+import type {AuthenticatedUser} from '@imperium/connector';
 import type {User} from '../user';
 import {entities} from './entities';
 import {getConnector} from './connectors';

@@ -1,7 +1,7 @@
-import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
+import type {Hoc, ImperiumClient} from '@imperium/client';
 import type {ImperiumRoute} from './types';
 import {isImperiumRouterClientModule} from './types';
 

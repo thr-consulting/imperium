@@ -1,9 +1,9 @@
-import type {ImperiumServer} from '@imperium/server';
 import {Environment, getCorsOrigin} from '@thx/env';
 import {json} from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import ms from 'ms';
+import type {ImperiumServer} from '@imperium/server';
 import {login} from '../lib/login';
 import {isLoginInfo} from '../lib/typeguards';
 import type {GetAuthenticationFn, LoginReturn} from '../types';
@@ -27,9 +27,10 @@ export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumSe
 	} as CorsOptions;
 
 	// CORS options
-	server.expressApp.options(authLoginUrl, cors(corsOpts));
+	const corsMiddleware = cors(corsOpts);
+	server.expressApp.options(authLoginUrl, corsMiddleware);
 
-	server.expressApp.post(authLoginUrl, cors(corsOpts), json(), server.contextMiddleware(), (req, res) => {
+	server.expressApp.post(authLoginUrl, corsMiddleware, json(), server.contextMiddleware(), (req, res) => {
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 

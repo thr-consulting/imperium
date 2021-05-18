@@ -143,7 +143,7 @@ module.exports = function (api, opts, env) {
 			[
 				require('@babel/plugin-proposal-class-properties').default,
 				{
-					loose: true,
+					// loose: true,
 				},
 			],
 

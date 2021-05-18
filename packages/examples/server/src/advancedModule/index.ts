@@ -1,6 +1,6 @@
 import {authMiddleware} from '@imperium/auth-server';
-import type {ImperiumServerModule} from '@imperium/server';
 import debug from 'debug';
+import type {ImperiumServerModule} from '@imperium/server';
 import type {RequestHandler} from 'express';
 import type {Context} from '~core/context';
 

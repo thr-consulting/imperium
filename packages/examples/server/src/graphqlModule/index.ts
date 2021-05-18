@@ -1,5 +1,5 @@
-import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import debug from 'debug';
+import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
 import type {Context} from '~core/context';
 import Sample from './Sample.graphqls';
 

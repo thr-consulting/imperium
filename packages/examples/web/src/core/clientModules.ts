@@ -1,7 +1,7 @@
-import type {ImperiumClientModule} from '@imperium/client';
 import {graphqlClientModule} from '@imperium/graphql-client';
 import {authClientModule} from '@imperium/auth-client';
 import {routerClientModule} from '@imperium/router';
+import type {ImperiumClientModule} from '@imperium/client';
 import {sampleModule} from '../sample';
 import {sampleGraphqlModule} from '../sample-graphql';
 import {sampleAuthModule} from '../sample-auth';

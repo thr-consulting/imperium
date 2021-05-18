@@ -1,7 +1,7 @@
 import debug from 'debug';
-import type {Options} from '@mikro-orm/core';
 import {PostgreSqlDriver} from '@mikro-orm/postgresql';
 import {entities} from '@imperium/example-domain';
+import type {Options} from '@mikro-orm/core';
 
 const d = debug('imperium.example.server.mikro-orm.config');
 
