@@ -1,6 +1,6 @@
+import type {ApolloServerPlugin, GraphQLRequestContext, GraphQLRequestListener} from 'apollo-server-plugin-base';
 import debug from 'debug';
 import log from 'winston';
-import type {ApolloServerPlugin, GraphQLRequestContext, GraphQLRequestListener} from 'apollo-server-plugin-base';
 
 const d = debug('imperium.graphql-server.ApolloErrorHandler');
 

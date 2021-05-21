@@ -1,7 +1,5 @@
-import {LockMode, wrap} from '@mikro-orm/core';
-import DataLoader from 'dataloader';
-import debug from 'debug';
 import type {Connectors} from '@imperium/connector';
+import {LockMode, wrap} from '@mikro-orm/core';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm and it has to match. -mk
 import type {
@@ -17,6 +15,8 @@ import type {
 	Collection,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
+import DataLoader from 'dataloader';
+import debug from 'debug';
 
 const d = debug('imperium.domaindriven.AbstractRepository');
 

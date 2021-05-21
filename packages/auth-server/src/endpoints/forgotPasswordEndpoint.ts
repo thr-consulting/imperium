@@ -1,7 +1,7 @@
+import type {ImperiumServer} from '@imperium/server';
 import {Environment} from '@thx/env';
 import {json} from 'body-parser';
 import debug from 'debug';
-import type {ImperiumServer} from '@imperium/server';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
