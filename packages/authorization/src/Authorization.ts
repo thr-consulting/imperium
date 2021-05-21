@@ -1,5 +1,5 @@
-import debug from 'debug';
 import type {AuthenticatedUser} from '@imperium/connector';
+import debug from 'debug';
 import type {AbstractAuthSelector} from './AbstractAuthSelector';
 import {AsyncAuthorizationResult, AsyncHasAccessOptions} from './AsyncAuthorizationResult';
 import {AuthLevel} from './AuthLevel';

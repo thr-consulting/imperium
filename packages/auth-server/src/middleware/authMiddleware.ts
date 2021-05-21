@@ -1,9 +1,9 @@
 import {compose} from '@imperium/server';
 import {Environment} from '@thx/env';
 import debug from 'debug';
+import type {RequestHandler} from 'express';
 import jwt from 'express-jwt';
 import {verify, Algorithm} from 'jsonwebtoken';
-import type {RequestHandler} from 'express';
 import type {AuthMiddlewareConfig} from '../types';
 
 const d = debug('imperium.auth-server.middleware.authMiddleware');

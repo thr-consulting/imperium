@@ -1,5 +1,5 @@
-import debug from 'debug';
 import type {ImperiumServerModule} from '@imperium/server';
+import debug from 'debug';
 import './defaults';
 import {createAuthEndpoints} from './endpoints';
 import type {GetAuthenticationFn} from './types';

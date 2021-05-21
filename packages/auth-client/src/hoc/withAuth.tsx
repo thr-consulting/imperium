@@ -1,9 +1,9 @@
 import {AuthLevel} from '@imperium/authorization';
+import type {Hoc} from '@imperium/client';
 import {Environment} from '@thx/env';
 import debug from 'debug';
 import Dexie from 'dexie';
 import React, {useEffect, useRef, useState} from 'react';
-import type {Hoc} from '@imperium/client';
 import {AuthContext, IAuth} from '../AuthContext';
 import {fetchAuth, isTokenValidOrUndefined} from '../lib/fetching';
 

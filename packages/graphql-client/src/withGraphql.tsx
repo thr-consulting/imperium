@@ -14,13 +14,13 @@ import {BatchHttpLink} from '@apollo/client/link/batch-http';
 import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {getMainDefinition} from '@apollo/client/utilities';
+import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import {Environment} from '@thx/env';
+import type {ExcludeFalse} from '@thx/util';
 import debug from 'debug';
 import mergeOptions from 'merge-options';
 import React from 'react';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
-import type {ExcludeFalse} from '@thx/util';
-import type {Hoc, ImperiumClient, ImperiumClientModule} from '@imperium/client';
 import {removeTypeNameLink} from './removeTypeNameLink';
 import {isImperiumGraphqlClientModule} from './types';
 
