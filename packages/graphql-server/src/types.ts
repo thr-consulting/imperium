@@ -2,7 +2,8 @@ import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
 import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
 import type {RequestHandler} from 'express';
 import type {DocumentNode, GraphQLError} from 'graphql';
-import type {IResolvers, SchemaDirectiveVisitor} from 'graphql-tools';
+import type {SchemaDirectiveVisitor} from 'graphql-tools';
+import type {ResolversDefinition} from './lib/mergeResolvers';
 
 /**
  * Schema from Graphqls files.
@@ -22,7 +23,7 @@ export interface GraphqlServerModuleConfig {
  * The interface for a module that provides graphql functionality.
  */
 export interface ImperiumGraphqlServerModule<Context> extends ImperiumServerModule<Context> {
-	resolvers: (server: ImperiumServer<Context>) => IResolvers<any, Context>;
+	resolvers: (server: ImperiumServer<Context>) => ResolversDefinition<Context>;
 	schema: ApolloSchema;
 	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
 }
