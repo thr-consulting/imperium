@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/darkadept/imperium/compare/v6.0.0...v6.0.1) (2021-05-21)
+
+
+### Features
+
+* **graphql-server:** added mergeResolvers ([#264](https://github.com/darkadept/imperium/issues/264)) ([d27a5d7](https://github.com/darkadept/imperium/commit/d27a5d72ae37ddf628c3304270707dd35d8a4805))
+
+
+
+
+
 # [6.0.0](https://github.com/darkadept/imperium/compare/v5.3.4...v6.0.0) (2021-05-18)
 
 
