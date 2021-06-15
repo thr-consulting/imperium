@@ -1,0 +1,1 @@
+export {SampleController} from './SampleController';

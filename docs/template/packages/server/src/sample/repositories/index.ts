@@ -1,0 +1,1 @@
+export {SampleRepository} from './SampleRepository';

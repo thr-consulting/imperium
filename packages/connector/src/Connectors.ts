@@ -1,3 +1,4 @@
+import {sequential} from '@thx/promise-sequential';
 import type {Connector} from './Connector';
 
 interface NamedConnectors {
@@ -20,10 +21,12 @@ export class Connectors {
 	}
 
 	public async connect() {
-		await Promise.all(
-			Object.values(this.connectors).map(async connector => {
-				await connector.connect();
-				return connector.isReady();
+		await sequential(
+			Object.values(this.connectors).map(connector => {
+				return async () => {
+					await connector.connect(this);
+					return connector.isReady();
+				};
 			}),
 		);
 	}
