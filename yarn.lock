@@ -3107,6 +3107,11 @@
     accounting "^0.4.1"
     js-money "^0.6.3"
 
+"@thx/promise-sequential@^14.0.4":
+  version "14.0.4"
+  resolved "https://registry.yarnpkg.com/@thx/promise-sequential/-/promise-sequential-14.0.4.tgz#e726cd28d2dc86c200966881d6da66323a8aa100"
+  integrity sha512-n/cX0tQ78QCMU3TrEud64iOgDzFUIRQeN1JwC3MEifuOd5n4nW4i+/WLavwi2ra9t1lLJoCYJhWIPhnVebjk8w==
+
 "@thx/random@^14.0.0":
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/@thx/random/-/random-14.0.1.tgz#418ecb65e6b1a59376323c7ad9ded63f9fe74fe9"

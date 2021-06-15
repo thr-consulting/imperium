@@ -1,5 +1,7 @@
+import type {Connectors} from './Connectors';
+
 interface ConnectorConfig<T> {
-	connect: () => Promise<T>;
+	connect: (connectors: Connectors) => Promise<T>;
 	close?: (instance: T) => Promise<void>;
 	isReady?: (instance: T) => Promise<boolean>;
 }
@@ -23,8 +25,8 @@ export class Connector<T = unknown> {
 		return this.#instance;
 	}
 
-	async connect() {
-		this.#instance = await this.#connect();
+	async connect(connectors: Connectors) {
+		this.#instance = await this.#connect(connectors);
 	}
 
 	async close() {
