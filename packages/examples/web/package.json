@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "6.0.1",
+	"version": "6.0.2",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -28,9 +28,9 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.3.4",
-		"@imperium/auth-client": "^6.0.1",
-		"@imperium/auth-graphql-client": "^6.0.1",
-		"@imperium/authorization": "^6.0.1",
+		"@imperium/auth-client": "^6.0.2",
+		"@imperium/auth-graphql-client": "^6.0.2",
+		"@imperium/authorization": "^6.0.2",
 		"@imperium/client": "^6.0.1",
 		"@imperium/graphql-client": "^6.0.1",
 		"@imperium/router": "^6.0.1",
