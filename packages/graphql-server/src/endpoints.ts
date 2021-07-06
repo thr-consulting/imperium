@@ -9,7 +9,7 @@ import debug from 'debug';
 import type {DocumentNode} from 'graphql';
 import type {SchemaDirectiveVisitor} from 'graphql-tools';
 import merge from 'lodash/merge';
-import {ApolloErrorHandler} from './ApolloErrorHandler';
+import {apolloErrorHandler} from './ApolloErrorHandler';
 import {resolvers as coreResolvers, schema as coreSchema} from './schema';
 import {ApolloSchema, isImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';
 
@@ -148,7 +148,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			debug: isDevelopment,
 			introspection: isDevelopment,
 			tracing: isDevelopment,
-			plugins: [ApolloErrorHandler],
+			plugins: [apolloErrorHandler(config?.logError)],
 		};
 
 		if (enableSubscriptions) {

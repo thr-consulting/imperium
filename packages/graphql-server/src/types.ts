@@ -10,6 +10,8 @@ import type {ResolversDefinition} from './lib/mergeResolvers';
  */
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
+export type ImperiumGraphqlLogErrorFn = (error: GraphQLError, session: string) => void;
+
 /**
  * The configuration object for the graphql server module.
  */
@@ -17,6 +19,7 @@ export interface GraphqlServerModuleConfig {
 	middleware?: RequestHandler[];
 	apolloContextCreator?: (expContext: ExpressContext) => Record<string, any>;
 	formatError?: (error: GraphQLError) => Error;
+	logError?: ImperiumGraphqlLogErrorFn;
 }
 
 /**
