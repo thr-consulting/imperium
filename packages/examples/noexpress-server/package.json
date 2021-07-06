@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-noexpress-server",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "private": true,
   "description": "Imperium server example project without Express",
   "repository": {
@@ -41,7 +41,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@imperium/dev": "^6.0.1",
+    "@imperium/dev": "^6.0.3",
     "ts-node": "^9.1.1"
   },
   "engines": {

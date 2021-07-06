@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/darkadept/imperium/compare/v6.0.2...v6.0.3) (2021-07-06)
+
+
+### Bug Fixes
+
+* fixed depcheck issue ([e48103c](https://github.com/darkadept/imperium/commit/e48103c0b3e3f9b13a94cd81fd03fc88436b8c24))
+
+
+### Features
+
+* added better error tracking customization ([#271](https://github.com/darkadept/imperium/issues/271)) ([d1943a5](https://github.com/darkadept/imperium/commit/d1943a56daaa47bc3a2152479f695b3e3eb69e3a))
+
+
+
+
+
 ## [6.0.2](https://github.com/darkadept/imperium/compare/v6.0.1...v6.0.2) (2021-06-15)
 
 
