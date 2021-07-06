@@ -68,8 +68,7 @@
 		"graphql-scalar-objectid": "^0.1.2",
 		"graphql-tools": "^4.0.8",
 		"js-money": "^0.6.3",
-		"lodash": "^4.17.15",
-		"winston": "^3.3.3"
+		"lodash": "^4.17.15"
 	},
 	"peerDependencies": {
 		"express": "4.x"
