@@ -1,18 +1,21 @@
 import type {ApolloServerPlugin, GraphQLRequestContext, GraphQLRequestListener} from 'apollo-server-plugin-base';
 import debug from 'debug';
-import log from 'winston';
+import type {ImperiumGraphqlLogErrorFn} from './types';
 
 const d = debug('imperium.graphql-server.ApolloErrorHandler');
 
-export const ApolloErrorHandler: ApolloServerPlugin = {
-	requestDidStart(): GraphQLRequestListener {
-		return {
-			didEncounterErrors(requestContext: GraphQLRequestContext) {
-				requestContext.errors?.forEach(error => {
-					// eslint-disable-next-line no-underscore-dangle
-					log.error(error.message, {error, session: requestContext.context.__session, group: 'graphql'});
-				});
-			},
-		};
-	},
-};
+export function apolloErrorHandler(logError?: ImperiumGraphqlLogErrorFn): ApolloServerPlugin {
+	return {
+		requestDidStart(): GraphQLRequestListener {
+			return {
+				didEncounterErrors(requestContext: GraphQLRequestContext) {
+					requestContext.errors?.forEach(error => {
+						d(error);
+						// eslint-disable-next-line no-underscore-dangle
+						if (logError) logError(error, requestContext.context.__session);
+					});
+				},
+			};
+		},
+	};
+}
