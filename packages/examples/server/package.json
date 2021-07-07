@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-server",
-  "version": "6.0.3",
+  "version": "6.1.0",
   "private": true,
   "description": "Imperium server example project",
   "repository": {
@@ -27,11 +27,11 @@
     }
   },
   "dependencies": {
-    "@imperium/auth-server": "^6.0.2",
-    "@imperium/connector": "^6.0.2",
-    "@imperium/example-domain": "^6.0.2",
-    "@imperium/graphql-server": "^6.0.3",
-    "@imperium/server": "^6.0.2",
+    "@imperium/auth-server": "^6.1.0",
+    "@imperium/connector": "^6.1.0",
+    "@imperium/example-domain": "^6.1.0",
+    "@imperium/graphql-server": "^6.1.0",
+    "@imperium/server": "^6.1.0",
     "@imperium/util": "^4.6.1",
     "@mikro-orm/cli": "^4.5.5",
     "@mikro-orm/core": "^4.5.5",

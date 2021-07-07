@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/darkadept/imperium/compare/v6.0.3...v6.1.0) (2021-07-07)
+
+
+### Bug Fixes
+
+* **connector:** made session id lowercase ([451b3d1](https://github.com/darkadept/imperium/commit/451b3d135ff0e5a4417eb77c2ac633dae359d24d))
+
+
+### Features
+
+* **authorization:** added session field to authorization class ([#273](https://github.com/darkadept/imperium/issues/273)) ([ad503dd](https://github.com/darkadept/imperium/commit/ad503dd53859b49d4f2cd39390d29622e6ec77e5))
+
+
+
+
+
 ## [6.0.3](https://github.com/darkadept/imperium/compare/v6.0.2...v6.0.3) (2021-07-06)
 
 
