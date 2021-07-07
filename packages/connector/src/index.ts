@@ -18,7 +18,7 @@ export interface AuthenticatedUser {
 
 export function ImperiumBaseContext() {
 	return {
-		__session: randomId(8),
+		__session: randomId(8).toLowerCase(),
 	};
 }
 
