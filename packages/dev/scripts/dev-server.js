@@ -21,7 +21,7 @@ if (cluster.isMaster) {
 
 	const log = configureLogger(winston.createLogger());
 
-	log.notice('Imperium Master startup (Workers: 1)', {environment: util.inspect(process.env, true, null, false)});
+	log.info('Imperium Master startup (Workers: 1)', {environment: util.inspect(process.env, true, null, false)});
 
 	const workerCrashDelay = parseInt(process.env.WORKER_CRASH_DELAY || '4000', 10); // Milliseconds to wait before restarting a worker process instead of counting towards crash max.
 	const workerCrashMax = parseInt(process.env.WORKER_CRASH_MAX || '3', 10); // Number of times a worker is allowed to crash before killing the server.
@@ -47,7 +47,7 @@ if (cluster.isMaster) {
 		if (workerCrashCounter < workerCrashMax) {
 			clusterWorker = cluster.fork();
 			workerForkTime = process.hrtime.bigint(); // Record new worker time
-			log.crit(
+			log.error(
 				`Worker PID ${deadWorker.process.pid} died (code: ${code}) [${signal}] -> New PID: ${clusterWorker.process.pid} [Crash count: ${workerCrashCounter}]`,
 				{
 					workerForkTimeDifference: workerForkTimeDifference.toString(10),
@@ -55,7 +55,7 @@ if (cluster.isMaster) {
 				},
 			);
 		} else {
-			log.emerg('Worker thread keeps crashing, exiting main app...');
+			log.error('Worker thread keeps crashing, exiting main app...');
 			setTimeout(() => {
 				process.exit(1);
 			}, 400);
@@ -139,7 +139,7 @@ if (cluster.isMaster) {
 		process.on('SIGINT', () => {
 			if (catchOnce === false) {
 				catchOnce = true;
-				log.notice('Caught interrupt signal, shutting down');
+				log.info('Caught interrupt signal, shutting down');
 				server.stop().finally(() => {
 					setTimeout(() => {
 						process.exit(0);
@@ -151,7 +151,7 @@ if (cluster.isMaster) {
 		// Catch uncaught exceptions
 		process.on('uncaughtException', error => {
 			log.log({
-				level: 'emerg',
+				level: 'error',
 				message: `Fatal: Uncaught exception: ${error.message}`,
 				error,
 			});
@@ -163,7 +163,7 @@ if (cluster.isMaster) {
 		// Catch unhandled rejections
 		process.on('unhandledRejection', error => {
 			log.log({
-				level: 'emerg',
+				level: 'error',
 				message: `Fatal: Unhandled promise rejection: ${error.message}`,
 				error,
 			});
