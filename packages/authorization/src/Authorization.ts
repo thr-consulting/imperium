@@ -23,12 +23,14 @@ export class Authorization<User> {
 	private setCache?: (key: string, data: unknown, expire?: number) => Promise<typeof data>;
 	private getCache?: (key: string) => Promise<unknown>;
 	private ctx?: unknown;
+	#session: string;
 
 	public constructor(authenticatedUser?: AuthenticatedUser) {
 		this.authenticatedUser = authenticatedUser;
 		this.id = authenticatedUser?.auth?.id;
 		this.prepared = false;
 		this.user = null;
+		this.#session = '';
 	}
 
 	public async prepare({getUserById, createUser, getCache, setCache, ctx}: AuthorizationPrepareParams<User>) {
@@ -47,6 +49,14 @@ export class Authorization<User> {
 				this.setCache(`auth:user:${this.id}`, this.user, 60);
 			}
 		}
+
+		// @ts-ignore
+		// eslint-disable-next-line no-underscore-dangle
+		this.#session = this.ctx.__session;
+	}
+
+	public get session() {
+		return this.#session;
 	}
 
 	public async getLevel(selector: AbstractAuthSelector): Promise<AuthLevel> {
