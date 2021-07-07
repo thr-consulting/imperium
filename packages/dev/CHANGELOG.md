@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.2](https://github.com/darkadept/imperium/compare/v6.1.1...v6.1.2) (2021-07-07)
+
+
+### Bug Fixes
+
+* **dev:** fixed logging ([db9fe56](https://github.com/darkadept/imperium/commit/db9fe564105ce59a175009ea3e3a2cdb80a876b8))
+
+
+
+
+
 ## [6.1.1](https://github.com/darkadept/imperium/compare/v6.1.0...v6.1.1) (2021-07-07)
 
 **Note:** Version bump only for package @imperium/dev
