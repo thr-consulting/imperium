@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "6.1.0",
+	"version": "6.1.1",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -28,12 +28,12 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.3.4",
-		"@imperium/auth-client": "^6.1.0",
-		"@imperium/auth-graphql-client": "^6.1.0",
-		"@imperium/authorization": "^6.1.0",
-		"@imperium/client": "^6.0.1",
-		"@imperium/graphql-client": "^6.0.1",
-		"@imperium/router": "^6.0.1",
+		"@imperium/auth-client": "^6.1.1",
+		"@imperium/auth-graphql-client": "^6.1.1",
+		"@imperium/authorization": "^6.1.1",
+		"@imperium/client": "^6.1.1",
+		"@imperium/graphql-client": "^6.1.1",
+		"@imperium/router": "^6.1.1",
 		"@js-joda/core": "^3.0.0",
 		"@loadable/component": "^5.12.0",
 		"@thx/controls": "^14.0.0",
@@ -50,7 +50,7 @@
 		"yup": "^0.32.9"
 	},
 	"devDependencies": {
-		"@imperium/dev": "^6.0.3"
+		"@imperium/dev": "^6.1.1"
 	},
 	"engines": {
 		"node": ">=12"
