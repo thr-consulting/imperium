@@ -46,9 +46,9 @@ function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
  * Apollo graphql Express endpoints
  * @param config
  */
-export function endpoints(config?: GraphqlServerModuleConfig) {
+export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 	return (server: ImperiumServer<any>): void => {
-		const isDevelopment = Environment.getString('NODE_ENV') === 'development';
+		const isDevelopment = Environment.isDevelopment();
 		const graphqlUrl = Environment.getString('GRAPHQL_URL');
 		const enableSubscriptions = Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS');
 		const graphqlBodyLimit = Environment.getString('GRAPHQL_BODY_LIMIT');
@@ -148,7 +148,7 @@ export function endpoints(config?: GraphqlServerModuleConfig) {
 			debug: isDevelopment,
 			introspection: isDevelopment,
 			tracing: isDevelopment,
-			plugins: [apolloErrorHandler(config?.logError)],
+			plugins: [apolloErrorHandler<T>(config?.logError)],
 		};
 
 		if (enableSubscriptions) {

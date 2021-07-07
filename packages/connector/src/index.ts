@@ -3,6 +3,7 @@ import type {TypeOfPromise} from '@thx/util';
 
 export {Connector} from './Connector';
 export {Connectors} from './Connectors';
+export {ImperiumError} from './ImperiumError';
 
 export interface AuthenticatedUser {
 	auth?: {
