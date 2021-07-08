@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/darkadept/imperium/compare/v6.1.2...v6.1.3) (2021-07-08)
+
+
+### Features
+
+* **graphql-server:** added ability to log on graphql requests ([#274](https://github.com/darkadept/imperium/issues/274)) ([7fa6812](https://github.com/darkadept/imperium/commit/7fa6812ebbb22b40cc9d7df7b68eed2269d95886))
+
+
+
+
+
 ## [6.1.1](https://github.com/darkadept/imperium/compare/v6.1.0...v6.1.1) (2021-07-07)
 
 **Note:** Version bump only for package @imperium/graphql-server
