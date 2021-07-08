@@ -1,5 +1,6 @@
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
-import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
+import type {ExpressContext} from 'apollo-server-express';
+import type {GraphQLRequestContext} from 'apollo-server-types';
 import type {RequestHandler} from 'express';
 import type {DocumentNode, GraphQLError, GraphQLFormattedError} from 'graphql';
 import type {SchemaDirectiveVisitor} from 'graphql-tools';
@@ -11,6 +12,7 @@ import type {ResolversDefinition} from './lib/mergeResolvers';
 export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
 
 export type ImperiumGraphqlLogErrorFn<T> = (error: Error, session: string, ctx: T) => void;
+export type ImperiumGraphqlLogRequestFn<T> = (requestContext: GraphQLRequestContext<T>) => void;
 
 /**
  * The configuration object for the graphql server module.
@@ -20,6 +22,7 @@ export interface GraphqlServerModuleConfig<T> {
 	apolloContextCreator?: (expContext: ExpressContext) => Record<string, any>;
 	formatError?: (error: GraphQLError) => GraphQLFormattedError;
 	logError?: ImperiumGraphqlLogErrorFn<T>;
+	logRequest?: ImperiumGraphqlLogRequestFn<T>;
 }
 
 /**

@@ -148,7 +148,7 @@ export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 			debug: isDevelopment,
 			introspection: isDevelopment,
 			tracing: isDevelopment,
-			plugins: [apolloErrorHandler<T>(config?.logError)],
+			plugins: [apolloErrorHandler<T>(config?.logError, config?.logRequest)],
 		};
 
 		if (enableSubscriptions) {

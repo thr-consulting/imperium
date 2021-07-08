@@ -1,12 +1,14 @@
 import type {ApolloServerPlugin, GraphQLRequestContext, GraphQLRequestListener} from 'apollo-server-plugin-base';
 import debug from 'debug';
-import type {ImperiumGraphqlLogErrorFn} from './types';
+import type {ImperiumGraphqlLogErrorFn, ImperiumGraphqlLogRequestFn} from './types';
 
 const d = debug('imperium.graphql-server.ApolloErrorHandler');
 
-export function apolloErrorHandler<T>(logError?: ImperiumGraphqlLogErrorFn<T>): ApolloServerPlugin {
+export function apolloErrorHandler<T>(logError?: ImperiumGraphqlLogErrorFn<T>, logRequest?: ImperiumGraphqlLogRequestFn<T>): ApolloServerPlugin {
 	return {
-		requestDidStart(): GraphQLRequestListener {
+		requestDidStart(reqContext): GraphQLRequestListener {
+			if (logRequest) logRequest(reqContext as GraphQLRequestContext<T>);
+
 			return {
 				didEncounterErrors(requestContext: GraphQLRequestContext) {
 					requestContext.errors?.forEach(error => {
