@@ -24,9 +24,6 @@
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"sort": "npx sort-package-json",
 		"start": "screen -c ./dev.screenrc",
-		"test": "jest",
-		"test:coverage": "../../tools/coverage.sh",
-		"test:watch": "jest --watch",
 		"ts": "tsc"
 	},
 	"eslintConfig": {
@@ -39,8 +36,8 @@
 		"debug": "^4.1.1"
 	},
 	"peerDependencies": {
-		"react": "^17.x",
 		"@reduxjs/toolkit": "^1.x",
+		"react": "^17.x",
 		"react-redux": "^7.x"
 	},
 	"engines": {
