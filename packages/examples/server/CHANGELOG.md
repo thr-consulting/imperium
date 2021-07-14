@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/darkadept/imperium/compare/v6.1.3...v6.2.0) (2021-07-14)
+
+**Note:** Version bump only for package @imperium/example-server
+
+
+
+
+
 ## [6.1.3](https://github.com/darkadept/imperium/compare/v6.1.2...v6.1.3) (2021-07-08)
 
 **Note:** Version bump only for package @imperium/example-server
