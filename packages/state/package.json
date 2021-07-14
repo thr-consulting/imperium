@@ -1,0 +1,52 @@
+{
+	"name": "@imperium/state",
+	"version": "6.1.1",
+	"description": "Imperium State package",
+	"bugs": {
+		"url": "https://github.com/darkadept/imperium/issues"
+	},
+	"repository": "darkadept/imperium",
+	"license": "MIT",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"main": "client.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"client.js"
+	],
+	"scripts": {
+		"build": "yarn build:dev && yarn build:prod",
+		"build:dev": "NODE_ENV=development webpack --config webpack.js",
+		"build:prod": "NODE_ENV=production webpack --config webpack.js",
+		"clean": "rimraf ./dist && rimraf .eslintcache",
+		"depcheck": "depcheck",
+		"lint": "eslint --cache --ext js,ts,tsx src",
+		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
+		"sort": "npx sort-package-json",
+		"start": "screen -c ./dev.screenrc",
+		"test": "jest",
+		"test:coverage": "../../tools/coverage.sh",
+		"test:watch": "jest --watch",
+		"ts": "tsc"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
+	},
+	"dependencies": {
+		"@imperium/client": "^6.1.1",
+		"debug": "^4.1.1"
+	},
+	"peerDependencies": {
+		"react": "^17.x",
+		"@reduxjs/toolkit": "^1.x",
+		"react-redux": "^7.x"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
