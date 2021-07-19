@@ -9,6 +9,9 @@ export function stateClientModule(opts?: StateClientOptions): ImperiumClientModu
 	};
 }
 
-export type {ImperiumStateClientModule, SliceWithSerializer, Serializer, ActionSerializers, StateClientOptions} from './types';
+export type {ImperiumStateClientModule, StateClientOptions} from './types';
+
 export {createSelectorHook} from './createSelectorHook';
-export {createSlice} from './createSlice';
+export {createSerializedSelectorHook} from './createSerializedSelectorHook';
+export {getActions} from './getActions';
+export {createSerializedSlice} from './createSerializedSlice';

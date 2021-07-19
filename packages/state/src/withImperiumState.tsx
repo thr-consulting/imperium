@@ -1,10 +1,9 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
-import {configureStore, getDefaultMiddleware, Middleware} from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import debug from 'debug';
 import React, {ComponentType} from 'react';
 import {Provider} from 'react-redux';
-import {ActionSerializers, isImperiumStateClientModule, StateClientOptions} from './types';
-import {createSerializerMiddleware} from './createSerializerMiddleware';
+import {isImperiumStateClientModule, StateClientOptions} from './types';
 
 const d = debug('imperium.state.withImperiumState');
 
@@ -21,27 +20,7 @@ export function withImperiumState(opts?: StateClientOptions) {
 			return memo;
 		}, {});
 
-		const actionSerializers = client.modules.reduce<ActionSerializers>((moduleMemo, module) => {
-			if (isImperiumStateClientModule(module)) {
-				if (!module.state || !module.state.serializer || !module.state.serializer.actions) return moduleMemo;
-				const sliceSerializerActions = module.state.serializer.actions;
-				const moduleName = module.state.name;
-				const serializerActions = Object.keys(sliceSerializerActions).reduce<ActionSerializers>((sliceMemo, v) => {
-					const actionName = `${moduleName}/${v}`;
-					return {
-						[actionName]: sliceSerializerActions[v],
-					};
-				}, {});
-
-				return {
-					...moduleMemo,
-					...serializerActions,
-				};
-			}
-			return moduleMemo;
-		}, {});
-
-		const middleware = [createSerializerMiddleware(actionSerializers), ...getDefaultMiddleware(), ...(opts?.middleware || [])];
+		const middleware = [...getDefaultMiddleware(), ...(opts?.middleware || [])];
 
 		const store =
 			Object.keys(reducer).length > 0
