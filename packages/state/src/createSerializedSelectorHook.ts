@@ -1,6 +1,6 @@
 import type {Slice} from '@reduxjs/toolkit';
-import {useSelector} from 'react-redux';
 import {useMemo} from 'react';
+import {useSelector} from 'react-redux';
 import type {Modify, ParsedState, Serializer} from './types';
 import {isObject} from './types';
 

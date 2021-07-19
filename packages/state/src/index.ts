@@ -1,6 +1,6 @@
 import type {ImperiumClientModule} from '@imperium/client';
-import {withImperiumState} from './withImperiumState';
 import type {StateClientOptions} from './types';
+import {withImperiumState} from './withImperiumState';
 
 export function stateClientModule(opts?: StateClientOptions): ImperiumClientModule {
 	return {

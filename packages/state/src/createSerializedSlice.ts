@@ -1,8 +1,8 @@
 import type {CreateSliceOptions, SliceCaseReducers} from '@reduxjs/toolkit';
 import {createSlice} from '@reduxjs/toolkit';
-import type {Serializer} from './types';
-import {getActions} from './getActions';
 import {createSerializedSelectorHook} from './createSerializedSelectorHook';
+import {getActions} from './getActions';
+import type {Serializer} from './types';
 
 /**
  * Creates a Redux slice of any types, with serializer and parsing functions
