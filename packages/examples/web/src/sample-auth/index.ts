@@ -1,21 +1,25 @@
-import loadable from '@loadable/component';
 import type {ImperiumRouterClientModule} from '@imperium/router';
+import type {ImperiumLayoutClientModule} from '@imperium/layout';
+import {routes} from './routes';
 
-const Login = loadable<any>(() => import('./components/Login'));
-const ComponentUsingAuth = loadable<any>(() => import('./components/ComponentUsingAuth'));
-
-export function sampleAuthModule(): ImperiumRouterClientModule {
+export function sampleAuthModule(): ImperiumRouterClientModule & ImperiumLayoutClientModule {
 	return {
 		name: 'AuthSample',
-		routes: [
-			{
-				path: '/login',
-				content: Login,
-			},
-			{
-				path: '/auth-test',
-				content: ComponentUsingAuth,
-			},
-		],
+		routes,
+		layout: {
+			sidebar: [
+				{
+					to: routes.to.authTest(),
+					text: 'Auth',
+				},
+			],
+			menubar: [
+				{
+					to: routes.to.login(),
+					text: 'Login',
+					position: 'right',
+				},
+			],
+		},
 	};
 }

@@ -1,0 +1,7 @@
+:global .imperiumContentWrapper {
+	border-top: 2px solid rgb(217, 128, 48) !important;
+}
+
+:global .imperiumVerticalDropdownContent {
+	border-left: 1px solid rgb(217, 128, 48);
+}

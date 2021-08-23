@@ -1,7 +1,7 @@
 {
-	"name": "@imperium/router",
+	"name": "@imperium/layout",
 	"version": "6.1.1",
-	"description": "Imperium Router package",
+	"description": "Imperium Layout package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
 	},
@@ -24,45 +24,33 @@
 		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
 		"sort": "npx sort-package-json",
 		"start": "screen -c ./dev.screenrc",
-		"test": "jest",
-		"test:coverage": "../../tools/coverage.sh",
-		"test:watch": "jest --watch",
-		"ts": "tsc",
-		"typedoc": "typedoc"
+		"ts": "tsc"
 	},
 	"eslintConfig": {
 		"parserOptions": {
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"jest": {
-		"collectCoverageFrom": [
-			"<rootDir>/src/**/*.js",
-			"<rootDir>/src/**/*.jsx",
-			"<rootDir>/src/**/*.ts",
-			"<rootDir>/src/**/*.tsx"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/router",
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
-		}
-	},
 	"dependencies": {
 		"@imperium/client": "^6.1.1",
-		"debug": "^4.1.1"
+		"@imperium/state": "^6.2.1",
+		"debug": "^4.1.1",
+		"lodash": "^4.17.21",
+		"mingo": "^4.1.4",
+		"query-string": "^7.0.1",
+		"semantic-ui-react": "^2.0.3",
+		"react-responsive": "^8.2.0"
 	},
 	"peerDependencies": {
+		"@reduxjs/toolkit": "^1.x",
 		"react": "^17.x",
-		"react-router-dom": "5.x"
+		"react-router-dom": "5.x",
+		"react-redux": "^7.x"
 	},
 	"engines": {
 		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"gitHead": "74882a0718012151cc94751b40106b19cfc28bcb"
+	}
 }

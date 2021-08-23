@@ -33,6 +33,7 @@
 		"@imperium/authorization": "^6.1.1",
 		"@imperium/client": "^6.1.1",
 		"@imperium/graphql-client": "^6.1.1",
+		"@imperium/layout": "^6.1.1",
 		"@imperium/router": "^6.1.1",
 		"@imperium/state": "^6.2.1",
 		"@js-joda/core": "^3.0.0",

@@ -1,17 +1,12 @@
-import loadable from '@loadable/component';
 import type {ImperiumRouterClientModule} from '@imperium/router';
-import type {ImperiumStateClientModule} from '@imperium/state/src';
+import type {ImperiumLayoutClientModule} from '@imperium/layout';
+import {routes} from './routes';
+import {layout} from './layout';
 
-const HelloWorld = loadable<any>(() => import('./components/HelloWorld'));
-
-export function sampleModule(): ImperiumRouterClientModule & ImperiumStateClientModule {
+export function sampleModule(): ImperiumRouterClientModule & ImperiumLayoutClientModule {
 	return {
 		name: 'Sample',
-		routes: [
-			{
-				path: '/sample',
-				content: HelloWorld,
-			},
-		],
+		routes,
+		layout,
 	};
 }
