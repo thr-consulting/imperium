@@ -21,7 +21,7 @@
 		"depcheck": "lerna run depcheck",
 		"coverage": "coverage -p packages -c docs/assets/coverage",
 		"ts": "yarn ts:phase-core && yarn ts:phase-server && yarn ts:phase-client && yarn ts:phase-example",
-		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router,state}'",
+		"ts:phase-client": "lerna run ts --scope '@imperium/{auth-client,auth-graphql-client,graphql-client,router,state,layout}'",
 		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,client,server}'",
 		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
 		"ts:phase-server": "lerna run ts --scope '@imperium/{authorization,auth-server,domaindriven,graphql-server,voyager}'",
