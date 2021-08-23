@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/layout",
-	"version": "6.1.1",
+	"version": "7.0.0",
 	"description": "Imperium Layout package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -32,20 +32,20 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/client": "^6.1.1",
-		"@imperium/state": "^6.2.1",
+		"@imperium/client": "^7.0.0",
+		"@imperium/state": "^7.0.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.21",
 		"mingo": "^4.1.4",
 		"query-string": "^7.0.1",
-		"semantic-ui-react": "^2.0.3",
-		"react-responsive": "^8.2.0"
+		"react-responsive": "^8.2.0",
+		"semantic-ui-react": "^2.0.3"
 	},
 	"peerDependencies": {
 		"@reduxjs/toolkit": "^1.x",
 		"react": "^17.x",
-		"react-router-dom": "5.x",
-		"react-redux": "^7.x"
+		"react-redux": "^7.x",
+		"react-router-dom": "5.x"
 	},
 	"engines": {
 		"node": ">=14"

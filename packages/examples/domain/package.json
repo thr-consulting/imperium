@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "6.1.1",
+	"version": "7.0.0",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -27,10 +27,10 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-server": "^6.1.1",
-		"@imperium/authorization": "^6.1.1",
-		"@imperium/connector": "^6.1.1",
-		"@imperium/domaindriven": "^6.1.1",
+		"@imperium/auth-server": "^7.0.0",
+		"@imperium/authorization": "^7.0.0",
+		"@imperium/connector": "^7.0.0",
+		"@imperium/domaindriven": "^7.0.0",
 		"@thx/env": "^14.0.0",
 		"debug": "^4.1.1",
 		"uuid": "^8.2.0"

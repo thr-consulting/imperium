@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-noexpress-server",
-  "version": "6.2.0",
+  "version": "7.0.0",
   "private": true,
   "description": "Imperium server example project without Express",
   "repository": {
@@ -27,9 +27,9 @@
     }
   },
   "dependencies": {
-    "@imperium/connector": "^6.1.1",
-    "@imperium/example-domain": "^6.1.1",
-    "@imperium/server": "^6.1.1",
+    "@imperium/connector": "^7.0.0",
+    "@imperium/example-domain": "^7.0.0",
+    "@imperium/server": "^7.0.0",
     "@imperium/util": "^4.6.1",
     "@mikro-orm/cli": "^4.0.2",
     "@mikro-orm/core": "^4.0.2",
@@ -41,7 +41,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@imperium/dev": "^6.2.0",
+    "@imperium/dev": "^7.0.0",
     "ts-node": "^9.1.1"
   },
   "engines": {
