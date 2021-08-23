@@ -8,5 +8,6 @@ export function routerClientModule(): ImperiumClientModule {
 	};
 }
 
-export {default as RouteDirector} from './RouteDirector';
-export type {ImperiumRoute, ImperiumRouterClientModule} from './types';
+export type {ImperiumRouterClientModule} from './types';
+export {ContentRouter} from './components/ContentRouter';
+export {createRouteSlice} from './createRouteSlice';

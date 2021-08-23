@@ -1,16 +1,18 @@
-import loadable from '@loadable/component';
 import type {ImperiumRouterClientModule} from '@imperium/router';
+import type {ImperiumLayoutClientModule} from '@imperium/layout';
+import {routes} from './routes';
 
-const GraphqlTest = loadable<any>(() => import('./components/GraphqlTest'));
-
-export function sampleGraphqlModule(): ImperiumRouterClientModule {
+export function sampleGraphqlModule(): ImperiumRouterClientModule & ImperiumLayoutClientModule {
 	return {
 		name: 'Sample Graphql Module',
-		routes: [
-			{
-				path: '/sample-graphql',
-				content: GraphqlTest,
-			},
-		],
+		routes,
+		layout: {
+			sidebar: [
+				{
+					to: routes.to.sampleGraphql(),
+					text: 'Graphql',
+				},
+			],
+		},
 	};
 }

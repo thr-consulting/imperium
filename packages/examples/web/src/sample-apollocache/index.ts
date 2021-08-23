@@ -1,16 +1,18 @@
-import loadable from '@loadable/component';
 import type {ImperiumRouterClientModule} from '@imperium/router';
+import type {ImperiumLayoutClientModule} from '@imperium/layout';
+import {routes} from './routes';
 
-const ApolloCache = loadable<any>(() => import('./components/ApolloCache'));
-
-export function sampleApolloCacheModule(): ImperiumRouterClientModule {
+export function sampleApolloCacheModule(): ImperiumRouterClientModule & ImperiumLayoutClientModule {
 	return {
 		name: 'Sample Apollo Cache Module',
-		routes: [
-			{
-				path: '/sample-apollocache',
-				content: ApolloCache,
-			},
-		],
+		routes,
+		layout: {
+			sidebar: [
+				{
+					to: routes.to.apolloCache(),
+					text: 'Apollo Cache',
+				},
+			],
+		},
 	};
 }

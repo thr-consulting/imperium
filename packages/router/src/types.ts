@@ -1,23 +1,33 @@
 import type {ImperiumClientModule} from '@imperium/client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {RouteProps} from 'react-router-dom';
 
-interface RouteContentProps {
-	route: ImperiumRoute;
+type OptionalArgTuple<T> = T extends undefined ? [] : [T];
+
+export interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
+	render: (params: any) => JSX.Element;
 }
 
-export interface ImperiumRoute extends RouteProps {
-	layout?: React.ComponentType<RouteContentProps>;
-	content?: React.ComponentType<RouteContentProps>;
-	statusbar?: React.ComponentType<RouteContentProps>;
-	sidebar?: React.ComponentType<RouteContentProps>;
-	menu?: React.ComponentType<RouteContentProps>;
-	footer?: React.ComponentType<RouteContentProps>;
+export interface CreateRouteSliceOptions {
+	[key: string]: RouteOptions;
+}
+
+export type RoutePathRenderFn<A> = (...params: OptionalArgTuple<A>) => string;
+
+export type DynamicRoutePathRenderers<T extends CreateRouteSliceOptions> = {
+	[key in keyof T]: RoutePathRenderFn<Parameters<T[key]['render']>[0]>;
+};
+
+export interface RouteSlice<T extends CreateRouteSliceOptions> {
+	to: DynamicRoutePathRenderers<T>;
+	routes: RouteProps[];
 }
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
-	routes: ImperiumRoute[];
+	routes: RouteSlice<any>;
 }
 
-export function isImperiumRouterClientModule(value: ImperiumClientModule): value is ImperiumRouterClientModule {
-	return (value as ImperiumRouterClientModule).routes !== undefined;
+export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {
+	const routeModule = module as ImperiumRouterClientModule;
+	return routeModule.routes !== undefined;
 }
