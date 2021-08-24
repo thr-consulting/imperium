@@ -36,13 +36,13 @@
 		"@imperium/state": "^7.0.0",
 		"debug": "^4.1.1",
 		"lodash": "^4.17.21",
-		"mingo": "^4.1.4",
 		"query-string": "^7.0.1",
 		"react-responsive": "^8.2.0",
 		"semantic-ui-react": "^2.0.3"
 	},
 	"peerDependencies": {
 		"@reduxjs/toolkit": "^1.x",
+		"mingo": "^4.x",
 		"react": "^17.x",
 		"react-redux": "^7.x",
 		"react-router-dom": "5.x"
