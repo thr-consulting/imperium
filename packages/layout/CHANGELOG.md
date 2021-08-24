@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.3](https://github.com/darkadept/imperium/compare/v7.0.2...v7.0.3) (2021-08-24)
+
+
+### Bug Fixes
+
+* minor update to force re-release ([0c3ee62](https://github.com/darkadept/imperium/commit/0c3ee6206a4d14be6547e8381aab6b41c14dbb1a))
+
+
+
+
+
 ## [7.0.2](https://github.com/darkadept/imperium/compare/v7.0.1...v7.0.2) (2021-08-24)
 
 
