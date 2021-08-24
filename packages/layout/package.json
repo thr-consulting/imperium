@@ -34,7 +34,7 @@
 	"dependencies": {
 		"@imperium/client": "^7.0.0",
 		"@imperium/state": "^7.0.0",
-		"debug": "^4.1.1",
+		"debug": "^4.3.2",
 		"lodash": "^4.17.21",
 		"query-string": "^7.0.1",
 		"react-responsive": "^8.2.0",
