@@ -1,30 +1,31 @@
 import type {ImperiumClientModule} from '@imperium/client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {RouteProps} from 'react-router-dom';
+import type {RouteComponentProps, RouteProps} from 'react-router-dom';
 
-type OptionalArgTuple<T> = T extends undefined ? [] : [T];
-
-export interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
-	render: (params: any) => JSX.Element;
+interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
+	props?: (...params: any) => any;
 }
 
-export interface CreateRouteSliceOptions {
+type OptionalFunction = undefined | ((...args: any) => any);
+type EmptyFunctionIfUndefined<T extends OptionalFunction> = T extends undefined ? () => void : T;
+type ParametersOfFunction<T extends OptionalFunction> = Parameters<EmptyFunctionIfUndefined<T>>;
+type RoutePathRenderFn<Params extends any[]> = (...params: Params) => string;
+type RoutePathRenderFnOrDefaults<T extends OptionalFunction> = RoutePathRenderFn<ParametersOfFunction<T>>;
+
+export interface DefineRouteOptions {
 	[key: string]: RouteOptions;
 }
 
-export type RoutePathRenderFn<A> = (...params: OptionalArgTuple<A>) => string;
-
-export type DynamicRoutePathRenderers<T extends CreateRouteSliceOptions> = {
-	[key in keyof T]: RoutePathRenderFn<Parameters<T[key]['render']>[0]>;
+export type DynamicRoutePathRenderers<DRO extends DefineRouteOptions> = {
+	[key in keyof DRO]: RoutePathRenderFnOrDefaults<DRO[key]['props']>;
 };
 
-export interface RouteSlice<T extends CreateRouteSliceOptions> {
-	to: DynamicRoutePathRenderers<T>;
-	routes: RouteProps[];
-}
+export type RouteRenderFns<T extends DefineRouteOptions> = {
+	[key in keyof T]: (props: ParametersOfFunction<T[key]['props']>, rcp: RouteComponentProps) => JSX.Element;
+};
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
-	routes: RouteSlice<any>;
+	routes: RouteProps[];
 }
 
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {

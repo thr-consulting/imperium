@@ -4,6 +4,7 @@ import debug from 'debug';
 import flowRight from 'lodash/flowRight';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
+import sortBy from 'lodash/orderBy';
 import React from 'react';
 import {render} from 'react-dom';
 // eslint-disable-next-line import/no-cycle
@@ -33,7 +34,9 @@ export class ImperiumClient {
 	public async start(): Promise<this> {
 		d('Starting ImperiumClient...');
 
-		this._modules = this._moduleFactoryFn();
+		this._modules = sortBy(this._moduleFactoryFn(), module => {
+			return module.order || 9999;
+		});
 		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
 
 		this._modules.forEach(module => {

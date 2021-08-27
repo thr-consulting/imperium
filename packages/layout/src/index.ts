@@ -7,6 +7,7 @@ import {withLayout} from './withLayout';
 export function layoutClientModule(): ImperiumStateClientModule & ImperiumLayoutClientModule {
 	return {
 		name: '@imperium/layout',
+		order: 30,
 		hocs: [withLayout],
 		state,
 		layout: {
