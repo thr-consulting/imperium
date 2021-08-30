@@ -6,8 +6,8 @@ import {layoutClientModule} from '@imperium/layout';
 import type {ImperiumClientModule} from '@imperium/client';
 import {sampleModule} from '../sample';
 import {sampleGraphqlModule} from '../sample-graphql';
-// import {sampleAuthModule} from '../sample-auth';
-// import {sampleApolloCacheModule} from '../sample-apollocache';
+import {sampleAuthModule} from '../sample-auth';
+import {sampleApolloCacheModule} from '../sample-apollocache';
 import {sampleStateModule} from '../sample-state';
 
 export function clientModules(): ImperiumClientModule[] {
@@ -19,8 +19,8 @@ export function clientModules(): ImperiumClientModule[] {
 		layoutClientModule(),
 		sampleModule(),
 		sampleGraphqlModule(),
-		// sampleAuthModule(),
-		// sampleApolloCacheModule(),
+		sampleAuthModule(),
+		sampleApolloCacheModule(),
 		sampleStateModule(),
 	];
 }

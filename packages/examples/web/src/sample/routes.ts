@@ -8,9 +8,9 @@ export const routes = defineRoutes({
 		path: '/',
 		exact: true,
 	},
-	ving: {
-		path: '/ving/:id/:thing',
+	params: {
+		path: '/param-test/:id/:thing',
 		exact: true,
-		props: ({id, thing}: {id: string; thing: string}) => ({id, thing}),
+		params: ['id', 'thing'] as const,
 	},
 });

@@ -1,34 +1,46 @@
-import type {ImperiumClientModule} from '@imperium/client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type {ImperiumClientModule} from '@imperium/client';
 import type {RouteComponentProps, RouteProps} from 'react-router-dom';
 
-interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
-	props?: (...params: any) => any;
-}
+type ParametersFromAssertion<T extends readonly string[]> = {
+	[key in T[number]]: string;
+};
 
-type OptionalFunction = undefined | ((...args: any) => any);
-type EmptyFunctionIfUndefined<T extends OptionalFunction> = T extends undefined ? () => void : T;
-type ParametersOfFunction<T extends OptionalFunction> = Parameters<EmptyFunctionIfUndefined<T>>;
-type RoutePathRenderFn<Params extends any[]> = (...params: Params) => string;
-type RoutePathRenderFnOrDefaults<T extends OptionalFunction> = RoutePathRenderFn<ParametersOfFunction<T>>;
+type RoutePathFn<T extends readonly string[] | undefined> = T extends readonly string[]
+	? (params: ParametersFromAssertion<T>) => string
+	: () => string;
+
+type RouteRenderFn<T extends readonly string[] | undefined> = T extends readonly string[]
+	? (params: ParametersFromAssertion<T>, rcp: RouteComponentProps<ParametersFromAssertion<T>>) => JSX.Element
+	: (rcp: RouteComponentProps<never>) => JSX.Element;
+
+type RouteParamsType<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
+
+interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
+	params?: readonly string[];
+}
 
 export interface DefineRouteOptions {
 	[key: string]: RouteOptions;
 }
 
-export type DynamicRoutePathRenderers<DRO extends DefineRouteOptions> = {
-	[key in keyof DRO]: RoutePathRenderFnOrDefaults<DRO[key]['props']>;
+export type KeyedRoutePathFns<T extends DefineRouteOptions> = {
+	[key in keyof T]: RoutePathFn<T[key]['params']>;
 };
 
-export type RouteRenderFns<T extends DefineRouteOptions> = {
-	[key in keyof T]: (props: ParametersOfFunction<T[key]['props']>, rcp: RouteComponentProps) => JSX.Element;
+export type KeyedRouteRenderFns<T extends DefineRouteOptions> = {
+	[key in keyof T]: RouteRenderFn<T[key]['params']>;
+};
+
+export type KeyedRouteParamTypes<T extends DefineRouteOptions> = {
+	[key in keyof T]: RouteParamsType<T[key]['params']>;
 };
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
-	routes: RouteProps[];
+	routeProps: RouteProps[];
 }
 
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {
 	const routeModule = module as ImperiumRouterClientModule;
-	return routeModule.routes !== undefined;
+	return routeModule.routeProps !== undefined;
 }
