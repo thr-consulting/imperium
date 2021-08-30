@@ -5,6 +5,7 @@ import {withImperiumState} from './withImperiumState';
 export function stateClientModule(opts?: StateClientOptions): ImperiumClientModule {
 	return {
 		name: '@imperium/state',
+		order: 10,
 		hocs: [withImperiumState(opts)],
 	};
 }

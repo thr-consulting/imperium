@@ -4,6 +4,8 @@ import type {LayoutData} from '@imperium/layout';
 import {Link} from 'react-router-dom';
 import imperiumLogo from './imperium_w.png';
 import {routes} from './routes';
+import HelloWorld from './components/HelloWorld';
+import {ParamTest} from './components/ParamTest';
 
 export const layout: Partial<LayoutData> = {
 	menubar: [
@@ -42,3 +44,8 @@ export const layout: Partial<LayoutData> = {
 		},
 	],
 };
+
+export const routeProps = routes.renderRouteProps({
+	home: () => <HelloWorld />,
+	params: () => <ParamTest />,
+});

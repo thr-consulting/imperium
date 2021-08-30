@@ -15,6 +15,7 @@ export type HocCreator = (client: ImperiumClient) => Hoc;
 
 export interface ImperiumClientModule {
 	name: string;
+	order?: number;
 	startup?: (client: ImperiumClient) => Promise<void>; // RootProps | void;
 	hocs?: HocCreator[];
 	environmentDefaults?: EnvironmentDefaultDict;

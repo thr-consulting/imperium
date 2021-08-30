@@ -4,10 +4,11 @@ import withRouter from './withRouter';
 export function routerClientModule(): ImperiumClientModule {
 	return {
 		name: '@imperium/router',
+		order: 15,
 		hocs: [withRouter],
 	};
 }
 
 export type {ImperiumRouterClientModule} from './types';
 export {ContentRouter} from './components/ContentRouter';
-export {createRouteSlice} from './createRouteSlice';
+export {defineRoutes} from './defineRoutes';

@@ -12,7 +12,14 @@ const d = debug('app.client');
 
 const client = new ImperiumClient({
 	clientModules,
-	render: props => <ContentRouter errorBoundary={ErrorBoundary} {...props} />,
+	render: props => {
+		d(props);
+		// imperiumClient - injected by @imperium/client
+		// layout - injected by @imperium/layout
+		// render - injected by @imperium/client
+		// routes - injected by @imperium/router
+		return <ContentRouter errorBoundary={ErrorBoundary} {...props} />;
+	},
 });
 
 client.start().catch(err => {

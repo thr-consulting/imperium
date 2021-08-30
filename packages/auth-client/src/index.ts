@@ -5,6 +5,7 @@ import {withAuth} from './hoc/withAuth';
 export function authClientModule(): ImperiumClientModule {
 	return {
 		name: '@imperium/auth-client',
+		order: 20,
 		hocs: [withAuth],
 		environmentDefaults: {
 			authAccessTokenKey: 'access', // Key used to store access token on web/app

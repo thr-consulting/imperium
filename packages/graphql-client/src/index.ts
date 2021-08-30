@@ -7,6 +7,7 @@ import {withGraphql, GraphqlClientOptions} from './withGraphql';
 export function graphqlClientModule(opts?: GraphqlClientOptions): ImperiumClientModule {
 	return {
 		name: '@imperium/graphql-client',
+		order: 5,
 		hocs: [withGraphql(opts)],
 	};
 }

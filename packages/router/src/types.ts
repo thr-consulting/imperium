@@ -1,33 +1,46 @@
-import type {ImperiumClientModule} from '@imperium/client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {RouteProps} from 'react-router-dom';
+import type {ImperiumClientModule} from '@imperium/client';
+import type {RouteComponentProps, RouteProps} from 'react-router-dom';
 
-type OptionalArgTuple<T> = T extends undefined ? [] : [T];
+type ParametersFromAssertion<T extends readonly string[]> = {
+	[key in T[number]]: string;
+};
 
-export interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
-	render: (params: any) => JSX.Element;
+type RoutePathFn<T extends readonly string[] | undefined> = T extends readonly string[]
+	? (params: ParametersFromAssertion<T>) => string
+	: () => string;
+
+type RouteRenderFn<T extends readonly string[] | undefined> = T extends readonly string[]
+	? (params: ParametersFromAssertion<T>, rcp: RouteComponentProps<ParametersFromAssertion<T>>) => JSX.Element
+	: (rcp: RouteComponentProps<never>) => JSX.Element;
+
+type RouteParamsType<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
+
+interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
+	params?: readonly string[];
 }
 
-export interface CreateRouteSliceOptions {
+export interface DefineRouteOptions {
 	[key: string]: RouteOptions;
 }
 
-export type RoutePathRenderFn<A> = (...params: OptionalArgTuple<A>) => string;
-
-export type DynamicRoutePathRenderers<T extends CreateRouteSliceOptions> = {
-	[key in keyof T]: RoutePathRenderFn<Parameters<T[key]['render']>[0]>;
+export type KeyedRoutePathFns<T extends DefineRouteOptions> = {
+	[key in keyof T]: RoutePathFn<T[key]['params']>;
 };
 
-export interface RouteSlice<T extends CreateRouteSliceOptions> {
-	to: DynamicRoutePathRenderers<T>;
-	routes: RouteProps[];
-}
+export type KeyedRouteRenderFns<T extends DefineRouteOptions> = {
+	[key in keyof T]: RouteRenderFn<T[key]['params']>;
+};
+
+export type KeyedRouteParamTypes<T extends DefineRouteOptions> = {
+	[key in keyof T]: RouteParamsType<T[key]['params']>;
+};
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
-	routes: RouteSlice<any>;
+	routeProps: RouteProps[];
 }
 
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {
 	const routeModule = module as ImperiumRouterClientModule;
-	return routeModule.routes !== undefined;
+	return routeModule.routeProps !== undefined;
 }
