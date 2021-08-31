@@ -1,7 +1,7 @@
 import type {ImperiumClientModule} from '@imperium/client';
+import type {Location} from 'history';
 import type {Query} from 'mingo';
 import type {SemanticICONS} from 'semantic-ui-react';
-import type {Location} from 'history';
 
 export type DataHook = () => void;
 
