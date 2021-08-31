@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "7.0.4",
+	"version": "7.0.5",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -33,8 +33,8 @@
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/client": "^7.0.4",
 		"@imperium/graphql-client": "^7.0.4",
-		"@imperium/layout": "^7.0.4",
-		"@imperium/router": "^7.0.4",
+		"@imperium/layout": "^7.0.5",
+		"@imperium/router": "^7.0.5",
 		"@imperium/state": "^7.0.4",
 		"@js-joda/core": "^3.0.0",
 		"@loadable/component": "^5.12.0",
