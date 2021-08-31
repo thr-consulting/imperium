@@ -1,4 +1,5 @@
 import React from 'react';
+import debug from 'debug';
 import {Menu, Image, Header} from 'semantic-ui-react';
 import type {LayoutData} from '@imperium/layout';
 import {Link} from 'react-router-dom';
@@ -6,6 +7,8 @@ import imperiumLogo from './imperium_w.png';
 import {routes} from './routes';
 import HelloWorld from './components/HelloWorld';
 import {ParamTest} from './components/ParamTest';
+
+const d = debug('imperium.examples.web.sample.layout');
 
 export const layout: Partial<LayoutData> = {
 	menubar: [
@@ -30,15 +33,21 @@ export const layout: Partial<LayoutData> = {
 			icon: 'protect',
 			dropdown: [
 				{
-					text: 'Thing 0',
+					text: 'Thing 5',
 					to: routes.to.home(),
 					weight: 5,
 				},
 				{
 					text: 'Thing 1',
-					to: routes.to.home(),
+					to: '/param-test/id/thing',
 					weight: 1,
 					icon: 'adn',
+				},
+				{
+					text: 'Thing 2',
+					to: loc => routes.to.paramsTwo(routes.match.params(loc.pathname)),
+					weight: 2,
+					icon: 'star',
 				},
 			],
 		},
@@ -48,4 +57,5 @@ export const layout: Partial<LayoutData> = {
 export const routeProps = routes.renderRouteProps({
 	home: () => <HelloWorld />,
 	params: () => <ParamTest />,
+	paramsTwo: () => <ParamTest />,
 });

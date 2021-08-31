@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {ImperiumClientModule} from '@imperium/client';
-import type {RouteComponentProps, RouteProps} from 'react-router-dom';
+import type {match, RouteComponentProps, RouteProps} from 'react-router-dom';
 
 type ParametersFromAssertion<T extends readonly string[]> = {
 	[key in T[number]]: string;
 };
 
 type RoutePathFn<T extends readonly string[] | undefined> = T extends readonly string[]
-	? (params: ParametersFromAssertion<T>) => string
+	? (params: ParametersFromAssertion<T> | null) => string
 	: () => string;
 
 type RouteRenderFn<T extends readonly string[] | undefined> = T extends readonly string[]
@@ -15,6 +15,8 @@ type RouteRenderFn<T extends readonly string[] | undefined> = T extends readonly
 	: (rcp: RouteComponentProps<never>) => JSX.Element;
 
 type RouteParamsType<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
+
+type RouteMatch<T extends readonly string[] | undefined> = T extends readonly string[] ? match<ParametersFromAssertion<T>> : match;
 
 interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
 	params?: readonly string[];
@@ -34,6 +36,10 @@ export type KeyedRouteRenderFns<T extends DefineRouteOptions> = {
 
 export type KeyedRouteParamTypes<T extends DefineRouteOptions> = {
 	[key in keyof T]: RouteParamsType<T[key]['params']>;
+};
+
+export type KeyedRouteMatchFns<T extends DefineRouteOptions> = {
+	[key in keyof T]: (s: string) => RouteMatch<T[key]['params']>['params'] | null;
 };
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
