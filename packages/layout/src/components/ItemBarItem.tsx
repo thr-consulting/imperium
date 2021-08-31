@@ -2,8 +2,8 @@ import debug from 'debug';
 import compact from 'lodash/compact';
 import queryString from 'query-string';
 import React, {useMemo} from 'react';
-import {Link, useLocation, useRouteMatch} from 'react-router-dom';
-import {Dropdown, Icon, Menu, Divider} from 'semantic-ui-react';
+import {Link, RouteProps, useLocation, useRouteMatch} from 'react-router-dom';
+import {Dropdown, Icon, Menu} from 'semantic-ui-react';
 import type {BaseItem, DropdownMenuItem, MenuMenuItem, RouteItem} from '../types';
 import {isDropdownMenuItem, isMenuMenuItem} from '../types';
 import {sortWeightedItems} from '../utils';
@@ -19,10 +19,25 @@ interface ItemBarItemProps {
 }
 
 export function ItemBarItem({item, as, vertical}: ItemBarItemProps) {
-	const active = useRouteMatch(!isDropdownMenuItem(item) && !isMenuMenuItem(item) ? item.to || '' : '');
+	const loc = useLocation();
+
+	const routeMatchObject: RouteProps = {};
+	if (!isDropdownMenuItem(item) && !isMenuMenuItem(item) && item.to) {
+		if (typeof item.to === 'string') {
+			routeMatchObject.path = item.to;
+		}
+		if (typeof item.to === 'function') {
+			routeMatchObject.path = item.to(loc);
+		}
+		routeMatchObject.exact = item.exact !== false;
+		routeMatchObject.sensitive = item.sensitive;
+		routeMatchObject.strict = item.strict;
+	}
+	const routeMatch = useRouteMatch(routeMatchObject);
+	const active = routeMatch !== null;
+
 	const icon = item.icon ? <Icon name={item.icon} /> : null;
 	const selectedState = item.visible?.selectorHook();
-	const loc = useLocation();
 
 	const isVisible = useMemo(() => {
 		const compareObj = {
@@ -69,8 +84,8 @@ export function ItemBarItem({item, as, vertical}: ItemBarItemProps) {
 	const linkParams = item.to
 		? {
 				as: Link,
-				active: !!active,
-				to: item.to,
+				active,
+				to: typeof item.to === 'function' ? item.to(loc) : item.to,
 		  }
 		: {};
 

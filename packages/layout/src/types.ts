@@ -1,6 +1,7 @@
 import type {ImperiumClientModule} from '@imperium/client';
 import type {Query} from 'mingo';
 import type {SemanticICONS} from 'semantic-ui-react';
+import type {Location} from 'history';
 
 export type DataHook = () => void;
 
@@ -35,7 +36,10 @@ export interface VisibilityItem {
  * Describes an item that links to a route
  */
 export interface RouteItem {
-	to?: string;
+	to?: string | ((loc: Location) => string);
+	exact?: boolean;
+	strict?: boolean;
+	sensitive?: boolean;
 }
 
 /**
