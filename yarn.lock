@@ -3116,6 +3116,14 @@
     winston "^3.3.3"
     winston-transport "^4.4.0"
 
+"@thx/mingo-types@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@thx/mingo-types/-/mingo-types-14.1.0.tgz#c113fcf8af819842d24a5430824525dfd552fc03"
+  integrity sha512-vG5YEoTbVpzG7CWAj03QmvMxMGh8qzwgfjxblt4w6XVmKy2IcBrdkuGDBPzz25gTXN6kJf1+HgB0dVivgtP7VQ==
+  dependencies:
+    "@thx/date" "^14.0.0"
+    "@thx/money" "^14.0.0"
+
 "@thx/money@^14.0.0":
   version "14.0.0"
   resolved "https://registry.yarnpkg.com/@thx/money/-/money-14.0.0.tgz#d247de257bf3739c9e92cdad0dcfb869b16779d8"

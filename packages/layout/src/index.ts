@@ -18,3 +18,4 @@ export function layoutClientModule(): ImperiumStateClientModule & ImperiumLayout
 
 export type {ImperiumLayoutClientModule, LayoutData} from './types';
 export {useLayoutState, actions as layoutActions} from './state';
+export {generateVisible} from './utils';

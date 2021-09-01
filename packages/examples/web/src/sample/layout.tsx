@@ -2,6 +2,7 @@ import React from 'react';
 import debug from 'debug';
 import {Menu, Image, Header} from 'semantic-ui-react';
 import type {LayoutData} from '@imperium/layout';
+import {generateVisible} from '@imperium/layout';
 import {Link} from 'react-router-dom';
 import imperiumLogo from './imperium_w.png';
 import {routes} from './routes';
@@ -54,9 +55,9 @@ export const layout: Partial<LayoutData> = {
 					to: routes.to.home(),
 					weight: 3,
 					icon: 'file',
-					visible: {
+					visible: generateVisible({
 						query: {'router.path': 'param-test'},
-					},
+					}),
 				},
 			],
 		},

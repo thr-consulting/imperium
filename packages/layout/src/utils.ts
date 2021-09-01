@@ -1,7 +1,6 @@
 import memoize from 'lodash/memoize';
 import sortBy from 'lodash/sortBy';
-
-import type {HorizontalPositionedItem, WeightedItem} from './types';
+import type {HorizontalPositionedItem, WeightedItem, VisibilityQuery} from './types';
 
 /**
  * Sorts weighted items
@@ -30,4 +29,11 @@ export function splitHorizontalItems<T extends HorizontalPositionedItem>(items: 
 		},
 		{leftItems: [], rightItems: []} as {leftItems: T[]; rightItems: T[]},
 	);
+}
+
+export function generateVisible<T extends Record<string, unknown>>(visDefinition: VisibilityQuery<T>): VisibilityQuery<T> {
+	return {
+		query: visDefinition.query,
+		selectorHook: visDefinition.selectorHook,
+	};
 }

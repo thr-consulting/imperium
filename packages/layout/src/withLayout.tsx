@@ -3,11 +3,11 @@ import debug from 'debug';
 import React, {ComponentType} from 'react';
 import {DataHooks} from './components/DataHooks';
 import {Layout} from './components/Layout';
-import {isImperiumLayoutClientModule, LayoutData, ImperiumLayoutClientModule} from './types';
+import {isImperiumLayoutClientModule, LayoutData} from './types';
 
 const d = debug('imperium.layout.withLayout');
 
-const initialLayoutModuleData: LayoutData = {
+const initialLayoutModuleData: Required<LayoutData> = {
 	dataHooks: [],
 	menubar: [],
 	statusbar: [],
@@ -19,12 +19,12 @@ export function withLayout(client: ImperiumClient): Hoc {
 	const layoutModuleData = client.modules.reduce((memo, module) => {
 		if (isImperiumLayoutClientModule(module)) {
 			return {
-				dataHooks: [...memo.dataHooks, ...(module.layout.dataHooks || [])],
-				menubar: [...memo.menubar, ...(module.layout.menubar || [])],
-				statusbar: [...memo.statusbar, ...(module.layout.statusbar || [])],
-				sidebar: [...memo.sidebar, ...(module.layout.sidebar || [])],
-				footer: [...memo.footer, ...(module.layout.footer || [])],
-			} as Required<ImperiumLayoutClientModule['layout']>;
+				dataHooks: [...(memo.dataHooks || []), ...(module.layout.dataHooks || [])],
+				menubar: [...(memo.menubar || []), ...(module.layout.menubar || [])],
+				statusbar: [...(memo.statusbar || []), ...(module.layout.statusbar || [])],
+				sidebar: [...(memo.sidebar || []), ...(module.layout.sidebar || [])],
+				footer: [...(memo.footer || []), ...(module.layout.footer || [])],
+			} as Required<LayoutData>;
 		}
 		return memo;
 	}, initialLayoutModuleData);

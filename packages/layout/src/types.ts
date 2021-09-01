@@ -3,7 +3,7 @@ import type {Location} from 'history';
 import type {SemanticICONS} from 'semantic-ui-react';
 
 export type DataHook = () => void;
-export type SelectorHook = () => Record<string, unknown>;
+export type SelectorHook<T extends Record<string, unknown>> = () => T;
 
 /**
  * Describes an item with optional weight
@@ -20,16 +20,24 @@ export interface HorizontalPositionedItem {
 	stickOnMobile?: boolean;
 }
 
-export interface VisibilityQuery {
-	query: Record<string, unknown> | ((data: Record<string, any>) => boolean);
-	selectorHook?: SelectorHook;
+export interface DefaultVisibilityData {
+	router: {
+		path: string[];
+	};
+}
+
+export type VisibilityQueryField<T extends Record<string, unknown>> = Record<string, unknown> | ((data: T & DefaultVisibilityData) => boolean);
+
+export interface VisibilityQuery<T extends Record<string, unknown>> {
+	query: VisibilityQueryField<T>;
+	selectorHook?: SelectorHook<T>;
 }
 
 /**
  * Describes an item that can be hide itself based on redux state
  */
 export interface VisibilityItem {
-	visible?: VisibilityQuery;
+	visible?: VisibilityQuery<any>;
 }
 
 /**
@@ -74,15 +82,15 @@ export interface CustomMenuItem extends WeightedItem, VisibilityItem {
 export type Item = ((BaseItem & RouteItem) | DropdownMenuItem | MenuMenuItem | CustomMenuItem) & HorizontalPositionedItem;
 
 export interface LayoutData {
-	dataHooks: DataHook[];
-	menubar: (Item & HorizontalPositionedItem)[];
-	statusbar: (Item & HorizontalPositionedItem)[];
-	sidebar: Item[];
-	footer: (Item & HorizontalPositionedItem)[];
+	dataHooks?: DataHook[];
+	menubar?: (Item & HorizontalPositionedItem)[];
+	statusbar?: (Item & HorizontalPositionedItem)[];
+	sidebar?: Item[];
+	footer?: (Item & HorizontalPositionedItem)[];
 }
 
 export interface ImperiumLayoutClientModule extends ImperiumClientModule {
-	layout: Partial<LayoutData>;
+	layout: LayoutData;
 }
 
 export function isImperiumLayoutClientModule(module: ImperiumClientModule): module is ImperiumLayoutClientModule {

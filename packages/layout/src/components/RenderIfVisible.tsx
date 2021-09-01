@@ -5,7 +5,7 @@ import type {Location} from 'history';
 import compact from 'lodash/compact';
 import {Query} from 'mingo';
 import queryString from 'querystring';
-import type {BaseItem, DropdownMenuItem, MenuMenuItem, RouteItem} from '../types';
+import type {DefaultVisibilityData, VisibilityItem, VisibilityQueryField} from '../types';
 import {ExecuteSelectorHook} from './ExecuteSelectorHook';
 
 const d = debug('imperium.layout.components.RenderIfVisible');
@@ -25,8 +25,8 @@ function mergeLocationData(loc: Location, data?: Record<string, unknown>) {
 }
 
 function renderWithQuery(
-	data: Record<string, unknown>,
-	query: Record<string, unknown> | ((data: Record<string, any>) => boolean) | undefined,
+	data: Record<string, unknown> & DefaultVisibilityData,
+	query: VisibilityQueryField<Record<string, unknown>> | undefined,
 	component: JSX.Element,
 ) {
 	if (typeof query === 'function') {
@@ -38,7 +38,7 @@ function renderWithQuery(
 	return null;
 }
 
-export function RenderIfVisible({item, component}: {component: JSX.Element; item: (BaseItem & RouteItem) | DropdownMenuItem | MenuMenuItem}) {
+export function RenderIfVisible({item, component}: {component: JSX.Element; item: VisibilityItem}) {
 	const loc = useLocation();
 
 	if (item.visible) {

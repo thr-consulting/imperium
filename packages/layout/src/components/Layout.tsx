@@ -8,7 +8,7 @@ import styles from './styles.css';
 
 const d = debug('imperium.layout.components.Layout');
 
-interface LayoutProps extends LayoutData {
+interface LayoutProps extends Required<LayoutData> {
 	children?: ReactNode;
 }
 

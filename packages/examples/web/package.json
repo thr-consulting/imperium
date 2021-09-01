@@ -41,6 +41,7 @@
 		"@reduxjs/toolkit": "^1.6.0",
 		"@thx/controls": "^14.0.0",
 		"@thx/date": "^14.0.0",
+		"@thx/mingo-types": "^14.1.0",
 		"debug": "^4.1.1",
 		"dotenv": "^9.0.2",
 		"graphql": "^15.5.0",

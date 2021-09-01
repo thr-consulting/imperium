@@ -1,6 +1,7 @@
 import debug from 'debug';
 import React from 'react';
 import type {LayoutData} from '@imperium/layout/src';
+import {generateVisible} from '@imperium/layout';
 import {LocalDate} from '@js-joda/core';
 import {routes} from './routes';
 import StateExample from './components/StateExample';
@@ -8,7 +9,7 @@ import {useSampleState} from './state';
 
 const d = debug('imperium.examples.web.sample-state.layout');
 
-export const layout: Partial<LayoutData> = {
+export const layout: LayoutData = {
 	sidebar: [
 		{
 			to: routes.to.state(),
@@ -16,10 +17,11 @@ export const layout: Partial<LayoutData> = {
 		},
 		{
 			text: 'Visible when today',
-			visible: {
-				query: data => LocalDate.now().equals(data.date),
+			visible: generateVisible({
+				// query: (data) => LocalDate.now().equals(data.date),
+				query: {date: {$localDate_eq: LocalDate.now()}},
 				selectorHook: useSampleState,
-			},
+			}),
 		},
 	],
 };
