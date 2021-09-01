@@ -49,6 +49,15 @@ export const layout: Partial<LayoutData> = {
 					weight: 2,
 					icon: 'star',
 				},
+				{
+					text: 'Thing 3',
+					to: routes.to.home(),
+					weight: 3,
+					icon: 'file',
+					visible: {
+						query: {'router.path': 'param-test'},
+					},
+				},
 			],
 		},
 	],

@@ -1,9 +1,9 @@
 import type {ImperiumClientModule} from '@imperium/client';
 import type {Location} from 'history';
-import type {Query} from 'mingo';
 import type {SemanticICONS} from 'semantic-ui-react';
 
 export type DataHook = () => void;
+export type SelectorHook = () => Record<string, unknown>;
 
 /**
  * Describes an item with optional weight
@@ -21,8 +21,8 @@ export interface HorizontalPositionedItem {
 }
 
 export interface VisibilityQuery {
-	query: Query;
-	selectorHook: () => unknown;
+	query: Record<string, unknown> | ((data: Record<string, any>) => boolean);
+	selectorHook?: SelectorHook;
 }
 
 /**

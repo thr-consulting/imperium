@@ -1,7 +1,5 @@
 import debug from 'debug';
-import compact from 'lodash/compact';
-import queryString from 'query-string';
-import React, {useMemo} from 'react';
+import React from 'react';
 import {Link, RouteProps, useLocation, useRouteMatch} from 'react-router-dom';
 import {Dropdown, Icon, Menu} from 'semantic-ui-react';
 import type {BaseItem, DropdownMenuItem, MenuMenuItem, RouteItem} from '../types';
@@ -9,6 +7,7 @@ import {isDropdownMenuItem, isMenuMenuItem} from '../types';
 import {sortWeightedItems} from '../utils';
 import {DropdownItemMenu} from './DropdownItemMenu';
 import {MenuItemMenu} from './MenuItemMenu';
+import {RenderIfVisible} from './RenderIfVisible';
 
 const d = debug('imperium.layout.components.ItemBarItem');
 
@@ -21,6 +20,7 @@ interface ItemBarItemProps {
 export function ItemBarItem({item, as, vertical}: ItemBarItemProps) {
 	const loc = useLocation();
 
+	// Determine if the current route matches the to route to see if the link is active
 	const routeMatchObject: RouteProps = {};
 	if (!isDropdownMenuItem(item) && !isMenuMenuItem(item) && item.to) {
 		if (typeof item.to === 'string') {
@@ -36,47 +36,38 @@ export function ItemBarItem({item, as, vertical}: ItemBarItemProps) {
 	const routeMatch = useRouteMatch(routeMatchObject);
 	const active = routeMatch !== null;
 
+	// Generate the icon component, if it exists
 	const icon = item.icon ? <Icon name={item.icon} /> : null;
-	const selectedState = item.visible?.selectorHook();
-
-	const isVisible = useMemo(() => {
-		const compareObj = {
-			...(selectedState as Record<string, unknown>),
-			location: {
-				path: compact(loc.pathname.split('/')),
-				hash: loc.hash,
-				search: queryString.parse(loc.search),
-			},
-		};
-		if (item.visible) {
-			return item.visible.query.test(compareObj);
-		}
-		return true;
-	}, [item.visible, selectedState, loc.search, loc.pathname, loc.hash]);
-
-	if (!isVisible) {
-		return null;
-	}
 
 	if (isDropdownMenuItem(item)) {
 		return (
-			<DropdownItemMenu
-				vertical={vertical || false}
+			<RenderIfVisible
+				component={
+					<DropdownItemMenu
+						vertical={vertical || false}
+						item={item}
+						children={sortWeightedItems(item.dropdown).map(v => (
+							<ItemBarItem key={v.text} item={v} as={Dropdown.Item} />
+						))}
+					/>
+				}
 				item={item}
-				children={sortWeightedItems(item.dropdown).map(v => (
-					<ItemBarItem key={v.text} item={v} as={Dropdown.Item} />
-				))}
 			/>
 		);
 	}
 
 	if (isMenuMenuItem(item)) {
 		return (
-			<MenuItemMenu
+			<RenderIfVisible
+				component={
+					<MenuItemMenu
+						item={item}
+						children={sortWeightedItems(item.menu).map(v => (
+							<ItemBarItem key={v.text} item={v} as={Dropdown.Item} />
+						))}
+					/>
+				}
 				item={item}
-				children={sortWeightedItems(item.menu).map(v => (
-					<ItemBarItem key={v.text} item={v} as={Dropdown.Item} />
-				))}
 			/>
 		);
 	}
@@ -97,10 +88,12 @@ export function ItemBarItem({item, as, vertical}: ItemBarItemProps) {
 
 	const ItemX = as || Menu.Item;
 
-	return (
+	const renderedItem = (
 		<ItemX {...linkParams} {...menuParams}>
 			{icon}
 			{item.text}
 		</ItemX>
 	);
+
+	return <RenderIfVisible component={renderedItem} item={item} />;
 }
