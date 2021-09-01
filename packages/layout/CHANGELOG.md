@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.6](https://github.com/darkadept/imperium/compare/v7.0.5...v7.0.6) (2021-09-01)
+
+
+### Features
+
+* **layout:** completed layout ([2460acd](https://github.com/darkadept/imperium/commit/2460acd449566cc108852aa781a674378caef004))
+* **layout:** enhanced typescript in layout package ([c1889cc](https://github.com/darkadept/imperium/commit/c1889cc0e51f69dbcd376cbb98ebcf111daa8ca0))
+
+
+
+
+
 ## [7.0.5](https://github.com/darkadept/imperium/compare/v7.0.4...v7.0.5) (2021-08-31)
 
 **Note:** Version bump only for package @imperium/layout
