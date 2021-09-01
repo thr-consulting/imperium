@@ -1,10 +1,10 @@
-import React from 'react';
-import {useLocation} from 'react-router-dom';
 import debug from 'debug';
 import type {Location} from 'history';
 import compact from 'lodash/compact';
 import {Query} from 'mingo';
 import queryString from 'querystring';
+import React from 'react';
+import {useLocation} from 'react-router-dom';
 import type {DefaultVisibilityData, VisibilityItem, VisibilityQueryField} from '../types';
 import {ExecuteSelectorHook} from './ExecuteSelectorHook';
 
