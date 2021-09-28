@@ -25,7 +25,7 @@ module.exports = function webpackConfig(imperiumConfig) {
 		alias['@apollo/react-hooks'] = path.resolve(imperiumConfig.source.projectRoot, './node_modules/@apollo/react-hooks');
 	}
 
-	return {
+	return imperiumConfig.webpack.custom({
 		mode: 'development',
 		devtool: 'source-map',
 		context: imperiumConfig.source.path,
@@ -63,5 +63,5 @@ module.exports = function webpackConfig(imperiumConfig) {
 		module: {
 			rules: clientModuleRules(imperiumConfig).concat(imperiumConfig.webpack.client.rules),
 		},
-	};
+	});
 };

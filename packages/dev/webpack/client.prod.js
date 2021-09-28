@@ -12,13 +12,12 @@ const clientModuleRules = require('./clientModuleRules');
 
 // Webpack configuration
 module.exports = function clientWebpack(imperiumConfig) {
-	return {
+	return imperiumConfig.webpack.custom({
 		mode: 'production',
 		context: imperiumConfig.source.path,
 		devtool: imperiumConfig.production.client.devtool,
 		entry: {
 			app: imperiumConfig.source.clientIndex,
-			vendor: imperiumConfig.production.client.vendorChunk,
 		},
 		output: {
 			filename: '[name]_[chunkhash].js',
@@ -33,7 +32,7 @@ module.exports = function clientWebpack(imperiumConfig) {
 			splitChunks: {
 				cacheGroups: {
 					vendor: {
-						test: 'vendor',
+						test: /[\\/]node_modules[\\/]/,
 						name: 'vendor',
 						chunks: 'all',
 						enforce: true,
@@ -64,5 +63,5 @@ module.exports = function clientWebpack(imperiumConfig) {
 		module: {
 			rules: clientModuleRules(imperiumConfig).concat(imperiumConfig.webpack.client.rules),
 		},
-	};
+	});
 };

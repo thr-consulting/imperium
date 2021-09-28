@@ -17,8 +17,7 @@ module.exports = {
 		path: path.join(pRoot, 'build'), // Path to place the build files
 		client: {
 			minimize: true, // Minimize the production output
-			devtool: false, // Devtool built for production (See https://webpack.js.org/configuration/devtool/#devtool)
-			vendorChunk: ['react', 'react-dom', 'lodash', 'debug', 'semantic-ui-css', 'semantic-ui-react', 'graphql', 'react-router-dom', '@apollo/client'], // Vendor packages to split into their own chunk
+			devtool: 'source-map', // Devtool built for production (See https://webpack.js.org/configuration/devtool/#devtool)
 		},
 		server: {
 			minimize: true, // Minimize the production output
@@ -40,6 +39,7 @@ module.exports = {
 		server: {
 			rules: [], // Additional webpack rules (See https://webpack.js.org/configuration/module/#modulerules)
 		},
+		custom: config => config, // Function to modify the final webpack configuration
 	},
 	// Source code locations
 	source: {

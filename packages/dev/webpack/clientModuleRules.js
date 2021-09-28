@@ -7,22 +7,21 @@ const {inspectLoader} = require('@thx/common-webpack');
 
 module.exports = function clientModuleRules(imperiumConfig) {
 	return [
-		{test: /\.txt$/, use: [inspectLoader('RAW'), {loader: 'raw-loader'}]},
+		{
+			test: /\.txt$/,
+			type: 'asset/source',
+		},
 		{
 			test: /\.(woff|woff2|eot|ttf)(\?[a-z0-9=.]+)?$/,
-			use: [inspectLoader('URL-FONT'), {loader: 'url-loader', options: {limit: 10000}}],
+			type: 'asset',
 		},
 		{
-			test: /\.(svg)(\?[a-z0-9=.]+)?$/,
-			use: [inspectLoader('URL-SVG'), {loader: 'url-loader', options: {limit: 1}}],
-		},
-		{
-			test: /\.(png|jpg|jpeg|gif)(\?[a-z0-9=.]+)?$/,
-			use: [inspectLoader('URL-IMAGE'), {loader: 'url-loader', options: {limit: 10000}}],
+			test: /\.(png|jpg|jpeg|gif|svg)$/,
+			type: 'asset',
 		},
 		{
 			test: /\.(wav|mp3)$/,
-			use: [inspectLoader('FILE-AUDIO'), {loader: 'file-loader'}],
+			type: 'asset/resource',
 		},
 		{
 			test: /\.css$/,

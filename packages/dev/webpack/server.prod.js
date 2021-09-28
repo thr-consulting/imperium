@@ -9,7 +9,7 @@ const webpack = require('webpack');
 const serverModuleRules = require('./serverModuleRules');
 
 module.exports = function serverWebpack(imperiumConfig) {
-	return {
+	return imperiumConfig.webpack.custom({
 		mode: 'production',
 		context: imperiumConfig.source.path,
 		target: 'node',
@@ -51,5 +51,5 @@ module.exports = function serverWebpack(imperiumConfig) {
 		module: {
 			rules: serverModuleRules(imperiumConfig).concat(imperiumConfig.webpack.server.rules),
 		},
-	};
+	});
 };
