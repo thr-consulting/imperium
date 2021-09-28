@@ -29,7 +29,7 @@ console.log(`Master process PID: ${process.pid}`);
 console.log(`Server port:        ${port || 4001}`);
 console.log('');
 
-// maps file extention to MIME type
+// maps file extension to MIME type
 const mimeMap = {
 	'.ico': 'image/x-icon',
 	'.html': 'text/html',
@@ -75,6 +75,7 @@ http
 			} else {
 				// if the file is found, set Content-type and send data
 				res.setHeader('Content-type', mimeMap[ext] || 'text/plain');
+				res.setHeader('cache-control', 'max-age=600'); // 10 minute cache for testing production
 				res.end(data);
 			}
 		});
