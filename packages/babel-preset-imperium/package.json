@@ -12,33 +12,19 @@
 		"create.js",
 		"dependencies.js",
 		"dev.js",
-		"prod.js",
-		"test.js"
+		"prod.js"
 	],
 	"scripts": {
+		"clean": "thx clean",
 		"lint": "eslint --cache '*.js'",
 		"lint:fix": "eslint --cache --fix '*.js'",
-		"sort": "npx sort-package-json",
-		"test": "jest",
-		"test:coverage": "../../tools/coverage.sh",
-		"test:watch": "jest --watch"
+		"sort": "thx sort",
+		"test": "thx test",
+		"test:watch": "thx test:watch"
 	},
 	"eslintConfig": {
 		"parserOptions": {
 			"project": "./tsconfig-eslint.json"
-		}
-	},
-	"jest": {
-		"collectCoverageFrom": [
-			"<rootDir>/*.js"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/babel-preset-imperium",
-		"testPathIgnorePatterns": [
-			"/node_modules/",
-			"<rootDir>/test.js"
-		],
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
 		}
 	},
 	"dependencies": {
@@ -59,7 +45,7 @@
 		"@babel/preset-env": "^7.14.2",
 		"@babel/preset-react": "^7.13.13",
 		"@babel/preset-typescript": "^7.13.0",
-		"babel-jest": "^26.6.3",
+		"babel-jest": "^27.2.4",
 		"babel-plugin-inline-import": "^3.0.0",
 		"babel-plugin-macros": "^3.1.0",
 		"babel-plugin-module-resolver": "^4.1.0",

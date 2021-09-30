@@ -9,10 +9,10 @@
 	"license": "MIT",
 	"main": "index.json",
 	"scripts": {
-		"sort": "npx sort-package-json"
+		"sort": "thx sort"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"

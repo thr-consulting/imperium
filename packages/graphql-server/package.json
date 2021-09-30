@@ -17,19 +17,18 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"depcheck": "depcheck",
-		"lint": "eslint --cache --ext js,ts src",
-		"lint:fix": "eslint --cache --fix --ext js,ts src",
-		"sort": "npx sort-package-json",
+		"build": "thx build",
+		"build:dev": "thx build:dev",
+		"build:prod": "thx build:prod",
+		"clean": "thx clean",
+		"deps": "thx -p config.js deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"test": "jest",
-		"test:coverage": "../../tools/coverage.sh",
-		"test:watch": "jest --watch",
-		"ts": "tsc",
+		"test": "thx test",
+		"test:watch": "thx test:watch",
+		"ts": "thx ts",
 		"typedoc": "typedoc"
 	},
 	"eslintConfig": {
@@ -37,45 +36,30 @@
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"jest": {
-		"collectCoverageFrom": [
-			"<rootDir>/src/**/*.js",
-			"<rootDir>/src/**/*.jsx",
-			"<rootDir>/src/**/*.ts",
-			"<rootDir>/src/**/*.tsx"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/graphql-server",
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
-		}
-	},
 	"dependencies": {
 		"@imperium/server": "^7.0.0",
-		"@js-joda/core": "^3.0.0",
-		"@thx/date": "^14.0.0",
-		"@thx/env": "^14.0.0",
-		"@thx/money": "^14.0.0",
-		"@thx/util": "^14.0.0",
+		"@js-joda/core": "^4.0.0",
+		"@thx/date": "^14.2.0",
+		"@thx/env": "^14.2.0",
+		"@thx/money": "^14.2.0",
+		"@thx/util": "^14.2.0",
 		"apollo-server-express": "^2.24.0",
 		"apollo-server-plugin-base": "^0.12.0",
 		"apollo-server-types": "^0.9.0",
 		"body-parser": "^1.19.0",
-		"debug": "^4.1.1",
-		"graphql": "^15.5.0",
+		"debug": "^4.3.2",
+		"graphql": "^15.6.0",
 		"graphql-custom-types": "^1.6.0",
 		"graphql-scalar-objectid": "^0.1.2",
 		"graphql-tools": "^4.0.8",
 		"js-money": "^0.6.3",
-		"lodash": "^4.17.15"
+		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
 		"express": "4.x"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"

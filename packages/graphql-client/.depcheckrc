@@ -1,2 +1,0 @@
-ignorePatterns: ['dist/*', 'types/*', 'webpack.js', 'config.js']
-ignores: ['~*']

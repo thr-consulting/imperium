@@ -15,16 +15,16 @@
 		"client.js"
 	],
 	"scripts": {
-		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"depcheck": "depcheck",
-		"lint": "eslint --cache --ext js,ts,tsx src",
-		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
-		"sort": "npx sort-package-json",
+		"build": "thx build",
+		"build:dev": "thx build:dev",
+		"build:prod": "thx build:prod",
+		"clean": "thx clean",
+		"deps": "thx deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"ts": "tsc"
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -35,16 +35,16 @@
 		"@imperium/client": "^7.0.4",
 		"@imperium/state": "^7.0.4",
 		"debug": "^4.3.2",
+		"history": "^4.10.1",
 		"lodash": "^4.17.21",
-		"query-string": "^7.0.1",
 		"react-responsive": "^8.2.0",
-		"semantic-ui-react": "^2.0.3"
+		"semantic-ui-react": "^2.0.4"
 	},
 	"peerDependencies": {
-		"@reduxjs/toolkit": "^1.x",
-		"mingo": "^4.x",
-		"react": "^17.x",
-		"react-redux": "^7.x",
+		"@reduxjs/toolkit": "1.x",
+		"mingo": "4.x",
+		"react": "17.x",
+		"react-redux": "7.x",
 		"react-router-dom": "5.x"
 	},
 	"engines": {

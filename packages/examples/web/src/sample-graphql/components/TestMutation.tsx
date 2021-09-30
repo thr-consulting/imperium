@@ -1,10 +1,10 @@
+import {useMutation} from '@apollo/client';
 import debug from 'debug';
 import React from 'react';
 import {Button, Segment} from 'semantic-ui-react';
-import {useMutation} from '@apollo/client';
 import mutate from './mutate.graphql';
 
-const d = debug('app.core.TestMutation');
+const d = debug('imperium.examples.examples/web.sample-graphql.components.TestMutation');
 
 export function TestMutation() {
 	const [doChange, {data, loading}] = useMutation(mutate);

@@ -1,9 +1,53 @@
-schema: http://localhost:4001/api/graphql
-documents:
-  - './src/**/*.graphql'
+schema:
+  - '../server/core.graphqls'
+  - '../server/src/**/*.graphqls'
 generates:
-  src/graphql-types.ts:
-    - add: /* eslint-disable */
-    - time
-    - typescript
-    - typescript-operations
+  src/core/graphql.ts:
+    documents:
+      - './src/**/*.graphql'
+    plugins:
+      - add:
+          content:
+            - "/* eslint-disable */"
+            - "import type {LocalDate, LocalTime} from '@js-joda/core';"
+      - typescript
+      - '@thx/graphql-typescript-scalar-type-policies'
+    config:
+      scalars:
+        Email: 'string'
+        DateTime: 'Date'
+        Password: 'string'
+        UUID: 'string'
+        LocalDate: 'LocalDate'
+        LocalTime: 'LocalTime'
+      scalarTypePolicies:
+        LocalDate: './scalarPolicies#localDateTypePolicy'
+        LocalTime: './scalarPolicies#localTimeTypePolicy'
+  src/:
+    documents:
+      - './src/**/*.graphql'
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: 'core/graphql'
+      extension: '.ts'
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withResultType: true
+      withMutationOptionsType: true
+      addDocBlocks: true
+      #      defaultBaseOptions:
+      #        fetchPolicy: 'cache-and-network'
+      useTypeImports: true
+      # This generates graphql code in the TS files, no .graphql files needed. Mutually exclusive to the below option.
+      #   This breaks my codemod script which looks for .graphql imports
+      # documentMode: documentNode
+      # This imports graphql code from the .graphql file. Requires webpack to parse .graphql files. Mutually exclusive to the above option.
+      documentMode: external
+      importDocumentNodeExternallyFrom: 'near-operation-file'
+      skipTypename: true
+      preResolveTypes: true

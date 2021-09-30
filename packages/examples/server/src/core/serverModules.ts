@@ -1,20 +1,20 @@
-// Define server modules that should be included in the server.
-import debug from 'debug';
 import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
+import type {ImperiumServerModule} from '@imperium/server';
 import {voyagerServerModule} from '@imperium/voyager';
 import {Environment} from '@thx/env';
-import type {ImperiumServerModule} from '@imperium/server';
 import type {ExcludeFalse} from '@thx/util';
+// Define server modules that should be included in the server.
+import debug from 'debug';
 import {basicModule} from '~basicModule/index';
+import type {Context} from '~core/context';
 import {advancedModule} from '../advancedModule';
-import {graphqlModule} from '../graphqlModule';
-import type {Context} from './context';
-import {subscriptionModule} from '../subscriptionModule';
 import {apolloCacheModule} from '../apolloCacheModule';
+import {graphqlModule} from '../graphqlModule';
+import {subscriptionModule} from '../subscriptionModule';
 
-const d = debug('imperium.examples.server.serverModules');
+const d = debug('imperium.examples.examples/server.core.serverModules');
 
 /*
 	Server modules are created with a factory function that returns an array of

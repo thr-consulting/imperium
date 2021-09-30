@@ -11,15 +11,16 @@
 		"index.js"
 	],
 	"scripts": {
-		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"lint": "eslint --cache --ext js,ts src",
-		"lint:fix": "eslint --cache --fix --ext js,ts src",
-		"sort": "npx sort-package-json",
+		"build": "thx build",
+		"build:dev": "thx build:dev",
+		"build:prod": "thx build:prod",
+		"clean": "thx clean",
+		"deps": "thx deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "screen -c ./domain.screenrc",
-		"ts": "ttsc"
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -31,9 +32,9 @@
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/connector": "^7.0.0",
 		"@imperium/domaindriven": "^7.0.0",
-		"@thx/env": "^14.0.0",
-		"debug": "^4.1.1",
-		"uuid": "^8.2.0"
+		"debug": "^4.3.2",
+		"redis": "^3.1.2",
+		"uuid": "^8.3.2"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "4.x",
@@ -42,6 +43,6 @@
 		"winston": "3.x"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	}
 }

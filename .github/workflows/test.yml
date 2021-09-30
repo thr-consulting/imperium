@@ -12,10 +12,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup node 14.14
+      - name: Setup node 14.18
         uses: actions/setup-node@v2-beta
         with:
-          node-version: "14.14"
+          node-version: "14.18"
 
       - name: node_modules cache
         uses: actions/cache@v2

@@ -1,8 +1,8 @@
-import type {ImperiumStateClientModule} from '@imperium/state/src';
-import type {ImperiumRouterClientModule} from '@imperium/router';
 import type {ImperiumLayoutClientModule} from '@imperium/layout';
-import {state} from './state';
+import type {ImperiumRouterClientModule} from '@imperium/router';
+import type {ImperiumStateClientModule} from '@imperium/state';
 import {layout, routeProps} from './layout';
+import {state} from './state';
 
 export function sampleStateModule(): ImperiumStateClientModule & ImperiumRouterClientModule & ImperiumLayoutClientModule {
 	return {

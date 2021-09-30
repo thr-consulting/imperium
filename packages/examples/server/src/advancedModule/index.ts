@@ -1,10 +1,10 @@
 import {authMiddleware} from '@imperium/auth-server';
-import debug from 'debug';
 import type {ImperiumServerModule} from '@imperium/server';
+import debug from 'debug';
 import type {RequestHandler} from 'express';
 import type {Context} from '~core/context';
 
-const d = debug('imperium.examples.server.advancedModule');
+const d = debug('imperium.examples.examples/server.advancedModule');
 
 function myMiddleware(): RequestHandler {
 	return (req, res, next) => {

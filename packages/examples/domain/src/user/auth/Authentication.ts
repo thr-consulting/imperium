@@ -1,9 +1,9 @@
-import debug from 'debug';
 import type {AuthenticationDomain, ServiceInfo} from '@imperium/auth-server';
-import type {Context} from '../../index';
+import debug from 'debug';
 import {getConnector} from '../../core/connectors';
+import type {Context} from '../../index';
 
-const d = debug('imperium.examples.domain.user.Authentication');
+const d = debug('imperium.examples.examples/domain.user.auth.Authentication');
 
 const authKeyPrefix = 'auth';
 

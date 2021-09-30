@@ -11,15 +11,16 @@
   "author": "Mike Kornelson <darkadept@durbn.net>",
   "scripts": {
     "build:prod": "imperium build-server imperium.js",
-    "clean": "rimraf ./dist && rimraf .eslintcache",
-    "lint": "eslint --cache --ext ts,js src",
-    "lint:fix": "eslint --cache --fix --ext ts,js src",
+    "clean": "thx clean",
+    "deps": "thx -i ~core,~basicModule deps",
+    "lint": "thx lint",
+    "lint:fix": "thx lint:fix",
     "orm": "mikro-orm",
-    "sort": "npx sort-package-json",
+    "sort": "thx sort",
     "start": "yarn start:dev",
     "start:dev": "imperium dev-server imperium.js",
     "start:prod": "imperium prod-server imperium.js",
-    "ts": "ttsc"
+    "ts": "thx ts"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -32,30 +33,27 @@
     "@imperium/example-domain": "^7.0.0",
     "@imperium/graphql-server": "^7.0.0",
     "@imperium/server": "^7.0.0",
-    "@imperium/util": "^4.6.1",
-    "@mikro-orm/cli": "^4.5.5",
-    "@mikro-orm/core": "^4.5.5",
-    "@mikro-orm/postgresql": "^4.5.5",
-    "@thx/env": "^14.0.0",
-    "@thx/random": "^14.0.0",
-    "@thx/sharedcache": "^14.0.0",
-    "@thx/util": "^14.0.0",
+    "@imperium/voyager": "^7.0.0",
+    "@mikro-orm/cli": "^4.5.9",
+    "@mikro-orm/core": "^4.5.9",
+    "@mikro-orm/postgresql": "^4.5.9",
+    "@thx/env": "^14.2.0",
+    "@thx/random": "^14.2.0",
+    "@thx/sharedcache": "^14.2.0",
+    "@thx/util": "^14.2.0",
     "apollo-server-express": "^2.19.0",
-    "debug": "^4.1.1",
-    "dotenv": "^9.0.2",
-    "graphql": "^15.5.0",
-    "graphql-redis-subscriptions": "^2.4.0",
-    "graphql-subscriptions": "^1.1.0",
+    "debug": "^4.3.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.6.0",
     "graphql-tools": "^4.0.8",
-    "lodash": "^4.17.15",
-    "redis": "^3.0.2"
+    "redis": "^3.1.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^7.0.0",
-    "ts-node": "^9.1.1"
+    "@imperium/dev": "^7.0.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "mikro-orm": {
     "useTsNode": true,

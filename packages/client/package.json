@@ -15,19 +15,18 @@
 		"client.js"
 	],
 	"scripts": {
-		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"depcheck": "depcheck",
-		"lint": "eslint --cache --ext js,ts,tsx src",
-		"lint:fix": "eslint --cache --fix --ext js,ts,tsx src",
-		"sort": "npx sort-package-json",
+		"build": "thx build",
+		"build:dev": "thx build:dev",
+		"build:prod": "thx build:prod",
+		"clean": "thx clean",
+		"deps": "thx deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"test": "jest",
-		"test:coverage": "../../tools/coverage.sh",
-		"test:watch": "jest --watch",
-		"ts": "tsc",
+		"test": "thx test",
+		"test:watch": "thx test:watch",
+		"ts": "thx ts",
 		"typedoc": "typedoc"
 	},
 	"eslintConfig": {
@@ -35,32 +34,17 @@
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"jest": {
-		"collectCoverageFrom": [
-			"<rootDir>/src/**/*.js",
-			"<rootDir>/src/**/*.jsx",
-			"<rootDir>/src/**/*.ts",
-			"<rootDir>/src/**/*.tsx"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/client",
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-client.js"
-		}
-	},
 	"dependencies": {
-		"@thx/env": "^14.0.0",
-		"debug": "^4.1.1",
-		"lodash": "^4.17.15"
+		"@thx/env": "^14.2.0",
+		"debug": "^4.3.2",
+		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
-		"react": "16.x || 17.x",
-		"react-dom": "16.x || 17.x"
+		"react": "17.x",
+		"react-dom": "17.x"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"

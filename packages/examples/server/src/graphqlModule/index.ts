@@ -1,10 +1,10 @@
-import debug from 'debug';
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
+import debug from 'debug';
 import type {Context} from '~core/context';
 import Sample from './Sample.graphqls';
 import {resolvers} from './myResolvers';
 
-const d = debug('imperium.examples.server.graphqlModule');
+const d = debug('imperium.examples.examples/server.graphqlModule');
 
 /*
 	This is an example of a server module that uses graphql.
