@@ -29,6 +29,11 @@
 			"project": "../../tsconfig.json"
 		}
 	},
+	"peerDependencies": {
+		"babel-loader": "^8.x",
+		"webpack": "^5.x",
+		"webpack-cli": "^4.x"
+	},
 	"dependencies": {
 		"@babel/core": "^7.14.0",
 		"@babel/register": "^7.13.16",
@@ -36,7 +41,6 @@
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
 		"@thx/common-webpack": "^14.0.0",
 		"@thx/log": "^14.0.0",
-		"babel-loader": "^8.2.2",
 		"chalk": "^4.0.0",
 		"chokidar": "^3.3.1",
 		"copy-webpack-plugin": "^8.1.1",
@@ -51,9 +55,7 @@
 		"react-refresh": "^0.10.0",
 		"rimraf": "^3.0.2",
 		"style-loader": "^2.0.0",
-		"webpack": "^5.37.0",
 		"webpack-bundle-analyzer": "^4.4.2",
-		"webpack-cli": "^4.7.0",
 		"webpack-dev-server": "^3.11.2",
 		"webpack-hot-middleware": "^2.25.0",
 		"webpack-node-externals": "^3.0.0",
