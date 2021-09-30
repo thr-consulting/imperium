@@ -10,16 +10,17 @@
 	"license": "UNLICENSED",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"scripts": {
+		"DISABLEDts": "thx ts",
 		"build:prod": "imperium build-client imperium.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"codegen": "graphql-codegen",
-		"lint": "eslint --cache --ext ts,js,tsx src",
-		"lint:fix": "eslint --cache --fix --ext ts,js,tsx src",
-		"sort": "npx sort-package-json",
+		"clean": "thx clean",
+		"codegen": "thx codegen",
+		"deps": "thx deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "yarn start:dev",
 		"start:dev": "imperium dev-client imperium.js",
-		"start:prod": "imperium prod-client imperium.js",
-		"ts": "ttsc"
+		"start:prod": "imperium prod-client imperium.js"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -27,38 +28,38 @@
 		}
 	},
 	"dependencies": {
-		"@apollo/client": "^3.3.4",
+		"@apollo/client": "^3.4.15",
 		"@imperium/auth-client": "^7.0.4",
-		"@imperium/auth-graphql-client": "^7.0.4",
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/client": "^7.0.4",
 		"@imperium/graphql-client": "^7.0.4",
 		"@imperium/layout": "^7.0.6",
 		"@imperium/router": "^7.0.5",
 		"@imperium/state": "^7.0.4",
-		"@js-joda/core": "^3.0.0",
-		"@loadable/component": "^5.12.0",
-		"@reduxjs/toolkit": "^1.6.0",
-		"@thx/controls": "^14.0.0",
-		"@thx/date": "^14.0.0",
-		"@thx/mingo-types": "^14.1.0",
-		"debug": "^4.1.1",
-		"dotenv": "^9.0.2",
-		"graphql": "^15.5.0",
-		"lodash": "^4.17.15",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
-		"react-redux": "^7.2.4",
-		"react-responsive": "^8.1.0",
-		"react-router-dom": "^5.1.2",
+		"@js-joda/core": "^4.0.0",
+		"@loadable/component": "^5.15.0",
+		"@reduxjs/toolkit": "^1.6.1",
+		"@thx/controls": "^14.2.0",
+		"@thx/date": "^14.2.0",
+		"@thx/mingo-types": "^14.2.0",
+		"@thx/sha256": "^14.2.0",
+		"debug": "^4.3.2",
+		"graphql": "^15.6.0",
+		"mingo": "^4.2.0",
+		"react": "^17.0.2",
+		"react-datepicker": "^4.2.1",
+		"react-dom": "^17.0.2",
+		"react-redux": "^7.2.5",
+		"react-router": "^5.2.1",
+		"react-router-dom": "^5.3.0",
 		"semantic-ui-css": "^2.4.1",
-		"semantic-ui-react": "^2.0.1",
+		"semantic-ui-react": "^2.0.4",
 		"yup": "^0.32.9"
 	},
 	"devDependencies": {
 		"@imperium/dev": "^7.0.0"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	}
 }

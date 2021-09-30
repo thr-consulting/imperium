@@ -1,8 +1,8 @@
 import type {EntityManager} from '@mikro-orm/core';
-import type {Repositories} from './createRepositories';
-import type {ExampleAuthorization} from './ExampleAuthorization';
-import {UserController} from '../user/controllers/UserController';
 import {ScoreController} from '../score';
+import {UserController} from '../user/controllers/UserController';
+import type {ExampleAuthorization} from './ExampleAuthorization';
+import type {Repositories} from './createRepositories';
 
 export function createControllers(em: EntityManager, authorization: ExampleAuthorization, repositories: Repositories) {
 	return {

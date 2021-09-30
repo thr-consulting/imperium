@@ -1,9 +1,9 @@
 import {AbstractRepository} from '@imperium/domaindriven';
-import debug from 'debug';
 import type {EntityData} from '@mikro-orm/core';
+import debug from 'debug';
 import type {User} from '../entities/User';
 
-const d = debug('domain.users.repositories.UserRepository');
+const d = debug('imperium.examples.examples/domain.user.repositories.UserRepository');
 
 export class UserRepository extends AbstractRepository<User> {
 	initializeEntity(user: User) {

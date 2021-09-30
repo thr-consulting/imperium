@@ -12,13 +12,14 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production babel src --extensions \".ts\" --out-dir dist --source-maps",
-    "clean": "rimraf ./dist && rimraf .eslintcache",
-    "lint": "eslint --cache --ext ts,js src",
-    "lint:fix": "eslint --cache --fix --ext ts,js src",
-    "sort": "npx sort-package-json",
+    "clean": "thx clean",
+    "deps": "thx deps",
+    "lint": "thx lint",
+    "lint:fix": "thx lint:fix",
+    "sort": "thx sort",
     "start": "NODE_ENV=development node index.js",
     "start:prod": "NODE_ENV=production node index.js",
-    "ts": "tsc"
+    "ts": "thx ts"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -28,14 +29,14 @@
   "dependencies": {
     "@imperium/connector": "^7.0.0",
     "@imperium/example-domain": "^7.0.0",
-    "@mikro-orm/core": "^4.5.5",
-    "@mikro-orm/postgresql": "^4.5.5",
-    "@thx/env": "^14.0.0",
-    "@thx/log": "^14.0.0",
-    "@thx/sharedcache": "^14.0.0",
-    "debug": "^4.1.1",
-    "dotenv": "^9.0.2",
-    "lodash": "^4.17.15",
+    "@mikro-orm/core": "^4.5.9",
+    "@mikro-orm/postgresql": "^4.5.9",
+    "@thx/env": "^14.2.0",
+    "@thx/sharedcache": "^14.2.0",
+    "apollo-server-express": "2.19.2",
+    "debug": "^4.3.2",
+    "dotenv": "^10.0.0",
+    "redis": "^3.1.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -45,6 +46,6 @@
     "@imperium/babel-preset-imperium": "^7.0.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   }
 }

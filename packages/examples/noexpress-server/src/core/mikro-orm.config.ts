@@ -1,9 +1,9 @@
-import debug from 'debug';
-import {PostgreSqlDriver} from '@mikro-orm/postgresql';
 import {entities} from '@imperium/example-domain';
 import type {Options} from '@mikro-orm/core';
+import {PostgreSqlDriver} from '@mikro-orm/postgresql';
+import debug from 'debug';
 
-const d = debug('imperium.example.server.mikro-orm.config');
+const d = debug('imperium.examples.examples/noexpress-server.core.mikro-orm.config');
 
 export const mikroOrmConfig: Options = {
 	entities: Object.values(entities),

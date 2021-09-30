@@ -3,7 +3,7 @@ import React, {ReactNode} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router';
 import {Header, Segment} from 'semantic-ui-react';
 
-const d = debug('web.common.components.ErrorBoundary');
+const d = debug('imperium.examples.examples/web.core.ErrorBoundary');
 
 interface ErrorBoundaryProps extends RouteComponentProps {
 	children: ReactNode;

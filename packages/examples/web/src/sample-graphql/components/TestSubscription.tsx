@@ -1,10 +1,10 @@
+import {useSubscription} from '@apollo/client';
 import debug from 'debug';
 import React from 'react';
-import {useSubscription} from '@apollo/client';
 import {Segment} from 'semantic-ui-react';
 import subscribe from './subscribe.graphql';
 
-const d = debug('app.core.TestSubscription');
+const d = debug('imperium.examples.examples/web.sample-graphql.components.TestSubscription');
 
 export function TestSubscription() {
 	const {data, loading} = useSubscription(subscribe);

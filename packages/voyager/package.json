@@ -15,15 +15,16 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"lint": "eslint --cache --ext js,ts src",
-		"lint:fix": "eslint --cache --fix --ext js,ts src",
-		"sort": "npx sort-package-json",
+		"build": "thx build",
+		"build:dev": "thx build:dev",
+		"build:prod": "thx build:prod",
+		"clean": "thx clean",
+		"deps": "thx deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"ts": "tsc",
+		"ts": "thx ts",
 		"typedoc": "typedoc"
 	},
 	"eslintConfig": {
@@ -35,7 +36,7 @@
 		"@imperium/server": "^7.0.0"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"

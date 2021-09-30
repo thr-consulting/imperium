@@ -1,15 +1,15 @@
+import {Authorization} from '@imperium/authorization';
 /*
 	This is the main export from the domain package. This function creates a new domain context
 	and should be called on every request/operation.
  */
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
-import {Authorization} from '@imperium/authorization';
 import type {AuthenticatedUser} from '@imperium/connector';
 import type {User} from '../user';
-import {entities} from './entities';
 import {getConnector} from './connectors';
 import {createControllers} from './createControllers';
 import {createRepositories} from './createRepositories';
+import {entities} from './entities';
 
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
 	const authorization = new Authorization<User>(authenticatedUser);

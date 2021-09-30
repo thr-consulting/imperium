@@ -1,10 +1,10 @@
-import React, {useEffect, useRef} from 'react';
-import debug from 'debug';
 import {useAuth, useLogout, IAuthContext, useAuthId} from '@imperium/auth-client';
-import {Button} from 'semantic-ui-react';
 import {AbstractAuthSelector, AuthLevel} from '@imperium/authorization';
+import debug from 'debug';
+import React, {useEffect, useRef} from 'react';
+import {Button} from 'semantic-ui-react';
 
-const d = debug('app.sample-auth.ComponentUsingAuth');
+const d = debug('imperium.examples.examples/web.sample-auth.components.ComponentUsingAuth');
 
 function useTraceUpdate(props: any) {
 	const prev = useRef(props);

@@ -1,8 +1,8 @@
-import React from 'react';
 import type {LayoutData} from '@imperium/layout/src';
-import {routes} from './routes';
+import React from 'react';
 import ComponentUsingAuth from './components/ComponentUsingAuth';
 import Login from './components/Login';
+import {routes} from './routes';
 
 export const layout: Partial<LayoutData> = {
 	sidebar: [

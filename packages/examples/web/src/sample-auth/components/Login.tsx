@@ -1,12 +1,12 @@
-import debug from 'debug';
-import React from 'react';
+import {useLogin} from '@imperium/auth-client';
 import {TForm, TFormProps} from '@thx/controls';
 import sha256 from '@thx/sha256';
+import debug from 'debug';
+import React from 'react';
 import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
-import {useLogin} from '@imperium/auth-client';
 
-const d = debug('app.sample-auth.Login');
+const d = debug('imperium.examples.examples/web.sample-auth.components.Login');
 
 const loginValidation = obj().shape({
 	email: string().email('Must be a valid email address').required('Email is required'),

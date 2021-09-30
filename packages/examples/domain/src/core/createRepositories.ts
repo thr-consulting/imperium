@@ -1,8 +1,8 @@
-import type {EntityManager} from '@mikro-orm/core';
 import type {Connectors} from '@imperium/connector';
+import type {EntityManager} from '@mikro-orm/core';
+import {ScoreRepository} from '../score';
 import {UserRepository} from '../user/repositories/UserRepository';
 import {entities} from './entities';
-import {ScoreRepository} from '../score';
 
 export function createRepositories(em: EntityManager, connectors: Connectors) {
 	return {

@@ -4,7 +4,7 @@ import './defaults';
 import {createAuthEndpoints} from './endpoints';
 import type {GetAuthenticationFn} from './types';
 
-export {ServiceInfo, AuthMiddlewareConfig, AuthenticationDomain, GetAuthenticationFn} from './types';
+export type {ServiceInfo, AuthMiddlewareConfig, AuthenticationDomain, GetAuthenticationFn} from './types';
 export {authMiddleware} from './middleware/authMiddleware';
 export type {Auth} from './middleware/authMiddleware';
 export {createAccessToken, createRefreshToken} from './lib/token';

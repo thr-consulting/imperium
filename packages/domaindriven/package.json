@@ -15,19 +15,16 @@
 		"dist"
 	],
 	"scripts": {
-		"Xtest": "jest",
-		"Xtest:coverage": "../../tools/coverage.sh",
-		"Xtest:watch": "jest --watch",
-		"build": "yarn build:dev && yarn build:prod",
-		"build:dev": "NODE_ENV=development webpack --config webpack.js",
-		"build:prod": "NODE_ENV=production webpack --config webpack.js",
-		"clean": "rimraf ./dist && rimraf .eslintcache",
-		"depcheck": "depcheck",
-		"lint": "eslint --cache --ext js,ts src",
-		"lint:fix": "eslint --cache --fix --ext js,ts src",
-		"sort": "npx sort-package-json",
+		"build": "thx build",
+		"build:dev": "thx build:dev",
+		"build:prod": "thx build:prod",
+		"clean": "thx clean",
+		"deps": "thx deps",
+		"lint": "thx lint",
+		"lint:fix": "thx lint:fix",
+		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"ts": "tsc",
+		"ts": "thx ts",
 		"typedoc": "typedoc"
 	},
 	"eslintConfig": {
@@ -35,33 +32,18 @@
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"jest": {
-		"collectCoverageFrom": [
-			"<rootDir>/src/**/*.js",
-			"<rootDir>/src/**/*.jsx",
-			"<rootDir>/src/**/*.ts",
-			"<rootDir>/src/**/*.tsx"
-		],
-		"coverageDirectory": "<rootDir>/../../docs/assets/coverage/connector",
-		"testPathIgnorePatterns": [
-			"/node_modules/"
-		],
-		"transform": {
-			"^.+\\.[tj]sx?$": "<rootDir>/../../tools/jest-transform-server.js"
-		}
-	},
 	"dependencies": {
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/connector": "^7.0.0",
 		"dataloader": "^2.0.0",
-		"debug": "^4.1.1"
+		"debug": "^4.3.2"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "4.x",
 		"@mikro-orm/postgresql": "4.x"
 	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"

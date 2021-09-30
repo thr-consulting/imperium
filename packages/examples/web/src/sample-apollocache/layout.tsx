@@ -1,7 +1,7 @@
-import React from 'react';
 import type {LayoutData} from '@imperium/layout/src';
-import {routes} from './routes';
+import React from 'react';
 import ApolloCache from './components/ApolloCache';
+import {routes} from './routes';
 
 export const routeProps = routes.renderRouteProps({
 	apolloCache: () => <ApolloCache />,

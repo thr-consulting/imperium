@@ -1,8 +1,8 @@
+import {PrimaryKey, Entity, Property, BigIntType} from '@mikro-orm/core';
 import debug from 'debug';
 import {v4} from 'uuid';
-import {PrimaryKey, Entity, Property, BigIntType} from '@mikro-orm/core';
 
-const d = debug('imperium.examples.domain.Score');
+const d = debug('imperium.examples.examples/domain.score.entities.Score');
 
 /*
 	This is an example of a mikro-orm domain model.

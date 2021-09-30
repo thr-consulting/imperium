@@ -1,13 +1,13 @@
+import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
 import {ImperiumServer} from '@imperium/server';
 import {Environment} from '@thx/env';
-import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
 import debug from 'debug';
-import {connectors} from './connectors';
-import {defaultEnvironment} from './defaultEnvironment';
-import {contextCreator} from './context';
-import {serverModules} from './serverModules';
+import {connectors} from '~core/connectors';
+import {contextCreator} from '~core/context';
+import {defaultEnvironment} from '~core/defaultEnvironment';
+import {serverModules} from '~core/serverModules';
 
-const d = debug('imperium.examples.noexpress-server');
+const d = debug('imperium.examples.examples/noexpress-server.core.server');
 
 /*
   This default function export is required by the @imperium/dev scripts

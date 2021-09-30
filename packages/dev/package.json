@@ -20,9 +20,11 @@
 		"resource"
 	],
 	"scripts": {
+		"clean": "thx clean",
+		"deps": "thx -i css-loader,style-loader,@imperium/babel-preset-imperium deps",
 		"lint": "eslint --cache --ext js,ts scripts",
 		"lint:fix": "eslint --cache --fix --ext js,ts scripts",
-		"sort": "npx sort-package-json"
+		"sort": "thx sort"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -33,34 +35,36 @@
 		"@babel/core": "^7.14.0",
 		"@babel/register": "^7.13.16",
 		"@imperium/babel-preset-imperium": "^7.0.0",
-		"@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
 		"@thx/common-webpack": "^14.0.0",
 		"@thx/log": "^14.0.0",
-		"babel-loader": "^8.2.2",
 		"chalk": "^4.0.0",
 		"chokidar": "^3.3.1",
-		"copy-webpack-plugin": "^8.1.1",
+		"copy-webpack-plugin": "^9.0.1",
 		"cross-spawn": "^7.0.2",
-		"css-loader": "^5.2.4",
+		"css-loader": "^6.3.0",
 		"debug": "^4.1.1",
-		"dotenv": "^9.0.2",
+		"dotenv": "^10.0.0",
 		"html-webpack-plugin": "^5.3.1",
 		"lodash": "^4.17.15",
 		"merge-options": "^3.0.4",
 		"progress-bar-webpack-plugin": "^2.1.0",
 		"react-refresh": "^0.10.0",
 		"rimraf": "^3.0.2",
-		"style-loader": "^2.0.0",
-		"webpack": "^5.37.0",
+		"style-loader": "^3.3.0",
 		"webpack-bundle-analyzer": "^4.4.2",
-		"webpack-cli": "^4.7.0",
-		"webpack-dev-server": "^3.11.2",
+		"webpack-dev-server": "^4.3.0",
 		"webpack-hot-middleware": "^2.25.0",
 		"webpack-node-externals": "^3.0.0",
 		"winston": "^3.3.3"
 	},
+	"peerDependencies": {
+		"babel-loader": "^8.x",
+		"webpack": "^5.x",
+		"webpack-cli": "^4.x"
+	},
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"publishConfig": {
 		"access": "public"

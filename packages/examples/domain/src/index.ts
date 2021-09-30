@@ -1,5 +1,5 @@
-import {createDomain} from './core/createDomain';
 import {getConnector} from './core/connectors';
+import {createDomain} from './core/createDomain';
 
 export type {Context} from './core/Context';
 export {createDomain};

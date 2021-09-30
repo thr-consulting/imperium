@@ -1,10 +1,10 @@
+import {useQuery} from '@apollo/client';
 import debug from 'debug';
 import React, {useState} from 'react';
 import {Button, Segment} from 'semantic-ui-react';
-import {useQuery} from '@apollo/client';
 import query from './query.graphql';
 
-const d = debug('app.core.TestQuery');
+const d = debug('imperium.examples.examples/web.sample-apollocache.components.ApolloCache');
 
 export default function ApolloCache() {
 	const [filter, setFilter] = useState('PHONE');

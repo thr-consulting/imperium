@@ -1,13 +1,13 @@
-import {inspect} from 'util';
-import debug from 'debug';
 import {getConnector} from '@imperium/example-domain';
-import {randomLetters} from '@thx/random';
 import type {ImperiumServer} from '@imperium/server';
+import {randomLetters} from '@thx/random';
+import debug from 'debug';
 import type {IResolvers} from 'graphql-tools';
+import {inspect} from 'util';
 import type {Context} from '~core/context';
 import {data} from './data';
 
-const d = debug('imperium.examples.server.subscriptionModule.resolvers');
+const d = debug('imperium.examples.examples/server.subscriptionModule.resolvers');
 const dd = (obj: any) => d(inspect(obj, false, null, true));
 
 export function resolvers(server: ImperiumServer<Context>): IResolvers<any, Context> {

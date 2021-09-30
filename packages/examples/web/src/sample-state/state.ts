@@ -1,6 +1,15 @@
-import type {PayloadAction} from '@reduxjs/toolkit';
-import {createSerializedSlice} from '@imperium/state';
+import {createSerializedSlice, createSerializedSelectorHook} from '@imperium/state';
 import {LocalDate} from '@js-joda/core';
+import type {PayloadAction} from '@reduxjs/toolkit';
+
+const serializer = {
+	state: {
+		date: (v: number) => LocalDate.ofEpochDay(v),
+	},
+	actions: {
+		setDate: (a: LocalDate) => a.toEpochDay(),
+	},
+};
 
 export const state = createSerializedSlice({
 	name: 'state-sample',
@@ -12,17 +21,8 @@ export const state = createSerializedSlice({
 			return {...st, date: action.payload};
 		},
 	},
-	serializer: {
-		state: {
-			date: (v: number) => LocalDate.ofEpochDay(v),
-		},
-		actions: {
-			setDate: (a: LocalDate) => a.toEpochDay(),
-		},
-	},
+	serializer,
 });
 
-export const {
-	useSelector: useSampleState,
-	actions: {setDate},
-} = state;
+export const {useSelector: useSampleState} = state;
+export const {setDate} = state.actions;

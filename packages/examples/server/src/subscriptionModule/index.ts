@@ -1,11 +1,11 @@
-import debug from 'debug';
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
-import schema from './Schema.graphqls';
+import debug from 'debug';
+import type {Context} from '~core/context';
 import query from './Query.graphqls';
+import schema from './Schema.graphqls';
 import {resolvers} from './resolvers';
-import type {Context} from '../core/context';
 
-const d = debug('imperium.examples.server.subscriptionsModule');
+const d = debug('imperium.examples.examples/server.subscriptionModule');
 
 export const subscriptionModule = (): ImperiumGraphqlServerModule<Context> => ({
 	name: 'Subscription Server Module',

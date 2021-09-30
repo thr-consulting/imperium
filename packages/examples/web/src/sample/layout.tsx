@@ -1,15 +1,15 @@
-import React from 'react';
-import debug from 'debug';
-import {Menu, Image, Header} from 'semantic-ui-react';
 import type {LayoutData} from '@imperium/layout';
 import {generateVisible} from '@imperium/layout';
+import debug from 'debug';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import imperiumLogo from './imperium_w.png';
-import {routes} from './routes';
+import {Menu, Image, Header} from 'semantic-ui-react';
 import HelloWorld from './components/HelloWorld';
 import {ParamTest} from './components/ParamTest';
+import imperiumLogo from './imperium_w.png';
+import {routes} from './routes';
 
-const d = debug('imperium.examples.web.sample.layout');
+const d = debug('imperium.examples.examples/web.sample.layout');
 
 export const layout: Partial<LayoutData> = {
 	menubar: [

@@ -1,13 +1,13 @@
-import debug from 'debug';
-import {Environment} from '@thx/env';
 import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
+import {Environment} from '@thx/env';
+import debug from 'debug';
+import {connectors} from './connectors';
 // import {configureLogger} from '@thx/log';
 // import {log} from 'winston';
 // import {contextCreator} from './context';
 import {defaultEnvironment} from './defaultEnvironment';
-import {connectors} from './connectors';
 
-const d = debug('imperium.examples.standalone');
+const d = debug('imperium.examples.examples/standalone');
 
 export async function main() {
 	Environment.addDefaults(defaultEnvironment);

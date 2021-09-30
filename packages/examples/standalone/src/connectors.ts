@@ -1,13 +1,13 @@
-import SharedCache from '@thx/sharedcache';
 import {Connectors, Connector} from '@imperium/connector';
-import {Environment} from '@thx/env';
-import debug from 'debug';
 import {MikroORM} from '@mikro-orm/core';
-import redis from 'redis';
+import {Environment} from '@thx/env';
+import SharedCache from '@thx/sharedcache';
 import {PubSub} from 'apollo-server-express';
+import debug from 'debug';
+import redis from 'redis';
 import {mikroOrmConfig} from './mikro-orm.config';
 
-const d = debug('imperium.examples.server.connectors');
+const d = debug('imperium.examples.examples/standalone.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.

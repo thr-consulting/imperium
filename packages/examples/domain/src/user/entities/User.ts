@@ -1,9 +1,9 @@
-import debug from 'debug';
 import {Entity, OneToOne, PrimaryKey, Property, Unique} from '@mikro-orm/core';
+import debug from 'debug';
 import {v4} from 'uuid';
 import {Service} from './Service';
 
-const d = debug('imperium.examples.domain.User');
+const d = debug('imperium.examples.examples/domain.user.entities.User');
 
 @Entity()
 export class User {

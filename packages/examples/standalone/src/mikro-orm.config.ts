@@ -1,8 +1,8 @@
-import debug from 'debug';
 import {entities} from '@imperium/example-domain';
 import type {Options} from '@mikro-orm/core';
+import debug from 'debug';
 
-const d = debug('imperium.example.standalone.mikro-orm.config');
+const d = debug('imperium.examples.examples/standalone.mikro-orm.config');
 
 export const mikroOrmConfig: Options = {
 	entities: Object.values(entities),

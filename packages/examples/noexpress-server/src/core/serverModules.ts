@@ -1,9 +1,9 @@
-// Define server modules that should be included in the server.
-import debug from 'debug';
 import type {ImperiumServerModule} from '@imperium/server';
 import type {ExcludeFalse} from '@thx/util';
+// Define server modules that should be included in the server.
+import debug from 'debug';
 
-const d = debug('imperium.examples.noexpress-server.serverModules');
+const d = debug('imperium.examples.examples/noexpress-server.core.serverModules');
 
 /*
 	Server modules are created with a factory function that returns an array of
