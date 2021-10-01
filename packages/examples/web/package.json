@@ -20,7 +20,8 @@
 		"sort": "thx sort",
 		"start": "yarn start:dev",
 		"start:dev": "imperium dev-client imperium.js",
-		"start:prod": "imperium prod-client imperium.js"
+		"start:prod": "imperium prod-client imperium.js",
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {

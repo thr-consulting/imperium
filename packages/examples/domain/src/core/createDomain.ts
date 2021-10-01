@@ -4,6 +4,7 @@ import {Authorization} from '@imperium/authorization';
 	and should be called on every request/operation.
  */
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
+import {getInitializers} from '@imperium/domaindriven';
 import type {AuthenticatedUser} from '@imperium/connector';
 import type {User} from '../user';
 import {getConnector} from './connectors';
@@ -26,6 +27,7 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		connectors,
 		authenticationRepository: repositories.user,
 		em: entityManager,
+		repos: getInitializers(repositories),
 	};
 
 	const sharedCache = getConnector('sharedCache', connectors);

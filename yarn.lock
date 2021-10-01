@@ -3361,10 +3361,10 @@
   resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-14.2.0.tgz#47677241db0b9c21a6e1f477432bf3e641d35cd9"
   integrity sha512-ZNKSToJFx3JYJlPLi/KjbfM3T582PwP+kvc0gIMPSh6NuDUzDkNLyzgTWnhkqs7pcrAiHxPy+DeGAH5F4g8xVQ==
 
-"@thx/tools@^14.2.1":
-  version "14.2.1"
-  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-14.2.1.tgz#5134ad8db3f377ed3858f71ff8058d6e2c735a92"
-  integrity sha512-DtLllNKru6s8GgMeCSBmedU1PVNMPtPfFERMfXMMtC6gjNrYreirUtLHenyVQu9sgUSMlvDLZUejgeOT5GyvPw==
+"@thx/tools@^14.2.2":
+  version "14.2.2"
+  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-14.2.2.tgz#78c8fb209c8c7cb80d75fc41edbd329689a22da9"
+  integrity sha512-A4KTmWTLVbvDl4IHLop7n4eAnGVzlgwyLOQZT4qv5kpXMzT6Gc53JgijoOATPuAwONhjApgdvjDcytgtbjytbQ==
   dependencies:
     "@babel/preset-env" "^7.15.6"
     "@graphql-codegen/add" "^2.0.1"

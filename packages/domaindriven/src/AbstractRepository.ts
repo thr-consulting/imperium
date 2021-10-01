@@ -1,43 +1,54 @@
 import type {Connectors} from '@imperium/connector';
-import {LockMode, wrap} from '@mikro-orm/core';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm and it has to match. -mk
 import type {
+	Collection,
 	EntityData,
 	EntityManager,
 	EntityRepository,
 	FilterQuery,
+	FindOneOptions,
+	FindOptions,
 	Loaded,
 	Populate,
-	FindOptions,
 	QueryOrderMap,
-	FindOneOptions,
-	Collection,
 } from '@mikro-orm/core';
+import {LockMode, wrap} from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
+import type {EntityBase} from './types';
 
-const d = debug('imperium.domaindriven.AbstractRepository');
+const d = debug('server.core.lib.AbstractRepository');
 
-export abstract class AbstractRepository<EntityType> {
+export abstract class AbstractRepository<EntityType extends EntityBase> {
 	protected readonly repo: EntityRepository<EntityType>;
 	protected readonly connectors: Connectors;
 	private readonly dataloader: DataLoader<string, EntityType>;
 
-	constructor(repo: EntityRepository<EntityType>, connectors: Connectors) {
+	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors) {
 		this.repo = repo;
 		this.connectors = connectors;
 
 		this.dataloader = new DataLoader((keys: ReadonlyArray<string>) => {
+			d(`Finding keys: ${keys}`);
 			return this.repo.find(keys as FilterQuery<EntityType>);
 		});
 	}
 
+	/**
+	 * Mark an entity to be persisted to the database.
+	 * @param entity
+	 */
 	public persist(entity: EntityType | EntityType[]): EntityManager {
 		return this.repo.persist(entity);
 	}
 
+	/**
+	 * Create a query builder to select entities.
+	 * @param alias
+	 * @protected
+	 */
 	protected createQueryBuilder(alias?: string): QueryBuilder<EntityType> {
 		// @ts-ignore Mikro-orm does not provide createQueryBuilder for all repo's. We are assuming an SQL-type of repo. -mk
 		return this.repo.createQueryBuilder(alias);
@@ -60,24 +71,20 @@ export abstract class AbstractRepository<EntityType> {
 		return this.dataloader.load(id);
 	}
 
-	protected findOne<P extends Populate<EntityType> = any>(
+	public findOne<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
 		populate?: P,
 		orderBy?: QueryOrderMap,
 	): Promise<Loaded<EntityType, P> | null>;
-	protected findOne<P extends Populate<EntityType> = any>(
+	public findOne<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
 		populate?: FindOneOptions<EntityType, P>,
 		orderBy?: QueryOrderMap,
 	): Promise<Loaded<EntityType, P> | null>;
 
-	protected async findOne<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		populate?: FindOneOptions<EntityType, P> | P,
-		orderBy?: QueryOrderMap,
-	) {
+	public async findOne<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, populate?: P, orderBy?: QueryOrderMap) {
 		const entity = await this.repo.findOne(where, populate, orderBy);
-		if (entity) this.primeOne(entity);
+		if (entity) this.prime(entity);
 		return entity;
 	}
 
@@ -87,19 +94,16 @@ export abstract class AbstractRepository<EntityType> {
 	 * @private
 	 */
 	private loadMany(ids: string[]) {
-		// todo : This returns errors and that causes problems
-		// tacs/packages/server/src/documents/resolvers/sortedDocumentResolvers.ts
-		// const sortedDocument = new SortedDocument({...data, type, account, company, tags});
 		return this.dataloader.loadMany(ids);
 	}
 
 	public async getAll<P extends Populate<EntityType> = any>(
-		populateOrOptions?: FindOptions<EntityType, P> | P,
+		populateOrOptions?: P, // FindOptions<EntityType, P> | P,
 		orderBy?: QueryOrderMap,
 		limit?: number,
 		offset?: number,
 	) {
-		return this.prime(await this.repo.findAll(populateOrOptions, orderBy, limit, offset));
+		return this.repo.findAll(populateOrOptions, orderBy, limit, offset);
 	}
 
 	protected find<P extends Populate<EntityType> = any>(
@@ -116,7 +120,7 @@ export abstract class AbstractRepository<EntityType> {
 
 	protected async find<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
-		optionsOrPopulate?: FindOptions<EntityType, P> | P,
+		optionsOrPopulate?: P, // FindOptions<EntityType, P> | P,
 		orderBy?: QueryOrderMap,
 		limit?: number,
 		offset?: number,
@@ -124,24 +128,23 @@ export abstract class AbstractRepository<EntityType> {
 		return this.prime(await this.repo.find(where, optionsOrPopulate, orderBy, limit, offset));
 	}
 
-	protected primeOne(entity: EntityType, idField = 'id') {
-		// @ts-ignore I'm making the assumption that the entity has an id field of some sort. -mk
-		this.dataloader.prime(entity[idField], entity);
-		return entity;
-	}
-
 	/**
 	 * Prime the dataloader with entities
-	 * @param entities
+	 * @param entityOrEntities
 	 * @param idField
 	 * @protected
 	 */
-	protected prime(entities: EntityType[], idField = 'id') {
-		return entities.map(e => {
-			// @ts-ignore I'm making the assumption that the entity has an id field of some sort. -mk
-			this.dataloader.prime(e[idField], e);
-			return e;
-		});
+	protected prime(entityOrEntities: EntityType | EntityType[], idField = 'id') {
+		if (Array.isArray(entityOrEntities)) {
+			return entityOrEntities.map(e => {
+				// @ts-ignore I'm making the assumption that the entity has an id field of some sort. -mk
+				this.dataloader.prime(e[idField], e);
+				return e;
+			});
+		}
+		// @ts-ignore I'm making the assumption that the entity has an id field of some sort. -mk
+		this.dataloader.prime(entityOrEntities[idField], entityOrEntities);
+		return entityOrEntities;
 	}
 
 	/**
@@ -193,22 +196,41 @@ export abstract class AbstractRepository<EntityType> {
 		this.dataloader.clear(id);
 	}
 
-	protected async initializeCollection(collection: Collection<EntityType>, populate?: string[]) {
+	/**
+	 * Initializes a collection. Does not use dataloader.
+	 * @param collection
+	 */
+	public async initializeCollection(collection: Collection<EntityType>): Promise<Collection<EntityType>> {
+		d('InitCollection');
 		if (collection.isInitialized()) return collection;
-		await collection.init({populate});
-		this.prime(collection.getItems());
-		return collection;
+		return collection.init();
+		// NOTE: I could use dataloader here, but we would have to reconstitute the array as a collection.
 	}
 
-	protected async initializeEntity(entity: EntityType | null | undefined, populate?: string[]) {
-		if (!entity) return entity;
-		// This is the mikro-orm way
-		if (wrap(entity).isInitialized()) return entity;
-		return this.primeOne(await wrap(entity).init(true, populate));
+	/**
+	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
+	 * @param collection
+	 */
+	public async initializeCollectionAsArray(collection: Collection<EntityType>): Promise<EntityType[]> {
+		d('InitCollectionAsArray');
+		if (collection.isInitialized()) return collection.toArray() as EntityType[];
+		const ids = collection.getItems(false).map(v => v.id);
+		const arr = await this.loadMany(ids);
+		if (arr.some(v => v instanceof Error)) {
+			throw new Error(`Error initializing collection: ${collection}`);
+		}
+		return arr as EntityType[];
+	}
 
-		// // This is the dataloader way
-		// if (wrap(entity).isInitialized()) return entity;
-		// // This next line will probably need to be ignored by typescript.
-		// return this.load(entity);
+	/**
+	 * Initializes a single entity. Uses dataloader.
+	 * @param entity
+	 */
+	public async initializeEntity(entity: EntityType | null | undefined): Promise<EntityType> {
+		if (!entity) throw new Error(`Error initializing entity: ${entity}`);
+		d(`InitEntity: ${entity.id}`);
+
+		if (wrap(entity).isInitialized()) return entity;
+		return this.load(entity.id);
 	}
 }
