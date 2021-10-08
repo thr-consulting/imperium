@@ -1,4 +1,4 @@
-import {createSelectorHook} from '@imperium/state';
+import {createSliceHook} from '@imperium/state';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export const state = createSlice({
@@ -11,6 +11,6 @@ export const state = createSlice({
 	},
 });
 
-export const useLayoutState = createSelectorHook(state);
+export const useLayoutState = createSliceHook(state);
 
 export const {actions} = state;

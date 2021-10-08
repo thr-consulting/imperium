@@ -4,7 +4,6 @@ import '@thx/mingo-types';
 import debug from 'debug';
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import 'semantic-ui-css/semantic.min.css';
 import {ErrorBoundary} from './ErrorBoundary';
 import {clientModules} from './clientModules';
 import './styles.css';

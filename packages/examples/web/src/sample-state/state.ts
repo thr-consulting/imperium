@@ -1,28 +1,26 @@
-import {createSerializedSlice, createSerializedSelectorHook} from '@imperium/state';
+/* eslint-disable no-param-reassign */
 import {LocalDate} from '@js-joda/core';
 import type {PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
+import {createSliceHook} from '@imperium/state';
 
-const serializer = {
-	state: {
-		date: (v: number) => LocalDate.ofEpochDay(v),
-	},
-	actions: {
-		setDate: (a: LocalDate) => a.toEpochDay(),
-	},
-};
-
-export const state = createSerializedSlice({
+export const state = createSlice({
 	name: 'state-sample',
 	initialState: {
 		date: LocalDate.now().toEpochDay(),
+		num: 5,
 	},
 	reducers: {
-		setDate: (st, action: PayloadAction<number>) => {
-			return {...st, date: action.payload};
+		setDate: {
+			reducer: (st, action: PayloadAction<number>) => {
+				st.date = action.payload;
+			},
+			prepare: (date: LocalDate) => ({payload: date.toEpochDay()}),
 		},
 	},
-	serializer,
 });
 
-export const {useSelector: useSampleState} = state;
+export const useSampleState = createSliceHook(state, {
+	date: n => LocalDate.ofEpochDay(n),
+});
 export const {setDate} = state.actions;

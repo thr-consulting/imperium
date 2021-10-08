@@ -24,6 +24,8 @@
 		"lint:fix": "thx lint:fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
+		"test": "thx test",
+		"test:watch": "thx test:watch",
 		"ts": "thx ts"
 	},
 	"eslintConfig": {

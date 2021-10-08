@@ -10,6 +10,7 @@ const d = debug('imperium.examples.examples/web.sample-state.components.StateExa
 
 export default function StateExample() {
 	const state = useSampleState();
+
 	const dispatch = useDispatch();
 
 	d(state);

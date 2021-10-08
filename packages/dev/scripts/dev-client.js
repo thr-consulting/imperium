@@ -21,7 +21,8 @@ console.log('');
 const webpackConfig = require('../webpack/client.dev')(imperiumConfig);
 
 const compiler = webpack(webpackConfig);
-const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-server.listen(parseInt(imperiumConfig.development.clientPort, 10), imperiumConfig.development.clientHost, () => {
+const server = new WebpackDevServer(webpackConfig.devServer, compiler);
+
+server.startCallback(() => {
 	d(`Client webpack-dev-server started on port ${imperiumConfig.development.clientPort}`);
 });

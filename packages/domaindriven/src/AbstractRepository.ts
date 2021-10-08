@@ -19,7 +19,7 @@ import DataLoader from 'dataloader';
 import debug from 'debug';
 import type {EntityBase} from './types';
 
-const d = debug('server.core.lib.AbstractRepository');
+const d = debug('imperium.domaindriven.AbstractRepository');
 
 export abstract class AbstractRepository<EntityType extends EntityBase> {
 	protected readonly repo: EntityRepository<EntityType>;
