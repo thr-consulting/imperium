@@ -33,6 +33,7 @@
 		"@imperium/auth-client": "^7.0.4",
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/client": "^7.0.4",
+		"@imperium/auth-graphql-client": "^7.0.4",
 		"@imperium/graphql-client": "^7.0.4",
 		"@imperium/layout": "^7.0.6",
 		"@imperium/router": "^7.0.5",

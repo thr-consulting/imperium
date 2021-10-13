@@ -29,7 +29,7 @@ export const advancedModule = (): ImperiumServerModule<Context> => ({
 		d('Running startup code');
 		// Has access to server: server.connectors.connections
 	},
-	endpoints(server) {
+	async endpoints(server) {
 		server.expressApp.get(
 			'/adv',
 			authMiddleware({

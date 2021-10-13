@@ -1,53 +1,28 @@
-import {compose} from '@imperium/server';
 import type {ImperiumServer} from '@imperium/server';
+import {compose} from '@imperium/server';
 import {Environment, getCorsOrigin} from '@thx/env';
-import {isString} from '@thx/util';
-import {ApolloServer, ApolloServerExpressConfig, CorsOptions, gql} from 'apollo-server-express';
-import type {ExpressContext} from 'apollo-server-express/dist/ApolloServer';
+import {ConnectionContext, ServerOptions, SubscriptionServer} from 'subscriptions-transport-ws';
+import {makeExecutableSchema} from '@graphql-tools/schema';
+import compact from 'lodash/compact';
+import {execute, subscribe} from 'graphql';
+import type {ApolloServerExpressConfig, CorsOptions, ExpressContext} from 'apollo-server-express';
+import {ApolloServer} from 'apollo-server-express';
+import {mergeResolvers, mergeTypeDefs} from '@graphql-tools/merge';
+import type {IResolvers} from '@graphql-tools/utils';
 import bodyParser from 'body-parser';
 import debug from 'debug';
-import type {DocumentNode} from 'graphql';
-import type {SchemaDirectiveVisitor} from 'graphql-tools';
-import merge from 'lodash/merge';
 import {apolloErrorHandler} from './ApolloErrorHandler';
 import {resolvers as coreResolvers, schema as coreSchema} from './schema';
-import {ApolloSchema, isImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';
+import {GraphqlServerModuleConfig, isImperiumGraphqlServerModule} from './types';
 
 const d = debug('imperium.graphql-server.endpoints');
-
-/**
- * Transforms the various types of ApolloSchema into an array of DocumentNode.
- * @param schema
- */
-function transformToSchemaObjectArray(schema: ApolloSchema): DocumentNode[] {
-	if (Array.isArray(schema)) {
-		return (schema as Array<DocumentNode | string>).map(s => {
-			if (isString(s)) {
-				return gql`
-					${s}
-				`;
-			}
-			return s;
-		});
-	}
-	if (isString(schema)) {
-		return [
-			gql`
-				${schema}
-			`,
-		];
-	}
-
-	// Else it's just a DocumentNode (because of typescript)
-	return [schema];
-}
 
 /**
  * Apollo graphql Express endpoints
  * @param config
  */
 export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
-	return (server: ImperiumServer<any>): void => {
+	return async (server: ImperiumServer<any>): Promise<void> => {
 		const isDevelopment = Environment.isDevelopment();
 		const graphqlUrl = Environment.getString('GRAPHQL_URL');
 		const enableSubscriptions = Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS');
@@ -55,110 +30,104 @@ export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 
 		// Merge all the typeDefs from all modules
 		d('Merging graphql schema');
-		const typeDefs = server.modules.reduce(
-			(memo, module) => {
+		const typeDefs = mergeTypeDefs(
+			server.modules.reduce((memo, module) => {
 				if (isImperiumGraphqlServerModule(module) && module.schema) {
-					return [...memo, ...transformToSchemaObjectArray(module.schema)];
+					if (Array.isArray(module.schema)) {
+						return [...memo, ...module.schema];
+					}
+					return [...memo, module.schema];
 				}
 				return memo;
-			},
-			[...coreSchema],
+			}, coreSchema),
 		);
 
 		// There is a bug where Babel's cache is not invalidated if a graphqls file changes.
 		// This is being addressed in https://github.com/babel/babel/issues/8497.
 		// For now, I've disabled the @babel/register cache in `dev.js` in @imperium/dev.
 
-		// Merge all the schema directives from all modules
-		d('Merging graphql schema directives');
-		const schemaDirectives = server.modules.reduce((memo, module) => {
-			if (isImperiumGraphqlServerModule(module) && module.schemaDirectives) {
-				return {
-					...memo,
-					...module.schemaDirectives,
-				};
-			}
-			return memo;
-		}, {} as Record<string, typeof SchemaDirectiveVisitor>);
-
-		// Merge all the resolvers from all modules
+		// Get all the resolvers from all modules
 		d('Merging graphql resolvers');
-		const resolvers = server.modules.reduce((memo, module) => {
-			if (isImperiumGraphqlServerModule(module) && module.resolvers) return merge(memo, module.resolvers(server));
-			return memo;
-		}, coreResolvers);
+		const resolversArray = server.modules.reduce(
+			(memo, module) => {
+				if (isImperiumGraphqlServerModule(module) && module.resolvers) {
+					const resolvers1 = module.resolvers(server);
+					if (Array.isArray(resolvers1)) {
+						return [...memo, ...resolvers1];
+					}
+					return [...memo, resolvers1];
+				}
+				return memo;
+			},
+			[coreResolvers],
+		);
+		// @ts-ignore I cannot get the types for IResolver to line up. -mk
+		const resolvers = mergeResolvers<any, T>(resolversArray) as IResolvers;
 
-		const apolloServerConfig: ApolloServerExpressConfig = {
+		// Create the schema from typeDefs and resolvers.
+		const schema = makeExecutableSchema({
 			typeDefs,
 			resolvers,
-			context: ({req, res, connection}: ExpressContext) => {
-				if (connection) {
-					// This is a subscription request and therefore we don't get a normal req and res (they are undefined).
-					// So we will construct a middleware the same way we are below for normal requests.
-					const subscriptionMiddleware = compose([...(config?.middleware || []), server.contextMiddleware()]);
+		});
 
-					// We now execute the middleware by calling it in a promise.
-					return new Promise((resolve, reject) => {
-						// Since we don't have a req object we will create a "fake" one here and prime it with what would be
-						// needed for authentication. We don't have any other identifying pieces of data so we can't supply
-						// that here. Authorization headers are not required here.
-						const customSubscriptionRequest = {
-							headers: {
-								authorization: connection.context.Authorization,
-							},
-							context: {}, // This will be filled in by the contextMiddleware
-						};
+		let subscriptionShutdownPlugin = null;
+		if (enableSubscriptions) {
+			d('Installing subscription handlers');
+			const apollSubscriptionServerConfig: ServerOptions = {
+				schema,
+				execute,
+				subscribe,
+				async onConnect(connectionParams: Record<string, unknown>, webSocket: WebSocket, context: ConnectionContext) {
+					d(connectionParams);
+					// d(webSocket);
+					// d(context);
+					return server.createContext();
+				},
+			};
 
-						// Execute the actual middleware
-						subscriptionMiddleware(customSubscriptionRequest as any, {} as any, (err?: any) => {
-							if (err) {
-								reject(err);
-							} else if (config?.apolloContextCreator) {
-								resolve({
-									...customSubscriptionRequest.context,
-									...config?.apolloContextCreator({req, res, connection}),
-								});
-							} else {
-								resolve(customSubscriptionRequest.context);
-							}
-						});
-					});
-				}
+			const subscriptionServer = SubscriptionServer.create(apollSubscriptionServerConfig, {
+				server: server.httpServer,
+				path: graphqlUrl,
+			});
 
+			subscriptionShutdownPlugin = {
+				async serverWillStart() {
+					return {
+						async drainServer() {
+							subscriptionServer.close();
+						},
+					};
+				},
+			};
+		}
+
+		const apolloServerConfig: ApolloServerExpressConfig = {
+			schema,
+			context: ({req, res}: ExpressContext) => {
 				// If we have custom apollo context functions, run them here.
 				if (config?.apolloContextCreator) {
 					return {
 						// @ts-ignore It's too much work to place "context" on the Request type.
 						...req.context,
-						...config?.apolloContextCreator({req, res, connection}),
+						...config?.apolloContextCreator({req, res}),
 					};
 				}
 
 				// @ts-ignore
 				return req.context;
 			},
-			schemaDirectives,
 			formatError: error => {
 				if (config?.formatError) {
 					return config.formatError(error);
 				}
 				return error;
 			},
-			playground: isDevelopment,
+			// playground: isDevelopment,
 			debug: isDevelopment,
 			introspection: isDevelopment,
-			tracing: isDevelopment,
-			plugins: [apolloErrorHandler<T>(config?.logError, config?.logRequest)],
+			// tracing: isDevelopment,
+			plugins: compact([apolloErrorHandler<T>(config?.logError, config?.logRequest), subscriptionShutdownPlugin]),
 		};
-
-		if (enableSubscriptions) {
-			d('Configuring subscriptions');
-			if (isString(graphqlUrl)) {
-				apolloServerConfig.subscriptions = {
-					path: graphqlUrl,
-				};
-			}
-		}
 
 		d('Creating apollo server');
 		const apolloServer = new ApolloServer(apolloServerConfig);
@@ -176,15 +145,12 @@ export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 			origin: getCorsOrigin(),
 		};
 
+		await apolloServer.start();
+
 		apolloServer.applyMiddleware({
 			app: server.expressApp,
 			path: graphqlUrl,
 			cors: corsOpts,
 		});
-
-		if (enableSubscriptions) {
-			d('Installing subscription handlers');
-			apolloServer.installSubscriptionHandlers(server.httpServer);
-		}
 	};
 }

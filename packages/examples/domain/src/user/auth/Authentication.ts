@@ -33,7 +33,14 @@ export class Authentication implements AuthenticationDomain {
 	}
 
 	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
-		const user = await this.context.authenticationRepository.getByEmail(identifier);
+		d(`Get service info for ${identifier}, except we'll ignore. Password should be 'password'.`);
+		// const user = await this.context.authenticationRepository.getByEmail(identifier);
+		const user = {
+			id: 'f8e9f45e-d3b6-4c25-8f0f-4e67d69d5d9a',
+			service: {
+				password: '$2a$11$FqT0AJ9OjWqgnY9Vl5PjbuxAp4oTtm41zTyQAWYizhZ5jTzijL4nq', // password
+			},
+		};
 		if (!user) return null;
 		return {
 			password: user.service.password,

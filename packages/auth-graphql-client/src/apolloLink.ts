@@ -23,6 +23,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 					},
 				});
 			}
+			d('Token not set in local storage');
 			return forward(operation);
 		});
 
@@ -34,6 +35,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 				return isTokenValidOrUndefined();
 			},
 			fetchAccessToken: async () => {
+				d('Fetching access token');
 				return fetchAccessToken();
 			},
 			handleFetch: accessToken => {

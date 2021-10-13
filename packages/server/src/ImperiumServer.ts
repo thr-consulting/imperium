@@ -14,7 +14,7 @@ export class ImperiumServer<Context> {
 	private readonly _contextCreator: (connector: Connectors, authenticatedUser?: AuthenticatedUser) => Promise<Context>;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
-	private _httpPort: number;
+	private readonly _httpPort: number;
 	private _modules: ImperiumServerModule<Context>[];
 
 	public readonly connectors: Connectors;
@@ -28,12 +28,20 @@ export class ImperiumServer<Context> {
 	}
 
 	/**
+	 * Create a context object
+	 * @param authenticatedUser
+	 */
+	public createContext(authenticatedUser?: AuthenticatedUser) {
+		return this._contextCreator(this.connectors, authenticatedUser);
+	}
+
+	/**
 	 * Express middleware used to create a new context and place it on `req.context`.
 	 */
 	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
-			this._contextCreator(this.connectors, req).then(ctx => {
+			this.createContext(req).then(ctx => {
 				// @ts-ignore
 				req.context = ctx;
 				next();
@@ -62,9 +70,11 @@ export class ImperiumServer<Context> {
 
 		// Module endpoints
 		d('Creating module endpoints');
-		this.modules.forEach(module => {
-			if (module.endpoints && isFunction(module.endpoints)) module.endpoints(this);
-		});
+		await Promise.all(
+			this.modules.map(async module => {
+				if (module.endpoints && isFunction(module.endpoints)) await module.endpoints(this);
+			}),
+		);
 
 		const startupPromises = this.modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
