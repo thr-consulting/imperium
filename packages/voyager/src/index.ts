@@ -4,7 +4,7 @@ import {voyagerHtml} from './voyagerHtml';
 export function voyagerServerModule(): ImperiumServerModule<any> {
 	return {
 		name: 'Voyager Graphql Visualization',
-		endpoints: (server: ImperiumServer<any>) => {
+		endpoints: async (server: ImperiumServer<any>) => {
 			server.expressApp.get('/api/voyager', (req, res) => {
 				res.type('text/html').send(voyagerHtml);
 			});

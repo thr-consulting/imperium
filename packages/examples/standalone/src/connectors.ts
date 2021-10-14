@@ -2,8 +2,8 @@ import {Connectors, Connector} from '@imperium/connector';
 import {MikroORM} from '@mikro-orm/core';
 import {Environment} from '@thx/env';
 import SharedCache from '@thx/sharedcache';
-import {PubSub} from 'apollo-server-express';
 import debug from 'debug';
+import {PubSub} from 'graphql-subscriptions';
 import redis from 'redis';
 import {mikroOrmConfig} from './mikro-orm.config';
 
@@ -11,7 +11,7 @@ const d = debug('imperium.examples.standalone.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.
- */
+*/
 
 export const connectors = new Connectors([
 	new Connector<number>('basicConnector', {

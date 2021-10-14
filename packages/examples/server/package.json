@@ -12,6 +12,7 @@
   "scripts": {
     "build:prod": "imperium build-server imperium.js",
     "clean": "thx clean",
+    "codegen": "thx codegen",
     "deps": "thx -i ~core,~basicModule deps",
     "lint": "thx lint",
     "lint:fix": "thx lint:fix",

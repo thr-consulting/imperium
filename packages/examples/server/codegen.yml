@@ -1,0 +1,25 @@
+generates:
+  src/core/graphql.ts:
+    config:
+      contextType: ./context#Context
+      mapperTypeSuffix: Model
+      scalars:
+        DateTime: Date
+        Email: string
+        LocalDate: LocalDate
+        LocalTime: LocalTime
+        Password: string
+        UUID: string
+      useIndexSignature: true
+      useTypeImports: true
+    plugins:
+      - add:
+          content:
+            - /* eslint-disable */
+            - import type {LocalDate, LocalTime} from '@js-joda/core';
+      - typescript
+      - typescript-operations
+      - typescript-resolvers
+schema:
+  - ./core.graphqls
+  - ./src/**/*.graphqls
