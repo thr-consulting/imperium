@@ -5,13 +5,18 @@ import {Authorization} from '@imperium/authorization';
  */
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
 import type {AuthenticatedUser} from '@imperium/connector';
+import {getInitializers} from '@imperium/domaindriven';
+import debug from 'debug';
 import type {User} from '../user';
 import {getConnector} from './connectors';
 import {createControllers} from './createControllers';
 import {createRepositories} from './createRepositories';
 import {entities} from './entities';
 
+const d = debug('imperium.examples.domain.core.createDomain');
+
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
+	d('Creating domain');
 	const authorization = new Authorization<User>(authenticatedUser);
 
 	const entityManager = getConnector('orm', connectors).em.fork(true, true);
@@ -26,6 +31,7 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		connectors,
 		authenticationRepository: repositories.user,
 		em: entityManager,
+		repos: getInitializers(repositories),
 	};
 
 	const sharedCache = getConnector('sharedCache', connectors);

@@ -6,10 +6,11 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {setDate, useSampleState} from '../state';
 
-const d = debug('imperium.examples.examples/web.sample-state.components.StateExample');
+const d = debug('imperium.examples.web.sample-state.components.StateExample');
 
 export default function StateExample() {
 	const state = useSampleState();
+
 	const dispatch = useDispatch();
 
 	d(state);

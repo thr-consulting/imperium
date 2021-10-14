@@ -12,7 +12,4 @@ export function stateClientModule(opts?: StateClientOptions): ImperiumClientModu
 
 export type {ImperiumStateClientModule, StateClientOptions} from './types';
 
-export {createSelectorHook} from './createSelectorHook';
-export {createSerializedSelectorHook} from './createSerializedSelectorHook';
-export {getActions} from './getActions';
-export {createSerializedSlice} from './createSerializedSlice';
+export {createSliceHook} from './createSliceHook';

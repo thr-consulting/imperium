@@ -9,6 +9,7 @@ Object {
     "node": true,
   },
   "extends": Array [
+    "airbnb",
     "airbnb-typescript",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",

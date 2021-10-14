@@ -16,6 +16,4 @@ export function graphqlServerModule<T>(config?: GraphqlServerModuleConfig<T>): I
 	};
 }
 
-export {mergeResolvers} from './lib/mergeResolvers';
-export type {ResolversDefinition, ResolversFactory, MergeResolversOptions} from './lib/mergeResolvers';
 export type {ImperiumGraphqlServerModule, GraphqlServerModuleConfig} from './types';

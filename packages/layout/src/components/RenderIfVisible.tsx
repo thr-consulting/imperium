@@ -39,7 +39,7 @@ function renderWithQuery(
 }
 
 export function RenderIfVisible({item, component}: {component: JSX.Element; item: VisibilityItem}) {
-	const loc = useLocation();
+	const loc = useLocation() as Location;
 
 	if (item.visible) {
 		if (item.visible.selectorHook) {

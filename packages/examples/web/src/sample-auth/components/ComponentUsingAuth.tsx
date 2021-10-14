@@ -4,7 +4,7 @@ import debug from 'debug';
 import React, {useEffect, useRef} from 'react';
 import {Button} from 'semantic-ui-react';
 
-const d = debug('imperium.examples.examples/web.sample-auth.components.ComponentUsingAuth');
+const d = debug('imperium.examples.web.sample-auth.components.ComponentUsingAuth');
 
 function useTraceUpdate(props: any) {
 	const prev = useRef(props);

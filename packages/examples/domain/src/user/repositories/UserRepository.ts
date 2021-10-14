@@ -1,11 +1,16 @@
+import type {Connectors} from '@imperium/connector';
 import {AbstractRepository} from '@imperium/domaindriven';
-import type {EntityData} from '@mikro-orm/core';
+import type {EntityData, EntityRepository} from '@mikro-orm/core';
 import debug from 'debug';
 import type {User} from '../entities/User';
 
-const d = debug('imperium.examples.examples/domain.user.repositories.UserRepository');
+const d = debug('imperium.examples.domain.user.repositories.UserRepository');
 
 export class UserRepository extends AbstractRepository<User> {
+	public constructor(repo: EntityRepository<User>, connectors: Connectors) {
+		super(repo, connectors);
+	}
+
 	initializeEntity(user: User) {
 		return super.initializeEntity(user);
 	}

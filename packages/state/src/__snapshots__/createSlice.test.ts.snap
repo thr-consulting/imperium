@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create a slice should create a slice 1`] = `
+Object {
+  "payload": 2,
+  "type": "name/setA",
+}
+`;
+
+exports[`create a slice should create a slice 2`] = `
+Object {
+  "a": 2,
+}
+`;
+
+exports[`create a slice should create a slice with prepare 1`] = `
+Object {
+  "payload": 2,
+  "type": "name/setA",
+}
+`;
+
+exports[`create a slice should create a slice with prepare 2`] = `
+Object {
+  "a": 2,
+}
+`;

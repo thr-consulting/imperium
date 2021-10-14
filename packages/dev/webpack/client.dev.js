@@ -45,9 +45,13 @@ module.exports = function webpackConfig(imperiumConfig) {
 			emitOnErrors: false,
 		},
 		devServer: {
-			stats: 'errors-warnings',
+			host: imperiumConfig.development.clientHost,
+			port: parseInt(imperiumConfig.development.clientPort, 10),
 			hot: true,
 			historyApiFallback: true, // https://tylermcginnis.com/react-router-cannot-get-url-refresh/
+			static: {
+				directory: imperiumConfig.source.projectRoot,
+			},
 		},
 		stats: 'errors-warnings',
 		plugins: compact([

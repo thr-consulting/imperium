@@ -14,3 +14,4 @@ export function graphqlClientModule(opts?: GraphqlClientOptions): ImperiumClient
 
 export type {ImperiumGraphqlClientModule} from './types';
 export {isFragmentSpreadNode, isFieldNode, isDirectiveDefinitionNode} from './typeguards';
+export {ImperiumGraphqlContext} from './ImperiumGraphqlContext';

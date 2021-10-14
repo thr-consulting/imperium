@@ -1,4 +1,5 @@
 import {authClientModule} from '@imperium/auth-client';
+import {authGraphqlClientModule} from '@imperium/auth-graphql-client';
 import type {ImperiumClientModule} from '@imperium/client';
 import {graphqlClientModule} from '@imperium/graphql-client';
 import {layoutClientModule} from '@imperium/layout';
@@ -12,10 +13,11 @@ import {sampleStateModule} from '../sample-state';
 
 export function clientModules(): ImperiumClientModule[] {
 	return [
+		authClientModule(),
+		authGraphqlClientModule(),
 		graphqlClientModule(),
 		routerClientModule(),
 		stateClientModule(),
-		authClientModule(),
 		layoutClientModule(),
 		sampleModule(),
 		sampleGraphqlModule(),

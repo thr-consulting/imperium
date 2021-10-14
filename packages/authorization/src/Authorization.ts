@@ -8,7 +8,7 @@ import {generateCacheKey} from './generateCacheKey';
 const d = debug('imperium.authorization.Authorization');
 
 interface AuthorizationPrepareParams<User> {
-	getUserById: (id: string) => Promise<User | null>;
+	getUserById: (id: string) => Promise<User | undefined>;
 	createUser: (data: unknown) => User;
 	setCache: (key: string, data: unknown, expire?: number) => Promise<typeof data>;
 	getCache: (key: string) => Promise<unknown>;
@@ -18,7 +18,7 @@ interface AuthorizationPrepareParams<User> {
 export class Authorization<User> {
 	public readonly authenticatedUser?: AuthenticatedUser;
 	public readonly id?: string;
-	public user: User | null;
+	public user: User | undefined;
 	private prepared: boolean;
 	private setCache?: (key: string, data: unknown, expire?: number) => Promise<typeof data>;
 	private getCache?: (key: string) => Promise<unknown>;
@@ -29,7 +29,6 @@ export class Authorization<User> {
 		this.authenticatedUser = authenticatedUser;
 		this.id = authenticatedUser?.auth?.id;
 		this.prepared = false;
-		this.user = null;
 		this.#session = '';
 	}
 

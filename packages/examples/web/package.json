@@ -20,7 +20,8 @@
 		"sort": "thx sort",
 		"start": "yarn start:dev",
 		"start:dev": "imperium dev-client imperium.js",
-		"start:prod": "imperium prod-client imperium.js"
+		"start:prod": "imperium prod-client imperium.js",
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -30,6 +31,7 @@
 	"dependencies": {
 		"@apollo/client": "^3.4.15",
 		"@imperium/auth-client": "^7.0.4",
+		"@imperium/auth-graphql-client": "^7.0.4",
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/client": "^7.0.4",
 		"@imperium/graphql-client": "^7.0.4",
@@ -41,6 +43,7 @@
 		"@reduxjs/toolkit": "^1.6.1",
 		"@thx/controls": "^14.2.0",
 		"@thx/date": "^14.2.0",
+		"@thx/env": "^14.2.0",
 		"@thx/mingo-types": "^14.2.0",
 		"@thx/sha256": "^14.2.0",
 		"debug": "^4.3.2",
@@ -52,7 +55,6 @@
 		"react-redux": "^7.2.5",
 		"react-router": "^5.2.1",
 		"react-router-dom": "^5.3.0",
-		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^2.0.4",
 		"yup": "^0.32.9"
 	},

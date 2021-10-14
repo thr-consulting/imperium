@@ -6,7 +6,7 @@ import type {ImperiumServer} from './ImperiumServer';
  */
 export interface ImperiumServerModule<Context> {
 	name: string;
-	endpoints?: (server: ImperiumServer<Context>) => void;
+	endpoints?: (server: ImperiumServer<Context>) => Promise<void>;
 	startup?: (server: ImperiumServer<Context>) => Promise<void>;
 }
 

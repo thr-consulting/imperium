@@ -2,6 +2,7 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	plugins: ['jest', 'react-hooks'],
 	extends: [
+		'airbnb',
 		'airbnb-typescript',
 		'plugin:react/recommended',
 		// Uses the recommended rules from the @typescript-eslint/eslint-plugin

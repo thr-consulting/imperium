@@ -9,7 +9,7 @@ import {ParamTest} from './components/ParamTest';
 import imperiumLogo from './imperium_w.png';
 import {routes} from './routes';
 
-const d = debug('imperium.examples.examples/web.sample.layout');
+const d = debug('imperium.examples.web.sample.layout');
 
 export const layout: Partial<LayoutData> = {
 	menubar: [

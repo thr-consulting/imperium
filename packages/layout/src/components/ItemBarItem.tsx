@@ -2,6 +2,7 @@ import debug from 'debug';
 import React from 'react';
 import {Link, RouteProps, useLocation, useRouteMatch} from 'react-router-dom';
 import {Dropdown, Icon, Menu} from 'semantic-ui-react';
+import type {Location} from 'history';
 import type {BaseItem, DropdownMenuItem, MenuMenuItem, RouteItem} from '../types';
 import {isDropdownMenuItem, isMenuMenuItem} from '../types';
 import {sortWeightedItems} from '../utils';
@@ -18,7 +19,7 @@ interface ItemBarItemProps {
 }
 
 export function ItemBarItem({item, as, vertical}: ItemBarItemProps) {
-	const loc = useLocation();
+	const loc = useLocation() as Location;
 
 	// Determine if the current route matches the to route to see if the link is active
 	const routeMatchObject: RouteProps = {};

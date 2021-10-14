@@ -1,13 +1,14 @@
+import type {IResolvers} from '@graphql-tools/utils';
+import type {DocumentNode} from 'graphql';
 import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
 import GraphQLObjectId from 'graphql-scalar-objectid';
-import type {IResolvers} from 'graphql-tools';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
 import {GraphQLMoney} from './GraphQLMoney';
 import Root from './Root.graphqls';
 import Scalars from './Scalars.graphqls';
 
-export const schema = [Scalars, Root];
+export const schema: DocumentNode[] = [Scalars, Root];
 export const resolvers: IResolvers = {
 	// These root resolvers are here to fill in the root placeholders because we can't define an empty Query or Mutation
 	Query: {

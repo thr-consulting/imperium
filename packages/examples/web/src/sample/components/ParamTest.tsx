@@ -3,7 +3,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import type {routes} from '../routes';
 
-const d = debug('imperium.examples.examples/web.sample.components.ParamTest');
+const d = debug('imperium.examples.web.sample.components.ParamTest');
 
 export function ParamTest() {
 	const {id, thing} = useParams<typeof routes.types.params>();

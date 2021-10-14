@@ -1,16 +1,13 @@
+import type {IResolvers} from '@graphql-tools/utils';
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
 import type {ExpressContext} from 'apollo-server-express';
 import type {GraphQLRequestContext} from 'apollo-server-types';
 import type {RequestHandler} from 'express';
 import type {DocumentNode, GraphQLError, GraphQLFormattedError} from 'graphql';
-import type {SchemaDirectiveVisitor} from 'graphql-tools';
-import type {ResolversDefinition} from './lib/mergeResolvers';
 
 /**
  * Schema from Graphqls files.
  */
-export type ApolloSchema = DocumentNode | DocumentNode[] | string | string[];
-
 export type ImperiumGraphqlLogErrorFn<T> = (error: Error, session: string, ctx: T) => void;
 export type ImperiumGraphqlLogRequestFn<T> = (requestContext: GraphQLRequestContext<T>) => void;
 
@@ -29,9 +26,8 @@ export interface GraphqlServerModuleConfig<T> {
  * The interface for a module that provides graphql functionality.
  */
 export interface ImperiumGraphqlServerModule<Context> extends ImperiumServerModule<Context> {
-	resolvers: (server: ImperiumServer<Context>) => ResolversDefinition<Context>;
-	schema: ApolloSchema;
-	schemaDirectives?: Record<string, typeof SchemaDirectiveVisitor>;
+	resolvers: (server: ImperiumServer<Context>) => IResolvers<any, Context> | IResolvers<any, Context>[];
+	schema: DocumentNode | DocumentNode[];
 }
 
 /**
