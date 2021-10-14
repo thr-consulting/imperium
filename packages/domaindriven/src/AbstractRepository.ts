@@ -230,22 +230,28 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
 	 * @param collection
 	 */
-	public async initializeCollectionAsArray(collection: Collection<EntityType>): Promise<(EntityType | undefined)[]> {
+	public async initializeCollectionAsArray(collection: Collection<EntityType>): Promise<EntityType[]> {
 		d('InitCollectionAsArray');
 		if (collection.isInitialized()) return collection.toArray() as EntityType[];
 		const ids = collection.getItems(false).map(v => v.id);
-		return this.loadMany(ids);
+		const arr = await this.loadMany(ids);
+		if (arr.some(v => v === undefined)) {
+			throw new Error(`Error initializing collection: ${collection}`);
+		}
+		return arr as EntityType[];
 	}
 
 	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
 	 */
-	public async initializeEntity(entity: EntityType | null | undefined): Promise<EntityType | undefined> {
+	public async initializeEntity(entity: EntityType | null | undefined): Promise<EntityType> {
 		if (!entity) throw new Error(`Error initializing entity: ${entity}`);
 		d(`InitEntity: ${entity.id}`);
 
 		if (wrap(entity).isInitialized()) return entity;
-		return this.load(entity.id);
+		const ent = await this.load(entity.id);
+		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
+		return ent;
 	}
 }
