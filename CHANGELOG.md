@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.1](https://github.com/darkadept/imperium/compare/v7.1.0...v7.1.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **domaindriven:** fixed initializer functions ([97f8bf0](https://github.com/darkadept/imperium/commit/97f8bf000e2af003493885919804096aaeee6d1f))
+
+
+
+
+
 # [7.1.0](https://github.com/darkadept/imperium/compare/v7.0.6...v7.1.0) (2021-10-14)
 
 
