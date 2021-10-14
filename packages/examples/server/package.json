@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-server",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "private": true,
   "description": "Imperium server example project",
   "repository": {
@@ -29,12 +29,12 @@
     }
   },
   "dependencies": {
-    "@imperium/auth-server": "^7.0.0",
-    "@imperium/connector": "^7.0.0",
-    "@imperium/example-domain": "^7.0.0",
-    "@imperium/graphql-server": "^7.0.0",
-    "@imperium/server": "^7.0.0",
-    "@imperium/voyager": "^7.0.0",
+    "@imperium/auth-server": "^7.1.0",
+    "@imperium/connector": "^7.1.0",
+    "@imperium/example-domain": "^7.1.0",
+    "@imperium/graphql-server": "^7.1.0",
+    "@imperium/server": "^7.1.0",
+    "@imperium/voyager": "^7.1.0",
     "@mikro-orm/cli": "^4.5.9",
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",
@@ -51,7 +51,7 @@
     "redis": "^3.1.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^7.0.0"
+    "@imperium/dev": "^7.1.0"
   },
   "engines": {
     "node": ">=14"

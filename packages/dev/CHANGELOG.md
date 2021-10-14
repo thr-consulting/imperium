@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/darkadept/imperium/compare/v7.0.6...v7.1.0) (2021-10-14)
+
+
+### Features
+
+* **dev:** added custom webpack config transform ([#280](https://github.com/darkadept/imperium/issues/280)) ([8c7f204](https://github.com/darkadept/imperium/commit/8c7f204c83df83e968cc1ab64f85cfd7d9f982e1))
+
+
+
+
+
 # [7.0.0](https://github.com/darkadept/imperium/compare/v6.2.1...v7.0.0) (2021-08-23)
 
 **Note:** Version bump only for package @imperium/dev

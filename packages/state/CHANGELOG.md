@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/darkadept/imperium/compare/v7.0.6...v7.1.0) (2021-10-14)
+
+**Note:** Version bump only for package @imperium/state
+
+
+
+
+
 ## [7.0.4](https://github.com/darkadept/imperium/compare/v7.0.3...v7.0.4) (2021-08-30)
 
 **Note:** Version bump only for package @imperium/state

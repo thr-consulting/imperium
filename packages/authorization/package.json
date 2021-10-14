@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/authorization",
-	"version": "7.0.0",
+	"version": "7.1.0",
 	"description": "Imperium Authorization package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -33,7 +33,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^7.0.0",
+		"@imperium/connector": "^7.1.0",
 		"debug": "^4.3.2"
 	},
 	"engines": {
