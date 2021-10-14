@@ -6,7 +6,7 @@ import {inspect} from 'util';
 import type {Context} from '~core/context';
 import {data} from './data';
 
-const d = debug('imperium.examples.examples/server.subscriptionModule.resolvers');
+const d = debug('imperium.examples.server.subscriptionModule.resolvers');
 const dd = (obj: any) => d(inspect(obj, false, null, true));
 
 export function resolvers(server: ImperiumServer<Context>) {
@@ -21,6 +21,7 @@ export function resolvers(server: ImperiumServer<Context>) {
 			changeSubscriptionValue(obj, params, ctx) {
 				// Perform the mutation
 				data.id = randomLetters(10);
+				// d(ctx);
 
 				// Notify the pubsub that the value changed. We can send the changed
 				// data to the client via the subscription by passing it as the payload
@@ -37,7 +38,8 @@ export function resolvers(server: ImperiumServer<Context>) {
 		Subscription: {
 			subscriptionValueChanged: {
 				subscribe(obj, params, ctx) {
-					return getConnector('pubsub', ctx.connectors).asyncIterator(['VALUECHANGED']);
+					const pubsub = getConnector('pubsub', ctx.connectors);
+					return pubsub.asyncIterator(['VALUECHANGED']);
 				},
 			},
 		},

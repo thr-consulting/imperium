@@ -1,16 +1,16 @@
-import {BatchHttpLink} from '@apollo/client/link/batch-http';
-import type {ExcludeFalse} from '@thx/util';
-import {onError} from '@apollo/client/link/error';
-import debug from 'debug';
-import type {ImperiumClient, ImperiumClientModule} from '@imperium/client';
-import {Environment} from '@thx/env';
 import {ApolloLink, split} from '@apollo/client';
-import {SubscriptionClient} from 'subscriptions-transport-ws';
+import {BatchHttpLink} from '@apollo/client/link/batch-http';
+import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {getMainDefinition} from '@apollo/client/utilities';
-import type {GraphqlClientOptions} from './withGraphql';
-import {isImperiumGraphqlClientModule} from './types';
+import type {ImperiumClient, ImperiumClientModule} from '@imperium/client';
+import {Environment} from '@thx/env';
+import type {ExcludeFalse} from '@thx/util';
+import debug from 'debug';
+import {SubscriptionClient} from 'subscriptions-transport-ws';
 import {removeTypeNameLink} from './removeTypeNameLink';
+import {isImperiumGraphqlClientModule} from './types';
+import type {GraphqlClientOptions} from './withGraphql';
 
 const d = debug('imperium.graphql-client.createLink');
 
@@ -80,6 +80,7 @@ export function createLink(client: ImperiumClient, opts?: GraphqlClientOptions):
 	return {
 		link,
 		close: () => {
+			d('Closing Apollo link');
 			if (wsLink && (wsLink as any).close) {
 				(wsLink as any).close();
 			}

@@ -24,15 +24,22 @@ const d = debug('imperium.domaindriven.AbstractRepository');
 export abstract class AbstractRepository<EntityType extends EntityBase> {
 	protected readonly repo: EntityRepository<EntityType>;
 	protected readonly connectors: Connectors;
-	private readonly dataloader: DataLoader<string, EntityType>;
+	private readonly dataloader: DataLoader<EntityType['id'], EntityType | undefined>;
 
 	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors) {
 		this.repo = repo;
 		this.connectors = connectors;
 
-		this.dataloader = new DataLoader((keys: ReadonlyArray<string>) => {
+		this.dataloader = new DataLoader<EntityType['id'], EntityType | undefined>(async (keys: ReadonlyArray<EntityType['id']>) => {
 			d(`Finding keys: ${keys}`);
-			return this.repo.find(keys as FilterQuery<EntityType>);
+			const unordered = await this.repo.find(keys as FilterQuery<EntityType>);
+			const entMap = new Map<EntityType['id'], EntityType>();
+			unordered.forEach(ent => {
+				entMap.set(ent.id, ent);
+			});
+			return keys.map(key => {
+				return entMap.get(key);
+			});
 		});
 	}
 
@@ -55,6 +62,14 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	/**
+	 * Maps data (usually returned from a query builder) to an entity.
+	 * @param entity
+	 */
+	protected map(entity: EntityData<EntityType>) {
+		return this.repo.map(entity);
+	}
+
+	/**
 	 * Create the entity from data that matches the fields in the entity.
 	 * @param data
 	 */
@@ -67,25 +82,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @private
 	 */
-	private load(id: string) {
+	private load(id: EntityType['id']) {
 		return this.dataloader.load(id);
-	}
-
-	public findOne<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		populate?: P,
-		orderBy?: QueryOrderMap,
-	): Promise<Loaded<EntityType, P> | null>;
-	public findOne<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		populate?: FindOneOptions<EntityType, P>,
-		orderBy?: QueryOrderMap,
-	): Promise<Loaded<EntityType, P> | null>;
-
-	public async findOne<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, populate?: P, orderBy?: QueryOrderMap) {
-		const entity = await this.repo.findOne(where, populate, orderBy);
-		if (entity) this.prime(entity);
-		return entity;
 	}
 
 	/**
@@ -93,8 +91,28 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param ids
 	 * @private
 	 */
-	private loadMany(ids: string[]) {
-		return this.dataloader.loadMany(ids);
+	private async loadMany(ids: EntityType['id'][]): Promise<(EntityType | undefined)[]> {
+		const arr = await this.dataloader.loadMany(ids);
+		if (arr.some(v => v instanceof Error)) {
+			throw new Error(`Error loading many entities`);
+		}
+		return arr as (EntityType | undefined)[];
+	}
+
+	public findOne<P extends Populate<EntityType> = any>(
+		where: FilterQuery<EntityType>,
+		populate?: P,
+		orderBy?: QueryOrderMap,
+	): Promise<Loaded<EntityType, P> | undefined>;
+	public findOne<P extends Populate<EntityType> = any>(
+		where: FilterQuery<EntityType>,
+		populate?: FindOneOptions<EntityType, P>,
+		orderBy?: QueryOrderMap,
+	): Promise<Loaded<EntityType, P> | undefined>;
+	public async findOne<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, populate?: P, orderBy?: QueryOrderMap) {
+		const entity = await this.repo.findOne(where, populate, orderBy);
+		if (entity) this.prime(entity);
+		return entity || undefined;
 	}
 
 	public async getAll<P extends Populate<EntityType> = any>(
@@ -102,22 +120,18 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		orderBy?: QueryOrderMap,
 		limit?: number,
 		offset?: number,
-	) {
-		return this.repo.findAll(populateOrOptions, orderBy, limit, offset);
+	): Promise<EntityType[]> {
+		return this.prime(await this.repo.findAll(populateOrOptions, orderBy, limit, offset));
 	}
 
-	protected find<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		options?: FindOptions<EntityType, P>,
-	): Promise<Loaded<EntityType, P>[]>;
+	protected find<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
 	protected find<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
 		populate?: P,
 		orderBy?: QueryOrderMap,
 		limit?: number,
 		offset?: number,
-	): Promise<Loaded<EntityType, P>[]>;
-
+	): Promise<EntityType[]>;
 	protected async find<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
 		optionsOrPopulate?: P, // FindOptions<EntityType, P> | P,
@@ -131,29 +145,32 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Prime the dataloader with entities
 	 * @param entityOrEntities
-	 * @param idField
 	 * @protected
 	 */
-	protected prime(entityOrEntities: EntityType | EntityType[], idField = 'id') {
+	protected prime(entityOrEntities: EntityType): EntityType;
+	protected prime(entityOrEntities: EntityType[]): EntityType[];
+	protected prime(entityOrEntities: EntityType | EntityType[]) {
 		if (Array.isArray(entityOrEntities)) {
 			return entityOrEntities.map(e => {
-				// @ts-ignore I'm making the assumption that the entity has an id field of some sort. -mk
-				this.dataloader.prime(e[idField], e);
+				this.dataloader.prime(e.id, e);
 				return e;
 			});
 		}
-		// @ts-ignore I'm making the assumption that the entity has an id field of some sort. -mk
-		this.dataloader.prime(entityOrEntities[idField], entityOrEntities);
+		this.dataloader.prime(entityOrEntities.id, entityOrEntities);
 		return entityOrEntities;
 	}
 
 	/**
-	 * Clear the dataloader cache for a specific key.
+	 * Clear the dataloader cache for a specific key or all keys.
 	 * @param id
 	 * @protected
 	 */
-	protected clear(id: string) {
-		this.dataloader.clear(id);
+	protected clear(id?: EntityType['id']) {
+		if (id) {
+			this.dataloader.clear(id);
+		} else {
+			this.dataloader.clearAll();
+		}
 	}
 
 	/**
@@ -161,7 +178,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @param version: if the version is specified it acts as a getLock
 	 */
-	public getById(id: string, version?: number): Promise<EntityType | null> {
+	public getById(id: EntityType['id'], version?: number): Promise<EntityType | undefined> {
 		if (version) return this.getLock(id, version);
 		return this.load(id);
 	}
@@ -170,7 +187,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Get entities by id's.
 	 * @param ids
 	 */
-	public getByIds(ids: string[]) {
+	public getByIds(ids: EntityType['id'][]): Promise<(EntityType | undefined)[]> {
 		return this.loadMany(ids);
 	}
 
@@ -180,10 +197,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version
 	 * @return entity
 	 */
-	private async getLock(id: string, version: number): Promise<EntityType> {
+	private async getLock(id: EntityType['id'], version: number): Promise<EntityType> {
 		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {lockVersion: version, lockMode: LockMode.OPTIMISTIC});
 		if (!entity) throw new Error('Could not optimistically lock entity');
-		return entity;
+		return this.prime(entity);
 	}
 
 	/**
@@ -191,7 +208,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @param version Obtains an optimistic lock when deleting.
 	 */
-	public async deleteById(id: string, version: number) {
+	public async deleteById(id: EntityType['id'], version: number) {
 		await this.repo.remove(await this.getLock(id, version));
 		this.dataloader.clear(id);
 	}
@@ -203,7 +220,9 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	public async initializeCollection(collection: Collection<EntityType>): Promise<Collection<EntityType>> {
 		d('InitCollection');
 		if (collection.isInitialized()) return collection;
-		return collection.init();
+		const initColl = await collection.init();
+		this.prime(initColl.getItems(false));
+		return initColl;
 		// NOTE: I could use dataloader here, but we would have to reconstitute the array as a collection.
 	}
 
@@ -211,22 +230,18 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
 	 * @param collection
 	 */
-	public async initializeCollectionAsArray(collection: Collection<EntityType>): Promise<EntityType[]> {
+	public async initializeCollectionAsArray(collection: Collection<EntityType>): Promise<(EntityType | undefined)[]> {
 		d('InitCollectionAsArray');
 		if (collection.isInitialized()) return collection.toArray() as EntityType[];
 		const ids = collection.getItems(false).map(v => v.id);
-		const arr = await this.loadMany(ids);
-		if (arr.some(v => v instanceof Error)) {
-			throw new Error(`Error initializing collection: ${collection}`);
-		}
-		return arr as EntityType[];
+		return this.loadMany(ids);
 	}
 
 	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
 	 */
-	public async initializeEntity(entity: EntityType | null | undefined): Promise<EntityType> {
+	public async initializeEntity(entity: EntityType | null | undefined): Promise<EntityType | undefined> {
 		if (!entity) throw new Error(`Error initializing entity: ${entity}`);
 		d(`InitEntity: ${entity.id}`);
 

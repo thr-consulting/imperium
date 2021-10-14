@@ -22,8 +22,9 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 						Authorization: `Bearer ${token}`,
 					},
 				});
+			} else {
+				d('Token not set in local storage');
 			}
-			d('Token not set in local storage');
 			return forward(operation);
 		});
 

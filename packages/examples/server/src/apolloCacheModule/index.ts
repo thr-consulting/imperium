@@ -4,7 +4,7 @@ import debug from 'debug';
 import type {Context} from '~core/context';
 import Cache from './Cache.graphqls';
 
-const d = debug('imperium.examples.examples/server.apolloCacheModule');
+const d = debug('imperium.examples.server.apolloCacheModule');
 
 /*
 	This is an example of a server module that uses graphql.

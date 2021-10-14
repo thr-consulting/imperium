@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {Button, Segment} from 'semantic-ui-react';
 import query from './query.graphql';
 
-const d = debug('imperium.examples.examples/web.sample-apollocache.components.ApolloCache');
+const d = debug('imperium.examples.web.sample-apollocache.components.ApolloCache');
 
 export default function ApolloCache() {
 	const [filter, setFilter] = useState('PHONE');
@@ -16,6 +16,10 @@ export default function ApolloCache() {
 
 	d('query', loading, error, data);
 	if (loading) return null;
+	if (error) {
+		d(error);
+		return null;
+	}
 
 	return (
 		<Segment inverted>

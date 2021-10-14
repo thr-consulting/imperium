@@ -7,7 +7,7 @@ import {connectors} from './connectors';
 // import {contextCreator} from './context';
 import {defaultEnvironment} from './defaultEnvironment';
 
-const d = debug('imperium.examples.examples/standalone');
+const d = debug('imperium.examples.standalone');
 
 export async function main() {
 	Environment.addDefaults(defaultEnvironment);

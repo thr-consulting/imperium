@@ -7,7 +7,7 @@ import {contextCreator} from '~core/context';
 import {defaultEnvironment} from '~core/defaultEnvironment';
 import {serverModules} from '~core/serverModules';
 
-const d = debug('imperium.examples.examples/server.core.server');
+const d = debug('imperium.examples.server.core.server');
 
 /*
   This default function export is required by the @imperium/dev scripts

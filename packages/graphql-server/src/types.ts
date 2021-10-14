@@ -1,9 +1,9 @@
+import type {IResolvers} from '@graphql-tools/utils';
 import type {ImperiumServer, ImperiumServerModule} from '@imperium/server';
 import type {ExpressContext} from 'apollo-server-express';
 import type {GraphQLRequestContext} from 'apollo-server-types';
 import type {RequestHandler} from 'express';
 import type {DocumentNode, GraphQLError, GraphQLFormattedError} from 'graphql';
-import type {IResolvers} from '@graphql-tools/utils';
 
 /**
  * Schema from Graphqls files.

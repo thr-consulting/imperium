@@ -1,8 +1,8 @@
+import {createSliceHook} from '@imperium/state';
 /* eslint-disable no-param-reassign */
 import {LocalDate} from '@js-joda/core';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {createSlice} from '@reduxjs/toolkit';
-import {createSliceHook} from '@imperium/state';
 
 export const state = createSlice({
 	name: 'state-sample',

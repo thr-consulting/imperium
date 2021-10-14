@@ -39,15 +39,14 @@
     "@mikro-orm/postgresql": "^4.5.9",
     "@thx/env": "^14.2.0",
     "@thx/random": "^14.2.0",
-    "graphql-subscriptions": "^1.2.1",
     "@thx/sharedcache": "^14.2.0",
     "@thx/util": "^14.2.0",
     "apollo-server-express": "^3.3.0",
     "debug": "^4.3.2",
-    "mitt": "^3.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.6.1",
+    "graphql-subscriptions": "^1.2.1",
     "redis": "^3.1.2"
   },
   "devDependencies": {

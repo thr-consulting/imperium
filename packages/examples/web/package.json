@@ -31,9 +31,9 @@
 	"dependencies": {
 		"@apollo/client": "^3.4.15",
 		"@imperium/auth-client": "^7.0.4",
+		"@imperium/auth-graphql-client": "^7.0.4",
 		"@imperium/authorization": "^7.0.0",
 		"@imperium/client": "^7.0.4",
-		"@imperium/auth-graphql-client": "^7.0.4",
 		"@imperium/graphql-client": "^7.0.4",
 		"@imperium/layout": "^7.0.6",
 		"@imperium/router": "^7.0.5",
@@ -43,6 +43,7 @@
 		"@reduxjs/toolkit": "^1.6.1",
 		"@thx/controls": "^14.2.0",
 		"@thx/date": "^14.2.0",
+		"@thx/env": "^14.2.0",
 		"@thx/mingo-types": "^14.2.0",
 		"@thx/sha256": "^14.2.0",
 		"debug": "^4.3.2",

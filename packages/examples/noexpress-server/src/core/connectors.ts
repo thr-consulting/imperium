@@ -7,7 +7,7 @@ import debug from 'debug';
 import redis from 'redis';
 import {mikroOrmConfig} from '~core/mikro-orm.config';
 
-const d = debug('imperium.examples.examples/noexpress-server.core.connectors');
+const d = debug('imperium.examples.noexpress-server.core.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.

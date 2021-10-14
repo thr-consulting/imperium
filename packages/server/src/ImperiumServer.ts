@@ -31,7 +31,7 @@ export class ImperiumServer<Context> {
 	 * Create a context object
 	 * @param authenticatedUser
 	 */
-	public createContext(authenticatedUser?: AuthenticatedUser) {
+	public createContext(authenticatedUser?: AuthenticatedUser): Promise<Context> {
 		return this._contextCreator(this.connectors, authenticatedUser);
 	}
 

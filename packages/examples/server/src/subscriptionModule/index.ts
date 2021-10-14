@@ -5,7 +5,7 @@ import query from './Query.graphqls';
 import schema from './Schema.graphqls';
 import {resolvers} from './resolvers';
 
-const d = debug('imperium.examples.examples/server.subscriptionModule');
+const d = debug('imperium.examples.server.subscriptionModule');
 
 export const subscriptionModule = (): ImperiumGraphqlServerModule<Context> => ({
 	name: 'Subscription Server Module',

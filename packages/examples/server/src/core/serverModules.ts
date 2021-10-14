@@ -13,8 +13,9 @@ import {advancedModule} from '../advancedModule';
 import {apolloCacheModule} from '../apolloCacheModule';
 import {graphqlModule} from '../graphqlModule';
 import {subscriptionModule} from '../subscriptionModule';
+import {userModule} from '../userModule';
 
-const d = debug('imperium.examples.examples/server.core.serverModules');
+const d = debug('imperium.examples.server.core.serverModules');
 
 /*
 	Server modules are created with a factory function that returns an array of
@@ -23,10 +24,11 @@ const d = debug('imperium.examples.examples/server.core.serverModules');
 */
 export function serverModules(): ImperiumServerModule<any>[] {
 	return [
+		authServerModule((ctx: Context) => new Authentication(ctx)),
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: Environment.getBool('GRAPHQL_CREDENTIALS_REQUIRED')})],
 		}),
-		authServerModule((ctx: Context) => new Authentication(ctx)),
+		userModule(),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),

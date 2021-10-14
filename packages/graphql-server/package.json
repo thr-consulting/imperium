@@ -37,26 +37,26 @@
 		}
 	},
 	"dependencies": {
+		"@graphql-tools/merge": "^8.1.2",
+		"@graphql-tools/schema": "^8.2.0",
+		"@graphql-tools/utils": "^8.2.5",
 		"@imperium/server": "^7.0.0",
 		"@js-joda/core": "^4.0.0",
 		"@thx/date": "^14.2.0",
 		"@thx/env": "^14.2.0",
 		"@thx/money": "^14.2.0",
-		"@thx/util": "^14.2.0",
-		"@graphql-tools/merge": "^8.1.2",
-		"@graphql-tools/schema": "^8.2.0",
-		"@graphql-tools/utils": "^8.2.5",
-		"apollo-server-express": "^3.3.0",
-		"apollo-server-plugin-base": "^3.2.0",
-		"apollo-server-types": "^3.2.0",
+		"apollo-server-core": "^3.4.0",
+		"apollo-server-express": "^3.4.0",
+		"apollo-server-plugin-base": "^3.3.0",
+		"apollo-server-types": "^3.3.0",
 		"body-parser": "^1.19.0",
 		"debug": "^4.3.2",
 		"graphql": "^15.6.1",
 		"graphql-custom-types": "^1.6.0",
-		"subscriptions-transport-ws": "^0.9.19",
 		"graphql-scalar-objectid": "^0.1.2",
 		"js-money": "^0.6.3",
-		"lodash": "^4.17.21"
+		"lodash": "^4.17.21",
+		"subscriptions-transport-ws": "^0.9.19"
 	},
 	"peerDependencies": {
 		"express": "4.x"

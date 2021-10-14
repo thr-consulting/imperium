@@ -7,7 +7,7 @@ import debug from 'debug';
 import redis from 'redis';
 import {mikroOrmConfig} from './mikro-orm.config';
 
-const d = debug('imperium.examples.examples/standalone.connectors');
+const d = debug('imperium.examples.standalone.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.

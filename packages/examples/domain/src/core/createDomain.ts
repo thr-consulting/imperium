@@ -4,15 +4,19 @@ import {Authorization} from '@imperium/authorization';
 	and should be called on every request/operation.
  */
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
-import {getInitializers} from '@imperium/domaindriven';
 import type {AuthenticatedUser} from '@imperium/connector';
+import {getInitializers} from '@imperium/domaindriven';
+import debug from 'debug';
 import type {User} from '../user';
 import {getConnector} from './connectors';
 import {createControllers} from './createControllers';
 import {createRepositories} from './createRepositories';
 import {entities} from './entities';
 
+const d = debug('imperium.examples.domain.core.createDomain');
+
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
+	d('Creating domain');
 	const authorization = new Authorization<User>(authenticatedUser);
 
 	const entityManager = getConnector('orm', connectors).em.fork(true, true);

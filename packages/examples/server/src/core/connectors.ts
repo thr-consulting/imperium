@@ -1,13 +1,13 @@
 import {Connectors, Connector} from '@imperium/connector';
 import {MikroORM} from '@mikro-orm/core';
 import {Environment} from '@thx/env';
-import {PubSub} from 'graphql-subscriptions';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
+import {PubSub} from 'graphql-subscriptions';
 import redis from 'redis';
 import {mikroOrmConfig} from '~core/mikro-orm.config';
 
-const d = debug('imperium.examples.examples/server.core.connectors');
+const d = debug('imperium.examples.server.core.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.

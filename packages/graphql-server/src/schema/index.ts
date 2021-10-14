@@ -1,7 +1,7 @@
-import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
-import GraphQLObjectId from 'graphql-scalar-objectid';
 import type {IResolvers} from '@graphql-tools/utils';
 import type {DocumentNode} from 'graphql';
+import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
+import GraphQLObjectId from 'graphql-scalar-objectid';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
 import {GraphQLMoney} from './GraphQLMoney';

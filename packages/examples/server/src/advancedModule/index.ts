@@ -4,7 +4,7 @@ import debug from 'debug';
 import type {RequestHandler} from 'express';
 import type {Context} from '~core/context';
 
-const d = debug('imperium.examples.examples/server.advancedModule');
+const d = debug('imperium.examples.server.advancedModule');
 
 function myMiddleware(): RequestHandler {
 	return (req, res, next) => {
