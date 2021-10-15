@@ -36,6 +36,9 @@
 			"project": "./tsconfig-eslint.json"
 		}
 	},
+	"resolutions": {
+		"@graphql-tools/**/graphql": "^15.6.1"
+	},
 	"dependencies": {
 		"@graphql-tools/merge": "^8.1.2",
 		"@graphql-tools/schema": "^8.2.0",
