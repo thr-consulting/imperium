@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.2](https://github.com/darkadept/imperium/compare/v7.1.1...v7.1.2) (2021-10-15)
+
+
+### Bug Fixes
+
+* **state:** slice hooks were not created properly when transformers were not present ([196214e](https://github.com/darkadept/imperium/commit/196214e708fd405278bcc66fd3a6ff4112488853))
+
+
+
+
+
 ## [7.1.1](https://github.com/darkadept/imperium/compare/v7.1.0...v7.1.1) (2021-10-14)
 
 
