@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.4](https://github.com/darkadept/imperium/compare/v7.1.3...v7.1.4) (2021-10-21)
+
+**Note:** Version bump only for package @imperium/example-domain
+
+
+
+
+
 ## [7.1.1](https://github.com/darkadept/imperium/compare/v7.1.0...v7.1.1) (2021-10-14)
 
 **Note:** Version bump only for package @imperium/example-domain

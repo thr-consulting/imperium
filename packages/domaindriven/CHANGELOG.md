@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.4](https://github.com/darkadept/imperium/compare/v7.1.3...v7.1.4) (2021-10-21)
+
+
+### Bug Fixes
+
+* **domaindriven:** fixed generic limiting in AbstractController ([baf24e5](https://github.com/darkadept/imperium/commit/baf24e51a93dd076017053cdf66bb2d75e0af0d2))
+
+
+
+
+
 ## [7.1.1](https://github.com/darkadept/imperium/compare/v7.1.0...v7.1.1) (2021-10-14)
 
 
