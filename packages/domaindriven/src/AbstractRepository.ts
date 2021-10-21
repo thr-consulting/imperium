@@ -216,9 +216,17 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Initializes a collection. Does not use dataloader.
 	 * @param collection
+	 * @param populate
 	 */
-	public async initializeCollection(collection: Collection<EntityType>): Promise<Collection<EntityType>> {
+	public async initializeCollection(collection: Collection<EntityType>, populate?: string[]): Promise<Collection<EntityType>> {
 		d('InitCollection');
+
+		if (populate) {
+			const initColl = await collection.init({populate});
+			this.prime(initColl.getItems(false));
+			return initColl;
+		}
+
 		if (collection.isInitialized()) return collection;
 		const initColl = await collection.init();
 		this.prime(initColl.getItems(false));
@@ -229,9 +237,16 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
 	 * @param collection
+	 * @param populate
 	 */
-	public async initializeCollectionAsArray(collection: Collection<EntityType>): Promise<EntityType[]> {
+	public async initializeCollectionAsArray(collection: Collection<EntityType>, populate?: string[]): Promise<EntityType[]> {
 		d('InitCollectionAsArray');
+		if (populate) {
+			const initColl = await collection.init({populate});
+			this.prime(initColl.getItems(false));
+			return initColl.toArray() as EntityType[];
+		}
+
 		if (collection.isInitialized()) return collection.toArray() as EntityType[];
 		const ids = collection.getItems(false).map(v => v.id);
 		const arr = await this.loadMany(ids);
@@ -244,10 +259,15 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
+	 * @param populate
 	 */
-	public async initializeEntity(entity: EntityType | null | undefined): Promise<EntityType> {
+	public async initializeEntity(entity: EntityType | null | undefined, populate?: string[]): Promise<EntityType> {
 		if (!entity) throw new Error(`Error initializing entity: ${entity}`);
 		d(`InitEntity: ${entity.id}`);
+
+		if (populate) {
+			return this.prime(await wrap(entity).init(true, populate));
+		}
 
 		if (wrap(entity).isInitialized()) return entity;
 		const ent = await this.load(entity.id);
