@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.5](https://github.com/darkadept/imperium/compare/v7.1.4...v7.1.5) (2021-10-26)
+
+
+### Bug Fixes
+
+* **domaindriven:** fixed wrong argument type for AbstractRepository getAll ([300b402](https://github.com/darkadept/imperium/commit/300b402cbe2e5e1c3f651a5039865e5dc4adaf8e))
+
+
+
+
+
 ## [7.1.4](https://github.com/darkadept/imperium/compare/v7.1.3...v7.1.4) (2021-10-21)
 
 
