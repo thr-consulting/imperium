@@ -18,6 +18,7 @@ import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 import type {EntityBase} from './types';
+import {isFindOptions} from './types';
 
 const d = debug('imperium.domaindriven.AbstractRepository');
 
@@ -115,13 +116,26 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return entity || undefined;
 	}
 
+	public async getAll<P extends Populate<EntityType> = any>(options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
 	public async getAll<P extends Populate<EntityType> = any>(
-		populateOrOptions?: P, // FindOptions<EntityType, P> | P,
+		populate?: P,
+		orderBy?: QueryOrderMap,
+		limit?: number,
+		offset?: number,
+	): Promise<EntityType[]>;
+
+	public async getAll<P extends Populate<EntityType> = any>(
+		populateOrOptions?: FindOptions<EntityType, P> | P,
 		orderBy?: QueryOrderMap,
 		limit?: number,
 		offset?: number,
 	): Promise<EntityType[]> {
-		return this.prime(await this.repo.findAll(populateOrOptions, orderBy, limit, offset));
+		if (!populateOrOptions) return this.prime(await this.repo.findAll());
+		if (orderBy !== undefined) return this.prime(await this.repo.findAll(populateOrOptions as Populate<EntityType>, orderBy, limit, offset));
+		if (isFindOptions(populateOrOptions)) {
+			return this.prime(await this.repo.findAll(populateOrOptions));
+		}
+		return this.prime(await this.repo.findAll(populateOrOptions as Populate<EntityType>, orderBy, limit, offset));
 	}
 
 	protected find<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
