@@ -270,12 +270,16 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return arr as EntityType[];
 	}
 
+	public async initializeEntity(entity: EntityType, populate?: string[]): Promise<EntityType>;
+	public async initializeEntity(entity: null, populate?: string[]): Promise<null>;
+	public async initializeEntity(entity: undefined, populate?: string[]): Promise<undefined>;
+
 	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
 	 * @param populate
 	 */
-	public async initializeEntity(entity: EntityType | null | undefined, populate?: string[]): Promise<EntityType | null | undefined> {
+	public async initializeEntity(entity: EntityType | null | undefined, populate?: string[]) {
 		if (!entity) return entity;
 		d(`InitEntity: ${entity.id}`);
 
