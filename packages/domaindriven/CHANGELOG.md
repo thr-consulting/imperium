@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.7](https://github.com/darkadept/imperium/compare/v7.1.6...v7.1.7) (2021-10-28)
+
+
+### Bug Fixes
+
+* **domaindriven:** added overrides to initialize entity method ([f7d5841](https://github.com/darkadept/imperium/commit/f7d5841b2edc323c427692e00584178b69c7aa59))
+
+
+
+
+
 ## [7.1.6](https://github.com/darkadept/imperium/compare/v7.1.5...v7.1.6) (2021-10-28)
 
 
