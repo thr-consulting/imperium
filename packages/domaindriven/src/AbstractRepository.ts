@@ -275,8 +275,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param populate
 	 */
-	public async initializeEntity(entity: EntityType | null | undefined, populate?: string[]): Promise<EntityType> {
-		if (!entity) throw new Error(`Error initializing entity: ${entity}`);
+	public async initializeEntity(entity: EntityType | null | undefined, populate?: string[]): Promise<EntityType | null | undefined> {
+		if (!entity) return entity;
 		d(`InitEntity: ${entity.id}`);
 
 		if (populate) {
