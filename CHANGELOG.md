@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.6](https://github.com/darkadept/imperium/compare/v7.1.5...v7.1.6) (2021-10-28)
+
+
+### Bug Fixes
+
+* **domaindriven:** fixed intializeEntity to accept null or undefined ([28a20b2](https://github.com/darkadept/imperium/commit/28a20b2b335788635570680202898dbda4f55c7b))
+
+
+
+
+
 ## [7.1.5](https://github.com/darkadept/imperium/compare/v7.1.4...v7.1.5) (2021-10-26)
 
 

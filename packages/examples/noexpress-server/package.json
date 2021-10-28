@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-noexpress-server",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "private": true,
   "description": "Imperium server example project without Express",
   "repository": {
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@imperium/connector": "^7.1.0",
-    "@imperium/example-domain": "^7.1.5",
+    "@imperium/example-domain": "^7.1.6",
     "@imperium/server": "^7.1.0",
     "@mikro-orm/cli": "^4.5.9",
     "@mikro-orm/core": "^4.5.9",
