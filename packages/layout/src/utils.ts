@@ -34,6 +34,6 @@ export function splitHorizontalItems<T extends HorizontalPositionedItem>(items: 
 export function generateVisible<T extends Record<string, unknown>>(visDefinition: VisibilityQuery<T>): VisibilityQuery<T> {
 	return {
 		query: visDefinition.query,
-		selectorHook: visDefinition.selectorHook,
+		stateSelectorHook: visDefinition.stateSelectorHook,
 	};
 }

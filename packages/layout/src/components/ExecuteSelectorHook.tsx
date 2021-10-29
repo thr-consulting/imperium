@@ -1,10 +1,10 @@
 import debug from 'debug';
-import type {SelectorHook} from '../types';
+import type {StateSelectorHook} from '../types';
 
 const d = debug('imperium.layout.components.ExecuteSelectorHook');
 
 interface SelectorHookProps {
-	hook: SelectorHook<Record<string, unknown>>;
+	hook: StateSelectorHook<Record<string, unknown>>;
 	render: (data: Record<string, unknown>) => JSX.Element | null;
 }
 

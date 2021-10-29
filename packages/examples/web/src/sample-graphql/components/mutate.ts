@@ -1,7 +1,7 @@
 import * as Apollo from '@apollo/client';
-
 /* eslint-disable */
 import type * as Types from '../../core/graphql';
+
 import Operations from './mutate.graphql';
 const defaultOptions =  {}
 export type MutateMutationVariables = Types.Exact<{ [key: string]: never; }>;

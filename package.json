@@ -13,7 +13,7 @@
 	"scripts": {
 		"build": "lerna run build",
 		"clean": "thx clean",
-		"codegen": "thx codegen -p packages/examples -d imperium",
+		"codegen": "thx codegen -p packages/examples -s imperium",
 		"coverage": "coverage -p packages -c docs/assets/coverage",
 		"deps": "thx deps",
 		"lerna": "lerna",
@@ -41,7 +41,7 @@
 		"@reduxjs/toolkit": "^1.6.1",
 		"@thx/common-webpack": "^14.0.0",
 		"@thx/sharedcache": "^14.2.0",
-		"@thx/tools": "^14.2.4",
+		"@thx/tools": "^14.2.9",
 		"@types/bcrypt": "^5.0.0",
 		"@types/cookie-parser": "^1.4.2",
 		"@types/debug": "^4.1.5",

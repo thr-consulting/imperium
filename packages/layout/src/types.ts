@@ -1,43 +1,77 @@
 import type {ImperiumClientModule} from '@imperium/client';
 import type {Location} from 'history';
 import type {SemanticICONS} from 'semantic-ui-react';
+import type {ParsedUrlQuery} from 'querystring';
 
-export type DataHook = () => void;
-export type SelectorHook<T extends Record<string, unknown>> = () => T;
+/**
+ * A simple hook, that doesn't return anything. If used together with a route match function, the returned route parameters are passed in.
+ */
+export type DataHook = (routeParams?: any) => void;
+
+/**
+ * A route match function that can be used by data hooks. Usually is the @imperium/router `routes.match.x()` functions.
+ */
+export type DataHookRouteMatchFn = (route: string) => any;
+
+/**
+ * An object that can specify one or more data hooks that can receive route parameters from one or more route match functions.
+ */
+export type DataHookRoute = {
+	routeMatch: DataHookRouteMatchFn | DataHookRouteMatchFn[];
+	dataHook: DataHook | DataHook[];
+};
+
+/**
+ * A datahook can either be a simple hook, or one or more hooks dependant on one or more route match functions.
+ */
+export type DataHookItem = DataHook | DataHookRoute;
 
 /**
  * Describes an item with optional weight
  */
 export interface WeightedItem {
-	weight?: number;
+	weight?: number; // Larger numbers move right/down
 }
 
 /**
  * Describes an item that can be positioned horizontally left or right
  */
 export interface HorizontalPositionedItem {
-	position?: 'left' | 'right';
-	stickOnMobile?: boolean;
+	position?: 'left' | 'right'; // Default is left
+	stickOnMobile?: boolean; // If true, will not be hidden when in mobile mode
 }
 
+/**
+ * This is the default data available to the visibility query or function.
+ */
 export interface DefaultVisibilityData {
 	router: {
 		path: string[];
+		hash: string;
+		search: ParsedUrlQuery;
 	};
 }
 
+/**
+ * The visibility query can either be a mingo query or a function that returns a boolean. The data is an object with the router path merged with any state selector hook data.
+ */
 export type VisibilityQueryField<T extends Record<string, unknown>> = Record<string, unknown> | ((data: T & DefaultVisibilityData) => boolean);
 
+/**
+ * A hook that selects from redux state.
+ */
+export type StateSelectorHook<T extends Record<string, unknown>> = () => T;
+
 export interface VisibilityQuery<T extends Record<string, unknown>> {
-	query: VisibilityQueryField<T>;
-	selectorHook?: SelectorHook<T>;
+	stateSelectorHook?: StateSelectorHook<any> | StateSelectorHook<any>[]; // Hook or array of hooks that select state
+	query: VisibilityQueryField<T>; // Either a plain object mingo query or a function that returns a boolean if the item is visible or not.
 }
 
 /**
  * Describes an item that can be hide itself based on redux state
  */
 export interface VisibilityItem {
-	visible?: VisibilityQuery<any>;
+	visible?: VisibilityQuery<any>; // An object with a query field and an optional selectorHook(s).
 }
 
 /**
@@ -82,7 +116,7 @@ export interface CustomMenuItem extends WeightedItem, VisibilityItem {
 export type Item = ((BaseItem & RouteItem) | DropdownMenuItem | MenuMenuItem | CustomMenuItem) & HorizontalPositionedItem;
 
 export interface LayoutData {
-	dataHooks?: DataHook[];
+	dataHooks?: DataHookItem[];
 	menubar?: (Item & HorizontalPositionedItem)[];
 	statusbar?: (Item & HorizontalPositionedItem)[];
 	sidebar?: Item[];

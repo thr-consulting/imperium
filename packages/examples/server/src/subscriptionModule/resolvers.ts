@@ -4,8 +4,8 @@ import {randomLetters} from '@thx/random';
 import debug from 'debug';
 import {inspect} from 'util';
 import type {Context} from '~core/context';
-import {data} from './data';
 import type {Resolvers} from '~core/graphql';
+import {data} from './data';
 
 const d = debug('imperium.examples.server.subscriptionModule.resolvers');
 const dd = (obj: any) => d(inspect(obj, false, null, true));

@@ -42,10 +42,26 @@ export function RenderIfVisible({item, component}: {component: JSX.Element; item
 	const loc = useLocation() as Location;
 
 	if (item.visible) {
-		if (item.visible.selectorHook) {
+		if (item.visible.stateSelectorHook) {
+			if (Array.isArray(item.visible.stateSelectorHook)) {
+				return (
+					<>
+						{item.visible.stateSelectorHook.map((selectorHook, index) => {
+							return (
+								<ExecuteSelectorHook
+									// eslint-disable-next-line react/no-array-index-key
+									key={index}
+									hook={selectorHook}
+									render={data => renderWithQuery(mergeLocationData(loc, data), item.visible?.query, component)}
+								/>
+							);
+						})}
+					</>
+				);
+			}
 			return (
 				<ExecuteSelectorHook
-					hook={item.visible.selectorHook}
+					hook={item.visible.stateSelectorHook}
 					render={data => renderWithQuery(mergeLocationData(loc, data), item.visible?.query, component)}
 				/>
 			);
