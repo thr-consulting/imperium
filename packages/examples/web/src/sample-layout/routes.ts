@@ -2,7 +2,7 @@ import {defineRoutes} from '@imperium/router';
 
 export const routes = defineRoutes({
 	withParam: {
-		path: '/layout/:myParam',
+		path: '/layout/param/:myParam',
 		params: ['myParam'] as const,
 	},
 	noParam: {

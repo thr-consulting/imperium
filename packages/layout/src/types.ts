@@ -1,7 +1,6 @@
 import type {ImperiumClientModule} from '@imperium/client';
 import type {Location} from 'history';
 import type {SemanticICONS} from 'semantic-ui-react';
-import type {ParsedUrlQuery} from 'querystring';
 
 /**
  * A simple hook, that doesn't return anything. If used together with a route match function, the returned route parameters are passed in.
@@ -41,44 +40,42 @@ export interface HorizontalPositionedItem {
 	stickOnMobile?: boolean; // If true, will not be hidden when in mobile mode
 }
 
-/**
- * This is the default data available to the visibility query or function.
- */
-export interface DefaultVisibilityData {
-	router: {
-		path: string[];
-		hash: string;
-		search: ParsedUrlQuery;
-	};
-}
-
-/**
- * The visibility query can either be a mingo query or a function that returns a boolean. The data is an object with the router path merged with any state selector hook data.
- */
-export type VisibilityQueryField<T extends Record<string, unknown>> = Record<string, unknown> | ((data: T & DefaultVisibilityData) => boolean);
+export type State = Record<string, any>;
 
 /**
  * A hook that selects from redux state.
  */
-export type StateSelectorHook<T extends Record<string, unknown>> = () => T;
-
-export interface VisibilityQuery<T extends Record<string, unknown>> {
-	stateSelectorHook?: StateSelectorHook<any> | StateSelectorHook<any>[]; // Hook or array of hooks that select state
-	query: VisibilityQueryField<T>; // Either a plain object mingo query or a function that returns a boolean if the item is visible or not.
-}
+export type StateSelectorHook = () => State;
 
 /**
- * Describes an item that can be hide itself based on redux state
+ * The visibility query can either be a mingo query or a function that returns a boolean. The data is an object with the router path merged with any state selector hook data.
+ */
+export type VisibilityQueryFn = (data: Data) => boolean;
+
+/**
+ * Describes an item that can hide itself based on redux state
  */
 export interface VisibilityItem {
-	visible?: VisibilityQuery<any>; // An object with a query field and an optional selectorHook(s).
+	stateSelectorHook?: StateSelectorHook | StateSelectorHook[]; // Hook or array of hooks that select state
+	visible?: Record<string, unknown> | VisibilityQueryFn;
+}
+
+export interface Data extends Record<string, unknown> {
+	loc: Location;
+	route: {
+		path: string[];
+		hash: string;
+		search: Record<string, any>;
+	};
+	state: State;
+	active: boolean;
 }
 
 /**
  * Describes an item that links to a route
  */
 export interface RouteItem {
-	to?: string | ((loc: Location) => string);
+	to?: string | ((data: Data) => string);
 	exact?: boolean;
 	strict?: boolean;
 	sensitive?: boolean;
@@ -88,15 +85,15 @@ export interface RouteItem {
  * Describes a basic weighted, possibly visible item
  */
 export interface BaseItem extends WeightedItem, VisibilityItem {
-	text: string;
-	icon?: SemanticICONS;
+	text: string | ((data: Data) => string);
+	icon?: SemanticICONS | ((data: Data) => SemanticICONS);
 }
 
 /**
  * Describes a menu that displays a dropdown list of items
  */
 export interface DropdownMenuItem extends BaseItem {
-	dropdown: (BaseItem & RouteItem)[];
+	dropdown: ((BaseItem & RouteItem) | CustomMenuItem)[];
 }
 
 /**
@@ -113,7 +110,7 @@ export interface CustomMenuItem extends WeightedItem, VisibilityItem {
 /**
  * Describes a horizontal menu item which is either a route item or dropdown menu
  */
-export type Item = ((BaseItem & RouteItem) | DropdownMenuItem | MenuMenuItem | CustomMenuItem) & HorizontalPositionedItem;
+export type Item = (BaseItem & RouteItem) | DropdownMenuItem | MenuMenuItem | CustomMenuItem;
 
 export interface LayoutData {
 	dataHooks?: DataHookItem[];
@@ -142,4 +139,12 @@ export function isMenuMenuItem(value: any): value is MenuMenuItem {
 
 export function isCustomMenuItem(value: any): value is CustomMenuItem {
 	return !!(value as CustomMenuItem).render;
+}
+
+export function isHorizontalPositionedItem(value: any): value is HorizontalPositionedItem {
+	return !!((value as HorizontalPositionedItem).position || (value as HorizontalPositionedItem).stickOnMobile);
+}
+
+export function isRouteItem(value: any): value is RouteItem {
+	return !!((value as RouteItem).to || (value as RouteItem).exact || (value as RouteItem).strict || (value as RouteItem).sensitive);
 }

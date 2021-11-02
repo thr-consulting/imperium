@@ -1,43 +1,36 @@
 import debug from 'debug';
 import React from 'react';
-import {Menu} from 'semantic-ui-react';
 import type {MenuProps} from 'semantic-ui-react';
+import {Menu} from 'semantic-ui-react';
 import type {Item} from '../types';
-import {isCustomMenuItem} from '../types';
-import {sortWeightedItems, splitHorizontalItems} from '../utils';
-import {ItemBarItem} from './ItemBarItem';
-import {RenderComponent} from './RenderComponent';
+import {sortWeightedItems, splitPositionedItems} from '../utils';
+import {ItemWrapper} from './ItemWrapper';
 
 const d = debug('imperium.layout.components.ItemBar');
 
 interface ItemBarProps extends MenuProps {
-	name: string;
 	items: Item[];
-	sidebar?: boolean;
 }
 
-function mapItems(name: string, items: Item[], props: MenuProps) {
-	return items.map((item, index) => {
-		if (isCustomMenuItem(item)) {
-			// eslint-disable-next-line react/no-array-index-key
-			return <RenderComponent key={`${name}${index}`} render={item.render} />;
-		}
-		// eslint-disable-next-line react/no-array-index-key
-		return <ItemBarItem key={`${name}${item.text}${index}`} item={item} vertical={props.vertical} />;
-	});
-}
+/**
+ * Renders a horizontal or vertical bar of menu items.
+ * @param name
+ * @param items
+ * @param rest
+ * @constructor
+ */
+export function ItemBar({items, ...rest}: ItemBarProps) {
+	const ims = splitPositionedItems(items);
 
-export function ItemBar({name, items, ...rest}: ItemBarProps) {
-	const ims = splitHorizontalItems(items);
-
-	const left = mapItems(name, sortWeightedItems(ims.leftItems), rest);
-	const rightMappedItems = mapItems(name, sortWeightedItems(ims.rightItems), rest);
-	const right = rest.vertical ? rightMappedItems : <Menu.Menu position="right">{rightMappedItems}</Menu.Menu>;
+	// eslint-disable-next-line react/no-array-index-key
+	const leftItems = sortWeightedItems(ims.leftItems).map((item, index) => <ItemWrapper item={item} key={index} vertical={rest.vertical} />);
+	// eslint-disable-next-line react/no-array-index-key
+	const rightItems = sortWeightedItems(ims.rightItems).map((item, index) => <ItemWrapper item={item} key={index} vertical={rest.vertical} />);
 
 	return (
 		<Menu {...rest}>
-			{left.length > 0 ? left : null}
-			{ims.rightItems.length > 0 ? right : null}
+			{leftItems}
+			{rest.vertical ? rightItems : <Menu.Menu position="right">{rightItems}</Menu.Menu>}
 		</Menu>
 	);
 }

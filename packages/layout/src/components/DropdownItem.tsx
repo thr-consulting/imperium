@@ -1,15 +1,20 @@
+import debug from 'debug';
 import React, {useState} from 'react';
 import {Accordion, Dropdown, Icon, Menu} from 'semantic-ui-react';
-import type {DropdownMenuItem} from '../types';
+import type {Data, DropdownMenuItem} from '../types';
 import styles from './styles.css';
+import {getText} from '../utils';
 
-interface DropdownAccordionProps {
-	vertical: boolean;
+const d = debug('imperium.layout.DropdownItem');
+
+interface DropdownItemProps {
 	item: DropdownMenuItem;
 	children: JSX.Element[];
+	data: Data;
+	vertical?: boolean;
 }
 
-export function DropdownItemMenu({item, children, vertical}: DropdownAccordionProps) {
+export function DropdownItem({item, vertical, children, data}: DropdownItemProps) {
 	const [open, setOpen] = useState(false);
 
 	if (vertical) {
@@ -33,7 +38,7 @@ export function DropdownItemMenu({item, children, vertical}: DropdownAccordionPr
 	}
 
 	return (
-		<Dropdown item text={item.text} className="imperiumDropdown">
+		<Dropdown item text={getText(item, data)} className="imperiumDropdown">
 			<Dropdown.Menu className="imperiumDropdownContent">{children}</Dropdown.Menu>
 		</Dropdown>
 	);

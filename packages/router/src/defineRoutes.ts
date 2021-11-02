@@ -25,7 +25,11 @@ export function defineRoutes<T extends DefineRouteOptions>(opts: T) {
 	Object.keys(opts).forEach(key => {
 		// @ts-ignore
 		to[key] = params => {
-			if (params === null) return '/404';
+			const paramsAreGood = (opts[key].params || []).reduce((memo, v) => {
+				if (!params || !params[v] || params[v] === '') return false;
+				return memo;
+			}, true);
+			if (!paramsAreGood) return '/404';
 			// @ts-ignore
 			return generatePath(opts[key].path, params);
 		};

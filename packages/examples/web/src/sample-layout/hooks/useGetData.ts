@@ -10,7 +10,7 @@ export function useGetData(routeParams: any) {
 	const dispatch = useDispatch();
 	const {loading, data, error} = useGetDataQuery();
 
-	d(routeParams);
+	d('RouteParams: ', routeParams);
 
 	useEffect(() => {
 		if (!loading) {
