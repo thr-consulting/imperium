@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/darkadept/imperium/compare/v7.1.8...v7.2.0) (2021-11-02)
+
+
+### Bug Fixes
+
+* missed a file that needed to be deleted ([58a418d](https://github.com/darkadept/imperium/commit/58a418db0527d96543267e438dd23f57d15b5a71))
+
+
+
+
+
 ## [7.1.8](https://github.com/darkadept/imperium/compare/v7.1.7...v7.1.8) (2021-10-28)
 
 
