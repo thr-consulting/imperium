@@ -1,14 +1,14 @@
 import debug from 'debug';
-import flowRight from 'lodash/flowRight';
-import queryString from 'querystring';
 import type {Location} from 'history';
 import compact from 'lodash/compact';
+import flowRight from 'lodash/flowRight';
 import merge from 'lodash/merge';
+import queryString from 'querystring';
 import {useLocation} from 'react-router-dom';
 import type {Data, Item} from '../types';
 import {useIsActiveRoute} from './useIsActiveRoute';
 
-const d = debug('imperium.layout.useBuildData');
+const d = debug('imperium.layout.hooks.useBuildData');
 
 export function useBuildData(item: Item, data?: Data) {
 	let finalSelectorHook: () => any = () => ({});

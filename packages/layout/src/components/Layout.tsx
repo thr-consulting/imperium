@@ -4,8 +4,8 @@ import {Segment} from 'semantic-ui-react';
 import {useLayoutState} from '../state';
 import type {LayoutData} from '../types';
 import {ItemBar} from './ItemBar';
-import styles from './styles.css';
 import {SidebarToggleMenuItem} from './SidebarToggleMenuItem';
+import styles from './styles.css';
 
 const d = debug('imperium.layout.components.Layout');
 

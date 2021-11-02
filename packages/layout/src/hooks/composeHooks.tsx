@@ -1,10 +1,10 @@
-import React from 'react';
 import debug from 'debug';
+import React from 'react';
 
-const d = debug('imperium.layout.composeHooks');
+const d = debug('imperium.layout.hooks.composeHooks');
 
 export function composeHooks(hooks: (props?: any) => any) {
-	return (Component) => {
+	return Component => {
 		if (!Component) {
 			throw new Error('Component must be provided to compose');
 		}

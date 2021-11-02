@@ -1,17 +1,17 @@
 import debug from 'debug';
 import {Query} from 'mingo';
-import {Dropdown} from 'semantic-ui-react';
 import React from 'react';
+import {Dropdown} from 'semantic-ui-react';
+import {useBuildData} from '../hooks/useBuildData';
 import type {Data, Item} from '../types';
 import {isCustomMenuItem, isDropdownMenuItem, isMenuMenuItem} from '../types';
+import {sortWeightedItems} from '../utils';
 import {CustomItem} from './CustomItem';
 import {DropdownItem} from './DropdownItem';
 import {MenuItem} from './MenuItem';
 import {PlainItem} from './PlainItem';
-import {sortWeightedItems} from '../utils';
-import {useBuildData} from '../hooks/useBuildData';
 
-const d = debug('imperium.layout.ItemWrapper');
+const d = debug('imperium.layout.components.ItemWrapper');
 
 interface ItemWrapperProps {
 	item: Item;
@@ -52,6 +52,7 @@ export function ItemWrapper({item, as, vertical, data: parentData}: ItemWrapperP
 	if (isMenuMenuItem(item)) {
 		// eslint-disable-next-line react/no-array-index-key
 		const children = sortWeightedItems(item.menu).map((v, index) => (
+			// eslint-disable-next-line react/no-array-index-key
 			<ItemWrapper key={index} item={v} as={Dropdown.Item} vertical={vertical} data={data} />
 		));
 		return <MenuItem item={item} children={children} />;

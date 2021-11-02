@@ -1,8 +1,8 @@
 import memoize from 'lodash/memoize';
 import sortBy from 'lodash/sortBy';
-import {Icon, SemanticICONS} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {Icon, SemanticICONS} from 'semantic-ui-react';
 import {BaseItem, Data, isHorizontalPositionedItem, RouteItem} from './types';
 import type {Item, WeightedItem} from './types';
 

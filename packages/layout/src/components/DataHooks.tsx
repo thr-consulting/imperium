@@ -1,11 +1,11 @@
 import debug from 'debug';
+import {compose} from 'lodash/fp';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
-import {compose} from 'lodash/fp';
 import type {DataHookItem} from '../types';
 import {ExecuteDataHook} from './ExecuteDataHook';
 
-const d = debug('imperium.layout.DataHooks');
+const d = debug('imperium.layout.components.DataHooks');
 
 interface DataHooksProps {
 	dataHooks: DataHookItem[];

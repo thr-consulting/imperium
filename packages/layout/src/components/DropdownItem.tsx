@@ -2,10 +2,10 @@ import debug from 'debug';
 import React, {useState} from 'react';
 import {Accordion, Dropdown, Icon, Menu} from 'semantic-ui-react';
 import type {Data, DropdownMenuItem} from '../types';
-import styles from './styles.css';
 import {getText} from '../utils';
+import styles from './styles.css';
 
-const d = debug('imperium.layout.DropdownItem');
+const d = debug('imperium.layout.components.DropdownItem');
 
 interface DropdownItemProps {
 	item: DropdownMenuItem;

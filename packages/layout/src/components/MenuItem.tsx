@@ -1,5 +1,5 @@
-import {Menu} from 'semantic-ui-react';
 import React from 'react';
+import {Menu} from 'semantic-ui-react';
 import type {MenuMenuItem} from '../types';
 
 interface MenuItemProps {

@@ -15,6 +15,7 @@
 		"clean": "thx clean",
 		"codegen": "thx codegen -p packages/examples -s imperium",
 		"coverage": "coverage -p packages -c docs/assets/coverage",
+		"deduplicate": "npx yarn-deduplicate",
 		"deps": "thx deps",
 		"lerna": "lerna",
 		"lint": "thx lint",
@@ -28,8 +29,7 @@
 		"ts:phase-core": "lerna run ts --scope '@imperium/{connector,client,server}'",
 		"ts:phase-example": "lerna run ts --scope '@imperium/{example-domain,example-server,example-standalone,example-web}'",
 		"ts:phase-server": "lerna run ts --scope '@imperium/{authorization,auth-server,domaindriven,graphql-server,voyager}'",
-		"typedoc": "lerna run typedoc",
-		"deduplicate": "npx yarn-deduplicate"
+		"typedoc": "lerna run typedoc"
 	},
 	"devDependencies": {
 		"@apollo/client": "^3.4.15",
