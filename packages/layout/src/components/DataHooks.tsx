@@ -1,9 +1,14 @@
+import debug from 'debug';
+import {compose} from 'lodash/fp';
 import React from 'react';
-import type {DataHook} from '../types';
+import {useLocation} from 'react-router-dom';
+import type {DataHookItem} from '../types';
 import {ExecuteDataHook} from './ExecuteDataHook';
 
+const d = debug('imperium.layout.components.DataHooks');
+
 interface DataHooksProps {
-	dataHooks: DataHook[];
+	dataHooks: DataHookItem[];
 }
 
 /**
@@ -12,12 +17,31 @@ interface DataHooksProps {
  * @constructor
  */
 export function DataHooks({dataHooks}: DataHooksProps) {
+	const {pathname} = useLocation();
+
 	return (
 		<>
-			{dataHooks.map((hook, index) => (
+			{dataHooks.map((hook, index) => {
+				if (typeof hook === 'function') {
+					// eslint-disable-next-line react/no-array-index-key
+					return <ExecuteDataHook key={index} dataHook={hook} />;
+				}
+				const fn = Array.isArray(hook.routeMatch) ? compose(hook.routeMatch) : hook.routeMatch;
+				const routeParams = fn(pathname);
+				if (Array.isArray(hook.dataHook)) {
+					return (
+						// eslint-disable-next-line react/no-array-index-key
+						<React.Fragment key={index}>
+							{hook.dataHook.map((dh, index2) => {
+								// eslint-disable-next-line react/no-array-index-key
+								return <ExecuteDataHook key={index2} dataHook={dh} routeParams={routeParams} />;
+							})}
+						</React.Fragment>
+					);
+				}
 				// eslint-disable-next-line react/no-array-index-key
-				<ExecuteDataHook key={index} dataHook={hook} />
-			))}
+				return <ExecuteDataHook dataHook={hook.dataHook} key={index} routeParams={routeParams} />;
+			})}
 		</>
 	);
 }

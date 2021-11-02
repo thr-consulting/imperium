@@ -1,5 +1,5 @@
 import {generateVisible} from '@imperium/layout';
-import type {LayoutData} from '@imperium/layout/src';
+import type {LayoutData} from '@imperium/layout';
 import {LocalDate} from '@js-joda/core';
 import debug from 'debug';
 import React from 'react';
@@ -20,7 +20,7 @@ export const layout: LayoutData = {
 			visible: generateVisible({
 				// query: (data) => LocalDate.now().equals(data.date),
 				query: {date: {$localDate_eq: LocalDate.now()}},
-				selectorHook: useSampleState,
+				stateSelectorHook: useSampleState,
 			}),
 		},
 	],

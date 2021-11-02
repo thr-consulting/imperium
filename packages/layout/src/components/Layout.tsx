@@ -1,9 +1,10 @@
 import debug from 'debug';
 import React, {ReactNode, useState} from 'react';
-import {Icon, Menu, Segment} from 'semantic-ui-react';
+import {Segment} from 'semantic-ui-react';
 import {useLayoutState} from '../state';
 import type {LayoutData} from '../types';
 import {ItemBar} from './ItemBar';
+import {SidebarToggleMenuItem} from './SidebarToggleMenuItem';
 import styles from './styles.css';
 
 const d = debug('imperium.layout.components.Layout');
@@ -12,37 +13,40 @@ interface LayoutProps extends Required<LayoutData> {
 	children?: ReactNode;
 }
 
+/**
+ * Renders the main layout.
+ * Hides/shows/collapses things as need for mobile layout.
+ * Tracks state to whether the side menu is open or not.
+ * @param footer
+ * @param menubar
+ * @param statusbar
+ * @param sidebar
+ * @param children
+ * @constructor
+ */
 export function Layout({footer, menubar, statusbar, sidebar, children}: LayoutProps) {
 	const {isMobile} = useLayoutState();
 	const [menuOpen, setMenuOpen] = useState(true);
 
-	const mobileSidebarToggle = {
+	const mobileSidebarToggleItem = {
 		stickOnMobile: true,
 		weight: -19999,
 		render: () => {
 			if (!isMobile) return null;
-			return (
-				<Menu.Item>
-					<Icon
-						className={menuOpen ? styles.iconRotated : styles.icon}
-						name={menuOpen ? 'close' : 'sidebar'}
-						onClick={() => {
-							setMenuOpen(!menuOpen);
-						}}
-					/>
-				</Menu.Item>
-			);
+			return <SidebarToggleMenuItem menuOpen={menuOpen} setMenuOpen={setMenuOpen} />;
 		},
 	};
 
-	const menubarItems = isMobile ? [mobileSidebarToggle, ...menubar].filter(v => v.stickOnMobile === true) : [mobileSidebarToggle, ...menubar];
+	// Determine menubar items
+	const menubarItems = isMobile ? [mobileSidebarToggleItem, ...menubar].filter(v => v.stickOnMobile === true) : [mobileSidebarToggleItem, ...menubar];
 
+	// Determine sidebar items
 	const sidebarItems = isMobile
 		? [
 				...sidebar,
 				{
 					text: '',
-					menu: [mobileSidebarToggle, ...menubar].filter(v => v.stickOnMobile !== true),
+					menu: [mobileSidebarToggleItem, ...menubar].filter(v => v.stickOnMobile !== true),
 				},
 		  ]
 		: sidebar;
@@ -59,10 +63,12 @@ export function Layout({footer, menubar, statusbar, sidebar, children}: LayoutPr
 			</div>
 		) : null;
 
+	// Determine footer items
 	const footerItems = footer;
 	const footerComp =
 		footerItems.length > 0 ? <ItemBar name="footer" items={footerItems} className={`${styles.footer} imperiumFooter`} inverted borderless /> : null;
 
+	// Determine status bar items
 	const statusbarItems = statusbar;
 	const statusbarComp =
 		statusbarItems.length > 0 ? (

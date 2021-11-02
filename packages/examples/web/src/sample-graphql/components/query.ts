@@ -1,7 +1,7 @@
 import * as Apollo from '@apollo/client';
-
 /* eslint-disable */
 import type * as Types from '../../core/graphql';
+
 import Operations from './query.graphql';
 const defaultOptions =  {}
 export type QQueryVariables = Types.Exact<{ [key: string]: never; }>;
