@@ -9,6 +9,6 @@ export function routerClientModule(): ImperiumClientModule {
 	};
 }
 
-export type {ImperiumRouterClientModule} from './types';
+export type {ImperiumRouterClientModule, Routes, DefineRouteOptions, RouteOptions, KeyedRouteRenderFns, ParametersFromAssertion} from './types';
 export {ContentRouter} from './components/ContentRouter';
 export {defineRoutes} from './defineRoutes';

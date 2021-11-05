@@ -1,10 +1,11 @@
 import React from 'react';
 import {Menu} from 'semantic-ui-react';
-import type {CustomMenuItem, Data, DropdownMenuItem, Item, MenuMenuItem} from '../types';
+import type {CustomLayoutItem, DropdownLayoutItem, LayoutItem, MenuLayoutItem} from '../types';
 import {getIcon, getText, linkParameters} from '../utils';
+import type {Data} from '../../types';
 
 interface PlainItemProps {
-	item: Exclude<Item, MenuMenuItem | DropdownMenuItem | CustomMenuItem>;
+	item: Exclude<LayoutItem, MenuLayoutItem | DropdownLayoutItem | CustomLayoutItem>;
 	data: Data;
 	as?: React.ComponentClass;
 }

@@ -8,7 +8,7 @@ export const routeProps = routes.renderRouteProps({
 });
 
 export const layout: Partial<LayoutData> = {
-	sidebar: [
+	secondaryMenu: [
 		{
 			to: routes.to.apolloCache(),
 			text: 'Apollo Cache',

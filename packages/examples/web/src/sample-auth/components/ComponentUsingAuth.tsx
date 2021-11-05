@@ -64,6 +64,7 @@ export default function ComponentUsingAuth() {
 			<p>Level: {level.name()}</p>
 			<p>Has Access to admin: {hasAccess(AuthLevel.fromString('manager.system.50')).exec() ? 'Yes' : 'No'}</p>
 			<Button
+				color="blue"
 				onClick={async () => {
 					await logout();
 				}}

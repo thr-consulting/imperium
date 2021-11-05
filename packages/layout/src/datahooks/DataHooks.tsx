@@ -2,8 +2,8 @@ import debug from 'debug';
 import {compose} from 'lodash/fp';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
-import type {DataHookItem} from '../types';
 import {ExecuteDataHook} from './ExecuteDataHook';
+import type {DataHookItem} from './types';
 
 const d = debug('imperium.layout.components.DataHooks');
 

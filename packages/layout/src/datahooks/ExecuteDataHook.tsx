@@ -1,4 +1,4 @@
-import type {DataHook} from '../types';
+import type {DataHook} from './types';
 
 interface ExecuteDataHookProps {
 	dataHook: DataHook;

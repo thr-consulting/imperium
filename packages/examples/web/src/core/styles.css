@@ -5,3 +5,18 @@
 :global .imperiumVerticalDropdownContent {
 	border-left: 1px solid rgb(217, 128, 48);
 }
+
+:global .imperiumDropdownContent {
+	border-left: 1px solid rgb(217, 128, 48);
+}
+
+:global .ui.dropdown .imperiumDropdownContent {
+	background: #2e2e2e !important;
+	border-left: 1px solid rgb(217, 128, 48);
+	border-right: 1px solid #707070;
+	border-bottom: 1px solid #707070;
+}
+
+:global .ui.menu .ui.dropdown.imperiumDropdown .menu>.item {
+	color: #fff !important;
+}

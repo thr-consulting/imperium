@@ -2,14 +2,15 @@ import debug from 'debug';
 import React from 'react';
 import type {MenuProps} from 'semantic-ui-react';
 import {Menu} from 'semantic-ui-react';
-import type {Item} from '../types';
-import {sortWeightedItems, splitPositionedItems} from '../utils';
-import {ItemWrapper} from './ItemWrapper';
+import type {LayoutItem} from '../types';
+import {splitPositionedItems} from '../utils';
+import {LayoutItemWrapper} from './LayoutItemWrapper';
+import {sortWeightedItems} from '../../utils';
 
 const d = debug('imperium.layout.components.ItemBar');
 
 interface ItemBarProps extends MenuProps {
-	items: Item[];
+	items: LayoutItem[];
 }
 
 /**
@@ -19,13 +20,13 @@ interface ItemBarProps extends MenuProps {
  * @param rest
  * @constructor
  */
-export function ItemBar({items, ...rest}: ItemBarProps) {
+export function LayoutItemBar({items, ...rest}: ItemBarProps) {
 	const ims = splitPositionedItems(items);
 
 	// eslint-disable-next-line react/no-array-index-key
-	const leftItems = sortWeightedItems(ims.leftItems).map((item, index) => <ItemWrapper item={item} key={index} vertical={rest.vertical} />);
+	const leftItems = sortWeightedItems(ims.leftItems).map((item, index) => <LayoutItemWrapper item={item} key={index} vertical={rest.vertical} />);
 	// eslint-disable-next-line react/no-array-index-key
-	const rightItems = sortWeightedItems(ims.rightItems).map((item, index) => <ItemWrapper item={item} key={index} vertical={rest.vertical} />);
+	const rightItems = sortWeightedItems(ims.rightItems).map((item, index) => <LayoutItemWrapper item={item} key={index} vertical={rest.vertical} />);
 
 	return (
 		<Menu {...rest}>

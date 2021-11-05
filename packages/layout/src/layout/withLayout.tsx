@@ -1,17 +1,18 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
 import React, {ComponentType} from 'react';
-import {DataHooks} from './components/DataHooks';
+import {DataHooks} from '../datahooks/DataHooks';
 import {Layout} from './components/Layout';
-import {isImperiumLayoutClientModule, LayoutData} from './types';
+import type {LayoutData} from './types';
+import {isImperiumLayoutClientModule} from '../types';
 
 const d = debug('imperium.layout.withLayout');
 
 const initialLayoutModuleData: Required<LayoutData> = {
 	dataHooks: [],
-	menubar: [],
+	primaryMenu: [],
 	statusbar: [],
-	sidebar: [],
+	secondaryMenu: [],
 	footer: [],
 };
 
@@ -20,9 +21,9 @@ export function withLayout(client: ImperiumClient): Hoc {
 		if (isImperiumLayoutClientModule(module)) {
 			return {
 				dataHooks: [...(memo.dataHooks || []), ...(module.layout.dataHooks || [])],
-				menubar: [...(memo.menubar || []), ...(module.layout.menubar || [])],
+				primaryMenu: [...(memo.primaryMenu || []), ...(module.layout.primaryMenu || [])],
 				statusbar: [...(memo.statusbar || []), ...(module.layout.statusbar || [])],
-				sidebar: [...(memo.sidebar || []), ...(module.layout.sidebar || [])],
+				secondaryMenu: [...(memo.secondaryMenu || []), ...(module.layout.secondaryMenu || [])],
 				footer: [...(memo.footer || []), ...(module.layout.footer || [])],
 			} as Required<LayoutData>;
 		}

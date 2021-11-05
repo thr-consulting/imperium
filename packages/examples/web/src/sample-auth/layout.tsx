@@ -5,17 +5,17 @@ import Login from './components/Login';
 import {routes} from './routes';
 
 export const layout: Partial<LayoutData> = {
-	sidebar: [
-		{
-			to: routes.to.authTest(),
-			text: 'Auth',
-		},
-	],
-	menubar: [
+	primaryMenu: [
 		{
 			to: routes.to.login(),
 			text: 'Login',
 			position: 'right',
+		},
+	],
+	secondaryMenu: [
+		{
+			to: routes.to.authTest(),
+			text: 'Auth',
 		},
 	],
 };

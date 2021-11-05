@@ -49,7 +49,7 @@ export class ErrorBoundaryComponent extends React.Component<ErrorBoundaryProps, 
 				</Segment>
 			);
 		}
-		return <div className="blah">{this.props.children}</div>;
+		return <div style={{height: '100%'}}>{this.props.children}</div>;
 	}
 }
 

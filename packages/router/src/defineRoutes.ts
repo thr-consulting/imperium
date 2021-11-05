@@ -1,6 +1,6 @@
 import debug from 'debug';
 import {generatePath, matchPath, RouteComponentProps, RouteProps} from 'react-router-dom';
-import type {KeyedRouteMatchFns, DefineRouteOptions, KeyedRouteRenderFns, KeyedRoutePathFns, KeyedRouteParamTypes} from './types';
+import type {DefineRouteOptions, KeyedRouteMatchFns, KeyedRouteParamTypes, KeyedRoutePathFns, KeyedRouteRenderFns, Routes} from './types';
 
 const d = debug('imperium.router.defineRoutes');
 
@@ -17,7 +17,7 @@ const d = debug('imperium.router.defineRoutes');
 	- renderRouteProps: a function that can be used to link components to routes for rendering
 */
 
-export function defineRoutes<T extends DefineRouteOptions>(opts: T) {
+export function defineRoutes<T extends DefineRouteOptions>(opts: T): Routes<T> {
 	const to = {} as KeyedRoutePathFns<T>;
 	const types = {} as KeyedRouteParamTypes<T>;
 	const match = {} as KeyedRouteMatchFns<T>;
@@ -55,12 +55,11 @@ export function defineRoutes<T extends DefineRouteOptions>(opts: T) {
 					sensitive: opts[key].sensitive,
 					strict: opts[key].strict,
 					render: (rcp: RouteComponentProps) => {
-						if (opts[key]) {
-							// const propsFn = opts[key].params;
-							// if (propsFn) {
-							// 	return routeRenderFunctions[key](propsFn(rcp.match.params), rcp);
-							// }
+						if (opts[key].params) {
+							// @ts-ignore
+							return routeRenderFunctions[key](rcp.match.params, rcp);
 						}
+
 						// @ts-ignore
 						return routeRenderFunctions[key](null, rcp);
 					},
