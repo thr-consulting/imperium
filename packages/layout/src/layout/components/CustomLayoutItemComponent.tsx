@@ -1,5 +1,5 @@
-import type {CustomLayoutItem} from '../types';
 import type {Data} from '../../types';
+import type {CustomLayoutItem} from '../types';
 
 interface CustomLayoutItemComponentProps {
 	item: CustomLayoutItem;

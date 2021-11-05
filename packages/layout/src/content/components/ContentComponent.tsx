@@ -1,15 +1,15 @@
-import React from 'react';
-import debug from 'debug';
 import type {DefineRouteOptions} from '@imperium/router';
-import type {Page, RouteParameters} from '../types';
-import styles from './styles.css';
-import {Header} from './Header';
+import debug from 'debug';
+import React from 'react';
+import {DataHooks} from '../../datahooks/DataHooks';
 import {sortWeightedItems} from '../../utils';
 import {useBuildContentData} from '../hooks/useBuildContentData';
+import type {Page, RouteParameters} from '../types';
+import {Header} from './Header';
 import {SidebarItemWrapper} from './SidebarItemWrapper';
-import {DataHooks} from '../../datahooks/DataHooks';
+import styles from './styles.css';
 
-const d = debug('imperium.layout.content.ContentComponent');
+const d = debug('imperium.layout.content.components.ContentComponent');
 
 interface ContentComponentProps<T extends DefineRouteOptions, K extends keyof T> {
 	page: Page<T, K>;

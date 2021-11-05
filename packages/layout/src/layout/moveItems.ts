@@ -3,7 +3,7 @@ import groupBy from 'lodash/groupBy';
 import type {LayoutItem} from './types';
 import {isDropdownLayoutItem, isMenuLayoutItem} from './types';
 
-const d = debug('imperium.layout.layout.mergeItems');
+const d = debug('imperium.layout.moveItems');
 
 function pullItems(items: LayoutItem[], pulled: LayoutItem[] = []): LayoutItem[] {
 	return items.reduce((memo, item) => {

@@ -3,16 +3,16 @@ import {Query} from 'mingo';
 import React from 'react';
 import {Dropdown} from 'semantic-ui-react';
 import {useBuildData} from '../../hooks/useBuildData';
+import type {Data} from '../../types';
+import {sortWeightedItems} from '../../utils';
 import type {LayoutItem} from '../types';
 import {isCustomLayoutItem, isDropdownLayoutItem, isMenuLayoutItem} from '../types';
 import {CustomLayoutItemComponent} from './CustomLayoutItemComponent';
 import {DropdownItem} from './DropdownItem';
 import {MenuItem} from './MenuItem';
 import {PlainItem} from './PlainItem';
-import type {Data} from '../../types';
-import {sortWeightedItems} from '../../utils';
 
-const d = debug('imperium.layout.components.ItemWrapper');
+const d = debug('imperium.layout.components.LayoutItemWrapper');
 
 interface ItemWrapperProps {
 	item: LayoutItem;

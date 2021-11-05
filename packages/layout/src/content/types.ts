@@ -1,9 +1,9 @@
+import type {DefineRouteOptions, ParametersFromAssertion} from '@imperium/router';
 import type React from 'react';
 import type {SemanticCOLORS, SemanticICONS} from 'semantic-ui-react';
-import type {DefineRouteOptions, ParametersFromAssertion} from '@imperium/router';
-import type {Data, StateSelectorHook} from '../types';
 import type {RouteItem, VisibilityItem, WeightedItem} from '../commonItems';
 import type {DataHookItem} from '../datahooks/types';
+import type {Data, StateSelectorHook} from '../types';
 
 export type RouteParameters<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
 

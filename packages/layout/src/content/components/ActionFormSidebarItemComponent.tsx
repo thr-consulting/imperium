@@ -1,12 +1,12 @@
+import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
 import React, {useState} from 'react';
-import type {DefineRouteOptions} from '@imperium/router';
 import {Button} from 'semantic-ui-react';
 import type {ActionFormSidebarItem, ContentData} from '../types';
 import {getColor, getIcon, getText} from '../utils';
 import {ActionForm} from './ActionForm';
 
-const d = debug('imperium.layout.content.ActionFormSidebarItemComponent');
+const d = debug('imperium.layout.content.components.ActionFormSidebarItemComponent');
 
 interface ActionFormSidebarItemComponentProps<T extends DefineRouteOptions, K extends keyof T> {
 	item: ActionFormSidebarItem<T, K>;

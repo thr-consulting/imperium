@@ -1,7 +1,7 @@
 import type {SemanticICONS} from 'semantic-ui-react';
-import type {Data} from '../types';
 import type {HorizontalPositionedItem, RouteItem, VisibilityItem, WeightedItem} from '../commonItems';
 import type {DataHookItem} from '../datahooks/types';
+import type {Data} from '../types';
 
 /**
  * Describes a basic weighted, possibly visible item

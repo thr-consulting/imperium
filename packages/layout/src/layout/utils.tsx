@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Icon, SemanticICONS} from 'semantic-ui-react';
-import type {BaseLayoutItem, LayoutItem} from './types';
-import type {Data} from '../types';
 import type {RouteItem} from '../commonItems';
 import {isHorizontalPositionedItem} from '../commonItems';
+import type {Data} from '../types';
+import type {BaseLayoutItem, LayoutItem} from './types';
 
 /**
  * Splits positioned items into left and right arrays (if horizontal)

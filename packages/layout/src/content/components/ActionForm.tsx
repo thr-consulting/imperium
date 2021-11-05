@@ -1,11 +1,11 @@
-import React from 'react';
-import debug from 'debug';
 import type {DefineRouteOptions} from '@imperium/router';
-import {Button, Form, Icon, Message, Popup} from 'semantic-ui-react';
 import {useTForm} from '@thx/controls';
+import debug from 'debug';
+import React from 'react';
+import {Button, Form, Icon, Message, Popup} from 'semantic-ui-react';
 import type {ActionFormSidebarItem, ContentData} from '../types';
 
-const d = debug('imperium.layout.content.ActionForm');
+const d = debug('imperium.layout.content.components.ActionForm');
 
 interface ActionFormProps<T extends DefineRouteOptions, K extends keyof T> {
 	item: ActionFormSidebarItem<T, K>;

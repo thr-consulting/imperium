@@ -2,9 +2,9 @@ import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
 import React, {ComponentType} from 'react';
 import {DataHooks} from '../datahooks/DataHooks';
+import {isImperiumLayoutClientModule} from '../types';
 import {Layout} from './components/Layout';
 import type {LayoutData} from './types';
-import {isImperiumLayoutClientModule} from '../types';
 
 const d = debug('imperium.layout.withLayout');
 

@@ -5,7 +5,7 @@ import {useLocation} from 'react-router-dom';
 import {ExecuteDataHook} from './ExecuteDataHook';
 import type {DataHookItem} from './types';
 
-const d = debug('imperium.layout.components.DataHooks');
+const d = debug('imperium.layout.datahooks.DataHooks');
 
 interface DataHooksProps {
 	dataHooks: DataHookItem[];

@@ -1,10 +1,10 @@
 import type {DefineRouteOptions} from '@imperium/router';
-import React from 'react';
 import debug from 'debug';
-import styles from './styles.css';
+import React from 'react';
 import type {ContentData, ContentHeader} from '../types';
+import styles from './styles.css';
 
-const d = debug('imperium.layout.content.Header');
+const d = debug('imperium.layout.content.components.Header');
 
 interface HeaderProps<T extends DefineRouteOptions, K extends keyof T> {
 	header: ContentHeader<T, K>;

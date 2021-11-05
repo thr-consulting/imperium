@@ -1,15 +1,8 @@
-import {Link} from 'react-router-dom';
-import React from 'react';
-import {Button} from 'semantic-ui-react';
 import type {DefineRouteOptions} from '@imperium/router';
-import type {
-	ActionFormSidebarItem,
-	ActionSidebarItem,
-	ContentData,
-	CustomSidebarItem,
-	DividerSidebarItem,
-	SidebarItem,
-} from '../types';
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
+import type {ActionFormSidebarItem, ActionSidebarItem, ContentData, CustomSidebarItem, DividerSidebarItem, SidebarItem} from '../types';
 import {getColor, getIcon, getRouteTo, getText} from '../utils';
 
 interface PlainSidebarItemProps<T extends DefineRouteOptions, K extends keyof T> {

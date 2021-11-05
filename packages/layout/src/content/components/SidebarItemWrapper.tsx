@@ -1,17 +1,17 @@
-import React from 'react';
-import {Query} from 'mingo';
 import type {DefineRouteOptions} from '@imperium/router';
-import {Divider} from 'semantic-ui-react';
 import debug from 'debug';
+import {Query} from 'mingo';
+import React from 'react';
+import {Divider} from 'semantic-ui-react';
+import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {ContentData, RouteParameters, SidebarItem} from '../types';
 import {isActionFormSidebarItem, isActionSidebarItem, isCustomSidebarItem, isDividerSidebarItem} from '../types';
-import {useBuildContentData} from '../hooks/useBuildContentData';
-import {PlainSidebarItem} from './PlainSidebarItem';
-import {CustomSidebarItemComponent} from './CustomSidebarItemComponent';
-import {ActionSidebarItemComponent} from './ActionSidebarItemComponent';
 import {ActionFormSidebarItemComponent} from './ActionFormSidebarItemComponent';
+import {ActionSidebarItemComponent} from './ActionSidebarItemComponent';
+import {CustomSidebarItemComponent} from './CustomSidebarItemComponent';
+import {PlainSidebarItem} from './PlainSidebarItem';
 
-const d = debug('imperium.layout.content.SidebarItemWrapper');
+const d = debug('imperium.layout.content.components.SidebarItemWrapper');
 
 interface SidebarItemWrapperProps<T extends DefineRouteOptions, K extends keyof T> {
 	item: SidebarItem<T, K>;

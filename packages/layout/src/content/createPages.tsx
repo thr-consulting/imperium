@@ -1,8 +1,8 @@
+import type {Routes, DefineRouteOptions, KeyedRouteRenderFns} from '@imperium/router';
 import debug from 'debug';
 import React from 'react';
-import type {Routes, DefineRouteOptions, KeyedRouteRenderFns} from '@imperium/router';
-import type {Pages, RouteParameters} from './types';
 import {ContentComponent} from './components/ContentComponent';
+import type {Pages, RouteParameters} from './types';
 
 const d = debug('imperium.layout.content.createPages');
 

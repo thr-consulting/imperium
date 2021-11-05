@@ -2,12 +2,12 @@ import debug from 'debug';
 import React from 'react';
 import type {MenuProps} from 'semantic-ui-react';
 import {Menu} from 'semantic-ui-react';
+import {sortWeightedItems} from '../../utils';
 import type {LayoutItem} from '../types';
 import {splitPositionedItems} from '../utils';
 import {LayoutItemWrapper} from './LayoutItemWrapper';
-import {sortWeightedItems} from '../../utils';
 
-const d = debug('imperium.layout.components.ItemBar');
+const d = debug('imperium.layout.components.LayoutItemBar');
 
 interface ItemBarProps extends MenuProps {
 	items: LayoutItem[];

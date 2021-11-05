@@ -2,13 +2,13 @@ import debug from 'debug';
 import React, {ReactNode, useState} from 'react';
 import {Segment} from 'semantic-ui-react';
 import {useLayoutState} from '../../state';
+import {moveItems} from '../moveItems';
 import type {LayoutData} from '../types';
 import {LayoutItemBar} from './LayoutItemBar';
 import {SecondaryMenuToggleItem} from './SecondaryMenuToggleItem';
 import styles from './styles.css';
-import {moveItems} from '../moveItems';
 
-const d = debug('imperium.layout.layout.Layout');
+const d = debug('imperium.layout.components.Layout');
 
 interface LayoutProps extends Required<LayoutData> {
 	children?: ReactNode;

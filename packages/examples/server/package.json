@@ -35,6 +35,7 @@
     "@imperium/graphql-server": "^7.1.3",
     "@imperium/server": "^7.1.0",
     "@imperium/voyager": "^7.1.0",
+    "@js-joda/core": "^4.3.1",
     "@mikro-orm/cli": "^4.5.9",
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",

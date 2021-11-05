@@ -4,8 +4,8 @@ import compact from 'lodash/compact';
 import merge from 'lodash/merge';
 import queryString from 'querystring';
 import {useLocation} from 'react-router-dom';
-import {useIsActiveRoute} from './useIsActiveRoute';
 import type {Data, StateSelectorHook} from '../types';
+import {useIsActiveRoute} from './useIsActiveRoute';
 import {useSelectState} from './useSelectState';
 
 const d = debug('imperium.layout.hooks.useBuildData');

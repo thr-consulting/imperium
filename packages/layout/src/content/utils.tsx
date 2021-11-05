@@ -1,8 +1,8 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import React from 'react';
 import {Icon, SemanticCOLORS} from 'semantic-ui-react';
-import type {BaseSidebarItem, ContentData} from './types';
 import type {RouteItem} from '../commonItems';
+import type {BaseSidebarItem, ContentData} from './types';
 
 export function getIcon<T extends DefineRouteOptions, K extends keyof T>(item: BaseSidebarItem<T, K>, data: ContentData<T, K>) {
 	if (item.icon) {
