@@ -2,19 +2,20 @@ import debug from 'debug';
 import {Query} from 'mingo';
 import React from 'react';
 import {Dropdown} from 'semantic-ui-react';
-import {useBuildData} from '../hooks/useBuildData';
-import type {Data, Item} from '../types';
-import {isCustomMenuItem, isDropdownMenuItem, isMenuMenuItem} from '../types';
-import {sortWeightedItems} from '../utils';
-import {CustomItem} from './CustomItem';
+import {useBuildData} from '../../hooks/useBuildData';
+import type {Data} from '../../types';
+import {sortWeightedItems} from '../../utils';
+import type {LayoutItem} from '../types';
+import {isCustomLayoutItem, isDropdownLayoutItem, isMenuLayoutItem} from '../types';
+import {CustomLayoutItemComponent} from './CustomLayoutItemComponent';
 import {DropdownItem} from './DropdownItem';
 import {MenuItem} from './MenuItem';
 import {PlainItem} from './PlainItem';
 
-const d = debug('imperium.layout.components.ItemWrapper');
+const d = debug('imperium.layout.components.LayoutItemWrapper');
 
 interface ItemWrapperProps {
-	item: Item;
+	item: LayoutItem;
 	as?: React.ComponentClass;
 	vertical?: boolean;
 	data?: Data;
@@ -28,8 +29,8 @@ interface ItemWrapperProps {
  * @param parentData
  * @constructor
  */
-export function ItemWrapper({item, as, vertical, data: parentData}: ItemWrapperProps) {
-	const data = useBuildData(item, parentData);
+export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWrapperProps) {
+	const data = useBuildData({stateSelectorHook: item.stateSelectorHook, routeItem: item, data: parentData});
 
 	// Check if visible
 	if (item.visible) {
@@ -41,19 +42,19 @@ export function ItemWrapper({item, as, vertical, data: parentData}: ItemWrapperP
 		}
 	}
 
-	if (isCustomMenuItem(item)) {
-		return <CustomItem item={item} />;
+	if (isCustomLayoutItem(item)) {
+		return <CustomLayoutItemComponent item={item} data={data} />;
 	}
-	if (isDropdownMenuItem(item)) {
+	if (isDropdownLayoutItem(item)) {
 		// eslint-disable-next-line react/no-array-index-key
-		const children = sortWeightedItems(item.dropdown).map((v, index) => <ItemWrapper key={index} item={v} as={Dropdown.Item} data={data} />);
+		const children = sortWeightedItems(item.dropdown).map((v, index) => <LayoutItemWrapper key={index} item={v} as={Dropdown.Item} data={data} />);
 		return <DropdownItem item={item} children={children} vertical={vertical} data={data} />;
 	}
-	if (isMenuMenuItem(item)) {
+	if (isMenuLayoutItem(item)) {
 		// eslint-disable-next-line react/no-array-index-key
 		const children = sortWeightedItems(item.menu).map((v, index) => (
 			// eslint-disable-next-line react/no-array-index-key
-			<ItemWrapper key={index} item={v} as={Dropdown.Item} vertical={vertical} data={data} />
+			<LayoutItemWrapper key={index} item={v} as={Dropdown.Item} vertical={vertical} data={data} />
 		));
 		return <MenuItem item={item} children={children} />;
 	}

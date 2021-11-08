@@ -6,15 +6,19 @@ import {createSlice} from '@reduxjs/toolkit';
 export const state = createSlice({
 	name: 'layout-sample',
 	initialState: {
-		myParam: '',
+		id: '',
+		text: '',
 	},
 	reducers: {
-		setParam: (st, action: PayloadAction<string>) => {
-			st.myParam = action.payload;
+		setId: (st, action: PayloadAction<string>) => {
+			st.id = action.payload;
+		},
+		setText: (st, action: PayloadAction<string>) => {
+			st.text = action.payload;
 		},
 	},
 });
 
 export const useLayoutState = createSliceHook(state);
 
-export const {setParam} = state.actions;
+export const {setId, setText} = state.actions;

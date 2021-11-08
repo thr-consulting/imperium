@@ -2,7 +2,7 @@
 import type {ImperiumClientModule} from '@imperium/client';
 import type {match, RouteComponentProps, RouteProps} from 'react-router-dom';
 
-type ParametersFromAssertion<T extends readonly string[]> = {
+export type ParametersFromAssertion<T extends readonly string[]> = {
 	[key in T[number]]: string;
 };
 
@@ -12,13 +12,13 @@ type RoutePathFn<T extends readonly string[] | undefined> = T extends readonly s
 
 type RouteRenderFn<T extends readonly string[] | undefined> = T extends readonly string[]
 	? (params: ParametersFromAssertion<T>, rcp: RouteComponentProps<ParametersFromAssertion<T>>) => JSX.Element
-	: (rcp: RouteComponentProps<never>) => JSX.Element;
+	: (params: null, rcp: RouteComponentProps<never>) => JSX.Element;
 
 type RouteParamsType<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
 
 type RouteMatch<T extends readonly string[] | undefined> = T extends readonly string[] ? match<ParametersFromAssertion<T>> : match;
 
-interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
+export interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
 	params?: readonly string[];
 }
 
@@ -49,4 +49,11 @@ export interface ImperiumRouterClientModule extends ImperiumClientModule {
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {
 	const routeModule = module as ImperiumRouterClientModule;
 	return routeModule.routeProps !== undefined;
+}
+
+export interface Routes<T extends DefineRouteOptions> {
+	types: KeyedRouteParamTypes<T>;
+	match: KeyedRouteMatchFns<T>;
+	to: KeyedRoutePathFns<T>;
+	renderRouteProps: (routeRenderFunctions: KeyedRouteRenderFns<T>) => RouteProps[];
 }

@@ -6,7 +6,7 @@ import {routes} from './routes';
 const GraphqlTest = loadable<any>(() => import('./components/GraphqlTest'));
 
 export const layout: Partial<LayoutData> = {
-	sidebar: [
+	secondaryMenu: [
 		{
 			to: routes.to.sampleGraphql(),
 			text: 'Graphql',

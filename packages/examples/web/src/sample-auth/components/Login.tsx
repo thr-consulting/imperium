@@ -42,7 +42,7 @@ export default function Login() {
 			>
 				{({handleSubmit, values, handleChange}: TFormProps<LoginValidation>) => {
 					return (
-						<Form onSubmit={handleSubmit} inverted>
+						<Form onSubmit={handleSubmit}>
 							<Form.Field>
 								<label>Email</label>
 								<Input value={values.email} onChange={(ev, v) => handleChange('email')(v.value)} />
@@ -56,7 +56,9 @@ export default function Login() {
 									onChange={(ev, v) => handleChange('password')(v.value)}
 								/>
 							</Form.Field>
-							<Form.Button type="submit">Login</Form.Button>
+							<Form.Button type="submit" color="blue">
+								Login
+							</Form.Button>
 							<Segment inverted>
 								<p>Use one of the following to login:</p>
 								<ul>

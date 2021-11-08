@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {useMediaQuery} from 'react-responsive';
-import {actions} from '../state';
+import {actions} from '../../state';
 
 export function useMobileLayout() {
 	const dispatch = useDispatch();

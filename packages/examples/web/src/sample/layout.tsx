@@ -10,7 +10,7 @@ import {routes} from './routes';
 const d = debug('imperium.examples.web.sample.layout');
 
 export const layout: Partial<LayoutData> = {
-	menubar: [
+	primaryMenu: [
 		{
 			stickOnMobile: true,
 			weight: -9999,

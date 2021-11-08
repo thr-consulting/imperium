@@ -1,19 +1,11 @@
 import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
-import React from 'react';
-import LayoutExample from './components/LayoutExample';
 import {routes} from './routes';
 import {routes as sampleRoutes} from '../sample/routes';
 import {useGetData} from './hooks/useGetData';
 import {useLayoutState} from './state';
-import {ParamTest} from './components/ParamTest';
 
 const d = debug('imperium.examples.web.sample-layout.layout');
-
-export const routeProps = routes.renderRouteProps({
-	noParam: () => <LayoutExample />,
-	withParam: () => <ParamTest />,
-});
 
 export const layout: LayoutData = {
 	dataHooks: [
@@ -22,7 +14,7 @@ export const layout: LayoutData = {
 			dataHook: useGetData,
 		},
 	],
-	menubar: [
+	primaryMenu: [
 		{
 			stateSelectorHook: useLayoutState,
 			text: s => {
@@ -39,11 +31,12 @@ export const layout: LayoutData = {
 			],
 		},
 	],
-	sidebar: [
+	secondaryMenu: [
 		{
 			stateSelectorHook: useLayoutState,
 			text: 'Dropdown',
 			icon: 'protect',
+			key: 'dropdown',
 			dropdown: [
 				{
 					text: 'To home',

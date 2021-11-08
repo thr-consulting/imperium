@@ -1,14 +1,15 @@
 import debug from 'debug';
 import React, {useState} from 'react';
 import {Accordion, Dropdown, Icon, Menu} from 'semantic-ui-react';
-import type {Data, DropdownMenuItem} from '../types';
+import type {Data} from '../../types';
+import type {DropdownLayoutItem} from '../types';
 import {getText} from '../utils';
 import styles from './styles.css';
 
 const d = debug('imperium.layout.components.DropdownItem');
 
 interface DropdownItemProps {
-	item: DropdownMenuItem;
+	item: DropdownLayoutItem;
 	children: JSX.Element[];
 	data: Data;
 	vertical?: boolean;

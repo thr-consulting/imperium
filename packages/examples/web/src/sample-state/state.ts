@@ -17,6 +17,9 @@ export const state = createSlice({
 			},
 			prepare: (date: LocalDate) => ({payload: date.toEpochDay()}),
 		},
+		setNum: (st, action: PayloadAction<number>) => {
+			st.num = action.payload;
+		},
 	},
 });
 

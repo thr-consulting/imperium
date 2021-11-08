@@ -17,7 +17,7 @@ const client = new ImperiumClient({
 		// layout - injected by @imperium/layout
 		// render - injected by @imperium/client
 		// routes - injected by @imperium/router
-		return <ContentRouter errorBoundary={ErrorBoundary} {...props} />;
+		return <ContentRouter {...props} />; // errorBoundary={ErrorBoundary}
 	},
 });
 

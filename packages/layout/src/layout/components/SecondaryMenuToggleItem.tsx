@@ -2,12 +2,12 @@ import React from 'react';
 import {Icon, Menu} from 'semantic-ui-react';
 import styles from './styles.css';
 
-interface SidebarToggleMenuItemProps {
+interface SecondaryMenuToggleItemProps {
 	menuOpen: boolean;
 	setMenuOpen: (open: boolean) => void;
 }
 
-export function SidebarToggleMenuItem({menuOpen, setMenuOpen}: SidebarToggleMenuItemProps) {
+export function SecondaryMenuToggleItem({menuOpen, setMenuOpen}: SecondaryMenuToggleItemProps) {
 	return (
 		<Menu.Item>
 			<Icon

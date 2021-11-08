@@ -1,10 +1,11 @@
 import debug from 'debug';
 import React, {ReactNode, useState} from 'react';
 import {Segment} from 'semantic-ui-react';
-import {useLayoutState} from '../state';
+import {useLayoutState} from '../../state';
+import {moveItems} from '../moveItems';
 import type {LayoutData} from '../types';
-import {ItemBar} from './ItemBar';
-import {SidebarToggleMenuItem} from './SidebarToggleMenuItem';
+import {LayoutItemBar} from './LayoutItemBar';
+import {SecondaryMenuToggleItem} from './SecondaryMenuToggleItem';
 import styles from './styles.css';
 
 const d = debug('imperium.layout.components.Layout');
@@ -20,42 +21,48 @@ interface LayoutProps extends Required<LayoutData> {
  * @param footer
  * @param menubar
  * @param statusbar
- * @param sidebar
  * @param children
  * @constructor
  */
-export function Layout({footer, menubar, statusbar, sidebar, children}: LayoutProps) {
+export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}: LayoutProps) {
 	const {isMobile} = useLayoutState();
 	const [menuOpen, setMenuOpen] = useState(true);
 
-	const mobileSidebarToggleItem = {
+	const primaryMenuToggle = {
 		stickOnMobile: true,
 		weight: -19999,
 		render: () => {
 			if (!isMobile) return null;
-			return <SidebarToggleMenuItem menuOpen={menuOpen} setMenuOpen={setMenuOpen} />;
+			return <SecondaryMenuToggleItem menuOpen={menuOpen} setMenuOpen={setMenuOpen} />;
 		},
 	};
 
 	// Determine menubar items
-	const menubarItems = isMobile ? [mobileSidebarToggleItem, ...menubar].filter(v => v.stickOnMobile === true) : [mobileSidebarToggleItem, ...menubar];
+	const primaryMenuItems = moveItems(
+		isMobile ? [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile === true) : [primaryMenuToggle, ...primaryMenu],
+	);
+
+	// const pmi = mergeItems(primaryMenuItems);
 
 	// Determine sidebar items
-	const sidebarItems = isMobile
-		? [
-				...sidebar,
-				{
-					text: '',
-					menu: [mobileSidebarToggleItem, ...menubar].filter(v => v.stickOnMobile !== true),
-				},
-		  ]
-		: sidebar;
-	const sidebarComp =
-		sidebarItems.length > 0 ? (
+	const secondaryMenuItems = moveItems(
+		isMobile
+			? [
+					...secondaryMenu,
+					{
+						text: '',
+						menu: [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile !== true),
+					},
+			  ]
+			: secondaryMenu,
+	);
+
+	const secondaryMenuComp =
+		secondaryMenuItems.length > 0 ? (
 			<div>
-				<ItemBar
+				<LayoutItemBar
 					name="sidebar"
-					items={sidebarItems}
+					items={secondaryMenuItems}
 					inverted
 					vertical
 					className={isMobile && !menuOpen ? `${styles.sidebar} ${styles.sidebarHidden} imperiumSidebar` : `${styles.sidebar} imperiumSidebar`}
@@ -64,25 +71,27 @@ export function Layout({footer, menubar, statusbar, sidebar, children}: LayoutPr
 		) : null;
 
 	// Determine footer items
-	const footerItems = footer;
+	const footerItems = moveItems(footer);
 	const footerComp =
-		footerItems.length > 0 ? <ItemBar name="footer" items={footerItems} className={`${styles.footer} imperiumFooter`} inverted borderless /> : null;
+		footerItems.length > 0 ? (
+			<LayoutItemBar name="footer" items={footerItems} className={`${styles.footer} imperiumFooter`} inverted borderless />
+		) : null;
 
 	// Determine status bar items
-	const statusbarItems = statusbar;
+	const statusbarItems = moveItems(statusbar);
 	const statusbarComp =
 		statusbarItems.length > 0 ? (
-			<ItemBar name="statusbar" items={statusbarItems} inverted className={`${styles.statusbar} imperiumStatusbar`} />
+			<LayoutItemBar name="statusbar" items={statusbarItems} inverted className={`${styles.statusbar} imperiumStatusbar`} />
 		) : null;
 
 	return (
 		<div className={`${styles.parent} imperiumLayout`}>
 			<div>
-				<ItemBar name="menubar" items={menubarItems} inverted borderless className={`${styles.menubar} imperiumMenubar`} />
+				<LayoutItemBar name="menubar" items={primaryMenuItems} inverted borderless className={`${styles.menubar} imperiumMenubar`} />
 				{statusbarComp}
 			</div>
 			<Segment attached className={`${styles.contentWrapper} imperiumContentWrapper`}>
-				{sidebarComp}
+				{secondaryMenuComp}
 				<div className={`${styles.content} imperiumContent`}>{children}</div>
 			</Segment>
 			{footerComp}

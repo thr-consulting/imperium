@@ -1,8 +1,8 @@
 import type {ImperiumStateClientModule} from '@imperium/state';
-import {useMobileLayout} from './hooks/useMobileLayout';
+import {useMobileLayout} from './layout/hooks/useMobileLayout';
+import {withLayout} from './layout/withLayout';
 import {state} from './state';
 import type {ImperiumLayoutClientModule} from './types';
-import {withLayout} from './withLayout';
 
 export function layoutClientModule(): ImperiumStateClientModule & ImperiumLayoutClientModule {
 	return {
@@ -16,5 +16,8 @@ export function layoutClientModule(): ImperiumStateClientModule & ImperiumLayout
 	};
 }
 
-export type {ImperiumLayoutClientModule, LayoutData} from './types';
+export type {LayoutData} from './layout/types';
 export {useLayoutState, actions as layoutActions} from './state';
+export {createPages} from './content/createPages';
+export type {ImperiumLayoutClientModule} from './types';
+export {dividerSidebarItem} from './content/dividerSidebarItem';

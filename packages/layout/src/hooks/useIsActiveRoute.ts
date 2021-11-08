@@ -1,11 +1,12 @@
-import {RouteProps, useRouteMatch} from 'react-router-dom';
-import type {Data, Item} from '../types';
-import {isRouteItem} from '../types';
+import {useRouteMatch} from 'react-router';
+import type {RouteProps} from 'react-router-dom';
+import {isRouteItem} from '../commonItems';
+import type {Data} from '../types';
 
-export function useIsActiveRoute(item: Item, data: Data) {
+export function useIsActiveRoute(data: Data, item?: any) {
 	// Determine if the current route matches the to route to see if the link is active
 	const routeMatchObject: RouteProps = {};
-	if (isRouteItem(item)) {
+	if (item && isRouteItem(item)) {
 		if (typeof item.to === 'string') {
 			routeMatchObject.path = item.to;
 		}

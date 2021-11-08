@@ -1,9 +1,9 @@
 import React from 'react';
 import {Menu} from 'semantic-ui-react';
-import type {MenuMenuItem} from '../types';
+import type {MenuLayoutItem} from '../types';
 
 interface MenuItemProps {
-	item: MenuMenuItem;
+	item: MenuLayoutItem;
 	children: JSX.Element[];
 }
 
