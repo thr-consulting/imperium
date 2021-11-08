@@ -8,6 +8,14 @@
 [![GitHub license](https://img.shields.io/github/license/darkadept/imperium.svg)](https://github.com/darkadept/imperium/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/darkadept/imperium.svg)](https://github.com/darkadept/imperium/graphs/contributors/)
 
+# About
+This is an Imperium client module for defining and using routes.
+
+The major parts of this package are:
+  * Imperium client module
+  * `defineRoutes()` function
+  * `<ContentRouter>` component
+
 # Getting Started
 
 ## Add to client modules

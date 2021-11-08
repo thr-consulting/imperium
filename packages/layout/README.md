@@ -8,6 +8,14 @@
 [![GitHub license](https://img.shields.io/github/license/darkadept/imperium.svg)](https://github.com/darkadept/imperium/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/darkadept/imperium.svg)](https://github.com/darkadept/imperium/graphs/contributors/)
 
+# About
+This is an Imperium client module providing an abstraction for page layout, menu items, and content.
+
+The major parts of this package are:
+  * Imperium client module
+  * Main layout type: `LayoutData`
+  * `createPages()` function
+
 # Getting Started
 
 ## Add to client modules
