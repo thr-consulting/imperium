@@ -59,13 +59,16 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 
 	const secondaryMenuComp =
 		secondaryMenuItems.length > 0 ? (
-			<div>
+			<div className="imperiumSecondaryMenuWrapper">
 				<LayoutItemBar
-					name="sidebar"
 					items={secondaryMenuItems}
 					inverted
 					vertical
-					className={isMobile && !menuOpen ? `${styles.sidebar} ${styles.sidebarHidden} imperiumSidebar` : `${styles.sidebar} imperiumSidebar`}
+					className={
+						isMobile && !menuOpen
+							? `${styles.secondaryMenu} ${styles.secondaryMenuHidden} imperiumSecondaryMenu`
+							: `${styles.secondaryMenu} imperiumSecondaryMenu`
+					}
 				/>
 			</div>
 		) : null;
@@ -80,19 +83,17 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 	// Determine status bar items
 	const statusbarItems = moveItems(statusbar);
 	const statusbarComp =
-		statusbarItems.length > 0 ? (
-			<LayoutItemBar name="statusbar" items={statusbarItems} inverted className={`${styles.statusbar} imperiumStatusbar`} />
-		) : null;
+		statusbarItems.length > 0 ? <LayoutItemBar items={statusbarItems} inverted className={`${styles.statusbar} imperiumStatusbar`} /> : null;
 
 	return (
-		<div className={`${styles.parent} imperiumLayout`}>
-			<div>
-				<LayoutItemBar name="menubar" items={primaryMenuItems} inverted borderless className={`${styles.menubar} imperiumMenubar`} />
+		<div className={`${styles.parent} imperiumLayout ${isMobile ? 'imperiumMobile' : 'imperiumNotMobile'}`}>
+			<div className="imperiumPrimaryMenuWrapper">
+				<LayoutItemBar items={primaryMenuItems} inverted borderless className={`${styles.menubar} imperiumPrimaryMenu`} />
 				{statusbarComp}
 			</div>
-			<Segment attached className={`${styles.contentWrapper} imperiumContentWrapper`}>
+			<Segment attached className={`${styles.contentWrapper} imperiumLayoutContentWrapper`}>
 				{secondaryMenuComp}
-				<div className={`${styles.content} imperiumContent`}>{children}</div>
+				<div className={`${styles.content} imperiumLayoutContent`}>{children}</div>
 			</Segment>
 			{footerComp}
 		</div>

@@ -24,7 +24,7 @@ export function Header<T extends DefineRouteOptions, K extends keyof T>({data, h
 			headerInfo = header;
 		}
 		return (
-			<div className={styles.header}>
+			<div className={`${styles.header} imperiumContentHeader`}>
 				<h2>{headerInfo.title}</h2>
 			</div>
 		);

@@ -24,8 +24,8 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 
 	const sidebar =
 		sidebarItems.length > 0 ? (
-			<div className={styles.sidebar}>
-				<div className={styles.actionsHeader}>
+			<div className={`${styles.sidebar} imperiumContentSidebar`}>
+				<div className={`${styles.actionsHeader} imperiumContentSidebarHeader`}>
 					<h3>Actions</h3>
 				</div>
 				{sidebarItems.map((sb, index) => {
@@ -40,10 +40,10 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 		) : null;
 
 	return (
-		<div className={styles.parent}>
-			<div className={styles.content}>
+		<div className={`${styles.parent} imperiumContentWrapperParent`}>
+			<div className={`${styles.wrapper} imperiumContentWrapper`}>
 				<Header header={page.header} data={data} />
-				{content}
+				<div className={`${styles.content} imperiumContent`}>{content}</div>
 			</div>
 			{sidebar}
 			<DataHooks dataHooks={page.dataHooks || []} />

@@ -5,16 +5,18 @@
 	height: 100%;
 }
 
-.content {
+.wrapper {
 	flex: 1;
-	padding: 10px;
-	border-right: solid lightgrey 1px;
 	flex-basis: calc(65%);
 }
 
+.content {
+	margin: 0 0.8rem 0.8rem 0.8rem;
+}
+
 .header {
-	border-bottom: 1px solid lightgrey;
-	margin-bottom: 15px;
+	padding: 0.8rem 0.8rem 0 0.8rem;
+	margin-bottom: 0.8rem;
 }
 
 .sidebar {
@@ -37,9 +39,8 @@
 		flex-direction: column;
 		height: auto;
 	}
-	.content {
+	.wrapper {
 		border-right: none;
-		border-bottom: 1px solid lightgray;
 		padding-bottom: 20px;
 	}
 	.sidebar {
