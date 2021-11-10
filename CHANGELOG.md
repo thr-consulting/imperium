@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.3](https://github.com/darkadept/imperium/compare/v7.3.2...v7.3.3) (2021-11-10)
+
+
+### Bug Fixes
+
+* **layout:** fixed route item type ([321915d](https://github.com/darkadept/imperium/commit/321915db159affa2a080623ff88d3dc8c430c218))
+
+
+
+
+
 ## [7.3.2](https://github.com/darkadept/imperium/compare/v7.3.1...v7.3.2) (2021-11-10)
 
 
