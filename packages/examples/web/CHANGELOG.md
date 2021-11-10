@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.2](https://github.com/darkadept/imperium/compare/v7.3.1...v7.3.2) (2021-11-10)
+
+
+### Features
+
+* **layout:** added full parameter to pages ([12775e9](https://github.com/darkadept/imperium/commit/12775e98fef16dc502d9189d5678d2fc27d0415a))
+
+
+
+
+
 ## [7.3.1](https://github.com/darkadept/imperium/compare/v7.3.0...v7.3.1) (2021-11-10)
 
 
