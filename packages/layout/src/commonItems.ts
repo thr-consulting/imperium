@@ -1,4 +1,4 @@
-import type {Data, StateSelectorHook, VisibilityQueryFn} from './types';
+import type {StateSelectorHook, VisibilityQueryFn} from './types';
 
 /**
  * Describes an item that can hide itself based on redux state
@@ -18,8 +18,8 @@ export interface WeightedItem {
 /**
  * Describes an item that links to a route
  */
-export interface RouteItem {
-	to?: string | ((data: Data) => string);
+export interface RouteItem<T> {
+	to?: string | ((data: T) => string);
 	exact?: boolean;
 	strict?: boolean;
 	sensitive?: boolean;
@@ -37,6 +37,6 @@ export function isHorizontalPositionedItem(value: any): value is HorizontalPosit
 	return !!((value as HorizontalPositionedItem).position || (value as HorizontalPositionedItem).stickOnMobile);
 }
 
-export function isRouteItem(value: any): value is RouteItem {
-	return !!((value as RouteItem).to || (value as RouteItem).exact || (value as RouteItem).strict || (value as RouteItem).sensitive);
+export function isRouteItem<T>(value: any): value is RouteItem<T> {
+	return !!((value as RouteItem<T>).to || (value as RouteItem<T>).exact || (value as RouteItem<T>).strict || (value as RouteItem<T>).sensitive);
 }

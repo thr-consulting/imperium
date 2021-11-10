@@ -21,7 +21,7 @@ export interface CustomLayoutItem extends WeightedItem, VisibilityItem {
  * Describes a menu that displays a dropdown list of items
  */
 export interface DropdownLayoutItem extends BaseLayoutItem {
-	dropdown: ((BaseLayoutItem & RouteItem) | CustomLayoutItem)[];
+	dropdown: ((BaseLayoutItem & RouteItem<Data>) | CustomLayoutItem)[];
 	key?: string;
 }
 
@@ -29,14 +29,14 @@ export interface DropdownLayoutItem extends BaseLayoutItem {
  * Describes a menu that displays a sub menu (not a dropdown list)
  */
 export interface MenuLayoutItem extends BaseLayoutItem {
-	menu: ((BaseLayoutItem & RouteItem) | CustomLayoutItem)[];
+	menu: ((BaseLayoutItem & RouteItem<Data>) | CustomLayoutItem)[];
 	key?: string;
 }
 
 /**
  * Describes a horizontal menu item which is either a route item or dropdown menu
  */
-export type LayoutItem = (BaseLayoutItem & RouteItem) | DropdownLayoutItem | MenuLayoutItem | CustomLayoutItem;
+export type LayoutItem = (BaseLayoutItem & RouteItem<Data>) | DropdownLayoutItem | MenuLayoutItem | CustomLayoutItem;
 
 export interface LayoutData {
 	dataHooks?: DataHookItem[];

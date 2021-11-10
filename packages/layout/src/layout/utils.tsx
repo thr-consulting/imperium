@@ -28,7 +28,7 @@ export function splitPositionedItems<T extends LayoutItem>(items: T[]) {
 	);
 }
 
-export function linkParameters(item: BaseLayoutItem & RouteItem, data: Data) {
+export function linkParameters(item: BaseLayoutItem & RouteItem<Data>, data: Data) {
 	return item.to
 		? {
 				as: Link,

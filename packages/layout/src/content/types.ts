@@ -45,7 +45,7 @@ export interface CustomSidebarItem<T extends DefineRouteOptions, K extends keyof
 }
 
 export type SidebarItem<T extends DefineRouteOptions, K extends keyof T> =
-	| (BaseSidebarItem<T, K> & RouteItem)
+	| (BaseSidebarItem<T, K> & RouteItem<ContentData<T, K>>)
 	| ActionSidebarItem<T, K>
 	| CustomSidebarItem<T, K>
 	| ActionFormSidebarItem<T, K>

@@ -12,7 +12,7 @@ export function getIcon<T extends DefineRouteOptions, K extends keyof T>(item: B
 	return null;
 }
 
-export function getRouteTo<T extends DefineRouteOptions, K extends keyof T>(item: RouteItem, data: ContentData<T, K>) {
+export function getRouteTo<T extends DefineRouteOptions, K extends keyof T>(item: RouteItem<ContentData<T, K>>, data: ContentData<T, K>) {
 	if (item.to) {
 		return typeof item.to === 'function' ? item.to(data) : item.to;
 	}
