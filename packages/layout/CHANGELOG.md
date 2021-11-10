@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/darkadept/imperium/compare/v7.3.0...v7.3.1) (2021-11-10)
+
+
+### Features
+
+* **layout:** removed css styling ([293613d](https://github.com/darkadept/imperium/commit/293613df8c603e0b4875e06944cdde9f415ff7e8))
+
+
+
+
+
 # [7.3.0](https://github.com/darkadept/imperium/compare/v7.2.0...v7.3.0) (2021-11-08)
 
 **Note:** Version bump only for package @imperium/layout
