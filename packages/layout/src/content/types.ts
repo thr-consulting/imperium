@@ -63,11 +63,16 @@ export interface Page<T extends DefineRouteOptions, K extends keyof T> {
 	content: Content<T, K>;
 	header?: ContentHeader<T, K>;
 	sidebar?: SidebarItem<T, K>[];
+	full?: boolean;
 }
 
 export type Pages<T extends DefineRouteOptions> = {
-	[key in keyof T]: Page<T, key>;
+	[key in keyof T]: Page<T, key> | Content<T, key>;
 };
+
+export function isPage<T extends DefineRouteOptions, K extends keyof T>(value: any): value is Page<T, K> {
+	return !!(value as Page<T, K>).content;
+}
 
 export function isActionSidebarItem<T extends DefineRouteOptions, K extends keyof T>(value: any): value is ActionSidebarItem<T, K> {
 	return !!(value as ActionSidebarItem<T, K>).onClick;

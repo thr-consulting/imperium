@@ -8,6 +8,7 @@ import LayoutExample from './components/LayoutExample';
 import {useLayoutState} from './state';
 import {ParamTest} from './components/ParamTest';
 import {useOverrideGetData} from './hooks/useOverrideGetData';
+import ContentExample from './components/ContentExample';
 
 const d = debug('imperium.examples.web.sample-layout.pages');
 
@@ -93,5 +94,9 @@ export const routeProps = createPages(routes, {
 				validationSchema: formValidation,
 			},
 		],
+	},
+	content: {
+		content: () => <ContentExample />,
+		full: true,
 	},
 });

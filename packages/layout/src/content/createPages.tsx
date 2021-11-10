@@ -3,6 +3,7 @@ import debug from 'debug';
 import React from 'react';
 import {ContentComponent} from './components/ContentComponent';
 import type {Pages, RouteParameters} from './types';
+import {isPage} from './types';
 
 const d = debug('imperium.layout.content.createPages');
 
@@ -11,7 +12,18 @@ export function createPages<T extends DefineRouteOptions>(routes: Routes<T>, pag
 		return {
 			...memo,
 			[key]: (params: RouteParameters<T[typeof key]['params']>) => {
-				return <ContentComponent page={pages[key]} params={params} />;
+				const pg = pages[key];
+				if (isPage(pg)) {
+					return <ContentComponent page={pg} params={params} />;
+				}
+				return (
+					<ContentComponent
+						page={{
+							content: pg,
+						}}
+						params={params}
+					/>
+				);
 			},
 		};
 	}, {} as KeyedRouteRenderFns<T>);

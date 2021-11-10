@@ -30,6 +30,10 @@ export const layout: LayoutData = {
 				},
 			],
 		},
+		{
+			text: 'Content',
+			to: routes.to.content(),
+		},
 	],
 	secondaryMenu: [
 		{

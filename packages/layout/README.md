@@ -81,6 +81,7 @@ export const routeProps = createPages(routes, {
     content: (data: Data) => JSX.Element,
     header: /*One of: string | {title: string, icon?: string} | (data: Data) => {title: string, icon?: string} */,
     sidebar: [ /* SidebarItem array */ ],
+    full: boolean,
   }
 });
 ```
@@ -104,6 +105,9 @@ If header is not specified, there will be no header.
 ### Sidebar
 Array of Sidebar Items. The sidebar is an optional vertical menu on the right side of the content area. It should usually
 be comprised of button actions. There are different types of sidebar items that can be rendered.
+
+### Full
+Sets the height of the content area to 100% and has no margins.
 
 ## Add layout and pages to your feature index
 In your feature `index.ts` file, add layout and pages (routeProps). Layout is not optional, but it can be an empty object.

@@ -8,4 +8,7 @@ export const routes = defineRoutes({
 	noParam: {
 		path: '/layout/noParam',
 	},
+	content: {
+		path: '/layout/content',
+	},
 });

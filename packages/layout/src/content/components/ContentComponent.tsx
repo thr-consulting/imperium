@@ -43,7 +43,7 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 		<div className={`${styles.parent} imperiumContentWrapperParent`}>
 			<div className={`${styles.wrapper} imperiumContentWrapper`}>
 				<Header header={page.header} data={data} />
-				<div className={`${styles.content} imperiumContent`}>{content}</div>
+				<div className={`${styles.content} imperiumContent ${page.full && styles.contentFull}`}>{content}</div>
 			</div>
 			{sidebar}
 			<DataHooks dataHooks={page.dataHooks || []} />
