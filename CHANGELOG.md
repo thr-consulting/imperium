@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.4](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.4) (2021-11-18)
+
+
+### Features
+
+* **domaindriven:** added options to AbstractController ([20e5152](https://github.com/darkadept/imperium/commit/20e51523ef9f078b3e6652ae55696e1036e5f7ad))
+
+
+
+
+
 ## [7.3.3](https://github.com/darkadept/imperium/compare/v7.3.2...v7.3.3) (2021-11-10)
 
 

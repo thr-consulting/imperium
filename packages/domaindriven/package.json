@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/domaindriven",
-	"version": "7.1.8",
+	"version": "7.3.4",
 	"description": "Imperium Domain Driven Design package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
