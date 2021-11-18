@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.5](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.5) (2021-11-18)
+
+**Note:** Version bump only for package @imperium/example-noexpress-server
+
+
+
+
+
 ## [7.3.4](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.4) (2021-11-18)
 
 **Note:** Version bump only for package @imperium/example-noexpress-server
