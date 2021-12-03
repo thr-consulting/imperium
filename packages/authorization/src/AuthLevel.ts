@@ -32,15 +32,19 @@ export class AuthLevel {
 		return `${this.#name}.${this.#group}.${this.#level}`;
 	}
 
-	public name() {
+	public get name() {
 		return this.#name;
 	}
 
-	public group() {
+	public get group() {
 		return this.#group;
 	}
 
-	public isNull() {
+	public get level() {
+		return this.#level;
+	}
+
+	public get isNull() {
 		return this.#group === 'null';
 	}
 

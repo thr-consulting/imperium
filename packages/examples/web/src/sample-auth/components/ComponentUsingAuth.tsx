@@ -3,6 +3,7 @@ import {AbstractAuthSelector, AuthLevel} from '@imperium/authorization';
 import debug from 'debug';
 import React, {useEffect, useRef} from 'react';
 import {Button} from 'semantic-ui-react';
+import {useLazyAuth} from '@imperium/auth-client/src';
 
 const d = debug('imperium.examples.web.sample-auth.components.ComponentUsingAuth');
 
@@ -24,11 +25,11 @@ function useTraceUpdate(props: any) {
 }
 
 class MySelector extends AbstractAuthSelector {
-	private readonly id: string;
+	private readonly word: string;
 
-	constructor(id: string) {
+	constructor(word: string) {
 		super();
-		this.id = id;
+		this.word = word;
 	}
 
 	async getLevel(ctx: IAuthContext) {
@@ -37,7 +38,7 @@ class MySelector extends AbstractAuthSelector {
 	}
 
 	public getCacheId() {
-		return this.id;
+		return this.word;
 	}
 
 	public getName() {
@@ -46,12 +47,53 @@ class MySelector extends AbstractAuthSelector {
 }
 
 export default function ComponentUsingAuth() {
-	const {loading, id, level, hasAccess} = useAuth(new MySelector('thing'));
-	// const [getAuth, {level, loading, called, hasAccess, id}] = useLazyAuth(new MySelector('thing'));
-	const {access} = useAuthId();
+	const thingSelector = new MySelector('thing');
+	const otherSelector = new MySelector('other');
+
+	const thingAuth = useAuth(thingSelector);
+	const otherAuth = useAuth(otherSelector);
+	// const [startAuth, res] = useLazyAuth(new MySelector('newthing'));
+
+	// useTraceUpdate({loading, id, level, hasAccess});
+	// useTraceUpdate(res);
+
+	d(thingAuth.level.toString());
+	d(otherAuth.level.toString());
+
+	return (
+		<>
+			<h1>Component Using Auth</h1>
+			{/* <p>ID: {res.id}</p> */}
+			{/* <p> */}
+			{/*	Loading: {loading ? 'true' : 'false'} */}
+			{/*	<br /> */}
+			{/*	Level: {level.toString()} */}
+			{/* </p> */}
+			{/* <p> */}
+			{/*	Lazy Loading: {res.loading ? 'true' : 'false'} */}
+			{/*	<br /> */}
+			{/*	Lazy Called: {res.called ? 'true' : 'false'} */}
+			{/*	<br /> */}
+			{/*	Lazy Level: {res.level.toString()} */}
+			{/* </p> */}
+			{/* <Button */}
+			{/*	color="orange" */}
+			{/*	onClick={() => { */}
+			{/*		startAuth(); */}
+			{/*	}} */}
+			{/* > */}
+			{/*	Lazy auth */}
+			{/* </Button> */}
+		</>
+	);
+}
+
+/*
+// const [startAuth, res] = useLazyAuth(new MySelector('newthing'));
+	// const {access} = useAuthId();
 	const logout = useLogout();
 
-	useTraceUpdate({loading, id, level, access});
+	// useTraceUpdate({loading, id, level, access});
 
 	if (loading) return null;
 	// if (!called) return <Button onClick={() => getAuth()}>Start Auth</Button>;
@@ -59,10 +101,25 @@ export default function ComponentUsingAuth() {
 	return (
 		<>
 			<h1>Component Using Auth</h1>
-			<p>ID: {id}</p>
-			<p>Access Token: {access}</p>
-			<p>Level: {level.name()}</p>
-			<p>Has Access to admin: {hasAccess(AuthLevel.fromString('manager.system.50')).exec() ? 'Yes' : 'No'}</p>
+			<p>
+				ID: {id}
+				<br />
+				Access Token: {access}
+			</p>
+			<p>
+				Loading: {loading ? 'true' : 'false'}
+				<br />
+				Level: {level.toString()}
+				<br />
+				Has Access to admin: {hasAccess(AuthLevel.fromString('manager.system.50')).exec() ? 'Yes' : 'No'}
+			</p>
+			<p>
+				Lazy Loading: {res.loading ? 'true' : 'false'}
+				<br />
+				Lazy Called: {res.called ? 'true' : 'false'}
+				<br />
+				Lazy Level: {res.level.toString()}
+			</p>
 			<Button
 				color="blue"
 				onClick={async () => {
@@ -71,6 +128,14 @@ export default function ComponentUsingAuth() {
 			>
 				Logout
 			</Button>
+			<Button
+				color="orange"
+				onClick={() => {
+					startAuth();
+				}}
+			>
+				Lazy auth
+			</Button>
 		</>
 	);
-}
+*/

@@ -15,8 +15,8 @@ interface Condition {
 }
 
 export class AsyncAuthorizationResult {
-	#selectorLevelPromise: Promise<AuthLevel>;
-	#level: AuthLevel;
+	readonly #selectorLevelPromise: Promise<AuthLevel>;
+	readonly #level: AuthLevel;
 	#conditions: Condition[];
 	#hasAccessOpts: AsyncHasAccessOptions;
 

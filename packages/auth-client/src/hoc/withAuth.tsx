@@ -26,8 +26,11 @@ export function withAuth(): Hoc {
 			const [authEffectFinished, setAuthEffectFinished] = useState<boolean>(false);
 			const cache = useRef<Dexie>(new Dexie('auth'));
 
+			// Run once on page load
 			useEffect(() => {
 				(async function iife() {
+					d('Configuring auth-client');
+
 					// Configure cache stores
 					cache.current.version(1).stores({
 						auth: '&key,timestamp',
@@ -40,7 +43,7 @@ export function withAuth(): Hoc {
 						.below(Date.now() - Environment.getInt('authCacheStaleMs'))
 						.delete();
 
-					// Retrieve id and access from storage
+					// Retrieve id and access from local storage
 					const id = localStorage.getItem(Environment.getString('authIdKey')) || '';
 					const access = localStorage.getItem(Environment.getString('authAccessTokenKey')) || '';
 
@@ -51,12 +54,14 @@ export function withAuth(): Hoc {
 							access,
 						});
 					} else {
+						// The id or access code is invalid, so we will clear all persisted info
 						await cache.current.table('auth').clear();
 						localStorage.removeItem(Environment.getString('authIdKey'));
 						localStorage.removeItem(Environment.getString('authAccessTokenKey'));
 					}
 
 					setAuthEffectFinished(true);
+					d('Finished configuring auth-client');
 				})();
 			}, []);
 
@@ -81,7 +86,7 @@ export function withAuth(): Hoc {
 			async function getCache(key: string) {
 				const item = (await cache.current.table('auth').get(key)) as CacheItem | undefined;
 				if (item && Date.now() - item.timestamp < Environment.getInt('authCacheStaleMs')) {
-					d(`Cache hit: ${key}`);
+					d(`Cache hit: ${key} -> AuthLevel: ${item.value}`);
 					return AuthLevel.fromString(item.value);
 				}
 				return null;

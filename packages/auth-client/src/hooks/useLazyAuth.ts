@@ -1,6 +1,6 @@
 import {AuthLevel, AbstractAuthSelector, SyncAuthorizationResult, SyncHasAccessOptions} from '@imperium/authorization';
 import debug from 'debug';
-import {useContext, useState} from 'react';
+import {useCallback, useContext, useState} from 'react';
 import {AuthContext} from '../AuthContext';
 import {useAuthEffect} from './useAuthEffect';
 
@@ -19,17 +19,19 @@ type LazyAuthTuple = [StartLazyAuthFn, LazyAuthData];
 export function useLazyAuth(selector: AbstractAuthSelector): LazyAuthTuple {
 	const ctx = useContext(AuthContext);
 	const [called, setCalled] = useState(false);
-
 	const {level, loading} = useAuthEffect(ctx, selector, called);
-
-	function hasAccess(lvl: AuthLevel, opts?: SyncHasAccessOptions): SyncAuthorizationResult {
-		return new SyncAuthorizationResult(level, lvl, opts);
-	}
+	const hasAccess = useCallback(
+		(lvl: AuthLevel, opts?: SyncHasAccessOptions): SyncAuthorizationResult => {
+			return new SyncAuthorizationResult(level, lvl, opts);
+		},
+		[level],
+	);
+	const setCalledTrue = useCallback(() => {
+		setCalled(true);
+	}, [setCalled]);
 
 	return [
-		() => {
-			setCalled(true);
-		},
+		setCalledTrue,
 		{
 			level,
 			loading,
