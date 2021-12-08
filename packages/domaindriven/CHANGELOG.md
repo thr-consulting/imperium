@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/darkadept/imperium/compare/v7.3.5...v8.0.0) (2021-12-08)
+
+**Note:** Version bump only for package @imperium/domaindriven
+
+
+
+
+
 ## [7.3.5](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.5) (2021-11-18)
 
 

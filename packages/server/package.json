@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "7.1.0",
+	"version": "8.0.0",
 	"description": "Imperium core server",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -33,7 +33,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^7.1.0",
+		"@imperium/connector": "^8.0.0",
 		"@thx/env": "^15.1.1",
 		"chalk": "^4.1.2",
 		"debug": "^4.3.2",
