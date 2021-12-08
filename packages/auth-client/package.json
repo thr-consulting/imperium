@@ -35,7 +35,7 @@
 	"dependencies": {
 		"@imperium/authorization": "^7.1.0",
 		"@imperium/client": "^7.1.0",
-		"@thx/env": "^14.2.0",
+		"@thx/env": "^15.1.1",
 		"debug": "^4.3.2",
 		"dexie": "^3.0.3",
 		"jwt-decode": "^3.1.2",
