@@ -1,80 +1,66 @@
-import type {AuthenticatedUser} from '@imperium/connector';
 import debug from 'debug';
-import type {AbstractAuthSelector} from './AbstractAuthSelector';
-import {AsyncAuthorizationResult, AsyncHasAccessOptions} from './AsyncAuthorizationResult';
-import {AuthLevel} from './AuthLevel';
-import {generateCacheKey} from './generateCacheKey';
+import {compress} from 'lzbase62';
+import {Environment} from '@thx/env';
+import type {AuthorizationCache, JsonValue, Permission, PermissionLookup} from './types';
+import {noPermissionLookup} from './noPermissionLookup';
 
 const d = debug('imperium.authorization.Authorization');
 
-interface AuthorizationPrepareParams<User> {
-	getUserById: (id: string) => Promise<User | undefined>;
-	createUser: (data: unknown) => User;
-	setCache: (key: string, data: unknown, expire?: number) => Promise<typeof data>;
-	getCache: (key: string) => Promise<unknown>;
-	ctx: unknown;
+interface AuthorizationConstructor<ExtraData = any> {
+	id?: string;
+	lookup?: PermissionLookup<ExtraData>;
+	extraData?: ExtraData;
 }
 
-export class Authorization<User> {
-	public readonly authenticatedUser?: AuthenticatedUser;
+function makeKey(id: string | undefined, permission: string, data?: JsonValue) {
+	if (permission.length <= 0) throw new Error("Can't make key for empty permission");
+	const encodedData = compress(JSON.stringify(data));
+	const dataStr = data ? `:${encodedData}` : '';
+	return `authorization:${id || 'notauth'}:${permission}${dataStr}`;
+}
+
+export class Authorization<ExtraData = any> {
 	public readonly id?: string;
-	public user: User | undefined;
-	private prepared: boolean;
-	private setCache?: (key: string, data: unknown, expire?: number) => Promise<typeof data>;
-	private getCache?: (key: string) => Promise<unknown>;
-	private ctx?: unknown;
-	#session: string;
+	public readonly extraData?: ExtraData;
+	private readonly lookup: PermissionLookup<ExtraData> = noPermissionLookup;
+	private cache?: AuthorizationCache;
 
-	public constructor(authenticatedUser?: AuthenticatedUser) {
-		this.authenticatedUser = authenticatedUser;
-		this.id = authenticatedUser?.auth?.id;
-		this.prepared = false;
-		this.#session = '';
+	public constructor(opts?: AuthorizationConstructor<ExtraData>) {
+		this.id = opts?.id;
+		this.extraData = opts?.extraData;
+		if (opts?.lookup) this.lookup = opts.lookup;
 	}
 
-	public async prepare({getUserById, createUser, getCache, setCache, ctx}: AuthorizationPrepareParams<User>) {
-		if (this.prepared) throw new Error('Cannot prepare Authorization instance twice');
-		this.prepared = true;
+	private async doLookup(permission: Permission, data?: JsonValue): Promise<boolean> {
+		return this.lookup({
+			authorization: this,
+			id: this.id, // who
+			permission, // what
+			data, // about
+		});
+	}
 
-		this.ctx = ctx;
-		this.setCache = setCache;
-		this.getCache = getCache;
-		if (this.id) {
-			const u = await this.getCache(`auth:user:${this.id}`);
-			if (u) {
-				this.user = createUser(u);
-			} else {
-				this.user = await getUserById(this.id);
-				this.setCache(`auth:user:${this.id}`, this.user, 60);
+	private async canSingle(permission: string, data?: JsonValue): Promise<boolean> {
+		if (this.cache) {
+			const cacheKey = makeKey(this.id, permission, data);
+			if (await this.cache.exists(cacheKey)) {
+				return this.cache.get(cacheKey);
 			}
+			const lookupResult = await this.doLookup(permission, data);
+			await this.cache.set(cacheKey, lookupResult, Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES'));
+			return lookupResult;
 		}
-
-		// @ts-ignore
-		// eslint-disable-next-line no-underscore-dangle
-		this.#session = this.ctx.__session;
+		return this.doLookup(permission, data);
 	}
 
-	public get session() {
-		return this.#session;
+	public async can(permission: Permission, data?: JsonValue): Promise<boolean> {
+		if (Array.isArray(permission)) {
+			return (await Promise.all(permission.map(perm => this.canSingle(perm, data)))).reduce((memo, v) => memo && v, true);
+		}
+		return this.canSingle(permission, data);
 	}
 
-	public async getLevel(selector: AbstractAuthSelector): Promise<AuthLevel> {
-		const cacheKey = generateCacheKey(selector, this.id);
-		if (this.getCache) {
-			const lvlRaw = (await this.getCache(cacheKey)) as string | undefined;
-			if (lvlRaw) {
-				return AuthLevel.fromString(lvlRaw);
-			}
-		}
-		const level = await selector.getLevel(this.ctx, this.user);
-		if (this.setCache) {
-			await this.setCache(cacheKey, level.toString(), 60);
-		}
-		return level;
-	}
-
-	public hasAccess(level: AuthLevel, selector: AbstractAuthSelector, opts?: AsyncHasAccessOptions): AsyncAuthorizationResult {
-		const selectorLevel = this.getLevel(selector);
-		return new AsyncAuthorizationResult(selectorLevel, level, opts);
+	public setCache(cache: AuthorizationCache) {
+		this.cache = cache;
 	}
 }

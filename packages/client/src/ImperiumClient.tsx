@@ -19,7 +19,7 @@ const d = debug('imperium.client.ImperiumClient');
 export class ImperiumClient {
 	private readonly _moduleFactoryFn: () => ImperiumClientModule[];
 	private _modules: ImperiumClientModule[];
-	private render: (props: RootProps) => React.ReactNode;
+	private readonly render: (props: RootProps) => React.ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
 		this._moduleFactoryFn = config.clientModules;

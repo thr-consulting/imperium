@@ -1,13 +1,18 @@
-import {AuthLevel} from '@imperium/authorization';
-import type {Hoc} from '@imperium/client';
 import {Environment} from '@thx/env';
-import debug from 'debug';
+import type {PermissionLookup, AuthorizationCache} from '@imperium/authorization';
 import Dexie from 'dexie';
-import React, {useEffect, useRef, useState} from 'react';
-import {AuthContext, IAuth} from '../AuthContext';
-import {fetchAuth, isTokenValidOrUndefined} from '../lib/fetching';
+import {Authorization, noPermissionLookup} from '@imperium/authorization';
+import type {Hoc} from '@imperium/client';
+import debug from 'debug';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {AuthContext} from '../AuthContext';
+import type {ClientAuthorizationData, IAuth} from '../types';
 
 const d = debug('imperium.auth-client.hoc.withAuth');
+
+export interface AuthClientOptions {
+	permissionLookup?: PermissionLookup<ClientAuthorizationData>;
+}
 
 interface CacheItem {
 	key: string;
@@ -15,123 +20,111 @@ interface CacheItem {
 	value: string;
 }
 
-export function withAuth(): Hoc {
-	d('Creating Auth client');
+function mapDexieToCache(cache: Dexie): AuthorizationCache {
+	const staleMs = Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000;
+	d(staleMs);
+	return {
+		async exists(key: string): Promise<boolean> {
+			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
+			return !!(item && Date.now() - item.timestamp < staleMs);
+		},
+		async get(key: string): Promise<any> {
+			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
+			if (item && Date.now() - item.timestamp < staleMs) {
+				d(`Cache hit: ${key} -> ${item.value}`);
+				return item.value;
+			}
+			return null;
+		},
+		async set(key: string, data: any): Promise<any> {
+			d(`Cache write: ${key} -> ${data}`);
+			const obj = {key, value: data, timestamp: Date.now()};
+			await cache.table('auth').put(obj, data);
+			return data;
+		},
+		async clear(): Promise<void> {
+			await cache.table('auth').clear();
+		},
+	};
+}
 
-	return function authHoc(WrappedComponent: React.ComponentType) {
-		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+export function withAuth(opts?: AuthClientOptions) {
+	const permissionLookup = opts?.permissionLookup ? opts.permissionLookup : noPermissionLookup;
 
-		function ComponentWithAuth(props: any) {
-			const [auth, setAuth] = useState<IAuth | null>(null);
-			const [authEffectFinished, setAuthEffectFinished] = useState<boolean>(false);
-			const cache = useRef<Dexie>(new Dexie('auth'));
+	return (): Hoc => {
+		d('Creating Auth client');
 
-			// Run once on page load
-			useEffect(() => {
-				(async function iife() {
-					d('Configuring auth-client');
+		return function authHoc(WrappedComponent: React.ComponentType) {
+			const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
-					// Configure cache stores
-					cache.current.version(1).stores({
-						auth: '&key,timestamp',
+			function ComponentWithAuth(props: any) {
+				const [authenticated, setAuthenticated] = useState<IAuth>({
+					id: localStorage.getItem(Environment.getString('authIdKey')) || '',
+					access: localStorage.getItem(Environment.getString('authAccessTokenKey')) || '',
+				});
+				const cache = useRef<Dexie>(new Dexie('auth'));
+
+				// Create an authorization class from the authenticated information
+				const authorization = useMemo(() => {
+					return new Authorization<ClientAuthorizationData>({
+						id: authenticated.id,
+						extraData: {
+							access: authenticated.access,
+						},
+						lookup: permissionLookup,
 					});
+				}, [authenticated]);
 
-					// Delete cached entries older than stale age
-					await cache.current
-						.table('auth')
-						.where('timestamp')
-						.below(Date.now() - Environment.getInt('authCacheStaleMs'))
-						.delete();
+				useEffect(() => {
+					(async function iife() {
+						d('Configuring permission cache');
 
-					// Retrieve id and access from local storage
-					const id = localStorage.getItem(Environment.getString('authIdKey')) || '';
-					const access = localStorage.getItem(Environment.getString('authAccessTokenKey')) || '';
-
-					// Check the id and access code to make sure they are both valid
-					if (id.length > 0 && access.length > 0) {
-						setAuth({
-							id,
-							access,
+						// Configure cache stores
+						cache.current.version(1).stores({
+							auth: '&key,timestamp',
 						});
-					} else {
-						// The id or access code is invalid, so we will clear all persisted info
-						await cache.current.table('auth').clear();
-						localStorage.removeItem(Environment.getString('authIdKey'));
-						localStorage.removeItem(Environment.getString('authAccessTokenKey'));
-					}
 
-					setAuthEffectFinished(true);
-					d('Finished configuring auth-client');
-				})();
-			}, []);
+						// Delete cached entries older than stale age
+						await cache.current
+							.table('auth')
+							.where('timestamp')
+							.below(Date.now() - Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000)
+							.delete();
 
-			/**
-			 * Get authentication information, renewing if necessary.
-			 */
-			async function getAuth() {
-				if (!isTokenValidOrUndefined(auth?.access)) {
-					const newAuth = await fetchAuth();
-					localStorage.setItem(Environment.getString('authIdKey'), newAuth.id);
-					localStorage.setItem(Environment.getString('authAccessTokenKey'), newAuth.access);
-					setAuth(newAuth);
-					return newAuth;
-				}
-				return auth;
-			}
+						authorization.setCache(mapDexieToCache(cache.current));
+					})();
+				}, [authorization]);
 
-			/**
-			 * Get item from auth cache.
-			 * @param key
-			 */
-			async function getCache(key: string) {
-				const item = (await cache.current.table('auth').get(key)) as CacheItem | undefined;
-				if (item && Date.now() - item.timestamp < Environment.getInt('authCacheStaleMs')) {
-					d(`Cache hit: ${key} -> AuthLevel: ${item.value}`);
-					return AuthLevel.fromString(item.value);
-				}
-				return null;
-			}
+				// Cleanup if we ever become un-authenticated
+				useEffect(() => {
+					(async function iife() {
+						// Check the id and access code to make sure they are both valid
+						if (authenticated.id.length <= 0 || authenticated.access.length <= 0) {
+							d('No authentication found, cleaning up persisted data');
 
-			/**
-			 * Set auth level in auth cache.
-			 * @param key
-			 * @param level
-			 */
-			async function setCache(key: string, level: AuthLevel) {
-				d(`Cache write: ${key}`);
-				const obj = {key, value: level.toString(), timestamp: Date.now()};
-				await cache.current.table('auth').put(obj, key);
-			}
+							// The id or access code is invalid, so we will clear all persisted info
+							await cache.current.table('auth').clear();
+							localStorage.removeItem(Environment.getString('authIdKey'));
+							localStorage.removeItem(Environment.getString('authAccessTokenKey'));
+						}
+					})();
+				}, [authenticated]);
 
-			/**
-			 * Clear the auth cache
-			 */
-			async function clearCache() {
-				await cache.current.table('auth').clear();
-			}
-
-			// This will render null until we have retrieved authentication from storage.
-			if (authEffectFinished) {
 				return (
 					<AuthContext.Provider
 						value={{
-							auth,
-							setAuth: authVal => setAuth(authVal),
-							getAuth,
-							getCache,
-							setCache,
-							clearCache,
+							authorization,
+							setAuthenticated,
 						}}
 					>
 						<WrappedComponent {...props} />
 					</AuthContext.Provider>
 				);
 			}
-			return null;
-		}
 
-		ComponentWithAuth.displayName = `withAuth(${displayName}`;
+			ComponentWithAuth.displayName = `withAuth(${displayName}`;
 
-		return ComponentWithAuth;
+			return ComponentWithAuth;
+		};
 	};
 }

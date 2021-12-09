@@ -1,3 +1,5 @@
+import type {JsonValue, Permission} from '@imperium/authorization';
+
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -44,4 +46,9 @@ export type GetAuthenticationFn = (context: any) => AuthenticationDomain;
 export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;
 	authQueryToken?: boolean;
+}
+
+export interface AuthorizationInfo {
+	permission: Permission;
+	data?: JsonValue;
 }

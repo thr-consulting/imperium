@@ -34,6 +34,8 @@
 	},
 	"dependencies": {
 		"@imperium/connector": "^7.1.0",
+		"@thx/env": "^15.1.1",
+		"lzbase62": "^2.0.0",
 		"debug": "^4.3.2"
 	},
 	"engines": {

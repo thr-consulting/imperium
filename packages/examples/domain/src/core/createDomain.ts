@@ -1,23 +1,27 @@
 import {Authorization} from '@imperium/authorization';
+import type {AuthenticatedUser} from '@imperium/connector';
 /*
 	This is the main export from the domain package. This function creates a new domain context
 	and should be called on every request/operation.
  */
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
-import type {AuthenticatedUser} from '@imperium/connector';
 import {getInitializers} from '@imperium/domaindriven';
 import debug from 'debug';
-import type {User} from '../user';
 import {getConnector} from './connectors';
 import {createControllers} from './createControllers';
 import {createRepositories} from './createRepositories';
 import {entities} from './entities';
+import {permissionLookup} from '../auth/permissionLookup';
 
 const d = debug('imperium.examples.domain.core.createDomain');
 
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
 	d('Creating domain');
-	const authorization = new Authorization<User>(authenticatedUser);
+	const authorization = new Authorization<AuthenticatedUser>({
+		lookup: permissionLookup,
+		extraData: authenticatedUser,
+		id: authenticatedUser?.auth?.id,
+	});
 
 	const entityManager = getConnector('orm', connectors).em.fork(true, true);
 
@@ -32,16 +36,11 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		authenticationRepository: repositories.user,
 		em: entityManager,
 		repos: getInitializers(repositories),
+		authorization,
 	};
 
 	const sharedCache = getConnector('sharedCache', connectors);
-	await authorization.prepare({
-		getUserById: repositories.user.getById.bind(repositories.user),
-		createUser: repositories.user.createUser.bind(repositories.user) as (data: unknown) => User,
-		getCache: sharedCache.get.bind(sharedCache),
-		setCache: sharedCache.set.bind(sharedCache),
-		ctx,
-	});
+	authorization.setCache(sharedCache);
 
 	return ctx;
 }

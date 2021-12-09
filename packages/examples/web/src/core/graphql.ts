@@ -48,6 +48,7 @@ export type Mutation = {
 
 export type Query = {
   __typename?: 'Query';
+  getAuthData: Scalars['String'];
   getCacheList?: Maybe<Array<Maybe<CacheList>>>;
   getData?: Maybe<Scalars['Int']>;
   getSubscriptionValue?: Maybe<SubscriptionValue>;

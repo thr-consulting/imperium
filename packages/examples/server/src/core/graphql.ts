@@ -48,6 +48,7 @@ export type Mutation = {
 
 export type Query = {
   __typename?: 'Query';
+  getAuthData: Scalars['String'];
   getCacheList?: Maybe<Array<Maybe<CacheList>>>;
   getData?: Maybe<Scalars['Int']>;
   getSubscriptionValue?: Maybe<SubscriptionValue>;
@@ -226,6 +227,7 @@ export interface PasswordScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  getAuthData?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   getCacheList?: Resolver<Maybe<Array<Maybe<ResolversTypes['CacheList']>>>, ParentType, ContextType, RequireFields<QueryGetCacheListArgs, 'filter'>>;
   getData?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   getSubscriptionValue?: Resolver<Maybe<ResolversTypes['SubscriptionValue']>, ParentType, ContextType>;

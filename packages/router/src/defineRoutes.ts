@@ -5,9 +5,9 @@ import type {DefineRouteOptions, KeyedRouteMatchFns, KeyedRouteParamTypes, Keyed
 const d = debug('imperium.router.defineRoutes');
 
 /*
-	Defines routes from a definition object.
+	Define routes from a definition object.
 
-	Each routes requires it's own string key and contains normal React-Router options,
+	Each routes require its own string key and contains normal React-Router options,
 	less the render/children/component, plus a params array, if needed.
 
 	The return object provides the following:

@@ -43,6 +43,7 @@
 		"@thx/sharedcache": "^14.2.0",
 		"@thx/tools": "^14.2.9",
 		"@types/bcrypt": "^5.0.0",
+		"@types/lzbase62": "^2.0.0",
 		"@types/cookie-parser": "^1.4.2",
 		"@types/debug": "^4.1.5",
 		"@types/express-jwt": "^6.0.1",

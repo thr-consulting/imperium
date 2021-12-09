@@ -1,27 +1,15 @@
-import {AuthLevel} from '@imperium/authorization';
+import {Authorization} from '@imperium/authorization';
 import React from 'react';
-
-export interface IAuth {
-	readonly id: string;
-	readonly access: string;
-}
+import type {ClientAuthorizationData, IAuth} from './types';
 
 export interface IAuthContext {
-	auth: IAuth | null;
-	getAuth: () => Promise<IAuth | null>;
-	setAuth: (auth: IAuth | null) => void;
-	getCache: (key: string) => Promise<AuthLevel | null>;
-	setCache: (key: string, level: AuthLevel) => Promise<void>;
-	clearCache: () => Promise<void>;
+	authorization: Authorization<ClientAuthorizationData>;
+	setAuthenticated: (authenticated: IAuth) => void;
 }
 
 const defaultAuthContext: IAuthContext = {
-	auth: null,
-	setAuth() {},
-	getAuth: async () => null,
-	getCache: async () => AuthLevel.fromString('0.0.0'),
-	setCache: async () => {},
-	clearCache: async () => {},
+	authorization: new Authorization<ClientAuthorizationData>(),
+	setAuthenticated: () => {},
 };
 
 export const AuthContext = React.createContext(defaultAuthContext);

@@ -12,7 +12,7 @@ interface DataHooksProps {
 }
 
 /**
- * Renders layout data hooks. These hooks should return nothing. All interaction should be in side-effects, usually retrieving data and setting Redux state.
+ * Renders layout data hooks. These hooks should return nothing. All interaction should be in side effects, usually retrieving data and setting Redux state.
  * @param dataHooks
  * @constructor
  */

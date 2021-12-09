@@ -1,3 +1,8 @@
+export interface IAuth {
+	readonly id: string;
+	readonly access: string;
+}
+
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -17,4 +22,8 @@ export interface AccessToken {
 	roles?: string[];
 	iat: number;
 	exp: number;
+}
+
+export interface ClientAuthorizationData {
+	access: string;
 }

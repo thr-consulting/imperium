@@ -24,7 +24,6 @@ These can be specified in a `.env` file in the server package. These variables a
 |AUTH_MAX_FAIL|5|How many failed login attempts allowed.|
 |AUTH_MAX_COOLDOWN|300|How many seconds to lock failed login attempts out.|
 |AUTH_SHAREDCACHE_CONNECTOR|'sharedCache'|What the SharedConnector key is stored at in Connectors.|
-|AUTH_ROLE_CACHE_EXPIRES|3600|How long does the role caching last in seconds.|
 |CORS_ORIGIN|false|The CORS origin. Which URL the the client running on?|
 |AUTH_REFRESH_COOKIE_NAME|'refresh'|What cookie name is the refresh token stored as?|
 |AUTH_PASSWORD_SALT_ROUNDS|11|The number of bcrypt rounds to salt the passwords with.|
