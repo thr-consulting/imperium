@@ -54,7 +54,7 @@ function stringToKey(str: string): PermissionKey {
 export class Authorization<ExtraData = any, Context = any> {
 	public readonly id?: string;
 	public readonly extraData?: ExtraData;
-	private readonly lookup: PermissionLookup<ExtraData> = noPermissionLookup;
+	#lookup: PermissionLookup<ExtraData> = noPermissionLookup;
 	private readonly dataloader: DataLoader<string, boolean>;
 	private readonly lrucache: LruCache<string, boolean>;
 	private ctx?: Context;
@@ -63,7 +63,7 @@ export class Authorization<ExtraData = any, Context = any> {
 	public constructor(opts?: AuthorizationConstructor<ExtraData>) {
 		this.id = opts?.id;
 		this.extraData = opts?.extraData;
-		if (opts?.lookup) this.lookup = opts.lookup;
+		if (opts?.lookup) this.#lookup = opts.lookup;
 
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;
@@ -92,7 +92,7 @@ export class Authorization<ExtraData = any, Context = any> {
 					},
 					async keyWrapperArr => {
 						const permissionKeys = keyWrapperArr.map(v => Authorization.stringToKey(v.key));
-						const valuesFromLookup = await thisAuthorization.lookup({
+						const valuesFromLookup = await thisAuthorization.#lookup({
 							authorization: thisAuthorization,
 							keys: permissionKeys,
 						});
@@ -163,6 +163,14 @@ export class Authorization<ExtraData = any, Context = any> {
 
 	public resetDataloader() {
 		this.dataloader.clearAll();
+	}
+
+	public set lookup(lookup: PermissionLookup<ExtraData> | undefined) {
+		this.#lookup = lookup || noPermissionLookup;
+	}
+
+	public get lookup() {
+		return this.#lookup;
 	}
 
 	public set context(context: Context | undefined) {
