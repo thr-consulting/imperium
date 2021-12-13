@@ -1,12 +1,16 @@
 import type {PermissionLookup} from '@imperium/authorization';
-import {Environment} from '@thx/env';
+import {Authorization} from '@imperium/authorization';
 import debug from 'debug';
+import {Environment} from '@thx/env';
 import type {ClientAuthorizationData} from '../types';
 
 const d = debug('imperium.auth-client.lib.permissionEndpointLookup');
 
-export const permissionEndpointLookup: PermissionLookup<ClientAuthorizationData> = async ({permission, data, authorization}) => {
+export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationData> = async opts => {
 	d('fetching from authorization endpoint');
+	const {keys, authorization} = opts;
+
+	const keyStrings = keys.map(k => Authorization.keyToString(k));
 
 	return new Promise((resolve, reject) => {
 		fetch(Environment.getString('authPermissionUrl'), {
@@ -14,27 +18,21 @@ export const permissionEndpointLookup: PermissionLookup<ClientAuthorizationData>
 			mode: 'cors',
 			credentials: 'include',
 			body: JSON.stringify({
-				permission,
-				data,
+				permissions: keyStrings,
 			}),
 			headers: {
 				'content-type': 'application/json',
 				authorization: authorization.extraData?.access ? `Bearer ${authorization.extraData?.access}` : '',
 			},
-		})
-			.then(res => {
-				if (!res.ok) reject(res.statusText);
-				res.json().then(returnJson => {
-					const result = returnJson.ret;
-					if (typeof result === 'boolean') {
-						resolve(result);
-					} else {
-						reject(new Error('Authorization result not boolean'));
-					}
-				});
-			})
-			.catch(err => {
-				d(err);
+		}).then(res => {
+			if (!res.ok) reject(res.statusText);
+			res.json().then(returnJson => {
+				if (Array.isArray(returnJson.results)) {
+					resolve(returnJson.results);
+				} else {
+					reject(new Error('Authorization results not an array'));
+				}
 			});
+		});
 	});
 };

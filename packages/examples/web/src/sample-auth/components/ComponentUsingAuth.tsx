@@ -41,7 +41,16 @@ export default function ComponentUsingAuth() {
 			<Button
 				onClick={() => {
 					authorization.can('getStuff', {thing: 'dfasfas'}).then(v => {
-						d(v);
+						d('stuff', v);
+					});
+					authorization.can('getMore').then(v => {
+						d('more', v);
+					});
+					authorization.can('getPing', {force: true}).then(v => {
+						d('ping', v);
+					});
+					authorization.can('getLoc', {force: false}).then(v => {
+						d('loc', v);
 					});
 				}}
 			>

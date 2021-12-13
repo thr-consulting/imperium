@@ -1,5 +1,3 @@
-import type {JsonValue, Permission} from '@imperium/authorization';
-
 export interface LoginInfo {
 	identifier: string;
 	password: {
@@ -49,6 +47,5 @@ export interface AuthMiddlewareConfig {
 }
 
 export interface AuthorizationInfo {
-	permission: Permission;
-	data?: JsonValue;
+	permissions: string[];
 }

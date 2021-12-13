@@ -1,4 +1,4 @@
-import {authClientModule, permissionEndpointLookup} from '@imperium/auth-client';
+import {authClientModule, authorizationEndpointLookup} from '@imperium/auth-client';
 import {authGraphqlClientModule} from '@imperium/auth-graphql-client';
 import type {ImperiumClientModule} from '@imperium/client';
 import {graphqlClientModule} from '@imperium/graphql-client';
@@ -10,7 +10,7 @@ import {sampleAuthModule} from '../sample-auth';
 
 export function clientModules(): ImperiumClientModule[] {
 	return [
-		authClientModule({permissionLookup: permissionEndpointLookup}),
+		authClientModule({permissionLookup: authorizationEndpointLookup}),
 		authGraphqlClientModule(),
 		graphqlClientModule(),
 		routerClientModule(),

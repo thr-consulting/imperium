@@ -5,15 +5,13 @@ import {ExampleController} from '../../core/ExampleController';
 import type {Repositories} from '../../core/createRepositories';
 
 export class AuthController extends ExampleController {
-	private readonly auth: Authorization<AuthenticatedUser>;
-
 	public constructor(repos: Repositories, em: EntityManager, authorization: Authorization<AuthenticatedUser>) {
 		super(repos, em, authorization);
-		this.auth = authorization;
 	}
 
 	async getSecureData() {
-		const isAuthorized = await this.auth.can('getSecureData');
+		const isAuthorized = await this.authorization.can('getSecureData');
+		const isAuthorized2 = await this.authorization.can('getLoc');
 
 		if (isAuthorized) {
 			return 'authSuccess';

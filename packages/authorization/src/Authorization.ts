@@ -1,8 +1,12 @@
+import 'setimmediate';
 import debug from 'debug';
-import {compress} from 'lzbase62';
 import {Environment} from '@thx/env';
-import type {AuthorizationCache, JsonValue, Permission, PermissionLookup} from './types';
+import DataLoader from 'dataloader';
+import {compress, decompress} from 'lzbase62';
+import LruCache from 'lru-cache';
+import type {AuthorizationCache, JsonValue, Permission, PermissionKey, PermissionLookup} from './types';
 import {noPermissionLookup} from './noPermissionLookup';
+import {keysSplitAndSort} from './keysSplitAndSort';
 
 const d = debug('imperium.authorization.Authorization');
 
@@ -12,55 +16,163 @@ interface AuthorizationConstructor<ExtraData = any> {
 	extraData?: ExtraData;
 }
 
-function makeKey(id: string | undefined, permission: string, data?: JsonValue) {
+/**
+ * Converts a PermissionKey object to a string
+ * @param id
+ * @param permission
+ * @param data
+ */
+function keyToString({id, permission, data}: PermissionKey): string {
 	if (permission.length <= 0) throw new Error("Can't make key for empty permission");
 	const encodedData = compress(JSON.stringify(data));
 	const dataStr = data ? `:${encodedData}` : '';
 	return `authorization:${id || 'notauth'}:${permission}${dataStr}`;
 }
 
-export class Authorization<ExtraData = any> {
+/**
+ * Converts a string to a PermissionKey object
+ * @param str
+ */
+function stringToKey(str: string): PermissionKey {
+	const c = str.split(':');
+	if (c.length === 4) {
+		return {
+			id: c[1],
+			permission: c[2],
+			data: JSON.parse(decompress(c[3])),
+		};
+	}
+	if (c.length === 3) {
+		return {
+			id: c[1],
+			permission: c[2],
+		};
+	}
+	throw new Error('String not a valid permission key');
+}
+
+export class Authorization<ExtraData = any, Context = any> {
 	public readonly id?: string;
 	public readonly extraData?: ExtraData;
 	private readonly lookup: PermissionLookup<ExtraData> = noPermissionLookup;
-	private cache?: AuthorizationCache;
+	private readonly dataloader: DataLoader<string, boolean>;
+	private readonly lrucache: LruCache<string, boolean>;
+	private ctx?: Context;
+	#cache?: AuthorizationCache;
 
 	public constructor(opts?: AuthorizationConstructor<ExtraData>) {
 		this.id = opts?.id;
 		this.extraData = opts?.extraData;
 		if (opts?.lookup) this.lookup = opts.lookup;
-	}
 
-	private async doLookup(permission: Permission, data?: JsonValue): Promise<boolean> {
-		return this.lookup({
-			authorization: this,
-			id: this.id, // who
-			permission, // what
-			data, // about
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		const thisAuthorization = this;
+		this.lrucache = new LruCache({
+			max: Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAX'),
+			maxAge: Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAXAGE') * 1000,
 		});
+		// @ts-expect-error
+		this.lrucache.delete = this.lrucache.del;
+		// @ts-expect-error
+		this.lrucache.clear = this.lrucache.reset;
+		this.dataloader = new DataLoader(
+			async (keys: readonly string[]): Promise<boolean[]> => {
+				return keysSplitAndSort(
+					keys,
+					async keyString => {
+						if (thisAuthorization.cache) {
+							if (await thisAuthorization.cache.exists(keyString)) {
+								const cachedValue = await thisAuthorization.cache.get(keyString);
+								if (cachedValue === true || cachedValue === false) {
+									return cachedValue;
+								}
+							}
+						}
+						return null;
+					},
+					async keyWrapperArr => {
+						const permissionKeys = keyWrapperArr.map(v => Authorization.stringToKey(v.key));
+						const valuesFromLookup = await thisAuthorization.lookup({
+							authorization: thisAuthorization,
+							keys: permissionKeys,
+						});
+
+						if (thisAuthorization.cache) {
+							await Promise.all(
+								valuesFromLookup.map(async (value, index) => {
+									await thisAuthorization.cache?.set(keyWrapperArr[index].key, value, Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES'));
+								}),
+							);
+						}
+
+						return valuesFromLookup.map((value, index) => {
+							return {
+								index: keyWrapperArr[index].index,
+								value,
+							};
+						});
+					},
+				);
+			},
+			// @ts-expect-error
+			{cacheMap: this.lrucache, cache: typeof window === 'undefined'}, // todo get rid of cache window check
+		);
 	}
 
-	private async canSingle(permission: string, data?: JsonValue): Promise<boolean> {
-		if (this.cache) {
-			const cacheKey = makeKey(this.id, permission, data);
-			if (await this.cache.exists(cacheKey)) {
-				return this.cache.get(cacheKey);
-			}
-			const lookupResult = await this.doLookup(permission, data);
-			await this.cache.set(cacheKey, lookupResult, Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES'));
-			return lookupResult;
-		}
-		return this.doLookup(permission, data);
-	}
-
+	/**
+	 * Query whether a permission (with data and current user) is allowed
+	 * @param permission
+	 * @param data
+	 */
 	public async can(permission: Permission, data?: JsonValue): Promise<boolean> {
+		// Permission is an array of string
 		if (Array.isArray(permission)) {
-			return (await Promise.all(permission.map(perm => this.canSingle(perm, data)))).reduce((memo, v) => memo && v, true);
+			const keyStrings = permission.map(perm => {
+				return Authorization.keyToString({
+					id: this.id,
+					permission: perm,
+					data,
+				});
+			});
+			const results = await this.dataloader.loadMany(keyStrings);
+
+			// Logical AND the results of all the permissions to return a single result
+			return results.reduce<boolean>((memo, v) => {
+				if (v instanceof Error) return false;
+				return memo && v;
+			}, true);
 		}
-		return this.canSingle(permission, data);
+
+		// Permission is a single string
+		return this.dataloader.load(
+			Authorization.keyToString({
+				permission,
+				id: this.id,
+				data,
+			}),
+		);
 	}
 
-	public setCache(cache: AuthorizationCache) {
-		this.cache = cache;
+	public set cache(cache: AuthorizationCache | undefined) {
+		this.#cache = cache;
 	}
+
+	public get cache() {
+		return this.#cache;
+	}
+
+	public resetDataloader() {
+		this.dataloader.clearAll();
+	}
+
+	public set context(context: Context | undefined) {
+		this.ctx = context;
+	}
+
+	public get context() {
+		return this.ctx;
+	}
+
+	static keyToString = keyToString;
+	static stringToKey = stringToKey;
 }

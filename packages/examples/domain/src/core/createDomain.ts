@@ -39,8 +39,8 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		authorization,
 	};
 
-	const sharedCache = getConnector('sharedCache', connectors);
-	authorization.setCache(sharedCache);
+	// authorization.cache = getConnector('sharedCache', connectors);
+	authorization.context = ctx;
 
 	return ctx;
 }

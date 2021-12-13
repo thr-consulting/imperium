@@ -1,6 +1,6 @@
 import {Environment} from '@thx/env';
-import type {PermissionLookup, AuthorizationCache} from '@imperium/authorization';
 import Dexie from 'dexie';
+import type {AuthorizationCache, PermissionLookup} from '@imperium/authorization';
 import {Authorization, noPermissionLookup} from '@imperium/authorization';
 import type {Hoc} from '@imperium/client';
 import debug from 'debug';
@@ -22,7 +22,6 @@ interface CacheItem {
 
 function mapDexieToCache(cache: Dexie): AuthorizationCache {
 	const staleMs = Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000;
-	d(staleMs);
 	return {
 		async exists(key: string): Promise<boolean> {
 			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
@@ -41,9 +40,6 @@ function mapDexieToCache(cache: Dexie): AuthorizationCache {
 			const obj = {key, value: data, timestamp: Date.now()};
 			await cache.table('auth').put(obj, data);
 			return data;
-		},
-		async clear(): Promise<void> {
-			await cache.table('auth').clear();
 		},
 	};
 }
@@ -66,12 +62,13 @@ export function withAuth(opts?: AuthClientOptions) {
 
 				// Create an authorization class from the authenticated information
 				const authorization = useMemo(() => {
+					d('Creating new authorization');
 					return new Authorization<ClientAuthorizationData>({
 						id: authenticated.id,
+						lookup: permissionLookup,
 						extraData: {
 							access: authenticated.access,
 						},
-						lookup: permissionLookup,
 					});
 				}, [authenticated]);
 
@@ -79,10 +76,12 @@ export function withAuth(opts?: AuthClientOptions) {
 					(async function iife() {
 						d('Configuring permission cache');
 
-						// Configure cache stores
-						cache.current.version(1).stores({
-							auth: '&key,timestamp',
-						});
+						if (!cache.current.isOpen()) {
+							// Configure cache stores
+							cache.current.version(1).stores({
+								auth: '&key,timestamp',
+							});
+						}
 
 						// Delete cached entries older than stale age
 						await cache.current
@@ -91,7 +90,8 @@ export function withAuth(opts?: AuthClientOptions) {
 							.below(Date.now() - Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000)
 							.delete();
 
-						authorization.setCache(mapDexieToCache(cache.current));
+						// todo put this back
+						// authorization.cache = mapDexieToCache(cache.current);
 					})();
 				}, [authorization]);
 

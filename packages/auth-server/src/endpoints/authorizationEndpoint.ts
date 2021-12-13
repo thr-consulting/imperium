@@ -30,17 +30,30 @@ export function authorizationEndpoint(server: ImperiumServer<any>): void {
 		json(),
 		authMiddleware({credentialsRequired: false}),
 		server.contextMiddleware(),
-		(req, res) => {
+		async (req, res) => {
 			if (isAuthorizationInfo(req.body)) {
 				// @ts-ignore
 				const {context} = req;
-				// An assumption is made that you have an authorization field on context, otherwise our endpoint fails.
+
+				// An assumption is made that you have an authorization field on context, otherwise our endpoint returns false permissions.
 				if (context.authorization && context.authorization instanceof Authorization) {
-					context.authorization.can(req.body.permission, req.body.data).then((result: boolean) => {
-						res.status(200).json({ret: result});
+					const results: boolean[] = await Promise.all(
+						req.body.permissions.map(async perm => {
+							const p = Authorization.stringToKey(perm);
+							return context.authorization.can(p.permission, p.data);
+						}),
+					);
+
+					res.status(200).json({
+						results,
 					});
 				} else {
-					res.send(500).end();
+					// If we don't have an Authorization on context, don't crash, but return false permissions for everything
+					d('No authorization field on context, returning false permissions');
+					const results = req.body.permissions.map(() => false);
+					res.status(200).json({
+						results,
+					});
 				}
 			} else {
 				res.send(500).end();

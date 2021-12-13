@@ -27,4 +27,4 @@ export type {LoginInfo, LoginReturn, AccessToken} from './types';
 export {isTokenValidOrUndefined, fetchAccessToken} from './lib/fetching';
 export type {IAuthContext} from './AuthContext';
 export {useAuth} from './hooks/useAuth';
-export {permissionEndpointLookup} from './lib/permissionEndpointLookup';
+export {authorizationEndpointLookup} from './lib/authorizationEndpointLookup';

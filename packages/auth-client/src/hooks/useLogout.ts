@@ -13,7 +13,6 @@ export function useLogout(): () => Promise<void> {
 		localStorage.removeItem(Environment.getString('authIdKey'));
 		localStorage.removeItem(Environment.getString('authAccessTokenKey'));
 		setAuthenticated({id: '', access: ''});
-		// todo await authContext.clearCache();
 
 		// TODO This should also tell the server to blacklist the refresh token
 	};

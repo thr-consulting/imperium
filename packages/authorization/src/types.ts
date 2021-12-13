@@ -1,5 +1,10 @@
 import type {Authorization} from './Authorization';
 
+export interface IndexedValue<Value> {
+	index: number;
+	value: Value;
+}
+
 export type JsonValue = string | number | boolean | null | JsonValue[] | {[key: string]: JsonValue};
 
 export interface JsonObject {
@@ -10,14 +15,18 @@ export interface JsonArray extends Array<JsonValue> {}
 
 export type Permission = string | string[];
 
-export interface PermissionLookupOpts<ExtraData = any> {
+export interface PermissionKey {
 	id?: string;
-	permission: Permission;
+	permission: string;
 	data?: JsonValue;
+}
+
+export interface PermissionLookupOpts<ExtraData = any> {
+	keys: readonly PermissionKey[];
 	authorization: Authorization<ExtraData>;
 }
 
-export type PermissionLookup<ExtraData = any> = (opts: PermissionLookupOpts<ExtraData>) => Promise<boolean>;
+export type PermissionLookup<ExtraData = any> = (opts: PermissionLookupOpts<ExtraData>) => Promise<boolean[]>;
 
 export interface AuthorizationCache {
 	get(key: string): Promise<any>;

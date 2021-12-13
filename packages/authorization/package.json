@@ -34,7 +34,10 @@
 	},
 	"dependencies": {
 		"@imperium/connector": "^7.1.0",
-		"@thx/env": "^15.1.1",
+		"dataloader": "^2.0.0",
+		"lru-cache": "^6.0.0",
+		"setimmediate": "^1.0.5",
+		"@thx/env": "^14.2.0",
 		"lzbase62": "^2.0.0",
 		"debug": "^4.3.2"
 	},

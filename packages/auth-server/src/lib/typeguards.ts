@@ -26,5 +26,6 @@ export function isAccessToken(accessToken: any): accessToken is AccessToken {
 }
 
 export function isAuthorizationInfo(info: any): info is AuthorizationInfo {
-	return !!(info as AuthorizationInfo).permission;
+	const a = info as AuthorizationInfo;
+	return !!a.permissions && Array.isArray(a.permissions);
 }
