@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/client",
-	"version": "7.1.0",
+	"version": "8.0.0",
 	"description": "Imperium client core",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -35,7 +35,7 @@
 		}
 	},
 	"dependencies": {
-		"@thx/env": "^14.2.0",
+		"@thx/env": "^15.1.1",
 		"debug": "^4.3.2",
 		"lodash": "^4.17.21"
 	},

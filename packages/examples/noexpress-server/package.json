@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-noexpress-server",
-  "version": "7.1.8",
+  "version": "8.0.0",
   "private": true,
   "description": "Imperium server example project without Express",
   "repository": {
@@ -28,21 +28,21 @@
     }
   },
   "dependencies": {
-    "@imperium/connector": "^7.1.0",
-    "@imperium/example-domain": "^7.1.8",
-    "@imperium/server": "^7.1.0",
+    "@imperium/connector": "^8.0.0",
+    "@imperium/example-domain": "^8.0.0",
+    "@imperium/server": "^8.0.0",
     "@mikro-orm/cli": "^4.5.9",
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",
-    "@thx/env": "^14.2.0",
-    "@thx/sharedcache": "^14.2.0",
-    "@thx/util": "^14.2.0",
+    "@thx/env": "^15.1.1",
+    "@thx/sharedcache": "^15.1.1",
+    "@thx/util": "^15.1.1",
     "apollo-server-express": "^3.3.0",
     "debug": "^4.3.2",
     "redis": "^3.1.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^7.1.0"
+    "@imperium/dev": "^8.0.0"
   },
   "engines": {
     "node": ">=14"

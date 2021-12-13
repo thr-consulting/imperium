@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/darkadept/imperium/compare/v7.3.5...v8.0.0) (2021-12-08)
+
+**Note:** Version bump only for package @imperium/domaindriven
+
+
+
+
+
+## [7.3.5](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.5) (2021-11-18)
+
+
+### Features
+
+* **domaindriven:** added AbstractHeartbeat ([0427177](https://github.com/darkadept/imperium/commit/0427177c33997779857cff846b9109666a0d2e3e))
+* **domaindriven:** added options to AbstractController ([#285](https://github.com/darkadept/imperium/issues/285)) ([44845b1](https://github.com/darkadept/imperium/commit/44845b14c14c5611d18b3568ed045a1a79e31d4e))
+
+
+
+
+
+## [7.3.4](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.4) (2021-11-18)
+
+
+### Features
+
+* **domaindriven:** added AbstractHeartbeat ([0427177](https://github.com/darkadept/imperium/commit/0427177c33997779857cff846b9109666a0d2e3e))
+* **domaindriven:** added options to AbstractController ([#285](https://github.com/darkadept/imperium/issues/285)) ([44845b1](https://github.com/darkadept/imperium/commit/44845b14c14c5611d18b3568ed045a1a79e31d4e))
+
+
+
+
+
 ## [7.1.8](https://github.com/darkadept/imperium/compare/v7.1.7...v7.1.8) (2021-10-28)
 
 

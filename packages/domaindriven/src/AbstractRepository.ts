@@ -55,9 +55,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Create a query builder to select entities.
 	 * @param alias
-	 * @protected
 	 */
-	protected createQueryBuilder(alias?: string): QueryBuilder<EntityType> {
+	public createQueryBuilder(alias?: string): QueryBuilder<EntityType> {
 		// @ts-ignore Mikro-orm does not provide createQueryBuilder for all repo's. We are assuming an SQL-type of repo. -mk
 		return this.repo.createQueryBuilder(alias);
 	}
@@ -66,7 +65,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Maps data (usually returned from a query builder) to an entity.
 	 * @param entity
 	 */
-	protected map(entity: EntityData<EntityType>) {
+	public map(entity: EntityData<EntityType>) {
 		return this.repo.map(entity);
 	}
 
@@ -74,7 +73,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Create the entity from data that matches the fields in the entity.
 	 * @param data
 	 */
-	protected create(data: EntityData<EntityType>) {
+	public create(data: EntityData<EntityType>) {
 		return this.repo.create(data);
 	}
 
@@ -138,15 +137,15 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return this.prime(await this.repo.findAll(populateOrOptions as Populate<EntityType>, orderBy, limit, offset));
 	}
 
-	protected find<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
-	protected find<P extends Populate<EntityType> = any>(
+	public find<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
+	public find<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
 		populate?: P,
 		orderBy?: QueryOrderMap,
 		limit?: number,
 		offset?: number,
 	): Promise<EntityType[]>;
-	protected async find<P extends Populate<EntityType> = any>(
+	public async find<P extends Populate<EntityType> = any>(
 		where: FilterQuery<EntityType>,
 		optionsOrPopulate?: P, // FindOptions<EntityType, P> | P,
 		orderBy?: QueryOrderMap,
@@ -159,11 +158,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Prime the dataloader with entities
 	 * @param entityOrEntities
-	 * @protected
 	 */
-	protected prime(entityOrEntities: EntityType): EntityType;
-	protected prime(entityOrEntities: EntityType[]): EntityType[];
-	protected prime(entityOrEntities: EntityType | EntityType[]) {
+	public prime(entityOrEntities: EntityType): EntityType;
+	public prime(entityOrEntities: EntityType[]): EntityType[];
+	public prime(entityOrEntities: EntityType | EntityType[]) {
 		if (Array.isArray(entityOrEntities)) {
 			return entityOrEntities.map(e => {
 				this.dataloader.prime(e.id, e);
@@ -177,9 +175,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Clear the dataloader cache for a specific key or all keys.
 	 * @param id
-	 * @protected
 	 */
-	protected clear(id?: EntityType['id']) {
+	public clear(id?: EntityType['id']) {
 		if (id) {
 			this.dataloader.clear(id);
 		} else {
