@@ -1,8 +1,6 @@
-export {AbstractAuthSelector} from './AbstractAuthSelector';
-export {AuthLevel} from './AuthLevel';
-export {SyncAuthorizationResult} from './SyncAuthorizationResult';
-export type {SyncHasAccessOptions} from './SyncAuthorizationResult';
-export {AsyncAuthorizationResult} from './AsyncAuthorizationResult';
-export type {AsyncHasAccessOptions} from './AsyncAuthorizationResult';
-export {generateCacheKey} from './generateCacheKey';
+import './defaults';
+
 export {Authorization} from './Authorization';
+export type {Permission, JsonArray, JsonValue, JsonObject, PermissionLookup, PermissionLookupOpts, AuthorizationCache, PermissionKey} from './types';
+export {noPermissionLookup} from './noPermissionLookup';
+export {keysSplitAndSort} from './keysSplitAndSort';

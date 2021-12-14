@@ -14,6 +14,6 @@ export type DataHookRoute = {
 	dataHook: DataHook | DataHook[];
 };
 /**
- * A datahook can either be a simple hook, or one or more hooks dependant on one or more route match functions.
+ * A datahook can either be a simple hook, or one or more hooks dependent on one or more route match functions.
  */
 export type DataHookItem = DataHook | DataHookRoute;

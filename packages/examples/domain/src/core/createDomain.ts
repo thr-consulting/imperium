@@ -1,25 +1,35 @@
 import {Authorization} from '@imperium/authorization';
-/*
-	This is the main export from the domain package. This function creates a new domain context
-	and should be called on every request/operation.
- */
-import {Connectors, ImperiumBaseContext} from '@imperium/connector';
 import type {AuthenticatedUser} from '@imperium/connector';
+import {Connectors, ImperiumBaseContext} from '@imperium/connector';
 import {getInitializers} from '@imperium/domaindriven';
 import debug from 'debug';
-import type {User} from '../user';
 import {getConnector} from './connectors';
 import {createControllers} from './createControllers';
 import {createRepositories} from './createRepositories';
 import {entities} from './entities';
+import {Domain} from './Domain';
+import {auth} from '../auth';
+
+/*
+	This is the main export from the domain package. This function creates a new domain context
+	and should be called on every request/operation.
+ */
 
 const d = debug('imperium.examples.domain.core.createDomain');
 
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
 	d('Creating domain');
-	const authorization = new Authorization<User>(authenticatedUser);
 
 	const entityManager = getConnector('orm', connectors).em.fork(true, true);
+
+	const authorization = new Authorization<AuthenticatedUser>({
+		extraData: authenticatedUser,
+		id: authenticatedUser?.auth?.id,
+	});
+
+	const domain = new Domain({
+		modules: [auth()],
+	});
 
 	const repositories = createRepositories(entityManager, connectors);
 	const controllers = createControllers(entityManager, authorization, repositories);
@@ -32,16 +42,12 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		authenticationRepository: repositories.user,
 		em: entityManager,
 		repos: getInitializers(repositories),
+		authorization,
 	};
 
-	const sharedCache = getConnector('sharedCache', connectors);
-	await authorization.prepare({
-		getUserById: repositories.user.getById.bind(repositories.user),
-		createUser: repositories.user.createUser.bind(repositories.user) as (data: unknown) => User,
-		getCache: sharedCache.get.bind(sharedCache),
-		setCache: sharedCache.set.bind(sharedCache),
-		ctx,
-	});
+	authorization.cache = getConnector('sharedCache', connectors);
+	authorization.context = ctx;
+	authorization.lookup = domain.permissionLookup;
 
 	return ctx;
 }

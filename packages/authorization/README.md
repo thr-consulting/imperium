@@ -8,3 +8,8 @@
 [![GitHub license](https://img.shields.io/github/license/darkadept/imperium.svg)](https://github.com/darkadept/imperium/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/darkadept/imperium.svg)](https://github.com/darkadept/imperium/graphs/contributors/)
 
+# Environment Variables
+
+| Variable                      | Default | Description                                           |
+|-------------------------------|---------|-------------------------------------------------------|
+| AUTH_PERMISSION_CACHE_EXPIRES | 3600    | How long does the permission caching last in seconds. |

@@ -33,8 +33,13 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^8.0.0",
-		"debug": "^4.3.2"
+		"@thx/env": "^15.1.1",
+		"dataloader": "^2.0.0",
+		"debug": "^4.3.2",
+		"lodash": "^4.17.21",
+		"lru-cache": "^6.0.0",
+		"lzbase62": "^2.0.0",
+		"setimmediate": "^1.0.5"
 	},
 	"engines": {
 		"node": ">=14"

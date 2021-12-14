@@ -1,7 +1,10 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
-import React from 'react';
+import {isEqual} from 'lodash';
+import React, {DependencyList, EffectCallback, useEffect, useRef} from 'react';
+import {useDispatch} from 'react-redux';
 import {DataHooks} from '../../datahooks/DataHooks';
+import {actions} from '../../state';
 import {sortWeightedItems} from '../../utils';
 import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {Page, RouteParameters} from '../types';
@@ -16,8 +19,27 @@ interface ContentComponentProps<T extends DefineRouteOptions, K extends keyof T>
 	params: RouteParameters<T[K]['params']>;
 }
 
+function useDeepCompareMemoize(value: any) {
+	const ref = useRef();
+	if (!value && !ref.current) return ref.current;
+	if (!isEqual(value, ref.current)) {
+		ref.current = value;
+	}
+	return ref.current;
+}
+
+function useDeepCompareEffect(callback: EffectCallback, deps: DependencyList) {
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(callback, deps.map(useDeepCompareMemoize));
+}
+
 export function ContentComponent<T extends DefineRouteOptions, K extends keyof T>({page, params}: ContentComponentProps<T, K>) {
+	const dispatch = useDispatch();
 	const data = useBuildContentData({stateSelectorHook: page.stateSelectorHook, params});
+
+	useDeepCompareEffect(() => {
+		dispatch(actions.setParams(params));
+	}, [dispatch, params]);
 
 	const content = page.content(data);
 	const sidebarItems = sortWeightedItems(page.sidebar || []);

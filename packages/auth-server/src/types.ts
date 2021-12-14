@@ -45,3 +45,7 @@ export interface AuthMiddlewareConfig {
 	credentialsRequired?: boolean;
 	authQueryToken?: boolean;
 }
+
+export interface AuthorizationInfo {
+	permissions: string[];
+}

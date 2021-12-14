@@ -1,14 +1,14 @@
-import debug from 'debug';
-import {Button, Form, Icon, Label} from 'semantic-ui-react';
-import React from 'react';
-import {object, string} from 'yup';
 import {createPages, dividerSidebarItem} from '@imperium/layout';
-import {routes} from './routes';
+import debug from 'debug';
+import React from 'react';
+import {Button, Form, Icon, Label} from 'semantic-ui-react';
+import {object, string} from 'yup';
+import ContentExample from './components/ContentExample';
 import LayoutExample from './components/LayoutExample';
-import {useLayoutState} from './state';
 import {ParamTest} from './components/ParamTest';
 import {useOverrideGetData} from './hooks/useOverrideGetData';
-import ContentExample from './components/ContentExample';
+import {routes} from './routes';
+import {useLayoutState} from './state';
 
 const d = debug('imperium.examples.web.sample-layout.pages');
 

@@ -1,4 +1,4 @@
-import type {DefinitionNode, DirectiveDefinitionNode, FieldNode, FragmentSpreadNode, SelectionNode, TypeSystemDefinitionNode} from 'graphql';
+import type {DefinitionNode, DirectiveDefinitionNode, FieldNode, FragmentSpreadNode, SelectionNode} from 'graphql';
 
 export function isFieldNode(node: SelectionNode): node is FieldNode {
 	return (node as SelectionNode).kind === 'Field';

@@ -5,6 +5,7 @@ Environment.addDefaults({
 	AUTH_LOGIN_URL: '/api/login', // URL for REST login
 	AUTH_REFRESH_URL: '/api/refresh', // URL for REST refresh access token
 	AUTH_FORGOTPASSWORD_URL: '/api/forgot-password', // URL to request password reset
+	AUTH_PERMISSION_URL: '/api/auth', // URL to permission API
 	ACCESS_TOKEN_SECRET: 'notsecure', // Secret for access tokens
 	ACCESS_TOKEN_ALGORITHMS: 'HS256', // Comma separated list of supported access token algorithms
 	REFRESH_TOKEN_SECRET: 'notsecure', // Secret for refresh tokens

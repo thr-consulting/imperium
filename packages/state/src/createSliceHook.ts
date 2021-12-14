@@ -29,7 +29,7 @@ export function createSliceHook<State, T extends Transforms<State>>(slice: Slice
 	return () => {
 		const rawState = useSelector<unknown, State>(st => (st as Record<string, never>)[slice.name]);
 		const keys = Object.keys(rawState) as (keyof State)[];
-		const t = keys.reduce((memo, key) => {
+		return keys.reduce((memo, key) => {
 			const fn = transformers ? transformers[key] : null;
 			if (fn && typeof fn === 'function') {
 				return {
@@ -42,6 +42,5 @@ export function createSliceHook<State, T extends Transforms<State>>(slice: Slice
 				[key]: rawState[key],
 			};
 		}, {} as TransformedState<State, T>);
-		return t;
 	};
 }

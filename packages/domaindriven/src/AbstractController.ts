@@ -6,13 +6,13 @@ export interface AbstractControllerOptions {
 	preventFlush?: boolean;
 }
 
-export abstract class AbstractController<Repos, User> {
+export abstract class AbstractController<Repos, ExtraAuthorizationData = any> {
 	protected readonly repos: Repos;
 	private readonly em: EntityManager;
-	readonly authorization: Authorization<User>;
+	readonly authorization: Authorization<ExtraAuthorizationData>;
 	protected readonly opts?: AbstractControllerOptions;
 
-	protected constructor(repos: Repos, em: EntityManager, authorization: Authorization<User>, opts?: AbstractControllerOptions) {
+	protected constructor(repos: Repos, em: EntityManager, authorization: Authorization<ExtraAuthorizationData>, opts?: AbstractControllerOptions) {
 		this.repos = repos;
 		this.em = em;
 		this.authorization = authorization;

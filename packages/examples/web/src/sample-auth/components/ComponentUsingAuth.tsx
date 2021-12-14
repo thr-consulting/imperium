@@ -1,5 +1,4 @@
-import {useAuth, useLogout, IAuthContext, useAuthId} from '@imperium/auth-client';
-import {AbstractAuthSelector, AuthLevel} from '@imperium/authorization';
+import {useAuth, useLogout} from '@imperium/auth-client';
 import debug from 'debug';
 import React, {useEffect, useRef} from 'react';
 import {Button} from 'semantic-ui-react';
@@ -23,46 +22,14 @@ function useTraceUpdate(props: any) {
 	});
 }
 
-class MySelector extends AbstractAuthSelector {
-	private readonly id: string;
-
-	constructor(id: string) {
-		super();
-		this.id = id;
-	}
-
-	async getLevel(ctx: IAuthContext) {
-		if (ctx.auth?.id) return AuthLevel.fromString('admin.system.99');
-		return AuthLevel.nullLevel();
-	}
-
-	public getCacheId() {
-		return this.id;
-	}
-
-	public getName() {
-		return 'MySelector';
-	}
-}
-
 export default function ComponentUsingAuth() {
-	const {loading, id, level, hasAccess} = useAuth(new MySelector('thing'));
-	// const [getAuth, {level, loading, called, hasAccess, id}] = useLazyAuth(new MySelector('thing'));
-	const {access} = useAuthId();
 	const logout = useLogout();
-
-	useTraceUpdate({loading, id, level, access});
-
-	if (loading) return null;
-	// if (!called) return <Button onClick={() => getAuth()}>Start Auth</Button>;
+	const {authorization} = useAuth();
 
 	return (
 		<>
 			<h1>Component Using Auth</h1>
-			<p>ID: {id}</p>
-			<p>Access Token: {access}</p>
-			<p>Level: {level.name()}</p>
-			<p>Has Access to admin: {hasAccess(AuthLevel.fromString('manager.system.50')).exec() ? 'Yes' : 'No'}</p>
+			<p>ID: {authorization.id}</p>
 			<Button
 				color="blue"
 				onClick={async () => {
@@ -70,6 +37,24 @@ export default function ComponentUsingAuth() {
 				}}
 			>
 				Logout
+			</Button>
+			<Button
+				onClick={() => {
+					authorization.can('getStuff', {thing: 'dfasfas'}).then(v => {
+						d('stuff', v);
+					});
+					authorization.can('getMore').then(v => {
+						d('more', v);
+					});
+					authorization.can('getPing', {force: true}).then(v => {
+						d('ping', v);
+					});
+					authorization.can('getLoc', {force: false}).then(v => {
+						d('loc', v);
+					});
+				}}
+			>
+				Check permission
 			</Button>
 		</>
 	);

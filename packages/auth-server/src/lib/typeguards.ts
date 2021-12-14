@@ -1,4 +1,4 @@
-import type {AccessToken, LoginInfo, RefreshToken} from '../types';
+import type {AccessToken, AuthorizationInfo, LoginInfo, RefreshToken} from '../types';
 
 /**
  * Typeguard to check if an object is login info.
@@ -23,4 +23,9 @@ export function isAccessToken(accessToken: any): accessToken is AccessToken {
 	return (
 		(accessToken as AccessToken).id !== undefined && (accessToken as AccessToken).iat !== undefined && (accessToken as AccessToken).exp !== undefined
 	);
+}
+
+export function isAuthorizationInfo(info: any): info is AuthorizationInfo {
+	const a = info as AuthorizationInfo;
+	return !!a.permissions && Array.isArray(a.permissions);
 }

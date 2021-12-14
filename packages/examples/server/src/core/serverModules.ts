@@ -5,12 +5,12 @@ import type {ImperiumServerModule} from '@imperium/server';
 import {voyagerServerModule} from '@imperium/voyager';
 import {Environment} from '@thx/env';
 import type {ExcludeFalse} from '@thx/util';
-// Define server modules that should be included in the server.
 import debug from 'debug';
 import {basicModule} from '~basicModule/index';
 import type {Context} from '~core/context';
 import {advancedModule} from '../advancedModule';
 import {apolloCacheModule} from '../apolloCacheModule';
+import {authModule} from '../authModule';
 import {graphqlModule} from '../graphqlModule';
 import {subscriptionModule} from '../subscriptionModule';
 import {userModule} from '../userModule';
@@ -34,6 +34,7 @@ export function serverModules(): ImperiumServerModule<any>[] {
 		graphqlModule(),
 		Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS') && subscriptionModule(),
 		apolloCacheModule(),
+		authModule(),
 		voyagerServerModule(),
 	].filter(Boolean as any as ExcludeFalse);
 }

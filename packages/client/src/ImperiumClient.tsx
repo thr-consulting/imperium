@@ -1,4 +1,3 @@
-// I don't know why these two file need lint disabled. -mk
 import {Environment} from '@thx/env';
 import debug from 'debug';
 import flowRight from 'lodash/flowRight';
@@ -7,11 +6,9 @@ import isFunction from 'lodash/isFunction';
 import sortBy from 'lodash/orderBy';
 import React from 'react';
 import {render} from 'react-dom';
-// eslint-disable-next-line import/no-cycle
 import {Root} from './Root';
 import type {RootProps} from './Root';
 import type {HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
-// eslint-disable-next-line import/no-cycle
 import {withClient} from './withClient';
 
 const d = debug('imperium.client.ImperiumClient');
@@ -19,7 +16,7 @@ const d = debug('imperium.client.ImperiumClient');
 export class ImperiumClient {
 	private readonly _moduleFactoryFn: () => ImperiumClientModule[];
 	private _modules: ImperiumClientModule[];
-	private render: (props: RootProps) => React.ReactNode;
+	private readonly render: (props: RootProps) => React.ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
 		this._moduleFactoryFn = config.clientModules;

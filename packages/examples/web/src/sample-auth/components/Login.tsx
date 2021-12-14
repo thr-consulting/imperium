@@ -22,7 +22,7 @@ export default function Login() {
 		<>
 			<h1>Login</h1>
 			<TForm<LoginValidation>
-				initialValues={{email: '', password: ''}}
+				initialValues={{email: 'john@example.com', password: 'password'}}
 				onSubmit={v => {
 					login({
 						identifier: v.email,
