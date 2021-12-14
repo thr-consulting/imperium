@@ -1,10 +1,10 @@
 import type {PermissionLookup} from '@imperium/authorization';
 import {Authorization} from '@imperium/authorization';
-import debug from 'debug';
 import {Environment} from '@thx/env';
+import debug from 'debug';
 import type {ClientAuthorizationData} from '../types';
 
-const d = debug('imperium.auth-client.lib.permissionEndpointLookup');
+const d = debug('imperium.auth-client.lib.authorizationEndpointLookup');
 
 export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationData> = async opts => {
 	d('fetching from authorization endpoint');

@@ -1,10 +1,10 @@
-import {Environment} from '@thx/env';
-import Dexie from 'dexie';
 import type {AuthorizationCache, PermissionLookup} from '@imperium/authorization';
 import {Authorization, noPermissionLookup} from '@imperium/authorization';
 import type {Hoc} from '@imperium/client';
+import {Environment} from '@thx/env';
 import debug from 'debug';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import Dexie from 'dexie';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {AuthContext} from '../AuthContext';
 import type {ClientAuthorizationData, IAuth} from '../types';
 
@@ -72,6 +72,10 @@ export function withAuth(opts?: AuthClientOptions) {
 					});
 				}, [authenticated]);
 
+				const clearCache = useCallback(async () => {
+					await cache.current.table('auth').clear();
+				}, []);
+
 				useEffect(() => {
 					(async function iife() {
 						d('Configuring permission cache');
@@ -90,8 +94,7 @@ export function withAuth(opts?: AuthClientOptions) {
 							.below(Date.now() - Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000)
 							.delete();
 
-						// todo put this back
-						// authorization.cache = mapDexieToCache(cache.current);
+						authorization.cache = mapDexieToCache(cache.current);
 					})();
 				}, [authorization]);
 
@@ -115,6 +118,7 @@ export function withAuth(opts?: AuthClientOptions) {
 						value={{
 							authorization,
 							setAuthenticated,
+							clearCache,
 						}}
 					>
 						<WrappedComponent {...props} />

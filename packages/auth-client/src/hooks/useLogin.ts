@@ -1,13 +1,13 @@
 import {Environment} from '@thx/env';
 import debug from 'debug';
 import {useContext} from 'react';
-import type {LoginInfo, LoginReturn} from '../types';
 import {AuthContext} from '../AuthContext';
+import type {LoginInfo, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-client.hooks.useLogin');
 
 export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
-	const {setAuthenticated} = useContext(AuthContext);
+	const {setAuthenticated, clearCache} = useContext(AuthContext);
 
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
@@ -29,6 +29,7 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 		// Save id and access token to localstorage
 		localStorage.setItem(Environment.getString('authIdKey'), info.id);
 		localStorage.setItem(Environment.getString('authAccessTokenKey'), info.access);
-		// todo await authContext.clearCache();
+		// Clear permission cache
+		await clearCache();
 	};
 }

@@ -33,6 +33,7 @@
 		}
 	},
 	"dependencies": {
+		"@imperium/authorization": "^8.0.0",
 		"@imperium/server": "^8.0.0",
 		"@thx/env": "^15.1.1",
 		"@thx/sha256": "^15.1.1",

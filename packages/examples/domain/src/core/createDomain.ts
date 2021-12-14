@@ -45,7 +45,7 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		authorization,
 	};
 
-	// authorization.cache = getConnector('sharedCache', connectors);
+	authorization.cache = getConnector('sharedCache', connectors);
 	authorization.context = ctx;
 	authorization.lookup = domain.permissionLookup;
 

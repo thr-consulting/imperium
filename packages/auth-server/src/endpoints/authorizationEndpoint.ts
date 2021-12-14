@@ -1,12 +1,12 @@
+import {Authorization} from '@imperium/authorization';
 import type {ImperiumServer} from '@imperium/server';
 import {Environment, getCorsOrigin} from '@thx/env';
-import {Authorization} from '@imperium/authorization';
+import {json} from 'body-parser';
 import type {CorsOptions} from 'cors';
 import cors from 'cors';
-import {json} from 'body-parser';
 import debug from 'debug';
-import {authMiddleware} from '../middleware/authMiddleware';
 import {isAuthorizationInfo} from '../lib/typeguards';
+import {authMiddleware} from '../middleware/authMiddleware';
 
 const d = debug('imperium.auth-server.endpoints.authorizationEndpoint');
 

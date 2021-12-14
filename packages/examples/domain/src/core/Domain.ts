@@ -1,5 +1,8 @@
-import type {JsonValue, PermissionLookup, Authorization} from '@imperium/authorization';
+import type {JsonValue, PermissionLookup} from '@imperium/authorization';
 import type {AuthenticatedUser} from '@imperium/connector';
+import debug from 'debug';
+
+const d = debug('imperium.examples.domain.core.Domain');
 
 export interface PermissionOpts {
 	id?: string;
@@ -34,6 +37,7 @@ export class Domain {
 	}
 
 	permissionLookup: PermissionLookup<AuthenticatedUser> = async opts => {
+		d('Calculating permissions');
 		return Promise.all(
 			opts.keys.map(async k => {
 				if (this.#permissions[k.permission]) {

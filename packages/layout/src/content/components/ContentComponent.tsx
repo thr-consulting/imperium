@@ -1,14 +1,14 @@
 import type {DefineRouteOptions} from '@imperium/router';
-import {isEqual} from 'lodash';
 import debug from 'debug';
+import {isEqual} from 'lodash';
 import React, {DependencyList, EffectCallback, useEffect, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {DataHooks} from '../../datahooks/DataHooks';
+import {actions} from '../../state';
 import {sortWeightedItems} from '../../utils';
 import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {Page, RouteParameters} from '../types';
 import {Header} from './Header';
-import {actions} from '../../state';
 import {SidebarItemWrapper} from './SidebarItemWrapper';
 import styles from './styles.css';
 

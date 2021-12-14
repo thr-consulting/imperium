@@ -1,5 +1,5 @@
-import groupBy from 'lodash/groupBy';
 import debug from 'debug';
+import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import type {IndexedValue} from './types';
 

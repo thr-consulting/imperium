@@ -1,12 +1,12 @@
-import 'setimmediate';
-import debug from 'debug';
 import {Environment} from '@thx/env';
 import DataLoader from 'dataloader';
-import {compress, decompress} from 'lzbase62';
+import debug from 'debug';
 import LruCache from 'lru-cache';
-import type {AuthorizationCache, JsonValue, Permission, PermissionKey, PermissionLookup} from './types';
-import {noPermissionLookup} from './noPermissionLookup';
+import {compress, decompress} from 'lzbase62';
+import 'setimmediate';
 import {keysSplitAndSort} from './keysSplitAndSort';
+import {noPermissionLookup} from './noPermissionLookup';
+import type {AuthorizationCache, JsonValue, Permission, PermissionKey, PermissionLookup} from './types';
 
 const d = debug('imperium.authorization.Authorization');
 
@@ -65,6 +65,9 @@ export class Authorization<ExtraData = any, Context = any> {
 		this.extraData = opts?.extraData;
 		if (opts?.lookup) this.#lookup = opts.lookup;
 
+		d(`AUTH_PERMISSION_CACHE_EXPIRES: ${Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES')}`);
+		d(`AUTH_PERMISSION_DATALOADER_LRU_MAXAGE: ${Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAXAGE')}`);
+
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;
 		this.lrucache = new LruCache({
@@ -115,7 +118,7 @@ export class Authorization<ExtraData = any, Context = any> {
 				);
 			},
 			// @ts-expect-error
-			{cacheMap: this.lrucache, cache: typeof window === 'undefined'}, // todo get rid of cache window check
+			{cacheMap: this.lrucache},
 		);
 	}
 

@@ -3216,11 +3216,6 @@
     "@js-joda/locale_en" "^4.0.0"
     "@js-joda/timezone" "^2.6.0"
 
-"@thx/env@^14.2.0":
-  version "14.2.0"
-  resolved "https://registry.yarnpkg.com/@thx/env/-/env-14.2.0.tgz#c7cb04117a54c161db2d46d689979ae0e12abf8b"
-  integrity sha512-PHS64jWVbCFxPI6pqLeTuwZG75tnakJib9YIracUeAPUD7uz+jLzGAO/x2b6YjVQHdrzZTr61Fw6AN2qR2cX6Q==
-
 "@thx/env@^15.1.1":
   version "15.1.1"
   resolved "https://registry.yarnpkg.com/@thx/env/-/env-15.1.1.tgz#448425272f03257eed7d50a4d268b9454beed0f7"

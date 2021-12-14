@@ -1,16 +1,16 @@
 import type {Permissions} from '../core/Domain';
 
 const permissions: Permissions = {
-	async getStuff({id, data}) {
+	async getStuff() {
 		return true;
 	},
-	async getMore({id, data}) {
+	async getMore() {
 		return false;
 	},
-	async getPing({id, data}) {
+	async getPing() {
 		return true;
 	},
-	async getLoc({id, data}) {
+	async getLoc() {
 		return false;
 	},
 };
