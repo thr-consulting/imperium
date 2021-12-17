@@ -1,3 +1,4 @@
+import 'setimmediate';
 import './defaults';
 
 export {Authorization} from './Authorization';

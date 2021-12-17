@@ -1,10 +1,11 @@
-import type {StateSelectorHook, VisibilityQueryFn} from './types';
+import type {PermissionSelectorHook, StateSelectorHook, VisibilityQueryFn} from './types';
 
 /**
  * Describes an item that can hide itself based on redux state
  */
 export interface VisibilityItem {
 	stateSelectorHook?: StateSelectorHook | StateSelectorHook[]; // Hook or array of hooks that select state
+	permissionSelectorHook?: PermissionSelectorHook | PermissionSelectorHook[]; // Hook or array of hooks that select permissions
 	visible?: Record<string, unknown> | VisibilityQueryFn;
 }
 

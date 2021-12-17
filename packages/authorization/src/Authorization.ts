@@ -3,7 +3,6 @@ import DataLoader from 'dataloader';
 import debug from 'debug';
 import LruCache from 'lru-cache';
 import {compress, decompress} from 'lzbase62';
-import 'setimmediate';
 import {keysSplitAndSort} from './keysSplitAndSort';
 import {noPermissionLookup} from './noPermissionLookup';
 import type {AuthorizationCache, JsonValue, Permission, PermissionKey, PermissionLookup} from './types';
@@ -65,8 +64,8 @@ export class Authorization<ExtraData = any, Context = any> {
 		this.extraData = opts?.extraData;
 		if (opts?.lookup) this.#lookup = opts.lookup;
 
-		d(`AUTH_PERMISSION_CACHE_EXPIRES: ${Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES')}`);
-		d(`AUTH_PERMISSION_DATALOADER_LRU_MAXAGE: ${Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAXAGE')}`);
+		// d(`AUTH_PERMISSION_CACHE_EXPIRES: ${Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES')}`);
+		// d(`AUTH_PERMISSION_DATALOADER_LRU_MAXAGE: ${Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAXAGE')}`);
 
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;

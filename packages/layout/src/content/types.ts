@@ -3,7 +3,7 @@ import type React from 'react';
 import type {SemanticCOLORS, SemanticICONS} from 'semantic-ui-react';
 import type {RouteItem, VisibilityItem, WeightedItem} from '../commonItems';
 import type {DataHookItem} from '../datahooks/types';
-import type {Data, StateSelectorHook} from '../types';
+import type {Data, PermissionSelectorHook, StateSelectorHook} from '../types';
 
 export type RouteParameters<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
 
@@ -60,6 +60,7 @@ export type ContentHeader<T extends DefineRouteOptions, K extends keyof T> =
 export interface Page<T extends DefineRouteOptions, K extends keyof T> {
 	dataHooks?: DataHookItem[];
 	stateSelectorHook?: StateSelectorHook | StateSelectorHook[];
+	permissionSelectorHook?: PermissionSelectorHook | PermissionSelectorHook[];
 	content: Content<T, K>;
 	header?: ContentHeader<T, K>;
 	sidebar?: SidebarItem<T, K>[];

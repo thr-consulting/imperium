@@ -7,6 +7,11 @@ export type State = Record<string, any>;
  * A hook that selects from redux state.
  */
 export type StateSelectorHook = () => State;
+
+export type PermissionResults = Record<string, boolean>;
+
+export type PermissionSelectorHook = (data: Data) => PermissionResults;
+
 /**
  * The visibility query can either be a mingo query or a function that returns a boolean. The data is an object with the router path merged with any state selector hook data.
  */
@@ -21,6 +26,8 @@ export interface Data extends Record<string, unknown> {
 	};
 	state: State;
 	active: boolean;
+	permissions: PermissionResults;
+	id?: string;
 }
 
 export interface ImperiumLayoutClientModule extends ImperiumClientModule {

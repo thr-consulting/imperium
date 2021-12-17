@@ -44,7 +44,18 @@ export const layout: LayoutData = {
 
 ### Data Hooks
 Data Hooks are React hooks that don't return anything. They are usually used to retrieve values from a graphql query and
-then use the returned data to set state using @imperium/state.
+then use the returned data to set state using @imperium/state (Redux).
+
+```typescript
+function useGetData() {
+    const dispatch = useDispatch();
+    const {loading, data} = useGetDataQuery();
+    
+    useEffect(() => {
+	  if (!loading) dispatch(action(data.getQuery.someData));
+    }, [loading, data, dispatch]);
+}
+```
 
 ### Primary Menu
 The primary menu runs horizontally across the top of the page.
@@ -65,7 +76,7 @@ The footer runs horizontally at the bottom of the page.
 
 ## Define content pages in each feature
 Pages can be defined from routes (see @imperium/router). Usually in a `pages.tsx` file, export from a `createPages()` call.
-Each key must align with a router defined in your router.
+Each key must align with a route defined in your router.
 
 Using `createPages()` removes the need from having to use `routes.renderRouteProps()` directly.
 
@@ -88,12 +99,23 @@ export const routeProps = createPages(routes, {
 
 ### Data Hooks
 Data Hooks are React hooks that don't return anything. They are usually used to retrieve values from a graphql query and
-then use the returned data to set state using @imperium/state.
+then use the returned data to set state using @imperium/state (Redux).
+
+```typescript
+function useGetData() {
+    const dispatch = useDispatch();
+    const {loading, data} = useGetDataQuery();
+    
+    useEffect(() => {
+	  if (!loading) dispatch(action(data.getQuery.someData));
+    }, [loading, data, dispatch]);
+}
+```
 
 ### State Selector Hook(s)
 Pass a state select hook (or array of hooks) that return data, usually from Redux state.
 
-This state data is added to the Data object. The data object is passed down to each Sidebar Item as well.
+This state data is added to the Data object. The data object is passed down to each Sidebar Item.
 
 ### Content
 This is required and is used to render a component as content for the specified route.

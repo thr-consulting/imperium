@@ -32,6 +32,7 @@
 		}
 	},
 	"dependencies": {
+		"@imperium/auth-client": "^8.0.0",
 		"@imperium/client": "^8.0.0",
 		"@imperium/router": "^8.0.0",
 		"@imperium/state": "^8.0.0",

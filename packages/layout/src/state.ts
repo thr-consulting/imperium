@@ -7,11 +7,15 @@ export const state = createSlice({
 	initialState: {
 		isMobile: false,
 		params: {},
+		permissions: {} as Record<string, boolean>,
 	},
 	reducers: {
 		setMobile: (st, action: PayloadAction<boolean>) => ({...st, isMobile: action.payload}),
 		setParams: (st, action: PayloadAction<Record<string, string>>) => {
 			st.params = action.payload;
+		},
+		setPermission: (st, action: PayloadAction<{permission: string; result: boolean}>) => {
+			st.permissions[action.payload.permission] = action.payload.result;
 		},
 	},
 });

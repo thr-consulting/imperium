@@ -30,7 +30,12 @@ interface ItemWrapperProps {
  * @constructor
  */
 export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWrapperProps) {
-	const data = useBuildData({stateSelectorHook: item.stateSelectorHook, routeItem: item, data: parentData});
+	const data = useBuildData({
+		stateSelectorHook: item.stateSelectorHook,
+		permissionSelectorHook: item.permissionSelectorHook,
+		routeItem: item,
+		data: parentData,
+	});
 
 	// Check if visible
 	if (item.visible) {

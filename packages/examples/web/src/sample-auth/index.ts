@@ -1,6 +1,7 @@
 import type {ImperiumLayoutClientModule} from '@imperium/layout';
 import type {ImperiumRouterClientModule} from '@imperium/router';
-import {layout, routeProps} from './layout';
+import {layout} from './layout';
+import {routeProps} from './pages';
 
 export function sampleAuthModule(): ImperiumRouterClientModule & ImperiumLayoutClientModule {
 	return {
