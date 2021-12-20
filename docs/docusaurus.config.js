@@ -51,6 +51,10 @@ const config = {
         },
         items: [
           {
+            type: 'docsVersionDropdown',
+            position: 'left',
+          },
+          {
             type: 'doc',
             docId: 'installation',
             position: 'left',
