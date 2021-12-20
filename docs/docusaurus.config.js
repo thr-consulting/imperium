@@ -15,6 +15,7 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'darkadept', // Usually your GitHub org/user name.
   projectName: 'imperium', // Usually your repo name.
+  trailingSlash: true,
 
   presets: [
     [
