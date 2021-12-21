@@ -35,7 +35,7 @@ function useDeepCompareEffect(callback: EffectCallback, deps: DependencyList) {
 
 export function ContentComponent<T extends DefineRouteOptions, K extends keyof T>({page, params}: ContentComponentProps<T, K>) {
 	const dispatch = useDispatch();
-	const data = useBuildContentData({stateSelectorHook: page.stateSelectorHook, params});
+	const data = useBuildContentData({stateSelectorHook: page.stateSelectorHook, permissionSelectorHook: page.permissionSelectorHook, params});
 
 	useDeepCompareEffect(() => {
 		dispatch(actions.setParams(params));

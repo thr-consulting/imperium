@@ -20,7 +20,12 @@ interface SidebarItemWrapperProps<T extends DefineRouteOptions, K extends keyof 
 }
 
 export function SidebarItemWrapper<T extends DefineRouteOptions, K extends keyof T>({item, data: parentData, params}: SidebarItemWrapperProps<T, K>) {
-	const data = useBuildContentData({data: parentData, stateSelectorHook: item.stateSelectorHook, params});
+	const data = useBuildContentData({
+		data: parentData,
+		stateSelectorHook: item.stateSelectorHook,
+		permissionSelectorHook: item.permissionSelectorHook,
+		params,
+	});
 
 	// Check if visible
 	if (item.visible) {

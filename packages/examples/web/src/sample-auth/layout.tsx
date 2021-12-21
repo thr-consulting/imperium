@@ -1,13 +1,28 @@
-import type {LayoutData} from '@imperium/layout/src';
-import React from 'react';
-import ComponentUsingAuth from './components/ComponentUsingAuth';
-import Login from './components/Login';
+import debug from 'debug';
+import type {LayoutData} from '@imperium/layout';
+import {useCan} from '@imperium/auth-client';
 import {routes} from './routes';
 
-export const layout: Partial<LayoutData> = {
+const d = debug('imperium.examples.web.sample-auth.layout');
+
+export const layout: LayoutData = {
+	permissionSelectorHooks: [
+		() => {
+			const [getPing] = useCan('getPing');
+			return {getPing};
+		},
+	],
 	primaryMenu: [
 		{
+			permissionSelectorHook: () => {
+				// eslint-disable-next-line react-hooks/rules-of-hooks
+				const [getStuff] = useCan('getStuff');
+				return {getStuff};
+			},
 			to: routes.to.login(),
+			visible: ({id}) => {
+				return !id;
+			},
 			text: 'Login',
 			position: 'right',
 		},
@@ -19,8 +34,3 @@ export const layout: Partial<LayoutData> = {
 		},
 	],
 };
-
-export const routeProps = routes.renderRouteProps({
-	authTest: () => <ComponentUsingAuth />,
-	login: () => <Login />,
-});

@@ -11,10 +11,11 @@ interface UseBuildContentDataParams<T extends DefineRouteOptions, K extends keyo
 export function useBuildContentData<T extends DefineRouteOptions, K extends keyof T>({
 	data,
 	stateSelectorHook,
+	permissionSelectorHook,
 	routeItem,
 	params,
 }: UseBuildContentDataParams<T, K>) {
-	const buildData = useBuildData({data, stateSelectorHook, routeItem});
+	const buildData = useBuildData({data, stateSelectorHook, permissionSelectorHook, routeItem});
 	return {
 		...buildData,
 		params,

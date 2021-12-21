@@ -2,6 +2,7 @@ import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
 import React, {ComponentType} from 'react';
 import {DataHooks} from '../datahooks/DataHooks';
+import {PermissionHooks} from '../datahooks/PermissionHooks';
 import {isImperiumLayoutClientModule} from '../types';
 import {Layout} from './components/Layout';
 import type {LayoutData} from './types';
@@ -10,6 +11,7 @@ const d = debug('imperium.layout.withLayout');
 
 const initialLayoutModuleData: Required<LayoutData> = {
 	dataHooks: [],
+	permissionSelectorHooks: [],
 	primaryMenu: [],
 	statusbar: [],
 	secondaryMenu: [],
@@ -21,6 +23,7 @@ export function withLayout(client: ImperiumClient): Hoc {
 		if (isImperiumLayoutClientModule(module)) {
 			return {
 				dataHooks: [...(memo.dataHooks || []), ...(module.layout.dataHooks || [])],
+				permissionSelectorHooks: [...(memo.permissionSelectorHooks || []), ...(module.layout.permissionSelectorHooks || [])],
 				primaryMenu: [...(memo.primaryMenu || []), ...(module.layout.primaryMenu || [])],
 				statusbar: [...(memo.statusbar || []), ...(module.layout.statusbar || [])],
 				secondaryMenu: [...(memo.secondaryMenu || []), ...(module.layout.secondaryMenu || [])],
@@ -42,6 +45,7 @@ export function withLayout(client: ImperiumClient): Hoc {
 						<Wrapped {...props} layout={layoutModuleData} />
 					</Layout>
 					<DataHooks dataHooks={layoutModuleData.dataHooks} />
+					<PermissionHooks permissionHooks={layoutModuleData.permissionSelectorHooks} />
 				</>
 			);
 		}
