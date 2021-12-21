@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/darkadept/imperium/compare/v8.0.0...v8.1.0) (2021-12-21)
+
+
+### Features
+
+* missed a thx upgrade ([b84ae8f](https://github.com/darkadept/imperium/commit/b84ae8ffe6093aad52eccd03f7ca613a26f86a8e))
+
+
+
+
+
 # [8.0.0](https://github.com/darkadept/imperium/compare/v7.3.5...v8.0.0) (2021-12-08)
 
 
