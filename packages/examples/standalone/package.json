@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-standalone",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "private": true,
   "description": "Imperium standalone example project",
   "repository": {
@@ -27,8 +27,8 @@
     }
   },
   "dependencies": {
-    "@imperium/connector": "^8.0.0",
-    "@imperium/example-domain": "^8.1.0",
+    "@imperium/connector": "^8.1.1",
+    "@imperium/example-domain": "^8.1.1",
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",
     "@thx/env": "^15.1.1",
@@ -44,7 +44,7 @@
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/register": "^7.13.16",
-    "@imperium/babel-preset-imperium": "^8.0.0"
+    "@imperium/babel-preset-imperium": "^8.1.1"
   },
   "engines": {
     "node": ">=14"

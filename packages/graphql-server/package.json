@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-server",
-	"version": "8.0.0",
+	"version": "8.1.1",
 	"description": "Imperium Graphql server package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -43,7 +43,7 @@
 		"@graphql-tools/merge": "^8.1.2",
 		"@graphql-tools/schema": "^8.2.0",
 		"@graphql-tools/utils": "^8.2.5",
-		"@imperium/server": "^8.0.0",
+		"@imperium/server": "^8.1.1",
 		"@js-joda/core": "^4.0.0",
 		"@thx/date": "^15.1.1",
 		"@thx/env": "^15.1.1",

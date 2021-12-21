@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-noexpress-server",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "private": true,
   "description": "Imperium server example project without Express",
   "repository": {
@@ -28,9 +28,9 @@
     }
   },
   "dependencies": {
-    "@imperium/connector": "^8.0.0",
-    "@imperium/example-domain": "^8.1.0",
-    "@imperium/server": "^8.0.0",
+    "@imperium/connector": "^8.1.1",
+    "@imperium/example-domain": "^8.1.1",
+    "@imperium/server": "^8.1.1",
     "@mikro-orm/cli": "^4.5.9",
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",
@@ -42,7 +42,7 @@
     "redis": "^3.1.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^8.0.0"
+    "@imperium/dev": "^8.1.1"
   },
   "engines": {
     "node": ">=14"

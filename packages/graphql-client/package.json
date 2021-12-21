@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-client",
-	"version": "8.1.0",
+	"version": "8.1.1",
 	"description": "Imperium Graphql client package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -37,7 +37,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/client": "^8.1.0",
+		"@imperium/client": "^8.1.1",
 		"@thx/env": "^15.1.1",
 		"@thx/util": "^15.1.1",
 		"debug": "^4.3.2",
