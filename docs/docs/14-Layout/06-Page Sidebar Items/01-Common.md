@@ -18,6 +18,15 @@ If the mingo query returns true, the item is visible, otherwise the item is hidd
 visible?: Object | (data: ContentData) => boolean
 ```
 
+## permissionSelectorHook
+Pass a permission selector hook (or array of hooks) that return results of permission checks, usually from `useCan` in @imperium/auth-client.
+
+These permission results are added to the Data object.
+
+```typescript
+permissionSelectorHook?: () => PermissionResult | (() => PermissionResult)[]
+```
+
 ## stateSelectorHook
 Pass a state select hook (or array of hooks) that return data, usually from Redux state.
 

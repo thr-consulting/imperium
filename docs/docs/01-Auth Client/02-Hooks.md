@@ -1,39 +1,3 @@
-## useAuthId
-Returns an object with the following properties.
-
-```typescript
-	const {id, access, setAuth, getAuth} = useAuthId();
-```
-
-### id
-Returns the logged-in users' id, or undefined if the user is not logged in.
-
-```typescript
-id: string | undefined
-```
-
-### access
-The encoded JWT returned from the server. Usually stores the user id, issued and expired timestamps, along with any other
-data passed from the server.
-
-```typescript
-access: string | undefined
-```
-
-### setAuth
-A function that can be used to set the current logged-in user. This is usually used after something like a login operation.
-
-```typescript
-setAuth: (auth: IAuth | null) => void
-```
-
-### getAuth
-A function that can be used to retrieve the current logged-in user.
-
-```typescript
-getAuth: () => Promise<IAuth | null>
-```
-
 ## useLogin
 Returns a function that can be used to attempt a login.
 
@@ -53,25 +17,10 @@ useLogout: () => Promise<void>
 ```
 
 ## useAuth
-Using an authorization selector (see @imperium/authorization) returns an object with authorization details.
-The fields are:
+Get authentication and authorization information for the current logged in user.
 
 ```typescript
-const {level, loading, id, hassAccess, useLazyAuth} = useAuth(selector: AbstractAuthSelector); 
-```
-
-### level: AuthLevel
-The current access level based on the current user and the passed in selector. (See @imperium/authorization for more details.)
-
-```typescript
-level: AuthLevel
-```
-
-### loading
-True if the authorization is still loading, otherwise false.
-
-```typescript
-loading: boolean
+const {id, authorization} = useAuth(); 
 ```
 
 ### id
@@ -81,16 +30,40 @@ The logged-in users' id, or undefined if the user is not logged in.
 id: string | undefined
 ```
 
-### hasAccess
-Returns a function that can be used to get an authorization result. (See @imperium/authorization for more details.)
+### authorization
+The current instance of the Authorization class, from @imperium/authorization.
 
 ```typescript
-hasAccess: (lvl: AuthLevel, opts?: SyncHasAccessOptions) => SyncAuthorizationResult
+authorization: Authorization
 ```
 
-## useLazyAuth
-Using an authorization selector returns
+## useCan
+Query for a permission (or multiple permissions) and optional data.
+
+There are multiple caches in the pipeline for requesting a permission. If the permission is not cached on the 
+client, it is requested from the server.
+
+1. In memory, LRU cache, with expiry and maximum items.
+2. Longer term storage in IndexedDB, with expiry.
+3. Per request memory cache on the server.
+4. Longer term storage in Redis, with expiry.
+5. Calculated by business logic.
 
 ```typescript
-(selector: AbstractAuthSelector) 
+const [result, loading] = useCan('doStuff', {optional: 'data'});
+```
+
+### result
+The boolean result of the permission check. If an array of permissions are requested, the result is the
+logical AND of all permission checks. The result will be initially `false`, until it is finished loading.
+
+```typescript
+result: boolean
+```
+
+### loading
+True if the permission is still being loaded, otherwise false.
+
+```typescript
+loading: boolean
 ```

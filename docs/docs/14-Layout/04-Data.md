@@ -10,11 +10,23 @@ interface Data {
 	};
 	state: State;
 	active: boolean;
-
+	permissions: PermissionResults;
+	id?: string;
+  
 	// Page data has an additional field:
 	params: RouteParameters;
 }
 ```
+
+The data object is built in a certain order:
+1. The user id is added.
+2. The previous permissions are retrieved from Redux state.
+3. The state selector hooks are executed.
+4. The route location is retrieved.
+5. The route location is split into its object fields.
+6. Active is determined loc, route, state, id, and previous permissions.
+7. Permissions are determined from previous permissions, location, active, route, and id.
+8. Permissions are merged and the entire data object is built.
 
 ### loc
 A location object matching the current React Router location. It's defined somewhat like the following. See React Router for more information.
@@ -59,8 +71,26 @@ This is only relevant in layout items that redirect to a route. Active is true w
 active: boolean
 ```
 
+### permissions
+If a layout item (or parent) has a `permissionSelectorHook`, the results of those hooks are available.
+
+```typescript
+permissions: PermissionResults;
+```
+
+```typescript
+type PermissionResults = Record<string, boolean>;
+```
+
+### id
+If a user is currently logged in, this will be the id of the user. Otherwise undefined.
+
+```typescript
+id: string | undefined
+```
+
 ### params
-This is only available to page data (aka `ContentData`). Since each page is rendered from a route, the type of the route parameters are known.
+This is only available to page data. Since each page is rendered from a route, the type of the route parameters are known.
 If the route doesn't have any parameters, this type is `never`. If the route does have parameters this is an object, typed with
 the parameters as fields.
 
