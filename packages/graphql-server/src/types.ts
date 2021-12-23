@@ -8,8 +8,8 @@ import type {DocumentNode, GraphQLError, GraphQLFormattedError} from 'graphql';
 /**
  * Schema from Graphqls files.
  */
-export type ImperiumGraphqlLogErrorFn<T> = (error: Error, session: string, ctx: T) => void;
-export type ImperiumGraphqlLogRequestFn<T> = (requestContext: GraphQLRequestContext<T>) => void;
+export type ImperiumGraphqlLogErrorFn<T> = (error: Error, session: string, ctx: T) => Promise<void>;
+export type ImperiumGraphqlLogRequestFn<T> = (requestContext: GraphQLRequestContext<T>) => Promise<void>;
 
 /**
  * The configuration object for the graphql server module.
