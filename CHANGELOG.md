@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0](https://github.com/darkadept/imperium/compare/v8.1.1...v8.2.0) (2021-12-23)
+
+
+### Features
+
+* **domaindriven:** added getReference function to repository ([5c830ee](https://github.com/darkadept/imperium/commit/5c830eeaf536ae6650f8fc43f4db18fe27098940))
+
+
+
+
+
 ## [8.1.1](https://github.com/darkadept/imperium/compare/v8.1.0...v8.1.1) (2021-12-21)
 
 **Note:** Version bump only for package imperium
