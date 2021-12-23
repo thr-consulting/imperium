@@ -9,8 +9,10 @@ import type {
 	FilterQuery,
 	FindOneOptions,
 	FindOptions,
+	IdentifiedReference,
 	Loaded,
 	Populate,
+	Primary,
 	QueryOrderMap,
 } from '@mikro-orm/core';
 import {LockMode, wrap} from '@mikro-orm/core';
@@ -283,5 +285,20 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		const ent = await this.load(entity.id);
 		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
 		return ent;
+	}
+
+	/**
+	 * Create reference to an entity
+	 * @param id
+	 * @param wrapped
+	 */
+	getReference(id: Primary<EntityType>, wrapped: true): IdentifiedReference<EntityType, 'id'>;
+	getReference(id: Primary<EntityType>, wrapped: false): EntityType;
+	getReference(id: Primary<EntityType>): EntityType;
+	getReference(id: Primary<EntityType>, wrapped?: true | false): EntityType | IdentifiedReference<EntityType, 'id'> {
+		if (wrapped) {
+			return this.repo.getReference(id, true) as IdentifiedReference<EntityType, 'id'>;
+		}
+		return this.repo.getReference(id, false);
 	}
 }
