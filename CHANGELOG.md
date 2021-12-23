@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.2.1](https://github.com/darkadept/imperium/compare/v8.2.0...v8.2.1) (2021-12-23)
+
+
+### Features
+
+* **graphql-server:** made logging functions async ([3cbd75b](https://github.com/darkadept/imperium/commit/3cbd75b418d65b9b44336d14a240fa6fd338ece7))
+
+
+
+
+
 # [8.2.0](https://github.com/darkadept/imperium/compare/v8.1.1...v8.2.0) (2021-12-23)
 
 

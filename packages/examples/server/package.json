@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-server",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "private": true,
   "description": "Imperium server example project",
   "repository": {
@@ -32,7 +32,7 @@
     "@imperium/auth-server": "^8.1.1",
     "@imperium/connector": "^8.1.1",
     "@imperium/example-domain": "^8.2.0",
-    "@imperium/graphql-server": "^8.1.1",
+    "@imperium/graphql-server": "^8.2.1",
     "@imperium/server": "^8.1.1",
     "@imperium/voyager": "^8.1.1",
     "@js-joda/core": "^4.3.1",

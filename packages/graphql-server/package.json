@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-server",
-	"version": "8.1.1",
+	"version": "8.2.1",
 	"description": "Imperium Graphql server package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
