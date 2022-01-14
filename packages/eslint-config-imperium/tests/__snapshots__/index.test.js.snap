@@ -131,7 +131,7 @@ Object {
         "allowNamedFunctions": true,
       },
     ],
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "error",
     "react-hooks/rules-of-hooks": "error",
     "react/destructuring-assignment": Array [
       "off",
@@ -162,6 +162,9 @@ Object {
     "react/jsx-props-no-spreading": Array [
       "off",
     ],
+    "react/jsx-uses-react": Array [
+      "off",
+    ],
     "react/jsx-wrap-multilines": Array [
       "off",
     ],
@@ -178,6 +181,9 @@ Object {
     "react/no-unused-prop-types": "off",
     "react/prefer-stateless-function": "error",
     "react/prop-types": Array [
+      "off",
+    ],
+    "react/react-in-jsx-scope": Array [
       "off",
     ],
     "react/require-default-props": "off",
