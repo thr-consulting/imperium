@@ -1,6 +1,6 @@
 import debug from 'debug';
 import {Query} from 'mingo';
-import React from 'react';
+import type {ComponentClass} from 'react';
 import {Dropdown} from 'semantic-ui-react';
 import {useBuildData} from '../../hooks/useBuildData';
 import type {Data} from '../../types';
@@ -16,7 +16,7 @@ const d = debug('imperium.layout.components.LayoutItemWrapper');
 
 interface ItemWrapperProps {
 	item: LayoutItem;
-	as?: React.ComponentClass;
+	as?: ComponentClass;
 	vertical?: boolean;
 	data?: Data;
 }

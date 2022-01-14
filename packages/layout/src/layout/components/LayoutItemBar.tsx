@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 import type {MenuProps} from 'semantic-ui-react';
 import {Menu} from 'semantic-ui-react';
 import {sortWeightedItems} from '../../utils';

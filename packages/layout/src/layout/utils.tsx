@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from 'react-router-dom';
 import {Icon, SemanticICONS} from 'semantic-ui-react';
 import type {RouteItem} from '../commonItems';

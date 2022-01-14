@@ -1,7 +1,7 @@
 import {ImperiumGraphqlContext} from '@imperium/graphql-client';
 import {Environment} from '@thx/env';
 import debug from 'debug';
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import {Button} from 'semantic-ui-react';
 import {TestMutation} from './TestMutation';
 import {TestQuery} from './TestQuery';

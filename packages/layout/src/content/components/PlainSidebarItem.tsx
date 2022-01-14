@@ -1,5 +1,4 @@
 import type {DefineRouteOptions} from '@imperium/router';
-import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import type {ActionFormSidebarItem, ActionSidebarItem, ContentData, CustomSidebarItem, DividerSidebarItem, SidebarItem} from '../types';

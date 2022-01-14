@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, {ReactNode} from 'react';
+import {Component, ReactNode} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router';
 import {Header, Segment} from 'semantic-ui-react';
 
@@ -17,7 +17,7 @@ const errorBoundarySegmentStyle = {
 	margin: '1em',
 };
 
-export class ErrorBoundaryComponent extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundaryComponent extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	constructor(props: ErrorBoundaryProps | Readonly<ErrorBoundaryProps>) {
 		super(props);
 		this.state = {hasError: false};

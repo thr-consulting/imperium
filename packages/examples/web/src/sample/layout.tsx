@@ -1,6 +1,5 @@
 import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
-import React from 'react';
 import {Link} from 'react-router-dom';
 import {Menu, Image, Header} from 'semantic-ui-react';
 import HelloWorld from './components/HelloWorld';

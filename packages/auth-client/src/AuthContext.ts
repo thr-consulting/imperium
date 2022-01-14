@@ -1,5 +1,5 @@
 import {Authorization} from '@imperium/authorization';
-import React from 'react';
+import {createContext} from 'react';
 import type {ClientAuthorizationData, IAuth} from './types';
 
 export interface IAuthContext {
@@ -14,4 +14,4 @@ const defaultAuthContext: IAuthContext = {
 	clearCache: async () => {},
 };
 
-export const AuthContext = React.createContext(defaultAuthContext);
+export const AuthContext = createContext(defaultAuthContext);

@@ -1,6 +1,6 @@
 import {useAuth, useLogout} from '@imperium/auth-client';
 import debug from 'debug';
-import React, {useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import {Button} from 'semantic-ui-react';
 
 const d = debug('imperium.examples.web.sample-auth.components.ComponentUsingAuth');

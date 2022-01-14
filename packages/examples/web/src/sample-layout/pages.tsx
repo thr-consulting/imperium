@@ -1,6 +1,5 @@
 import {createPages, dividerSidebarItem} from '@imperium/layout';
 import debug from 'debug';
-import React from 'react';
 import {Button, Form, Icon, Label} from 'semantic-ui-react';
 import {object, string} from 'yup';
 import ContentExample from './components/ContentExample';

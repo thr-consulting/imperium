@@ -1,7 +1,6 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import {useTForm} from '@thx/controls';
 import debug from 'debug';
-import React from 'react';
 import {Button, Form, Icon, Message, Popup} from 'semantic-ui-react';
 import type {ActionFormSidebarItem, ContentData} from '../types';
 

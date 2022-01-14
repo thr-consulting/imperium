@@ -1,6 +1,5 @@
 import {useQuery} from '@apollo/client';
 import debug from 'debug';
-import React from 'react';
 import {Button, Segment} from 'semantic-ui-react';
 import query from './query.graphql';
 

@@ -1,7 +1,6 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
 import {Query} from 'mingo';
-import React from 'react';
 import {Divider} from 'semantic-ui-react';
 import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {ContentData, RouteParameters, SidebarItem} from '../types';

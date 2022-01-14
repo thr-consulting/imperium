@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 import type {PermissionSelectorHook} from '../types';
 import {ExecutePermissionHook} from './ExecutePermissionHook';
 

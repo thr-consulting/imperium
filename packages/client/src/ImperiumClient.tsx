@@ -4,10 +4,10 @@ import flowRight from 'lodash/flowRight';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 import sortBy from 'lodash/orderBy';
-import React from 'react';
+import type {ReactNode} from 'react';
 import {render} from 'react-dom';
-import {Root} from './Root';
 import type {RootProps} from './Root';
+import {Root} from './Root';
 import type {HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
 import {withClient} from './withClient';
 
@@ -16,7 +16,7 @@ const d = debug('imperium.client.ImperiumClient');
 export class ImperiumClient {
 	private readonly _moduleFactoryFn: () => ImperiumClientModule[];
 	private _modules: ImperiumClientModule[];
-	private readonly render: (props: RootProps) => React.ReactNode;
+	private readonly render: (props: RootProps) => ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
 		this._moduleFactoryFn = config.clientModules;

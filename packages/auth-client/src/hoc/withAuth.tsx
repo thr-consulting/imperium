@@ -4,7 +4,7 @@ import type {Hoc} from '@imperium/client';
 import {Environment} from '@thx/env';
 import debug from 'debug';
 import Dexie from 'dexie';
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {ComponentType, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {AuthContext} from '../AuthContext';
 import type {ClientAuthorizationData, IAuth} from '../types';
 
@@ -50,7 +50,7 @@ export function withAuth(opts?: AuthClientOptions) {
 	return (): Hoc => {
 		d('Creating Auth client');
 
-		return function authHoc(WrappedComponent: React.ComponentType) {
+		return function authHoc(WrappedComponent: ComponentType) {
 			const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
 			function ComponentWithAuth(props: any) {
@@ -75,6 +75,14 @@ export function withAuth(opts?: AuthClientOptions) {
 				const clearCache = useCallback(async () => {
 					await cache.current.table('auth').clear();
 				}, []);
+
+				const authContext = useMemo(() => {
+					return {
+						authorization,
+						setAuthenticated,
+						clearCache,
+					};
+				}, [authorization, clearCache]);
 
 				useEffect(() => {
 					(async function iife() {
@@ -114,13 +122,7 @@ export function withAuth(opts?: AuthClientOptions) {
 				}, [authenticated]);
 
 				return (
-					<AuthContext.Provider
-						value={{
-							authorization,
-							setAuthenticated,
-							clearCache,
-						}}
-					>
+					<AuthContext.Provider value={authContext}>
 						<WrappedComponent {...props} />
 					</AuthContext.Provider>
 				);

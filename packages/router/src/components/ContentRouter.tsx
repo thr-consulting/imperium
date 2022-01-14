@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, {ReactNode} from 'react';
+import type {ComponentClass, ReactNode} from 'react';
 import {Switch, Route, RouteProps} from 'react-router-dom';
 
 const d = debug('imperium.router.components.ContentRouter');
@@ -7,7 +7,7 @@ const d = debug('imperium.router.components.ContentRouter');
 interface ContentRouterProps {
 	routeDefaults?: Omit<RouteProps, 'render' | 'component' | 'children'>;
 	routes?: RouteProps[];
-	errorBoundary?: React.ComponentClass<{children: ReactNode}>;
+	errorBoundary?: ComponentClass<{children: ReactNode}>;
 }
 
 export function ContentRouter(props: ContentRouterProps) {

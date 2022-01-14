@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, {CSSProperties} from 'react';
+import type {CSSProperties} from 'react';
 
 const d = debug('imperium.examples.web.sample-layout.components.ContentExample');
 

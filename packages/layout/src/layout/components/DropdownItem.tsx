@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Accordion, Dropdown, Icon, Menu} from 'semantic-ui-react';
 import type {Data} from '../../types';
 import type {DropdownLayoutItem} from '../types';

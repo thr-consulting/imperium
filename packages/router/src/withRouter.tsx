@@ -1,6 +1,6 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
-import React from 'react';
+import type {ComponentType} from 'react';
 import {BrowserRouter, RouteProps} from 'react-router-dom';
 import {isImperiumRouterClientModule} from './types';
 
@@ -16,7 +16,7 @@ export default function withRouter(client: ImperiumClient): Hoc {
 		return memo;
 	}, [] as RouteProps[]);
 
-	return function routerHoc(WrappedComponent: React.ComponentType) {
+	return function routerHoc(WrappedComponent: ComponentType) {
 		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
 		function ComponentWithRouter(props: any) {

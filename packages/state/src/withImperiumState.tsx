@@ -1,7 +1,7 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import debug from 'debug';
-import React, {ComponentType} from 'react';
+import type {ComponentType} from 'react';
 import {Provider} from 'react-redux';
 import {isImperiumStateClientModule, StateClientOptions} from './types';
 
