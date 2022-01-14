@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-server",
-  "version": "8.2.1",
+  "version": "8.3.0",
   "private": true,
   "description": "Imperium server example project",
   "repository": {
@@ -29,9 +29,9 @@
     }
   },
   "dependencies": {
-    "@imperium/auth-server": "^8.1.1",
+    "@imperium/auth-server": "^8.3.0",
     "@imperium/connector": "^8.1.1",
-    "@imperium/example-domain": "^8.2.0",
+    "@imperium/example-domain": "^8.3.0",
     "@imperium/graphql-server": "^8.2.1",
     "@imperium/server": "^8.1.1",
     "@imperium/voyager": "^8.1.1",
@@ -52,7 +52,7 @@
     "redis": "^3.1.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^8.1.1"
+    "@imperium/dev": "^8.3.0"
   },
   "engines": {
     "node": ">=14"
