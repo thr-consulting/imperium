@@ -63,7 +63,7 @@
 		"@zerollup/ts-transform-paths": "^1.7.18",
 		"apollo-server-express": "^3.3.0",
 		"babel-loader": "^8.2.3",
-		"eslint": "^7.32.0",
+		"eslint": "^8.6.0",
 		"express": "^4.17.1",
 		"graphql": "^15.6.1",
 		"husky": "^7.0.2",
