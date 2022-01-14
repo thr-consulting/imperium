@@ -32,8 +32,8 @@
 		}
 	},
 	"dependencies": {
-		"@babel/core": "^7.14.0",
-		"@babel/register": "^7.13.16",
+		"@babel/core": "^7.16.7",
+		"@babel/register": "^7.16.9",
 		"@imperium/babel-preset-imperium": "^8.1.1",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
 		"@thx/common-webpack": "^15.1.1",
