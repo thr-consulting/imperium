@@ -1,7 +1,7 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
 import {isEqual} from 'lodash';
-import React, {DependencyList, EffectCallback, useEffect, useRef} from 'react';
+import {DependencyList, EffectCallback, useEffect, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {DataHooks} from '../../datahooks/DataHooks';
 import {actions} from '../../state';

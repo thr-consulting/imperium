@@ -2,7 +2,6 @@ import {useLogin} from '@imperium/auth-client';
 import {TForm, TFormProps} from '@thx/controls';
 import sha256 from '@thx/sha256';
 import debug from 'debug';
-import React from 'react';
 import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
 

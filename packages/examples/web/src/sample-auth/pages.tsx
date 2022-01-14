@@ -1,4 +1,3 @@
-import React from 'react';
 import {createPages} from '@imperium/layout';
 import {useCan} from '@imperium/auth-client';
 import {routes} from './routes';

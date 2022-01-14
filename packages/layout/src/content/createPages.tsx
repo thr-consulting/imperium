@@ -1,6 +1,5 @@
 import type {Routes, DefineRouteOptions, KeyedRouteRenderFns} from '@imperium/router';
 import debug from 'debug';
-import React from 'react';
 import {ContentComponent} from './components/ContentComponent';
 import type {Pages, RouteParameters} from './types';
 import {isPage} from './types';

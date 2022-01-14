@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, {ReactNode, useState} from 'react';
+import {ReactNode, useState} from 'react';
 import {Segment} from 'semantic-ui-react';
 import {useLayoutState} from '../../state';
 import {moveItems} from '../moveItems';

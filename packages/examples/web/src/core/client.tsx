@@ -3,7 +3,6 @@ import {ImperiumClient} from '@imperium/client';
 import {ContentRouter} from '@imperium/router';
 import '@thx/mingo-types';
 import debug from 'debug';
-import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import {clientModules} from './clientModules';
 import './styles.css';

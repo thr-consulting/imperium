@@ -1,6 +1,6 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Button} from 'semantic-ui-react';
 import type {ActionFormSidebarItem, ContentData} from '../types';
 import {getColor, getIcon, getText} from '../utils';

@@ -1,6 +1,6 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
-import React, {ComponentType} from 'react';
+import type {ComponentType} from 'react';
 import {DataHooks} from '../datahooks/DataHooks';
 import {PermissionHooks} from '../datahooks/PermissionHooks';
 import {isImperiumLayoutClientModule} from '../types';

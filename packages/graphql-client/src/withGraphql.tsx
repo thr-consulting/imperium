@@ -1,7 +1,7 @@
 import {ApolloClientOptions, ApolloProvider, NormalizedCacheObject} from '@apollo/client';
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
-import React, {useMemo, useState} from 'react';
+import {ComponentType, useMemo, useState} from 'react';
 import {ImperiumGraphqlContext} from './ImperiumGraphqlContext';
 import {createApolloClient, ImpApolloClient} from './createApolloClient';
 
@@ -19,7 +19,7 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 		d('Creating initial Apollo client');
 		const initialClient = createApolloClient({opts, client});
 
-		return function graphqlHoc(WrappedComponent: React.ComponentType) {
+		return function graphqlHoc(WrappedComponent: ComponentType) {
 			const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
 			function ComponentWithGraphql(props: any) {

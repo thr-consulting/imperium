@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 import {Segment} from 'semantic-ui-react';
 import {useOnStuffSubscription} from './subscribe';
 

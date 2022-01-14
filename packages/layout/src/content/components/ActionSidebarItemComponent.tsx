@@ -1,5 +1,4 @@
 import type {DefineRouteOptions} from '@imperium/router';
-import React from 'react';
 import {Button} from 'semantic-ui-react';
 import type {ActionSidebarItem, ContentData} from '../types';
 import {getColor, getIcon, getText} from '../utils';

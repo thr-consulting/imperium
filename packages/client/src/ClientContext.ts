@@ -1,4 +1,4 @@
-import React from 'react';
+import {createContext} from 'react';
 import type {ImperiumClient} from './ImperiumClient';
 
-export const ClientContext = React.createContext(null as ImperiumClient | null);
+export const ClientContext = createContext(null as ImperiumClient | null);

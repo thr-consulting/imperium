@@ -1,6 +1,5 @@
 import type {LayoutData} from '@imperium/layout/src';
 import loadable from '@loadable/component';
-import React from 'react';
 import {routes} from './routes';
 
 const GraphqlTest = loadable<any>(() => import('./components/GraphqlTest'));

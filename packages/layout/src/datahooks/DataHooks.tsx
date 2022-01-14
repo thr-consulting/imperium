@@ -1,6 +1,6 @@
 import debug from 'debug';
 import {compose} from 'lodash/fp';
-import React from 'react';
+import {Fragment} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ExecuteDataHook} from './ExecuteDataHook';
 import type {DataHookItem} from './types';
@@ -31,12 +31,12 @@ export function DataHooks({dataHooks}: DataHooksProps) {
 				if (Array.isArray(hook.dataHook)) {
 					return (
 						// eslint-disable-next-line react/no-array-index-key
-						<React.Fragment key={index}>
+						<Fragment key={index}>
 							{hook.dataHook.map((dh, index2) => {
 								// eslint-disable-next-line react/no-array-index-key
 								return <ExecuteDataHook key={index2} dataHook={dh} routeParams={routeParams} />;
 							})}
-						</React.Fragment>
+						</Fragment>
 					);
 				}
 				// eslint-disable-next-line react/no-array-index-key

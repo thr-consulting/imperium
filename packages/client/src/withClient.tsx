@@ -1,11 +1,11 @@
 // HoC that injects Imperium client as a prop
-import React from 'react';
+import type {ComponentType} from 'react';
 import {ClientContext} from './ClientContext';
 import type {ImperiumClient} from './ImperiumClient';
 import type {Hoc} from './types';
 
 export function withClient(client: ImperiumClient): Hoc {
-	return function clientHoc(WrappedComponent: React.ComponentType) {
+	return function clientHoc(WrappedComponent: ComponentType) {
 		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 		function ComponentWithClient(props: any) {
 			return (

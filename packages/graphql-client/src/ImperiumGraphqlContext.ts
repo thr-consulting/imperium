@@ -1,4 +1,4 @@
-import React from 'react';
+import {createContext} from 'react';
 // import type {ApolloClient} from '@apollo/client';
 
 export interface IImperiumGraphqlContext {
@@ -15,4 +15,4 @@ const defaultGraphqlContext = {
 	reconnect() {},
 };
 
-export const ImperiumGraphqlContext = React.createContext(defaultGraphqlContext);
+export const ImperiumGraphqlContext = createContext(defaultGraphqlContext);

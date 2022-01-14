@@ -1,6 +1,5 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
-import React from 'react';
 import type {ContentData, ContentHeader} from '../types';
 import styles from './styles.css';
 

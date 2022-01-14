@@ -1,4 +1,3 @@
-import React from 'react';
 import {Icon, Menu} from 'semantic-ui-react';
 import styles from './styles.css';
 

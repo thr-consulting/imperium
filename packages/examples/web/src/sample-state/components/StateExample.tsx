@@ -2,7 +2,6 @@ import {LocalDate} from '@js-joda/core';
 import {LocalDatePicker} from '@thx/controls';
 import {formatDate} from '@thx/date';
 import debug from 'debug';
-import React from 'react';
 import {useDispatch} from 'react-redux';
 import {setDate, useSampleState} from '../state';
 
