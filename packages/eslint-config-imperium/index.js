@@ -64,8 +64,8 @@ module.exports = {
 		'@typescript-eslint/explicit-module-boundary-types': ['off'],
 
 		// React
-		// 'react/jsx-uses-react': ['off'], // Enable once typescript 4.1 launches
-		// 'react/react-in-jsx-scope': ['off'], // Enable once typescript 4.1 launches
+		'react/jsx-uses-react': ['off'],
+		'react/react-in-jsx-scope': ['off'],
 		'react/forbid-prop-types': 'error',
 		'react/jsx-indent': ['off'],
 		'react/jsx-indent-props': ['off'],
@@ -99,6 +99,6 @@ module.exports = {
 
 		// React Hooks
 		'react-hooks/rules-of-hooks': 'error',
-		'react-hooks/exhaustive-deps': 'warn',
+		'react-hooks/exhaustive-deps': 'error',
 	},
 };

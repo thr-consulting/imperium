@@ -1,7 +1,7 @@
 import {ApolloClientOptions, ApolloProvider, NormalizedCacheObject} from '@apollo/client';
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {ImperiumGraphqlContext} from './ImperiumGraphqlContext';
 import {createApolloClient, ImpApolloClient} from './createApolloClient';
 
@@ -24,16 +24,17 @@ export function withGraphql(opts?: GraphqlClientOptions) {
 
 			function ComponentWithGraphql(props: any) {
 				const [apolloClient, setApolloClient] = useState<ImpApolloClient>(initialClient);
+				const recon = useMemo(() => {
+					return {
+						reconnect() {
+							const newApolloClient = createApolloClient({client, opts, apolloClient});
+							setApolloClient(newApolloClient);
+						},
+					};
+				}, [apolloClient]);
 
 				return (
-					<ImperiumGraphqlContext.Provider
-						value={{
-							reconnect() {
-								const newApolloClient = createApolloClient({client, opts, apolloClient});
-								setApolloClient(newApolloClient);
-							},
-						}}
-					>
+					<ImperiumGraphqlContext.Provider value={recon}>
 						<ApolloProvider client={apolloClient.client}>
 							<WrappedComponent {...props} />
 						</ApolloProvider>

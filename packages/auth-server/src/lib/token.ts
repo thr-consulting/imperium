@@ -5,7 +5,7 @@ import type {ServiceInfo} from '../types';
 
 const d = debug('imperium.auth-server.lib.token');
 
-function signJwt(payload: string | Record<string, unknown> = {}, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
+function signJwt(payload: string | Record<string, unknown>, secret: string, options: SignOptions = {expiresIn: '1h'}): string {
 	return sign(payload, secret, options);
 }
 

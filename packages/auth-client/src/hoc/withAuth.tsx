@@ -76,6 +76,14 @@ export function withAuth(opts?: AuthClientOptions) {
 					await cache.current.table('auth').clear();
 				}, []);
 
+				const authContext = useMemo(() => {
+					return {
+						authorization,
+						setAuthenticated,
+						clearCache,
+					};
+				}, [authorization, clearCache]);
+
 				useEffect(() => {
 					(async function iife() {
 						d('Configuring permission cache');
@@ -114,13 +122,7 @@ export function withAuth(opts?: AuthClientOptions) {
 				}, [authenticated]);
 
 				return (
-					<AuthContext.Provider
-						value={{
-							authorization,
-							setAuthenticated,
-							clearCache,
-						}}
-					>
+					<AuthContext.Provider value={authContext}>
 						<WrappedComponent {...props} />
 					</AuthContext.Provider>
 				);
