@@ -3,14 +3,14 @@ import * as Apollo from '@apollo/client';
 import type * as Types from '../../core/graphql';
 
 import Operations from './mutate.graphql';
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 export type MutateMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type MutateMutation = { changeSubscriptionValue?: Types.Maybe<{ id?: Types.Maybe<string> }> };
+export type MutateMutation = { changeSubscriptionValue?: { id?: string | null | undefined } | null | undefined };
 
 
-export type MutateType = { id?: Types.Maybe<string> };
+export type MutateType = { id?: string | null | undefined } | null | undefined;
 
 
 export type MutateMutationFn = Apollo.MutationFunction<MutateMutation, MutateMutationVariables>;

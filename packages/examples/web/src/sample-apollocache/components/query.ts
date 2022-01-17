@@ -3,17 +3,17 @@ import * as Apollo from '@apollo/client';
 import type * as Types from '../../core/graphql';
 
 import Operations from './query.graphql';
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 export type GetCacheListQueryVariables = Types.Exact<{
   filter: Types.Scalars['String'];
 }>;
 
 
-export type GetCacheListQuery = { getCacheList?: Types.Maybe<Array<Types.Maybe<{ id: string, name: string, type: string }>>> };
+export type GetCacheListQuery = { getCacheList?: Array<{ id: string, name: string, type: string } | null | undefined> | null | undefined };
 
 
 
-export type GetCacheListType = { id: string, name: string, type: string };
+export type GetCacheListType = Array<{ id: string, name: string, type: string } | null | undefined> | null | undefined;
 
 
 

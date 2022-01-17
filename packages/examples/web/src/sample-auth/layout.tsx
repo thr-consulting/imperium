@@ -1,6 +1,6 @@
-import debug from 'debug';
-import type {LayoutData} from '@imperium/layout';
 import {useCan} from '@imperium/auth-client';
+import type {LayoutData} from '@imperium/layout';
+import debug from 'debug';
 import {routes} from './routes';
 
 const d = debug('imperium.examples.web.sample-auth.layout');
