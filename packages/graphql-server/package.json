@@ -59,7 +59,7 @@
 		"graphql-scalar-objectid": "^0.1.2",
 		"js-money": "^0.6.3",
 		"lodash": "^4.17.21",
-		"subscriptions-transport-ws": "^0.9.19"
+		"subscriptions-transport-ws": "^0.11.0"
 	},
 	"peerDependencies": {
 		"express": "4.x"
