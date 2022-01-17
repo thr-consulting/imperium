@@ -36,7 +36,7 @@
 		"@imperium/client": "^8.3.0",
 		"@imperium/router": "^8.3.0",
 		"@imperium/state": "^8.3.0",
-		"@thx/controls": "^15.1.1",
+		"@thx/controls": "^16.0.0-alpha.0",
 		"debug": "^4.3.2",
 		"history": "^5.0.1",
 		"lodash": "^4.17.21",
@@ -47,7 +47,7 @@
 	},
 	"peerDependencies": {
 		"@reduxjs/toolkit": "1.x",
-		"mingo": "4.x",
+		"mingo": "5.x",
 		"react": "17.x",
 		"react-redux": "7.x",
 		"react-router-dom": "5.x"

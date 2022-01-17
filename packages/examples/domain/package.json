@@ -39,7 +39,7 @@
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "4.x",
-		"@thx/sharedcache": "15.x",
+		"@thx/sharedcache": "16.0.0-alpha.1",
 		"apollo-server-express": "3.x",
 		"winston": "3.x"
 	},
