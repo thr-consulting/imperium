@@ -35,8 +35,8 @@
     "@thx/sharedcache": "^16.0.0-alpha.1",
     "apollo-server-express": "^3.3.0",
     "debug": "^4.3.2",
-    "dotenv": "^14.1.0",
-    "graphql-subscriptions": "^1.2.1",
+    "dotenv": "^14.2.0",
+    "graphql-subscriptions": "^2.0.0",
     "redis": "^4.0.2",
     "winston": "^3.3.3"
   },

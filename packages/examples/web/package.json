@@ -47,7 +47,7 @@
 		"@thx/mingo-types": "^16.0.0-alpha.0",
 		"@thx/sha256": "^15.1.1",
 		"debug": "^4.3.2",
-		"graphql": "^15.6.0",
+		"graphql": "^16.2.0",
 		"mingo": "^5.0.0",
 		"react": "^17.0.2",
 		"react-datepicker": "^4.2.1",

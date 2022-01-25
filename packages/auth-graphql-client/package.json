@@ -33,14 +33,14 @@
 		}
 	},
 	"resolutions": {
-		"apollo-link-token-refresh/**/@apollo/client": "3.4.15"
+		"apollo-link-token-refresh/**/@apollo/client": "3.5.7"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.4.15",
 		"@imperium/auth-client": "^8.3.0",
 		"@imperium/graphql-client": "^8.3.0",
 		"@thx/env": "^15.1.1",
-		"apollo-link-token-refresh": "^0.3.2",
+		"apollo-link-token-refresh": "^0.3.3",
 		"debug": "^4.3.2"
 	},
 	"engines": {
