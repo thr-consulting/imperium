@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/eslint-config-imperium",
-	"version": "8.3.0",
+	"version": "9.0.0",
 	"description": "ESLint dependencies",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/client",
-	"version": "8.3.0",
+	"version": "9.0.0",
 	"description": "Imperium client core",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"

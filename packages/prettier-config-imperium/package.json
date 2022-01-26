@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/prettier-config-imperium",
-	"version": "8.1.1",
+	"version": "9.0.0",
 	"description": "Prettier config",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"

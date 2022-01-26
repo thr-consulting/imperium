@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-server",
-  "version": "8.3.0",
+  "version": "9.0.0",
   "private": true,
   "description": "Imperium server example project",
   "repository": {
@@ -29,12 +29,12 @@
     }
   },
   "dependencies": {
-    "@imperium/auth-server": "^8.3.0",
-    "@imperium/connector": "^8.1.1",
-    "@imperium/example-domain": "^8.3.0",
-    "@imperium/graphql-server": "^8.2.1",
-    "@imperium/server": "^8.1.1",
-    "@imperium/voyager": "^8.1.1",
+    "@imperium/auth-server": "^9.0.0",
+    "@imperium/connector": "^9.0.0",
+    "@imperium/example-domain": "^9.0.0",
+    "@imperium/graphql-server": "^9.0.0",
+    "@imperium/server": "^9.0.0",
+    "@imperium/voyager": "^9.0.0",
     "@js-joda/core": "^5.1.0",
     "@mikro-orm/cli": "^4.5.9",
     "@mikro-orm/core": "^4.5.9",
@@ -52,7 +52,7 @@
     "redis": "^4.0.2"
   },
   "devDependencies": {
-    "@imperium/dev": "^8.3.0"
+    "@imperium/dev": "^9.0.0"
   },
   "engines": {
     "node": ">=14"
