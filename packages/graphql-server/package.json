@@ -37,7 +37,7 @@
 		}
 	},
 	"resolutions": {
-		"@graphql-tools/**/graphql": "^15.6.1"
+		"@graphql-tools/**/graphql": "^16.3.0"
 	},
 	"dependencies": {
 		"@graphql-tools/merge": "^8.1.2",
@@ -45,7 +45,7 @@
 		"@graphql-tools/utils": "^8.2.5",
 		"@imperium/server": "^8.1.1",
 		"@js-joda/core": "^5.1.0",
-		"@thx/date": "^16.0.0-alpha.0",
+		"@thx/date": "^15.3.0",
 		"@thx/env": "^15.1.1",
 		"@thx/money": "^15.1.1",
 		"apollo-server-core": "^3.4.0",
@@ -54,7 +54,7 @@
 		"apollo-server-types": "^3.3.0",
 		"body-parser": "^1.19.0",
 		"debug": "^4.3.2",
-		"graphql": "^16.2.0",
+		"graphql": "^16.3.0",
 		"graphql-custom-types": "^1.6.0",
 		"graphql-scalar-objectid": "^0.1.2",
 		"js-money": "^0.6.3",

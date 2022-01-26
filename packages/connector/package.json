@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"@thx/promise-sequential": "^15.1.1",
-		"@thx/random": "^16.0.0-alpha.0",
+		"@thx/random": "^15.3.0",
 		"@thx/util": "^15.2.0"
 	},
 	"engines": {
