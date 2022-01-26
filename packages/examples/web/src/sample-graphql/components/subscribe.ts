@@ -3,15 +3,15 @@ import * as Apollo from '@apollo/client';
 import type * as Types from '../../core/graphql';
 
 import Operations from './subscribe.graphql';
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 export type OnStuffSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type OnStuffSubscription = { subscriptionValueChanged?: Types.Maybe<{ id?: Types.Maybe<string> }> };
+export type OnStuffSubscription = { subscriptionValueChanged?: { id?: string | null | undefined } | null | undefined };
 
 
 
-export type OnStuffType = { id?: Types.Maybe<string> };
+export type OnStuffType = { id?: string | null | undefined } | null | undefined;
 
 
 

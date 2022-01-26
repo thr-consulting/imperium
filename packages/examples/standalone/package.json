@@ -32,12 +32,12 @@
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",
     "@thx/env": "^15.1.1",
-    "@thx/sharedcache": "^15.1.1",
+    "@thx/sharedcache": "^15.3.0",
     "apollo-server-express": "^3.3.0",
     "debug": "^4.3.2",
-    "dotenv": "^10.0.0",
-    "graphql-subscriptions": "^1.2.1",
-    "redis": "^3.1.2",
+    "dotenv": "^14.2.0",
+    "graphql-subscriptions": "^2.0.0",
+    "redis": "^4.0.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

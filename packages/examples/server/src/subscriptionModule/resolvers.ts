@@ -40,7 +40,7 @@ export function resolvers(server: ImperiumServer<Context>): Resolvers {
 			subscriptionValueChanged: {
 				subscribe(obj, params, ctx) {
 					const pubsub = getConnector('pubsub', ctx.connectors);
-					return pubsub.asyncIterator(['VALUECHANGED']);
+					return pubsub.asyncIterator(['VALUECHANGED']) as unknown as AsyncIterable<any>;
 				},
 			},
 		},

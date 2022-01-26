@@ -3,6 +3,7 @@ import type {LocalDate, LocalTime} from '@js-joda/core';
 import type { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import type { Context } from '~core/context';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -33,18 +34,11 @@ export type CacheList = {
   type: Scalars['String'];
 };
 
-
-
-
-
-
 export type Mutation = {
   __typename?: 'Mutation';
   changeSubscriptionValue?: Maybe<SubscriptionValue>;
   root?: Maybe<Scalars['String']>;
 };
-
-
 
 export type Query = {
   __typename?: 'Query';
@@ -71,9 +65,6 @@ export type SubscriptionValue = {
   id?: Maybe<Scalars['String']>;
 };
 
-
-
-
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -97,7 +88,7 @@ export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -144,10 +135,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CacheList: ResolverTypeWrapper<CacheList>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Email: ResolverTypeWrapper<Scalars['Email']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   LocalDate: ResolverTypeWrapper<Scalars['LocalDate']>;
   LocalTime: ResolverTypeWrapper<Scalars['LocalTime']>;
   Money: ResolverTypeWrapper<Scalars['Money']>;
@@ -155,21 +147,21 @@ export type ResolversTypes = ResolversObject<{
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']>;
   Password: ResolverTypeWrapper<Scalars['Password']>;
   Query: ResolverTypeWrapper<{}>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
   SubscriptionValue: ResolverTypeWrapper<SubscriptionValue>;
   URL: ResolverTypeWrapper<Scalars['URL']>;
   UUID: ResolverTypeWrapper<Scalars['UUID']>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  Boolean: Scalars['Boolean'];
   CacheList: CacheList;
-  String: Scalars['String'];
   DateTime: Scalars['DateTime'];
   Email: Scalars['Email'];
+  Int: Scalars['Int'];
   LocalDate: Scalars['LocalDate'];
   LocalTime: Scalars['LocalTime'];
   Money: Scalars['Money'];
@@ -177,13 +169,12 @@ export type ResolversParentTypes = ResolversObject<{
   ObjectId: Scalars['ObjectId'];
   Password: Scalars['Password'];
   Query: {};
-  Int: Scalars['Int'];
+  String: Scalars['String'];
   Subscription: {};
   SubscriptionValue: SubscriptionValue;
   URL: Scalars['URL'];
   UUID: Scalars['UUID'];
   Upload: Scalars['Upload'];
-  Boolean: Scalars['Boolean'];
 }>;
 
 export type CacheListResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CacheList'] = ResolversParentTypes['CacheList']> = ResolversObject<{

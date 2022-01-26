@@ -3,15 +3,15 @@ import * as Apollo from '@apollo/client';
 import type * as Types from '../../core/graphql';
 
 import Operations from './query.graphql';
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 export type QQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type QQuery = { getSubscriptionValue?: Types.Maybe<{ id?: Types.Maybe<string> }> };
+export type QQuery = { getSubscriptionValue?: { id?: string | null | undefined } | null | undefined };
 
 
 
-export type QType = { id?: Types.Maybe<string> };
+export type QType = { id?: string | null | undefined } | null | undefined;
 
 
 

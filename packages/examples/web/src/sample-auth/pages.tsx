@@ -1,8 +1,8 @@
-import {createPages} from '@imperium/layout';
 import {useCan} from '@imperium/auth-client';
-import {routes} from './routes';
-import Login from './components/Login';
+import {createPages} from '@imperium/layout';
 import ComponentUsingAuth from './components/ComponentUsingAuth';
+import Login from './components/Login';
+import {routes} from './routes';
 
 export const routeProps = createPages(routes, {
 	login: {
