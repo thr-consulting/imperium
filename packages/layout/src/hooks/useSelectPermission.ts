@@ -1,4 +1,4 @@
-import flowRight from 'lodash/flowRight';
+import {flowRight} from 'lodash-es';
 import type {Data, PermissionSelectorHook} from '../types';
 
 export function useSelectPermission(data: Data, permissionSelectorHook?: PermissionSelectorHook | PermissionSelectorHook[]) {

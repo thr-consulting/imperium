@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import type {AuthenticatedUser, Connectors} from '@imperium/connector';
+import {Environment} from '@thx/env';
 import debug from 'debug';
 import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
-import isFunction from 'lodash/isFunction';
-/* eslint-disable no-console */
-import './defaults';
+import {isFunction} from 'lodash-es';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
@@ -56,6 +56,16 @@ export class ImperiumServer<Context> {
 		d('Starting ImperiumServer...');
 		if (this._expressApp) throw new Error('Server already started');
 
+		this._modules = this._moduleFactoryFn();
+		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
+
+		// Add environment defaults for each module
+		this.modules.forEach(module => {
+			if (module.environmentDefaults) {
+				Environment.addDefaults(module.environmentDefaults);
+			}
+		});
+
 		// Connect connectors
 		await this.connectors.connect();
 
@@ -64,9 +74,6 @@ export class ImperiumServer<Context> {
 			this._expressApp = express();
 			this._httpServer = createServer(this._expressApp);
 		}
-
-		this._modules = this._moduleFactoryFn();
-		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
 
 		// Module endpoints
 		d('Creating module endpoints');

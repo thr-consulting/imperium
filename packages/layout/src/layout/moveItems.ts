@@ -1,5 +1,5 @@
 import debug from 'debug';
-import groupBy from 'lodash/groupBy';
+import {groupBy} from 'lodash-es';
 import type {LayoutItem} from './types';
 import {isDropdownLayoutItem, isMenuLayoutItem} from './types';
 

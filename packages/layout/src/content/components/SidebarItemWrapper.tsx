@@ -41,10 +41,12 @@ export function SidebarItemWrapper<T extends DefineRouteOptions, K extends keyof
 	}
 
 	if (isActionSidebarItem(item)) {
+		// @ts-ignore I'm not sure why this error is occurring -mk
 		return <ActionSidebarItemComponent item={item} data={data} />;
 	}
 
 	if (isActionFormSidebarItem(item)) {
+		// @ts-ignore I'm not sure why this error is occurring -mk
 		return <ActionFormSidebarItemComponent item={item} data={data} />;
 	}
 

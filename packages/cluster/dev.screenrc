@@ -1,0 +1,8 @@
+split
+
+screen -t "@imperium/cluster TS" yarn ts --watch
+screen -t "@imperium/cluster Build" yarn build --watch
+
+select 0
+focus down
+select 1

@@ -1,8 +1,7 @@
 import {useAuth} from '@imperium/auth-client';
 import debug from 'debug';
 import type {Location} from 'history';
-import compact from 'lodash/compact';
-import merge from 'lodash/merge';
+import {compact, merge} from 'lodash-es';
 import queryString from 'querystring';
 import {useLocation} from 'react-router-dom';
 import {useLayoutState} from '../state';

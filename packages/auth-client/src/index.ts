@@ -1,5 +1,4 @@
 import type {ImperiumClientModule} from '@imperium/client';
-import 'whatwg-fetch';
 import {AuthClientOptions, withAuth} from './hoc/withAuth';
 
 export function authClientModule(opts?: AuthClientOptions): ImperiumClientModule {

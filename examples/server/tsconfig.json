@@ -1,0 +1,13 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"emitDeclarationOnly": false,
+		"noEmit": true,
+		"baseUrl": ".",
+		"paths": {
+			"~core/*": ["./src/core/*"],
+			"~basicModule/*": ["./src/basicModule/*"]
+		}
+	},
+	"include": ["src/index.ts", "types/*.d.ts"]
+}

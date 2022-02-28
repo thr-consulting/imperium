@@ -1,0 +1,63 @@
+{
+  "name": "@imperium/example-server",
+  "version": "9.0.0",
+  "private": true,
+  "description": "Imperium server example project",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darkadept/imperium.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Mike Kornelson <darkadept@durbn.net>",
+  "type": "module",
+  "scripts": {
+    "build": "thx build.roll",
+    "clean": "thx clean",
+    "codegen": "thx codegen",
+    "deps": "thx -i ~core,~basicModule deps",
+    "lint": "thx lint",
+    "lint.fix": "thx lint.fix",
+    "orm": "mikro-orm",
+    "sort": "thx sort",
+    "start": "yarn -s build --watch",
+    "start.dev": "node --enable-source-maps index.js",
+    "ts": "thx ts"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig-eslint.json"
+    }
+  },
+  "dependencies": {
+    "@imperium/auth-server": "^9.0.0",
+    "@imperium/authorization": "^9.0.0",
+    "@imperium/cluster": "^9.0.0",
+    "@imperium/connector": "^9.0.0",
+    "@imperium/example-domain": "^9.0.0",
+    "@imperium/graphql-server": "^9.0.0",
+    "@imperium/server": "^9.0.0",
+    "@imperium/voyager": "^9.0.0",
+    "@mikro-orm/cli": "^4.5.10",
+    "@mikro-orm/core": "^4.5.10",
+    "@mikro-orm/postgresql": "^4.5.10",
+    "@thx/env": "^16.0.0-alpha.23",
+    "@thx/sharedcache": "^16.0.0-alpha.23",
+    "@thx/util": "^16.0.0-alpha.23",
+    "apollo-server-express": "^3.6.3",
+    "debug": "^4.3.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "graphql": "^16.3.0",
+    "graphql-subscriptions": "^2.0.0",
+    "redis": "^4.0.4"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./mikroorm.ts"
+    ]
+  }
+}

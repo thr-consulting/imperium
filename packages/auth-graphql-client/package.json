@@ -8,45 +8,43 @@
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "client.js",
-	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"type": "module",
+	"main": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
 	"files": [
-		"client.js",
 		"dist"
 	],
 	"scripts": {
-		"build": "thx build",
-		"build:dev": "thx build:dev",
-		"build:prod": "thx build:prod",
+		"build": "thx build.roll",
 		"clean": "thx clean",
 		"deps": "thx deps",
 		"lint": "thx lint",
-		"lint:fix": "thx lint:fix",
+		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"ts": "thx ts",
-		"typedoc": "typedoc"
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {
 			"project": "./tsconfig-eslint.json"
 		}
 	},
-	"resolutions": {
-		"apollo-link-token-refresh/**/@apollo/client": "3.5.7"
-	},
 	"dependencies": {
-		"@apollo/client": "^3.5.8",
+		"@apollo/client": "^3.5.9",
 		"@imperium/auth-client": "^9.0.0",
 		"@imperium/graphql-client": "^9.0.0",
-		"@thx/env": "^15.1.1",
-		"apollo-link-token-refresh": "^0.3.4",
+		"@thx/env": "^16.0.0-alpha.23",
+		"apollo-link-token-refresh": "^0.4.0",
 		"debug": "^4.3.2"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=16"
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"Xresolutions": {
+		"apollo-link-token-refresh/**/@apollo/client": "3.5.7"
 	}
 }

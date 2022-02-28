@@ -1,1 +1,1 @@
-module.exports = {...require('@imperium/prettier-config-imperium')};
+module.exports = {...require('@thx/prettier-config-thx')};

@@ -1,5 +1,4 @@
-import memoize from 'lodash/memoize';
-import sortBy from 'lodash/sortBy';
+import {memoize, sortBy} from 'lodash-es';
 import type {WeightedItem} from './commonItems';
 
 /**

@@ -1,10 +1,12 @@
 import type {ImperiumServer} from '@imperium/server';
 import {Environment} from '@thx/env';
-import {json} from 'body-parser';
+import bodyParser from 'body-parser';
 import debug from 'debug';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
+
+const {json} = bodyParser;
 
 interface ForgotPasswordInfo {
 	email: string;

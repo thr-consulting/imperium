@@ -6,7 +6,7 @@ import type {ApolloServerExpressConfig, CorsOptions, ExpressContext} from 'apoll
 import {ApolloServer} from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import debug from 'debug';
-import compact from 'lodash/compact';
+import {compact} from 'lodash-es';
 import {apolloErrorHandler} from './ApolloErrorHandler';
 import {createSubscriptionServer} from './createSubscriptionServer';
 import {makeSchema} from './makeSchema';

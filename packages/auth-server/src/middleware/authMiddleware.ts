@@ -3,10 +3,13 @@ import {Environment} from '@thx/env';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
 import jwt from 'express-jwt';
-import {verify, Algorithm} from 'jsonwebtoken';
+import jsonwebtoken from 'jsonwebtoken';
+import type {Algorithm} from 'jsonwebtoken';
 import type {AuthMiddlewareConfig} from '../types';
 
 const d = debug('imperium.auth-server.middleware.authMiddleware');
+
+const {verify} = jsonwebtoken;
 
 export interface Auth {
 	id: string;
@@ -14,14 +17,14 @@ export interface Auth {
 
 function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 	return (req, res, next) => {
+		const authAccessTokenSecret = Environment.getString('ACCESS_TOKEN_SECRET');
 		const authAccessTokenAlgorithms = Environment.getString('ACCESS_TOKEN_ALGORITHMS')
 			.split(',')
 			.map(s => s.trim()) as Algorithm[];
 		const {token} = req.query;
 
 		if (token && typeof token === 'string') {
-			// @ts-ignore
-			req.user = verify(token, env.authAccessTokenSecret, {
+			req.user = verify(token, authAccessTokenSecret, {
 				algorithms: authAccessTokenAlgorithms,
 			});
 		} else if (config.credentialsRequired) {

@@ -1,6 +1,6 @@
 import type {ImperiumServer} from '@imperium/server';
 import {Environment, getCorsOrigin} from '@thx/env';
-import {json} from 'body-parser';
+import bodyParser from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import ms from 'ms';
@@ -9,6 +9,8 @@ import {isLoginInfo} from '../lib/typeguards';
 import type {GetAuthenticationFn, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.loginEndpoint');
+
+const {json} = bodyParser;
 
 export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
 	const authLoginUrl = Environment.getString('AUTH_LOGIN_URL');

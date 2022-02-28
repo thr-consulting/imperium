@@ -8,26 +8,21 @@
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "server.js",
-	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"type": "module",
+	"main": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
 	"files": [
-		"server.js",
-		"config.js",
-		"config.d.ts",
 		"dist"
 	],
 	"scripts": {
-		"build": "thx build",
-		"build:dev": "thx build:dev",
-		"build:prod": "thx build:prod",
+		"build": "thx build.roll",
 		"clean": "thx clean",
-		"deps": "thx -p config.js deps",
+		"deps": "thx deps",
 		"lint": "thx lint",
-		"lint:fix": "thx lint:fix",
+		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"test": "thx test",
-		"test:watch": "thx test:watch",
 		"ts": "thx ts",
 		"typedoc": "typedoc"
 	},
@@ -40,32 +35,32 @@
 		"@graphql-tools/**/graphql": "^16.3.0"
 	},
 	"dependencies": {
-		"@graphql-tools/merge": "^8.1.2",
-		"@graphql-tools/schema": "^8.2.0",
-		"@graphql-tools/utils": "^8.2.5",
+		"@graphql-tools/merge": "^8.2.2",
+		"@graphql-tools/schema": "^8.3.1",
+		"@graphql-tools/utils": "^8.6.1",
 		"@imperium/server": "^9.0.0",
-		"@js-joda/core": "^5.1.0",
-		"@thx/date": "^15.3.0",
-		"@thx/env": "^15.1.1",
-		"@thx/money": "^15.1.1",
-		"apollo-server-core": "^3.4.0",
-		"apollo-server-express": "^3.4.0",
-		"apollo-server-plugin-base": "^3.3.0",
-		"apollo-server-types": "^3.3.0",
-		"body-parser": "^1.19.0",
-		"debug": "^4.3.2",
+		"@js-joda/core": "^5.2.0",
+		"@thx/date": "^16.0.0-alpha.23",
+		"@thx/env": "^16.0.0-alpha.23",
+		"@thx/money": "^16.0.0-alpha.23",
+		"apollo-server-core": "^3.6.3",
+		"apollo-server-express": "^3.6.3",
+		"apollo-server-plugin-base": "^3.5.1",
+		"apollo-server-types": "^3.5.1",
+		"body-parser": "^1.19.2",
+		"debug": "^4.3.3",
 		"graphql": "^16.3.0",
 		"graphql-custom-types": "^1.6.0",
 		"graphql-scalar-objectid": "^0.1.2",
 		"js-money": "^0.6.3",
-		"lodash": "^4.17.21",
+		"lodash-es": "^4.17.21",
 		"subscriptions-transport-ws": "^0.11.0"
 	},
 	"peerDependencies": {
 		"express": "4.x"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=16"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,9 +1,6 @@
 import {Environment} from '@thx/env';
 import debug from 'debug';
-import flowRight from 'lodash/flowRight';
-import isArray from 'lodash/isArray';
-import isFunction from 'lodash/isFunction';
-import sortBy from 'lodash/orderBy';
+import {isFunction, sortBy, isArray, flowRight} from 'lodash-es';
 import type {ReactNode} from 'react';
 import {render} from 'react-dom';
 import type {RootProps} from './Root';

@@ -1,12 +1,14 @@
 import type {IResolvers} from '@graphql-tools/utils';
 import type {DocumentNode} from 'graphql';
-import {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} from 'graphql-custom-types';
+import graphqlCustomTypes from 'graphql-custom-types';
 import GraphQLObjectId from 'graphql-scalar-objectid';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
 import {GraphQLMoney} from './GraphQLMoney';
 import Root from './Root.graphqls';
 import Scalars from './Scalars.graphqls';
+
+const {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} = graphqlCustomTypes;
 
 export const schema: DocumentNode[] = [Scalars, Root];
 export const resolvers: IResolvers = {

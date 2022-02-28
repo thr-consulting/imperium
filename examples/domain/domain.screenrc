@@ -1,0 +1,8 @@
+split
+
+screen -t "Domain TS" yarn ts --watch
+screen -t "Domain Build" yarn build --watch
+
+select 0
+focus down
+select 1

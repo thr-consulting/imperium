@@ -8,20 +8,20 @@
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "index.js",
-	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"type": "module",
+	"main": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
 	"files": [
 		"index.js",
 		"dist"
 	],
 	"scripts": {
-		"build": "thx build",
-		"build:dev": "thx build:dev",
-		"build:prod": "thx build:prod",
+		"build": "thx build.roll",
 		"clean": "thx clean",
 		"deps": "thx deps",
 		"lint": "thx lint",
-		"lint:fix": "thx lint:fix",
+		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
 		"ts": "thx ts",
@@ -33,12 +33,12 @@
 		}
 	},
 	"dependencies": {
-		"@thx/promise-sequential": "^15.1.1",
-		"@thx/random": "^15.3.0",
-		"@thx/util": "^15.2.0"
+		"@thx/promise-sequential": "^16.0.0-alpha.27",
+		"@thx/random": "^16.0.0-alpha.27",
+		"@thx/util": "^16.0.0-alpha.27"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=16"
 	},
 	"publishConfig": {
 		"access": "public"

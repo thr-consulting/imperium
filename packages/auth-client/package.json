@@ -8,24 +8,22 @@
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "client.js",
-	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"type": "module",
+	"main": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
 	"files": [
-		"client.js",
 		"dist"
 	],
 	"scripts": {
-		"build": "thx build",
-		"build:dev": "thx build:dev",
-		"build:prod": "thx build:prod",
+		"build": "thx build.roll",
 		"clean": "thx clean",
 		"deps": "thx deps",
 		"lint": "thx lint",
-		"lint:fix": "thx lint:fix",
+		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"ts": "thx ts",
-		"typedoc": "typedoc"
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -35,17 +33,17 @@
 	"dependencies": {
 		"@imperium/authorization": "^9.0.0",
 		"@imperium/client": "^9.0.0",
-		"@thx/env": "^15.1.1",
-		"debug": "^4.3.2",
-		"dexie": "^3.0.3",
+		"@thx/env": "^16.0.0-alpha.23",
+		"debug": "^4.3.3",
+		"dexie": "^3.2.1",
 		"jwt-decode": "^3.1.2",
-		"whatwg-fetch": "^3.6.2"
+		"node-fetch": "^3.2.0"
 	},
 	"peerDependencies": {
 		"react": "17.x"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=16"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,6 +1,5 @@
 import debug from 'debug';
-import groupBy from 'lodash/groupBy';
-import sortBy from 'lodash/sortBy';
+import {groupBy, sortBy} from 'lodash-es';
 import type {IndexedValue} from './types';
 
 const d = debug('imperium.authorization.keysSplitAndSort');
