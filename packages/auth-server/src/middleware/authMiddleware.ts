@@ -17,8 +17,8 @@ export interface Auth {
 
 function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 	return (req, res, next) => {
-		const authAccessTokenSecret = Environment.getString('ACCESS_TOKEN_SECRET');
-		const authAccessTokenAlgorithms = Environment.getString('ACCESS_TOKEN_ALGORITHMS')
+		const authAccessTokenSecret = Environment.getString('IMP_ACCESS_TOKEN_SECRET');
+		const authAccessTokenAlgorithms = Environment.getString('IMP_ACCESS_TOKEN_ALGORITHMS')
 			.split(',')
 			.map(s => s.trim()) as Algorithm[];
 		const {token} = req.query;
@@ -35,8 +35,8 @@ function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 }
 
 export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
-	const authAccessTokenSecret = Environment.getString('ACCESS_TOKEN_SECRET');
-	const authAccessTokenAlgorithms = Environment.getString('ACCESS_TOKEN_ALGORITHMS')
+	const authAccessTokenSecret = Environment.getString('IMP_ACCESS_TOKEN_SECRET');
+	const authAccessTokenAlgorithms = Environment.getString('IMP_ACCESS_TOKEN_ALGORITHMS')
 		.split(',')
 		.map(s => s.trim()) as Algorithm[];
 

@@ -21,9 +21,9 @@ const d = debug('imperium.graphql-server.endpoints');
 export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 	return async (server: ImperiumServer<any>): Promise<void> => {
 		const isDevelopment = Environment.isDevelopment();
-		const graphqlUrl = Environment.getString('GRAPHQL_URL');
+		const graphqlUrl = Environment.getString('IMP_GRAPHQL_URL');
 
-		const graphqlBodyLimit = Environment.getString('GRAPHQL_BODY_LIMIT');
+		const graphqlBodyLimit = Environment.getString('IMP_GRAPHQL_BODY_LIMIT');
 
 		const schema = makeSchema({server});
 

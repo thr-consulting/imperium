@@ -25,12 +25,12 @@ export function runCluster(clusterWorker: ClusterWorker) {
 		 * SERVER MASTER ENTRY POINT
 		 **************************************************************************************** */
 		// Get number of processes to run
-		const numProcesses = process.env.IMPERIUM_PROCESSES === '0' ? os.cpus().length : process.env.IMPERIUM_PROCESSES || 1;
+		const numProcesses = process.env.IMP_PROCESSES === '0' ? os.cpus().length : process.env.IMP_PROCESSES || 1;
 
 		log.info(`Imperium Master startup (Workers: ${numProcesses})`, {environment: util.inspect(process.env, true, null, false)});
 
-		const workerCrashDelay = parseInt(process.env.IMPERIUM_WORKER_CRASH_DELAY || '4000', 10); // Milliseconds to wait before restarting a worker process instead of counting towards crash max.
-		const workerCrashMax = parseInt(process.env.IMPERIUM_WORKER_CRASH_MAX || '5', 10); // Number of times a worker is allowed to crash before killing the server.
+		const workerCrashDelay = parseInt(process.env.IMP_WORKER_CRASH_DELAY || '4000', 10); // Milliseconds to wait before restarting a worker process instead of counting towards crash max.
+		const workerCrashMax = parseInt(process.env.IMP_WORKER_CRASH_MAX || '5', 10); // Number of times a worker is allowed to crash before killing the server.
 
 		let workerCrashCounter = 0;
 		let workerForkTime = process.hrtime.bigint();

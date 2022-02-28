@@ -64,19 +64,15 @@ export class Authorization<ExtraData = any, Context = any> {
 		this.extraData = opts?.extraData;
 		if (opts?.lookup) this.#lookup = opts.lookup;
 
-		// d(`AUTH_PERMISSION_CACHE_EXPIRES: ${Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES')}`);
-		// d(`AUTH_PERMISSION_DATALOADER_LRU_MAXAGE: ${Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAXAGE')}`);
+		// d(`AUTH_PERMISSION_CACHE_EXPIRES: ${Environment.getInt('IMP_PERMISSION_CACHE_EXPIRES')}`);
+		// d(`AUTH_PERMISSION_DATALOADER_LRU_MAXAGE: ${Environment.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE')}`);
 
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;
 		this.lrucache = new LruCache({
-			max: Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAX'),
-			maxAge: Environment.getInt('AUTH_PERMISSION_DATALOADER_LRU_MAXAGE') * 1000,
+			max: Environment.getInt('IMP_PERMISSION_DATALOADER_LRU_MAX'),
+			ttl: Environment.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE') * 1000,
 		});
-		// @ts-expect-error
-		this.lrucache.delete = this.lrucache.del;
-		// @ts-expect-error
-		this.lrucache.clear = this.lrucache.reset;
 		this.dataloader = new DataLoader(
 			async (keys: readonly string[]): Promise<boolean[]> => {
 				return keysSplitAndSort(
@@ -102,7 +98,7 @@ export class Authorization<ExtraData = any, Context = any> {
 						if (thisAuthorization.cache) {
 							await Promise.all(
 								valuesFromLookup.map(async (value, index) => {
-									await thisAuthorization.cache?.set(keyWrapperArr[index].key, value, Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES'));
+									await thisAuthorization.cache?.set(keyWrapperArr[index].key, value, Environment.getInt('IMP_PERMISSION_CACHE_EXPIRES'));
 								}),
 							);
 						}
@@ -116,7 +112,7 @@ export class Authorization<ExtraData = any, Context = any> {
 					},
 				);
 			},
-			// @ts-expect-error
+			// @ts-expect-error TODO check to make sure the new lru-cache suits dataloader
 			{cacheMap: this.lrucache},
 		);
 	}

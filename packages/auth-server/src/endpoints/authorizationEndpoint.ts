@@ -13,7 +13,7 @@ const d = debug('imperium.auth-server.endpoints.authorizationEndpoint');
 const {json} = bodyParser;
 
 export function authorizationEndpoint(server: ImperiumServer<any>): void {
-	const authPermissionUrl = Environment.getString('AUTH_PERMISSION_URL');
+	const authPermissionUrl = Environment.getString('IMP_PERMISSION_URL');
 
 	d(`Adding auth permission endpoint: ${authPermissionUrl}`);
 

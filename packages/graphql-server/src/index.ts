@@ -13,10 +13,10 @@ export function graphqlServerModule<T>(config?: GraphqlServerModuleConfig<T>): I
 		name: '@imperium/graphql-server',
 		endpoints: endpoints<T>(config),
 		environmentDefaults: {
-			GRAPHQL_URL: '/api/graphql',
+			IMP_GRAPHQL_URL: '/api/graphql',
 			// CORS_ORIGIN: '', // No default
-			GRAPHQL_ENABLE_SUBSCRIPTIONS: true,
-			GRAPHQL_BODY_LIMIT: '1mb',
+			IMP_GRAPHQL_ENABLE_SUBSCRIPTIONS: true,
+			IMP_GRAPHQL_BODY_LIMIT: '1mb',
 		},
 	};
 }

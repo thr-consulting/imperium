@@ -9,8 +9,8 @@ import type {GetAuthenticationFn} from '../types';
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 
 export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	const authRefreshUrl = Environment.getString('AUTH_REFRESH_URL');
-	const authRefreshCookieName = Environment.getString('AUTH_REFRESH_COOKIE_NAME');
+	const authRefreshUrl = Environment.getString('IMP_REFRESH_URL');
+	const authRefreshCookieName = Environment.getString('IMP_REFRESH_COOKIE_NAME');
 
 	d(`Adding auth refresh endpoint: ${authRefreshUrl}`);
 

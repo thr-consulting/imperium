@@ -17,7 +17,7 @@ function isForgotPasswordInfo(forgotPasswordInfo: any): forgotPasswordInfo is Fo
 }
 
 export function forgotPasswordEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	const authForgotPasswordUrl = Environment.getString('AUTH_FORGOTPASSWORD_URL');
+	const authForgotPasswordUrl = Environment.getString('IMP_RESET_URL');
 
 	d(`Adding auth forgot password endpoint: ${authForgotPasswordUrl}`);
 

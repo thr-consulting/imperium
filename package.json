@@ -50,7 +50,7 @@
 		"@types/loadable__component": "^5.13.4",
 		"@types/lodash": "^4.14.178",
 		"@types/lodash-es": "^4.17.6",
-		"@types/lru-cache": "^5.1.1",
+		"@types/lru-cache": "^7.4.0",
 		"@types/lzbase62": "^2.0.0",
 		"@types/node": "^16.11.25",
 		"@types/react-dom": "^17.0.11",

@@ -13,8 +13,8 @@ function signJwt(payload: string | Record<string, unknown>, secret: string, opti
 }
 
 export function createAccessToken(serviceInfo: ServiceInfo): string {
-	const authAccessTokenSecret = Environment.getString('ACCESS_TOKEN_SECRET');
-	const authAccessTokenExpires = Environment.getString('AUTH_ACCESS_TOKEN_EXPIRES');
+	const authAccessTokenSecret = Environment.getString('IMP_ACCESS_TOKEN_SECRET');
+	const authAccessTokenExpires = Environment.getString('IMP_ACCESS_TOKEN_EXPIRES');
 
 	return signJwt(
 		{
@@ -26,9 +26,9 @@ export function createAccessToken(serviceInfo: ServiceInfo): string {
 }
 
 export function createRefreshToken(identifier: string, rememberDevice?: boolean): string {
-	const authRefreshTokenSecret = Environment.getString('REFRESH_TOKEN_SECRET');
-	const authRefreshTokenExpiresLong = Environment.getString('AUTH_REFRESH_TOKEN_EXPIRES_LONG');
-	const authRefreshTokenExpiresShort = Environment.getString('AUTH_REFRESH_TOKEN_EXPIRES_SHORT');
+	const authRefreshTokenSecret = Environment.getString('IMP_REFRESH_TOKEN_SECRET');
+	const authRefreshTokenExpiresLong = Environment.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG');
+	const authRefreshTokenExpiresShort = Environment.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT');
 
 	return signJwt(
 		{
