@@ -1,4 +1,5 @@
 import {rollupLibConfig} from '@thx/rollup-config-thx';
+import graphql from '@rollup/plugin-graphql';
 
 const isWatching = process.env.ROLLUP_WATCH;
 
@@ -10,4 +11,7 @@ export default rollupLibConfig({
 	watch: {
 		clearScreen: !isWatching,
 	},
+	plugins: [
+		graphql(),
+	],
 });

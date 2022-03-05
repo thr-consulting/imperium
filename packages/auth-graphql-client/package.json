@@ -34,7 +34,7 @@
 		"@apollo/client": "^3.5.9",
 		"@imperium/auth-client": "^9.0.0",
 		"@imperium/graphql-client": "^9.0.0",
-		"@thx/env": "^16.0.0-alpha.23",
+		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
 		"apollo-link-token-refresh": "^0.4.0",
 		"debug": "^4.3.2"
 	},

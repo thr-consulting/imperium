@@ -1,10 +1,10 @@
-import {Environment} from '@thx/env';
-import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
 import {defaults as authorizationDefaults} from '@imperium/authorization';
+import {defaultEnvironment as domainDefaultEnvironment} from '@imperium/example-domain';
 import {ImperiumServer} from '@imperium/server';
-import {defaultEnvironment} from '~core/defaultEnvironment';
-import {contextCreator} from '~core/context';
+import {Environment} from '@thx/env';
 import {connectors} from '~core/connectors';
+import {contextCreator} from '~core/context';
+import {defaultEnvironment} from '~core/defaultEnvironment';
 import {serverModules} from '~core/serverModules';
 
 export async function worker() {

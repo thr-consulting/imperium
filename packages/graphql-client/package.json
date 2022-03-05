@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"@imperium/client": "^9.0.0",
-		"@thx/env": "^16.0.0-alpha.23",
+		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
 		"@thx/util": "^16.0.0-alpha.23",
 		"debug": "^4.3.3",
 		"merge-options": "^3.0.4",

@@ -7,7 +7,7 @@ import {PubSub} from 'graphql-subscriptions';
 import {createClient} from 'redis';
 import {mikroOrmConfig} from '~core/mikro-orm.config';
 
-const d = debug('imperium.examples.server.core.connectors');
+const d = debug('imperium.server.core.connectors');
 
 /*
 	Connectors are a way to interface with databases and other persistence layers.

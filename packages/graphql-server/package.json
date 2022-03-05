@@ -41,7 +41,7 @@
 		"@imperium/server": "^9.0.0",
 		"@js-joda/core": "^5.2.0",
 		"@thx/date": "^16.0.0-alpha.23",
-		"@thx/env": "^16.0.0-alpha.23",
+		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
 		"@thx/money": "^16.0.0-alpha.23",
 		"apollo-server-core": "^3.6.3",
 		"apollo-server-express": "^3.6.3",

@@ -1,6 +1,5 @@
 import {Environment} from '@thx/env';
 import debug from 'debug';
-import fetch from 'node-fetch';
 import {useContext} from 'react';
 import {AuthContext} from '../AuthContext';
 import type {LoginInfo, LoginReturn} from '../types';
@@ -15,9 +14,8 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 
 		const res = await fetch(Environment.getString('authLoginUrl'), {
 			method: 'POST',
-			// TODO switched to node-fetch, these are not implemented, needs testing - mk
-			// mode: 'cors',
-			// credentials: 'include',
+			mode: 'cors',
+			credentials: 'include',
 			body: JSON.stringify(loginInfo),
 			headers: {
 				'content-type': 'application/json',

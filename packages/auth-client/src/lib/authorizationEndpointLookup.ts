@@ -2,7 +2,6 @@ import type {PermissionLookup} from '@imperium/authorization';
 import {Authorization} from '@imperium/authorization';
 import {Environment} from '@thx/env';
 import debug from 'debug';
-import fetch from 'node-fetch';
 import type {ClientAuthorizationData} from '../types';
 
 const d = debug('imperium.auth-client.lib.authorizationEndpointLookup');
@@ -22,11 +21,10 @@ export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationDa
 	const keyStrings = keys.map(k => Authorization.keyToString(k));
 
 	return new Promise((resolve, reject) => {
-		// TODO switched to node-fetch, these are not implemented, needs testing - mk
 		fetch(Environment.getString('authPermissionUrl'), {
 			method: 'POST',
-			// mode: 'cors',
-			// credentials: 'include',
+			mode: 'cors',
+			credentials: 'include',
 			body: JSON.stringify({
 				permissions: keyStrings,
 			}),
