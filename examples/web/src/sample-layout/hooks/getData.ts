@@ -7,11 +7,11 @@ const defaultOptions = {} as const;
 export type GetDataQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetDataQuery = { getSubscriptionValue?: { id?: string | null | undefined } | null | undefined };
+export type GetDataQuery = { getSubscriptionValue?: { id?: string | null } | null };
 
 
 
-export type GetDataType = { id?: string | null | undefined } | null | undefined;
+export type GetDataType = { id?: string | null } | null;
 
 
 

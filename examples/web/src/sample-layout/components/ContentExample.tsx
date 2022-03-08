@@ -1,7 +1,7 @@
 import debug from 'debug';
 import type {CSSProperties} from 'react';
 
-const d = debug('imperium.examples.web.sample-layout.components.ContentExample');
+const d = debug('imperium.web.sample-layout.components.ContentExample');
 
 const style: CSSProperties = {
 	backgroundColor: 'olive',

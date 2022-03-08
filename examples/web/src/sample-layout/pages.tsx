@@ -9,7 +9,7 @@ import {useOverrideGetData} from './hooks/useOverrideGetData';
 import {routes} from './routes';
 import {useLayoutState} from './state';
 
-const d = debug('imperium.examples.web.sample-layout.pages');
+const d = debug('imperium.web.sample-layout.pages');
 
 const formValidation = object().shape({
 	name: string().required('Name is required'),

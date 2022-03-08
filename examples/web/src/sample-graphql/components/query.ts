@@ -7,11 +7,11 @@ const defaultOptions = {} as const;
 export type QQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type QQuery = { getSubscriptionValue?: { id?: string | null | undefined } | null | undefined };
+export type QQuery = { getSubscriptionValue?: { id?: string | null } | null };
 
 
 
-export type QType = { id?: string | null | undefined } | null | undefined;
+export type QType = { id?: string | null } | null;
 
 
 

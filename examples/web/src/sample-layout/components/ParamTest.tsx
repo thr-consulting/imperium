@@ -5,7 +5,7 @@ import {Input} from 'semantic-ui-react';
 import type {routes} from '../routes';
 import {setText, useLayoutState} from '../state';
 
-const d = debug('imperium.examples.web.sample-layout.components.ParamTest');
+const d = debug('imperium.web.sample-layout.components.ParamTest');
 
 export function ParamTest() {
 	const dispatch = useDispatch();

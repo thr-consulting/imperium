@@ -7,11 +7,11 @@ const defaultOptions = {} as const;
 export type OnStuffSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type OnStuffSubscription = { subscriptionValueChanged?: { id?: string | null | undefined } | null | undefined };
+export type OnStuffSubscription = { subscriptionValueChanged?: { id?: string | null } | null };
 
 
 
-export type OnStuffType = { id?: string | null | undefined } | null | undefined;
+export type OnStuffType = { id?: string | null } | null;
 
 
 

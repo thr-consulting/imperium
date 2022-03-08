@@ -1,7 +1,7 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
 import type {ContentData, ContentHeader} from '../types';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 const d = debug('imperium.layout.content.components.Header');
 

@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 import {setId} from '../state';
 import {useGetDataQuery} from './getData';
 
-const d = debug('imperium.examples.web.sample-layout.hooks.useGetData');
+const d = debug('imperium.web.sample-layout.hooks.useGetData');
 
 export function useGetData(routeParams: any) {
 	const dispatch = useDispatch();

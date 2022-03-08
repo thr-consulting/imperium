@@ -7,10 +7,10 @@ const defaultOptions = {} as const;
 export type MutateMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type MutateMutation = { changeSubscriptionValue?: { id?: string | null | undefined } | null | undefined };
+export type MutateMutation = { changeSubscriptionValue?: { id?: string | null } | null };
 
 
-export type MutateType = { id?: string | null | undefined } | null | undefined;
+export type MutateType = { id?: string | null } | null;
 
 
 export type MutateMutationFn = Apollo.MutationFunction<MutateMutation, MutateMutationVariables>;

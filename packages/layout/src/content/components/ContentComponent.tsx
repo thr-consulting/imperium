@@ -10,7 +10,7 @@ import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {Page, RouteParameters} from '../types';
 import {Header} from './Header';
 import {SidebarItemWrapper} from './SidebarItemWrapper';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 const d = debug('imperium.layout.content.components.ContentComponent');
 

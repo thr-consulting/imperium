@@ -6,7 +6,7 @@ import HelloWorld from './components/HelloWorld';
 import imperiumLogo from './imperium_w.png';
 import {routes} from './routes';
 
-const d = debug('imperium.examples.web.sample.layout');
+const d = debug('imperium.web.sample.layout');
 
 export const layout: Partial<LayoutData> = {
 	primaryMenu: [

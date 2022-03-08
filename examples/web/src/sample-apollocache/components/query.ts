@@ -9,11 +9,11 @@ export type GetCacheListQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetCacheListQuery = { getCacheList?: Array<{ id: string, name: string, type: string } | null | undefined> | null | undefined };
+export type GetCacheListQuery = { getCacheList?: Array<{ id: string, name: string, type: string } | null> | null };
 
 
 
-export type GetCacheListType = Array<{ id: string, name: string, type: string } | null | undefined> | null | undefined;
+export type GetCacheListType = Array<{ id: string, name: string, type: string } | null> | null;
 
 
 

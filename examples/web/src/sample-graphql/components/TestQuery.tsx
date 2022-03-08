@@ -3,7 +3,7 @@ import debug from 'debug';
 import {Button, Segment} from 'semantic-ui-react';
 import query from './query.graphql';
 
-const d = debug('imperium.examples.web.sample-graphql.components.TestQuery');
+const d = debug('imperium.web.sample-graphql.components.TestQuery');
 
 export function TestQuery() {
 	const {loading, error, data, refetch} = useQuery(query);

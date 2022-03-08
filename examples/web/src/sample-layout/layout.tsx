@@ -5,7 +5,7 @@ import {useGetData} from './hooks/useGetData';
 import {routes} from './routes';
 import {useLayoutState} from './state';
 
-const d = debug('imperium.examples.web.sample-layout.layout');
+const d = debug('imperium.web.sample-layout.layout');
 
 export const layout: LayoutData = {
 	dataHooks: [

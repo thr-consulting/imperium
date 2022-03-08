@@ -6,7 +6,7 @@ import StateExample from './components/StateExample';
 import {routes} from './routes';
 import {useSampleState} from './state';
 
-const d = debug('imperium.examples.web.sample-state.layout');
+const d = debug('imperium.web.sample-state.layout');
 
 export const layout: LayoutData = {
 	secondaryMenu: [

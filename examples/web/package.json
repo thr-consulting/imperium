@@ -10,7 +10,7 @@
 	"license": "UNLICENSED",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
 	"scripts": {
-		"Xcodegen": "thx.codegen",
+		"codegen": "thx.codegen",
 		"build": "vite build",
 		"clean": "thx clean",
 		"deps": "thx -i ~common -p vite.config.js deps",
@@ -37,7 +37,7 @@
 		"@imperium/state": "^9.0.0",
 		"@js-joda/core": "^5.1.0",
 		"@reduxjs/toolkit": "^1.6.1",
-		"@thx/controls": "^16.0.0-alpha.27",
+		"@thx/controls": "file:/home/mike/dev/esm/thx-esm/packages/controls",
 		"@thx/date": "^16.0.0-alpha.27",
 		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
 		"@thx/mingo-types": "^16.0.0-alpha.27",
@@ -52,7 +52,8 @@
 		"react-router": "^5.2.1",
 		"react-router-dom": "^5.3.0",
 		"semantic-ui-react": "^2.1.2",
-		"yup": "^0.32.9"
+		"yup": "^0.32.9",
+		"@loadable/component": "^5.15.2"
 	},
 	"engines": {
 		"node": ">=16"

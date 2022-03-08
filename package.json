@@ -39,7 +39,7 @@
 		"@reduxjs/toolkit": "^1.7.2",
 		"@rollup/plugin-alias": "^3.1.9",
 		"@rollup/plugin-graphql": "^1.1.0",
-		"@thx/codegen": "^16.0.0-alpha.30",
+		"@thx/codegen": "file:/home/mike/dev/esm/thx-esm/packages/codegen",
 		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
 		"@thx/eslint-config-thx": "^16.0.0-alpha.23",
 		"@thx/prettier-config-thx": "^16.0.0-alpha.23",

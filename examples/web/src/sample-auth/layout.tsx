@@ -3,7 +3,7 @@ import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
 import {routes} from './routes';
 
-const d = debug('imperium.examples.web.sample-auth.layout');
+const d = debug('imperium.web.sample-auth.layout');
 
 export const layout: LayoutData = {
 	permissionSelectorHooks: [

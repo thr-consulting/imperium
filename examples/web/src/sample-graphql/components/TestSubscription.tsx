@@ -2,7 +2,7 @@ import debug from 'debug';
 import {Segment} from 'semantic-ui-react';
 import {useOnStuffSubscription} from './subscribe';
 
-const d = debug('imperium.examples.web.sample-graphql.components.TestSubscription');
+const d = debug('imperium.web.sample-graphql.components.TestSubscription');
 
 export function TestSubscription() {
 	// const {data, loading, error} = useSubscription(subscribe);

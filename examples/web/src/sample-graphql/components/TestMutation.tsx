@@ -3,7 +3,7 @@ import debug from 'debug';
 import {Button, Segment} from 'semantic-ui-react';
 import mutate from './mutate.graphql';
 
-const d = debug('imperium.examples.web.sample-graphql.components.TestMutation');
+const d = debug('imperium.web.sample-graphql.components.TestMutation');
 
 export function TestMutation() {
 	const [doChange, {data, loading}] = useMutation(mutate);
