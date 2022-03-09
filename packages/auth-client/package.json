@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@imperium/authorization": "^9.0.0",
 		"@imperium/client": "^9.0.0",
-		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
+		"@thx/env": "^16.0.0",
 		"debug": "^4.3.3",
 		"dexie": "^3.2.1",
 		"jwt-decode": "^3.1.2"

@@ -34,8 +34,8 @@
 	"dependencies": {
 		"@imperium/authorization": "^9.0.0",
 		"@imperium/server": "^9.0.0",
-		"@thx/env": "file:/home/mike/dev/esm/thx-esm/packages/env",
-		"@thx/sha256": "^16.0.0-alpha.23",
+		"@thx/env": "^16.0.0",
+		"@thx/sha256": "^16.0.0",
 		"bcrypt": "^5.0.1",
 		"body-parser": "^1.19.2",
 		"cookie-parser": "^1.4.6",
