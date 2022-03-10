@@ -14,7 +14,7 @@
     "build": "thx build.roll",
     "clean": "thx clean",
     "codegen": "thx.codegen",
-    "deps": "thx -i ~core,~basicModule deps",
+    "deps": "thx deps -i ~core,~basicModule",
     "lint": "thx lint",
     "lint.fix": "thx lint.fix",
     "orm": "mikro-orm",

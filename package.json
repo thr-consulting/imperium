@@ -22,7 +22,7 @@
 		"lerna": "lerna",
 		"lint": "thx lint",
 		"lint.fix": "thx lint.fix",
-		"organize": "thx organize -p packages -d imperium",
+		"organize": "thx organize - -p packages -d imperium",
 		"prepare": "husky install",
 		"sort": "thx sort",
 		"test": "thx test",

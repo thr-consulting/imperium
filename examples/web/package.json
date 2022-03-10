@@ -13,7 +13,7 @@
 		"build": "vite build",
 		"clean": "thx clean",
 		"codegen": "thx.codegen",
-		"deps": "thx -i ~common -p vite.config.js deps",
+		"deps": "thx deps -i ~common -p vite.config.js",
 		"lint": "thx lint",
 		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
