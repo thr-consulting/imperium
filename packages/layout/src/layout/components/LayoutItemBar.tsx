@@ -23,9 +23,15 @@ export function LayoutItemBar({items, ...rest}: ItemBarProps) {
 	const ims = splitPositionedItems(items);
 
 	// eslint-disable-next-line react/no-array-index-key
-	const leftItems = sortWeightedItems(ims.leftItems).map((item, index) => <LayoutItemWrapper item={item} key={index} vertical={rest.vertical} />);
+	const leftItems = sortWeightedItems(ims.leftItems).map((item, index) => (
+		// eslint-disable-next-line react/no-array-index-key
+		<LayoutItemWrapper item={item as LayoutItem} key={index} vertical={rest.vertical} />
+	));
 	// eslint-disable-next-line react/no-array-index-key
-	const rightItems = sortWeightedItems(ims.rightItems).map((item, index) => <LayoutItemWrapper item={item} key={index} vertical={rest.vertical} />);
+	const rightItems = sortWeightedItems(ims.rightItems).map((item, index) => (
+		// eslint-disable-next-line react/no-array-index-key
+		<LayoutItemWrapper item={item as LayoutItem} key={index} vertical={rest.vertical} />
+	));
 
 	return (
 		<Menu {...rest}>

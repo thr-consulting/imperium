@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@apollo/client": "^3.5.9",
+		"@apollo/client": "^3.5.10",
 		"@imperium/auth-client": "^9.0.0",
 		"@imperium/graphql-client": "^9.0.0",
 		"@thx/env": "^16.0.0",

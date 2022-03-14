@@ -7,7 +7,7 @@ import {DataHooks} from '../../datahooks/DataHooks';
 import {actions} from '../../state';
 import {sortWeightedItems} from '../../utils';
 import {useBuildContentData} from '../hooks/useBuildContentData';
-import type {Page, RouteParameters} from '../types';
+import type {Page, RouteParameters, SidebarItem} from '../types';
 import {Header} from './Header';
 import {SidebarItemWrapper} from './SidebarItemWrapper';
 import styles from './styles.module.css';
@@ -54,7 +54,7 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 					return (
 						// eslint-disable-next-line react/no-array-index-key
 						<div className={styles.sidebarItem} key={index}>
-							<SidebarItemWrapper item={sb} params={params} data={data} />
+							<SidebarItemWrapper item={sb as SidebarItem<T, K>} params={params} data={data} />
 						</div>
 					);
 				})}
