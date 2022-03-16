@@ -1,7 +1,5 @@
 import {toMoney} from '@thx/money';
-import {GraphQLError} from 'graphql/error';
-import {Kind} from 'graphql/language';
-import {GraphQLScalarType} from 'graphql/type';
+import {GraphQLError, Kind, GraphQLScalarType} from 'graphql';
 import type Money from 'js-money';
 
 export const GraphQLMoney = new GraphQLScalarType<Money>({

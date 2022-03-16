@@ -6,7 +6,7 @@ import {moveItems} from '../moveItems';
 import type {LayoutData} from '../types';
 import {LayoutItemBar} from './LayoutItemBar';
 import {SecondaryMenuToggleItem} from './SecondaryMenuToggleItem';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 const d = debug('imperium.layout.components.Layout');
 

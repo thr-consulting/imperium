@@ -4,7 +4,7 @@ import {Accordion, Dropdown, Icon, Menu} from 'semantic-ui-react';
 import type {Data} from '../../types';
 import type {DropdownLayoutItem} from '../types';
 import {getText} from '../utils';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 const d = debug('imperium.layout.components.DropdownItem');
 

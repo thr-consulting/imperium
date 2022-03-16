@@ -11,6 +11,7 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
+
 		const res = await fetch(Environment.getString('authLoginUrl'), {
 			method: 'POST',
 			mode: 'cors',

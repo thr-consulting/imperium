@@ -1,9 +1,7 @@
 import {useAuth} from '@imperium/auth-client';
 import debug from 'debug';
 import type {Location} from 'history';
-import compact from 'lodash/compact';
-import merge from 'lodash/merge';
-import queryString from 'querystring';
+import {compact, merge} from 'lodash-es';
 import {useLocation} from 'react-router-dom';
 import {useLayoutState} from '../state';
 import type {Data, PermissionSelectorHook, StateSelectorHook} from '../types';
@@ -28,7 +26,7 @@ export function useBuildData({stateSelectorHook, permissionSelectorHook, data, r
 	const route = {
 		path: compact(loc.pathname.split('/')),
 		hash: loc.hash,
-		search: queryString.parse(loc.search),
+		search: new URLSearchParams(loc.search),
 	};
 	const active = useIsActiveRoute({loc, route, state, active: false, id, permissions}, routeItem);
 	const permissionsX = useSelectPermission({state, loc, active, route, id, permissions}, permissionSelectorHook);

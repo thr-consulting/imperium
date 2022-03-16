@@ -1,7 +1,7 @@
 split
 
 screen -t "@imperium/domaindriven TS" yarn ts --watch
-screen -t "@imperium/domaindriven Build" yarn build:dev --watch
+screen -t "@imperium/domaindriven Build" yarn build --watch
 
 select 0
 focus down

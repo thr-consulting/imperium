@@ -1,5 +1,5 @@
 import {Icon, Menu} from 'semantic-ui-react';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 interface SecondaryMenuToggleItemProps {
 	menuOpen: boolean;

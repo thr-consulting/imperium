@@ -1,0 +1,24 @@
+name: Canary release workflow
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  canary:
+    if: "!contains(github.event.head_commit.message, 'skip-ci')"
+    name: Canary release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Build & release canary
+        uses: ./.github/workflows/canary
+        with:
+          publish-level: 'patch'
+          preid: 'alpha'
+          name: 'Imperium'
+          npm-token: ${{ secrets.NPM_TOKEN }}
+          discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}

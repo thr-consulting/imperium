@@ -6,6 +6,14 @@ import type {ClientAuthorizationData} from '../types';
 
 const d = debug('imperium.auth-client.lib.authorizationEndpointLookup');
 
+interface RestResult {
+	results: boolean[];
+}
+
+function isRestResult(res: any): res is RestResult {
+	return !!((res as RestResult).results && Array.isArray(res.results));
+}
+
 export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationData> = async opts => {
 	d('fetching from authorization endpoint');
 	const {keys, authorization} = opts;
@@ -27,7 +35,7 @@ export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationDa
 		}).then(res => {
 			if (!res.ok) reject(res.statusText);
 			res.json().then(returnJson => {
-				if (Array.isArray(returnJson.results)) {
+				if (isRestResult(returnJson)) {
 					resolve(returnJson.results);
 				} else {
 					reject(new Error('Authorization results not an array'));

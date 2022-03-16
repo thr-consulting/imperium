@@ -1,12 +1,13 @@
 {
   "lerna": "4.0.0",
   "packages": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "version": "9.0.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "concurrency": 4,
+  "concurrency": 16,
   "registry": "https://registry.npmjs.org/",
   "command": {
     "publish": {

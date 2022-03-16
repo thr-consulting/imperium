@@ -17,3 +17,5 @@ env.js
 .npmrc
 !docs/assets/coverage/**/coverage.svg
 docs/assets/coverage/
+dist
+tsconfig.tsbuildinfo

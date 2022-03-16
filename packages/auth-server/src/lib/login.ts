@@ -4,8 +4,8 @@ import {validatePassword} from './password';
 import {createAccessToken, createRefreshToken} from './token';
 
 export async function login(loginInfo: LoginInfo, remoteAddress: string | undefined, auth: AuthenticationDomain): Promise<LoginReturn> {
-	const authMaxFail = Environment.getInt('AUTH_MAX_FAIL');
-	const authMaxCooldown = Environment.getInt('AUTH_MAX_COOLDOWN');
+	const authMaxFail = Environment.getInt('IMP_LOGIN_MAX_FAIL');
+	const authMaxCooldown = Environment.getInt('IMP_LOGIN_MAX_COOLDOWN');
 
 	// 1. Check attempts
 	const attemptKey = `loginattempts:${loginInfo.identifier}_${remoteAddress?.replace(/:/g, ';')}`;

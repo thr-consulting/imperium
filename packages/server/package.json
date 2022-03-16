@@ -8,20 +8,19 @@
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "server.js",
-	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"type": "module",
+	"main": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
 	"files": [
-		"dist",
-		"server.js"
+		"dist"
 	],
 	"scripts": {
-		"build": "thx build",
-		"build:dev": "thx build:dev",
-		"build:prod": "thx build:prod",
+		"build": "thx build.roll",
 		"clean": "thx clean",
-		"deps": "thx -i chalk,source-map-support deps",
+		"deps": "thx deps",
 		"lint": "thx lint",
-		"lint:fix": "thx lint:fix",
+		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
 		"ts": "thx ts",
@@ -34,15 +33,13 @@
 	},
 	"dependencies": {
 		"@imperium/connector": "^9.0.0",
-		"@thx/env": "^15.1.1",
-		"chalk": "^4.1.2",
-		"debug": "^4.3.2",
-		"express": "^4.17.1",
-		"lodash": "^4.17.21",
-		"source-map-support": "^0.5.20"
+		"@thx/env": "^16.0.0",
+		"debug": "^4.3.3",
+		"express": "^4.17.3",
+		"lodash-es": "^4.17.21"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=16"
 	},
 	"publishConfig": {
 		"access": "public"

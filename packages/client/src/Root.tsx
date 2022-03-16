@@ -1,4 +1,4 @@
-import debug from 'debug';
+import {default as debug} from 'debug';
 import type React from 'react';
 import type {ImperiumClient} from './ImperiumClient';
 

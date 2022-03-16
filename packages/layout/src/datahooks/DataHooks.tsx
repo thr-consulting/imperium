@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {compose} from 'lodash/fp';
+import compose from 'lodash/fp/compose.js';
 import {Fragment} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ExecuteDataHook} from './ExecuteDataHook';

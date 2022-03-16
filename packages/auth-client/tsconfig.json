@@ -1,19 +1,10 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"declarationDir": "dist",
+		"declarationDir": "dist/types",
 		"jsx": "react-jsx"
 	},
 	"include": [
 		"src/index.ts"
-	],
-	"typedocOptions": {
-		"mode": "file",
-		"exclude": ["*.test.js", "*.test.ts", "*.test.tsx", "*.test.jsx"],
-		"excludeNotExported": true,
-		"excludePrivate": true,
-		"hideGenerator": true,
-		"readme": "README.md",
-		"out": "../../website/static/apistatic/auth-client"
-	}
+	]
 }

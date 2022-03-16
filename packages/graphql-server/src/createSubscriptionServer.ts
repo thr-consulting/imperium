@@ -13,7 +13,7 @@ interface CreateSubscriptionServerOpts {
 }
 
 export function createSubscriptionServer({server, schema, graphqlUrl}: CreateSubscriptionServerOpts) {
-	const enableSubscriptions = Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS');
+	const enableSubscriptions = Environment.getBool('IMP_GRAPHQL_ENABLE_SUBSCRIPTIONS');
 
 	if (enableSubscriptions) {
 		d('Installing subscription handlers');

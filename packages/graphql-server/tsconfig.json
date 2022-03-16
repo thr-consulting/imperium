@@ -1,19 +1,10 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"declarationDir": "dist"
+		"declarationDir": "dist/types"
 	},
 	"include": [
-		"src/index.ts"
-	],
-	"files": ["types/graphqls.d.ts", "types/graphql-scalar-objectid.d.ts"],
-	"typedocOptions": {
-		"mode": "file",
-		"exclude": ["*.test.js", "*.test.ts", "*.test.tsx", "*.test.jsx"],
-		"excludeNotExported": true,
-		"excludePrivate": true,
-		"hideGenerator": true,
-		"readme": "README.md",
-		"out": "../../website/static/apistatic/graphql-server"
-	}
+		"src/index.ts",
+		"types/*.d.ts"
+	]
 }

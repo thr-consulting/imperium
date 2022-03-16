@@ -1,7 +1,7 @@
 split
 
 screen -t "@imperium/router TS" yarn ts --watch
-screen -t "@imperium/router Build" yarn build:dev --watch
+screen -t "@imperium/router Build" yarn build --watch
 
 select 0
 focus down

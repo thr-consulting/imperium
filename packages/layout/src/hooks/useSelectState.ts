@@ -1,4 +1,4 @@
-import flowRight from 'lodash/flowRight';
+import {flowRight} from 'lodash-es';
 import type {StateSelectorHook} from '../types';
 
 export function useSelectState(stateSelectorHook?: StateSelectorHook | StateSelectorHook[]) {

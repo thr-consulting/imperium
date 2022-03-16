@@ -52,14 +52,17 @@ export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWr
 	}
 	if (isDropdownLayoutItem(item)) {
 		// eslint-disable-next-line react/no-array-index-key
-		const children = sortWeightedItems(item.dropdown).map((v, index) => <LayoutItemWrapper key={index} item={v} as={Dropdown.Item} data={data} />);
+		const children = sortWeightedItems(item.dropdown).map((v, index) => (
+			// eslint-disable-next-line react/no-array-index-key
+			<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} data={data} />
+		));
 		return <DropdownItem item={item} children={children} vertical={vertical} data={data} />;
 	}
 	if (isMenuLayoutItem(item)) {
 		// eslint-disable-next-line react/no-array-index-key
 		const children = sortWeightedItems(item.menu).map((v, index) => (
 			// eslint-disable-next-line react/no-array-index-key
-			<LayoutItemWrapper key={index} item={v} as={Dropdown.Item} vertical={vertical} data={data} />
+			<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} vertical={vertical} data={data} />
 		));
 		return <MenuItem item={item} children={children} />;
 	}

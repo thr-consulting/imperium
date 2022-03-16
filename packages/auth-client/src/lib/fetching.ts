@@ -29,11 +29,14 @@ export function isTokenValidOrUndefined(token?: string): boolean {
  * Fetches a new access token as a Response promise from the refresh url.
  */
 export async function fetchAccessToken(): Promise<Response> {
-	return fetch(Environment.getString('authRefreshUrl'), {
+	const res = fetch(Environment.getString('authRefreshUrl'), {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include',
 	});
+	// Need to coerce type from node-fetch.Response to lib.dom.Response
+	// They are almost the same, and for our purposes it's ok.
+	return res as Promise<Response>;
 }
 
 /**

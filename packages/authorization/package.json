@@ -8,24 +8,22 @@
 	"repository": "darkadept/imperium",
 	"license": "MIT",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
-	"main": "index.js",
-	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"type": "module",
+	"main": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
 	"files": [
-		"index.js",
 		"dist"
 	],
 	"scripts": {
-		"build": "thx build",
-		"build:dev": "thx build:dev",
-		"build:prod": "thx build:prod",
+		"build": "thx build.roll",
 		"clean": "thx clean",
 		"deps": "thx deps",
 		"lint": "thx lint",
-		"lint:fix": "thx lint:fix",
+		"lint.fix": "thx lint.fix",
 		"sort": "thx sort",
 		"start": "screen -c ./dev.screenrc",
-		"ts": "thx ts",
-		"typedoc": "typedoc"
+		"ts": "thx ts"
 	},
 	"eslintConfig": {
 		"parserOptions": {
@@ -33,16 +31,16 @@
 		}
 	},
 	"dependencies": {
-		"@thx/env": "^15.1.1",
+		"@thx/env": "^16.0.0",
 		"dataloader": "^2.0.0",
-		"debug": "^4.3.2",
-		"lodash": "^4.17.21",
-		"lru-cache": "^6.0.0",
+		"debug": "^4.3.3",
+		"lodash-es": "^4.17.21",
+		"lru-cache": "^7.5.1",
 		"lzbase62": "^2.0.0",
 		"setimmediate": "^1.0.5"
 	},
 	"engines": {
-		"node": ">=14"
+		"node": ">=16"
 	},
 	"publishConfig": {
 		"access": "public"
