@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/router",
-	"version": "9.0.0",
+	"version": "10.0.0",
 	"description": "Imperium Router package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/client": "^9.0.0",
+		"@imperium/client": "^10.0.0",
 		"debug": "^4.3.3"
 	},
 	"peerDependencies": {
