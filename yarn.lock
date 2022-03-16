@@ -3089,10 +3089,10 @@
   resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-16.0.0.tgz#c154bf9f1a21ec1d31e14d93b943a652e841d36f"
   integrity sha512-vP6rb2OUqK8oeVlyIlzaGSHSNngGAC9vo0Xa3MwEjEmW2scSwEqG/z5YeylfABhcUm1kWJFjRBv7hf4LNi6g6A==
 
-"@thx/tools@^16.0.4":
-  version "16.0.4"
-  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-16.0.4.tgz#493653ed9b926e024a9fc94456b901da2442b0c7"
-  integrity sha512-lV/JXaPrELTW8eIADq4TRbSmxmtexo+tgO6Tj9koUzwArhhevLcnUMbq6PX16WJzmJSKGtu2BJPvZAPMN7p3jg==
+"@thx/tools@^16.0.5":
+  version "16.0.5"
+  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-16.0.5.tgz#11bc0c903619612a26f30bf7e716697d7db4aac5"
+  integrity sha512-GpGrwTHJEJlSzmVBvs7ckP8u7Y6EerUfpmO5J7cvINwJDMle+kwzzLAVOV+xqSjv1eOAu+WxeMD6aR2XpsU14g==
   dependencies:
     "@babel/core" "^7.17.5"
     "@babel/preset-env" "^7.16.11"
