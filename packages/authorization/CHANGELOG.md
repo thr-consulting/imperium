@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.2](https://github.com/darkadept/imperium/compare/v10.0.1...v10.0.2) (2022-03-28)
+
+
+### Bug Fixes
+
+* **authorization:** removed shim for dataloader in favor of patch ([84219a4](https://github.com/darkadept/imperium/commit/84219a4a082243617a5bdd4333122c65fbeb2a17))
+
+
+
+
+
 ## [10.0.1](https://github.com/darkadept/imperium/compare/v10.0.0...v10.0.1) (2022-03-25)
 
 
