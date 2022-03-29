@@ -64,18 +64,18 @@ export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 
 		d(`Adding graphql endpoint: ${graphqlUrl}`);
 
+		await apolloServer.start();
+
+		const corsOpts: CorsOptions = {
+			origin: getCorsOrigin(),
+		};
+
 		// Add middleware to graphql endpoint. Optional middleware can be passed in via constructor config object.
 		// preContext and postContext middleware could be a thing, if needed.
 		server.expressApp.use(
 			graphqlUrl,
 			compose([bodyParser.json({limit: graphqlBodyLimit}), ...(config?.middleware || []), server.contextMiddleware()]),
 		);
-
-		const corsOpts: CorsOptions = {
-			origin: getCorsOrigin(),
-		};
-
-		await apolloServer.start();
 
 		apolloServer.applyMiddleware({
 			app: server.expressApp,
