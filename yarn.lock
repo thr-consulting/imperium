@@ -2994,7 +2994,12 @@
     "@js-joda/locale_en" "^4.7.0"
     "@js-joda/timezone" "^2.12.0"
 
-"@thx/env@^16.0.0", "@thx/env@^16.1.4":
+"@thx/env@^16.0.0":
+  version "16.1.1"
+  resolved "https://registry.yarnpkg.com/@thx/env/-/env-16.1.1.tgz#c4cc06837bb4b8a7088bf68f65904e30ac71c14b"
+  integrity sha512-n3xr8NLvxKL8N/oyctYurJonOJTJiLhUxgYIxd+clQnVKT1H0ApaPxr1rrvk06n0Hpehu1RuuzV2EvDmUt4Rtg==
+
+"@thx/env@^16.1.4":
   version "16.1.4"
   resolved "https://registry.yarnpkg.com/@thx/env/-/env-16.1.4.tgz#b5d53c9404d9d3de1580ae7ac0619a9dda5bb092"
   integrity sha512-FkKUA8T0UKfyD0g1i+O6S6K3IiaEksE84v9/Lf7TJuX+kKBdn9Cn+ZKN2v69/peHjfBqa0C57CCpUoU9c/zW6A==
