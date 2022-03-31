@@ -38,7 +38,7 @@
 		"@reduxjs/toolkit": "^1.6.1",
 		"@thx/controls": "^16.0.4",
 		"@thx/date": "^16.0.0",
-		"@thx/env": "^16.0.0",
+		"@thx/env": "^16.1.4",
 		"@thx/sha256": "^16.0.0",
 		"debug": "^4.3.2",
 		"graphql": "^16.2.0",

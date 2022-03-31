@@ -40,7 +40,7 @@
     "@js-joda/core": "^5.2.0",
     "@mikro-orm/core": "^4.5.10",
     "@mikro-orm/postgresql": "^4.5.10",
-    "@thx/env": "^16.0.0",
+    "@thx/env": "^16.1.4",
     "@thx/random": "^16.0.0",
     "@thx/sharedcache": "^16.0.0",
     "@thx/util": "^16.0.0",
