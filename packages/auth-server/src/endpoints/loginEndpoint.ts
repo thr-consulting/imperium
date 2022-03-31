@@ -1,9 +1,10 @@
 import type {ImperiumServer} from '@imperium/server';
-import {Environment, getCorsOrigin} from '@thx/env';
+import {env, getCorsOrigin} from '@thx/env';
 import bodyParser from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import ms from 'ms';
+import {defaults} from '../defaults';
 import {login} from '../lib/login';
 import {isLoginInfo} from '../lib/typeguards';
 import type {GetAuthenticationFn, LoginReturn} from '../types';
@@ -13,13 +14,13 @@ const d = debug('imperium.auth-server.endpoints.loginEndpoint');
 const {json} = bodyParser;
 
 export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	const authLoginUrl = Environment.getString('IMP_LOGIN_URL');
-	const authRefreshTokenExpiresLong = Environment.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG');
-	const authRefreshTokenExpiresShort = Environment.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT');
-	const authRefreshCookieName = Environment.getString('IMP_REFRESH_COOKIE_NAME');
-	const secure = Environment.getString('NODE_ENV') === 'production';
-	const authServerDomain = Environment.getString('IMP_AUTH_DOMAIN');
-	const authRefreshUrl = Environment.getString('IMP_REFRESH_URL');
+	const authLoginUrl = env.getString('IMP_LOGIN_URL', defaults.IMP_LOGIN_URL);
+	const authRefreshTokenExpiresLong = env.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG', defaults.IMP_REFRESH_TOKEN_EXPIRES_LONG);
+	const authRefreshTokenExpiresShort = env.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT', defaults.IMP_REFRESH_TOKEN_EXPIRES_SHORT);
+	const authRefreshCookieName = env.getString('IMP_REFRESH_COOKIE_NAME', defaults.IMP_REFRESH_COOKIE_NAME);
+	const secure = env.isProduction();
+	const authServerDomain = env.getString('IMP_AUTH_DOMAIN', defaults.IMP_AUTH_DOMAIN);
+	const authRefreshUrl = env.getString('IMP_REFRESH_URL', defaults.IMP_REFRESH_URL);
 
 	d(`Adding auth login endpoint: ${authLoginUrl}`);
 

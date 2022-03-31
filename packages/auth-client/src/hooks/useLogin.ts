@@ -1,7 +1,8 @@
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import {useContext} from 'react';
 import {AuthContext} from '../AuthContext';
+import {defaults} from '../defaults';
 import type {LoginInfo, LoginReturn} from '../types';
 
 const d = debug('imperium.auth-client.hooks.useLogin');
@@ -12,7 +13,7 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
 
-		const res = await fetch(Environment.getString('authLoginUrl'), {
+		const res = await fetch(env.getString('authLoginUrl', defaults.authLoginUrl), {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -28,8 +29,8 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 		// Set the id and access token in React context
 		setAuthenticated({id: info.id, access: info.access});
 		// Save id and access token to localstorage
-		localStorage.setItem(Environment.getString('authIdKey'), info.id);
-		localStorage.setItem(Environment.getString('authAccessTokenKey'), info.access);
+		localStorage.setItem(env.getString('authIdKey', defaults.authIdKey), info.id);
+		localStorage.setItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey), info.access);
 		// Clear permission cache
 		await clearCache();
 	};

@@ -1,3 +1,4 @@
+import {env} from '@thx/env';
 import {configureLogger} from '@thx/log';
 import debug from 'debug';
 import 'dotenv/config';
@@ -8,6 +9,7 @@ import os from 'node:os';
 import process from 'node:process';
 import util from 'node:util';
 import winston from 'winston';
+import {defaults} from './defaults';
 
 const d = debug('imperium.cluster');
 
@@ -35,14 +37,15 @@ export function runCluster(clusterWorker: ClusterWorker) {
 		 * CLUSTER MASTER ENTRY POINT
 		 **************************************************************************************** */
 		// Get number of processes to run
-		const numProcesses = process.env.IMP_PROCESSES === '0' ? os.cpus().length : process.env.IMP_PROCESSES || 1;
+		const numProc = env.getInt('IMP_PROCESSES', defaults.IMP_PROCESSES);
+		const numProcesses = numProc === 0 ? os.cpus().length : numProc;
 		// When set true goes into full shutdown mode
 		let shutdownMode = false;
 
 		log.info(`Imperium cluster startup [Worker count: ${numProcesses}]`, {environment: util.inspect(process.env, true, null, false)});
 
-		const workerCrashDelay = parseInt(process.env.IMP_WORKER_CRASH_DELAY || '4000', 10); // Milliseconds to wait before restarting a worker process instead of counting towards crash max.
-		const workerCrashMax = parseInt(process.env.IMP_WORKER_CRASH_MAX || '5', 10); // Number of times a worker is allowed to crash before killing the server.
+		const workerCrashDelay = env.getInt('IMP_WORKER_CRASH_DELAY', defaults.IMP_WORKER_CRASH_DELAY); // Milliseconds to wait before restarting a worker process instead of counting towards crash max.
+		const workerCrashMax = env.getInt('IMP_WORKER_CRASH_MAX', defaults.IMP_WORKER_CRASH_MAX); // Number of times a worker is allowed to crash before killing the server.
 
 		let workerCrashCounter = 0;
 		let workerForkTime = process.hrtime.bigint();

@@ -1,4 +1,4 @@
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import {isFunction, sortBy, isArray, flowRight} from 'lodash-es';
 import type {ReactNode} from 'react';
@@ -17,10 +17,6 @@ export class ImperiumClient {
 
 	constructor(config: ImperiumClientConfig) {
 		this._moduleFactoryFn = config.clientModules;
-		// eslint-disable-next-line no-underscore-dangle
-		Environment.addDefaults(window.__IMPERIUM_SYS__);
-		// eslint-disable-next-line no-underscore-dangle
-		Environment.addEnvironment(window.__IMPERIUM_ENV__ as Record<string, string | undefined>);
 		this._modules = [];
 		this.render = config.render;
 	}
@@ -32,12 +28,6 @@ export class ImperiumClient {
 			return module.order || 9999;
 		});
 		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
-
-		this._modules.forEach(module => {
-			if (module.environmentDefaults) {
-				Environment.addDefaults(module.environmentDefaults);
-			}
-		});
 
 		const startupPromises = this._modules.reduce((memo, module) => {
 			if (module.startup && isFunction(module.startup)) {
@@ -69,7 +59,7 @@ export class ImperiumClient {
 		d('Rendering root component');
 		render(<RootWrappedComponent render={this.render} imperiumClient={this} />, document.getElementById('root'));
 
-		if (Environment.getBool('development')) {
+		if (env.isDevelopment()) {
 			window.__IMPERIUM_CLIENT__ = this; // eslint-disable-line no-underscore-dangle
 		}
 		return this;

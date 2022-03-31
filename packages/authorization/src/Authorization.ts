@@ -1,8 +1,9 @@
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 import LruCache from 'lru-cache';
 import {compress, decompress} from 'lzbase62';
+import {defaults} from './defaults';
 import {keysSplitAndSort} from './keysSplitAndSort';
 import {noPermissionLookup} from './noPermissionLookup';
 import type {AuthorizationCache, JsonValue, Permission, PermissionKey, PermissionLookup} from './types';
@@ -64,14 +65,11 @@ export class Authorization<ExtraData = any, Context = any> {
 		this.extraData = opts?.extraData;
 		if (opts?.lookup) this.#lookup = opts.lookup;
 
-		// d(`AUTH_PERMISSION_CACHE_EXPIRES: ${Environment.getInt('IMP_PERMISSION_CACHE_EXPIRES')}`);
-		// d(`AUTH_PERMISSION_DATALOADER_LRU_MAXAGE: ${Environment.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE')}`);
-
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;
 		this.lrucache = new LruCache({
-			max: Environment.getInt('IMP_PERMISSION_DATALOADER_LRU_MAX'),
-			ttl: Environment.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE') * 1000,
+			max: env.getInt('IMP_PERMISSION_DATALOADER_LRU_MAX', defaults.IMP_PERMISSION_DATALOADER_LRU_MAX),
+			ttl: env.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE', defaults.IMP_PERMISSION_DATALOADER_LRU_MAXAGE) * 1000,
 		});
 		this.dataloader = new DataLoader(
 			async (keys: readonly string[]): Promise<boolean[]> => {
@@ -98,7 +96,11 @@ export class Authorization<ExtraData = any, Context = any> {
 						if (thisAuthorization.cache) {
 							await Promise.all(
 								valuesFromLookup.map(async (value, index) => {
-									await thisAuthorization.cache?.set(keyWrapperArr[index].key, value, Environment.getInt('IMP_PERMISSION_CACHE_EXPIRES'));
+									await thisAuthorization.cache?.set(
+										keyWrapperArr[index].key,
+										value,
+										env.getInt('IMP_PERMISSION_CACHE_EXPIRES', defaults.IMP_PERMISSION_CACHE_EXPIRES),
+									);
 								}),
 							);
 						}

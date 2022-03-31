@@ -1,9 +1,10 @@
 import {ApolloClient, InMemoryCache, MutationOptions, QueryOptions, WatchQueryOptions} from '@apollo/client';
 import type {ImperiumClient} from '@imperium/client';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import mergeOptions from 'merge-options';
 import {createLink, ILink} from './createLink';
+import {defaults} from './defaults';
 import type {GraphqlClientOptions} from './withGraphql';
 
 const d = debug('imperium.graphql-client.createApolloClient');
@@ -39,7 +40,7 @@ export function createApolloClient({client, opts, apolloClient}: CreateClientOpt
 		});
 	}
 
-	const apolloDefaults = Environment.getRecord('apolloDefaults') as unknown as ApolloDefaults;
+	const apolloDefaults = env.getJson('apolloDefaults', defaults.apolloDefaults) as unknown as ApolloDefaults;
 	const link = createLink(client, opts);
 	const apolloClientOptions = mergeOptions(
 		{

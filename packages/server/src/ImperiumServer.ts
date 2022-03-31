@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import type {AuthenticatedUser, Connectors} from '@imperium/connector';
-import {Environment} from '@thx/env';
 import debug from 'debug';
 import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
@@ -58,13 +57,6 @@ export class ImperiumServer<Context> {
 
 		this._modules = this._moduleFactoryFn();
 		d(`Loaded modules: ${this._modules.map(module => module.name).join(', ')}`);
-
-		// Add environment defaults for each module
-		this.modules.forEach(module => {
-			if (module.environmentDefaults) {
-				Environment.addDefaults(module.environmentDefaults);
-			}
-		});
 
 		// Connect connectors
 		await this.connectors.connect();

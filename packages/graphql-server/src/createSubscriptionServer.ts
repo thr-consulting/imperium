@@ -1,8 +1,9 @@
 import type {ImperiumServer} from '@imperium/server';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import {execute, GraphQLSchema, subscribe} from 'graphql';
 import {ServerOptions, SubscriptionServer} from 'subscriptions-transport-ws';
+import {defaults} from './defaults';
 
 const d = debug('imperium.graphql-server.createSubscriptionServer');
 
@@ -13,7 +14,7 @@ interface CreateSubscriptionServerOpts {
 }
 
 export function createSubscriptionServer({server, schema, graphqlUrl}: CreateSubscriptionServerOpts) {
-	const enableSubscriptions = Environment.getBool('IMP_GRAPHQL_ENABLE_SUBSCRIPTIONS');
+	const enableSubscriptions = env.getBool('IMP_GRAPHQL_ENABLE_SUBSCRIPTIONS', defaults.IMP_GRAPHQL_ENABLE_SUBSCRIPTIONS);
 
 	if (enableSubscriptions) {
 		d('Installing subscription handlers');

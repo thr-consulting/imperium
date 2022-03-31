@@ -1,6 +1,7 @@
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import decode from 'jwt-decode';
+import {defaults} from '../defaults';
 import type {AccessToken, LoginReturn, IAuth} from '../types';
 
 const d = debug('imperium.auth-client.lib.fetching');
@@ -11,7 +12,7 @@ const d = debug('imperium.auth-client.lib.fetching');
 export function isTokenValidOrUndefined(token?: string): boolean {
 	let accessToken: string | null | undefined = token;
 	if (!token) {
-		accessToken = window.localStorage.getItem(Environment.getString('authAccessTokenKey'));
+		accessToken = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 	}
 
 	if (!accessToken) return true; // Empty token should be valid
@@ -29,7 +30,7 @@ export function isTokenValidOrUndefined(token?: string): boolean {
  * Fetches a new access token as a Response promise from the refresh url.
  */
 export async function fetchAccessToken(): Promise<Response> {
-	const res = fetch(Environment.getString('authRefreshUrl'), {
+	const res = fetch(env.getString('authRefreshUrl', defaults.authRefreshUrl), {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include',

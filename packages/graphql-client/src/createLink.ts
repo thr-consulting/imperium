@@ -4,10 +4,11 @@ import {onError} from '@apollo/client/link/error';
 import {WebSocketLink} from '@apollo/client/link/ws';
 import {getMainDefinition} from '@apollo/client/utilities';
 import type {ImperiumClient, ImperiumClientModule} from '@imperium/client';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import type {ExcludeFalse} from '@thx/util';
 import debug from 'debug';
 import {SubscriptionClient} from 'subscriptions-transport-ws';
+import {defaults} from './defaults';
 import {removeTypeNameLink} from './removeTypeNameLink';
 import {isImperiumGraphqlClientModule} from './types';
 import type {GraphqlClientOptions} from './withGraphql';
@@ -20,8 +21,8 @@ export interface ILink {
 }
 
 export function createLink(client: ImperiumClient, opts?: GraphqlClientOptions): ILink {
-	const graphqlUri = Environment.getString('graphql');
-	const graphqlSubscriptionUri = Environment.getString('graphqlws');
+	const graphqlUri = env.getString('graphql', defaults.graphql);
+	const graphqlSubscriptionUri = env.getString('graphqlws', defaults.graphqlws);
 
 	d(`Creating Apollo HTTP link: ${graphqlUri}`);
 	const httpLink = new BatchHttpLink({

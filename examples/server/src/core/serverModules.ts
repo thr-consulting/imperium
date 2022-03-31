@@ -1,9 +1,9 @@
+import {env} from '@thx/env';
 import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import {voyagerServerModule} from '@imperium/voyager';
-import {Environment} from '@thx/env';
 import type {ExcludeFalse} from '@thx/util';
 import debug from 'debug';
 import {basicModule} from '~basicModule/index';
@@ -26,14 +26,14 @@ export function serverModules(): ImperiumServerModule<any>[] {
 	return [
 		authServerModule((ctx: Context) => new Authentication(ctx)),
 		graphqlServerModule({
-			middleware: [authMiddleware({credentialsRequired: Environment.getBool('GRAPHQL_CREDENTIALS_REQUIRED')})],
+			middleware: [authMiddleware({credentialsRequired: env.getBool('GRAPHQL_CREDENTIALS_REQUIRED', false)})],
 		}),
 		voyagerServerModule(),
 		userModule(),
 		basicModule(),
 		advancedModule(),
 		graphqlModule(),
-		Environment.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS') && subscriptionModule(),
+		env.getBool('GRAPHQL_ENABLE_SUBSCRIPTIONS', false) && subscriptionModule(),
 		apolloCacheModule(),
 		authModule(),
 	].filter(Boolean as any as ExcludeFalse);
