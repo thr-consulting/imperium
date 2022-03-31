@@ -1,6 +1,6 @@
 import type {ImperiumServer} from '@imperium/server';
 import {compose} from '@imperium/server';
-import {Environment, getCorsOrigin} from '@thx/env';
+import {env, getCorsOrigin} from '@thx/env';
 import {ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandingPageDisabled} from 'apollo-server-core';
 import type {ApolloServerExpressConfig, CorsOptions, ExpressContext} from 'apollo-server-express';
 import {ApolloServer} from 'apollo-server-express';
@@ -9,6 +9,7 @@ import debug from 'debug';
 import {compact} from 'lodash-es';
 import {apolloErrorHandler} from './ApolloErrorHandler';
 import {createSubscriptionServer} from './createSubscriptionServer';
+import {defaults} from './defaults';
 import {makeSchema} from './makeSchema';
 import type {GraphqlServerModuleConfig} from './types';
 
@@ -20,10 +21,10 @@ const d = debug('imperium.graphql-server.endpoints');
  */
 export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 	return async (server: ImperiumServer<any>): Promise<void> => {
-		const isDevelopment = Environment.isDevelopment();
-		const graphqlUrl = Environment.getString('IMP_GRAPHQL_URL');
+		const isDevelopment = env.isDevelopment();
+		const graphqlUrl = env.getString('IMP_GRAPHQL_URL', defaults.IMP_GRAPHQL_URL);
 
-		const graphqlBodyLimit = Environment.getString('IMP_GRAPHQL_BODY_LIMIT');
+		const graphqlBodyLimit = env.getString('IMP_GRAPHQL_BODY_LIMIT', defaults.IMP_GRAPHQL_BODY_LIMIT);
 
 		const schema = makeSchema({server});
 
@@ -64,18 +65,18 @@ export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 
 		d(`Adding graphql endpoint: ${graphqlUrl}`);
 
+		await apolloServer.start();
+
+		const corsOpts: CorsOptions = {
+			origin: getCorsOrigin(),
+		};
+
 		// Add middleware to graphql endpoint. Optional middleware can be passed in via constructor config object.
 		// preContext and postContext middleware could be a thing, if needed.
 		server.expressApp.use(
 			graphqlUrl,
 			compose([bodyParser.json({limit: graphqlBodyLimit}), ...(config?.middleware || []), server.contextMiddleware()]),
 		);
-
-		const corsOpts: CorsOptions = {
-			origin: getCorsOrigin(),
-		};
-
-		await apolloServer.start();
 
 		apolloServer.applyMiddleware({
 			app: server.expressApp,

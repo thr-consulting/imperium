@@ -1,4 +1,3 @@
-import type {EnvironmentDefaultDict} from '@thx/env';
 import type React from 'react';
 import type {ImperiumClient} from './ImperiumClient';
 
@@ -18,5 +17,4 @@ export interface ImperiumClientModule {
 	order?: number;
 	startup?: (client: ImperiumClient) => Promise<void>; // RootProps | void;
 	hocs?: HocCreator[];
-	environmentDefaults?: EnvironmentDefaultDict;
 }

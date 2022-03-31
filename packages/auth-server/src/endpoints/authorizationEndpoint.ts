@@ -1,10 +1,11 @@
 import {Authorization} from '@imperium/authorization';
 import type {ImperiumServer} from '@imperium/server';
-import {Environment, getCorsOrigin} from '@thx/env';
+import {env, getCorsOrigin} from '@thx/env';
 import bodyParser from 'body-parser';
 import type {CorsOptions} from 'cors';
 import cors from 'cors';
 import debug from 'debug';
+import {defaults} from '../defaults';
 import {isAuthorizationInfo} from '../lib/typeguards';
 import {authMiddleware} from '../middleware/authMiddleware';
 
@@ -13,7 +14,7 @@ const d = debug('imperium.auth-server.endpoints.authorizationEndpoint');
 const {json} = bodyParser;
 
 export function authorizationEndpoint(server: ImperiumServer<any>): void {
-	const authPermissionUrl = Environment.getString('IMP_PERMISSION_URL');
+	const authPermissionUrl = env.getString('IMP_PERMISSION_URL', defaults.IMP_PERMISSION_URL);
 
 	d(`Adding auth permission endpoint: ${authPermissionUrl}`);
 

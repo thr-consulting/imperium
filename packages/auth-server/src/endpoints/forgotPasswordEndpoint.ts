@@ -1,7 +1,8 @@
 import type {ImperiumServer} from '@imperium/server';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import bodyParser from 'body-parser';
 import debug from 'debug';
+import {defaults} from '../defaults';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.forgotPasswordEndpoint');
@@ -17,7 +18,7 @@ function isForgotPasswordInfo(forgotPasswordInfo: any): forgotPasswordInfo is Fo
 }
 
 export function forgotPasswordEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	const authForgotPasswordUrl = Environment.getString('IMP_RESET_URL');
+	const authForgotPasswordUrl = env.getString('IMP_RESET_URL', defaults.IMP_RESET_URL);
 
 	d(`Adding auth forgot password endpoint: ${authForgotPasswordUrl}`);
 

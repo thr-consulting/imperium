@@ -1,5 +1,5 @@
+import {env} from '@thx/env';
 import {ImperiumGraphqlContext} from '@imperium/graphql-client';
-import {Environment} from '@thx/env';
 import debug from 'debug';
 import {useContext} from 'react';
 import {Button} from 'semantic-ui-react';
@@ -12,7 +12,7 @@ const d = debug('imperium.web.sample-graphql.components.GraphqlTest');
 
 export default function GraphqlTest() {
 	const {reconnect} = useContext(ImperiumGraphqlContext);
-	const subscriptionsEnabled = Environment.getString('graphqlws') !== '';
+	const subscriptionsEnabled = env.getString('graphqlws') !== '';
 	d(subscriptionsEnabled);
 
 	return (

@@ -1,8 +1,9 @@
 import {ApolloLink} from '@apollo/client';
 import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import debug from 'debug';
+import {defaults} from './defaults';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
 
@@ -15,7 +16,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 		// Create Apollo middleware link (for authorization)
 		d('Creating auth Apollo link');
 		const authLink = new ApolloLink((operation, forward) => {
-			const token = window.localStorage.getItem(Environment.getString('authAccessTokenKey'));
+			const token = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 			if (token) {
 				operation.setContext({
 					headers: {
@@ -41,12 +42,12 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 			},
 			handleFetch: accessToken => {
 				d('Fetched access token');
-				window.localStorage.setItem(Environment.getString('authAccessTokenKey'), accessToken);
+				window.localStorage.setItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey), accessToken);
 			},
 			handleError: err => {
 				d('There was a problem refreshing the access token. Re-login required.');
-				window.localStorage.removeItem(Environment.getString('authAccessTokenKey'));
-				window.localStorage.removeItem(Environment.getString('authIdKey'));
+				window.localStorage.removeItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
+				window.localStorage.removeItem(env.getString('authIdKey', defaults.authIdKey));
 				if (options?.refreshFailed) {
 					options.refreshFailed(err);
 				}

@@ -1,16 +1,17 @@
 import type {ImperiumServer} from '@imperium/server';
-import {Environment, getCorsOrigin} from '@thx/env';
+import {env, getCorsOrigin} from '@thx/env';
 import cookieParser from 'cookie-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
+import {defaults} from '../defaults';
 import {refresh} from '../lib/refresh';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 
 export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
-	const authRefreshUrl = Environment.getString('IMP_REFRESH_URL');
-	const authRefreshCookieName = Environment.getString('IMP_REFRESH_COOKIE_NAME');
+	const authRefreshUrl = env.getString('IMP_REFRESH_URL', defaults.IMP_REFRESH_URL);
+	const authRefreshCookieName = env.getString('IMP_REFRESH_COOKIE_NAME', defaults.IMP_REFRESH_COOKIE_NAME);
 
 	d(`Adding auth refresh endpoint: ${authRefreshUrl}`);
 

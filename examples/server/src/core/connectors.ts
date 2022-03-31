@@ -1,6 +1,6 @@
+import {env} from '@thx/env';
 import {Connectors, Connector} from '@imperium/connector';
 import {MikroORM} from '@mikro-orm/core';
-import {Environment} from '@thx/env';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {PubSub} from 'graphql-subscriptions';
@@ -36,7 +36,7 @@ export const connectors = new Connectors([
 	new Connector<SharedCache>('sharedCache', {
 		async connect() {
 			const redisClient = createClient({
-				url: Environment.getString('REDIS_URL'),
+				url: env.getString('REDIS_URL'),
 			});
 			await redisClient.connect();
 			return new SharedCache({

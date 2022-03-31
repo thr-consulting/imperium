@@ -1,10 +1,11 @@
 import {compose} from '@imperium/server';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import type {RequestHandler} from 'express';
 import jwt from 'express-jwt';
 import jsonwebtoken from 'jsonwebtoken';
 import type {Algorithm} from 'jsonwebtoken';
+import {defaults} from '../defaults';
 import type {AuthMiddlewareConfig} from '../types';
 
 const d = debug('imperium.auth-server.middleware.authMiddleware');
@@ -17,9 +18,9 @@ export interface Auth {
 
 function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 	return (req, res, next) => {
-		const authAccessTokenSecret = Environment.getString('IMP_ACCESS_TOKEN_SECRET');
-		const authAccessTokenAlgorithms = Environment.getString('IMP_ACCESS_TOKEN_ALGORITHMS')
-			.split(',')
+		const authAccessTokenSecret = env.getString('IMP_ACCESS_TOKEN_SECRET', defaults.IMP_ACCESS_TOKEN_SECRET);
+		const authAccessTokenAlgorithms = env
+			.getStringArray('IMP_ACCESS_TOKEN_ALGORITHMS', defaults.IMP_ACCESS_TOKEN_ALGORITHMS)
 			.map(s => s.trim()) as Algorithm[];
 		const {token} = req.query;
 
@@ -35,9 +36,9 @@ function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 }
 
 export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
-	const authAccessTokenSecret = Environment.getString('IMP_ACCESS_TOKEN_SECRET');
-	const authAccessTokenAlgorithms = Environment.getString('IMP_ACCESS_TOKEN_ALGORITHMS')
-		.split(',')
+	const authAccessTokenSecret = env.getString('IMP_ACCESS_TOKEN_SECRET', defaults.IMP_ACCESS_TOKEN_SECRET);
+	const authAccessTokenAlgorithms = env
+		.getStringArray('IMP_ACCESS_TOKEN_ALGORITHMS', defaults.IMP_ACCESS_TOKEN_ALGORITHMS)
 		.map(s => s.trim()) as Algorithm[];
 
 	const middlewareArr: RequestHandler[] = [];

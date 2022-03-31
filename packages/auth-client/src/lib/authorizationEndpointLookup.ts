@@ -1,7 +1,8 @@
 import type {PermissionLookup} from '@imperium/authorization';
 import {Authorization} from '@imperium/authorization';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
+import {defaults} from '../defaults';
 import type {ClientAuthorizationData} from '../types';
 
 const d = debug('imperium.auth-client.lib.authorizationEndpointLookup');
@@ -21,7 +22,7 @@ export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationDa
 	const keyStrings = keys.map(k => Authorization.keyToString(k));
 
 	return new Promise((resolve, reject) => {
-		fetch(Environment.getString('authPermissionUrl'), {
+		fetch(env.getString('authPermissionUrl', defaults.authPermissionUrl), {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',

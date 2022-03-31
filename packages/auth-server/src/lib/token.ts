@@ -1,7 +1,8 @@
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import jsonwebtoken from 'jsonwebtoken';
 import type {SignOptions} from 'jsonwebtoken';
+import {defaults} from '../defaults';
 import type {ServiceInfo} from '../types';
 
 const d = debug('imperium.auth-server.lib.token');
@@ -13,8 +14,8 @@ function signJwt(payload: string | Record<string, unknown>, secret: string, opti
 }
 
 export function createAccessToken(serviceInfo: ServiceInfo): string {
-	const authAccessTokenSecret = Environment.getString('IMP_ACCESS_TOKEN_SECRET');
-	const authAccessTokenExpires = Environment.getString('IMP_ACCESS_TOKEN_EXPIRES');
+	const authAccessTokenSecret = env.getString('IMP_ACCESS_TOKEN_SECRET', defaults.IMP_ACCESS_TOKEN_SECRET);
+	const authAccessTokenExpires = env.getString('IMP_ACCESS_TOKEN_EXPIRES', defaults.IMP_ACCESS_TOKEN_EXPIRES);
 
 	return signJwt(
 		{
@@ -26,9 +27,9 @@ export function createAccessToken(serviceInfo: ServiceInfo): string {
 }
 
 export function createRefreshToken(identifier: string, rememberDevice?: boolean): string {
-	const authRefreshTokenSecret = Environment.getString('IMP_REFRESH_TOKEN_SECRET');
-	const authRefreshTokenExpiresLong = Environment.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG');
-	const authRefreshTokenExpiresShort = Environment.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT');
+	const authRefreshTokenSecret = env.getString('IMP_REFRESH_TOKEN_SECRET', defaults.IMP_REFRESH_TOKEN_SECRET);
+	const authRefreshTokenExpiresLong = env.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG', defaults.IMP_REFRESH_TOKEN_EXPIRES_LONG);
+	const authRefreshTokenExpiresShort = env.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT', defaults.IMP_REFRESH_TOKEN_EXPIRES_SHORT);
 
 	return signJwt(
 		{

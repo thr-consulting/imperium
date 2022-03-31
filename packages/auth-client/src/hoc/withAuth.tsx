@@ -1,11 +1,12 @@
 import type {AuthorizationCache, PermissionLookup} from '@imperium/authorization';
 import {Authorization, noPermissionLookup} from '@imperium/authorization';
 import type {Hoc} from '@imperium/client';
-import {Environment} from '@thx/env';
+import {env} from '@thx/env';
 import debug from 'debug';
 import Dexie from 'dexie';
 import {ComponentType, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {AuthContext} from '../AuthContext';
+import {defaults} from '../defaults';
 import type {ClientAuthorizationData, IAuth} from '../types';
 
 const d = debug('imperium.auth-client.hoc.withAuth');
@@ -21,7 +22,7 @@ interface CacheItem {
 }
 
 function mapDexieToCache(cache: Dexie): AuthorizationCache {
-	const staleMs = Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000;
+	const staleMs = env.getInt('AUTH_PERMISSION_CACHE_EXPIRES', defaults.AUTH_PERMISSION_CACHE_EXPIRES) * 1000;
 	return {
 		async exists(key: string): Promise<boolean> {
 			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
@@ -55,8 +56,8 @@ export function withAuth(opts?: AuthClientOptions) {
 
 			function ComponentWithAuth(props: any) {
 				const [authenticated, setAuthenticated] = useState<IAuth>({
-					id: localStorage.getItem(Environment.getString('authIdKey')) || '',
-					access: localStorage.getItem(Environment.getString('authAccessTokenKey')) || '',
+					id: localStorage.getItem(env.getString('authIdKey', defaults.authIdKey)) || '',
+					access: localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey)) || '',
 				});
 				const cache = useRef<Dexie>(new Dexie('auth'));
 
@@ -99,7 +100,7 @@ export function withAuth(opts?: AuthClientOptions) {
 						await cache.current
 							.table('auth')
 							.where('timestamp')
-							.below(Date.now() - Environment.getInt('AUTH_PERMISSION_CACHE_EXPIRES') * 1000)
+							.below(Date.now() - env.getInt('AUTH_PERMISSION_CACHE_EXPIRES', defaults.AUTH_PERMISSION_CACHE_EXPIRES) * 1000)
 							.delete();
 
 						authorization.cache = mapDexieToCache(cache.current);
@@ -115,8 +116,8 @@ export function withAuth(opts?: AuthClientOptions) {
 
 							// The id or access code is invalid, so we will clear all persisted info
 							await cache.current.table('auth').clear();
-							localStorage.removeItem(Environment.getString('authIdKey'));
-							localStorage.removeItem(Environment.getString('authAccessTokenKey'));
+							localStorage.removeItem(env.getString('authIdKey', defaults.authIdKey));
+							localStorage.removeItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 						}
 					})();
 				}, [authenticated]);
