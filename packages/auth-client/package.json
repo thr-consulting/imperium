@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "10.0.2",
+	"version": "10.0.3",
 	"description": "Imperium Auth client package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,8 +31,8 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^10.0.2",
-		"@imperium/client": "^10.0.0",
+		"@imperium/authorization": "^10.0.3",
+		"@imperium/client": "^10.0.3",
 		"@thx/env": "^16.0.0",
 		"debug": "^4.3.3",
 		"dexie": "^3.2.1",

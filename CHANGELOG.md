@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.3](https://github.com/darkadept/imperium/compare/v10.0.2...v10.0.3) (2022-03-31)
+
+
+### Bug Fixes
+
+* fixed yarn.lock issue ([2ce6c0c](https://github.com/darkadept/imperium/commit/2ce6c0cb522813898f4e2f41356a67e531e0e741))
+* **graphql-server:** reordered middleware ([0722af4](https://github.com/darkadept/imperium/commit/0722af4da1c63a47422d5133bba74579adcdf865))
+
+
+
+
+
 ## [10.0.2](https://github.com/darkadept/imperium/compare/v10.0.1...v10.0.2) (2022-03-28)
 
 
