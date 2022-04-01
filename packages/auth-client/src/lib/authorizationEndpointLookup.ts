@@ -1,5 +1,5 @@
 import type {PermissionLookup} from '@imperium/authorization';
-import {Authorization} from '@imperium/authorization';
+import {Authorization, authorizationHeader} from '@imperium/authorization';
 import {env} from '@thx/env';
 import debug from 'debug';
 import {defaults} from '../defaults';
@@ -22,7 +22,8 @@ export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationDa
 	const keyStrings = keys.map(k => Authorization.keyToString(k));
 
 	return new Promise((resolve, reject) => {
-		fetch(env.getString('authPermissionUrl', defaults.authPermissionUrl), {
+		const url = new URL(env.getString('authPermissionUrl', defaults.authPermissionUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
+		fetch(url.href, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -31,7 +32,7 @@ export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationDa
 			}),
 			headers: {
 				'content-type': 'application/json',
-				authorization: authorization.extraData?.access ? `Bearer ${authorization.extraData?.access}` : '',
+				...authorizationHeader(authorization.extraData?.access),
 			},
 		}).then(res => {
 			if (!res.ok) reject(res.statusText);

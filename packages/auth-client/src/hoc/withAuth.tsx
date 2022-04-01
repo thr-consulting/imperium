@@ -22,7 +22,7 @@ interface CacheItem {
 }
 
 function mapDexieToCache(cache: Dexie): AuthorizationCache {
-	const staleMs = env.getInt('AUTH_PERMISSION_CACHE_EXPIRES', defaults.AUTH_PERMISSION_CACHE_EXPIRES) * 1000;
+	const staleMs = env.getInt('AUTH_PERMISSION_CACHE_EXPIRES', defaults.IMP_PERMISSION_CACHE_EXPIRES) * 1000;
 	return {
 		async exists(key: string): Promise<boolean> {
 			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
@@ -100,7 +100,7 @@ export function withAuth(opts?: AuthClientOptions) {
 						await cache.current
 							.table('auth')
 							.where('timestamp')
-							.below(Date.now() - env.getInt('AUTH_PERMISSION_CACHE_EXPIRES', defaults.AUTH_PERMISSION_CACHE_EXPIRES) * 1000)
+							.below(Date.now() - env.getInt('IMP_PERMISSION_CACHE_EXPIRES', defaults.IMP_PERMISSION_CACHE_EXPIRES) * 1000)
 							.delete();
 
 						authorization.cache = mapDexieToCache(cache.current);

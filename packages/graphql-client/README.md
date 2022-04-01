@@ -11,10 +11,9 @@
 ## Environment Variables
 These can be specified in a `.env` file in the client package. These are also not secret as they are included in the client build and available on the client.
 
-|Variable|Default|Description|
-|---|---|---|
-|SERVER_PROTOCOL|'http'|What protocol the server is accessible at.|
-|SERVER_HOST|'localhost'|What host the server is accessible at.|
-|SERVER_PORT|4001|What port the server is accessible at.|
-|GRAPHQL_URL|'/api/graphql'|What endpoint the graphql server is accessible at.|
-|GRAPHQL_WS|false|Enable graphql subscriptions via a websocket.|
+| Variable       | Default                  | Description                                                                                   |
+|----------------|--------------------------|-----------------------------------------------------------------------------------------------|
+| IMP_API_URL    | 'http://localhost:4001'  | The URL of the api endpoint.                                                                  |
+| graphql        | '/api/graphql'           | What endpoint the graphql server is accessible at.                                            |
+| graphqlws      | ''                       | What endpoint the graphql subscriptions server is accessible at. Should be a ws:// websocket. |
+| apolloDefaults | *see `defaults.ts` file* | The defaults options loaded into Apollo client.                                               |

@@ -4,6 +4,7 @@ import {env} from '@thx/env';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import debug from 'debug';
 import {defaults} from './defaults';
+import {authorizationHeader} from '@imperium/authorization';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
 
@@ -19,9 +20,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 			const token = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 			if (token) {
 				operation.setContext({
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
+					headers: authorizationHeader(token),
 				});
 			} else {
 				d('Token not set in local storage');

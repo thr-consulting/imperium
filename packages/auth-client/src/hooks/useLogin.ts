@@ -12,8 +12,8 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 
 	return async (loginInfo: LoginInfo) => {
 		// Send a POST request to login
-
-		const res = await fetch(env.getString('authLoginUrl', defaults.authLoginUrl), {
+		const url = new URL(env.getString('authLoginUrl', defaults.authLoginUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
+		const res = await fetch(url.href, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',

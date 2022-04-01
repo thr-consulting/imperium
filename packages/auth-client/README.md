@@ -18,15 +18,15 @@ The Imperium feature module tracks if a user is logged in. It also creates a cac
 information is persisted in Local Storage. The authorization cache is persisted in an IndexedDB.
 
 # Environment Variables
-These can be specified in a `.env` file in the client package. These are also not secret as they are included in the client build and available on the client.
+These can be specified in an `env.js` file. These are not secret or protected!
 
-|Variable|Default|Description|
-|---|---|---|
-|SERVER_PROTOCOL|'http'|What protocol the server is accessible at.|
-|SERVER_HOST|'localhost'|What host the server is accessible at.|
-|SERVER_PORT|4001|What port the server is accessible at.|
-|AUTH_LOGIN_URL|'/api/login'|What the login endpoint is accessible at.|
-|AUTH_REFRESH_URL|'/api/refresh'|What the refresh endpoint is accessible at.|
-|AUTH_FORGOTPASSWORD_URL|'/api/forgot-password'|What the forgot password endpoint is accessible at.|
-|AUTH_ACCESS_TOKEN_KEY|'access'|The local storage key that the access token is stored at.|
-|AUTH_ID_KEY|'id'|The local storage key that the id is stored at.|
+| Variable                     | Default                 | Description                                                    |
+|------------------------------|-------------------------|----------------------------------------------------------------|
+| IMP_PERMISSION_CACHE_EXPIRES | 3600                    | Number of seconds to expire the client side permissions cache. |
+| IMP_API_URL                  | 'http://localhost:4001' | The URL of the api endpoint.                                   |
+| authAccessTokenKey           | 'access'                | The local storage key that the access token is stored at.      |
+| authIdKey                    | 'id'                    | The local storage key that the id is stored at.                |
+| authRefreshUrl               | '/api/refresh'          | What the refresh endpoint is accessible at.                    |
+| authLoginUrl                 | '/api/login'            | What the login endpoint is accessible at.                      |
+| authForgotPasswordUrl        | '/api/forgot-password'  | What the forgot password endpoint is accessible at.            |
+| authPermissionUrl            | '/api/auth              | What the permission endpoint is accessible at.                 |

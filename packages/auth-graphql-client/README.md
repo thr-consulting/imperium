@@ -8,5 +8,10 @@
 [![GitHub license](https://img.shields.io/github/license/darkadept/imperium.svg)](https://github.com/darkadept/imperium/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/darkadept/imperium.svg)](https://github.com/darkadept/imperium/graphs/contributors/)
 
-## Environment Variables
-See @imperium/auth-client. 
+# Environment Variables
+These can be specified in an `env.js` file. These are not secret or protected!
+
+| Variable                     | Default                 | Description                                                    |
+|------------------------------|-------------------------|----------------------------------------------------------------|
+| authAccessTokenKey           | 'access'                | The local storage key that the access token is stored at.      |
+| authIdKey                    | 'id'                    | The local storage key that the id is stored at.                |

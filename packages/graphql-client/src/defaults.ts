@@ -13,6 +13,7 @@ export const defaults = {
 			errorPolicy: 'all',
 		},
 	},
-	graphql: 'http://localhost:4001/api/graphql',
+	IMP_API_URL: 'http://localhost:4001',
+	graphql: '/api/graphql',
 	graphqlws: '', // ws://localhost:4001/api/graphql',
 };
