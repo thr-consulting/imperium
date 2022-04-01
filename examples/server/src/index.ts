@@ -1,5 +1,5 @@
-import {env} from '@thx/env';
 import {ImperiumServer} from '@imperium/server';
+import {env} from '@thx/env';
 import {connectors} from '~core/connectors';
 import {contextCreator} from '~core/context';
 import {serverModules} from '~core/serverModules';

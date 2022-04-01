@@ -1,10 +1,10 @@
 import {ApolloLink} from '@apollo/client';
 import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
+import {authorizationHeader} from '@imperium/authorization';
 import {env} from '@thx/env';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import debug from 'debug';
 import {defaults} from './defaults';
-import {authorizationHeader} from '@imperium/authorization';
 
 const d = debug('imperium.auth-graphql-client.apolloLink');
 

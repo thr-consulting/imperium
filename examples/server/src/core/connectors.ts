@@ -1,6 +1,6 @@
-import {env} from '@thx/env';
 import {Connectors, Connector} from '@imperium/connector';
 import {MikroORM} from '@mikro-orm/core';
+import {env} from '@thx/env';
 import SharedCache from '@thx/sharedcache';
 import debug from 'debug';
 import {PubSub} from 'graphql-subscriptions';

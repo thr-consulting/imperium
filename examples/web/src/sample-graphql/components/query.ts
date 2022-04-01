@@ -11,7 +11,7 @@ export type QQuery = { getSubscriptionValue?: { id?: string | null } | null };
 
 
 
-export type QType = { id?: string | null } | null;
+export type QType = { id?: string | null };
 
 
 

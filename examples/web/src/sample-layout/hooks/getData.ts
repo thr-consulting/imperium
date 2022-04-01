@@ -11,7 +11,7 @@ export type GetDataQuery = { getSubscriptionValue?: { id?: string | null } | nul
 
 
 
-export type GetDataType = { id?: string | null } | null;
+export type GetDataType = { id?: string | null };
 
 
 

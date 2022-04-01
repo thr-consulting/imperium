@@ -1,5 +1,5 @@
-import type {DocumentNode} from 'graphql';
 import type {IResolvers} from '@graphql-tools/utils';
+import type {DocumentNode} from 'graphql';
 import {GraphQLDateTime} from './GraphQLDateTime';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
