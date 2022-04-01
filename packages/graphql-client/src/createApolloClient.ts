@@ -40,7 +40,7 @@ export function createApolloClient({client, opts, apolloClient}: CreateClientOpt
 		});
 	}
 
-	const apolloDefaults = env.getJson('apolloDefaults', defaults.apolloDefaults) as unknown as ApolloDefaults;
+	const apolloDefaults = env.getRecord('apolloDefaults', defaults.apolloDefaults) as unknown as ApolloDefaults;
 	const link = createLink(client, opts);
 	const apolloClientOptions = mergeOptions(
 		{

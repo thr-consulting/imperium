@@ -1,9 +1,4 @@
-scalar Email
-scalar URL
 scalar DateTime
-scalar Password
-scalar UUID
 scalar LocalDate
 scalar LocalTime
 scalar Money
-scalar ObjectId

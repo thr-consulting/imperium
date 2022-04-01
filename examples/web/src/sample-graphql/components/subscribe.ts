@@ -11,7 +11,7 @@ export type OnStuffSubscription = { subscriptionValueChanged?: { id?: string | n
 
 
 
-export type OnStuffType = { id?: string | null } | null;
+export type OnStuffType = { id?: string | null };
 
 
 

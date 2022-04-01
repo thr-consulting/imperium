@@ -1,14 +1,11 @@
 import type {IResolvers} from '@graphql-tools/utils';
 import type {DocumentNode} from 'graphql';
-import graphqlCustomTypes from 'graphql-custom-types';
-import GraphQLObjectId from 'graphql-scalar-objectid';
+import {GraphQLDateTime} from './GraphQLDateTime';
 import {GraphQLLocalDate} from './GraphQLLocalDate';
 import {GraphQLLocalTime} from './GraphQLLocalTime';
 import {GraphQLMoney} from './GraphQLMoney';
 import Root from './Root.graphqls';
 import Scalars from './Scalars.graphqls';
-
-const {GraphQLEmail, GraphQLURL, GraphQLDateTime, GraphQLUUID, GraphQLPassword} = graphqlCustomTypes;
 
 export const schema: DocumentNode[] = [Scalars, Root];
 export const resolvers: IResolvers = {
@@ -22,15 +19,8 @@ export const resolvers: IResolvers = {
 	Subscription: {
 		root: (): string => 'root',
 	},
-	Email: GraphQLEmail,
-	URL: GraphQLURL,
 	DateTime: GraphQLDateTime,
-	UUID: GraphQLUUID,
-	Password: new GraphQLPassword(6, 64, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?', {
-		mixedCase: true,
-	}),
 	LocalDate: GraphQLLocalDate,
 	LocalTime: GraphQLLocalTime,
 	Money: GraphQLMoney,
-	ObjectId: GraphQLObjectId,
 };

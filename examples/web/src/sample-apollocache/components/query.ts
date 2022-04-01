@@ -13,7 +13,7 @@ export type GetCacheListQuery = { getCacheList?: Array<{ id: string, name: strin
 
 
 
-export type GetCacheListType = Array<{ id: string, name: string, type: string } | null> | null;
+export type GetCacheListType = { id: string, name: string, type: string };
 
 
 

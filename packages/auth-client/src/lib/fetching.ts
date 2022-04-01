@@ -12,7 +12,7 @@ const d = debug('imperium.auth-client.lib.fetching');
 export function isTokenValidOrUndefined(token?: string): boolean {
 	let accessToken: string | null | undefined = token;
 	if (!token) {
-		accessToken = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
+		accessToken = localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 	}
 
 	if (!accessToken) return true; // Empty token should be valid
@@ -30,7 +30,8 @@ export function isTokenValidOrUndefined(token?: string): boolean {
  * Fetches a new access token as a Response promise from the refresh url.
  */
 export async function fetchAccessToken(): Promise<Response> {
-	const res = fetch(env.getString('authRefreshUrl', defaults.authRefreshUrl), {
+	const url = new URL(env.getString('authRefreshUrl', defaults.authRefreshUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
+	const res = fetch(url.href, {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include',

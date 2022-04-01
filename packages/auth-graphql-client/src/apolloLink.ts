@@ -1,5 +1,6 @@
 import {ApolloLink} from '@apollo/client';
 import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
+import {authorizationHeader} from '@imperium/authorization';
 import {env} from '@thx/env';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import debug from 'debug';
@@ -19,9 +20,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 			const token = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 			if (token) {
 				operation.setContext({
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
+					headers: authorizationHeader(token),
 				});
 			} else {
 				d('Token not set in local storage');

@@ -1,9 +1,9 @@
-import {env} from '@thx/env';
 import {authMiddleware, authServerModule} from '@imperium/auth-server';
 import {Authentication} from '@imperium/example-domain';
 import {graphqlServerModule} from '@imperium/graphql-server';
 import type {ImperiumServerModule} from '@imperium/server';
 import {voyagerServerModule} from '@imperium/voyager';
+import {env} from '@thx/env';
 import type {ExcludeFalse} from '@thx/util';
 import debug from 'debug';
 import {basicModule} from '~basicModule/index';

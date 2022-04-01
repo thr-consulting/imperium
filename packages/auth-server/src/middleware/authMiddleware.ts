@@ -19,9 +19,7 @@ export interface Auth {
 function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 	return (req, res, next) => {
 		const authAccessTokenSecret = env.getString('IMP_ACCESS_TOKEN_SECRET', defaults.IMP_ACCESS_TOKEN_SECRET);
-		const authAccessTokenAlgorithms = env
-			.getStringArray('IMP_ACCESS_TOKEN_ALGORITHMS', defaults.IMP_ACCESS_TOKEN_ALGORITHMS)
-			.map(s => s.trim()) as Algorithm[];
+		const authAccessTokenAlgorithms = env.getStringArray('IMP_TOKEN_ALGORITHMS', defaults.IMP_TOKEN_ALGORITHMS).map(s => s.trim()) as Algorithm[];
 		const {token} = req.query;
 
 		if (token && typeof token === 'string') {
@@ -37,9 +35,7 @@ function urlParameterAuth(config: AuthMiddlewareConfig): RequestHandler {
 
 export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
 	const authAccessTokenSecret = env.getString('IMP_ACCESS_TOKEN_SECRET', defaults.IMP_ACCESS_TOKEN_SECRET);
-	const authAccessTokenAlgorithms = env
-		.getStringArray('IMP_ACCESS_TOKEN_ALGORITHMS', defaults.IMP_ACCESS_TOKEN_ALGORITHMS)
-		.map(s => s.trim()) as Algorithm[];
+	const authAccessTokenAlgorithms = env.getStringArray('IMP_TOKEN_ALGORITHMS', defaults.IMP_TOKEN_ALGORITHMS).map(s => s.trim()) as Algorithm[];
 
 	const middlewareArr: RequestHandler[] = [];
 

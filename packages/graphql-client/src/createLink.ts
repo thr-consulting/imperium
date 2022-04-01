@@ -21,7 +21,8 @@ export interface ILink {
 }
 
 export function createLink(client: ImperiumClient, opts?: GraphqlClientOptions): ILink {
-	const graphqlUri = env.getString('graphql', defaults.graphql);
+	const url = new URL(env.getString('graphql', defaults.graphql), env.getString('IMP_API_URL', defaults.IMP_API_URL));
+	const graphqlUri = url.href;
 	const graphqlSubscriptionUri = env.getString('graphqlws', defaults.graphqlws);
 
 	d(`Creating Apollo HTTP link: ${graphqlUri}`);

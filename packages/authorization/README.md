@@ -10,6 +10,8 @@
 
 # Environment Variables
 
-| Variable                      | Default | Description                                           |
-|-------------------------------|---------|-------------------------------------------------------|
-| AUTH_PERMISSION_CACHE_EXPIRES | 3600    | How long does the permission caching last in seconds. |
+| Variable                             | Default | Description                                           |
+|--------------------------------------|---------|-------------------------------------------------------|
+| IMP_PERMISSION_CACHE_EXPIRES         | 3600    | How long does the permission caching last in seconds. |
+| IMP_PERMISSION_DATALOADER_LRU_MAX    | 500     | Max number of items in permission dataloader cache    |
+| IMP_PERMISSION_DATALOADER_LRU_MAXAGE | 60      | Number of seconds when permission cache items expire. |
