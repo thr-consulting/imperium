@@ -2,9 +2,9 @@ import {env} from '@thx/env';
 import {configureLogger} from '@thx/log';
 import debug from 'debug';
 import 'dotenv/config';
-import {debounce, isBoolean, isFunction} from 'lodash-es';
-import cluster from 'node:cluster';
+import {debounce, isFunction} from 'lodash-es';
 import type {Worker} from 'node:cluster';
+import cluster from 'node:cluster';
 import os from 'node:os';
 import process from 'node:process';
 import util from 'node:util';
@@ -17,17 +17,9 @@ export type ClusterWorker = () => Promise<any>;
 
 const log = configureLogger(winston.createLogger());
 
-type ShutdownFn = () => Promise<void>;
-
-function exitAfter(ms: number, code = 0, shutdownFn: ShutdownFn = async () => {}) {
+function exitAfter(ms: number, code = 0) {
 	setTimeout(() => {
-		if (shutdownFn && isFunction(shutdownFn)) {
-			shutdownFn().then(() => {
-				process.exit(code);
-			});
-		} else {
-			process.exit(code);
-		}
+		process.exit(code);
 	}, ms);
 }
 
@@ -99,7 +91,10 @@ export function runCluster(clusterWorker: ClusterWorker) {
 					},
 				);
 			} else {
-				log.error('Worker threads keeps crashing, exiting main app...');
+				log.error('Worker threads keeps crashing, exiting main app');
+				if (env.isDevelopment() && env.getBool('ROLLUP_WATCH')) {
+					log.info('Rollup watch still running, CTRL+C to exit');
+				}
 				shutdownMode = true;
 			}
 		});
@@ -123,8 +118,6 @@ export function runCluster(clusterWorker: ClusterWorker) {
 		/* ****************************************************************************************
 		 * CLUSTER WORKER ENTRY POINT
 		 **************************************************************************************** */
-		let shutdownFn: ShutdownFn = async () => {};
-
 		// Catch uncaught exceptions
 		process.on('uncaughtException', error => {
 			log.log({
@@ -132,7 +125,7 @@ export function runCluster(clusterWorker: ClusterWorker) {
 				message: `Fatal: Uncaught exception: ${error.message}`,
 				error,
 			});
-			exitAfter(400, 1, shutdownFn);
+			exitAfter(400, 1);
 		});
 
 		// Catch unhandled rejections
@@ -143,16 +136,18 @@ export function runCluster(clusterWorker: ClusterWorker) {
 				message: `Fatal: Unhandled promise rejection: ${error.message}`,
 				error,
 			});
-			exitAfter(400, 2, shutdownFn);
+			exitAfter(400, 2);
 		});
 
 		clusterWorker()
 			.then(server => {
-				if (server && server.stop && isFunction(server.stop)) {
-					shutdownFn = server.stop;
-				}
-				if (server && server.shutdown && isBoolean(server.shutdown) && server.shutdown === true) {
-					exitAfter(400, 0, shutdownFn);
+				if (server && server.stop && isFunction(server.stop) && server.shutdown) {
+					const ret = server.stop();
+					if (ret && ret.then && isFunction(ret.then)) {
+						ret.then(() => {
+							exitAfter(400, 0);
+						});
+					}
 				}
 			})
 			.catch(error => {
