@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.6](https://github.com/darkadept/imperium/compare/v10.0.5...v10.0.6) (2022-04-19)
+
+
+### Features
+
+* changed Connectors constructor to take an async function that returns an array of connectors ([#312](https://github.com/darkadept/imperium/issues/312)) ([ad255f6](https://github.com/darkadept/imperium/commit/ad255f624326500af4bf44818f12dbc735a9bd2d))
+
+
+
+
+
 ## [10.0.5](https://github.com/darkadept/imperium/compare/v10.0.4...v10.0.5) (2022-04-04)
 
 **Note:** Version bump only for package @imperium/example-server
