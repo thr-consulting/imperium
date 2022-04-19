@@ -33,7 +33,7 @@
 		"@imperium/domaindriven": "^10.0.4",
 		"debug": "^4.3.3",
 		"graphql-subscriptions": "^2.0.0",
-		"redis": "^4.0.4",
+		"ioredis": "^5.0.4",
 		"uuid": "^8.3.2"
 	},
 	"peerDependencies": {

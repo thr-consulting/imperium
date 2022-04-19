@@ -5,10 +5,19 @@ interface NamedConnectors {
 	[name: string]: Connector;
 }
 
-export class Connectors {
-	private readonly connectors: NamedConnectors;
+type CreateConnectors = () => Promise<Connector[]>;
 
-	constructor(connectors: Connector[]) {
+export class Connectors {
+	private connectors: NamedConnectors;
+	private readonly createConnectors: CreateConnectors;
+
+	constructor(createConnectors: CreateConnectors) {
+		this.connectors = {};
+		this.createConnectors = createConnectors;
+	}
+
+	public async connect() {
+		const connectors = await this.createConnectors();
 		this.connectors = connectors.reduce((memo, connector) => {
 			if (memo[connector.name]) {
 				throw new Error(`Connector name: ${connector.name} already exists`);
@@ -18,9 +27,7 @@ export class Connectors {
 				[connector.name]: connector,
 			};
 		}, {} as NamedConnectors);
-	}
 
-	public async connect() {
 		await sequential(
 			Object.values(this.connectors).map(connector => {
 				return async () => {
