@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/darkadept/imperium/compare/v10.0.7...v10.1.0) (2022-04-20)
+
+**Note:** Version bump only for package imperium-esm
+
+
+
+
+
 ## [10.0.7](https://github.com/darkadept/imperium/compare/v10.0.6...v10.0.7) (2022-04-19)
 
 

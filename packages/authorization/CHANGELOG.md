@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/darkadept/imperium/compare/v10.0.7...v10.1.0) (2022-04-20)
+
+**Note:** Version bump only for package @imperium/authorization
+
+
+
+
+
 ## [10.0.4](https://github.com/darkadept/imperium/compare/v10.0.3...v10.0.4) (2022-04-01)
 
 **Note:** Version bump only for package @imperium/authorization
