@@ -1,0 +1,19 @@
+diff --git a/node_modules/dataloader/index.js b/node_modules/dataloader/index.js
+index 2fe23a1..0f8f324 100644
+--- a/node_modules/dataloader/index.js
++++ b/node_modules/dataloader/index.js
+@@ -230,8 +230,13 @@ var enqueuePostPromiseJob = typeof process === 'object' && typeof process.nextTi
+   resolvedPromise.then(function () {
+     return process.nextTick(fn);
+   });
+-} : setImmediate || setTimeout; // Private: cached resolved Promise instance
++} : typeof setImmediate === 'function' ? function (fn) {
++  setImmediate(fn);
++} : function (fn) {
++  setTimeout(fn);
++};
+ 
++// Private: cached resolved Promise instance
+ var resolvedPromise; // Private: Describes a batch of requests
+ 
+ // Private: Either returns the current batch, or creates and schedules a
