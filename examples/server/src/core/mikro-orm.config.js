@@ -1,10 +1,9 @@
 import {entities} from '@imperium/example-domain';
-import type {Options} from '@mikro-orm/core';
 import debug from 'debug';
 
 const d = debug('imperium.server.core.mikro-orm.config');
 
-export const mikroOrmConfig: Options = {
+export const mikroOrmConfig = {
 	entities: Object.values(entities),
 	clientUrl: process.env.POSTGRESQL_URL,
 	type: 'postgresql',

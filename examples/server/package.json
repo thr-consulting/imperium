@@ -17,7 +17,7 @@
     "deps": "thx deps -i ~core,~basicModule",
     "lint": "thx lint",
     "lint.fix": "thx lint.fix",
-    "orm": "mikro-orm",
+    "orm": "MIKRO_ORM_DYNAMIC_IMPORTS=1 mikro-orm",
     "rollup": "rollup",
     "sort": "thx sort",
     "start": "yarn -s build --watch",
@@ -38,8 +38,8 @@
     "@imperium/server": "^10.0.6",
     "@imperium/voyager": "^10.0.6",
     "@js-joda/core": "^5.2.0",
-    "@mikro-orm/core": "^4.5.10",
-    "@mikro-orm/postgresql": "^4.5.10",
+    "@mikro-orm/core": "^5.1.2",
+    "@mikro-orm/postgresql": "^5.1.2",
     "@thx/env": "^16.1.4",
     "@thx/random": "^16.0.0",
     "@thx/sharedcache": "^16.2.1",
@@ -52,13 +52,10 @@
     "graphql-subscriptions": "^2.0.0",
     "ioredis": "^4.28.5"
   },
+  "devDependencies": {
+    "@mikro-orm/cli": "^5.1.2"
+  },
   "engines": {
     "node": ">=16"
-  },
-  "mikro-orm": {
-    "useTsNode": true,
-    "configPaths": [
-      "./mikroorm.ts"
-    ]
   }
 }

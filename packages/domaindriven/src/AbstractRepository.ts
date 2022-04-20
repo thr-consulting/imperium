@@ -1,26 +1,23 @@
-import type {Connectors} from '@imperium/connector';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm, and it has to match. -mk
+import type {Connectors} from '@imperium/connector';
 import type {
-	Collection,
-	EntityData,
-	EntityManager,
-	EntityRepository,
-	FilterQuery,
+	Loaded,
 	FindOneOptions,
 	FindOptions,
+	EntityDictionary,
+	EntityRepository,
+	FilterQuery,
 	IdentifiedReference,
-	Loaded,
 	Populate,
 	Primary,
-	QueryOrderMap,
+	RequiredEntityData,
+	GetReferenceOptions,
 } from '@mikro-orm/core';
-import {LockMode, wrap} from '@mikro-orm/core';
-import type {QueryBuilder} from '@mikro-orm/postgresql';
+import {Collection, LockMode, Reference, wrap} from '@mikro-orm/core';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 import type {EntityBase} from './types';
-import {isFindOptions} from './types';
 
 const d = debug('imperium.domaindriven.AbstractRepository');
 
@@ -33,6 +30,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		this.repo = repo;
 		this.connectors = connectors;
 
+		// Create a dataloader to be used by this repository
 		this.dataloader = new DataLoader<EntityType['id'], EntityType | undefined>(async (keys: ReadonlyArray<EntityType['id']>) => {
 			d(`Finding keys: ${keys}`);
 			const unordered = await this.repo.find(keys as FilterQuery<EntityType>);
@@ -50,7 +48,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Mark an entity to be persisted to the database.
 	 * @param entity
 	 */
-	public persist(entity: EntityType | EntityType[]): EntityManager {
+	public persist(entity: EntityType | EntityType[]) {
 		return this.repo.persist(entity);
 	}
 
@@ -58,7 +56,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Create a query builder to select entities.
 	 * @param alias
 	 */
-	public createQueryBuilder(alias?: string): QueryBuilder<EntityType> {
+	public createQueryBuilder(alias?: string) {
 		// @ts-ignore Mikro-orm does not provide createQueryBuilder for all repo's. We are assuming an SQL-type of repo. -mk
 		return this.repo.createQueryBuilder(alias);
 	}
@@ -67,7 +65,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Maps data (usually returned from a query builder) to an entity.
 	 * @param entity
 	 */
-	public map(entity: EntityData<EntityType>) {
+	public map(entity: EntityDictionary<EntityType>) {
 		return this.repo.map(entity);
 	}
 
@@ -75,7 +73,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Create the entity from data that matches the fields in the entity.
 	 * @param data
 	 */
-	public create(data: EntityData<EntityType>) {
+	public create(data: RequiredEntityData<EntityType>) {
 		return this.repo.create(data);
 	}
 
@@ -101,60 +99,21 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return arr as (EntityType | undefined)[];
 	}
 
-	public findOne<P extends Populate<EntityType> = any>(
+	public async findOne<P extends string = never>(
 		where: FilterQuery<EntityType>,
-		populate?: P,
-		orderBy?: QueryOrderMap,
-	): Promise<Loaded<EntityType, P> | undefined>;
-	public findOne<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		populate?: FindOneOptions<EntityType, P>,
-		orderBy?: QueryOrderMap,
-	): Promise<Loaded<EntityType, P> | undefined>;
-	public async findOne<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, populate?: P, orderBy?: QueryOrderMap) {
-		const entity = await this.repo.findOne(where, populate, orderBy);
+		options?: FindOneOptions<EntityType, P>,
+	): Promise<Loaded<EntityType, P> | undefined> {
+		const entity = await this.repo.findOne(where, options);
 		if (entity) this.prime(entity);
 		return entity || undefined;
 	}
 
-	public async getAll<P extends Populate<EntityType> = any>(options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
-	public async getAll<P extends Populate<EntityType> = any>(
-		populate?: P,
-		orderBy?: QueryOrderMap,
-		limit?: number,
-		offset?: number,
-	): Promise<EntityType[]>;
-
-	public async getAll<P extends Populate<EntityType> = any>(
-		populateOrOptions?: FindOptions<EntityType, P> | P,
-		orderBy?: QueryOrderMap,
-		limit?: number,
-		offset?: number,
-	): Promise<EntityType[]> {
-		if (!populateOrOptions) return this.prime(await this.repo.findAll());
-		if (orderBy !== undefined) return this.prime(await this.repo.findAll(populateOrOptions as Populate<EntityType>, orderBy, limit, offset));
-		if (isFindOptions(populateOrOptions)) {
-			return this.prime(await this.repo.findAll(populateOrOptions));
-		}
-		return this.prime(await this.repo.findAll(populateOrOptions as Populate<EntityType>, orderBy, limit, offset));
+	public async getAll<P extends string = never>(options?: FindOptions<EntityType, P>) {
+		return this.prime(await this.repo.findAll(options));
 	}
 
-	public find<P extends Populate<EntityType> = any>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>): Promise<EntityType[]>;
-	public find<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		populate?: P,
-		orderBy?: QueryOrderMap,
-		limit?: number,
-		offset?: number,
-	): Promise<EntityType[]>;
-	public async find<P extends Populate<EntityType> = any>(
-		where: FilterQuery<EntityType>,
-		optionsOrPopulate?: P, // FindOptions<EntityType, P> | P,
-		orderBy?: QueryOrderMap,
-		limit?: number,
-		offset?: number,
-	) {
-		return this.prime(await this.repo.find(where, optionsOrPopulate, orderBy, limit, offset));
+	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
+		return this.prime(await this.repo.find(where, options));
 	}
 
 	/**
@@ -231,7 +190,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param populate
 	 */
-	public async initializeCollection(collection: Collection<EntityType>, populate?: string[]): Promise<Collection<EntityType>> {
+	public async initializeCollection(collection: Collection<EntityType>, populate?: Populate<EntityType>) {
 		d('InitCollection');
 
 		if (populate) {
@@ -252,21 +211,21 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param populate
 	 */
-	public async initializeCollectionAsArray(collection: Collection<EntityType>, populate?: string[]): Promise<EntityType[]> {
+	public async initializeCollectionAsArray(collection: Collection<EntityType>, populate?: Populate<EntityType>) {
 		d('InitCollectionAsArray');
 		if (populate) {
 			const initColl = await collection.init({populate});
 			this.prime(initColl.getItems(false));
-			return initColl.toArray() as EntityType[];
+			return initColl.toArray();
 		}
 
-		if (collection.isInitialized()) return collection.toArray() as EntityType[];
+		if (collection.isInitialized()) return collection.toArray();
 		const ids = collection.getItems(false).map(v => v.id);
 		const arr = await this.loadMany(ids);
 		if (arr.some(v => v === undefined)) {
 			throw new Error(`Error initializing collection: ${collection}`);
 		}
-		return arr as EntityType[];
+		return arr;
 	}
 
 	/**
@@ -274,7 +233,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param populate
 	 */
-	public async initializeEntity(entity: EntityType, populate?: string[]): Promise<EntityType> {
+	public async initializeEntity(entity: EntityType, populate?: Populate<EntityType>) {
 		d(`InitEntity: ${entity.id}`);
 
 		if (populate) {
@@ -287,18 +246,23 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return ent;
 	}
 
-	/**
-	 * Create reference to an entity
-	 * @param id
-	 * @param wrapped
-	 */
-	getReference(id: Primary<EntityType>, wrapped: true): IdentifiedReference<EntityType, 'id'>;
-	getReference(id: Primary<EntityType>, wrapped: false): EntityType;
-	getReference(id: Primary<EntityType>): EntityType;
-	getReference(id: Primary<EntityType>, wrapped?: true | false): EntityType | IdentifiedReference<EntityType, 'id'> {
-		if (wrapped) {
-			return this.repo.getReference(id, true) as IdentifiedReference<EntityType, 'id'>;
+	public getReference(
+		id: Primary<EntityType>,
+		options: Omit<GetReferenceOptions, 'wrapped'> & {
+			wrapped: true;
+		},
+	): IdentifiedReference<EntityType, 'id'>;
+	public getReference(id: Primary<EntityType>): EntityType;
+	public getReference(
+		id: Primary<EntityType>,
+		options: Omit<GetReferenceOptions, 'wrapped'> & {
+			wrapped: false;
+		},
+	): EntityType;
+	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Reference<EntityType> {
+		if (options?.wrapped) {
+			return this.repo.getReference(id, {wrapped: true});
 		}
-		return this.repo.getReference(id, false);
+		return this.repo.getReference(id, {wrapped: false});
 	}
 }

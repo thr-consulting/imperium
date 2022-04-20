@@ -37,8 +37,8 @@
 		"debug": "^4.3.3"
 	},
 	"peerDependencies": {
-		"@mikro-orm/core": "4.x",
-		"@mikro-orm/postgresql": "4.x"
+		"@mikro-orm/core": "5.x",
+		"@mikro-orm/postgresql": "5.x"
 	},
 	"engines": {
 		"node": ">=16"
