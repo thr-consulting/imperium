@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"@thx/env": "^16.0.0",
-		"dataloader": "^2.0.0",
+		"dataloader": "^2.1.0",
 		"debug": "^4.3.3",
 		"lodash-es": "^4.17.21",
 		"lru-cache": "^7.5.1",

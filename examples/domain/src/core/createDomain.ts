@@ -20,7 +20,10 @@ const d = debug('imperium.examples.domain.core.createDomain');
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
 	d('Creating domain');
 
-	const entityManager = getConnector('orm', connectors).em.fork(true, true);
+	const entityManager = getConnector('orm', connectors).em.fork({
+		clear: true,
+		useContext: true,
+	});
 
 	const authorization = new Authorization<AuthenticatedUser>({
 		extraData: authenticatedUser,

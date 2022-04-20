@@ -1,6 +1,6 @@
 import type {Connectors} from '@imperium/connector';
 import {AbstractRepository} from '@imperium/domaindriven';
-import type {EntityData, EntityRepository} from '@mikro-orm/core';
+import type {EntityRepository, RequiredEntityData} from '@mikro-orm/core';
 import debug from 'debug';
 import type {User} from '../entities/User';
 
@@ -16,10 +16,15 @@ export class UserRepository extends AbstractRepository<User> {
 	}
 
 	async getByEmail(email: string) {
-		return this.findOne({email}, ['service']);
+		return this.findOne(
+			{email},
+			{
+				populate: ['service'],
+			},
+		);
 	}
 
-	createUser(data: EntityData<User>) {
+	createUser(data: RequiredEntityData<User>) {
 		return this.create(data);
 	}
 }
