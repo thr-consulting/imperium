@@ -1,20 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm, and it has to match. -mk
 import type {Connectors} from '@imperium/connector';
 import type {
-	Loaded,
-	FindOneOptions,
-	FindOptions,
 	EntityDictionary,
 	EntityRepository,
 	FilterQuery,
+	FindOneOptions,
+	FindOptions,
+	GetReferenceOptions,
 	IdentifiedReference,
+	Loaded,
+	LoadedCollection,
 	Populate,
 	Primary,
 	RequiredEntityData,
-	GetReferenceOptions,
 } from '@mikro-orm/core';
 import {Collection, LockMode, Reference, wrap} from '@mikro-orm/core';
+import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 import type {EntityBase} from './types';
@@ -56,7 +57,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Create a query builder to select entities.
 	 * @param alias
 	 */
-	public createQueryBuilder(alias?: string) {
+	public createQueryBuilder(alias?: string): QueryBuilder<EntityType> {
 		// @ts-ignore Mikro-orm does not provide createQueryBuilder for all repo's. We are assuming an SQL-type of repo. -mk
 		return this.repo.createQueryBuilder(alias);
 	}
@@ -188,33 +189,36 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Initializes a collection. Does not use dataloader.
 	 * @param collection
-	 * @param populate
+	 * @param options
 	 */
-	public async initializeCollection(collection: Collection<EntityType>, populate?: Populate<EntityType>) {
+	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: {populate?: Populate<EntityType, P>}) {
 		d('InitCollection');
 
-		if (populate) {
-			const initColl = await collection.init({populate});
+		if (options?.populate) {
+			const initColl = await collection.init({populate: options.populate});
 			this.prime(initColl.getItems(false));
 			return initColl;
 		}
 
-		if (collection.isInitialized()) return collection;
+		if (collection.isInitialized()) return collection as unknown as LoadedCollection<Loaded<EntityType>>;
 		const initColl = await collection.init();
 		this.prime(initColl.getItems(false));
-		return initColl;
+		return initColl as LoadedCollection<Loaded<EntityType>>;
 		// NOTE: I could use dataloader here, but we would have to reconstitute the array as a collection.
 	}
 
 	/**
 	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
 	 * @param collection
-	 * @param populate
+	 * @param options
 	 */
-	public async initializeCollectionAsArray(collection: Collection<EntityType>, populate?: Populate<EntityType>) {
+	public async initializeCollectionAsArray<P extends string = never>(
+		collection: Collection<EntityType>,
+		options?: {populate?: Populate<EntityType, P>},
+	) {
 		d('InitCollectionAsArray');
-		if (populate) {
-			const initColl = await collection.init({populate});
+		if (options?.populate) {
+			const initColl = await collection.init(options);
 			this.prime(initColl.getItems(false));
 			return initColl.toArray();
 		}
@@ -231,13 +235,13 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
-	 * @param populate
+	 * @param options
 	 */
-	public async initializeEntity(entity: EntityType, populate?: Populate<EntityType>) {
+	public async initializeEntity<P extends string = never>(entity: EntityType, options?: {populate?: Populate<EntityType, P>}) {
 		d(`InitEntity: ${entity.id}`);
 
-		if (populate) {
-			return this.prime(await wrap(entity).init(true, populate));
+		if (options?.populate) {
+			return this.prime(await wrap(entity).init(true, options.populate));
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
