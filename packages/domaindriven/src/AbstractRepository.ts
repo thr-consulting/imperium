@@ -200,10 +200,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 			return initColl;
 		}
 
-		if (collection.isInitialized()) return collection as unknown as LoadedCollection<Loaded<EntityType>>;
+		if (collection.isInitialized()) return collection;
 		const initColl = await collection.init();
 		this.prime(initColl.getItems(false));
-		return initColl as LoadedCollection<Loaded<EntityType>>;
+		return initColl;
 		// NOTE: I could use dataloader here, but we would have to reconstitute the array as a collection.
 	}
 
@@ -220,16 +220,16 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		if (options?.populate) {
 			const initColl = await collection.init(options);
 			this.prime(initColl.getItems(false));
-			return initColl.toArray();
+			return initColl.getItems();
 		}
 
-		if (collection.isInitialized()) return collection.toArray();
+		if (collection.isInitialized()) return collection.getItems();
 		const ids = collection.getItems(false).map(v => v.id);
 		const arr = await this.loadMany(ids);
 		if (arr.some(v => v === undefined)) {
 			throw new Error(`Error initializing collection: ${collection}`);
 		}
-		return arr;
+		return arr as EntityType[];
 	}
 
 	/**
