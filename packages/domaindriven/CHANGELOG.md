@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.2](https://github.com/darkadept/imperium/compare/v10.1.1...v10.1.2) (2022-04-25)
+
+
+### Bug Fixes
+
+* **domaindriven:** fixed bugs [skip-ci] ([e4543dd](https://github.com/darkadept/imperium/commit/e4543dd2f703f35fd13cdd0380b1869254cc79ce))
+
+
+
+
+
 ## [10.1.1](https://github.com/darkadept/imperium/compare/v10.1.0...v10.1.1) (2022-04-22)
 
 
