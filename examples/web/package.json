@@ -30,6 +30,7 @@
 		"@imperium/auth-client": "^10.1.0",
 		"@imperium/client": "^10.0.3",
 		"@imperium/graphql-client": "^10.0.4",
+		"@imperium/auth-express-client": "^10.0.4",
 		"@imperium/layout": "^10.1.0",
 		"@imperium/router": "^10.0.3",
 		"@imperium/state": "^10.0.3",

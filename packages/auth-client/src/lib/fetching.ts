@@ -31,14 +31,11 @@ export function isTokenValidOrUndefined(token?: string): boolean {
  */
 export async function fetchAccessToken(): Promise<Response> {
 	const url = new URL(env.getString('authRefreshUrl', defaults.authRefreshUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
-	const res = fetch(url.href, {
+	return fetch(url.href, {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'include',
 	});
-	// Need to coerce type from node-fetch.Response to lib.dom.Response
-	// They are almost the same, and for our purposes it's ok.
-	return res as Promise<Response>;
 }
 
 /**

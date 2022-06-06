@@ -2,6 +2,8 @@ import {useAuth, useLogout} from '@imperium/auth-client';
 import debug from 'debug';
 import {useEffect, useRef} from 'react';
 import {Button} from 'semantic-ui-react';
+import {authorizationHeader} from '@imperium/authorization';
+import {useFetch} from '@imperium/auth-express-client';
 
 const d = debug('imperium.web.sample-auth.components.ComponentUsingAuth');
 
@@ -25,6 +27,7 @@ function useTraceUpdate(props: any) {
 export default function ComponentUsingAuth() {
 	const logout = useLogout();
 	const {authorization} = useAuth();
+	const fetch = useFetch();
 
 	return (
 		<>
@@ -55,6 +58,24 @@ export default function ComponentUsingAuth() {
 				}}
 			>
 				Check permission
+			</Button>
+			<Button
+				onClick={() => {
+					fetch('http://localhost:4001/express', {
+						method: 'POST',
+						mode: 'cors',
+						credentials: 'include',
+						headers: authorizationHeader(localStorage.getItem('access')),
+					})
+						.then(res => {
+							return res.json();
+						})
+						.then(data => {
+							d(data);
+						});
+				}}
+			>
+				REST
 			</Button>
 		</>
 	);
