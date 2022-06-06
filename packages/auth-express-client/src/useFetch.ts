@@ -1,6 +1,6 @@
 import {fetchAccessToken, isTokenValidOrUndefined, useLogout} from '@imperium/auth-client';
-import debug from 'debug';
 import {env} from '@thx/env';
+import debug from 'debug';
 import {defaults} from './defaults';
 
 const d = debug('imperium.auth-express-client.useFetch');
