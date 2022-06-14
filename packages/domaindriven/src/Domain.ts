@@ -1,17 +1,16 @@
 import type {JsonValue, PermissionLookup} from '@imperium/authorization';
-import type {AuthenticatedUser} from '@imperium/connector';
 import debug from 'debug';
 
-const d = debug('imperium.examples.domain.core.Domain');
+const d = debug('imperium.domaindriven.Domain');
 
 export interface PermissionOpts {
-	id?: string;
+	userId?: string;
 	data?: JsonValue;
 }
-export type Permission = (opts: PermissionOpts) => Promise<boolean>;
+export type PermissionFn = (opts: PermissionOpts) => Promise<boolean>;
 
 export interface Permissions {
-	[key: string]: Permission;
+	[key: string]: PermissionFn;
 }
 
 export interface DomainModule {
@@ -22,7 +21,7 @@ export interface DomainCon {
 	modules: DomainModule[];
 }
 
-export class Domain {
+export class Domain<ExtraData> {
 	#permissions: Permissions = {};
 
 	constructor({modules}: DomainCon) {
@@ -36,12 +35,13 @@ export class Domain {
 		});
 	}
 
-	permissionLookup: PermissionLookup<AuthenticatedUser> = async opts => {
+	permissionLookup: PermissionLookup<ExtraData> = async opts => {
 		d('Calculating permissions');
 		return Promise.all(
 			opts.keys.map(async k => {
 				if (this.#permissions[k.permission]) {
-					return this.#permissions[k.permission]({id: opts.authorization.id, data: k.data});
+					const a = this.#permissions[k.permission];
+					return a({userId: opts.authorization.id, data: k.data});
 				}
 				return false;
 			}),

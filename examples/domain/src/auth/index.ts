@@ -1,4 +1,4 @@
-import type {Permissions} from '../core/Domain';
+import type {DomainModule, Permissions} from '@imperium/domaindriven';
 
 const permissions: Permissions = {
 	async getStuff() {
@@ -15,8 +15,6 @@ const permissions: Permissions = {
 	},
 };
 
-export function auth() {
-	return {
-		permissions,
-	};
-}
+export const authModule: DomainModule = {
+	permissions,
+};
