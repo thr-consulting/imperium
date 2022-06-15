@@ -20,3 +20,4 @@ export type {IAuthContext} from './AuthContext';
 export {useAuth} from './hooks/useAuth';
 export {useCan} from './hooks/useCan';
 export {authorizationEndpointLookup} from './lib/authorizationEndpointLookup';
+export {authorizationHeader} from './lib/authorizationHeader';

@@ -1,6 +1,5 @@
 import {ApolloLink} from '@apollo/client';
-import {isTokenValidOrUndefined, fetchAccessToken} from '@imperium/auth-client';
-import {authorizationHeader} from '@imperium/authorization';
+import {isTokenValidOrUndefined, fetchAccessToken, authorizationHeader} from '@imperium/auth-client';
 import {env} from '@thx/env';
 import {TokenRefreshLink} from 'apollo-link-token-refresh';
 import debug from 'debug';
