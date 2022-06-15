@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.3.1](https://github.com/darkadept/imperium/compare/v10.3.0...v10.3.1) (2022-06-15)
+
+
+### Bug Fixes
+
+* fix domaindriven ([53ab2fa](https://github.com/darkadept/imperium/commit/53ab2fa86576fc520f8bb02c88dd2962026ea596))
+
+
+
+
+
 # [10.3.0](https://github.com/darkadept/imperium/compare/v10.2.0...v10.3.0) (2022-06-14)
 
 

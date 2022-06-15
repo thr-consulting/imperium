@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "10.3.0",
+	"version": "10.3.1",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -30,7 +30,7 @@
 		"@imperium/auth-server": "^10.2.0",
 		"@imperium/authorization": "^10.2.0",
 		"@imperium/connector": "^10.0.6",
-		"@imperium/domaindriven": "^10.3.0",
+		"@imperium/domaindriven": "^10.3.1",
 		"debug": "^4.3.3",
 		"graphql-subscriptions": "^2.0.0",
 		"ioredis": "^4.28.5",
