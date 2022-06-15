@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.3.2](https://github.com/darkadept/imperium/compare/v10.3.1...v10.3.2) (2022-06-15)
+
+
+### Bug Fixes
+
+* auth endpoint lookup didn't use our new fetch ([083d015](https://github.com/darkadept/imperium/commit/083d0154d0f1d1beba2bf6234c3c52c16df6c7f2))
+
+
+
+
+
 # [10.2.0](https://github.com/darkadept/imperium/compare/v10.1.2...v10.2.0) (2022-06-06)
 
 

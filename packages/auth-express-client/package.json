@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-express-client",
-	"version": "10.2.0",
+	"version": "10.3.2",
 	"description": "Imperium Auth Express client package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-client": "^10.2.0",
+		"@imperium/auth-client": "^10.3.2",
 		"@thx/env": "^16.0.0",
 		"debug": "^4.3.2"
 	},
