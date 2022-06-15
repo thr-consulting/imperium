@@ -1,3 +1,4 @@
+import {fetch} from '@imperium/auth-express-client';
 import type {PermissionLookup} from '@imperium/authorization';
 import {Authorization, authorizationHeader} from '@imperium/authorization';
 import {env} from '@thx/env';
