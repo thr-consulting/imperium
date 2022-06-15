@@ -3,28 +3,32 @@ import debug from 'debug';
 
 const d = debug('imperium.domaindriven.Domain');
 
-export interface PermissionOpts {
+export interface PermissionOpts<Repositories> {
 	userId?: string;
 	data?: JsonValue;
+	repos: Repositories;
 }
-export type PermissionFn = (opts: PermissionOpts) => Promise<boolean>;
+export type PermissionFn<Repositories> = (opts: PermissionOpts<Repositories>) => Promise<boolean>;
 
-export interface Permissions {
-	[key: string]: PermissionFn;
-}
-
-export interface DomainModule {
-	permissions?: Permissions;
+export interface Permissions<Repositories> {
+	[key: string]: PermissionFn<Repositories>;
 }
 
-export interface DomainCon {
-	modules: DomainModule[];
+export interface DomainModule<Repositories> {
+	permissions?: Permissions<Repositories>;
 }
 
-export class Domain<ExtraData> {
-	#permissions: Permissions = {};
+export interface DomainCon<Repositories> {
+	modules: DomainModule<Repositories>[];
+	repositories: Repositories;
+}
 
-	constructor({modules}: DomainCon) {
+export class Domain<ExtraData, Repositories = any> {
+	#permissions: Permissions<Repositories> = {};
+	readonly #repositories: Repositories;
+
+	constructor({modules, repositories}: DomainCon<Repositories>) {
+		this.#repositories = repositories;
 		modules.forEach(module => {
 			if (module.permissions) {
 				this.#permissions = {
@@ -41,7 +45,7 @@ export class Domain<ExtraData> {
 			opts.keys.map(async k => {
 				if (this.#permissions[k.permission]) {
 					const a = this.#permissions[k.permission];
-					return a({userId: opts.authorization.id, data: k.data});
+					return a({userId: opts.authorization.id, data: k.data, repos: this.#repositories});
 				}
 				return false;
 			}),

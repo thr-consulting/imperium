@@ -29,12 +29,13 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		id: authenticatedUser?.auth?.id,
 	});
 
-	const domain = new Domain<AuthenticatedUser>({
-		modules: [authModule],
-	});
-
 	const repositories = createRepositories(entityManager, connectors);
 	const controllers = createControllers(entityManager, authorization, repositories);
+
+	const domain = new Domain<AuthenticatedUser>({
+		modules: [authModule],
+		repositories,
+	});
 
 	const ctx = {
 		...ImperiumBaseContext(),
