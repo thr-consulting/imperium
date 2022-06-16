@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.3.5](https://github.com/darkadept/imperium/compare/v10.3.4...v10.3.5) (2022-06-16)
+
+
+### Bug Fixes
+
+* disabled dataloader cache in authorization in auth-client ([760cb4a](https://github.com/darkadept/imperium/commit/760cb4ac0dc15d7c7572ff8e5971ec841df64ca4))
+
+
+
+
+
 ## [10.3.4](https://github.com/darkadept/imperium/compare/v10.3.3...v10.3.4) (2022-06-16)
 
 
