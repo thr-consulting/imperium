@@ -4,7 +4,7 @@ import decode from 'jwt-decode';
 import {defaults} from '../defaults';
 import type {AccessToken, LoginReturn, IAuth} from '../types';
 
-const d = debug('imperium.auth-client.lib.fetching');
+const d = debug('imperium.auth-client.lib.storage');
 
 /**
  * @param token

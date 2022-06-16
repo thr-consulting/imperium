@@ -1,4 +1,3 @@
-import {fetch} from '@imperium/auth-express-client';
 import type {PermissionLookup} from '@imperium/authorization';
 import {Authorization} from '@imperium/authorization';
 import {env} from '@thx/env';
@@ -6,6 +5,7 @@ import debug from 'debug';
 import {defaults} from '../defaults';
 import type {ClientAuthorizationData} from '../types';
 import {authorizationHeader} from './authorizationHeader';
+import {fetch} from './fetch';
 
 const d = debug('imperium.auth-client.lib.authorizationEndpointLookup');
 

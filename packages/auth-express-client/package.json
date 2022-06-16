@@ -31,8 +31,6 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-client": "^10.3.3",
-		"@thx/env": "^16.0.0",
 		"debug": "^4.3.2"
 	},
 	"engines": {

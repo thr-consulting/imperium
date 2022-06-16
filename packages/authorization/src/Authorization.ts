@@ -10,12 +10,6 @@ import type {AuthorizationCache, JsonValue, Permission, PermissionKey, Permissio
 
 const d = debug('imperium.authorization.Authorization');
 
-interface AuthorizationConstructor<ExtraData = any> {
-	id?: string;
-	lookup?: PermissionLookup<ExtraData>;
-	extraData?: ExtraData;
-}
-
 /**
  * Converts a PermissionKey object to a string
  * @param id
@@ -51,6 +45,14 @@ function stringToKey(str: string): PermissionKey {
 	throw new Error('String not a valid permission key');
 }
 
+interface AuthorizationConstructor<ExtraData = any> {
+	id?: string;
+	lookup?: PermissionLookup<ExtraData>;
+	extraData?: ExtraData;
+	dataloaderCache?: boolean;
+	dataloaderBatch?: boolean;
+}
+
 export class Authorization<ExtraData = any, Context = any> {
 	public readonly id?: string;
 	public readonly extraData?: ExtraData;
@@ -61,12 +63,14 @@ export class Authorization<ExtraData = any, Context = any> {
 	#cache?: AuthorizationCache;
 
 	public constructor(opts?: AuthorizationConstructor<ExtraData>) {
-		this.id = opts?.id;
+		this.id = opts?.id; // This is the userId
 		this.extraData = opts?.extraData;
 		if (opts?.lookup) this.#lookup = opts.lookup;
 
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;
+
+		// Create a Least Recently Used cache for dataloader
 		this.lrucache = new LruCache({
 			max: env.getInt('IMP_PERMISSION_DATALOADER_LRU_MAX', defaults.IMP_PERMISSION_DATALOADER_LRU_MAX),
 			ttl: env.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE', defaults.IMP_PERMISSION_DATALOADER_LRU_MAXAGE) * 1000,
@@ -114,8 +118,12 @@ export class Authorization<ExtraData = any, Context = any> {
 					},
 				);
 			},
-			// @ts-expect-error TODO check to make sure the new lru-cache suits dataloader
-			{cacheMap: this.lrucache},
+			{
+				// @ts-expect-error TODO check to make sure the new lru-cache suits dataloader
+				cacheMap: this.lrucache,
+				cache: opts?.dataloaderCache,
+				batch: opts?.dataloaderBatch,
+			},
 		);
 	}
 

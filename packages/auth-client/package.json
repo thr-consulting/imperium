@@ -31,7 +31,6 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-express-client": "^10.3.3",
 		"@imperium/authorization": "^10.3.3",
 		"@imperium/client": "^10.0.3",
 		"@thx/env": "^16.0.0",

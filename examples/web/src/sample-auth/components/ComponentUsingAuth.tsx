@@ -1,8 +1,7 @@
-import {useAuth, useLogout, authorizationHeader} from '@imperium/auth-client';
+import {useAuth, useLogout, authorizationHeader, useFetch} from '@imperium/auth-client';
 import debug from 'debug';
 import {useEffect, useRef} from 'react';
 import {Button} from 'semantic-ui-react';
-import {useFetch} from '@imperium/auth-express-client';
 
 const d = debug('imperium.web.sample-auth.components.ComponentUsingAuth');
 
