@@ -70,6 +70,7 @@ export function withAuth(opts?: AuthClientOptions) {
 						extraData: {
 							access: authenticated.access,
 						},
+						dataloaderCache: false,
 					});
 				}, [authenticated]);
 
