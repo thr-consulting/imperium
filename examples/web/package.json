@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "10.3.3",
+	"version": "10.3.4",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -27,10 +27,10 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.4.15",
-		"@imperium/auth-client": "^10.3.3",
+		"@imperium/auth-client": "^10.3.4",
 		"@imperium/client": "^10.0.3",
 		"@imperium/graphql-client": "^10.0.4",
-		"@imperium/layout": "^10.3.3",
+		"@imperium/layout": "^10.3.4",
 		"@imperium/router": "^10.0.3",
 		"@imperium/state": "^10.0.3",
 		"@js-joda/core": "^5.1.0",
