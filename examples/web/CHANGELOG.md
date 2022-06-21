@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.4.0](https://github.com/darkadept/imperium/compare/v10.3.5...v10.4.0) (2022-06-21)
+
+
+### Features
+
+* **layout:** added a better permissions options for layout ([#320](https://github.com/darkadept/imperium/issues/320)) ([3959b28](https://github.com/darkadept/imperium/commit/3959b287c03bcc6fbc021d24b020290fba610365))
+
+
+
+
+
 ## [10.3.5](https://github.com/darkadept/imperium/compare/v10.3.4...v10.3.5) (2022-06-16)
 
 **Note:** Version bump only for package @imperium/example-web

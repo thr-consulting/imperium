@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.4.0](https://github.com/darkadept/imperium/compare/v10.3.5...v10.4.0) (2022-06-21)
+
+**Note:** Version bump only for package @imperium/auth-graphql-client
+
+
+
+
+
 ## [10.3.5](https://github.com/darkadept/imperium/compare/v10.3.4...v10.3.5) (2022-06-16)
 
 **Note:** Version bump only for package @imperium/auth-graphql-client
