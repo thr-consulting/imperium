@@ -20,7 +20,7 @@ export function Permissions({permissions}: PermissionsProps) {
 	useEffect(() => {
 		(async function iife() {
 			permissions.forEach(permission => {
-				const data = Object.keys(layoutState.params).length > 0 ? layoutState.params : undefined;
+				const data = layoutState.params && Object.keys(layoutState.params).length > 0 ? layoutState.params : undefined;
 				ctx.authorization.can(permission, data).then(result => {
 					dispatch(actions.setPermission({permission, result}));
 				});
