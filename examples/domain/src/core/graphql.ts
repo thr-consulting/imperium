@@ -5,9 +5,6 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type NotMaybe<T> = T extends null | undefined ? never : T;
-export type UnArray<T> = T extends Array<infer U> ? U : T;
-export type ExtractArray<A> = NonNullable<UnArray<NonNullable<A>>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -71,8 +68,6 @@ export type SubscriptionValue = {
   __typename?: 'SubscriptionValue';
   id?: Maybe<Scalars['String']>;
 };
-
-export const scalarTypePolicies = {};
 
 
 export function permissionLookup(value: string) {

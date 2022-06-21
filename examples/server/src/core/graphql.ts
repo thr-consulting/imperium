@@ -40,6 +40,13 @@ export type Mutation = {
   root?: Maybe<Scalars['String']>;
 };
 
+export enum Permission {
+  GetLoc = 'getLoc',
+  GetMore = 'getMore',
+  GetPing = 'getPing',
+  GetStuff = 'getStuff'
+}
+
 export type Query = {
   __typename?: 'Query';
   getAuthData: Scalars['String'];
@@ -146,6 +153,7 @@ export type ResolversTypes = ResolversObject<{
   Mutation: ResolverTypeWrapper<{}>;
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']>;
   Password: ResolverTypeWrapper<Scalars['Password']>;
+  Permission: Permission;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
@@ -264,4 +272,16 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   UUID?: GraphQLScalarType;
   Upload?: GraphQLScalarType;
 }>;
+
+
+export function permissionLookup(value: string) {
+  switch (value) {
+    case 'getLoc': return Permission.GetLoc;
+    case 'getMore': return Permission.GetMore;
+    case 'getPing': return Permission.GetPing;
+    case 'getStuff': return Permission.GetStuff;
+    default: throw new Error('Cannot find enum value: Permission');
+  }
+}
+
 

@@ -3,7 +3,7 @@ import debug from 'debug';
 import {getConnector} from '../../core/connectors';
 import type {Context} from '../../index';
 
-const d = debug('imperium.examples.domain.user.auth.Authentication');
+const d = debug('imperium.domain.user.auth.Authentication');
 
 const authKeyPrefix = 'auth';
 

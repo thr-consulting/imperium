@@ -1,20 +1,20 @@
 import {Authorization} from '@imperium/authorization';
 import type {AuthenticatedUser} from '@imperium/connector';
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
-import {Domain, getInitializers} from '@imperium/domaindriven';
+import {Domain} from '@imperium/domaindriven';
 import debug from 'debug';
+import {authModule} from '../auth';
 import {getConnector} from './connectors';
 import {createControllers} from './createControllers';
 import {createRepositories} from './createRepositories';
 import {entities} from './entities';
-import {authModule} from '../auth';
 
 /*
 	This is the main export from the domain package. This function creates a new domain context
 	and should be called on every request/operation.
  */
 
-const d = debug('imperium.examples.domain.core.createDomain');
+const d = debug('imperium.domain.core.createDomain');
 
 export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
 	d('Creating domain');
@@ -30,6 +30,8 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 	});
 
 	const repositories = createRepositories(entityManager, connectors);
+	const initializers = repositories;
+
 	const controllers = createControllers(entityManager, authorization, repositories);
 
 	const domain = new Domain<AuthenticatedUser>({
@@ -44,7 +46,7 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		connectors,
 		authenticationRepository: repositories.user,
 		em: entityManager,
-		repos: getInitializers(repositories),
+		initializers,
 		authorization,
 	};
 

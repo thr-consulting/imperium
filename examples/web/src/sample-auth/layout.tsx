@@ -1,26 +1,24 @@
 import {useCan} from '@imperium/auth-client';
 import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
+import {Permission} from '../core/graphql';
 import {routes} from './routes';
 
 const d = debug('imperium.web.sample-auth.layout');
 
 export const layout: LayoutData = {
+	permissions: [Permission.GetPing],
 	permissionSelectorHooks: [
 		() => {
-			const [getPing] = useCan('getPing');
-			return {getPing};
+			const [getLoc] = useCan(Permission.GetLoc);
+			return {getLoc};
 		},
 	],
 	primaryMenu: [
 		{
-			permissionSelectorHook: () => {
-				// eslint-disable-next-line react-hooks/rules-of-hooks
-				const [getStuff] = useCan('getStuff');
-				return {getStuff};
-			},
 			to: routes.to.login(),
-			visible: ({id}) => {
+			visible: ({id, permissions}) => {
+				d(permissions);
 				return !id;
 			},
 			text: 'Login',

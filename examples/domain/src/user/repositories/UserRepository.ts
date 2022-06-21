@@ -4,7 +4,7 @@ import type {EntityRepository, RequiredEntityData} from '@mikro-orm/core';
 import debug from 'debug';
 import type {User} from '../entities/User';
 
-const d = debug('imperium.examples.domain.user.repositories.UserRepository');
+const d = debug('imperium.domain.user.repositories.UserRepository');
 
 export class UserRepository extends AbstractRepository<User> {
 	public constructor(repo: EntityRepository<User>, connectors: Connectors) {

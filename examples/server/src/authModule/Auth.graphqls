@@ -1,3 +1,10 @@
 extend type Query {
     getAuthData: String!
 }
+
+enum Permission {
+    getStuff,
+    getMore,
+    getPing,
+    getLoc,
+}

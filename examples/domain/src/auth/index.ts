@@ -1,17 +1,28 @@
 import type {DomainModule, Permissions} from '@imperium/domaindriven';
+import debug from 'debug';
 import type {Repositories} from '../core/createRepositories';
+import {Permission} from '../core/graphql';
+
+const d = debug('imperium.domain.auth');
 
 const permissions: Permissions<Repositories> = {
-	async getStuff() {
+	[Permission.GetStuff]: async ({data, userId}) => {
+		d('getStuff', userId, data);
 		return true;
 	},
-	async getMore() {
+	[Permission.GetMore]: async () => {
 		return false;
 	},
-	async getPing() {
+	[Permission.GetPing]: async ({data, userId}) => {
+		d('getping');
+		d(userId);
+		d(data);
 		return true;
 	},
-	async getLoc() {
+	[Permission.GetLoc]: async ({data, userId}) => {
+		d('getloc');
+		d(userId);
+		d(data);
 		return false;
 	},
 };
