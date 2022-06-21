@@ -1,8 +1,8 @@
 import {authMiddleware} from '@imperium/auth-server';
 import type {ImperiumGraphqlServerModule} from '@imperium/graphql-server';
-import debug from 'debug';
 import {getCorsOrigin} from '@thx/env';
 import cors from 'cors';
+import debug from 'debug';
 import type {Context} from '~core/context';
 import Sample from './Auth.graphqls';
 import {resolvers} from './authResolvers';

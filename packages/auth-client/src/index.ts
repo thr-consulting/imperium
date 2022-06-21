@@ -17,6 +17,7 @@ export {useLogout} from './hooks/useLogout';
 export type {LoginInfo, LoginReturn, AccessToken} from './types';
 export {isTokenValidOrUndefined, fetchAccessToken} from './lib/storage';
 export type {IAuthContext} from './AuthContext';
+export {AuthContext} from './AuthContext';
 export {useAuth} from './hooks/useAuth';
 export {useCan} from './hooks/useCan';
 export {authorizationEndpointLookup} from './lib/authorizationEndpointLookup';

@@ -11,6 +11,7 @@ export type StateSelectorHook = () => State;
 export type PermissionResults = Record<string, boolean>;
 
 export type PermissionSelectorHook = (data: Data) => PermissionResults;
+export type PermissionSelector = string[];
 
 /**
  * The visibility query can either be a mingo query or a function that returns a boolean. The data is an object with the router path merged with any state selector hook data.

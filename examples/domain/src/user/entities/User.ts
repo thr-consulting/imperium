@@ -3,7 +3,7 @@ import debug from 'debug';
 import {v4} from 'uuid';
 import {Service} from './Service';
 
-const d = debug('imperium.examples.domain.user.entities.User');
+const d = debug('imperium.domain.user.entities.User');
 
 @Entity()
 export class User {

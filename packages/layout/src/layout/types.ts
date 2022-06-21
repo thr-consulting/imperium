@@ -1,7 +1,7 @@
 import type {SemanticICONS} from 'semantic-ui-react';
 import type {HorizontalPositionedItem, RouteItem, VisibilityItem, WeightedItem} from '../commonItems';
 import type {DataHookItem} from '../datahooks/types';
-import type {Data, PermissionSelectorHook} from '../types';
+import type {Data, PermissionSelector, PermissionSelectorHook} from '../types';
 
 /**
  * Describes a basic weighted, possibly visible item
@@ -40,6 +40,7 @@ export type LayoutItem = (BaseLayoutItem & RouteItem<Data>) | DropdownLayoutItem
 
 export interface LayoutData {
 	permissionSelectorHooks?: PermissionSelectorHook[];
+	permissions?: PermissionSelector;
 	dataHooks?: DataHookItem[];
 	primaryMenu?: (LayoutItem & HorizontalPositionedItem)[]; // primary menu
 	statusbar?: (LayoutItem & HorizontalPositionedItem)[];
