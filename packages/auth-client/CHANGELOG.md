@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.4.2](https://github.com/darkadept/imperium/compare/v10.4.1...v10.4.2) (2022-06-30)
+
+
+### Bug Fixes
+
+* fixed issue with fetch not refreshing token ([de86d54](https://github.com/darkadept/imperium/commit/de86d54480bc2287202d71600089acc24ad839c7))
+
+
+
+
+
 # [10.4.0](https://github.com/darkadept/imperium/compare/v10.3.5...v10.4.0) (2022-06-21)
 
 
