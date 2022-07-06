@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/voyager",
-	"version": "10.0.6",
+	"version": "10.4.5",
 	"description": "Imperium Voyager dev module",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/server": "^10.0.6"
+		"@imperium/server": "^10.4.5"
 	},
 	"engines": {
 		"node": ">=16"
