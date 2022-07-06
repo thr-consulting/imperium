@@ -2989,6 +2989,32 @@
     social-insurance-number "^0.2.2"
     use-deep-compare-effect "1.4.0"
 
+"@thx/controls@^16.3.1":
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-16.3.1.tgz#ffaa459d86566c823baba08d9e471027c0a0f244"
+  integrity sha512-aQKxddrmFGzqW5oKuYMCnd7Pvrm//zwNkgjKTF/T3QplTBcr9fztIdX0I+lsW3w1hybOjkUx+1Rw+U8LICfCdw==
+  dependencies:
+    "@js-joda/core" "^5.1.0"
+    "@thx/date" "^16.0.1"
+    "@thx/money" "^16.0.0"
+    "@thx/yup-types" "^16.0.0"
+    "@types/inputmask" "^5.0.3"
+    "@types/react-datepicker" "^4.1.7"
+    credit-card-type "^9.1.0"
+    debug "^4.3.4"
+    eventemitter3 "^4.0.0"
+    flat "^5.0.0"
+    formik "^2.2.9"
+    inputmask "^5.0.6"
+    js-money "^0.6.3"
+    lodash-es "^4.17.15"
+    luhn "^2.4.1"
+    react-credit-cards "^0.8.3"
+    react-datepicker "^4.7.0"
+    react-table "^7.6.3"
+    social-insurance-number "^0.2.2"
+    use-deep-compare-effect "1.4.0"
+
 "@thx/date@^16.0.0", "@thx/date@^16.0.1":
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/@thx/date/-/date-16.0.1.tgz#1ac34f854f2bb3b9c4f51c487dd0b642454ab9c8"
@@ -5709,7 +5735,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3:
+debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
