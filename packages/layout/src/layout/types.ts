@@ -1,4 +1,4 @@
-import type {SemanticICONS} from 'semantic-ui-react';
+import type React from 'react';
 import type {HorizontalPositionedItem, RouteItem, VisibilityItem, WeightedItem} from '../commonItems';
 import type {DataHookItem} from '../datahooks/types';
 import type {Data, PermissionSelector, PermissionSelectorHook} from '../types';
@@ -8,7 +8,7 @@ import type {Data, PermissionSelector, PermissionSelectorHook} from '../types';
  */
 export interface BaseLayoutItem extends WeightedItem, VisibilityItem {
 	text: string | ((data: Data) => string);
-	icon?: SemanticICONS | ((data: Data) => SemanticICONS);
+	icon?: React.ReactNode | ((data: Data) => React.ReactNode);
 	moveToKey?: string;
 }
 

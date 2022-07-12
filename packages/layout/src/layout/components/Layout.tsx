@@ -1,12 +1,8 @@
 import debug from 'debug';
 import {ReactNode, useState} from 'react';
-import {Segment} from 'semantic-ui-react';
-import {useLayoutState} from '../../state';
-import {moveItems} from '../moveItems';
+import {AppShell, Aside, Burger, Footer, Header, MediaQuery, Navbar, Text, useMantineTheme} from '@mantine/core';
 import type {LayoutData} from '../types';
-import {LayoutItemBar} from './LayoutItemBar';
-import {SecondaryMenuToggleItem} from './SecondaryMenuToggleItem';
-import styles from './styles.module.css';
+import {moveItems} from '../moveItems';
 
 const d = debug('imperium.layout.components.Layout');
 
@@ -25,77 +21,109 @@ interface LayoutProps extends Required<LayoutData> {
  * @constructor
  */
 export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}: LayoutProps) {
-	const {isMobile} = useLayoutState();
-	const [menuOpen, setMenuOpen] = useState(true);
+	// const {isMobile} = useLayoutState();
+	const theme = useMantineTheme();
+	const [menuOpen, setMenuOpen] = useState(false);
 
-	const primaryMenuToggle = {
-		stickOnMobile: true,
-		weight: -19999,
-		render: () => {
-			if (!isMobile) return null;
-			return <SecondaryMenuToggleItem menuOpen={menuOpen} setMenuOpen={setMenuOpen} />;
-		},
-	};
+	// TODO this needs a fix
+	const isMobile = false;
 
 	// Determine menubar items
-	const primaryMenuItems = moveItems(
-		isMobile ? [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile === true) : [primaryMenuToggle, ...primaryMenu],
-	);
+	const primaryMenuItems = moveItems(isMobile ? primaryMenu.filter(v => v.stickOnMobile === true) : primaryMenu);
 
-	// const pmi = mergeItems(primaryMenuItems);
-
-	// Determine sidebar items
+	// Determine navbar items
 	const secondaryMenuItems = moveItems(
 		isMobile
 			? [
 					...secondaryMenu,
 					{
 						text: '',
-						menu: [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile !== true),
+						menu: primaryMenu.filter(v => v.stickOnMobile !== true),
 					},
 			  ]
 			: secondaryMenu,
 	);
 
-	const secondaryMenuComp =
-		secondaryMenuItems.length > 0 ? (
-			<div className="imperiumSecondaryMenuWrapper">
-				<LayoutItemBar
-					items={secondaryMenuItems}
-					inverted
-					vertical
-					className={
-						isMobile && !menuOpen
-							? `${styles.secondaryMenu} ${styles.secondaryMenuHidden} imperiumSecondaryMenu`
-							: `${styles.secondaryMenu} imperiumSecondaryMenu`
-					}
-				/>
-			</div>
-		) : null;
+	// const secondaryMenuComp =
+	// 	secondaryMenuItems.length > 0 ? (
+	// 		<div className="imperiumSecondaryMenuWrapper">
+	// 			<LayoutItemBar
+	// 				items={secondaryMenuItems}
+	// 				inverted
+	// 				vertical
+	// 				className={
+	// 					isMobile && !menuOpen
+	// 						? `${styles.secondaryMenu} ${styles.secondaryMenuHidden} imperiumSecondaryMenu`
+	// 						: `${styles.secondaryMenu} imperiumSecondaryMenu`
+	// 				}
+	// 			/>
+	// 		</div>
+	// 	) : null;
 
 	// Determine footer items
-	const footerItems = moveItems(footer);
-	const footerComp =
-		footerItems.length > 0 ? (
-			<LayoutItemBar name="footer" items={footerItems} className={`${styles.footer} imperiumFooter`} inverted borderless />
-		) : null;
+	// const footerItems = moveItems(footer);
+	// const footerComp =
+	// 	footerItems.length > 0 ? (
+	// 		<LayoutItemBar name="footer" items={footerItems} className={`${styles.footer} imperiumFooter`} inverted borderless />
+	// 	) : null;
 
-	// Determine status bar items
-	const statusbarItems = moveItems(statusbar);
-	const statusbarComp =
-		statusbarItems.length > 0 ? <LayoutItemBar items={statusbarItems} inverted className={`${styles.statusbar} imperiumStatusbar`} /> : null;
+	// // Determine status bar items
+	// const statusbarItems = moveItems(statusbar);
+	// const statusbarComp =
+	// 	statusbarItems.length > 0 ? <LayoutItemBar items={statusbarItems} inverted className={`${styles.statusbar} imperiumStatusbar`} /> : null;
 
 	return (
-		<div className={`${styles.parent} imperiumLayout ${isMobile ? 'imperiumMobile' : 'imperiumNotMobile'}`}>
-			<div className="imperiumPrimaryMenuWrapper">
-				<LayoutItemBar items={primaryMenuItems} inverted borderless className={`${styles.menubar} imperiumPrimaryMenu`} />
-				{statusbarComp}
-			</div>
-			<Segment attached className={`${styles.contentWrapper} imperiumLayoutContentWrapper`}>
-				{secondaryMenuComp}
-				<div className={`${styles.content} imperiumLayoutContent`}>{children}</div>
-			</Segment>
-			{footerComp}
-		</div>
+		<AppShell
+			styles={{
+				main: {
+					background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+				},
+			}}
+			navbarOffsetBreakpoint="sm"
+			asideOffsetBreakpoint="sm"
+			fixed
+			navbar={
+				<Navbar p="md" hiddenBreakpoint="sm" hidden={!menuOpen} width={{sm: 200, lg: 300}}>
+					<Text>Application navbar</Text>
+				</Navbar>
+			}
+			aside={
+				<MediaQuery smallerThan="sm" styles={{display: 'none'}}>
+					<Aside p="md" hiddenBreakpoint="sm" width={{sm: 200, lg: 300}}>
+						<Text>Sidebar</Text>
+					</Aside>
+				</MediaQuery>
+			}
+			footer={
+				<Footer height={60} p="md">
+					Application footer
+				</Footer>
+			}
+			header={
+				<Header height={40}>
+					<div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
+						<MediaQuery largerThan="sm" styles={{display: 'none'}}>
+							<Burger opened={menuOpen} onClick={() => setMenuOpen(o => !o)} size="sm" color={theme.colors.gray[6]} ml="sm" mr="md" />
+						</MediaQuery>
+						<Text p="xs">Application header</Text>
+					</div>
+				</Header>
+			}
+		>
+			{children}
+		</AppShell>
 	);
+	// return (
+	// 	<div className={`${styles.parent} imperiumLayout ${isMobile ? 'imperiumMobile' : 'imperiumNotMobile'}`}>
+	// 		<div className="imperiumPrimaryMenuWrapper">
+	// 			<LayoutItemBar items={primaryMenuItems} inverted borderless className={`${styles.menubar} imperiumPrimaryMenu`} />
+	// 			{statusbarComp}
+	// 		</div>
+	// 		<Segment attached className={`${styles.contentWrapper} imperiumLayoutContentWrapper`}>
+	// 			{secondaryMenuComp}
+	// 			<div className={`${styles.content} imperiumLayoutContent`}>{children}</div>
+	// 		</Segment>
+	// 		{footerComp}
+	// 	</div>
+	// );
 }

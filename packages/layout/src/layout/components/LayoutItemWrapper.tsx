@@ -1,7 +1,6 @@
 import debug from 'debug';
 import {Query} from 'mingo';
 import type {ComponentClass} from 'react';
-import {Dropdown} from 'semantic-ui-react';
 import {useBuildData} from '../../hooks/useBuildData';
 import type {Data} from '../../types';
 import {sortWeightedItems} from '../../utils';

@@ -1,4 +1,3 @@
-import {Icon, Menu} from 'semantic-ui-react';
 import styles from './styles.module.css';
 
 interface SecondaryMenuToggleItemProps {

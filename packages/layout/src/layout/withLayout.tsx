@@ -7,6 +7,7 @@ import {Permissions} from '../datahooks/Permissions';
 import {isImperiumLayoutClientModule} from '../types';
 import {Layout} from './components/Layout';
 import type {LayoutData} from './types';
+import {Theme} from './components/Theme';
 
 const d = debug('imperium.layout.withLayout');
 
@@ -43,14 +44,14 @@ export function withLayout(client: ImperiumClient): Hoc {
 
 		function WithLayout(props: unknown) {
 			return (
-				<>
+				<Theme>
 					<Layout {...layoutModuleData}>
 						<Wrapped {...props} layout={layoutModuleData} />
 					</Layout>
 					<DataHooks dataHooks={layoutModuleData.dataHooks} />
 					<Permissions permissions={layoutModuleData.permissions} />
 					<PermissionHooks permissionHooks={layoutModuleData.permissionSelectorHooks} />
-				</>
+				</Theme>
 			);
 		}
 

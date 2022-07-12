@@ -1,6 +1,4 @@
 import debug from 'debug';
-import type {MenuProps} from 'semantic-ui-react';
-import {Menu} from 'semantic-ui-react';
 import {sortWeightedItems} from '../../utils';
 import type {LayoutItem} from '../types';
 import {splitPositionedItems} from '../utils';

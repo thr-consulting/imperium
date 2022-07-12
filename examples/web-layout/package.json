@@ -1,8 +1,8 @@
 {
-	"name": "@imperium/example-web",
+	"name": "@imperium/example-web-layout",
 	"version": "10.4.6",
 	"private": true,
-	"description": "Imperium example client project",
+	"description": "Imperium example web layout project",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:darkadept/imperium.git"
@@ -12,7 +12,6 @@
 	"scripts": {
 		"build": "vite build",
 		"clean": "thx clean",
-		"codegen": "thx.codegen",
 		"deps": "thx deps -i ~common -p vite.config.js",
 		"lint": "thx lint",
 		"lint.fix": "thx lint.fix",
@@ -26,10 +25,8 @@
 		}
 	},
 	"dependencies": {
-		"@apollo/client": "^3.4.15",
 		"@imperium/auth-client": "^10.4.5",
 		"@imperium/client": "^10.4.5",
-		"@imperium/graphql-client": "^10.4.5",
 		"@imperium/layout": "^10.4.6",
 		"@imperium/router": "^10.4.5",
 		"@imperium/state": "^10.4.5",
@@ -39,12 +36,9 @@
 		"@thx/controls": "^16.0.4",
 		"@thx/date": "^16.0.0",
 		"@thx/env": "^16.1.4",
-		"@thx/sha256": "^16.0.0",
 		"debug": "^4.3.2",
-		"graphql": "^16.2.0",
 		"mingo": "^5.0.0",
 		"react": "^17.0.2",
-		"react-datepicker": "^4.2.1",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.5",
 		"react-router": "^5.2.1",
