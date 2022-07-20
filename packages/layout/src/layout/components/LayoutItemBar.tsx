@@ -1,4 +1,5 @@
 import debug from 'debug';
+import {Box} from '@mantine/core';
 import {sortWeightedItems} from '../../utils';
 import type {LayoutItem} from '../types';
 import {splitPositionedItems} from '../utils';
@@ -6,8 +7,10 @@ import {LayoutItemWrapper} from './LayoutItemWrapper';
 
 const d = debug('imperium.layout.components.LayoutItemBar');
 
-interface ItemBarProps extends MenuProps {
+interface ItemBarProps {
 	items: LayoutItem[];
+	vertical?: boolean;
+	className?: string;
 }
 
 /**
@@ -32,9 +35,9 @@ export function LayoutItemBar({items, ...rest}: ItemBarProps) {
 	));
 
 	return (
-		<Menu {...rest}>
+		<Box sx={{display: 'flex', flexWrap: 'nowrap', alignItems: 'center', height: '100%'}} pl="sm" pr="sm">
 			{leftItems}
-			{rest.vertical ? rightItems : <Menu.Menu position="right">{rightItems}</Menu.Menu>}
-		</Menu>
+			{rest.vertical || rightItems.length === 0 ? rightItems : <Box sx={{marginLeft: 'auto'}}>{rightItems}</Box>}
+		</Box>
 	);
 }

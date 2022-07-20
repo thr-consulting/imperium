@@ -13040,6 +13040,11 @@ tabler-icons-react@^1.48.1:
   resolved "https://registry.yarnpkg.com/tabler-icons-react/-/tabler-icons-react-1.52.0.tgz#c125ecfe497d45e40e55a5f3ad5d7dbcdeb69945"
   integrity sha512-WLsTMiIS7ERdpOX0xH3fPjL3XLjkLCpxXG0SipV6e4T7TLU2ZhdpBeTnAx4DYw7oM3zPDSphDVfP2MfqgIIfog==
 
+tabler-icons-react@^1.53.0:
+  version "1.53.0"
+  resolved "https://registry.yarnpkg.com/tabler-icons-react/-/tabler-icons-react-1.53.0.tgz#abff11951e9f8637174f48c3c3433f6d7bd8c5dc"
+  integrity sha512-48csX1qiZaXK0yPgNmvkgsZSyqxBU0AVGGzT4DXh1CVEcTkKF39rQP7EeLYeTGeCnM2Ot9tSiKfay1FLOzr0Rg==
+
 tapable@^2.1.1, tapable@^2.2.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"

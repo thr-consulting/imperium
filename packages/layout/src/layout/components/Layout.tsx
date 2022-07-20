@@ -1,8 +1,10 @@
 import debug from 'debug';
 import {ReactNode, useState} from 'react';
 import {AppShell, Aside, Burger, Footer, Header, MediaQuery, Navbar, Text, useMantineTheme} from '@mantine/core';
-import type {LayoutData} from '../types';
+import type {CustomLayoutItem, LayoutData} from '../types';
 import {moveItems} from '../moveItems';
+import {LayoutItemBar} from './LayoutItemBar';
+import type {HorizontalPositionedItem} from '../../commonItems';
 
 const d = debug('imperium.layout.components.Layout');
 
@@ -25,11 +27,31 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 	const theme = useMantineTheme();
 	const [menuOpen, setMenuOpen] = useState(false);
 
+	const barHeight = (theme.lineHeight as number) * theme.fontSizes.md + theme.spacing.sm * 2;
+	console.log('LineHeight:', theme.lineHeight);
+	console.log('MD Font   :', theme.fontSizes.md);
+	console.log('SM Spacing:', theme.spacing.sm);
+	console.log('BarHeight :', barHeight);
+
 	// TODO this needs a fix
 	const isMobile = false;
 
+	const primaryMenuToggle: CustomLayoutItem & HorizontalPositionedItem = {
+		stickOnMobile: true,
+		weight: -19999,
+		render: () => {
+			return (
+				<MediaQuery largerThan="sm" styles={{display: 'none'}}>
+					<Burger opened={menuOpen} onClick={() => setMenuOpen(o => !o)} size="sm" color={theme.colors.gray[6]} />
+				</MediaQuery>
+			);
+		},
+	};
+
 	// Determine menubar items
-	const primaryMenuItems = moveItems(isMobile ? primaryMenu.filter(v => v.stickOnMobile === true) : primaryMenu);
+	const primaryMenuItems = moveItems(
+		isMobile ? [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile === true) : [primaryMenuToggle, ...primaryMenu],
+	);
 
 	// Determine navbar items
 	const secondaryMenuItems = moveItems(
@@ -95,18 +117,13 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 				</MediaQuery>
 			}
 			footer={
-				<Footer height={60} p="md">
+				<Footer height={barHeight} p="md">
 					Application footer
 				</Footer>
 			}
 			header={
-				<Header height={40}>
-					<div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
-						<MediaQuery largerThan="sm" styles={{display: 'none'}}>
-							<Burger opened={menuOpen} onClick={() => setMenuOpen(o => !o)} size="sm" color={theme.colors.gray[6]} ml="sm" mr="md" />
-						</MediaQuery>
-						<Text p="xs">Application header</Text>
-					</div>
+				<Header height={barHeight}>
+					<LayoutItemBar items={primaryMenuItems} className="imperiumPrimaryMenu" />
 				</Header>
 			}
 		>

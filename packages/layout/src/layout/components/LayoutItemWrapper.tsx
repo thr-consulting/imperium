@@ -3,13 +3,10 @@ import {Query} from 'mingo';
 import type {ComponentClass} from 'react';
 import {useBuildData} from '../../hooks/useBuildData';
 import type {Data} from '../../types';
-import {sortWeightedItems} from '../../utils';
 import type {LayoutItem} from '../types';
 import {isCustomLayoutItem, isDropdownLayoutItem, isMenuLayoutItem} from '../types';
-import {CustomLayoutItemComponent} from './CustomLayoutItemComponent';
-import {DropdownItem} from './DropdownItem';
-import {MenuItem} from './MenuItem';
 import {PlainItem} from './PlainItem';
+import {CustomLayoutItemComponent} from './CustomLayoutItemComponent';
 
 const d = debug('imperium.layout.components.LayoutItemWrapper');
 
@@ -50,20 +47,22 @@ export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWr
 		return <CustomLayoutItemComponent item={item} data={data} />;
 	}
 	if (isDropdownLayoutItem(item)) {
-		// eslint-disable-next-line react/no-array-index-key
-		const children = sortWeightedItems(item.dropdown).map((v, index) => (
-			// eslint-disable-next-line react/no-array-index-key
-			<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} data={data} />
-		));
-		return <DropdownItem item={item} children={children} vertical={vertical} data={data} />;
+		return null;
+		// // eslint-disable-next-line react/no-array-index-key
+		// const children = sortWeightedItems(item.dropdown).map((v, index) => (
+		// 	// eslint-disable-next-line react/no-array-index-key
+		// 	<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} data={data} />
+		// ));
+		// return <DropdownItem item={item} children={children} vertical={vertical} data={data} />;
 	}
 	if (isMenuLayoutItem(item)) {
-		// eslint-disable-next-line react/no-array-index-key
-		const children = sortWeightedItems(item.menu).map((v, index) => (
-			// eslint-disable-next-line react/no-array-index-key
-			<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} vertical={vertical} data={data} />
-		));
-		return <MenuItem item={item} children={children} />;
+		return null;
+		// // eslint-disable-next-line react/no-array-index-key
+		// const children = sortWeightedItems(item.menu).map((v, index) => (
+		// 	// eslint-disable-next-line react/no-array-index-key
+		// 	<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} vertical={vertical} data={data} />
+		// ));
+		// return <MenuItem item={item} children={children} />;
 	}
 	return <PlainItem item={item} data={data} as={as} />;
 }

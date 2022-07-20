@@ -1,3 +1,4 @@
+import {AnchorProps, ThemeIcon} from '@mantine/core';
 import {Link} from 'react-router-dom';
 import type {RouteItem} from '../commonItems';
 import {isHorizontalPositionedItem} from '../commonItems';
@@ -26,10 +27,10 @@ export function splitPositionedItems<T extends LayoutItem>(items: T[]) {
 	);
 }
 
-export function linkParameters(item: BaseLayoutItem & RouteItem<Data>, data: Data) {
+export function linkParameters(item: BaseLayoutItem & RouteItem<Data>, data: Data): AnchorProps<any> {
 	return item.to
 		? {
-				as: Link,
+				component: Link,
 				active: data.active,
 				to: typeof item.to === 'function' ? item.to(data) : item.to,
 		  }
@@ -46,5 +47,6 @@ export function getIcon(item: BaseLayoutItem, data: Data) {
 	if (item.icon) {
 		iconName = typeof item.icon === 'function' ? item.icon(data) : item.icon;
 	}
-	return item.icon ? <Icon name={iconName} /> : null;
+	return item.icon ? <ThemeIcon>{iconName}</ThemeIcon> : null;
+	// return item.icon ? <Icon name={iconName} /> : null;
 }
