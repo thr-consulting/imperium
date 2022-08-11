@@ -2,10 +2,11 @@ import type {LayoutData} from '@imperium/layout';
 import {LocalDate} from '@js-joda/core';
 // import {LocalDate} from '@js-joda/core';
 import debug from 'debug';
+import {useLayoutState} from '../sample-layout/state';
 import {routes as sampleRoutes} from '../sample/routes';
 import StateExample from './components/StateExample';
 import {routes} from './routes';
-import {useSampleState} from './state';
+import {useSampleStateIssue} from './state';
 
 const d = debug('imperium.web.sample-state.layout');
 
@@ -13,33 +14,12 @@ export const layout: LayoutData = {
 	secondaryMenu: [
 		{
 			to: routes.to.state(),
-			text: 'State',
+			text: 'State Issue',
 		},
 		{
-			text: 'Visible when today',
-			stateSelectorHook: useSampleState,
+			text: 'Visible when today - State issues',
+			stateSelectorHook: [useLayoutState, useSampleStateIssue],
 			visible: {date: {$eq: LocalDate.now()}},
-		},
-		{
-			text: 'Moved Item 1',
-			to: sampleRoutes.to.home(),
-			moveToKey: 'dropdown',
-		},
-		{
-			text: 'State Dropdown',
-			dropdown: [
-				{
-					text: 'Moved Item 2',
-					to: sampleRoutes.to.home(),
-					moveToKey: 'dropdown',
-					weight: 5,
-				},
-				{
-					text: 'Home',
-					to: sampleRoutes.to.home(),
-					weight: 1,
-				},
-			],
 		},
 	],
 };

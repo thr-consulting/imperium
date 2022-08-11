@@ -10,6 +10,7 @@ import {sampleAuthModule} from '../sample-auth';
 import {sampleGraphqlModule} from '../sample-graphql';
 import {sampleLayoutModule} from '../sample-layout';
 import {sampleStateModule} from '../sample-state';
+import {sampleStateIssueModule} from '../sample-state-issue';
 
 export function clientModules(): ImperiumClientModule[] {
 	return [
@@ -24,5 +25,6 @@ export function clientModules(): ImperiumClientModule[] {
 		sampleApolloCacheModule(),
 		sampleStateModule(),
 		sampleLayoutModule(),
+		sampleStateIssueModule(),
 	];
 }
