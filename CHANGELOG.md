@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.4.7](https://github.com/darkadept/imperium/compare/v10.4.6...v10.4.7) (2022-08-12)
+
+
+### Bug Fixes
+
+* **layout:** fixed issue with state selector merging ([#327](https://github.com/darkadept/imperium/issues/327)) ([d3b8256](https://github.com/darkadept/imperium/commit/d3b8256da3024a19d89df72fac532a59b4b2958e))
+
+
+
+
+
 ## [10.4.6](https://github.com/darkadept/imperium/compare/v10.4.5...v10.4.6) (2022-07-06)
 
 **Note:** Version bump only for package imperium-esm
