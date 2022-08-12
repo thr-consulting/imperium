@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/layout",
-	"version": "10.4.7",
+	"version": "10.4.8",
 	"description": "Imperium Layout package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-client": "^10.4.5",
+		"@imperium/auth-client": "^10.4.8",
 		"@imperium/client": "^10.4.5",
 		"@imperium/router": "^10.4.5",
 		"@imperium/state": "^10.4.5",
