@@ -19,7 +19,12 @@ export const layout: LayoutData = {
 		{
 			text: 'Visible when today - State issues',
 			stateSelectorHook: [useLayoutState, useSampleStateIssue],
-			visible: {date: {$eq: LocalDate.now()}},
+			visible: data => {
+				if (data.state.date instanceof LocalDate) {
+					return data.state.date.isEqual(LocalDate.now());
+				}
+				return false;
+			},
 		},
 	],
 };
