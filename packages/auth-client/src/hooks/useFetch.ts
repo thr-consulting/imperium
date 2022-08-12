@@ -1,13 +1,13 @@
-import {useCallback, useContext} from 'react';
 import {env} from '@thx/env';
-import decode from 'jwt-decode';
 import debug from 'debug';
+import decode from 'jwt-decode';
+import {useCallback, useContext} from 'react';
+import {AuthContext} from '../AuthContext';
 import {defaults} from '../defaults';
 import {injectNewAuthorization} from '../lib/injectNewAuthorization';
 import {fetchAccessToken, isTokenValidOrUndefined} from '../lib/storage';
-import {useLogout} from './useLogout';
 import type {AccessToken} from '../types';
-import {AuthContext} from '../AuthContext';
+import {useLogout} from './useLogout';
 
 const d = debug('imperium.auth-client.hooks.useFetch');
 
@@ -45,6 +45,6 @@ export function useFetch() {
 			}
 			return f(input, init);
 		},
-		[logout],
+		[authCtx, logout],
 	);
 }
