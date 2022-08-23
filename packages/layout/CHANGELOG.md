@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.4.9](https://github.com/darkadept/imperium/compare/v10.4.8...v10.4.9) (2022-08-23)
+
+
+### Features
+
+* **layout:** don't execute datahook if the route function return null or undefined ([d7912f8](https://github.com/darkadept/imperium/commit/d7912f8419c527e20cc7cf347ca07e3f0707132e))
+
+
+
+
+
 ## [10.4.8](https://github.com/darkadept/imperium/compare/v10.4.7...v10.4.8) (2022-08-12)
 
 **Note:** Version bump only for package @imperium/layout
