@@ -28,6 +28,9 @@ export function DataHooks({dataHooks}: DataHooksProps) {
 				}
 				const fn = Array.isArray(hook.routeMatch) ? compose(hook.routeMatch) : hook.routeMatch;
 				const routeParams = fn(pathname);
+				if (routeParams == null) {
+					return null;
+				}
 				if (Array.isArray(hook.dataHook)) {
 					return (
 						// eslint-disable-next-line react/no-array-index-key
