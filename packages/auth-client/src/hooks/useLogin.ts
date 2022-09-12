@@ -23,7 +23,10 @@ export function useLogin(): (loginInfo: LoginInfo) => Promise<void> {
 			},
 		});
 
-		if (!res.ok) throw new Error(res.statusText);
+		if (!res.ok) {
+			const errorText = await res.text();
+			throw new Error(errorText);
+		}
 
 		const info = (await res.json()) as LoginReturn;
 		// Set the id and access token in React context

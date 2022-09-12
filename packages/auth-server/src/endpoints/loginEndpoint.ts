@@ -68,7 +68,7 @@ export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumSe
 					res.end();
 				})
 				.catch((err: Error) => {
-					res.status(400).send(err.toString());
+					res.status(500).send(err.toString());
 					res.end();
 				});
 		} else {
