@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.4.10](https://github.com/darkadept/imperium/compare/v10.4.9...v10.4.10) (2022-09-12)
+
+
+### Bug Fixes
+
+* fixed login error message not throwing proper error message ([dcea1f8](https://github.com/darkadept/imperium/commit/dcea1f8bc3cd2bdc366d2a59fbce94a8801a5238))
+
+
+
+
+
 ## [10.4.5](https://github.com/darkadept/imperium/compare/v10.4.4...v10.4.5) (2022-07-06)
 
 **Note:** Version bump only for package @imperium/auth-server

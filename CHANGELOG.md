@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.4.10](https://github.com/darkadept/imperium/compare/v10.4.9...v10.4.10) (2022-09-12)
+
+
+### Bug Fixes
+
+* fixed login error message not throwing proper error message ([dcea1f8](https://github.com/darkadept/imperium/commit/dcea1f8bc3cd2bdc366d2a59fbce94a8801a5238))
+
+
+
+
+
 ## [10.4.9](https://github.com/darkadept/imperium/compare/v10.4.8...v10.4.9) (2022-08-23)
 
 

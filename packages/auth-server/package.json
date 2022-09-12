@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-server",
-	"version": "10.4.5",
+	"version": "10.4.10",
 	"description": "Imperium Auth server package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
