@@ -36,7 +36,7 @@ export function LayoutItemBar({items, ...rest}: ItemBarProps) {
 	return (
 		<Menu {...rest}>
 			{leftItems}
-			{rest.vertical ? rightItems : <Menu.Menu position="right">{rightItems}</Menu.Menu>}
+			{rightItems.length > 0 && rest.vertical ? rightItems : <Menu.Menu position="right">{rightItems}</Menu.Menu>}
 		</Menu>
 	);
 }
