@@ -1,6 +1,7 @@
 // Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm, and it has to match. -mk
 import type {Connectors} from '@imperium/connector';
 import type {
+	CountOptions,
 	EntityDictionary,
 	EntityRepository,
 	FilterQuery,
@@ -115,6 +116,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
 		return this.prime(await this.repo.find(where, options));
+	}
+
+	public async count<P extends string = never>(where: FilterQuery<EntityType>, options?: CountOptions<EntityType, P>) {
+		return this.repo.count(where, options);
 	}
 
 	/**
