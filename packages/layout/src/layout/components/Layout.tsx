@@ -26,7 +26,7 @@ interface LayoutProps extends Required<LayoutData> {
  */
 export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}: LayoutProps) {
 	const {isMobile} = useLayoutState();
-	const [menuOpen, setMenuOpen] = useState(true);
+	const [menuOpen, setMenuOpen] = useState(false);
 
 	const primaryMenuToggle = {
 		stickOnMobile: true,

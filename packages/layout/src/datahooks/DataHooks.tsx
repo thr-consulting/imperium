@@ -1,5 +1,4 @@
 import debug from 'debug';
-import compose from 'lodash/fp/compose.js';
 import {Fragment} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ExecuteDataHook} from './ExecuteDataHook';
@@ -24,26 +23,23 @@ export function DataHooks({dataHooks}: DataHooksProps) {
 			{dataHooks.map((hook, index) => {
 				if (typeof hook === 'function') {
 					// eslint-disable-next-line react/no-array-index-key
-					return <ExecuteDataHook key={index} dataHook={hook} />;
+					return <ExecuteDataHook key={index} dataHook={hook} isMatching />;
 				}
-				const fn = Array.isArray(hook.routeMatch) ? compose(hook.routeMatch) : hook.routeMatch;
-				const routeParams = fn(pathname);
-				if (routeParams == null) {
-					return null;
-				}
+				const routeParams = hook.routeMatch(pathname);
+				const isMatching = !(routeParams === null || routeParams === undefined);
 				if (Array.isArray(hook.dataHook)) {
 					return (
 						// eslint-disable-next-line react/no-array-index-key
 						<Fragment key={index}>
 							{hook.dataHook.map((dh, index2) => {
 								// eslint-disable-next-line react/no-array-index-key
-								return <ExecuteDataHook key={index2} dataHook={dh} routeParams={routeParams} />;
+								return <ExecuteDataHook key={index2} dataHook={dh} routeParams={routeParams} isMatching={isMatching} />;
 							})}
 						</Fragment>
 					);
 				}
 				// eslint-disable-next-line react/no-array-index-key
-				return <ExecuteDataHook dataHook={hook.dataHook} key={index} routeParams={routeParams} />;
+				return <ExecuteDataHook dataHook={hook.dataHook} key={index} routeParams={routeParams} isMatching={isMatching} />;
 			})}
 		</>
 	);
