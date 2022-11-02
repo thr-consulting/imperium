@@ -20,4 +20,5 @@ export type {LayoutData} from './layout/types';
 export {useLayoutState, actions as layoutActions} from './state';
 export {createPages} from './content/createPages';
 export type {ImperiumLayoutClientModule} from './types';
+export type {DataHookParams} from './datahooks/types';
 export {dividerSidebarItem} from './content/dividerSidebarItem';

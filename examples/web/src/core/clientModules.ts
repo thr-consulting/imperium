@@ -5,6 +5,7 @@ import {layoutClientModule} from '@imperium/layout';
 import {routerClientModule} from '@imperium/router';
 import {stateClientModule} from '@imperium/state';
 import {sampleModule} from '../sample';
+import {testDatahookModule} from '../test-datahook';
 import {sampleApolloCacheModule} from '../sample-apollocache';
 import {sampleAuthModule} from '../sample-auth';
 import {sampleGraphqlModule} from '../sample-graphql';
@@ -24,5 +25,6 @@ export function clientModules(): ImperiumClientModule[] {
 		sampleApolloCacheModule(),
 		sampleStateModule(),
 		sampleLayoutModule(),
+		testDatahookModule(),
 	];
 }
