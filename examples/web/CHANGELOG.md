@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.4.12](https://github.com/darkadept/imperium/compare/v10.4.11...v10.4.12) (2022-11-02)
+
+
+### Features
+
+* reworked datahooks to provide route matching details ([#340](https://github.com/darkadept/imperium/issues/340)) ([b687901](https://github.com/darkadept/imperium/commit/b6879013941da7b5d8bab398016d4d6209eb681f))
+
+
+
+
+
 ## [10.4.10](https://github.com/darkadept/imperium/compare/v10.4.9...v10.4.10) (2022-09-12)
 
 **Note:** Version bump only for package @imperium/example-web
