@@ -51,7 +51,7 @@
     "express": "^4.17.3",
     "graphql": "^16.3.0",
     "graphql-subscriptions": "^2.0.0",
-    "ioredis": "^4.28.5"
+    "ioredis": "^5.2.4"
   },
   "devDependencies": {
     "@mikro-orm/cli": "^5.1.2"
