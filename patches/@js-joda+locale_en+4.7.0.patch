@@ -1,9 +1,9 @@
 diff --git a/node_modules/@js-joda/locale_en/package.json b/node_modules/@js-joda/locale_en/package.json
-index d35e2d5..500e851 100644
+index bb12ae3..fda1ef3 100644
 --- a/node_modules/@js-joda/locale_en/package.json
 +++ b/node_modules/@js-joda/locale_en/package.json
 @@ -7,6 +7,7 @@
-         "url": "https://github.com/js-joda/js-joda.git"
+         "url": "https://github.com/js-joda/js-joda-locale.git"
      },
      "main": "dist/index.js",
 +    "module": "dist/index.esm.js",

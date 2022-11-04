@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@thx/env": "^16.1.4",
+		"@thx/env": "^16.1.7",
 		"@thx/log": "^16.0.4",
 		"debug": "^4.3.3",
 		"dotenv": "^16.0.0",
