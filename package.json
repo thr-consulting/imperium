@@ -50,7 +50,6 @@
 		"@types/cookie-parser": "^1.4.2",
 		"@types/debug": "^4.1.7",
 		"@types/express-jwt": "^6.0.4",
-		"@types/ioredis": "^5.0.0",
 		"@types/js-money": "git+https://github.com/thr-consulting/types-js-money.git",
 		"@types/jsonwebtoken": "^8.5.8",
 		"@types/loadable__component": "^5.13.4",

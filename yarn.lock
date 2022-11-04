@@ -3386,13 +3386,6 @@
   resolved "https://registry.yarnpkg.com/@types/inputmask/-/inputmask-5.0.3.tgz#f23492d5b5862c5737ae24bfe9fb8b2acf77b453"
   integrity sha512-9aTXacRhf9D3+porVydLR28ll8/y3TQIrXEXv7ZWY0c3Lzl/1r4nHoaesZeh2Fd+UIefpWZrg2tkSnDn/dKUsw==
 
-"@types/ioredis@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-5.0.0.tgz#c1ea7e2f3e2c5a942a27cfee6f62ddcfb23fb3e7"
-  integrity sha512-zJbJ3FVE17CNl5KXzdeSPtdltc4tMT3TzC6fxQS0sQngkbFZ6h+0uTafsRqu+eSLIugf6Yb0Ea0SUuRr42Nk9g==
-  dependencies:
-    ioredis "*"
-
 "@types/js-money@git+https://github.com/thr-consulting/types-js-money.git":
   version "1.0.0"
   resolved "git+https://github.com/thr-consulting/types-js-money.git#389d9160eb97426cc4b4757eb8d27c14dd57765d"
@@ -8193,7 +8186,7 @@ invariant@2.2.4, invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-ioredis@*, ioredis@^5.2.4:
+ioredis@^5.2.4:
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-5.2.4.tgz#9e262a668bc29bae98f2054c1e0d7efd86996b96"
   integrity sha512-qIpuAEt32lZJQ0XyrloCRdlEdUUNGG9i0UOk6zgzK6igyudNWqEBxfH6OlbnOOoBBvr1WB02mm8fR55CnikRng==
