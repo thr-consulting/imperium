@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.5.0](https://github.com/darkadept/imperium/compare/v10.4.12...v10.5.0) (2022-11-04)
+
+
+### Reverts
+
+* Revert "feat: updated dependencies and js-joda patch" ([0085236](https://github.com/darkadept/imperium/commit/0085236ee3ad27d7d008046e9ce766deefbbb806))
+
+
+
+
+
 ## [10.4.5](https://github.com/darkadept/imperium/compare/v10.4.4...v10.4.5) (2022-07-06)
 
 **Note:** Version bump only for package @imperium/cluster

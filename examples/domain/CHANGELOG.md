@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.5.0](https://github.com/darkadept/imperium/compare/v10.4.12...v10.5.0) (2022-11-04)
+
+**Note:** Version bump only for package @imperium/example-domain
+
+
+
+
+
 ## [10.4.11](https://github.com/darkadept/imperium/compare/v10.4.10...v10.4.11) (2022-10-03)
 
 **Note:** Version bump only for package @imperium/example-domain
