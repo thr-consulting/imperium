@@ -3159,10 +3159,10 @@
   resolved "https://registry.yarnpkg.com/@thx/sha256/-/sha256-16.0.0.tgz#182fb969aa719cc3ae187ae67fd1f0adce5e50bf"
   integrity sha512-FFXtd0ag9cZppR0TJDcTqqDGK47YJMGLxrI6LnwFM8evRpFspDceZYwqWrI8x2sLXhhoay/Cjv3XG0+iINj3Cw==
 
-"@thx/sharedcache@^16.2.1":
-  version "16.2.1"
-  resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-16.2.1.tgz#7d6f713a0cc3cab793de6eebc03ed41724dabff7"
-  integrity sha512-i5wtpPWcWuTBxvI4VfA/rfEB44dDUrSrXl6kD9OPfSY7JGl+qv0s7z53TdE6JgqeqWLP+cqzSKUoZmJnX6SZ2A==
+"@thx/sharedcache@^16.4.0":
+  version "16.4.0"
+  resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-16.4.0.tgz#3d65381c1078c2f9e070abadaa7122369a719712"
+  integrity sha512-8KLJlwwssZ8dkmFWW/XJHIOBRfoAROcguXJHuIJ8JXHmcwMxThP5Cdv9ON1FiVCbk7z9z1PiJYFTrFuwtKPBRQ==
 
 "@thx/tools@^16.0.5":
   version "16.0.5"
