@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "10.4.5",
+	"version": "10.5.0",
 	"description": "Imperium core server",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -32,7 +32,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/connector": "^10.4.5",
+		"@imperium/connector": "^10.5.0",
 		"debug": "^4.3.3",
 		"express": "^4.17.3",
 		"lodash-es": "^4.17.21"

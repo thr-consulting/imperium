@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/connector",
-	"version": "10.4.5",
+	"version": "10.5.0",
 	"description": "Imperium Connector package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"@thx/promise-sequential": "^16.0.0",
-		"@thx/random": "^16.0.0",
+		"@thx/random": "^16.3.5",
 		"@thx/util": "^16.0.0"
 	},
 	"engines": {
