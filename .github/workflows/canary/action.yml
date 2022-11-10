@@ -26,9 +26,10 @@ runs:
   using: 'composite'
   steps:
     - name: Setup node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
+        cache: 'yarn'
 
     - name: node_modules cache
       uses: actions/cache@v3
