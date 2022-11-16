@@ -1,10 +1,10 @@
-import type {ReactNode} from 'react';
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
+import type {ReactNode} from 'react';
 import {Header as H} from 'semantic-ui-react';
 import type {ContentData, ContentHeader} from '../types';
-import styles from './styles.module.css';
 import {isContentHeaderObject} from '../types';
+import styles from './styles.module.css';
 
 const d = debug('imperium.layout.content.components.Header');
 
