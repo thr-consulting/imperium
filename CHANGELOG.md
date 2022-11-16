@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.5.1](https://github.com/darkadept/imperium/compare/v10.5.0...v10.5.1) (2022-11-16)
+
+
+### Features
+
+* actions-cache-update ([#344](https://github.com/darkadept/imperium/issues/344)) ([df84a6d](https://github.com/darkadept/imperium/commit/df84a6d45647918c8c58c0244292f26eeb0ef368))
+
+
+
+
+
 # [10.5.0](https://github.com/darkadept/imperium/compare/v10.4.12...v10.5.0) (2022-11-04)
 
 **Note:** Version bump only for package imperium
