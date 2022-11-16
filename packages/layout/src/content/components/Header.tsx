@@ -1,7 +1,10 @@
+import type {ReactNode} from 'react';
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
+import {Header as H} from 'semantic-ui-react';
 import type {ContentData, ContentHeader} from '../types';
 import styles from './styles.module.css';
+import {isContentHeaderObject} from '../types';
 
 const d = debug('imperium.layout.content.components.Header');
 
@@ -12,21 +15,22 @@ interface HeaderProps<T extends DefineRouteOptions, K extends keyof T> {
 
 export function Header<T extends DefineRouteOptions, K extends keyof T>({data, header}: HeaderProps<T, K>) {
 	if (header) {
-		let headerInfo = {
-			title: '',
-		};
+		let headerComp: ReactNode = null;
 		if (typeof header === 'string') {
-			headerInfo.title = header;
+			headerComp = <H size="large" content={header} />;
 		} else if (typeof header === 'function') {
-			headerInfo = header(data);
+			const a = header(data);
+			if (isContentHeaderObject(a)) {
+				headerComp = <H size={a.size || 'large'} content={a.title} icon={a.icon} />;
+			} else {
+				headerComp = a;
+			}
+		} else if (isContentHeaderObject(header)) {
+			headerComp = <H size={header.size || 'large'} content={header.title} icon={header.icon} />;
 		} else {
-			headerInfo = header;
+			headerComp = header;
 		}
-		return (
-			<div className={`${styles.header} imperiumContentHeader`}>
-				<h2>{headerInfo.title}</h2>
-			</div>
-		);
+		return <div className={`${styles.header} imperiumContentHeader`}>{headerComp}</div>;
 	}
 	return null;
 }

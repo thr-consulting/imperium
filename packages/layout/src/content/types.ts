@@ -51,10 +51,22 @@ export type SidebarItem<T extends DefineRouteOptions, K extends keyof T> =
 	| ActionFormSidebarItem<T, K>
 	| DividerSidebarItem<T, K>;
 
+export interface ContentHeaderObject {
+	title: string;
+	icon?: string;
+	size?: 'tiny' | 'small' | 'medium' | 'large' | 'huge';
+}
+
+export function isContentHeaderObject(value: any): value is ContentHeaderObject {
+	return value && value.title;
+}
+
 export type ContentHeader<T extends DefineRouteOptions, K extends keyof T> =
 	| string
-	| {title: string; icon?: string} // TODO icon should probably be SemanticICONS
-	| ((data: ContentData<T, K>) => {title: string; icon?: string})
+	| ContentHeaderObject
+	| ((data: ContentData<T, K>) => ContentHeaderObject)
+	| JSX.Element
+	| ((data: ContentData<T, K>) => JSX.Element)
 	| undefined;
 
 export interface Page<T extends DefineRouteOptions, K extends keyof T> {
