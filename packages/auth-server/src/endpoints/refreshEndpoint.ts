@@ -1,6 +1,7 @@
 import type {ImperiumServer} from '@imperium/server';
 import {env, getCorsOrigin} from '@thx/env';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import {defaults} from '../defaults';
@@ -8,6 +9,8 @@ import {refresh} from '../lib/refresh';
 import type {GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
+
+const {json} = bodyParser;
 
 export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {
 	const authRefreshUrl = env.getString('IMP_REFRESH_URL', defaults.IMP_REFRESH_URL);
@@ -24,10 +27,9 @@ export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: Imperium
 	const corsMiddleware = cors(corsOpts);
 	server.expressApp.options(authRefreshUrl, corsMiddleware);
 
-	server.expressApp.post(authRefreshUrl, cors(corsOpts), cookieParser(), server.contextMiddleware(), (req, res) => {
-		if (req.cookies && req.cookies[authRefreshCookieName]) {
-			const refreshTokenString = req.cookies[authRefreshCookieName];
-
+	server.expressApp.post(authRefreshUrl, cors(corsOpts), cookieParser(), json(), server.contextMiddleware(), (req, res) => {
+		const refreshTokenString = req.cookies && req.cookies[authRefreshCookieName] ? req.cookies[authRefreshCookieName] : req.body.refresh;
+		if (refreshTokenString) {
 			// @ts-ignore
 			const auth = getAuthFn(req.context);
 
