@@ -3,6 +3,7 @@ import debug from 'debug';
 import type {ComponentType} from 'react';
 import {BrowserRouter, RouteProps} from 'react-router-dom';
 import {isImperiumRouterClientModule} from './types';
+import {ScrollToTop} from './components/ScrollToTop';
 
 const d = debug('imperium.router.withRouter');
 
@@ -22,6 +23,7 @@ export default function withRouter(client: ImperiumClient): Hoc {
 		function ComponentWithRouter(props: any) {
 			return (
 				<BrowserRouter>
+					<ScrollToTop />
 					<WrappedComponent {...props} routes={routes} />
 				</BrowserRouter>
 			);
