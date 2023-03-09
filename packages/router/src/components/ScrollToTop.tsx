@@ -6,7 +6,11 @@ export function ScrollToTop() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		document.querySelector('.imperiumLayoutContent')!.scrollTop = 0;
+
+		const selection = document.querySelector('.imperiumLayoutContent');
+		if (selection) {
+			selection.scrollTop = 0;
+		}
 	}, [pathname]);
 
 	return null;
