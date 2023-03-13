@@ -1,6 +1,6 @@
 import sha256 from '@thx/sha256';
 import {compare, hash} from 'bcrypt';
-import type {LoginInfo, ServiceInfo} from '../types';
+import type {Password} from '../types';
 
 function getPasswordString(password: string | {algorithm: string; digest: string}): string {
 	if (typeof password === 'string') {
@@ -17,6 +17,6 @@ export function encryptPassword(password: string | {algorithm: string; digest: s
 	return hash(getPasswordString(password), saltOrRounds);
 }
 
-export async function validatePassword(serviceInfo: ServiceInfo, password: LoginInfo['password']): Promise<boolean> {
-	return compare(getPasswordString(password), serviceInfo.password || '');
+export async function validatePassword(hashedPassword: string | undefined, passwordToAuthenticate: Password): Promise<boolean> {
+	return compare(getPasswordString(passwordToAuthenticate), hashedPassword || '');
 }
