@@ -17,6 +17,6 @@ export function encryptPassword(password: string | {algorithm: string; digest: s
 	return hash(getPasswordString(password), saltOrRounds);
 }
 
-export async function validatePassword(serviceInfo: ServiceInfo, loginInfo: LoginInfo): Promise<boolean> {
-	return compare(getPasswordString(loginInfo.password), serviceInfo.password || '');
+export async function validatePassword(serviceInfo: ServiceInfo, password: LoginInfo['password']): Promise<boolean> {
+	return compare(getPasswordString(password), serviceInfo.password || '');
 }

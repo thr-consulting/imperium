@@ -31,6 +31,7 @@ export function appLoginEndpoint(getAuthFn: GetAuthenticationFn, server: Imperiu
 			const loginInfo = req.body;
 
 			d(`Login attempt: ${loginInfo.identifier}`);
+			d(loginInfo);
 
 			// @ts-ignore
 			const auth = getAuthFn(req.context);

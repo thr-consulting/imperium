@@ -5,6 +5,14 @@ export interface LoginInfo {
 		algorithm: string;
 	};
 	rememberDevice?: boolean;
+	device?: {
+		uniqueId: string;
+		manufacturer: string;
+		model: string;
+		system: string;
+		systemVersion: string;
+		deviceId: string;
+	};
 }
 
 export interface LoginReturn {
@@ -29,14 +37,15 @@ export interface AccessToken {
 export interface ServiceInfo {
 	id: string;
 	password?: string; // Bcrypt hash password
-	blacklist?: string[]; // Blacklisted refresh tokens
+	// blacklist?: string[]; // Blacklisted refresh tokens
 }
 
 export interface AuthenticationDomain {
-	getServiceInfo(id: string): Promise<ServiceInfo | null>;
+	// getServiceInfo(id: string): Promise<ServiceInfo | null>;
 	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
 	getCache(key: string | string[]): Promise<any>;
 	invalidateCache(key: string | string[]): Promise<void>;
+	verifyLogin(loginInfo: LoginInfo): Promise<ServiceInfo>;
 }
 
 export type GetAuthenticationFn = (context: any) => AuthenticationDomain;
