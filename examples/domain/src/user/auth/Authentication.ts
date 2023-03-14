@@ -1,4 +1,5 @@
-import type {AuthenticationDomain, ServiceInfo} from '@imperium/auth-server';
+import type {AuthenticationDomain, LoginInfo, RefreshToken, ServiceInfo} from '@imperium/auth-server';
+import {validatePassword} from '@imperium/auth-server';
 import debug from 'debug';
 import {getConnector} from '../../core/connectors';
 import type {Context} from '../../index';
@@ -31,7 +32,26 @@ export class Authentication implements AuthenticationDomain {
 		await getConnector('sharedCache', this.context.connectors).clear(getKey(key));
 	}
 
-	async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
+	async verifyLogin(loginInfo: LoginInfo): Promise<string> {
+		const serviceInfo = await this.getServiceInfo(loginInfo.identifier);
+		if (!serviceInfo) {
+			throw new Error('User not found');
+		}
+
+		if (await validatePassword(serviceInfo.password, loginInfo.password)) {
+			return serviceInfo.id;
+		}
+
+		throw new Error('Unable to verify login information');
+	}
+
+	async verifyRefresh(token: RefreshToken): Promise<void> {
+		if (!(await this.getServiceInfo(token.id))) {
+			throw new Error('User not found');
+		}
+	}
+
+	private async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
 		d(`Get service info for ${identifier}, except we'll ignore. Password should be 'password'.`);
 		// const user = await this.context.authenticationRepository.getByEmail(identifier);
 		const user = {
