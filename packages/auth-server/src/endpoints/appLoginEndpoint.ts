@@ -30,7 +30,7 @@ export function appLoginEndpoint(getAuthFn: GetAuthenticationFn, server: Imperiu
 		if (isLoginInfo(req.body)) {
 			const loginInfo = req.body;
 
-			d(`Login attempt: ${loginInfo.identifier}`);
+			d(`App login attempt: ${loginInfo.identifier}`);
 
 			// @ts-ignore
 			const auth = getAuthFn(req.context);

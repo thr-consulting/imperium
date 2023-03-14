@@ -15,20 +15,10 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 		throw new Error('Token expired');
 	}
 
-	// Get service info from domain layer
-	const serviceInfo = await auth.getServiceInfo(token.id);
-	if (!serviceInfo) {
-		throw new Error('User not found');
-	}
-
-	// Check if token is blacklisted
-	const blacklistIndex = serviceInfo.blacklist?.indexOf(refreshTokenString);
-	if (typeof blacklistIndex === 'number' && blacklistIndex >= 0) {
-		throw new Error('Token is blacklisted');
-	}
+	await auth.verifyRefresh(token);
 
 	return {
 		// WARNING: Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
-		access: createAccessToken(serviceInfo),
+		access: createAccessToken(token.id),
 	};
 }

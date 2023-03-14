@@ -1,9 +1,8 @@
 import {env} from '@thx/env';
 import debug from 'debug';
-import jsonwebtoken from 'jsonwebtoken';
 import type {SignOptions} from 'jsonwebtoken';
+import jsonwebtoken from 'jsonwebtoken';
 import {defaults} from '../defaults';
-import type {ServiceInfo} from '../types';
 
 const d = debug('imperium.auth-server.lib.token');
 
@@ -13,13 +12,13 @@ function signJwt(payload: string | Record<string, unknown>, secret: string, opti
 	return sign(payload, secret, options);
 }
 
-export function createAccessToken(serviceInfo: ServiceInfo): string {
+export function createAccessToken(id: string): string {
 	const authAccessTokenSecret = env.getString('IMP_ACCESS_TOKEN_SECRET', defaults.IMP_ACCESS_TOKEN_SECRET);
 	const authAccessTokenExpires = env.getString('IMP_ACCESS_TOKEN_EXPIRES', defaults.IMP_ACCESS_TOKEN_EXPIRES);
 
 	return signJwt(
 		{
-			id: serviceInfo.id,
+			id,
 		},
 		authAccessTokenSecret,
 		{expiresIn: authAccessTokenExpires},
