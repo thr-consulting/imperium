@@ -20,6 +20,7 @@ export interface RefreshToken {
 	type: string;
 	iat: number;
 	exp: number;
+	deviceId?: string;
 }
 
 export interface AccessToken {
@@ -39,7 +40,7 @@ export interface AuthenticationDomain {
 	getCache(key: string | string[]): Promise<any>;
 	invalidateCache(key: string | string[]): Promise<void>;
 	verifyLogin(loginInfo: LoginInfo): Promise<string>;
-	verifyRefresh(token: RefreshToken): Promise<void>;
+	verifyRefresh(token: RefreshToken, isExpired: boolean): Promise<void>;
 }
 
 export type GetAuthenticationFn = (context: any) => AuthenticationDomain;
