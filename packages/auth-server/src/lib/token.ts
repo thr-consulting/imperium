@@ -3,6 +3,7 @@ import debug from 'debug';
 import type {SignOptions} from 'jsonwebtoken';
 import jsonwebtoken from 'jsonwebtoken';
 import {defaults} from '../defaults';
+import type {LoginInfo} from '../types';
 
 const d = debug('imperium.auth-server.lib.token');
 
@@ -25,17 +26,18 @@ export function createAccessToken(id: string): string {
 	);
 }
 
-export function createRefreshToken(identifier: string, rememberDevice?: boolean): string {
+export function createRefreshToken({identifier, rememberDevice, device}: LoginInfo): string {
 	const authRefreshTokenSecret = env.getString('IMP_REFRESH_TOKEN_SECRET', defaults.IMP_REFRESH_TOKEN_SECRET);
 	const authRefreshTokenExpiresLong = env.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG', defaults.IMP_REFRESH_TOKEN_EXPIRES_LONG);
 	const authRefreshTokenExpiresShort = env.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT', defaults.IMP_REFRESH_TOKEN_EXPIRES_SHORT);
 
-	return signJwt(
-		{
-			id: identifier,
-			type: 'r',
-		},
-		authRefreshTokenSecret,
-		{expiresIn: rememberDevice ? authRefreshTokenExpiresLong : authRefreshTokenExpiresShort},
-	);
+	let payload: Record<any, string> = {
+		id: identifier,
+		type: 'r',
+	};
+	if (rememberDevice && device?.uniqueId) {
+		payload = {...payload, dev: device.uniqueId};
+	}
+
+	return signJwt(payload, authRefreshTokenSecret, {expiresIn: rememberDevice ? authRefreshTokenExpiresLong : authRefreshTokenExpiresShort});
 }

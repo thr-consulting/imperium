@@ -7,6 +7,9 @@ export interface LoginInfo {
 	identifier: string;
 	password: Password;
 	rememberDevice?: boolean;
+	device?: {
+		uniqueId: string;
+	};
 }
 
 export interface LoginReturn {

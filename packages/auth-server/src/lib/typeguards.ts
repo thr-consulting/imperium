@@ -5,12 +5,14 @@ import type {AccessToken, AuthorizationInfo, LoginInfo, RefreshToken} from '../t
  * @param loginInfo
  */
 export function isLoginInfo(loginInfo: any): loginInfo is LoginInfo {
-	return (
-		(loginInfo as LoginInfo).identifier !== undefined &&
-		(loginInfo as LoginInfo).password !== undefined &&
-		(loginInfo as LoginInfo).password.algorithm !== undefined &&
-		(loginInfo as LoginInfo).password.digest !== undefined
-	);
+	const a = loginInfo as LoginInfo;
+	if (a.identifier !== undefined && a.password !== undefined && a.password.algorithm !== undefined && a.password.digest !== undefined) {
+		if (a.device) {
+			return !!a.device.uniqueId;
+		}
+		return true;
+	}
+	return false;
 }
 
 export function isRefreshToken(refreshToken: any): refreshToken is RefreshToken {

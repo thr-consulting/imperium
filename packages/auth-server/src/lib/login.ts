@@ -17,7 +17,7 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 		return {
 			id,
 			access: createAccessToken(id),
-			refresh: createRefreshToken(loginInfo.identifier, loginInfo.rememberDevice),
+			refresh: createRefreshToken(loginInfo),
 		};
 	} catch (err: any) {
 		await auth.setCache(attemptKey, attempts + 1, authMaxCooldown);
