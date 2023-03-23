@@ -1,6 +1,7 @@
 import {env} from '@thx/env';
 import debug from 'debug';
 import type {SignOptions} from 'jsonwebtoken';
+import sha256 from '@thx/sha256';
 import jsonwebtoken from 'jsonwebtoken';
 import {defaults} from '../defaults';
 import type {LoginInfo} from '../types';
@@ -36,7 +37,8 @@ export function createRefreshToken({identifier, rememberDevice, device}: LoginIn
 		type: 'r',
 	};
 	if (rememberDevice && device?.uniqueId) {
-		payload = {...payload, dev: device.uniqueId};
+		// Store SHA256 of device id in refresh token
+		payload = {...payload, dev: sha256(device.uniqueId)};
 	}
 
 	return signJwt(payload, authRefreshTokenSecret, {expiresIn: rememberDevice ? authRefreshTokenExpiresLong : authRefreshTokenExpiresShort});

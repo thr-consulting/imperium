@@ -13,7 +13,7 @@ const d = debug('imperium.auth-server');
 
 export interface AuthServerModuleOptions {
 	getAuthFn: GetAuthenticationFn;
-	enableAppLogin: boolean;
+	enableAppLogin?: boolean;
 }
 
 export function authServerModule(authServerModuleOptions: AuthServerModuleOptions): ImperiumServerModule<any> {

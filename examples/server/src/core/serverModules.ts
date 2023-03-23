@@ -24,7 +24,7 @@ const d = debug('imperium.server.core.serverModules');
 */
 export function serverModules(): ImperiumServerModule<any>[] {
 	return [
-		authServerModule((ctx: Context) => new Authentication(ctx)),
+		authServerModule({getAuthFn: (ctx: Context) => new Authentication(ctx)}),
 		graphqlServerModule({
 			middleware: [authMiddleware({credentialsRequired: env.getBool('GRAPHQL_CREDENTIALS_REQUIRED', false)})],
 		}),
