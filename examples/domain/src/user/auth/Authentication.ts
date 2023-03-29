@@ -32,14 +32,14 @@ export class Authentication implements AuthenticationDomain {
 		await getConnector('sharedCache', this.context.connectors).clear(getKey(key));
 	}
 
-	async verifyLogin(loginInfo: LoginInfo): Promise<string> {
+	async verifyLogin(loginInfo: LoginInfo): Promise<{id: string; deviceToken?: string}> {
 		const serviceInfo = await this.getServiceInfo(loginInfo.identifier);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		}
 
 		if (await validatePassword(serviceInfo.password, loginInfo.password)) {
-			return serviceInfo.id;
+			return {id: serviceInfo.id};
 		}
 
 		throw new Error('Unable to verify login information');

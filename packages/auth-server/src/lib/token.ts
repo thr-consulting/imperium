@@ -1,10 +1,8 @@
 import {env} from '@thx/env';
 import debug from 'debug';
 import type {SignOptions} from 'jsonwebtoken';
-import sha256 from '@thx/sha256';
 import jsonwebtoken from 'jsonwebtoken';
 import {defaults} from '../defaults';
-import type {LoginInfo} from '../types';
 
 const d = debug('imperium.auth-server.lib.token');
 
@@ -27,7 +25,15 @@ export function createAccessToken(id: string): string {
 	);
 }
 
-export function createRefreshToken({identifier, rememberDevice, device}: LoginInfo): string {
+export function createRefreshToken({
+	identifier,
+	rememberDevice,
+	deviceToken,
+}: {
+	identifier: string;
+	rememberDevice?: boolean;
+	deviceToken?: string;
+}): string {
 	const authRefreshTokenSecret = env.getString('IMP_REFRESH_TOKEN_SECRET', defaults.IMP_REFRESH_TOKEN_SECRET);
 	const authRefreshTokenExpiresLong = env.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG', defaults.IMP_REFRESH_TOKEN_EXPIRES_LONG);
 	const authRefreshTokenExpiresShort = env.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT', defaults.IMP_REFRESH_TOKEN_EXPIRES_SHORT);
@@ -36,9 +42,8 @@ export function createRefreshToken({identifier, rememberDevice, device}: LoginIn
 		id: identifier,
 		type: 'r',
 	};
-	if (rememberDevice && device?.uniqueId) {
-		// Store SHA256 of device id in refresh token
-		payload = {...payload, dev: sha256(device.uniqueId)};
+	if (rememberDevice && deviceToken) {
+		payload = {...payload, dev: deviceToken};
 	}
 
 	return signJwt(payload, authRefreshTokenSecret, {expiresIn: rememberDevice ? authRefreshTokenExpiresLong : authRefreshTokenExpiresShort});

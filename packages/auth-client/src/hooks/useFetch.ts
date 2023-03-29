@@ -19,10 +19,8 @@ export function useFetch() {
 
 	return useCallback(
 		async (input: RequestInfo, init?: RequestInit) => {
-
 			// If user id is null, return the default fetch function
 			if (!authCtx.authorization.id) return f(input, init);
-
 
 			let newAccess: string | null = null;
 			// If the token is not valid or undefined (aka expired), try to refresh it

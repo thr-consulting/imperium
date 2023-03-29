@@ -23,7 +23,7 @@ export interface RefreshToken {
 	type: string;
 	iat: number;
 	exp: number;
-	deviceId?: string;
+	deviceToken?: string;
 }
 
 export interface AccessToken {
@@ -42,7 +42,7 @@ export interface AuthenticationDomain {
 	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
 	getCache(key: string | string[]): Promise<any>;
 	invalidateCache(key: string | string[]): Promise<void>;
-	verifyLogin(loginInfo: LoginInfo): Promise<string>;
+	verifyLogin(loginInfo: LoginInfo): Promise<{id: string; deviceToken?: string}>;
 	verifyRefresh(token: RefreshToken, isExpired: boolean): Promise<void>;
 }
 

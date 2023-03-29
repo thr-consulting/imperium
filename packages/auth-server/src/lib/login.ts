@@ -1,5 +1,5 @@
-import debug from 'debug';
 import {env} from '@thx/env';
+import debug from 'debug';
 import {defaults} from '../defaults';
 import type {AuthenticationDomain, LoginInfo, LoginReturn} from '../types';
 import {createAccessToken, createRefreshToken} from './token';
@@ -16,14 +16,14 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 	if (attempts > authMaxFail) throw new Error('Too many login attempts');
 
 	try {
-		const id = await auth.verifyLogin(loginInfo);
+		const {id, deviceToken} = await auth.verifyLogin(loginInfo);
 		const loginRet: LoginReturn = {
 			id,
 			access: createAccessToken(id),
-			refresh: createRefreshToken(loginInfo),
+			refresh: createRefreshToken({...loginInfo, deviceToken}),
 		};
-		d(`  Access : ${loginRet.access}`);
-		d(`  Refresh: ${loginRet.refresh}`);
+		// d(`  Access : ${loginRet.access}`);
+		// d(`  Refresh: ${loginRet.refresh}`);
 		return loginRet;
 	} catch (err: any) {
 		await auth.setCache(attemptKey, attempts + 1, authMaxCooldown);
