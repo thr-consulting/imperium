@@ -1,6 +1,6 @@
 {
   "name": "@imperium/example-server",
-  "version": "10.6.0",
+  "version": "11.0.0",
   "private": true,
   "description": "Imperium server example project",
   "repository": {
@@ -30,13 +30,13 @@
     }
   },
   "dependencies": {
-    "@imperium/auth-server": "^10.6.0",
-    "@imperium/cluster": "^10.5.0",
-    "@imperium/connector": "^10.5.0",
-    "@imperium/example-domain": "^10.6.0",
-    "@imperium/graphql-server": "^10.5.0",
-    "@imperium/server": "^10.5.0",
-    "@imperium/voyager": "^10.5.0",
+    "@imperium/auth-server": "^11.0.0",
+    "@imperium/cluster": "^11.0.0",
+    "@imperium/connector": "^11.0.0",
+    "@imperium/example-domain": "^11.0.0",
+    "@imperium/graphql-server": "^11.0.0",
+    "@imperium/server": "^11.0.0",
+    "@imperium/voyager": "^11.0.0",
     "@js-joda/core": "^5.2.0",
     "@mikro-orm/core": "^5.1.2",
     "@mikro-orm/postgresql": "^5.1.2",

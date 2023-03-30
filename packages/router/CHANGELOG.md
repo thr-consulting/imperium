@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/darkadept/imperium/compare/v10.6.0...v11.0.0) (2023-03-15)
+
+
+### Bug Fixes
+
+* ran organize ([d353f90](https://github.com/darkadept/imperium/commit/d353f90fa54c7010230198cd356f8f937fa6da7a))
+* **router:** reset scroll on page change ([#347](https://github.com/darkadept/imperium/issues/347)) ([0fd65e1](https://github.com/darkadept/imperium/commit/0fd65e10e0682a0868766b50e2af1e403e41d122))
+
+
+
+
+
 # [10.5.0](https://github.com/darkadept/imperium/compare/v10.4.12...v10.5.0) (2022-11-04)
 
 **Note:** Version bump only for package @imperium/router

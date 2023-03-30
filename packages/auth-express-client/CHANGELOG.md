@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/darkadept/imperium/compare/v10.6.0...v11.0.0) (2023-03-15)
+
+**Note:** Version bump only for package @imperium/auth-express-client
+
+
+
+
+
 ## [10.4.5](https://github.com/darkadept/imperium/compare/v10.4.4...v10.4.5) (2022-07-06)
 
 **Note:** Version bump only for package @imperium/auth-express-client
