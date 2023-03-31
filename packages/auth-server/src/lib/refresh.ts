@@ -21,9 +21,9 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 		throw new Error('Token expired');
 	}
 
-	await auth.verifyRefresh(token, isExpired);
+	const {id} = await auth.verifyRefresh(token, isExpired);
 
-	const access = createAccessToken(token.id);
+	const access = createAccessToken(id);
 
 	if (isExpired && token.deviceToken) {
 		const newRefresh = createRefreshToken({identifier: token.id, rememberDevice: true, deviceToken: token.deviceToken});

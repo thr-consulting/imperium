@@ -4,6 +4,7 @@ import {appLoginEndpoint} from './appLoginEndpoint';
 import {authorizationEndpoint} from './authorizationEndpoint';
 import {forgotPasswordEndpoint} from './forgotPasswordEndpoint';
 import {loginEndpoint} from './loginEndpoint';
+import {logoutEndpoint} from './logoutEndpoint';
 import {refreshEndpoint} from './refreshEndpoint';
 
 export function createAuthEndpoints({getAuthFn, enableAppLogin}: AuthServerModuleOptions) {
@@ -12,6 +13,7 @@ export function createAuthEndpoints({getAuthFn, enableAppLogin}: AuthServerModul
 		if (enableAppLogin) {
 			appLoginEndpoint(getAuthFn, server);
 		}
+		logoutEndpoint(getAuthFn, server);
 		refreshEndpoint(getAuthFn, server);
 		forgotPasswordEndpoint(getAuthFn, server);
 		authorizationEndpoint(server);

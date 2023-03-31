@@ -16,6 +16,7 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 		// Create Apollo middleware link (for authorization)
 		d('Creating auth Apollo link');
 		const authLink = new ApolloLink((operation, forward) => {
+			d('Adding authentication for graphql request');
 			const token = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 			if (token) {
 				operation.setContext({
@@ -35,15 +36,13 @@ export function createLinks(options?: AuthGraphqlClientOptions) {
 				return isTokenValidOrUndefined();
 			},
 			fetchAccessToken: async () => {
-				d('Fetching access token');
 				return fetchAccessToken();
 			},
 			handleFetch: accessToken => {
-				d('Fetched access token');
 				window.localStorage.setItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey), accessToken);
 			},
 			handleError: err => {
-				d('There was a problem refreshing the access token. Re-login required.');
+				d('Error refreshing access token from graphql');
 				window.localStorage.removeItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
 				window.localStorage.removeItem(env.getString('authIdKey', defaults.authIdKey));
 				if (options?.refreshFailed) {

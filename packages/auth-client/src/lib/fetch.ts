@@ -9,11 +9,14 @@ const d = debug('imperium.auth-client.lib.fetch');
 const f = window.fetch;
 
 export async function fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
-	let newAccess: string | null = null;
+	let newAccess = window.localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
+	d(`Fetching with: ${newAccess}`);
 	if (!isTokenValidOrUndefined()) {
+		d('Fetching access token');
 		try {
 			const newToken = await fetchAccessToken();
 			const {access} = await newToken.json();
+			d(`Fetched access token: ${access}`);
 			newAccess = access;
 			window.localStorage.setItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey), access);
 		} catch (err) {

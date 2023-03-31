@@ -45,10 +45,14 @@ export class Authentication implements AuthenticationDomain {
 		throw new Error('Unable to verify login information');
 	}
 
-	async verifyRefresh(token: RefreshToken): Promise<void> {
-		if (!(await this.getServiceInfo(token.id))) {
+	async verifyRefresh(token: RefreshToken): Promise<{id: string}> {
+		const info = await this.getServiceInfo(token.id);
+		if (!info) {
 			throw new Error('User not found');
 		}
+		return {
+			id: info.id,
+		};
 	}
 
 	private async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {
