@@ -32,23 +32,27 @@ export class Authentication implements AuthenticationDomain {
 		await getConnector('sharedCache', this.context.connectors).clear(getKey(key));
 	}
 
-	async verifyLogin(loginInfo: LoginInfo): Promise<string> {
+	async verifyLogin(loginInfo: LoginInfo): Promise<{id: string; deviceToken?: string}> {
 		const serviceInfo = await this.getServiceInfo(loginInfo.identifier);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		}
 
 		if (await validatePassword(serviceInfo.password, loginInfo.password)) {
-			return serviceInfo.id;
+			return {id: serviceInfo.id};
 		}
 
 		throw new Error('Unable to verify login information');
 	}
 
-	async verifyRefresh(token: RefreshToken): Promise<void> {
-		if (!(await this.getServiceInfo(token.id))) {
+	async verifyRefresh(token: RefreshToken): Promise<{id: string}> {
+		const info = await this.getServiceInfo(token.id);
+		if (!info) {
 			throw new Error('User not found');
 		}
+		return {
+			id: info.id,
+		};
 	}
 
 	private async getServiceInfo(identifier: string): Promise<ServiceInfo | null> {

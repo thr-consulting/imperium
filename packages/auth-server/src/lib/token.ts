@@ -25,17 +25,26 @@ export function createAccessToken(id: string): string {
 	);
 }
 
-export function createRefreshToken(identifier: string, rememberDevice?: boolean): string {
+export function createRefreshToken({
+	identifier,
+	rememberDevice,
+	deviceToken,
+}: {
+	identifier: string;
+	rememberDevice?: boolean;
+	deviceToken?: string;
+}): string {
 	const authRefreshTokenSecret = env.getString('IMP_REFRESH_TOKEN_SECRET', defaults.IMP_REFRESH_TOKEN_SECRET);
 	const authRefreshTokenExpiresLong = env.getString('IMP_REFRESH_TOKEN_EXPIRES_LONG', defaults.IMP_REFRESH_TOKEN_EXPIRES_LONG);
 	const authRefreshTokenExpiresShort = env.getString('IMP_REFRESH_TOKEN_EXPIRES_SHORT', defaults.IMP_REFRESH_TOKEN_EXPIRES_SHORT);
 
-	return signJwt(
-		{
-			id: identifier,
-			type: 'r',
-		},
-		authRefreshTokenSecret,
-		{expiresIn: rememberDevice ? authRefreshTokenExpiresLong : authRefreshTokenExpiresShort},
-	);
+	let payload: Record<any, string> = {
+		id: identifier,
+		type: 'r',
+	};
+	if (rememberDevice && deviceToken) {
+		payload = {...payload, dev: deviceToken};
+	}
+
+	return signJwt(payload, authRefreshTokenSecret, {expiresIn: rememberDevice ? authRefreshTokenExpiresLong : authRefreshTokenExpiresShort});
 }

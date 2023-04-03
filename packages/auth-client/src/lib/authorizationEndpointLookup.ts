@@ -4,8 +4,7 @@ import {env} from '@thx/env';
 import debug from 'debug';
 import {defaults} from '../defaults';
 import type {ClientAuthorizationData} from '../types';
-import {authorizationHeader} from './authorizationHeader';
-import {fetch} from './fetch';
+import {fetch as fet} from './fetch';
 
 const d = debug('imperium.auth-client.lib.authorizationEndpointLookup');
 
@@ -18,14 +17,14 @@ function isRestResult(res: any): res is RestResult {
 }
 
 export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationData> = async opts => {
-	d('fetching from authorization endpoint');
-	const {keys, authorization} = opts;
+	d('Fetching from authorization endpoint');
+	const {keys} = opts;
 
 	const keyStrings = keys.map(k => Authorization.keyToString(k));
 
 	return new Promise((resolve, reject) => {
 		const url = new URL(env.getString('authPermissionUrl', defaults.authPermissionUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
-		fetch(url.href, {
+		fet(url.href, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -34,17 +33,21 @@ export const authorizationEndpointLookup: PermissionLookup<ClientAuthorizationDa
 			}),
 			headers: {
 				'content-type': 'application/json',
-				...authorizationHeader(authorization.extraData?.access),
 			},
-		}).then(res => {
-			if (!res.ok) reject(res.statusText);
-			res.json().then(returnJson => {
-				if (isRestResult(returnJson)) {
-					resolve(returnJson.results);
-				} else {
-					reject(new Error('Authorization results not an array'));
-				}
+		})
+			.then(res => {
+				d(`Finished fetch: ok: ${res.ok}: ${res.statusText}`);
+				if (!res.ok) reject(res.statusText);
+				res.json().then(returnJson => {
+					if (isRestResult(returnJson)) {
+						resolve(returnJson.results);
+					} else {
+						reject(new Error('Authorization results not an array'));
+					}
+				});
+			})
+			.catch(err => {
+				reject(err);
 			});
-		});
 	});
 };

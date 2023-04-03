@@ -2,6 +2,7 @@ export const defaults = {
 	IMP_AUTH_DOMAIN: 'localhost', // Which domain is the auth server running on. Used for cookies.
 	IMP_LOGIN_URL: '/api/login', // URL for REST login
 	IMP_LOGIN_APP_URL: '/api/app/login', // URL for REST login for apps
+	IMP_LOGOUT_URL: '/api/logout', // URL for REST logout
 	IMP_REFRESH_URL: '/api/refresh', // URL for REST refresh access token
 	IMP_RESET_URL: '/api/forgot-password', // URL to request password reset
 	IMP_PERMISSION_URL: '/api/auth', // URL to permission API

@@ -35,7 +35,7 @@ export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: Imperium
 
 			// @ts-ignore Perform refresh
 			refresh(refreshTokenString, auth, req.context)
-				.then((ret: {access: string}) => {
+				.then((ret: {access: string; refresh?: string}) => {
 					res.status(200).json(ret);
 					res.end();
 				})

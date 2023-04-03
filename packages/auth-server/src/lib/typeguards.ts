@@ -1,16 +1,22 @@
-import type {AccessToken, AuthorizationInfo, LoginInfo, RefreshToken} from '../types';
+import type {AccessToken, AuthorizationInfo, LoginInfo, LogoutInfo, RefreshToken} from '../types';
 
 /**
  * Typeguard to check if an object is login info.
  * @param loginInfo
  */
 export function isLoginInfo(loginInfo: any): loginInfo is LoginInfo {
-	return (
-		(loginInfo as LoginInfo).identifier !== undefined &&
-		(loginInfo as LoginInfo).password !== undefined &&
-		(loginInfo as LoginInfo).password.algorithm !== undefined &&
-		(loginInfo as LoginInfo).password.digest !== undefined
-	);
+	const a = loginInfo as LoginInfo;
+	if (a.identifier !== undefined && a.password !== undefined && a.password.algorithm !== undefined && a.password.digest !== undefined) {
+		if (a.device) {
+			return !!a.device.uniqueId;
+		}
+		return true;
+	}
+	return false;
+}
+
+export function isLogoutInfo(logoutInfo: any): logoutInfo is LogoutInfo {
+	return true;
 }
 
 export function isRefreshToken(refreshToken: any): refreshToken is RefreshToken {

@@ -7,6 +7,9 @@ export interface LoginInfo {
 	identifier: string;
 	password: Password;
 	rememberDevice?: boolean;
+	device?: {
+		uniqueId: string;
+	};
 }
 
 export interface LoginReturn {
@@ -15,11 +18,17 @@ export interface LoginReturn {
 	refresh: string;
 }
 
+export interface LogoutInfo {
+	device?: {
+		uniqueId: string;
+	};
+}
 export interface RefreshToken {
 	id: string; // identifier, not id
 	type: string;
 	iat: number;
 	exp: number;
+	deviceToken?: string;
 }
 
 export interface AccessToken {
@@ -34,12 +43,12 @@ export interface ServiceInfo {
 }
 
 export interface AuthenticationDomain {
-	// getServiceInfo(id: string): Promise<ServiceInfo | null>;
 	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
 	getCache(key: string | string[]): Promise<any>;
 	invalidateCache(key: string | string[]): Promise<void>;
-	verifyLogin(loginInfo: LoginInfo): Promise<string>;
-	verifyRefresh(token: RefreshToken): Promise<void>;
+	verifyLogin(loginInfo: LoginInfo): Promise<{id: string; deviceToken?: string}>;
+	verifyRefresh(token: RefreshToken, isExpired: boolean): Promise<{id: string}>;
+	onLogout?(id: string, logoutInfo: LogoutInfo): Promise<void>;
 }
 
 export type GetAuthenticationFn = (context: any) => AuthenticationDomain;

@@ -19,7 +19,7 @@ export function isTokenValidOrUndefined(token?: string): boolean {
 	try {
 		const decodedToken = decode(accessToken) as AccessToken;
 		if (!decodedToken || !decodedToken.exp) return false;
-		return Date.now() / 1000 <= decodedToken.exp;
+		return Date.now() / 1000 + 3 <= decodedToken.exp; // 3-second grace period
 	} catch (err) {
 		d('Error decoding access token');
 		return false;
@@ -30,6 +30,7 @@ export function isTokenValidOrUndefined(token?: string): boolean {
  * Fetches a new access token as a Response promise from the refresh url.
  */
 export async function fetchAccessToken(): Promise<Response> {
+	d('Fetching new access token from refresh URL');
 	const url = new URL(env.getString('authRefreshUrl', defaults.authRefreshUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
 	return fetch(url.href, {
 		method: 'POST',

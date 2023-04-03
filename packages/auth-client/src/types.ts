@@ -10,6 +10,9 @@ export interface LoginInfo {
 		algorithm: string;
 	};
 	rememberDevice?: boolean;
+	device?: {
+		uniqueId: string;
+	};
 }
 
 export interface LoginReturn {
