@@ -19,7 +19,6 @@ export interface LoginReturn {
 }
 
 export interface LogoutInfo {
-	id: string;
 	device?: {
 		uniqueId: string;
 	};
@@ -49,7 +48,7 @@ export interface AuthenticationDomain {
 	invalidateCache(key: string | string[]): Promise<void>;
 	verifyLogin(loginInfo: LoginInfo): Promise<{id: string; deviceToken?: string}>;
 	verifyRefresh(token: RefreshToken, isExpired: boolean): Promise<{id: string}>;
-	onLogout?(logoutInfo: LogoutInfo): Promise<void>;
+	onLogout?(id: string, logoutInfo: LogoutInfo): Promise<void>;
 }
 
 export type GetAuthenticationFn = (context: any) => AuthenticationDomain;

@@ -6,7 +6,7 @@ import cors from 'cors';
 import debug from 'debug';
 import {defaults} from '../defaults';
 import {isLogoutInfo} from '../lib/typeguards';
-import {authMiddleware} from '../middleware/authMiddleware';
+import {Auth, authMiddleware} from '../middleware/authMiddleware';
 import type {AuthenticationDomain, GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.logoutEndpoint');
@@ -34,15 +34,23 @@ export function logoutEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumS
 		authMiddleware({credentialsRequired: true}),
 		server.contextMiddleware(),
 		async (req, res) => {
-			if (isLogoutInfo(req.body)) {
-				// @ts-ignore
-				const auth = getAuthFn(req.context) as AuthenticationDomain;
+			// @ts-ignore
+			const auth = req.auth as Auth | null;
+			if (auth) {
+				if (isLogoutInfo(req.body)) {
+					// @ts-ignore
+					const authDomain = getAuthFn(req.context) as AuthenticationDomain;
 
-				if (auth.onLogout) {
-					await auth.onLogout(req.body);
+					if (authDomain.onLogout) {
+						await authDomain.onLogout(auth.id, req.body);
+					}
+
+					res.status(200).end();
+				} else {
+					res.status(400).end();
 				}
-
-				res.status(200).end();
+			} else {
+				res.status(401).end();
 			}
 		},
 	);

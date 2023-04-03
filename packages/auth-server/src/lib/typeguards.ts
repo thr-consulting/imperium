@@ -16,7 +16,7 @@ export function isLoginInfo(loginInfo: any): loginInfo is LoginInfo {
 }
 
 export function isLogoutInfo(logoutInfo: any): logoutInfo is LogoutInfo {
-	return (logoutInfo as LogoutInfo).id !== undefined;
+	return true;
 }
 
 export function isRefreshToken(refreshToken: any): refreshToken is RefreshToken {
