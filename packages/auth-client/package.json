@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "11.0.0",
+	"version": "11.1.0",
 	"description": "Imperium Auth client package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
