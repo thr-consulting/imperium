@@ -39,6 +39,14 @@
 	display: none;
 }
 
+@media print
+{
+	.noPrint, .noPrint *
+	{
+		display: none !important;
+	}
+}
+
 @media only screen and (max-width: 768px) {
 	.parent {
 		flex-direction: column;

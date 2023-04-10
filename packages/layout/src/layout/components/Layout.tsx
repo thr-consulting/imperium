@@ -59,7 +59,7 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 
 	const secondaryMenuComp =
 		secondaryMenuItems.length > 0 ? (
-			<div className="imperiumSecondaryMenuWrapper">
+			<div className="imperiumSecondaryMenuWrapper noPrint">
 				<LayoutItemBar
 					items={secondaryMenuItems}
 					inverted
