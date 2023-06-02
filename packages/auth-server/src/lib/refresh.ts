@@ -17,7 +17,7 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 	}
 
 	const isExpired = Date.now() / 1000 > token.exp;
-	if (isExpired && !token.deviceToken) {
+	if (isExpired && !token.dev) {
 		throw new Error('Token expired');
 	}
 
@@ -25,8 +25,8 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 
 	const access = createAccessToken(id);
 
-	if (isExpired && token.deviceToken) {
-		const newRefresh = createRefreshToken({identifier: token.id, rememberDevice: true, deviceToken: token.deviceToken});
+	if (isExpired && token.dev) {
+		const newRefresh = createRefreshToken({identifier: token.id, rememberDevice: true, deviceToken: token.dev});
 
 		return {
 			// WARNING: Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
