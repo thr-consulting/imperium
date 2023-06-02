@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.1.1](https://github.com/darkadept/imperium/compare/v11.1.0...v11.1.1) (2023-06-02)
+
+
+### Bug Fixes
+
+* fixed an authentication bug ([#351](https://github.com/darkadept/imperium/issues/351)) ([b1d4d5a](https://github.com/darkadept/imperium/commit/b1d4d5a350d530a6ea415b92dde421a24b2601ec))
+
+
+
+
+
 # [11.1.0](https://github.com/darkadept/imperium/compare/v11.0.0...v11.1.0) (2023-04-03)
 
 **Note:** Version bump only for package @imperium/auth-server
