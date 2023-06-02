@@ -29,6 +29,7 @@ export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: Imperium
 
 	server.expressApp.post(authRefreshUrl, cors(corsOpts), cookieParser(), json(), server.contextMiddleware(), (req, res) => {
 		const refreshTokenString = req.cookies && req.cookies[authRefreshCookieName] ? req.cookies[authRefreshCookieName] : req.body.refresh;
+		d(`Refreshing token: ${refreshTokenString}`);
 		if (refreshTokenString) {
 			// @ts-ignore
 			const auth = getAuthFn(req.context);
@@ -40,10 +41,12 @@ export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: Imperium
 					res.end();
 				})
 				.catch((err: Error) => {
+					d(`Catching error: ${err.toString()}`);
 					res.status(400).send(err.toString());
 					res.end();
 				});
 		} else {
+			d('ERROR: Refresh token was null');
 			res.status(400).send('Invalid refresh token');
 			res.end();
 		}

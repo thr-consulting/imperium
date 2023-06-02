@@ -28,7 +28,7 @@ export interface RefreshToken {
 	type: string;
 	iat: number;
 	exp: number;
-	deviceToken?: string;
+	dev?: string;
 }
 
 export interface AccessToken {
