@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.2.0](https://github.com/darkadept/imperium/compare/v11.1.1...v11.2.0) (2023-09-20)
+
+
+### Features
+
+* add custom data to login and refresh endpoints ([#352](https://github.com/darkadept/imperium/issues/352)) ([2a904c6](https://github.com/darkadept/imperium/commit/2a904c6cdaa91ce58bc1efd869df430560a581b5))
+
+
+
+
+
 ## [11.1.1](https://github.com/darkadept/imperium/compare/v11.1.0...v11.1.1) (2023-06-02)
 
 
