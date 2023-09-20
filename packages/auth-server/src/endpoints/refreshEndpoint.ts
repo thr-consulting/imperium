@@ -6,7 +6,7 @@ import cors, {CorsOptions} from 'cors';
 import debug from 'debug';
 import {defaults} from '../defaults';
 import {refresh} from '../lib/refresh';
-import type {GetAuthenticationFn} from '../types';
+import type {GetAuthenticationFn, RefreshReturn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.refreshEndpoint');
 
@@ -36,7 +36,7 @@ export function refreshEndpoint(getAuthFn: GetAuthenticationFn, server: Imperium
 
 			// @ts-ignore Perform refresh
 			refresh(refreshTokenString, auth, req.context)
-				.then((ret: {access: string; refresh?: string}) => {
+				.then((ret: RefreshReturn) => {
 					res.status(200).json(ret);
 					res.end();
 				})

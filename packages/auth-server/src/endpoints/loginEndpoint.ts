@@ -64,6 +64,7 @@ export function loginEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumSe
 						.json({
 							id: ret.id,
 							access: ret.access,
+							data: ret.data,
 						});
 					res.end();
 				})
