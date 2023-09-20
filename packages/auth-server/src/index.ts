@@ -12,6 +12,8 @@ export type {
 	RefreshToken,
 	Password,
 	LogoutInfo,
+	VerifyRefreshReturn,
+	VerifyLoginReturn,
 } from './types';
 export {authMiddleware} from './middleware/authMiddleware';
 export type {Auth} from './middleware/authMiddleware';

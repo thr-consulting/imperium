@@ -1,6 +1,7 @@
 import type {AuthenticationDomain, LoginInfo, RefreshToken, ServiceInfo} from '@imperium/auth-server';
 import {validatePassword} from '@imperium/auth-server';
 import debug from 'debug';
+import type {VerifyLoginReturn, VerifyRefreshReturn} from '@imperium/auth-server/src';
 import {getConnector} from '../../core/connectors';
 import type {Context} from '../../index';
 
@@ -32,26 +33,34 @@ export class Authentication implements AuthenticationDomain {
 		await getConnector('sharedCache', this.context.connectors).clear(getKey(key));
 	}
 
-	async verifyLogin(loginInfo: LoginInfo): Promise<{id: string; deviceToken?: string}> {
+	async verifyLogin(loginInfo: LoginInfo): Promise<VerifyLoginReturn> {
 		const serviceInfo = await this.getServiceInfo(loginInfo.identifier);
 		if (!serviceInfo) {
 			throw new Error('User not found');
 		}
 
 		if (await validatePassword(serviceInfo.password, loginInfo.password)) {
-			return {id: serviceInfo.id};
+			return {
+				id: serviceInfo.id,
+				data: {
+					customField: false,
+				},
+			};
 		}
 
 		throw new Error('Unable to verify login information');
 	}
 
-	async verifyRefresh(token: RefreshToken): Promise<{id: string}> {
+	async verifyRefresh(token: RefreshToken): Promise<VerifyRefreshReturn> {
 		const info = await this.getServiceInfo(token.id);
 		if (!info) {
 			throw new Error('User not found');
 		}
 		return {
 			id: info.id,
+			data: {
+				customField: true,
+			},
 		};
 	}
 

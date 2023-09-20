@@ -16,11 +16,12 @@ export async function login(loginInfo: LoginInfo, remoteAddress: string | undefi
 	if (attempts > authMaxFail) throw new Error('Too many login attempts');
 
 	try {
-		const {id, deviceToken} = await auth.verifyLogin(loginInfo);
+		const {id, deviceToken, data} = await auth.verifyLogin(loginInfo);
 		const loginRet: LoginReturn = {
 			id,
 			access: createAccessToken(id),
 			refresh: createRefreshToken({...loginInfo, deviceToken}),
+			data,
 		};
 		// d(`  Access : ${loginRet.access}`);
 		// d(`  Refresh: ${loginRet.refresh}`);
