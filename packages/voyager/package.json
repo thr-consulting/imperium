@@ -34,7 +34,7 @@
 		"@imperium/server": "^11.0.0"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

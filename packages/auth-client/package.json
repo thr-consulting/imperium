@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@imperium/authorization": "^11.0.0",
 		"@imperium/client": "^11.0.0",
-		"@thx/env": "^16.1.7",
+		"@thx/env": "^17.0.0-alpha.2",
 		"debug": "^4.3.3",
 		"dexie": "^3.2.1",
 		"jwt-decode": "^3.1.2"
@@ -42,7 +42,7 @@
 		"react": "17.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

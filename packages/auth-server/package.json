@@ -34,8 +34,8 @@
 	"dependencies": {
 		"@imperium/authorization": "^11.0.0",
 		"@imperium/server": "^11.0.0",
-		"@thx/env": "^16.1.7",
-		"@thx/sha256": "^16.0.0",
+		"@thx/env": "^17.0.0-alpha.2",
+		"@thx/sha256": "^17.0.0-alpha.2",
 		"bcrypt": "^5.0.1",
 		"body-parser": "^1.19.2",
 		"cookie-parser": "^1.4.6",
@@ -47,7 +47,7 @@
 		"ms": "^2.1.3"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -34,12 +34,12 @@
 		"@apollo/client": "^3.5.10",
 		"@imperium/auth-client": "^11.1.0",
 		"@imperium/graphql-client": "^11.0.0",
-		"@thx/env": "^16.1.7",
+		"@thx/env": "^17.0.0-alpha.2",
 		"apollo-link-token-refresh": "^0.4.0",
 		"debug": "^4.3.2"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

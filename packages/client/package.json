@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@thx/env": "^16.1.7",
+		"@thx/env": "^17.0.0-alpha.2",
 		"debug": "^4.3.3",
 		"lodash-es": "^4.17.21"
 	},
@@ -40,7 +40,7 @@
 		"react-dom": "17.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

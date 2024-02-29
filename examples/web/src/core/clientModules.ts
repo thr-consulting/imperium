@@ -5,12 +5,12 @@ import {layoutClientModule} from '@imperium/layout';
 import {routerClientModule} from '@imperium/router';
 import {stateClientModule} from '@imperium/state';
 import {sampleModule} from '../sample';
-import {testDatahookModule} from '../test-datahook';
 import {sampleApolloCacheModule} from '../sample-apollocache';
 import {sampleAuthModule} from '../sample-auth';
 import {sampleGraphqlModule} from '../sample-graphql';
 import {sampleLayoutModule} from '../sample-layout';
 import {sampleStateModule} from '../sample-state';
+import {testDatahookModule} from '../test-datahook';
 
 export function clientModules(): ImperiumClientModule[] {
 	return [

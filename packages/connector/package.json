@@ -33,12 +33,12 @@
 		}
 	},
 	"dependencies": {
-		"@thx/promise-sequential": "^16.0.0",
-		"@thx/random": "^16.3.5",
-		"@thx/util": "^16.0.0"
+		"@thx/promise-sequential": "^17.0.0-alpha.2",
+		"@thx/random": "^17.0.0-alpha.2",
+		"@thx/util": "^17.0.0-alpha.2"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

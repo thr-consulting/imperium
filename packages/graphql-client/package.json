@@ -32,8 +32,8 @@
 	},
 	"dependencies": {
 		"@imperium/client": "^11.0.0",
-		"@thx/env": "^16.1.7",
-		"@thx/util": "^16.0.0",
+		"@thx/env": "^17.0.0-alpha.2",
+		"@thx/util": "^17.0.0-alpha.2",
 		"debug": "^4.3.3",
 		"merge-options": "^3.0.4",
 		"subscriptions-transport-ws": "^0.11.0"
@@ -44,7 +44,7 @@
 		"react": "17.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,7 +1,7 @@
 import type {AuthenticationDomain, LoginInfo, RefreshToken, ServiceInfo} from '@imperium/auth-server';
 import {validatePassword} from '@imperium/auth-server';
-import debug from 'debug';
 import type {VerifyLoginReturn, VerifyRefreshReturn} from '@imperium/auth-server/src';
+import debug from 'debug';
 import {getConnector} from '../../core/connectors';
 import type {Context} from '../../index';
 

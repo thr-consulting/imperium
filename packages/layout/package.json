@@ -35,7 +35,7 @@
 		"@imperium/client": "^11.0.0",
 		"@imperium/router": "^11.0.0",
 		"@imperium/state": "^11.0.0",
-		"@thx/controls": "^16.3.10",
+		"@thx/controls": "^17.0.0-alpha.2",
 		"debug": "^4.3.3",
 		"history": "^5.0.1",
 		"lodash-es": "^4.17.21",
@@ -55,7 +55,7 @@
 		"react-router-dom": "5.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"
