@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "11.1.1",
+	"version": "12.0.0-alpha.0",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -27,24 +27,24 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.4.15",
-		"@imperium/auth-client": "^11.1.0",
-		"@imperium/client": "^11.0.0",
-		"@imperium/graphql-client": "^11.0.0",
-		"@imperium/layout": "^11.1.1",
-		"@imperium/router": "^11.0.0",
-		"@imperium/state": "^11.0.0",
+		"@imperium/auth-client": "^12.0.0-alpha.0",
+		"@imperium/client": "^12.0.0-alpha.0",
+		"@imperium/graphql-client": "^12.0.0-alpha.0",
+		"@imperium/layout": "^12.0.0-alpha.0",
+		"@imperium/router": "^12.0.0-alpha.0",
+		"@imperium/state": "^12.0.0-alpha.0",
 		"@js-joda/core": "^5.1.0",
 		"@loadable/component": "^5.15.2",
 		"@reduxjs/toolkit": "^1.6.1",
-		"@thx/controls": "^16.0.4",
-		"@thx/date": "^16.0.0",
-		"@thx/env": "^16.1.4",
-		"@thx/sha256": "^16.0.0",
+		"@thx/controls": "^17.0.0",
+		"@thx/date": "^17.0.0",
+		"@thx/env": "^17.0.0",
+		"@thx/sha256": "^17.0.0",
 		"debug": "^4.3.2",
 		"graphql": "^16.2.0",
 		"mingo": "^5.0.0",
 		"react": "^17.0.2",
-		"react-datepicker": "^4.2.1",
+		"react-datepicker": "^6.2.0",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.5",
 		"react-router": "^5.2.1",
@@ -53,6 +53,6 @@
 		"yup": "^0.32.9"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	}
 }

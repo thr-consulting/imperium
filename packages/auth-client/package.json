@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "11.1.0",
+	"version": "12.0.0-alpha.0",
 	"description": "Imperium Auth client package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,9 +31,9 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^11.0.0",
-		"@imperium/client": "^11.0.0",
-		"@thx/env": "^16.1.7",
+		"@imperium/authorization": "^12.0.0-alpha.0",
+		"@imperium/client": "^12.0.0-alpha.0",
+		"@thx/env": "^17.0.0",
 		"debug": "^4.3.3",
 		"dexie": "^3.2.1",
 		"jwt-decode": "^3.1.2"
@@ -42,7 +42,7 @@
 		"react": "17.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/client",
-	"version": "11.0.0",
+	"version": "12.0.0-alpha.0",
 	"description": "Imperium client core",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@thx/env": "^16.1.7",
+		"@thx/env": "^17.0.0",
 		"debug": "^4.3.3",
 		"lodash-es": "^4.17.21"
 	},
@@ -40,7 +40,7 @@
 		"react-dom": "17.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"

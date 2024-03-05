@@ -1,18 +1,14 @@
 {
-  "lerna": "4.0.0",
-  "packages": [
-    "packages/*",
-    "examples/*"
-  ],
-  "version": "11.2.0",
-  "npmClient": "yarn",
-  "useWorkspaces": true,
-  "concurrency": 16,
-  "registry": "https://registry.npmjs.org/",
-  "command": {
-    "publish": {
-      "conventionalCommits": true,
-      "message": "chore(release): publish [skip-ci]"
-    }
-  }
+	"packages": ["packages/*", "examples/*"],
+	"version": "12.0.0-alpha.0",
+	"npmClient": "yarn",
+	"concurrency": 16,
+	"registry": "https://registry.npmjs.org/",
+	"command": {
+		"publish": {
+			"conventionalCommits": true,
+			"message": "chore(release): publish [skip-ci]"
+		}
+	},
+	"$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

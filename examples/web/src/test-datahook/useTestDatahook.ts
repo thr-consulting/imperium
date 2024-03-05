@@ -1,7 +1,7 @@
-import {useDispatch} from 'react-redux';
-import {useEffect} from 'react';
 import type {DataHookParams} from '@imperium/layout';
 import debug from 'debug';
+import {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {setText} from './state';
 
 const d = debug('imperium.web.test-datahook.useTestDatahook');

@@ -1,62 +1,62 @@
 {
-  "name": "@imperium/example-server",
-  "version": "11.2.0",
-  "private": true,
-  "description": "Imperium server example project",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:darkadept/imperium.git"
-  },
-  "license": "UNLICENSED",
-  "author": "Mike Kornelson <darkadept@durbn.net>",
-  "type": "module",
-  "scripts": {
-    "build": "thx build.roll",
-    "clean": "thx clean",
-    "codegen": "thx.codegen",
-    "deps": "thx deps -i ~core,~basicModule",
-    "lint": "thx lint",
-    "lint.fix": "thx lint.fix",
-    "orm": "MIKRO_ORM_DYNAMIC_IMPORTS=1 mikro-orm",
-    "rollup": "rollup",
-    "sort": "thx sort",
-    "start": "yarn -s build --watch",
-    "start.dev": "node --enable-source-maps index.js",
-    "ts": "thx ts"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "project": "./tsconfig-eslint.json"
-    }
-  },
-  "dependencies": {
-    "@imperium/auth-server": "^11.2.0",
-    "@imperium/cluster": "^11.0.0",
-    "@imperium/connector": "^11.0.0",
-    "@imperium/example-domain": "^11.2.0",
-    "@imperium/graphql-server": "^11.0.0",
-    "@imperium/server": "^11.0.0",
-    "@imperium/voyager": "^11.0.0",
-    "@js-joda/core": "^5.2.0",
-    "@mikro-orm/core": "^5.1.2",
-    "@mikro-orm/postgresql": "^5.1.2",
-    "@thx/env": "^16.1.4",
-    "@thx/random": "^16.0.0",
-    "@thx/sharedcache": "^16.2.1",
-    "@thx/util": "^16.0.0",
-    "apollo-server-express": "^3.6.4",
-    "cors": "^2.8.5",
-    "debug": "^4.3.3",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.3",
-    "graphql": "^16.3.0",
-    "graphql-subscriptions": "^2.0.0",
-    "ioredis": "^5.2.4"
-  },
-  "devDependencies": {
-    "@mikro-orm/cli": "^5.1.2"
-  },
-  "engines": {
-    "node": ">=16"
-  }
+	"name": "@imperium/example-server",
+	"version": "12.0.0-alpha.0",
+	"private": true,
+	"description": "Imperium server example project",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:darkadept/imperium.git"
+	},
+	"license": "UNLICENSED",
+	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"type": "module",
+	"scripts": {
+		"build": "thx build.roll",
+		"clean": "thx clean",
+		"codegen": "thx.codegen",
+		"deps": "thx deps -i ~core,~basicModule",
+		"lint": "thx lint",
+		"lint.fix": "thx lint.fix",
+		"orm": "MIKRO_ORM_DYNAMIC_IMPORTS=1 mikro-orm",
+		"rollup": "rollup",
+		"sort": "thx sort",
+		"start": "yarn -s build --watch",
+		"start.dev": "node --enable-source-maps index.js",
+		"ts": "thx ts"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"project": "./tsconfig-eslint.json"
+		}
+	},
+	"dependencies": {
+		"@imperium/auth-server": "^12.0.0-alpha.0",
+		"@imperium/cluster": "^12.0.0-alpha.0",
+		"@imperium/connector": "^12.0.0-alpha.0",
+		"@imperium/example-domain": "^12.0.0-alpha.0",
+		"@imperium/graphql-server": "^12.0.0-alpha.0",
+		"@imperium/server": "^12.0.0-alpha.0",
+		"@imperium/voyager": "^12.0.0-alpha.0",
+		"@js-joda/core": "^5.2.0",
+		"@mikro-orm/core": "^5.1.2",
+		"@mikro-orm/postgresql": "^5.1.2",
+		"@thx/env": "^17.0.0",
+		"@thx/random": "^17.0.0",
+		"@thx/sharedcache": "^17.0.0",
+		"@thx/util": "^17.0.0",
+		"apollo-server-express": "^3.6.4",
+		"cors": "^2.8.5",
+		"debug": "^4.3.3",
+		"dotenv": "^16.0.0",
+		"express": "^4.17.3",
+		"graphql": "^16.3.0",
+		"graphql-subscriptions": "^2.0.0",
+		"ioredis": "^5.2.4"
+	},
+	"devDependencies": {
+		"@mikro-orm/cli": "^5.1.2"
+	},
+	"engines": {
+		"node": ">=20"
+	}
 }

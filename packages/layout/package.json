@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/layout",
-	"version": "11.1.1",
+	"version": "12.0.0-alpha.0",
 	"description": "Imperium Layout package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -31,11 +31,11 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-client": "^11.1.0",
-		"@imperium/client": "^11.0.0",
-		"@imperium/router": "^11.0.0",
-		"@imperium/state": "^11.0.0",
-		"@thx/controls": "^16.3.10",
+		"@imperium/auth-client": "^12.0.0-alpha.0",
+		"@imperium/client": "^12.0.0-alpha.0",
+		"@imperium/router": "^12.0.0-alpha.0",
+		"@imperium/state": "^12.0.0-alpha.0",
+		"@thx/controls": "^17.0.0",
 		"debug": "^4.3.3",
 		"history": "^5.0.1",
 		"lodash-es": "^4.17.21",
@@ -55,7 +55,7 @@
 		"react-router-dom": "5.x"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"publishConfig": {
 		"access": "public"
