@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.0.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0) (2024-03-05)
+
+**Note:** Version bump only for package @imperium/authorization
+
 # [12.0.0-alpha.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0-alpha.0) (2024-02-29)
 
 ### Features
