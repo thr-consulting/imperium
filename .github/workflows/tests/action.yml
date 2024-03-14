@@ -9,18 +9,19 @@ runs:
   using: 'composite'
   steps:
     - name: Setup node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'yarn'
 
     - name: node_modules cache
-      uses: actions/cache@v3
+      uses: actions/cache/restore@v4
       id: cache
       with:
         path: |
           node_modules
           */*/node_modules
+          !node_modules/.cache/nx
         key: ${{ runner.os }}-nm-${{ hashFiles('yarn.lock') }}
 
     - name: Run tests

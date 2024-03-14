@@ -1,4 +1,6 @@
 name: Test Workflow
+env:
+  DISABLE_V8_COMPILE_CACHE: 1
 on:
   push:
     branches-ignore:
@@ -11,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install & cache dependencies
         uses: ./.github/workflows/installdeps
 
@@ -21,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Lint code
         uses: ./.github/workflows/lint
 
@@ -31,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build code
         uses: ./.github/workflows/buildcode
 
@@ -41,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run tests
         uses: ./.github/workflows/tests
 
@@ -51,6 +53,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run ts
         uses: ./.github/workflows/typescript
