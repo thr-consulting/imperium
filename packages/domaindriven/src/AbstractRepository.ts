@@ -122,6 +122,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return this.repo.count(where, options);
 	}
 
+	public async remove(entityOrEntities: EntityType | EntityType[]) {
+		return this.repo.remove(entityOrEntities);
+	}
+
 	/**
 	 * Prime the dataloader with entities
 	 * @param entityOrEntities
