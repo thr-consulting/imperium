@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.1](https://github.com/darkadept/imperium/compare/v12.0.0...v12.0.1) (2024-03-15)
+
+### Bug Fixes
+
+- fix github actions ([b17c421](https://github.com/darkadept/imperium/commit/b17c421a5234a546ab5805d94b304abdfe927b09))
+
 # [12.0.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0) (2024-03-05)
 
 **Note:** Version bump only for package @imperium/layout

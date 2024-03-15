@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.1](https://github.com/darkadept/imperium/compare/v12.0.0...v12.0.1) (2024-03-15)
+
+### Features
+
+- add remove to abstract repository ([#354](https://github.com/darkadept/imperium/issues/354)) ([f7e23f7](https://github.com/darkadept/imperium/commit/f7e23f7de8560a19386ef68d3d0a283500755f07))
+
 # [12.0.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0) (2024-03-05)
 
 **Note:** Version bump only for package @imperium/domaindriven
