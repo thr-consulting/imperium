@@ -1,4 +1,4 @@
-import {useAuth} from '@imperium/auth-client';
+import {useAuthenticatedState} from '@imperium/auth-client';
 import debug from 'debug';
 import type {Location} from 'history';
 import {compact, merge} from 'lodash-es';
@@ -19,7 +19,7 @@ export interface UseBuildDataParams {
 }
 
 export function useBuildData({stateSelectorHook, permissionSelectorHook, data, routeItem}: UseBuildDataParams) {
-	const {id} = useAuth();
+	const {id} = useAuthenticatedState();
 	const {permissions} = useLayoutState();
 	const state = useSelectState(stateSelectorHook);
 	const loc = useLocation() as Location;

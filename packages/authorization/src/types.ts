@@ -7,29 +7,48 @@ export interface IndexedValue<Value> {
 
 export type JsonValue = string | number | boolean | null | JsonValue[] | {[key: string]: JsonValue};
 
-export interface JsonObject {
-	[k: string]: JsonValue;
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface JsonArray extends Array<JsonValue> {}
-
-export type Permission = string | string[];
-
-export interface PermissionKey {
-	id?: string;
+/**
+ * A Permission is either a string or a string and Json data.
+ */
+export type Permission = string;
+export interface PermissionWithData {
 	permission: string;
 	data?: JsonValue;
 }
+export type Permissions = Permission | PermissionWithData | (Permission | PermissionWithData)[];
 
-export interface PermissionLookupOpts<ExtraData = any> {
-	keys: readonly PermissionKey[];
-	authorization: Authorization<ExtraData>;
+export type WithKey<T extends object> = T & {id: string | null};
+
+export interface PermissionLookupOpts<Extra extends AuthenticationBase> {
+	keys: readonly WithKey<PermissionWithData>[];
+	authorization: Authorization<Extra>;
 }
 
-export type PermissionLookup<ExtraData = any> = (opts: PermissionLookupOpts<ExtraData>) => Promise<boolean[]>;
+export type PermissionLookup<Extra extends AuthenticationBase> = (opts: PermissionLookupOpts<Extra>) => Promise<boolean[]>;
 
+/**
+ * A simple cache interface (used for client side caching)
+ */
 export interface AuthorizationCache {
 	get(key: string): Promise<any>;
 	set(key: string, data: any, expire?: number): Promise<any>;
 	exists(key: string): Promise<boolean>;
+}
+
+export interface AuthenticationBase {
+	auth?: {
+		id?: string;
+	};
+}
+
+export interface AuthenticationRequest extends AuthenticationBase {
+	hostname?: string;
+	ip?: string;
+	headers?: {
+		[key: string]: string;
+	};
+}
+
+export interface AuthenticationToken extends AuthenticationBase {
+	getToken: () => Promise<string | null>;
 }

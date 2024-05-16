@@ -1,20 +1,25 @@
-import type {JsonValue, Permission} from '@imperium/authorization';
-import {useContext, useEffect, useState} from 'react';
-import {AuthContext, IAuthContext} from '../AuthContext';
+import type {Permissions} from '@imperium/authorization';
+import {useEffect, useState} from 'react';
+import {useAuthorization} from './useAuthorization';
 
-export function useCan(permission: Permission, data?: JsonValue) {
-	const ctx = useContext<IAuthContext>(AuthContext);
+/**
+ * A React hook to get the results of a set of permissions.
+ * @param permissions
+ * @param logicalOperation
+ */
+export function useCan(permissions: Permissions, logicalOperation: 'AND' | 'OR' = 'AND') {
+	const authorization = useAuthorization();
 	const [loading, setLoading] = useState(true);
 	const [result, setResult] = useState(false);
 
 	useEffect(() => {
 		(async function iife() {
-			ctx.authorization.can(permission, data).then(ret => {
+			authorization.can(permissions, logicalOperation).then(ret => {
 				setResult(ret);
 				setLoading(false);
 			});
 		})();
-	}, [ctx.authorization, permission, data]);
+	}, [authorization, permissions, logicalOperation]);
 
 	return [result, loading];
 }

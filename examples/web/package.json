@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@apollo/client": "^3.4.15",
 		"@imperium/auth-client": "^12.0.0",
+		"@imperium/auth-graphql-client": "^12.0.0",
 		"@imperium/client": "^12.0.0",
 		"@imperium/graphql-client": "^12.0.0",
 		"@imperium/layout": "^12.0.1",
@@ -42,6 +43,7 @@
 		"@thx/sha256": "^17.0.0",
 		"debug": "^4.3.2",
 		"graphql": "^16.2.0",
+		"jose": "^5.2.4",
 		"mingo": "^5.0.0",
 		"react": "^17.0.2",
 		"react-datepicker": "^6.2.0",

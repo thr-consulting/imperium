@@ -1,5 +1,4 @@
-import {Authorization} from '@imperium/authorization';
-import type {AuthenticatedUser} from '@imperium/connector';
+import {type AuthenticationRequest, Authorization} from '@imperium/authorization';
 import {Connectors, ImperiumBaseContext} from '@imperium/connector';
 import {Domain} from '@imperium/domaindriven';
 import debug from 'debug';
@@ -16,7 +15,7 @@ import {entities} from './entities';
 
 const d = debug('imperium.domain.core.createDomain');
 
-export async function createDomain(connectors: Connectors, authenticatedUser?: AuthenticatedUser) {
+export async function createDomain(connectors: Connectors, authenticationRequest?: AuthenticationRequest) {
 	d('Creating domain');
 
 	const entityManager = getConnector('orm', connectors).em.fork({
@@ -24,9 +23,8 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 		useContext: true,
 	});
 
-	const authorization = new Authorization<AuthenticatedUser>({
-		extraData: authenticatedUser,
-		id: authenticatedUser?.auth?.id,
+	const authorization = new Authorization<AuthenticationRequest>({
+		extra: authenticationRequest,
 	});
 
 	const repositories = createRepositories(entityManager, connectors);
@@ -34,7 +32,7 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 
 	const controllers = createControllers(entityManager, authorization, repositories);
 
-	const domain = new Domain<AuthenticatedUser>({
+	const domain = new Domain<AuthenticationRequest>({
 		modules: [authModule],
 		repositories,
 	});
@@ -51,7 +49,7 @@ export async function createDomain(connectors: Connectors, authenticatedUser?: A
 	};
 
 	authorization.cache = getConnector('sharedCache', connectors);
-	authorization.context = ctx;
+	// authorization.context = ctx;
 	authorization.lookup = domain.permissionLookup;
 
 	return ctx;

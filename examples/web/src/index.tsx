@@ -1,9 +1,11 @@
+import 'react';
 import {ImperiumClient} from '@imperium/client';
-import {ContentRouter} from '@imperium/router';
 import {debug} from 'debug';
+import {render} from 'react-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import {clientModules} from './core/clientModules';
 import './core/styles.css';
+import {Root} from './Root';
 
 const d = debug('imperium.web');
 
@@ -19,15 +21,19 @@ console.log(import.meta.env.VITE_BLAH);
 
 const client = new ImperiumClient({
 	clientModules,
-	render: props => {
-		return <ContentRouter {...props} />;
-	},
+	rootComponent: Root,
 });
 
-client.start().catch(err => {
-	// eslint-disable-next-line no-console
-	console.log(err);
-});
+client
+	.start()
+	.then(Imperium => {
+		d('Rendering root component');
+		render(<Imperium />, document.getElementById('root'));
+	})
+	.catch(err => {
+		// eslint-disable-next-line no-console
+		console.log(err);
+	});
 
 // Testing dynamic chunk
 import('~common/test').then(({test}) => {

@@ -42,7 +42,7 @@ export class Authentication implements AuthenticationDomain {
 		if (await validatePassword(serviceInfo.password, loginInfo.password)) {
 			return {
 				id: serviceInfo.id,
-				data: {
+				customData: {
 					customField: false,
 				},
 			};
@@ -56,9 +56,10 @@ export class Authentication implements AuthenticationDomain {
 		if (!info) {
 			throw new Error('User not found');
 		}
+		// You can return custom data, but NOT a field called "data"
 		return {
 			id: info.id,
-			data: {
+			customData: {
 				customField: true,
 			},
 		};

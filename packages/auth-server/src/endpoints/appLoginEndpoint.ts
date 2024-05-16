@@ -47,7 +47,7 @@ export function appLoginEndpoint(getAuthFn: GetAuthenticationFn, server: Imperiu
 							id: ret.id,
 							access: ret.access,
 							refresh: ret.refresh,
-							data: ret.data,
+							customData: ret.customData,
 						});
 					res.end();
 				})

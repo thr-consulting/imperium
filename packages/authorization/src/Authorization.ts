@@ -2,80 +2,47 @@ import {env} from '@thx/env';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 import LruCache from 'lru-cache';
-import {compress, decompress} from 'lzbase62';
 import {defaults} from './defaults';
-import {keysSplitAndSort} from './keysSplitAndSort';
-import {noPermissionLookup} from './noPermissionLookup';
-import type {AuthorizationCache, JsonValue, Permission, PermissionKey, PermissionLookup} from './types';
+import {keyToString} from './lib/keyToString';
+import {keysSplitAndSort} from './lib/keysSplitAndSort';
+import {noPermissionLookup} from './lib/noPermissionLookup';
+import {stringToKey} from './lib/stringToKey';
+import type {AuthenticationBase, AuthorizationCache, Permissions, PermissionLookup} from './types';
 
 const d = debug('imperium.authorization.Authorization');
 
-/**
- * Converts a PermissionKey object to a string
- * @param id
- * @param permission
- * @param data
- */
-function keyToString({id, permission, data}: PermissionKey): string {
-	if (permission.length <= 0) throw new Error("Can't make key for empty permission");
-	const encodedData = compress(JSON.stringify(data));
-	const dataStr = data ? `:${encodedData}` : '';
-	return `authorization:${id || 'notauth'}:${permission}${dataStr}`;
+interface AuthorizationConstructor<Extra extends AuthenticationBase> {
+	lookup?: PermissionLookup<Extra>;
+	dataloaderCache?: boolean; // Defaults to true
+	dataloaderBatch?: boolean; // Defaults to true
+	authorizationCache?: AuthorizationCache;
+	extra?: Extra;
 }
 
-/**
- * Converts a string to a PermissionKey object
- * @param str
- */
-function stringToKey(str: string): PermissionKey {
-	const c = str.split(':');
-	if (c.length === 4) {
-		return {
-			id: c[1],
-			permission: c[2],
-			data: JSON.parse(decompress(c[3])),
-		};
-	}
-	if (c.length === 3) {
-		return {
-			id: c[1],
-			permission: c[2],
-		};
-	}
-	throw new Error('String not a valid permission key');
-}
-
-interface AuthorizationConstructor<ExtraData = any> {
-	id?: string;
-	lookup?: PermissionLookup<ExtraData>;
-	extraData?: ExtraData;
-	dataloaderCache?: boolean;
-	dataloaderBatch?: boolean;
-}
-
-export class Authorization<ExtraData = any, Context = any> {
-	public readonly id?: string;
-	public readonly extraData?: ExtraData;
-	#lookup: PermissionLookup<ExtraData> = noPermissionLookup;
-	private readonly dataloader: DataLoader<string, boolean>;
-	private readonly lrucache: LruCache<string, boolean>;
-	private ctx?: Context;
+export class Authorization<Extra extends AuthenticationBase, Context = any> {
+	#lookup: PermissionLookup<Extra> = noPermissionLookup;
+	readonly #dataloader: DataLoader<string, boolean>;
+	readonly #lrucache: LruCache<string, boolean>;
 	#cache?: AuthorizationCache;
+	readonly #extra?: Extra;
+	private ctx?: Context;
 
-	public constructor(opts?: AuthorizationConstructor<ExtraData>) {
-		this.id = opts?.id; // This is the userId
-		this.extraData = opts?.extraData;
-		if (opts?.lookup) this.#lookup = opts.lookup;
+	public constructor(opts?: AuthorizationConstructor<Extra>) {
+		const {authorizationCache, dataloaderCache, dataloaderBatch, lookup, extra} = opts || {};
+
+		if (lookup) this.#lookup = lookup;
+		if (authorizationCache) this.#cache = authorizationCache;
+		this.#extra = extra;
 
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const thisAuthorization = this;
 
 		// Create a Least Recently Used cache for dataloader
-		this.lrucache = new LruCache({
+		this.#lrucache = new LruCache({
 			max: env.getInt('IMP_PERMISSION_DATALOADER_LRU_MAX', defaults.IMP_PERMISSION_DATALOADER_LRU_MAX),
 			ttl: env.getInt('IMP_PERMISSION_DATALOADER_LRU_MAXAGE', defaults.IMP_PERMISSION_DATALOADER_LRU_MAXAGE) * 1000,
 		});
-		this.dataloader = new DataLoader(
+		this.#dataloader = new DataLoader(
 			async (keys: readonly string[]): Promise<boolean[]> => {
 				return keysSplitAndSort(
 					keys,
@@ -120,43 +87,51 @@ export class Authorization<ExtraData = any, Context = any> {
 			},
 			{
 				// @ts-expect-error TODO check to make sure the new lru-cache suits dataloader
-				cacheMap: this.lrucache,
-				cache: opts?.dataloaderCache,
-				batch: opts?.dataloaderBatch,
+				cacheMap: this.#lrucache,
+				cache: dataloaderCache,
+				batch: dataloaderBatch,
 			},
 		);
 	}
 
 	/**
 	 * Query whether a permission (with data and current user) is allowed
-	 * @param permission
+	 * @param permissions
 	 * @param data
 	 */
-	public async can(permission: Permission, data?: JsonValue): Promise<boolean> {
-		// Permission is an array of string
-		if (Array.isArray(permission)) {
-			const keyStrings = permission.map(perm => {
+	public async can(permissions: Permissions, logicalOperation: 'AND' | 'OR' = 'AND'): Promise<boolean> {
+		// Permission is an array of strings
+		if (Array.isArray(permissions)) {
+			const keyStrings = permissions.map(perm => {
 				return Authorization.keyToString({
-					id: this.id,
-					permission: perm,
-					data,
+					id: this.#extra?.auth?.id || null,
+					permission: typeof perm === 'string' ? perm : perm.permission,
+					data: typeof perm !== 'string' ? perm.data : undefined,
 				});
 			});
-			const results = await this.dataloader.loadMany(keyStrings);
+			const results = await this.#dataloader.loadMany(keyStrings);
 
-			// Logical AND the results of all the permissions to return a single result
+			// Logical AND
+			if (logicalOperation === 'AND') {
+				return results.reduce<boolean>((memo, v) => {
+					if (!memo || v instanceof Error) return false;
+					return v;
+				}, true);
+			}
+
+			// Logical OR
 			return results.reduce<boolean>((memo, v) => {
-				if (v instanceof Error) return false;
-				return memo && v;
-			}, true);
+				if (memo || (!(v instanceof Error) && v)) return true;
+				return false;
+			}, false);
 		}
 
 		// Permission is a single string
-		return this.dataloader.load(
+		return this.#dataloader.load(
 			Authorization.keyToString({
-				permission,
-				id: this.id,
-				data,
+				permission: typeof permissions === 'string' ? permissions : permissions.permission,
+				id: this.#extra?.auth?.id || null,
+				data: typeof permissions !== 'string' ? permissions.data : undefined,
 			}),
 		);
 	}
@@ -169,11 +144,7 @@ export class Authorization<ExtraData = any, Context = any> {
 		return this.#cache;
 	}
 
-	public resetDataloader() {
-		this.dataloader.clearAll();
-	}
-
-	public set lookup(lookup: PermissionLookup<ExtraData> | undefined) {
+	public set lookup(lookup: PermissionLookup<Extra> | undefined) {
 		this.#lookup = lookup || noPermissionLookup;
 	}
 
@@ -181,14 +152,10 @@ export class Authorization<ExtraData = any, Context = any> {
 		return this.#lookup;
 	}
 
-	public set context(context: Context | undefined) {
-		this.ctx = context;
-	}
-
-	public get context() {
-		return this.ctx;
+	public get extra() {
+		return this.#extra;
 	}
 
 	static keyToString = keyToString;
-	static stringToKey = stringToKey;
+	static stringToKey = stringToKey; // Needed by @imperium/auth-server
 }

@@ -11,7 +11,7 @@ export const routeProps = createPages(routes, {
 	authTest: {
 		permissionSelectorHook: () => {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
-			const [getStuff] = useCan('getStuff', {values: 'stuff'});
+			const [getStuff] = useCan({permission: 'getStuff', data: {values: 'stuff'}});
 			return {getStuff};
 		},
 		content: () => {

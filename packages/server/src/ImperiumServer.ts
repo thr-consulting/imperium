@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import type {AuthenticatedUser, Connectors} from '@imperium/connector';
+import type {AuthenticationRequest} from '@imperium/authorization';
+import type {Connectors} from '@imperium/connector';
 import debug from 'debug';
 import express, {Application, RequestHandler} from 'express';
 import {createServer, Server} from 'http';
@@ -10,7 +11,7 @@ const d = debug('imperium.server.ImperiumServer');
 
 export class ImperiumServer<Context> {
 	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context>[];
-	private readonly _contextCreator: (connector: Connectors, authenticatedUser?: AuthenticatedUser) => Promise<Context>;
+	private readonly _contextCreator: (connector: Connectors, authenticatedUser?: AuthenticationRequest) => Promise<Context>;
 	private _expressApp: Application | null = null;
 	private _httpServer: Server | null = null;
 	private readonly _httpPort: number;
@@ -28,10 +29,10 @@ export class ImperiumServer<Context> {
 
 	/**
 	 * Create a context object
-	 * @param authenticatedUser
+	 * @param authenticatedRequest
 	 */
-	public createContext(authenticatedUser?: AuthenticatedUser): Promise<Context> {
-		return this._contextCreator(this.connectors, authenticatedUser);
+	public createContext(authenticatedRequest?: AuthenticationRequest): Promise<Context> {
+		return this._contextCreator(this.connectors, authenticatedRequest);
 	}
 
 	/**

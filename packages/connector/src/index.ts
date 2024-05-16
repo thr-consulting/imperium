@@ -5,17 +5,6 @@ export {Connector} from './Connector';
 export {Connectors} from './Connectors';
 export {ImperiumError} from './ImperiumError';
 
-export interface AuthenticatedUser {
-	auth?: {
-		id?: string;
-	};
-	hostname?: string;
-	ip?: string;
-	headers?: {
-		[key: string]: string;
-	};
-}
-
 export function ImperiumBaseContext() {
 	return {
 		__session: randomId(8).toLowerCase(),

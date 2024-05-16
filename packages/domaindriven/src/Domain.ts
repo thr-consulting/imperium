@@ -1,4 +1,4 @@
-import type {JsonValue, PermissionLookup} from '@imperium/authorization';
+import type {AuthenticationBase, JsonValue, PermissionLookup} from '@imperium/authorization';
 import debug from 'debug';
 
 const d = debug('imperium.domaindriven.Domain');
@@ -23,7 +23,7 @@ export interface DomainCon<Repositories> {
 	repositories: Repositories;
 }
 
-export class Domain<ExtraData, Repositories = any> {
+export class Domain<Extra extends AuthenticationBase, Repositories = any> {
 	#permissions: Permissions<Repositories> = {};
 	readonly #repositories: Repositories;
 
@@ -39,13 +39,13 @@ export class Domain<ExtraData, Repositories = any> {
 		});
 	}
 
-	permissionLookup: PermissionLookup<ExtraData> = async opts => {
+	permissionLookup: PermissionLookup<Extra> = async opts => {
 		d('Calculating permissions');
 		return Promise.all(
 			opts.keys.map(async k => {
 				if (this.#permissions[k.permission]) {
 					const a = this.#permissions[k.permission];
-					return a({userId: opts.authorization.id, data: k.data, repos: this.#repositories});
+					return a({userId: opts.authorization.extra?.auth?.id, data: k.data, repos: this.#repositories});
 				}
 				return false;
 			}),

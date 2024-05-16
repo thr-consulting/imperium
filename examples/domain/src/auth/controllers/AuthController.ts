@@ -1,11 +1,10 @@
-import type {Authorization} from '@imperium/authorization';
-import type {AuthenticatedUser} from '@imperium/connector';
+import type {AuthenticationRequest, Authorization} from '@imperium/authorization';
 import type {EntityManager} from '@mikro-orm/core';
 import {ExampleController} from '../../core/ExampleController';
 import type {Repositories} from '../../core/createRepositories';
 
 export class AuthController extends ExampleController {
-	public constructor(repos: Repositories, em: EntityManager, authorization: Authorization<AuthenticatedUser>) {
+	public constructor(repos: Repositories, em: EntityManager, authorization: Authorization<AuthenticationRequest>) {
 		super(repos, em, authorization);
 	}
 

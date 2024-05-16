@@ -1,10 +1,7 @@
 import {env} from '@thx/env';
 import debug from 'debug';
-import {isFunction, sortBy, isArray, flowRight} from 'lodash-es';
-import type {ReactNode} from 'react';
-import {render} from 'react-dom';
-import type {RootProps} from './Root';
-import {Root} from './Root';
+import {flowRight, isArray, isFunction, sortBy} from 'lodash-es';
+import type {ComponentType, ReactNode} from 'react';
 import type {HocCreator, ImperiumClientConfig, ImperiumClientModule} from './types';
 import {withClient} from './withClient';
 
@@ -13,15 +10,15 @@ const d = debug('imperium.client.ImperiumClient');
 export class ImperiumClient {
 	private readonly _moduleFactoryFn: () => ImperiumClientModule[];
 	private _modules: ImperiumClientModule[];
-	private readonly render: (props: RootProps) => ReactNode;
+	private readonly rootComponent: (props?: any) => ReactNode;
 
 	constructor(config: ImperiumClientConfig) {
 		this._moduleFactoryFn = config.clientModules;
 		this._modules = [];
-		this.render = config.render;
+		this.rootComponent = config.rootComponent;
 	}
 
-	public async start(): Promise<this> {
+	public async start(): Promise<ComponentType> {
 		d('Starting ImperiumClient...');
 
 		this._modules = sortBy(this._moduleFactoryFn(), module => {
@@ -53,16 +50,14 @@ export class ImperiumClient {
 		);
 
 		// Execute HoC creators and compose HoC's.
-		const hoc = flowRight(hocCreators.map(v => v(this)));
-		const RootWrappedComponent = hoc(Root);
-
-		d('Rendering root component');
-		render(<RootWrappedComponent render={this.render} imperiumClient={this} />, document.getElementById('root'));
+		const hocs = hocCreators.map(v => v(this));
+		const hoc: (props?: any) => ComponentType = flowRight(hocs);
 
 		if (env.isDevelopment()) {
 			window.__IMPERIUM_CLIENT__ = this; // eslint-disable-line no-underscore-dangle
 		}
-		return this;
+
+		return hoc(this.rootComponent);
 	}
 
 	public get modules(): ImperiumClientModule[] {

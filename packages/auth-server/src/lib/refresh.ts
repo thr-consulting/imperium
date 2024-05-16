@@ -21,7 +21,7 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 		throw new Error('Token expired');
 	}
 
-	const {id, data} = await auth.verifyRefresh(token, isExpired);
+	const {id, customData} = await auth.verifyRefresh(token, isExpired);
 
 	const access = createAccessToken(id);
 
@@ -32,13 +32,13 @@ export async function refresh(refreshTokenString: string, auth: AuthenticationDo
 			// WARNING: Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
 			access,
 			refresh: newRefresh,
-			data,
+			customData,
 		};
 	}
 
 	return {
 		// WARNING: Changing this field name requires a change to the "accessTokenField" in @imperium/auth-graphql-client:src/apolloLink.ts file.
 		access,
-		data,
+		customData,
 	};
 }

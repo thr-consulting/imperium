@@ -1,5 +1,5 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {configureStore, Slice} from '@reduxjs/toolkit';
 import debug from 'debug';
 import type {ComponentType} from 'react';
 import {Provider} from 'react-redux';
@@ -7,30 +7,39 @@ import {isImperiumStateClientModule, StateClientOptions} from './types';
 
 const d = debug('imperium.state.withImperiumState');
 
+function getReducer(prev: object, state: Slice) {
+	if (!state?.name) return prev;
+	return {
+		...prev,
+		[state.name]: state.reducer,
+	};
+}
+
 export function withImperiumState(opts?: StateClientOptions) {
 	return (client: ImperiumClient): Hoc => {
 		const reducer = client.modules.reduce((memo, module) => {
 			if (isImperiumStateClientModule(module)) {
-				if (!module.state?.name) return memo;
-				return {
-					...memo,
-					[module.state.name]: module.state?.reducer,
-				};
+				if (!module.state) return memo;
+				if (Array.isArray(module.state)) {
+					return module.state.reduce((m, slice) => {
+						return getReducer(m, slice);
+					}, memo);
+				}
+				return getReducer(memo, module.state);
 			}
 			return memo;
 		}, {});
-
-		const middleware = [...getDefaultMiddleware(), ...(opts?.middleware || [])];
 
 		const store =
 			Object.keys(reducer).length > 0
 				? configureStore({
 						reducer,
-						middleware,
+						middleware: getDefaultMiddleware => getDefaultMiddleware().concat(opts?.middleware || []),
 				  })
 				: null;
 		if (store) {
 			d('Redux store created');
+			// TODO client.setRegistry('@imperium/state/store', store);
 		} else {
 			d('No reducers found, Redux store not created');
 		}

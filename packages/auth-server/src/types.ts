@@ -1,3 +1,7 @@
+type ExcludeDataField<T> = {
+	[K in keyof T]?: K extends 'data' ? never : T[K];
+};
+
 export interface Password {
 	digest: string;
 	algorithm: string;
@@ -16,18 +20,20 @@ interface CustomData {
 	[key: string]: string | number | boolean | null;
 }
 
-export interface LoginReturn {
+interface LoginReturnData {
 	id: string;
 	access: string;
 	refresh: string;
-	data?: CustomData;
+	customData?: CustomData;
 }
+export type LoginReturn = LoginReturnData & ExcludeDataField<LoginReturnData>;
 
-export interface RefreshReturn {
+interface RefreshReturnData {
 	access: string;
 	refresh?: string;
-	data?: CustomData;
+	customData?: CustomData;
 }
+export type RefreshReturn = RefreshReturnData & ExcludeDataField<RefreshReturnData>;
 
 export interface LogoutInfo {
 	device?: {
@@ -53,16 +59,18 @@ export interface ServiceInfo {
 	password?: string; // Bcrypt hash password
 }
 
-export interface VerifyLoginReturn {
+interface VerifyLoginReturnData {
 	id: string;
 	deviceToken?: string;
-	data?: CustomData;
+	customData?: CustomData;
 }
+export type VerifyLoginReturn = VerifyLoginReturnData & ExcludeDataField<VerifyLoginReturnData>;
 
-export interface VerifyRefreshReturn {
+interface VerifyRefreshReturnData {
 	id: string;
-	data?: CustomData;
+	customData?: CustomData;
 }
+export type VerifyRefreshReturn = VerifyRefreshReturnData & ExcludeDataField<VerifyRefreshReturnData>;
 
 export interface AuthenticationDomain {
 	setCache(key: string | string[], value: any, expire?: number): Promise<typeof value>;
