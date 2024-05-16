@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [13.0.0](https://github.com/darkadept/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
+
+### Features
+
+- major auth overhaul ([#355](https://github.com/darkadept/imperium/issues/355)) ([8417048](https://github.com/darkadept/imperium/commit/8417048e0f9f0fa89c98847a54fd7e9111833e04))
+
 # [12.0.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0) (2024-03-05)
 
 **Note:** Version bump only for package @imperium/auth-client
