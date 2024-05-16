@@ -1,4 +1,16 @@
 export {Authorization} from './Authorization';
-export type {Permission, JsonArray, JsonValue, JsonObject, PermissionLookup, PermissionLookupOpts, AuthorizationCache, PermissionKey} from './types';
-export {noPermissionLookup} from './noPermissionLookup';
-export {keysSplitAndSort} from './keysSplitAndSort';
+export type {
+	JsonValue,
+	PermissionWithData,
+	PermissionLookupOpts,
+	PermissionLookup,
+	AuthorizationCache,
+	Permissions,
+	Permission,
+	WithKey,
+	AuthenticationBase,
+	AuthenticationRequest,
+	AuthenticationToken,
+} from './types';
+export {noPermissionLookup} from './lib/noPermissionLookup';
+export {keysSplitAndSort} from './lib/keysSplitAndSort';

@@ -1,4 +1,7 @@
+import debug from 'debug';
+
+const d = debug('imperium.examples.web.common.test');
+
 export function test() {
-	// eslint-disable-next-line no-console
-	console.log('Dynamic chunk loaded');
+	d('Dynamic chunk loaded');
 }

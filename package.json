@@ -28,7 +28,8 @@
     "test": "thx test",
     "thx": "thx",
     "ts": "thx ts",
-    "typedoc": "lerna run typedoc"
+    "typedoc": "lerna run typedoc",
+    "yak": "tools/yak.sh"
   },
   "devDependencies": {
     "@apollo/client": "^3.5.10",

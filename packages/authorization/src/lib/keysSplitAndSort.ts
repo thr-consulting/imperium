@@ -1,8 +1,8 @@
 import debug from 'debug';
 import {groupBy, sortBy} from 'lodash-es';
-import type {IndexedValue} from './types';
+import type {IndexedValue} from '../types';
 
-const d = debug('imperium.authorization.keysSplitAndSort');
+const d = debug('imperium.authorization.lib.keysSplitAndSort');
 
 interface KeyWrapper<Key> {
 	index: number;

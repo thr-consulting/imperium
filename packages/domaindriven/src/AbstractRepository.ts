@@ -10,7 +10,6 @@ import type {
 	GetReferenceOptions,
 	IdentifiedReference,
 	Loaded,
-	LoadedCollection,
 	Populate,
 	Primary,
 	RequiredEntityData,

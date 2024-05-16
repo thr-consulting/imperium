@@ -3,7 +3,7 @@ import type {ImperiumClient} from './ImperiumClient';
 
 export interface ImperiumClientConfig {
 	clientModules: () => ImperiumClientModule[];
-	render: (props?: any) => React.ReactNode;
+	rootComponent: (props?: any) => React.ReactNode;
 }
 
 export type Hoc = (WrappedComponent: React.ComponentType) => {

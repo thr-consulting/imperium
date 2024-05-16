@@ -1,138 +1,86 @@
-import type {AuthorizationCache, PermissionLookup} from '@imperium/authorization';
-import {Authorization, noPermissionLookup} from '@imperium/authorization';
+import {type AuthenticationToken, Authorization, noPermissionLookup} from '@imperium/authorization';
 import type {Hoc} from '@imperium/client';
 import {env} from '@thx/env';
 import debug from 'debug';
-import Dexie from 'dexie';
-import {ComponentType, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {ComponentType, memo, useEffect, useMemo, useRef} from 'react';
+import {useDispatch} from 'react-redux';
 import {AuthContext} from '../AuthContext';
+import {CacheContext} from '../CacheContext';
+import {DexieCache} from '../DexieCache';
 import {defaults} from '../defaults';
-import type {ClientAuthorizationData, IAuth} from '../types';
+import {useAccessToken} from '../hooks/useAccessToken';
+import {setAuthenticated, useAuthenticatedState} from '../state';
+import type {AuthClientOptions} from '../types';
 
 const d = debug('imperium.auth-client.hoc.withAuth');
 
-export interface AuthClientOptions {
-	permissionLookup?: PermissionLookup<ClientAuthorizationData>;
-}
-
-interface CacheItem {
-	key: string;
-	timestamp: number;
-	value: string;
-}
-
-function mapDexieToCache(cache: Dexie): AuthorizationCache {
-	const staleMs = env.getInt('AUTH_PERMISSION_CACHE_EXPIRES', defaults.IMP_PERMISSION_CACHE_EXPIRES) * 1000;
-	return {
-		async exists(key: string): Promise<boolean> {
-			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
-			return !!(item && Date.now() - item.timestamp < staleMs);
-		},
-		async get(key: string): Promise<any> {
-			const item = (await cache.table('auth').get(key)) as CacheItem | undefined;
-			if (item && Date.now() - item.timestamp < staleMs) {
-				d(`Cache hit: ${key} -> ${item.value}`);
-				return item.value;
-			}
-			return null;
-		},
-		async set(key: string, data: any): Promise<any> {
-			d(`Cache write: ${key} -> ${data}`);
-			const obj = {key, value: data, timestamp: Date.now()};
-			await cache.table('auth').put(obj, data);
-			return data;
-		},
-	};
-}
-
 export function withAuth(opts?: AuthClientOptions) {
-	const permissionLookup = opts?.permissionLookup ? opts.permissionLookup : noPermissionLookup;
+	const lookup = opts?.lookup ? opts?.lookup : noPermissionLookup;
 
 	return (): Hoc => {
-		d('Creating Auth client');
+		return function authHoc(Wrapped: ComponentType) {
+			const displayName = Wrapped.displayName || Wrapped.name || 'Component';
+			const MemoWrapped = memo(Wrapped);
 
-		return function authHoc(WrappedComponent: ComponentType) {
-			const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+			function WithAuth(props: any) {
+				const {id} = useAuthenticatedState();
+				const {token, getToken} = useAccessToken();
+				const dispatch = useDispatch();
+				const cache = useRef<DexieCache>(new DexieCache());
 
-			function ComponentWithAuth(props: any) {
-				const [authenticated, setAuthenticated] = useState<IAuth>({
-					id: localStorage.getItem(env.getString('authIdKey', defaults.authIdKey)) || '',
-					access: localStorage.getItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey)) || '',
-				});
-				const cache = useRef<Dexie>(new Dexie('auth'));
-
-				// Create an authorization class from the authenticated information
-				const authorization = useMemo(() => {
-					d('Creating new authorization');
-					return new Authorization<ClientAuthorizationData>({
-						id: authenticated.id,
-						lookup: permissionLookup,
-						extraData: {
-							access: authenticated.access,
-						},
-						dataloaderCache: false,
-					});
-				}, [authenticated]);
-
-				const clearCache = useCallback(async () => {
-					await cache.current.table('auth').clear();
-				}, []);
-
+				// Prepares the authContext variable
 				const authContext = useMemo(() => {
+					d(`(Re)creating authContext. Id: ${id}`);
 					return {
-						authorization,
-						setAuthenticated,
-						clearCache,
+						authorization: new Authorization<AuthenticationToken>({
+							authorizationCache: cache.current,
+							lookup,
+							dataloaderCache: false,
+							extra: {
+								auth: {
+									id,
+								},
+								getToken,
+							},
+						}),
 					};
-				}, [authorization, clearCache]);
+				}, [getToken, id]);
 
+				// Open the permission cache
 				useEffect(() => {
 					(async function iife() {
-						d('Configuring permission cache');
-
-						if (!cache.current.isOpen()) {
-							// Configure cache stores
-							cache.current.version(1).stores({
-								auth: '&key,timestamp',
-							});
-						}
-
-						// Delete cached entries older than stale age
-						await cache.current
-							.table('auth')
-							.where('timestamp')
-							.below(Date.now() - env.getInt('IMP_PERMISSION_CACHE_EXPIRES', defaults.IMP_PERMISSION_CACHE_EXPIRES) * 1000)
-							.delete();
-
-						authorization.cache = mapDexieToCache(cache.current);
+						await cache.current.open();
 					})();
-				}, [authorization]);
+				}, [authContext]);
 
 				// Cleanup if we ever become un-authenticated
 				useEffect(() => {
 					(async function iife() {
 						// Check the id and access code to make sure they are both valid
-						if (authenticated.id.length <= 0 || authenticated.access.length <= 0) {
+						if (!id || (token?.length || 0) <= 0) {
 							d('No authentication found, cleaning up persisted data');
 
 							// The id or access code is invalid, so we will clear all persisted info
-							await cache.current.table('auth').clear();
 							localStorage.removeItem(env.getString('authIdKey', defaults.authIdKey));
 							localStorage.removeItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
+							await cache.current.clearAll();
+							dispatch(setAuthenticated({token: null}));
 						}
 					})();
-				}, [authenticated]);
+				}, [dispatch, id, token?.length]);
 
 				return (
-					<AuthContext.Provider value={authContext}>
-						<WrappedComponent {...props} />
-					</AuthContext.Provider>
+					<CacheContext.Provider value={cache.current}>
+						<AuthContext.Provider value={authContext}>
+							<MemoWrapped {...props} />
+						</AuthContext.Provider>
+					</CacheContext.Provider>
 				);
 			}
 
-			ComponentWithAuth.displayName = `withAuth(${displayName}`;
+			WithAuth.displayName = `withAuth(${displayName})`;
 
-			return ComponentWithAuth;
+			return WithAuth;
 		};
 	};
 }

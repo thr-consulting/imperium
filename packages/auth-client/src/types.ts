@@ -1,7 +1,4 @@
-export interface IAuth {
-	readonly id: string;
-	readonly access: string;
-}
+import type {AuthenticationToken, PermissionLookup} from '@imperium/authorization';
 
 export interface LoginInfo {
 	identifier: string;
@@ -20,13 +17,17 @@ export interface LoginReturn {
 	access: string;
 }
 
-export interface AccessToken {
-	id: string;
-	roles?: string[];
-	iat: number;
-	exp: number;
+export interface AuthClientOptions {
+	lookup?: PermissionLookup<AuthenticationToken>;
 }
 
-export interface ClientAuthorizationData {
-	access: string;
-}
+/**
+ * A token object has these fields
+ */
+export type Token = {
+	iat: number; // Isssued at
+	exp: number; // Expires at
+	// TOOD not sure if i need these
+	// id: string;
+	// roles?: string[];
+};

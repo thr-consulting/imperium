@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@imperium/authorization": "^12.0.0",
 		"@imperium/connector": "^12.0.0",
-		"dataloader": "^2.1.0",
+		"dataloader": "^2.2.2",
 		"debug": "^4.3.3"
 	},
 	"peerDependencies": {

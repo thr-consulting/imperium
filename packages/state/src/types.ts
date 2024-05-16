@@ -6,7 +6,7 @@ export interface StateClientOptions {
 }
 
 export interface ImperiumStateClientModule extends ImperiumClientModule {
-	state?: Slice;
+	state?: Slice | Slice[];
 }
 
 export function isImperiumStateClientModule(value: ImperiumClientModule): value is ImperiumStateClientModule {

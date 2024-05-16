@@ -1,22 +1,26 @@
 import {env} from '@thx/env';
 import debug from 'debug';
 import {useContext} from 'react';
-import {AuthContext} from '../AuthContext';
+import {useDispatch} from 'react-redux';
+import {CacheContext} from '../CacheContext';
 import {defaults} from '../defaults';
+import {setAuthenticated} from '../state';
 
 const d = debug('imperium.auth-client.hooks.useLogout');
 
-export function useLogout(): () => Promise<void> {
-	const {setAuthenticated, clearCache} = useContext(AuthContext);
+type LogoutFn = () => Promise<void>;
+
+/**
+ * Returns a function that can be used to log out a user.
+ */
+export function useLogout(): LogoutFn {
+	const dispatch = useDispatch();
+	const cache = useContext(CacheContext);
 
 	return async () => {
-		d('Logging out');
 		localStorage.removeItem(env.getString('authIdKey', defaults.authIdKey));
 		localStorage.removeItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey));
-		setAuthenticated({id: '', access: ''});
-		// Clear permission cache
-		await clearCache();
-
-		// TODO This should also tell the server to blacklist the refresh token
+		await cache.clearAll();
+		dispatch(setAuthenticated({token: null}));
 	};
 }

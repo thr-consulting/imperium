@@ -1,17 +1,12 @@
-import {Authorization} from '@imperium/authorization';
+import {type AuthenticationToken, Authorization} from '@imperium/authorization';
 import {createContext} from 'react';
-import type {ClientAuthorizationData, IAuth} from './types';
 
 export interface IAuthContext {
-	authorization: Authorization<ClientAuthorizationData>;
-	setAuthenticated: (authenticated: IAuth) => void;
-	clearCache: () => Promise<void>;
+	authorization: Authorization<AuthenticationToken>;
 }
 
 const defaultAuthContext: IAuthContext = {
-	authorization: new Authorization<ClientAuthorizationData>(),
-	setAuthenticated: () => {},
-	clearCache: async () => {},
+	authorization: new Authorization<AuthenticationToken>(),
 };
 
 export const AuthContext = createContext(defaultAuthContext);

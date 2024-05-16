@@ -1,60 +1,46 @@
-import {env} from '@thx/env';
 import debug from 'debug';
-import decode from 'jwt-decode';
 import {useCallback, useContext} from 'react';
-import {AuthContext} from '../AuthContext';
-import {defaults} from '../defaults';
+import {CacheContext} from '../CacheContext';
 import {injectNewAuthorization} from '../lib/injectNewAuthorization';
-import {fetchAccessToken, isTokenValidOrUndefined} from '../lib/storage';
-import type {AccessToken} from '../types';
-import {useLogout} from './useLogout';
+import {useAuthenticatedState} from '../state';
+import {useAccessToken} from './useAccessToken';
 
 const d = debug('imperium.auth-client.hooks.useFetch');
 
 const f = window.fetch;
 
+/**
+ * A React hook that returns a standard `fetch` function. Injects authentication headers if the user is authenticated.
+ * When the fetch function is called, it will double-check the authentication token and renew if necessary.
+ */
 export function useFetch() {
-	const logout = useLogout();
-	const authCtx = useContext(AuthContext);
+	const {id} = useAuthenticatedState();
+	const {getToken} = useAccessToken();
+	const cache = useContext(CacheContext);
 
 	return useCallback(
 		async (input: RequestInfo, init?: RequestInit) => {
-			// If user id is null, return the default fetch function
-			if (!authCtx.authorization.id) return f(input, init);
+			const token = await getToken();
 
-			let newAccess: string | null = null;
-			// If the token is not valid or undefined (aka expired), try to refresh it
-			if (!isTokenValidOrUndefined()) {
-				d('Token is invalid');
-				try {
-					// Fetch new access token from refresh URL
-					const newToken = await fetchAccessToken();
-					const {access} = await newToken.json();
-					newAccess = access;
-					if (!newAccess) throw new Error('New access token could not be retrieved');
+			// If no user id, return the default fetch function
+			if (!id || !token) {
+				d('Fetching without auth token. No user id.');
+				return f(input, init);
+			}
 
-					// Store the access token in localstorage
-					window.localStorage.setItem(env.getString('authAccessTokenKey', defaults.authAccessTokenKey), access);
-
-					// Update context with the new access token
-					authCtx.setAuthenticated({id: authCtx.authorization.id, access: newAccess});
-
-					// Display the new access token expiry in dev mode
-					if (env.isDevelopment()) {
-						const y = decode(access) as AccessToken;
-						d(`Retrieved new access token. Expires: ${new Date(y.exp * 1000)}`);
-					}
-				} catch (err) {
-					d('There was a problem refreshing the access token. Re-login required.');
-					await logout();
+			try {
+				if (token) {
+					d(`Fetching with auth token: ${token}`);
+					return f(input, injectNewAuthorization(token, init));
 				}
+				d('Fetching without auth token. Access token could not be determined.');
+				return f(input, init);
+			} catch (err: any) {
+				d(`Renewing access token failed: ${err.toString()}`);
+				await cache.clearAll();
+				throw new Error(`Renewing access token failed: ${err.toString()}`);
 			}
-
-			if (newAccess) {
-				return f(input, injectNewAuthorization(newAccess, init));
-			}
-			return f(input, init);
 		},
-		[authCtx, logout],
+		[cache, getToken, id],
 	);
 }
