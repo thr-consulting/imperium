@@ -4,6 +4,7 @@ import sha256 from '@thx/sha256';
 import debug from 'debug';
 import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, InferType} from 'yup';
+import {useHistory} from 'react-router';
 
 const d = debug('imperium.web.sample-auth.components.Login');
 
@@ -14,8 +15,9 @@ const loginValidation = obj().shape({
 
 type LoginValidation = InferType<typeof loginValidation>;
 
-export default function Login() {
+export default function Login(data: any) {
 	const login = useLogin();
+	const history = useHistory();
 
 	return (
 		<>
@@ -32,6 +34,9 @@ export default function Login() {
 					})
 						.then(() => {
 							d('Logged in successfully');
+							if (data.loc.state.from) {
+								history.push(data.loc.state.from);
+							}
 						})
 						.catch(err => {
 							d('Login error', err);
