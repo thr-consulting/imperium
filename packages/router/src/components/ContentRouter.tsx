@@ -8,6 +8,8 @@ interface ContentRouterProps {
 	routeDefaults?: Omit<RouteProps, 'render' | 'component' | 'children'>;
 	routes?: RouteProps[];
 	errorBoundary?: ComponentClass<{children: ReactNode}>;
+	isAuthenticated?: boolean; // Pass true if the user is authenticated, otherwise assumes not authenticated
+	renderOnUnauth?: () => ReactNode;
 }
 
 export function ContentRouter(props: ContentRouterProps) {
@@ -17,6 +19,19 @@ export function ContentRouter(props: ContentRouterProps) {
 		<Switch>
 			{props.routes?.map(route => {
 				// Apply default route options and then apply specific route options
+				// @ts-ignore
+				if (!route.isPublic && !props.isAuthenticated) {
+					const routeProps: RouteProps = {...(routeDefaults || {}), ...route};
+					routeProps.render = props.renderOnUnauth
+						? props.renderOnUnauth
+						: () => {
+								return <div>Not authenticated</div>;
+						  };
+					routeProps.children = undefined;
+					routeProps.component = undefined;
+					return <Route key={`${route.path}`} {...routeProps} />;
+				}
+
 				const routeProps: RouteProps = {...(routeDefaults || {}), ...route};
 				return <Route key={`${route.path}`} {...routeProps} />;
 			})}

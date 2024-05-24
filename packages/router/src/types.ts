@@ -20,6 +20,7 @@ type RouteMatch<T extends readonly string[] | undefined> = T extends readonly st
 
 export interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
 	params?: readonly string[];
+	isPublic?: boolean;
 }
 
 export interface DefineRouteOptions {

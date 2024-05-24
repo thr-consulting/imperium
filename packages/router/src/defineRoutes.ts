@@ -51,6 +51,7 @@ export function defineRoutes<T extends DefineRouteOptions>(opts: T): Routes<T> {
 			return Object.keys(opts).map(key => {
 				return {
 					path: opts[key].path,
+					isPublic: opts[key].isPublic || false,
 					exact: opts[key].exact !== false,
 					sensitive: opts[key].sensitive,
 					strict: opts[key].strict,
