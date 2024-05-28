@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.1](https://github.com/darkadept/imperium/compare/v13.0.0...v13.0.1) (2024-05-24)
+
+### Features
+
+- improve the router for auth ([b60bf83](https://github.com/darkadept/imperium/commit/b60bf83131afaf3a561d9b3659bb3fa1fdf34c1f))
+
 # [13.0.0](https://github.com/darkadept/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
 
 **Note:** Version bump only for package @imperium/router
