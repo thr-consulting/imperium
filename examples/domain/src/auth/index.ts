@@ -11,18 +11,15 @@ const permissions: Permissions<Repositories> = {
 		return true;
 	},
 	[Permission.GetMore]: async () => {
+		d('getmore');
 		return false;
 	},
 	[Permission.GetPing]: async ({data, userId}) => {
-		d('getping');
-		d(userId);
-		d(data);
+		d('getping', userId, data);
 		return true;
 	},
 	[Permission.GetLoc]: async ({data, userId}) => {
-		d('getloc');
-		d(userId);
-		d(data);
+		d('getloc', userId, data);
 		return false;
 	},
 };

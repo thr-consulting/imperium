@@ -1,4 +1,4 @@
-import {Authorization} from '@imperium/authorization';
+import {type AuthenticationRequest, Authorization} from '@imperium/authorization';
 import type {ImperiumServer} from '@imperium/server';
 import {env, getCorsOrigin} from '@thx/env';
 import bodyParser from 'body-parser';
@@ -40,10 +40,11 @@ export function authorizationEndpoint(server: ImperiumServer<any>): void {
 
 				// An assumption is made that you have an authorization field on context, otherwise our endpoint returns false permissions.
 				if (context.authorization && context.authorization instanceof Authorization) {
+					const authorization = context.authorization as Authorization<AuthenticationRequest>;
 					const results: boolean[] = await Promise.all(
 						req.body.permissions.map(async perm => {
 							const p = Authorization.stringToKey(perm);
-							return context.authorization.can(p.permission, p.data);
+							return authorization.can(p);
 						}),
 					);
 
