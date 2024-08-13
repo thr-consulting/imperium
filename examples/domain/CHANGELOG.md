@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.2](https://github.com/thr-consulting/imperium/compare/v13.0.0...v13.0.2) (2024-08-13)
+
+### Bug Fixes
+
+- fixed permissions not getting data ([#357](https://github.com/thr-consulting/imperium/issues/357)) ([d454e68](https://github.com/thr-consulting/imperium/commit/d454e68305042170f8aa409ef015823967af53de))
+
 # [13.0.0](https://github.com/thr-consulting/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
 
 ### Features

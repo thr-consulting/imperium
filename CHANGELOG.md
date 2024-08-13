@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.2](https://github.com/darkadept/imperium/compare/v13.0.0...v13.0.2) (2024-08-13)
+
+### Bug Fixes
+
+- fixed permissions not getting data ([#357](https://github.com/darkadept/imperium/issues/357)) ([d454e68](https://github.com/darkadept/imperium/commit/d454e68305042170f8aa409ef015823967af53de))
+
+### Features
+
+- improve the router for auth ([#356](https://github.com/darkadept/imperium/issues/356)) ([2dd6189](https://github.com/darkadept/imperium/commit/2dd6189f18b933cf4104d24883af64f2cab3adfc))
+
 ## [13.0.1](https://github.com/darkadept/imperium/compare/v13.0.0...v13.0.1) (2024-05-24)
 
 ### Features
