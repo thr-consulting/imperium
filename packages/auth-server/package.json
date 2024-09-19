@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-server",
-	"version": "13.0.2",
+	"version": "13.0.3",
 	"description": "Imperium Auth server package",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -32,8 +32,8 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^13.0.0",
-		"@imperium/server": "^13.0.0",
+		"@imperium/authorization": "^13.0.3",
+		"@imperium/server": "^13.0.3",
 		"@thx/env": "^17.0.0",
 		"@thx/sha256": "^17.0.0",
 		"bcrypt": "^5.0.1",

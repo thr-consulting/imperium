@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.3](https://github.com/thr-consulting/imperium/compare/v13.0.2...v13.0.3) (2024-09-19)
+
+### Features
+
+- ability to clear auth cache ([#358](https://github.com/thr-consulting/imperium/issues/358)) ([0423318](https://github.com/thr-consulting/imperium/commit/04233182a5f28a33500639504223b80575eada37))
+
 ## [13.0.2](https://github.com/thr-consulting/imperium/compare/v13.0.0...v13.0.2) (2024-08-13)
 
 ### Bug Fixes

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.3](https://github.com/darkadept/imperium/compare/v13.0.2...v13.0.3) (2024-09-19)
+
+**Note:** Version bump only for package @imperium/graphql-server
+
 # [13.0.0](https://github.com/darkadept/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
 
 **Note:** Version bump only for package @imperium/graphql-server

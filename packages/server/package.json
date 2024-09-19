@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "13.0.0",
+	"version": "13.0.3",
 	"description": "Imperium core server",
 	"bugs": {
 		"url": "https://github.com/darkadept/imperium/issues"
@@ -32,7 +32,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^13.0.0",
+		"@imperium/authorization": "^13.0.3",
 		"@imperium/connector": "^13.0.0",
 		"debug": "^4.3.3",
 		"express": "^4.17.3",

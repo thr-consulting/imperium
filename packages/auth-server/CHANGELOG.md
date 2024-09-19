@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.3](https://github.com/darkadept/imperium/compare/v13.0.2...v13.0.3) (2024-09-19)
+
+**Note:** Version bump only for package @imperium/auth-server
+
 ## [13.0.2](https://github.com/darkadept/imperium/compare/v13.0.0...v13.0.2) (2024-08-13)
 
 ### Bug Fixes
