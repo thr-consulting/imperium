@@ -45,7 +45,7 @@
     "@thx/eslint-config-thx": "^17.0.0-alpha.2",
     "@thx/prettier-config-thx": "^17.0.0-alpha.2",
     "@thx/rollup-config-thx": "^17.0.0-alpha.2",
-    "@thx/sharedcache": "^17.0.0-alpha.2",
+    "@thx/sharedcache": "^17.1.4",
     "@thx/tools": "^17.0.0-alpha.2",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",

@@ -136,6 +136,37 @@ export class Authorization<Extra extends AuthenticationBase, Context = any> {
 		);
 	}
 
+	/**
+	 * Clears the authorization for the id.
+	 * @param id
+	 */
+	public async clearCache(id?: string): Promise<void> {
+		if (this.#cache) {
+			// const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+			//
+			// if (isBrowser) {
+			// 	await this.#cache.clearPrefix(`authorization:${id || 'notauth'}`);
+			// } else {
+			// 	d(`Clearing: ${id}`);
+			// 	const sad = async (cursor = '0'): Promise<void> => {
+			// 		// @ts-ignore
+			// 		const result = await this.#cache.redis.scan(cursor, 'MATCH', 'imperium.*', 'COUNT', 100);
+			// 		const nc = result[0];
+			// 		const keys = result[1];
+			// 		d(cursor, nc, keys, typeof cursor, typeof nc);
+			//
+			// 		if (nc !== '0') {
+			// 			await sad(nc);
+			// 		}
+			// 	};
+			// 	await sad();
+			// 	await this.#cache.clearPrefix(`authorization:${id || 'notauth'}`);
+			// }
+			await this.#cache.clearPrefix(`authorization:${id || 'notauth'}`);
+			this.#lrucache.clear();
+		}
+	}
+
 	public set cache(cache: AuthorizationCache | undefined) {
 		this.#cache = cache;
 	}
