@@ -146,6 +146,13 @@ export default function ComponentUsingAuth() {
 				>
 					REST
 				</Button>
+				<Button
+					onClick={() => {
+						authorization.clearCache(id).catch(err => d(err));
+					}}
+				>
+					Clear Auth
+				</Button>
 				<TestMutation />
 			</Segment>
 			<Segment basic>

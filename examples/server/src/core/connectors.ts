@@ -38,7 +38,7 @@ export const connectors = new Connectors(async () => {
 		}),
 		new Connector<SharedCache>('sharedCache', {
 			async connect() {
-				return new SharedCache({redis});
+				return new SharedCache({redis, prefix: 'imperium'});
 			},
 			async isReady() {
 				return true;

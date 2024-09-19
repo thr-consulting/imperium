@@ -33,6 +33,7 @@ export interface AuthorizationCache {
 	get(key: string): Promise<any>;
 	set(key: string, data: any, expire?: number): Promise<any>;
 	exists(key: string): Promise<boolean>;
+	clearPrefix(prefix: string): Promise<boolean>;
 }
 
 export interface AuthenticationBase {

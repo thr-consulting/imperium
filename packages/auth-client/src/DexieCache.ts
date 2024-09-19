@@ -63,4 +63,10 @@ export class DexieCache implements AuthorizationCache {
 		await this.#cache.table('auth').clear();
 		return true;
 	}
+
+	async clearPrefix(prefix: string): Promise<boolean> {
+		const toDelete = await this.#cache.table('auth').where('key').startsWith(prefix).primaryKeys();
+		await this.#cache.table('auth').bulkDelete(toDelete);
+		return true;
+	}
 }
