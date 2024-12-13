@@ -34,7 +34,7 @@
 		"@imperium/authorization": "^13.0.3",
 		"@imperium/connector": "^13.0.0",
 		"dataloader": "^2.2.2",
-		"debug": "^4.3.3"
+		"debug": "^4.4.0"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "5.x",

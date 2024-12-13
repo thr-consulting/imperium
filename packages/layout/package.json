@@ -36,7 +36,7 @@
 		"@imperium/router": "^13.0.2",
 		"@imperium/state": "^13.0.0",
 		"@thx/controls": "^17.0.1",
-		"debug": "^4.3.3",
+		"debug": "^4.4.0",
 		"history": "^5.0.1",
 		"lodash-es": "^4.17.21",
 		"react-responsive": "^8.2.0",

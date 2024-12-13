@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@thx/env": "^17.0.0",
 		"@thx/log": "^17.0.0",
-		"debug": "^4.3.3",
+		"debug": "^4.4.0",
 		"dotenv": "^16.0.0",
 		"lodash-es": "^4.17.21",
 		"winston": "^3.6.0"

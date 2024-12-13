@@ -48,7 +48,7 @@
 		"apollo-server-plugin-base": "^3.5.1",
 		"apollo-server-types": "^3.5.1",
 		"body-parser": "^1.19.2",
-		"debug": "^4.3.3",
+		"debug": "^4.4.0",
 		"graphql": "^16.8.1",
 		"js-money": "^0.6.3",
 		"lodash-es": "^4.17.21",

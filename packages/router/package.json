@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"@imperium/client": "^13.0.0",
-		"debug": "^4.3.3"
+		"debug": "^4.4.0"
 	},
 	"peerDependencies": {
 		"react": "17.x",

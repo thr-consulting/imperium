@@ -37,7 +37,7 @@
 		"@imperium/graphql-client": "^13.0.0",
 		"@thx/env": "^17.0.0",
 		"apollo-link-token-refresh": "^0.6.1",
-		"debug": "^4.3.2"
+		"debug": "^4.4.0"
 	},
 	"peerDependencies": {
 		"react": "17.x",

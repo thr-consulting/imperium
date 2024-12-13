@@ -36,7 +36,7 @@
 		"@mikro-orm/postgresql": "^4.2.3",
 		"@thx/env": "^14.0.0",
 		"@thx/sharedcache": "^14.0.0",
-		"debug": "^4.1.1",
+		"debug": "^4.4.0",
 		"dotenv": "^9.0.2",
 		"express": "^4.17.1",
 		"graphql": "^15.5.0",

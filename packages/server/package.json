@@ -34,7 +34,7 @@
 	"dependencies": {
 		"@imperium/authorization": "^13.0.3",
 		"@imperium/connector": "^13.0.0",
-		"debug": "^4.3.3",
+		"debug": "^4.4.0",
 		"express": "^4.17.3",
 		"lodash-es": "^4.17.21"
 	},
