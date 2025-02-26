@@ -18,7 +18,7 @@ export function PlainItem({item, data, as}: PlainItemProps) {
 	const ItemX = as || Menu.Item;
 
 	return (
-		<ItemX {...linkParams} style={isMobile && {padding: 4}}>
+		<ItemX {...linkParams} style={isMobile ? {paddingLeft: 4, paddingRight: 4} : undefined}>
 			{getIcon(item, data)}
 			{getText(item, data)}
 		</ItemX>
