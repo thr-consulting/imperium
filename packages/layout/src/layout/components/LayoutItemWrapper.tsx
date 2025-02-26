@@ -51,7 +51,6 @@ export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWr
 		return <CustomLayoutItemComponent item={item} data={data} />;
 	}
 	if (isDropdownLayoutItem(item)) {
-		// eslint-disable-next-line react/no-array-index-key
 		const children = sortWeightedItems(item.dropdown).map((v, index) => (
 			// eslint-disable-next-line react/no-array-index-key
 			<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} data={data} />
@@ -59,7 +58,6 @@ export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWr
 		return <DropdownItem item={item} children={children} vertical={vertical} data={data} />;
 	}
 	if (isMenuLayoutItem(item)) {
-		// eslint-disable-next-line react/no-array-index-key
 		const children = sortWeightedItems(item.menu).map((v, index) => (
 			// eslint-disable-next-line react/no-array-index-key
 			<LayoutItemWrapper key={index} item={v as LayoutItem} as={Dropdown.Item} vertical={vertical} data={data} />

@@ -1,5 +1,4 @@
 import type {ImperiumStateClientModule} from '@imperium/state';
-import {useMobileLayout} from './layout/hooks/useMobileLayout';
 import {withLayout} from './layout/withLayout';
 import {state} from './state';
 import type {ImperiumLayoutClientModule} from './types';
@@ -10,9 +9,7 @@ export function layoutClientModule(): ImperiumStateClientModule & ImperiumLayout
 		order: 30,
 		hocs: [withLayout],
 		state,
-		layout: {
-			dataHooks: [useMobileLayout],
-		},
+		layout: {},
 	};
 }
 
