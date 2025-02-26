@@ -7,7 +7,7 @@ import type {Data, PermissionSelector, PermissionSelectorHook} from '../types';
  * Describes a basic weighted, possibly visible item
  */
 export interface BaseLayoutItem extends WeightedItem, VisibilityItem {
-	text: string | ((data: Data) => string);
+	text?: string | ((data: Data) => string);
 	icon?: SemanticICONS | ((data: Data) => SemanticICONS);
 	moveToKey?: string;
 }

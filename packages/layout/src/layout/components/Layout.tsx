@@ -2,7 +2,6 @@ import debug from 'debug';
 import {ReactNode, useState} from 'react';
 import {Segment} from 'semantic-ui-react';
 import {useMediaQuery} from 'react-responsive';
-import {useLayoutState} from '../../state';
 import {moveItems} from '../moveItems';
 import type {LayoutData} from '../types';
 import {LayoutItemBar} from './LayoutItemBar';
@@ -39,22 +38,17 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 	};
 
 	// Determine menubar items
-	const primaryMenuItems = moveItems(
-		isMobile ? [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile === true) : [primaryMenuToggle, ...primaryMenu],
-	);
+	const primaryMenuItems = isMobile
+		? [
+				primaryMenuToggle,
+				...primaryMenu.map(p => {
+					return {...p, text: undefined};
+				}),
+		  ]
+		: primaryMenu;
 
 	// Determine sidebar items
-	const secondaryMenuItems = moveItems(
-		isMobile
-			? [
-					...secondaryMenu,
-					{
-						text: '',
-						menu: [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile !== true),
-					},
-			  ]
-			: secondaryMenu,
-	);
+	const secondaryMenuItems = secondaryMenu;
 
 	const secondaryMenuComp =
 		secondaryMenuItems.length > 0 ? (

@@ -15,6 +15,7 @@ export function SecondaryMenuToggleItem({menuOpen, setMenuOpen}: SecondaryMenuTo
 				onClick={() => {
 					setMenuOpen(!menuOpen);
 				}}
+				color="orange"
 			/>
 		</Menu.Item>
 	);
