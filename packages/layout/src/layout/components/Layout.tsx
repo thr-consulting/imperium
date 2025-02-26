@@ -38,17 +38,19 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 	};
 
 	// Determine menubar items
-	const primaryMenuItems = isMobile
-		? [
-				primaryMenuToggle,
-				...primaryMenu.map(p => {
-					return {...p, text: undefined};
-				}),
-		  ]
-		: primaryMenu;
+	const primaryMenuItems = moveItems(
+		isMobile
+			? [
+					primaryMenuToggle,
+					...primaryMenu.map(p => {
+						return {...p, text: undefined};
+					}),
+			  ]
+			: primaryMenu,
+	);
 
 	// Determine sidebar items
-	const secondaryMenuItems = secondaryMenu;
+	const secondaryMenuItems = moveItems(secondaryMenu);
 
 	const secondaryMenuComp =
 		secondaryMenuItems.length > 0 ? (
