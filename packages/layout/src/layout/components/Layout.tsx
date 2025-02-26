@@ -1,7 +1,7 @@
 import debug from 'debug';
 import {ReactNode, useState} from 'react';
-import {Segment} from 'semantic-ui-react';
 import {useMediaQuery} from 'react-responsive';
+import {Segment} from 'semantic-ui-react';
 import {moveItems} from '../moveItems';
 import type {LayoutData} from '../types';
 import {LayoutItemBar} from './LayoutItemBar';
