@@ -1,4 +1,4 @@
-import type {Permission} from '~core/graphql';
+import type {Permission} from '../core/graphql';
 
 export function needsPermission(permissions: Permission | Permission[]) {
 	if (Array.isArray(permissions)) {

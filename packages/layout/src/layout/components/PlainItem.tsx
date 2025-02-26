@@ -1,9 +1,9 @@
 import type {ComponentClass} from 'react';
 import {Menu} from 'semantic-ui-react';
+import {useMediaQuery} from 'react-responsive';
 import type {Data} from '../../types';
 import type {CustomLayoutItem, DropdownLayoutItem, LayoutItem, MenuLayoutItem} from '../types';
 import {getIcon, getText, linkParameters} from '../utils';
-import {useMediaQuery} from "react-responsive";
 
 interface PlainItemProps {
 	item: Exclude<LayoutItem, MenuLayoutItem | DropdownLayoutItem | CustomLayoutItem>;
@@ -18,7 +18,7 @@ export function PlainItem({item, data, as}: PlainItemProps) {
 	const ItemX = as || Menu.Item;
 
 	return (
-		<ItemX {...linkParams} style={isMobile ? {paddingLeft: 4, paddingRight: 4} : undefined}>
+		<ItemX {...linkParams} style={isMobile ? {paddingLeft: 8, paddingRight: 4} : undefined}>
 			{getIcon(item, data)}
 			{getText(item, data)}
 		</ItemX>
