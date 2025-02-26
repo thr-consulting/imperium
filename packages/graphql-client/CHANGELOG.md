@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.4](https://github.com/darkadept/imperium/compare/v13.0.3...v13.0.4) (2025-02-26)
+
+### Features
+
+- update debug package ([#359](https://github.com/darkadept/imperium/issues/359)) ([3305856](https://github.com/darkadept/imperium/commit/330585619e11b97704f57193b14955042826cb58))
+
 # [13.0.0](https://github.com/darkadept/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
 
 **Note:** Version bump only for package @imperium/graphql-client
