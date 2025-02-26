@@ -1,6 +1,7 @@
 import debug from 'debug';
 import {ReactNode, useState} from 'react';
 import {Segment} from 'semantic-ui-react';
+import {useMediaQuery} from 'react-responsive';
 import {useLayoutState} from '../../state';
 import {moveItems} from '../moveItems';
 import type {LayoutData} from '../types';
@@ -25,7 +26,7 @@ interface LayoutProps extends Required<LayoutData> {
  * @constructor
  */
 export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}: LayoutProps) {
-	const {isMobile} = useLayoutState();
+	const isMobile = useMediaQuery({query: '(max-width: 900px)'});
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const primaryMenuToggle = {
@@ -41,8 +42,6 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 	const primaryMenuItems = moveItems(
 		isMobile ? [primaryMenuToggle, ...primaryMenu].filter(v => v.stickOnMobile === true) : [primaryMenuToggle, ...primaryMenu],
 	);
-
-	// const pmi = mergeItems(primaryMenuItems);
 
 	// Determine sidebar items
 	const secondaryMenuItems = moveItems(
