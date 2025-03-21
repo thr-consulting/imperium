@@ -26,9 +26,27 @@
 
 .sidebar {
 	min-width: 250px;
-	padding: 10px;
 	overflow-y: auto;
 	overflow-x: hidden;
+	display: flex;
+}
+
+.sidebarMobile {
+	 min-width: 250px;
+	 overflow-y: auto;
+	 overflow-x: hidden;
+	 padding: 10px;
+ }
+
+.sidebarButton {
+	width: 20px;
+	height: 100%;
+	display: flex;
+}
+
+.sidebarContent {
+	width: calc(100% - 30px);
+	padding: 10px;
 }
 
 .sidebarItem {
