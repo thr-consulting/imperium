@@ -4,15 +4,15 @@ import {isEqual} from 'lodash-es';
 import {DependencyList, EffectCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Button} from 'semantic-ui-react';
+import {useMediaQuery} from 'react-responsive';
 import {DataHooks} from '../../datahooks/DataHooks';
-import {actions, useLayoutState} from '../../state';
+import {actions} from '../../state';
 import {sortWeightedItems} from '../../utils';
 import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {Page, RouteParameters, SidebarItem} from '../types';
 import {Header} from './Header';
 import {SidebarItemWrapper} from './SidebarItemWrapper';
 import styles from './styles.module.css';
-import {useMediaQuery} from "react-responsive";
 
 const d = debug('imperium.layout.content.components.ContentComponent');
 
