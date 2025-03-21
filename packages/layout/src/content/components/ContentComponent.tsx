@@ -1,16 +1,18 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
 import {isEqual} from 'lodash-es';
-import {DependencyList, EffectCallback, useEffect, useRef} from 'react';
+import {DependencyList, EffectCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
+import {Button} from 'semantic-ui-react';
 import {DataHooks} from '../../datahooks/DataHooks';
-import {actions} from '../../state';
+import {actions, useLayoutState} from '../../state';
 import {sortWeightedItems} from '../../utils';
 import {useBuildContentData} from '../hooks/useBuildContentData';
 import type {Page, RouteParameters, SidebarItem} from '../types';
 import {Header} from './Header';
 import {SidebarItemWrapper} from './SidebarItemWrapper';
 import styles from './styles.module.css';
+import {useMediaQuery} from "react-responsive";
 
 const d = debug('imperium.layout.content.components.ContentComponent');
 
@@ -36,6 +38,8 @@ function useDeepCompareEffect(callback: EffectCallback, deps: DependencyList) {
 export function ContentComponent<T extends DefineRouteOptions, K extends keyof T>({page, params}: ContentComponentProps<T, K>) {
 	const dispatch = useDispatch();
 	const data = useBuildContentData({stateSelectorHook: page.stateSelectorHook, permissionSelectorHook: page.permissionSelectorHook, params});
+	const [visible, setVisible] = useState(true);
+	const isMobile = useMediaQuery({query: '(max-width: 900px)'});
 
 	useDeepCompareEffect(() => {
 		dispatch(actions.setParams(params));
@@ -47,6 +51,28 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 	const sidebar =
 		sidebarItems.length > 0 ? (
 			<div className={`${styles.sidebar} imperiumContentSidebar`}>
+				<div className={styles.sidebarButton}>
+					<Button icon="angle right" size="big" onClick={() => setVisible(false)} fluid style={{paddingLeft: 0}} />
+				</div>
+				<div className={styles.sidebarContent}>
+					<div className={`${styles.actionsHeader} imperiumContentSidebarHeader`}>
+						<h3>Actions</h3>
+					</div>
+					{sidebarItems.map((sb, index) => {
+						return (
+							// eslint-disable-next-line react/no-array-index-key
+							<div className={styles.sidebarItem} key={index}>
+								<SidebarItemWrapper item={sb as SidebarItem<T, K>} params={params} data={data} />
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		) : null;
+
+	const mobileSidebar =
+		sidebarItems.length > 0 ? (
+			<div className={`${styles.sidebarMobile} imperiumContentSidebar`}>
 				<div className={`${styles.actionsHeader} imperiumContentSidebarHeader`}>
 					<h3>Actions</h3>
 				</div>
@@ -67,7 +93,15 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 				<Header header={page.header} data={data} />
 				<div className={`${styles.content} imperiumContent ${page.full && styles.contentFull}`}>{content}</div>
 			</div>
-			{sidebar}
+			{isMobile && mobileSidebar}
+			{!isMobile && (
+				<>
+					{visible && sidebar}
+					{!visible && (
+						<Button icon="angle left" size="big" onClick={() => setVisible(true)} className={styles.sidebarButton} style={{paddingLeft: 0}} />
+					)}
+				</>
+			)}
 			<DataHooks dataHooks={page.dataHooks || []} />
 		</div>
 	);
