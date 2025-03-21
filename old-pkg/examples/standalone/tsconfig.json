@@ -1,7 +1,0 @@
-{
-	"extends": "../../../tsconfig.json",
-	"compilerOptions": {
-		"declarationDir": "dist"
-	},
-	"include": ["src/index.ts", "src/core/configModules.ts", "types/*.d.ts"]
-}
