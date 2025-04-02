@@ -2,7 +2,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/darkadept/imperium.git"
+    "url": "https://github.com/thr-consulting/imperium.git"
   },
   "license": "MIT",
   "author": "Mike Kornelson <darkadept@durbn.net>",

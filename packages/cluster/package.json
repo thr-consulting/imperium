@@ -3,7 +3,7 @@
 	"version": "13.0.4",
 	"description": "Imperium cluster wrapper",
 	"bugs": {
-		"url": "https://github.com/darkadept/imperium/issues"
+		"url": "https://github.com/thr-consulting/imperium/issues"
 	},
 	"repository": "darkadept/imperium",
 	"license": "MIT",
