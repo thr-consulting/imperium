@@ -31,10 +31,10 @@ export function useFetch() {
 			try {
 				if (token) {
 					d(`Fetching with auth token: ${token}`);
-					return f(input, injectNewAuthorization(token, init));
+					return await f(input, injectNewAuthorization(token, init));
 				}
 				d('Fetching without auth token. Access token could not be determined.');
-				return f(input, init);
+				return await f(input, init);
 			} catch (err: any) {
 				d(`Renewing access token failed: ${err.toString()}`);
 				await cache.clearAll();
