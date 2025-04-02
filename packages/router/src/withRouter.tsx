@@ -1,7 +1,7 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
 import type {ComponentType} from 'react';
-import {BrowserRouter, RouteProps} from 'react-router-dom';
+import {BrowserRouter, type RouteProps} from 'react-router-dom';
 import {ScrollToTop} from './components/ScrollToTop';
 import {isImperiumRouterClientModule} from './types';
 

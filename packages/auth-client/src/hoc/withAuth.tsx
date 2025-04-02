@@ -2,7 +2,7 @@ import {type AuthenticationToken, Authorization, noPermissionLookup} from '@impe
 import type {Hoc} from '@imperium/client';
 import {env} from '@thx/env';
 import debug from 'debug';
-import {ComponentType, memo, useEffect, useMemo, useRef} from 'react';
+import {type ComponentType, memo, useEffect, useMemo, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {AuthContext} from '../AuthContext';
 import {CacheContext} from '../CacheContext';

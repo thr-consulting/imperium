@@ -58,7 +58,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/lru-cache": "^7.4.0",
     "@types/lzbase62": "^2.0.0",
-    "@types/node": "^20.11.22",
+    "@types/node": "^22.13.17",
     "@types/react-dom": "^17.0.13",
     "@types/react-responsive": "^8.0.5",
     "@types/react-router-dom": "^5.3.3",
@@ -85,7 +85,7 @@
     "rollup": "^2.70.1",
     "rollup-plugin-visualizer": "^5.6.0",
     "ts-node": "^10.7.0",
-    "typescript": "4.6.2",
+    "typescript": "5.8.2",
     "vite": "^4.5.2",
     "winston": "^3.6.0"
   },

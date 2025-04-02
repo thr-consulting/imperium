@@ -1,6 +1,6 @@
 import type {ImperiumGraphqlClientModule} from '@imperium/graphql-client';
 import {AuthGraphqlBacking} from './AuthGraphqlBacking';
-import {AuthGraphqlClientOptions, createLinks} from './apolloLink';
+import {type AuthGraphqlClientOptions, createLinks} from './apolloLink';
 import {withAuthGraphql} from './withAuthGraphql';
 
 const authGraphqlBacking = new AuthGraphqlBacking();

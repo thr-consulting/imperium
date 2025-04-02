@@ -2,7 +2,7 @@ import type {ImperiumServer} from '@imperium/server';
 import {env, getCorsOrigin} from '@thx/env';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import cors, {CorsOptions} from 'cors';
+import cors, {type CorsOptions} from 'cors';
 import debug from 'debug';
 import {defaults} from '../defaults';
 import {refresh} from '../lib/refresh';

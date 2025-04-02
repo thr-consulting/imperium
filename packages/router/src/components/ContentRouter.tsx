@@ -1,6 +1,6 @@
 import debug from 'debug';
 import type {ComponentClass, ReactNode} from 'react';
-import {Switch, Route, RouteProps} from 'react-router-dom';
+import {Switch, Route, type RouteProps} from 'react-router-dom';
 
 const d = debug('imperium.router.components.ContentRouter');
 

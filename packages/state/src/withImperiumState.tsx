@@ -1,9 +1,9 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
-import {configureStore, Slice} from '@reduxjs/toolkit';
+import {configureStore, type Slice} from '@reduxjs/toolkit';
 import debug from 'debug';
 import type {ComponentType} from 'react';
 import {Provider} from 'react-redux';
-import {isImperiumStateClientModule, StateClientOptions} from './types';
+import {isImperiumStateClientModule, type StateClientOptions} from './types';
 
 const d = debug('imperium.state.withImperiumState');
 
@@ -48,7 +48,7 @@ export function withImperiumState(opts?: StateClientOptions) {
 		return function imperiumStateHoc(Wrapped: ComponentType<any>) {
 			const displayName = Wrapped.displayName || Wrapped.name || '';
 
-			function WithImperiumState(props: unknown) {
+			function WithImperiumState(props: Record<string, unknown>) {
 				if (store) {
 					return (
 						<Provider store={store}>

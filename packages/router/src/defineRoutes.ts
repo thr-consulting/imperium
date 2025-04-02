@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {generatePath, matchPath, RouteComponentProps, RouteProps} from 'react-router-dom';
+import {generatePath, matchPath, type RouteComponentProps, type RouteProps} from 'react-router-dom';
 import type {DefineRouteOptions, KeyedRouteMatchFns, KeyedRouteParamTypes, KeyedRoutePathFns, KeyedRouteRenderFns, Routes} from './types';
 
 const d = debug('imperium.router.defineRoutes');

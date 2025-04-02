@@ -2,7 +2,7 @@
 import type {AuthenticationRequest} from '@imperium/authorization';
 import type {Connectors} from '@imperium/connector';
 import debug from 'debug';
-import express, {Application, RequestHandler} from 'express';
+import express, {type Application, type RequestHandler} from 'express';
 import {createServer, Server} from 'http';
 import {isFunction} from 'lodash-es';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';

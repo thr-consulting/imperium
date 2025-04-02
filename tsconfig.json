@@ -12,7 +12,7 @@
 		"declaration": true,
 		"emitDeclarationOnly": true,
 		"noImplicitAny": true,
-		"importsNotUsedAsValues": "error",
+		"verbatimModuleSyntax": true,
 		"experimentalDecorators": true,
 		"skipLibCheck": true,
 		"emitDecoratorMetadata": true,

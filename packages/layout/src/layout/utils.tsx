@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {Icon, SemanticICONS} from 'semantic-ui-react';
+import {Icon, type SemanticICONS} from 'semantic-ui-react';
 import type {RouteItem} from '../commonItems';
 import {isHorizontalPositionedItem} from '../commonItems';
 import type {Data} from '../types';

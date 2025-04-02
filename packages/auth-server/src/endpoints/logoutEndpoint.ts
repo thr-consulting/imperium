@@ -6,7 +6,7 @@ import cors from 'cors';
 import debug from 'debug';
 import {defaults} from '../defaults';
 import {isLogoutInfo} from '../lib/typeguards';
-import {Auth, authMiddleware} from '../middleware/authMiddleware';
+import {type Auth, authMiddleware} from '../middleware/authMiddleware';
 import type {AuthenticationDomain, GetAuthenticationFn} from '../types';
 
 const d = debug('imperium.auth-server.endpoints.logoutEndpoint');

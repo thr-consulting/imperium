@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {createSliceHook} from '@imperium/state';
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, type PayloadAction} from '@reduxjs/toolkit';
 
 export const state = createSlice({
 	name: 'imperiumLayout',
