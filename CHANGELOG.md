@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.6](https://github.com/darkadept/imperium/compare/v13.0.5...v13.0.6) (2025-04-14)
+
+### Bug Fixes
+
+- **domaindriven:** export abstract heartbeat interface ([#366](https://github.com/darkadept/imperium/issues/366)) ([cf8d2ff](https://github.com/darkadept/imperium/commit/cf8d2ffce82a29e349a1a76331bf22fbf9aaa30e))
+
+### Features
+
+- **domaindriven:** add cron schedule ([#365](https://github.com/darkadept/imperium/issues/365)) ([3113603](https://github.com/darkadept/imperium/commit/3113603e7c74fa27314656d85ca7217e109d2ad8))
+
 ## [13.0.5](https://github.com/darkadept/imperium/compare/v13.0.4...v13.0.5) (2025-03-27)
 
 ### Features
