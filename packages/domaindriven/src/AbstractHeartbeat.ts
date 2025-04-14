@@ -1,4 +1,4 @@
-interface AbstractHeartbeatCon<CTX> {
+export interface AbstractHeartbeatCon<CTX> {
 	name: string;
 	cronSchedule?: string;
 	ctx: CTX;
