@@ -2729,10 +2729,10 @@
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.27.8.tgz#6667fac16c436b5434a387a34dedb013198f6e6e"
   integrity sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==
 
-"@thx/codegen@^17.0.0-alpha.2":
-  version "17.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/codegen/-/codegen-17.0.0-alpha.2.tgz#e7a7f00393f2bce74af556f2d435159638e47cce"
-  integrity sha512-crPZiOY4DHFUVknsSyiiMf08a9NyyJb9Vmlxz1URneVEO++8uHHk0PZYNW5K1qSk9QMpS4MI89vjEJzPlDvdZQ==
+"@thx/codegen@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/codegen/-/codegen-17.0.0.tgz#0563353ab87fa79c69b1517d6f466232e8657c3b"
+  integrity sha512-n/qcgrzsjRawwX5DPwBTyIHcxMKwiW6sZ50xCP7H7n2XJULDohnUgh648kvpqFnMBWXNEyI9P1CCbht+Ln9B5A==
   dependencies:
     "@graphql-codegen/add" "^3.1.1"
     "@graphql-codegen/cli" "^2.6.2"
@@ -2791,17 +2791,10 @@
   dependencies:
     lodash-es "^4.17.21"
 
-"@thx/env@^17.0.0-alpha.2":
-  version "17.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/env/-/env-17.0.0-alpha.2.tgz#1cefb8370181c0a8d8d486104a0f436b16b503b1"
-  integrity sha512-2eFi1Mqtir7QDrsTRpRKtRMtCuAu4vo1sgtwlspFEfbdUiw2dW1V+FUOHamfTF8kbBoFlchzKA/K88jhWEzf0A==
-  dependencies:
-    lodash-es "^4.17.21"
-
-"@thx/eslint-config-thx@^17.0.0-alpha.2":
-  version "17.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/eslint-config-thx/-/eslint-config-thx-17.0.0-alpha.2.tgz#b1bd3703d4f94825f86246350ac6684b20404200"
-  integrity sha512-2sFjj2oEoia6pZKmZvoOdoWPIa0VuSZBoA/KQCvXxGfAPzKm4lACg10W0e4VfeZZJApfuan5LCvOAhcopkFroA==
+"@thx/eslint-config-thx@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/eslint-config-thx/-/eslint-config-thx-17.0.0.tgz#f28d4e18678105b3ffba5ea63aa55910abafa130"
+  integrity sha512-lG0MFrjTal7kTjLWPE3Tua6xgJkTNXD5V8o7MzGbNtI5R0qU+fRf1MoQj6qCfReRhJu3PqIy3SZp5SuPJJHZug==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.14.0"
     "@typescript-eslint/parser" "^5.14.0"
@@ -2847,10 +2840,10 @@
     accounting "^0.4.1"
     js-money "^0.6.3"
 
-"@thx/prettier-config-thx@^17.0.0-alpha.2":
-  version "17.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/prettier-config-thx/-/prettier-config-thx-17.0.0-alpha.2.tgz#d61a5522ebca8ebfe1a45292bc4b1bd2ef9f6202"
-  integrity sha512-p0iyh4AAXGY/WVYi1sDighmLQ5pQa7WCG2Uns8I4cb6/Dykhq+jpONhY7sORvmsr2yDQEyoWUt3Qlg9eNOqfYg==
+"@thx/prettier-config-thx@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/prettier-config-thx/-/prettier-config-thx-17.0.0.tgz#d3d54aa18e2103ea329cc3757542e7cd2887fa13"
+  integrity sha512-rKJB888D0Jyl0rpu99R8Zka7ptLYMI1QGpougXWrMVVBx8U0GP9I0c76Gr+AiL/caY/D2em8PJWy7Gnm5cs34Q==
 
 "@thx/promise-sequential@^17.0.0":
   version "17.0.0"
@@ -2866,10 +2859,10 @@
     "@thx/date" "^17.0.0"
     nanoid "^3.2.0"
 
-"@thx/rollup-config-thx@^17.0.0-alpha.2":
-  version "17.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/rollup-config-thx/-/rollup-config-thx-17.0.0-alpha.2.tgz#4a7e9aaadf338fbeb4e93dc6825f5c762169d912"
-  integrity sha512-AZS1PNNPOrPuaMz0HQ13woZfOrtU5fWcq+TmGBsPXlt8TPAtH9vy+m8ZpDgZ2UQCdTF0GYcr8SHXdVxt0M6Qpg==
+"@thx/rollup-config-thx@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/rollup-config-thx/-/rollup-config-thx-17.0.0.tgz#fb9acc299c400656b9aae6f5afbc9da49ec8c694"
+  integrity sha512-qvQs1j8CLbSG7XqudIit+1qxohjeZxhQK4uwq6dRFQFtcNeNIvaV7+onRjqRSmkUOkCcghY35K6X5bQITb/uVg==
   dependencies:
     "@rollup/plugin-alias" "^3.1.9"
     "@rollup/plugin-commonjs" "^21.0.2"
@@ -2896,10 +2889,10 @@
   resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-17.1.4.tgz#3f53b53dc5089f09b409c240996e1dde5a44f582"
   integrity sha512-+opyuPqfAHtkrVNcounat+Dz0R4UGo+ASq/Sgf+q+kdQrC41t6aJei+uz+lRLf5PfG/4bhm6WBdPOoY5A7xqfw==
 
-"@thx/tools@^17.0.0-alpha.2":
-  version "17.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-17.0.0-alpha.2.tgz#d783c655f74d661516954ab45b19837c5c70acff"
-  integrity sha512-vvmMeFvoO/G2ZKlN5xvmBmIWfwshX4NYeYHdk/6qSXG1v7hFXFviw44Y9rNoVW0Yg4pTtEDwn0es9qIpUTUrzA==
+"@thx/tools@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-17.0.0.tgz#28b15c4dfc9f333b4baffec8390ed45ad6b0f4c9"
+  integrity sha512-fYKQQIkrz6EWv3fB7CMN35mPMwHDVWC6GKP3lZyaMAUf5XI14s2PMCGln5ImI3OIOFDFS+XjMfpF0GnJKvBL8g==
   dependencies:
     "@babel/core" "^7.17.5"
     "@babel/preset-env" "^7.16.11"
