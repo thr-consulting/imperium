@@ -3,351 +3,351 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [13.0.6](https://github.com/darkadept/imperium/compare/v13.0.5...v13.0.6) (2025-04-14)
+## [13.0.6](https://github.com/thr-consulting/imperium/compare/v13.0.5...v13.0.6) (2025-04-14)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [13.0.4](https://github.com/darkadept/imperium/compare/v13.0.3...v13.0.4) (2025-02-26)
+## [13.0.4](https://github.com/thr-consulting/imperium/compare/v13.0.3...v13.0.4) (2025-02-26)
 
 ### Features
 
-- update debug package ([#359](https://github.com/darkadept/imperium/issues/359)) ([3305856](https://github.com/darkadept/imperium/commit/330585619e11b97704f57193b14955042826cb58))
+- update debug package ([#359](https://github.com/thr-consulting/imperium/issues/359)) ([3305856](https://github.com/thr-consulting/imperium/commit/330585619e11b97704f57193b14955042826cb58))
 
-## [13.0.3](https://github.com/darkadept/imperium/compare/v13.0.2...v13.0.3) (2024-09-19)
-
-### Features
-
-- ability to clear auth cache ([#358](https://github.com/darkadept/imperium/issues/358)) ([0423318](https://github.com/darkadept/imperium/commit/04233182a5f28a33500639504223b80575eada37))
-
-## [13.0.2](https://github.com/darkadept/imperium/compare/v13.0.0...v13.0.2) (2024-08-13)
-
-**Note:** Version bump only for package @imperium/example-server
-
-# [13.0.0](https://github.com/darkadept/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
+## [13.0.3](https://github.com/thr-consulting/imperium/compare/v13.0.2...v13.0.3) (2024-09-19)
 
 ### Features
 
-- major auth overhaul ([#355](https://github.com/darkadept/imperium/issues/355)) ([8417048](https://github.com/darkadept/imperium/commit/8417048e0f9f0fa89c98847a54fd7e9111833e04))
+- ability to clear auth cache ([#358](https://github.com/thr-consulting/imperium/issues/358)) ([0423318](https://github.com/thr-consulting/imperium/commit/04233182a5f28a33500639504223b80575eada37))
 
-## [12.0.1](https://github.com/darkadept/imperium/compare/v12.0.0...v12.0.1) (2024-03-15)
-
-**Note:** Version bump only for package @imperium/example-server
-
-# [12.0.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0) (2024-03-05)
+## [13.0.2](https://github.com/thr-consulting/imperium/compare/v13.0.0...v13.0.2) (2024-08-13)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [12.0.0-alpha.0](https://github.com/darkadept/imperium/compare/v11.2.0...v12.0.0-alpha.0) (2024-02-29)
+# [13.0.0](https://github.com/thr-consulting/imperium/compare/v12.0.1...v13.0.0) (2024-05-16)
 
 ### Features
 
-- upgrade to node20 ([32c02da](https://github.com/darkadept/imperium/commit/32c02da1e9c668099a5aa4c9d15f4807f6e1339c))
+- major auth overhaul ([#355](https://github.com/thr-consulting/imperium/issues/355)) ([8417048](https://github.com/thr-consulting/imperium/commit/8417048e0f9f0fa89c98847a54fd7e9111833e04))
 
-# [11.2.0](https://github.com/darkadept/imperium/compare/v11.1.1...v11.2.0) (2023-09-20)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [11.1.1](https://github.com/darkadept/imperium/compare/v11.1.0...v11.1.1) (2023-06-02)
+## [12.0.1](https://github.com/thr-consulting/imperium/compare/v12.0.0...v12.0.1) (2024-03-15)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [11.1.0](https://github.com/darkadept/imperium/compare/v11.0.0...v11.1.0) (2023-04-03)
+# [12.0.0](https://github.com/thr-consulting/imperium/compare/v11.2.0...v12.0.0) (2024-03-05)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [11.0.0](https://github.com/darkadept/imperium/compare/v10.6.0...v11.0.0) (2023-03-15)
-
-**Note:** Version bump only for package @imperium/example-server
-
-# [10.6.0](https://github.com/darkadept/imperium/compare/v10.5.1...v10.6.0) (2022-12-12)
-
-**Note:** Version bump only for package @imperium/example-server
-
-# [10.5.0](https://github.com/darkadept/imperium/compare/v10.4.12...v10.5.0) (2022-11-04)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.4.11](https://github.com/darkadept/imperium/compare/v10.4.10...v10.4.11) (2022-10-03)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.4.10](https://github.com/darkadept/imperium/compare/v10.4.9...v10.4.10) (2022-09-12)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.4.5](https://github.com/darkadept/imperium/compare/v10.4.4...v10.4.5) (2022-07-06)
-
-**Note:** Version bump only for package @imperium/example-server
-
-# [10.4.0](https://github.com/darkadept/imperium/compare/v10.3.5...v10.4.0) (2022-06-21)
+# [12.0.0-alpha.0](https://github.com/thr-consulting/imperium/compare/v11.2.0...v12.0.0-alpha.0) (2024-02-29)
 
 ### Features
 
-- **layout:** added a better permissions options for layout ([#320](https://github.com/darkadept/imperium/issues/320)) ([3959b28](https://github.com/darkadept/imperium/commit/3959b287c03bcc6fbc021d24b020290fba610365))
+- upgrade to node20 ([32c02da](https://github.com/thr-consulting/imperium/commit/32c02da1e9c668099a5aa4c9d15f4807f6e1339c))
 
-## [10.3.4](https://github.com/darkadept/imperium/compare/v10.3.3...v10.3.4) (2022-06-16)
+# [11.2.0](https://github.com/thr-consulting/imperium/compare/v11.1.1...v11.2.0) (2023-09-20)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [11.1.1](https://github.com/thr-consulting/imperium/compare/v11.1.0...v11.1.1) (2023-06-02)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [11.1.0](https://github.com/thr-consulting/imperium/compare/v11.0.0...v11.1.0) (2023-04-03)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [11.0.0](https://github.com/thr-consulting/imperium/compare/v10.6.0...v11.0.0) (2023-03-15)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [10.6.0](https://github.com/thr-consulting/imperium/compare/v10.5.1...v10.6.0) (2022-12-12)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [10.5.0](https://github.com/thr-consulting/imperium/compare/v10.4.12...v10.5.0) (2022-11-04)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [10.4.11](https://github.com/thr-consulting/imperium/compare/v10.4.10...v10.4.11) (2022-10-03)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [10.4.10](https://github.com/thr-consulting/imperium/compare/v10.4.9...v10.4.10) (2022-09-12)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [10.4.5](https://github.com/thr-consulting/imperium/compare/v10.4.4...v10.4.5) (2022-07-06)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [10.4.0](https://github.com/thr-consulting/imperium/compare/v10.3.5...v10.4.0) (2022-06-21)
+
+### Features
+
+- **layout:** added a better permissions options for layout ([#320](https://github.com/thr-consulting/imperium/issues/320)) ([3959b28](https://github.com/thr-consulting/imperium/commit/3959b287c03bcc6fbc021d24b020290fba610365))
+
+## [10.3.4](https://github.com/thr-consulting/imperium/compare/v10.3.3...v10.3.4) (2022-06-16)
 
 ### Reverts
 
-- Revert "chore(release): publish [skip-ci]" ([8b9f11b](https://github.com/darkadept/imperium/commit/8b9f11b73ae0538e8a2318951edbb46f8cf6c094))
+- Revert "chore(release): publish [skip-ci]" ([8b9f11b](https://github.com/thr-consulting/imperium/commit/8b9f11b73ae0538e8a2318951edbb46f8cf6c094))
 
-## [10.3.3](https://github.com/darkadept/imperium/compare/v10.3.2...v10.3.3) (2022-06-15)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.3.1](https://github.com/darkadept/imperium/compare/v10.3.0...v10.3.1) (2022-06-15)
+## [10.3.3](https://github.com/thr-consulting/imperium/compare/v10.3.2...v10.3.3) (2022-06-15)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [10.3.0](https://github.com/darkadept/imperium/compare/v10.2.0...v10.3.0) (2022-06-14)
+## [10.3.1](https://github.com/thr-consulting/imperium/compare/v10.3.0...v10.3.1) (2022-06-15)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [10.2.0](https://github.com/darkadept/imperium/compare/v10.1.2...v10.2.0) (2022-06-06)
+# [10.3.0](https://github.com/thr-consulting/imperium/compare/v10.2.0...v10.3.0) (2022-06-14)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [10.2.0](https://github.com/thr-consulting/imperium/compare/v10.1.2...v10.2.0) (2022-06-06)
 
 ### Features
 
-- **auth-express-client:** added a wrapper for fetch that auto-renews… ([#317](https://github.com/darkadept/imperium/issues/317)) ([00f3e5a](https://github.com/darkadept/imperium/commit/00f3e5a969300e61c486a8c20919d8bf8ea4b9e6))
+- **auth-express-client:** added a wrapper for fetch that auto-renews… ([#317](https://github.com/thr-consulting/imperium/issues/317)) ([00f3e5a](https://github.com/thr-consulting/imperium/commit/00f3e5a969300e61c486a8c20919d8bf8ea4b9e6))
 
-## [10.1.2](https://github.com/darkadept/imperium/compare/v10.1.1...v10.1.2) (2022-04-25)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.1.1](https://github.com/darkadept/imperium/compare/v10.1.0...v10.1.1) (2022-04-22)
+## [10.1.2](https://github.com/thr-consulting/imperium/compare/v10.1.1...v10.1.2) (2022-04-25)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [10.1.0](https://github.com/darkadept/imperium/compare/v10.0.7...v10.1.0) (2022-04-20)
+## [10.1.1](https://github.com/thr-consulting/imperium/compare/v10.1.0...v10.1.1) (2022-04-22)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [10.0.7](https://github.com/darkadept/imperium/compare/v10.0.6...v10.0.7) (2022-04-19)
+# [10.1.0](https://github.com/thr-consulting/imperium/compare/v10.0.7...v10.1.0) (2022-04-20)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [10.0.7](https://github.com/thr-consulting/imperium/compare/v10.0.6...v10.0.7) (2022-04-19)
 
 ### Bug Fixes
 
-- downgraded ioredis [skip-ci] ([9b583b6](https://github.com/darkadept/imperium/commit/9b583b608bcc0bb3e0d09661310b6661738782a2))
+- downgraded ioredis [skip-ci] ([9b583b6](https://github.com/thr-consulting/imperium/commit/9b583b608bcc0bb3e0d09661310b6661738782a2))
 
-## [10.0.6](https://github.com/darkadept/imperium/compare/v10.0.5...v10.0.6) (2022-04-19)
+## [10.0.6](https://github.com/thr-consulting/imperium/compare/v10.0.5...v10.0.6) (2022-04-19)
 
 ### Features
 
-- changed Connectors constructor to take an async function that returns an array of connectors ([#312](https://github.com/darkadept/imperium/issues/312)) ([ad255f6](https://github.com/darkadept/imperium/commit/ad255f624326500af4bf44818f12dbc735a9bd2d))
+- changed Connectors constructor to take an async function that returns an array of connectors ([#312](https://github.com/thr-consulting/imperium/issues/312)) ([ad255f6](https://github.com/thr-consulting/imperium/commit/ad255f624326500af4bf44818f12dbc735a9bd2d))
 
-## [10.0.5](https://github.com/darkadept/imperium/compare/v10.0.4...v10.0.5) (2022-04-04)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.0.4](https://github.com/darkadept/imperium/compare/v10.0.3...v10.0.4) (2022-04-01)
+## [10.0.5](https://github.com/thr-consulting/imperium/compare/v10.0.4...v10.0.5) (2022-04-04)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [10.0.3](https://github.com/darkadept/imperium/compare/v10.0.2...v10.0.3) (2022-03-31)
+## [10.0.4](https://github.com/thr-consulting/imperium/compare/v10.0.3...v10.0.4) (2022-04-01)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [10.0.3](https://github.com/thr-consulting/imperium/compare/v10.0.2...v10.0.3) (2022-03-31)
 
 ### Bug Fixes
 
-- fixed yarn.lock issue ([2ce6c0c](https://github.com/darkadept/imperium/commit/2ce6c0cb522813898f4e2f41356a67e531e0e741))
+- fixed yarn.lock issue ([2ce6c0c](https://github.com/thr-consulting/imperium/commit/2ce6c0cb522813898f4e2f41356a67e531e0e741))
 
-## [10.0.2](https://github.com/darkadept/imperium/compare/v10.0.1...v10.0.2) (2022-03-28)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [10.0.1](https://github.com/darkadept/imperium/compare/v10.0.0...v10.0.1) (2022-03-25)
+## [10.0.2](https://github.com/thr-consulting/imperium/compare/v10.0.1...v10.0.2) (2022-03-28)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [10.0.0](https://github.com/darkadept/imperium/compare/v9.0.0...v10.0.0) (2022-03-16)
+## [10.0.1](https://github.com/thr-consulting/imperium/compare/v10.0.0...v10.0.1) (2022-03-25)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [9.0.0](https://github.com/darkadept/imperium/compare/v8.3.0...v9.0.0) (2022-01-26)
+# [10.0.0](https://github.com/thr-consulting/imperium/compare/v9.0.0...v10.0.0) (2022-03-16)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [8.3.0](https://github.com/darkadept/imperium/compare/v8.2.1...v8.3.0) (2022-01-14)
+# [9.0.0](https://github.com/thr-consulting/imperium/compare/v8.3.0...v9.0.0) (2022-01-26)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [8.2.1](https://github.com/darkadept/imperium/compare/v8.2.0...v8.2.1) (2021-12-23)
+# [8.3.0](https://github.com/thr-consulting/imperium/compare/v8.2.1...v8.3.0) (2022-01-14)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [8.2.0](https://github.com/darkadept/imperium/compare/v8.1.1...v8.2.0) (2021-12-23)
+## [8.2.1](https://github.com/thr-consulting/imperium/compare/v8.2.0...v8.2.1) (2021-12-23)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [8.1.1](https://github.com/darkadept/imperium/compare/v8.1.0...v8.1.1) (2021-12-21)
+# [8.2.0](https://github.com/thr-consulting/imperium/compare/v8.1.1...v8.2.0) (2021-12-23)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [8.1.0](https://github.com/darkadept/imperium/compare/v8.0.0...v8.1.0) (2021-12-21)
+## [8.1.1](https://github.com/thr-consulting/imperium/compare/v8.1.0...v8.1.1) (2021-12-21)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [8.0.0](https://github.com/darkadept/imperium/compare/v7.3.5...v8.0.0) (2021-12-08)
+# [8.1.0](https://github.com/thr-consulting/imperium/compare/v8.0.0...v8.1.0) (2021-12-21)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [8.0.0](https://github.com/thr-consulting/imperium/compare/v7.3.5...v8.0.0) (2021-12-08)
 
 ### Features
 
-- upgraded to thx v15 ([#287](https://github.com/darkadept/imperium/issues/287)) ([de0e5c5](https://github.com/darkadept/imperium/commit/de0e5c57f6e6ac6b130439c01b5b5a9a26771d27))
+- upgraded to thx v15 ([#287](https://github.com/thr-consulting/imperium/issues/287)) ([de0e5c5](https://github.com/thr-consulting/imperium/commit/de0e5c57f6e6ac6b130439c01b5b5a9a26771d27))
 
-## [7.3.5](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.5) (2021-11-18)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [7.3.4](https://github.com/darkadept/imperium/compare/v7.3.3...v7.3.4) (2021-11-18)
+## [7.3.5](https://github.com/thr-consulting/imperium/compare/v7.3.3...v7.3.5) (2021-11-18)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [7.3.0](https://github.com/darkadept/imperium/compare/v7.2.0...v7.3.0) (2021-11-08)
+## [7.3.4](https://github.com/thr-consulting/imperium/compare/v7.3.3...v7.3.4) (2021-11-18)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [7.2.0](https://github.com/darkadept/imperium/compare/v7.1.8...v7.2.0) (2021-11-02)
+# [7.3.0](https://github.com/thr-consulting/imperium/compare/v7.2.0...v7.3.0) (2021-11-08)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.8](https://github.com/darkadept/imperium/compare/v7.1.7...v7.1.8) (2021-10-28)
+# [7.2.0](https://github.com/thr-consulting/imperium/compare/v7.1.8...v7.2.0) (2021-11-02)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.7](https://github.com/darkadept/imperium/compare/v7.1.6...v7.1.7) (2021-10-28)
+## [7.1.8](https://github.com/thr-consulting/imperium/compare/v7.1.7...v7.1.8) (2021-10-28)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.6](https://github.com/darkadept/imperium/compare/v7.1.5...v7.1.6) (2021-10-28)
+## [7.1.7](https://github.com/thr-consulting/imperium/compare/v7.1.6...v7.1.7) (2021-10-28)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.5](https://github.com/darkadept/imperium/compare/v7.1.4...v7.1.5) (2021-10-26)
+## [7.1.6](https://github.com/thr-consulting/imperium/compare/v7.1.5...v7.1.6) (2021-10-28)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.4](https://github.com/darkadept/imperium/compare/v7.1.3...v7.1.4) (2021-10-21)
+## [7.1.5](https://github.com/thr-consulting/imperium/compare/v7.1.4...v7.1.5) (2021-10-26)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.3](https://github.com/darkadept/imperium/compare/v7.1.2...v7.1.3) (2021-10-15)
+## [7.1.4](https://github.com/thr-consulting/imperium/compare/v7.1.3...v7.1.4) (2021-10-21)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [7.1.1](https://github.com/darkadept/imperium/compare/v7.1.0...v7.1.1) (2021-10-14)
+## [7.1.3](https://github.com/thr-consulting/imperium/compare/v7.1.2...v7.1.3) (2021-10-15)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [7.1.0](https://github.com/darkadept/imperium/compare/v7.0.6...v7.1.0) (2021-10-14)
+## [7.1.1](https://github.com/thr-consulting/imperium/compare/v7.1.0...v7.1.1) (2021-10-14)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [7.0.0](https://github.com/darkadept/imperium/compare/v6.2.1...v7.0.0) (2021-08-23)
+# [7.1.0](https://github.com/thr-consulting/imperium/compare/v7.0.6...v7.1.0) (2021-10-14)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [6.2.0](https://github.com/darkadept/imperium/compare/v6.1.3...v6.2.0) (2021-07-14)
+# [7.0.0](https://github.com/thr-consulting/imperium/compare/v6.2.1...v7.0.0) (2021-08-23)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [6.1.3](https://github.com/darkadept/imperium/compare/v6.1.2...v6.1.3) (2021-07-08)
+# [6.2.0](https://github.com/thr-consulting/imperium/compare/v6.1.3...v6.2.0) (2021-07-14)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [6.1.2](https://github.com/darkadept/imperium/compare/v6.1.1...v6.1.2) (2021-07-07)
+## [6.1.3](https://github.com/thr-consulting/imperium/compare/v6.1.2...v6.1.3) (2021-07-08)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [6.1.1](https://github.com/darkadept/imperium/compare/v6.1.0...v6.1.1) (2021-07-07)
+## [6.1.2](https://github.com/thr-consulting/imperium/compare/v6.1.1...v6.1.2) (2021-07-07)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [6.1.0](https://github.com/darkadept/imperium/compare/v6.0.3...v6.1.0) (2021-07-07)
+## [6.1.1](https://github.com/thr-consulting/imperium/compare/v6.1.0...v6.1.1) (2021-07-07)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [6.0.3](https://github.com/darkadept/imperium/compare/v6.0.2...v6.0.3) (2021-07-06)
+# [6.1.0](https://github.com/thr-consulting/imperium/compare/v6.0.3...v6.1.0) (2021-07-07)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [6.0.2](https://github.com/darkadept/imperium/compare/v6.0.1...v6.0.2) (2021-06-15)
+## [6.0.3](https://github.com/thr-consulting/imperium/compare/v6.0.2...v6.0.3) (2021-07-06)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [6.0.1](https://github.com/darkadept/imperium/compare/v6.0.0...v6.0.1) (2021-05-21)
+## [6.0.2](https://github.com/thr-consulting/imperium/compare/v6.0.1...v6.0.2) (2021-06-15)
+
+**Note:** Version bump only for package @imperium/example-server
+
+## [6.0.1](https://github.com/thr-consulting/imperium/compare/v6.0.0...v6.0.1) (2021-05-21)
 
 ### Features
 
-- **graphql-server:** added mergeResolvers ([#264](https://github.com/darkadept/imperium/issues/264)) ([d27a5d7](https://github.com/darkadept/imperium/commit/d27a5d72ae37ddf628c3304270707dd35d8a4805))
+- **graphql-server:** added mergeResolvers ([#264](https://github.com/thr-consulting/imperium/issues/264)) ([d27a5d7](https://github.com/thr-consulting/imperium/commit/d27a5d72ae37ddf628c3304270707dd35d8a4805))
 
-# [6.0.0](https://github.com/darkadept/imperium/compare/v5.3.4...v6.0.0) (2021-05-18)
+# [6.0.0](https://github.com/thr-consulting/imperium/compare/v5.3.4...v6.0.0) (2021-05-18)
 
 ### Features
 
-- use @thx/tools instead of various tools ([d4514c5](https://github.com/darkadept/imperium/commit/d4514c5271e80398a5486b44174bca0f1de9ff7e))
+- use @thx/tools instead of various tools ([d4514c5](https://github.com/thr-consulting/imperium/commit/d4514c5271e80398a5486b44174bca0f1de9ff7e))
 
-## [5.3.4](https://github.com/darkadept/imperium/compare/v5.3.3...v5.3.4) (2021-05-11)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [5.3.3](https://github.com/darkadept/imperium/compare/v5.3.2...v5.3.3) (2021-05-04)
+## [5.3.4](https://github.com/thr-consulting/imperium/compare/v5.3.3...v5.3.4) (2021-05-11)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [5.3.2](https://github.com/darkadept/imperium/compare/v5.3.1...v5.3.2) (2021-05-03)
+## [5.3.3](https://github.com/thr-consulting/imperium/compare/v5.3.2...v5.3.3) (2021-05-04)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [5.3.1](https://github.com/darkadept/imperium/compare/v5.3.0...v5.3.1) (2021-05-03)
+## [5.3.2](https://github.com/thr-consulting/imperium/compare/v5.3.1...v5.3.2) (2021-05-03)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [5.3.0](https://github.com/darkadept/imperium/compare/v5.2.1...v5.3.0) (2021-04-30)
+## [5.3.1](https://github.com/thr-consulting/imperium/compare/v5.3.0...v5.3.1) (2021-05-03)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [5.3.0](https://github.com/thr-consulting/imperium/compare/v5.2.1...v5.3.0) (2021-04-30)
 
 ### Bug Fixes
 
-- upgrade packages and fix bugs ([eb855ee](https://github.com/darkadept/imperium/commit/eb855ee31b7a9122bfe712a6b2d6cf7dcfcf7c73))
+- upgrade packages and fix bugs ([eb855ee](https://github.com/thr-consulting/imperium/commit/eb855ee31b7a9122bfe712a6b2d6cf7dcfcf7c73))
 
 ### Features
 
-- if no port specified, imperium doesn't start express ([87ff529](https://github.com/darkadept/imperium/commit/87ff529215cdae0b0f2165d6a5f1bbde791d64c3))
-- overhauled how connectors work ([#256](https://github.com/darkadept/imperium/issues/256)) ([22c0281](https://github.com/darkadept/imperium/commit/22c02813778c71d76f6c57aa03695fbeae312c40))
+- if no port specified, imperium doesn't start express ([87ff529](https://github.com/thr-consulting/imperium/commit/87ff529215cdae0b0f2165d6a5f1bbde791d64c3))
+- overhauled how connectors work ([#256](https://github.com/thr-consulting/imperium/issues/256)) ([22c0281](https://github.com/thr-consulting/imperium/commit/22c02813778c71d76f6c57aa03695fbeae312c40))
 
-# [5.2.0](https://github.com/darkadept/imperium/compare/v5.1.2...v5.2.0) (2021-02-04)
+# [5.2.0](https://github.com/thr-consulting/imperium/compare/v5.1.2...v5.2.0) (2021-02-04)
 
 **Note:** Version bump only for package @imperium/example-server
 
-## [5.1.2](https://github.com/darkadept/imperium/compare/v5.1.1...v5.1.2) (2020-12-08)
+## [5.1.2](https://github.com/thr-consulting/imperium/compare/v5.1.1...v5.1.2) (2020-12-08)
 
 ### Features
 
-- **auth-server:** added ability to pass the access token to an endpoint via a query parameter ([#247](https://github.com/darkadept/imperium/issues/247)) ([23375b9](https://github.com/darkadept/imperium/commit/23375b936d9c84904934e158e311528a47ab08a9))
+- **auth-server:** added ability to pass the access token to an endpoint via a query parameter ([#247](https://github.com/thr-consulting/imperium/issues/247)) ([23375b9](https://github.com/thr-consulting/imperium/commit/23375b936d9c84904934e158e311528a47ab08a9))
 
-## [5.1.1](https://github.com/darkadept/imperium/compare/v5.1.0...v5.1.1) (2020-11-04)
+## [5.1.1](https://github.com/thr-consulting/imperium/compare/v5.1.0...v5.1.1) (2020-11-04)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [5.1.0](https://github.com/darkadept/imperium/compare/v5.0.0...v5.1.0) (2020-11-04)
+# [5.1.0](https://github.com/thr-consulting/imperium/compare/v5.0.0...v5.1.0) (2020-11-04)
 
 ### Features
 
-- **babel-preset-imperium:** added an option for aliasPaths via babel-plugin-module-resolver ([#246](https://github.com/darkadept/imperium/issues/246)) ([da00cc5](https://github.com/darkadept/imperium/commit/da00cc58014134df5991fe7b62bf470172b27d4b))
+- **babel-preset-imperium:** added an option for aliasPaths via babel-plugin-module-resolver ([#246](https://github.com/thr-consulting/imperium/issues/246)) ([da00cc5](https://github.com/thr-consulting/imperium/commit/da00cc58014134df5991fe7b62bf470172b27d4b))
 
-# [5.0.0](https://github.com/darkadept/imperium/compare/v4.6.1...v5.0.0) (2020-10-27)
-
-**Note:** Version bump only for package @imperium/example-server
-
-## [4.6.1](https://github.com/darkadept/imperium/compare/v4.6.0...v4.6.1) (2020-10-21)
+# [5.0.0](https://github.com/thr-consulting/imperium/compare/v4.6.1...v5.0.0) (2020-10-27)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [4.6.0](https://github.com/darkadept/imperium/compare/v4.5.1...v4.6.0) (2020-09-30)
+## [4.6.1](https://github.com/thr-consulting/imperium/compare/v4.6.0...v4.6.1) (2020-10-21)
+
+**Note:** Version bump only for package @imperium/example-server
+
+# [4.6.0](https://github.com/thr-consulting/imperium/compare/v4.5.1...v4.6.0) (2020-09-30)
 
 ### Features
 
-- added better logging and sourcemap support ([b7d9ec2](https://github.com/darkadept/imperium/commit/b7d9ec20d2d58fedb089a19f3cdcbb2701c0e362))
+- added better logging and sourcemap support ([b7d9ec2](https://github.com/thr-consulting/imperium/commit/b7d9ec20d2d58fedb089a19f3cdcbb2701c0e362))
 
-## [4.5.1](https://github.com/darkadept/imperium/compare/v4.5.0...v4.5.1) (2020-09-15)
+## [4.5.1](https://github.com/thr-consulting/imperium/compare/v4.5.0...v4.5.1) (2020-09-15)
 
 **Note:** Version bump only for package @imperium/example-server
 
-# [4.5.0](https://github.com/darkadept/imperium/compare/v4.4.1...v4.5.0) (2020-09-15)
+# [4.5.0](https://github.com/thr-consulting/imperium/compare/v4.4.1...v4.5.0) (2020-09-15)
 
 ### Features
 
-- refactored all client packages ([#241](https://github.com/darkadept/imperium/issues/241)) ([be010ad](https://github.com/darkadept/imperium/commit/be010ad96e0ddb6f40b189561568df2327025e0e)), closes [#234](https://github.com/darkadept/imperium/issues/234) [#242](https://github.com/darkadept/imperium/issues/242)
+- refactored all client packages ([#241](https://github.com/thr-consulting/imperium/issues/241)) ([be010ad](https://github.com/thr-consulting/imperium/commit/be010ad96e0ddb6f40b189561568df2327025e0e)), closes [#234](https://github.com/thr-consulting/imperium/issues/234) [#242](https://github.com/thr-consulting/imperium/issues/242)
