@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/voyager",
-	"version": "13.0.4",
+	"version": "13.0.7",
 	"description": "Imperium Voyager dev module",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/server": "^13.0.4"
+		"@imperium/server": "^13.0.7"
 	},
 	"engines": {
 		"node": ">=20"

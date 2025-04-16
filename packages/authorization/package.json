@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/authorization",
-	"version": "13.0.4",
+	"version": "13.0.7",
 	"description": "Imperium Authorization package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"

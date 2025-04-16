@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-express-client",
-	"version": "13.0.4",
+	"version": "13.0.7",
 	"description": "Imperium Auth Express client package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
