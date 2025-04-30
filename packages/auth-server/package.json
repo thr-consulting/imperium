@@ -34,7 +34,7 @@
 	"dependencies": {
 		"@imperium/authorization": "^13.0.7",
 		"@imperium/server": "^13.0.7",
-		"@thx/env": "^17.0.0",
+		"@thx/env": "^17.1.10",
 		"@thx/sha256": "^17.0.0",
 		"bcrypt": "^5.0.1",
 		"body-parser": "^1.19.2",
