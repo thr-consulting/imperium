@@ -48,7 +48,7 @@ export function withImperiumState(opts?: StateClientOptions) {
 		return function imperiumStateHoc(Wrapped: ComponentType<any>) {
 			const displayName = Wrapped.displayName || Wrapped.name || '';
 
-			function WithImperiumState(props: unknown) {
+			function WithImperiumState(props: Record<string, unknown>) {
 				if (store) {
 					return (
 						<Provider store={store}>

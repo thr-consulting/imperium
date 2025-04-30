@@ -28,6 +28,7 @@ export function createSliceHook<State, T extends Transforms<State>>(slice: Slice
 	if (!transformers) return () => useSelector<unknown, State>(st => (st as Record<string, never>)[slice.name]);
 	return () => {
 		const rawState = useSelector<unknown, State>(st => (st as Record<string, never>)[slice.name]);
+		// @ts-ignore
 		const keys = Object.keys(rawState) as (keyof State)[];
 		return keys.reduce((memo, key) => {
 			const fn = transformers ? transformers[key] : null;
