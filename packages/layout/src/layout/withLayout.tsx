@@ -41,7 +41,7 @@ export function withLayout(client: ImperiumClient): Hoc {
 	return function layoutHoc(Wrapped: ComponentType<any>) {
 		const displayName = Wrapped.displayName || Wrapped.name || '';
 
-		function WithLayout(props: unknown) {
+		function WithLayout(props: Record<string, unknown>) {
 			return (
 				<>
 					<Layout {...layoutModuleData}>
