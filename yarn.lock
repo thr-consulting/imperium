@@ -2812,10 +2812,10 @@
   dependencies:
     lodash-es "^4.17.21"
 
-"@thx/eslint-config-thx@^17.1.11-alpha.4":
-  version "17.1.11-alpha.4"
-  resolved "https://registry.yarnpkg.com/@thx/eslint-config-thx/-/eslint-config-thx-17.1.11-alpha.4.tgz#98a206f20682b7bdc9f1910f9301284ef0f55755"
-  integrity sha512-XAvSl50HgPFzt93hvzJooOYFd0HAumpQpSoz7LswhSvZRSFSHTAiZQB5oklQN0NjPXlV7ObTA8xSBSdY5NLUhw==
+"@thx/eslint-config-thx@^17.2.0":
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/@thx/eslint-config-thx/-/eslint-config-thx-17.2.0.tgz#0f8e4f9f8aecec0a8b1e18984fa29d2a4a6b0437"
+  integrity sha512-uniXBz6FaGAOvdPJneZVmw5YROpWY4WRrWF1HadnHoSnNmOVYPL83YsErTTz/OsmApZ7cLbpjC4usuQWYP1X1w==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^6.21.0"
     "@typescript-eslint/parser" "^6.21.0"
@@ -2910,10 +2910,10 @@
   resolved "https://registry.yarnpkg.com/@thx/sharedcache/-/sharedcache-17.1.10.tgz#1986b0df02a2f7e0885a70f4c4b151f35c6494e6"
   integrity sha512-KWS7h+4tlRgBCl07JvohXnAdmbj4JdzDKWVytmDJw7osmoaCVEZSZUnE0ate7lJ2WDSarOCnQGS63okaFox37w==
 
-"@thx/tools@^17.1.10":
-  version "17.1.10"
-  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-17.1.10.tgz#c9ebc7a6952d6361c8ad94e148f4646e05f8bb64"
-  integrity sha512-jGqd7J6oSeHCFZ5mx0uy1R+C7fX/q9yuMJvIpuzRHHNS9Wi/Kf5uiy0F2FTnDSXPy3LD1naxcjfp/ertW7htxA==
+"@thx/tools@^17.2.0":
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/@thx/tools/-/tools-17.2.0.tgz#7666d6b770fd765d27d47ddf8ce594076f81eedf"
+  integrity sha512-eJC8hJflmwDfgA3JpmRrX/m640zDHxdXJC0i82qlu2hthuWmgmdbgT8rBr9dyQZkOUuoH7mszgS01xqvmB5PQA==
   dependencies:
     "@babel/core" "^7.17.5"
     "@babel/preset-env" "^7.16.11"
