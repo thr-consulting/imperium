@@ -58,7 +58,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/lru-cache": "^7.4.0",
     "@types/lzbase62": "^2.0.0",
-    "@types/node": "^20.11.22",
+    "@types/node": "^22.15.14",
     "@types/react-dom": "^17.0.13",
     "@types/react-responsive": "^8.0.5",
     "@types/react-router-dom": "^5.3.3",
