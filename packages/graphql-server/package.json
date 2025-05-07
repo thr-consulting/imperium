@@ -40,9 +40,9 @@
 		"@graphql-tools/utils": "^8.6.2",
 		"@imperium/server": "^13.0.8",
 		"@js-joda/core": "^5.2.0",
-		"@thx/date": "^17.0.0",
-		"@thx/env": "^17.1.10",
-		"@thx/money": "^17.0.0",
+		"@thx/date": "^17.2.1",
+		"@thx/env": "^17.2.1",
+		"@thx/money": "^17.2.1",
 		"apollo-server-core": "^3.6.4",
 		"apollo-server-express": "^3.6.4",
 		"apollo-server-plugin-base": "^3.5.1",
@@ -58,7 +58,7 @@
 		"express": "4.x"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	},
 	"publishConfig": {
 		"access": "public"

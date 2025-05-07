@@ -1,8 +1,0 @@
-type Sample {
-    id: String!
-    name: String!
-}
-
-extend type Query {
-    getSample(id: String!): Sample
-}

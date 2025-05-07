@@ -2,9 +2,12 @@ name: Test Workflow
 env:
   DISABLE_V8_COMPILE_CACHE: 1
 on:
-  push:
-    branches-ignore:
-      - master
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   installdeps:
