@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "13.0.8",
+	"version": "13.1.1",
 	"description": "Imperium core server",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -32,8 +32,8 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^13.0.8",
-		"@imperium/connector": "^13.0.7",
+		"@imperium/authorization": "^13.1.1",
+		"@imperium/connector": "^13.1.1",
 		"debug": "^4.4.0",
 		"express": "^4.17.3",
 		"lodash-es": "^4.17.21"

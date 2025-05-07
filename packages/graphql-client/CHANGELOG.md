@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.1](https://github.com/darkadept/imperium/compare/v13.1.0...v13.1.1) (2025-05-07)
+
+### Reverts
+
+- Revert "chore(release): publish [skip-ci]" ([2222130](https://github.com/darkadept/imperium/commit/22221309200f7474056e514073ce6cccf2ea7c09))
+
 ## [13.0.8](https://github.com/darkadept/imperium/compare/v13.0.7...v13.0.8) (2025-04-30)
 
 **Note:** Version bump only for package @imperium/graphql-client
