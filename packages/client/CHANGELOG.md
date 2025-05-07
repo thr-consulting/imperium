@@ -3,10 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [13.1.1](https://github.com/darkadept/imperium/compare/v13.1.0...v13.1.1) (2025-05-07)
-
-**Note:** Version bump only for package @imperium/client
-
 ## [13.0.8](https://github.com/darkadept/imperium/compare/v13.0.7...v13.0.8) (2025-04-30)
 
 **Note:** Version bump only for package @imperium/client

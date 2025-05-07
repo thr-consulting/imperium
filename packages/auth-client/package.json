@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-client",
-	"version": "13.1.1",
+	"version": "13.1.0",
 	"description": "Imperium Auth client package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -31,9 +31,9 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^13.1.1",
-		"@imperium/client": "^13.1.1",
-		"@imperium/state": "^13.1.1",
+		"@imperium/authorization": "^13.0.8",
+		"@imperium/client": "^13.0.8",
+		"@imperium/state": "^13.1.0",
 		"@reduxjs/toolkit": "^1.9.7",
 		"@thx/env": "^17.2.1",
 		"debug": "^4.4.0",
