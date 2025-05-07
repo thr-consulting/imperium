@@ -44,7 +44,7 @@
 		"react": "17.x"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	},
 	"publishConfig": {
 		"access": "public"
