@@ -33,7 +33,7 @@ export function linkParameters(item: BaseLayoutItem & RouteItem<Data>, data: Dat
 				as: Link,
 				active: data.active,
 				to: typeof item.to === 'function' ? item.to(data) : item.to,
-		  }
+			}
 		: {};
 }
 

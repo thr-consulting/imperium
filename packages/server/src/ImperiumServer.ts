@@ -76,22 +76,25 @@ export class ImperiumServer<Context> {
 			}),
 		);
 
-		const startupPromises = this.modules.reduce((memo, module) => {
-			if (module.startup && isFunction(module.startup)) {
-				const moduleStartupReturn = module.startup(this);
-				if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
-					// Add a catch function to the promise
-					moduleStartupReturn.catch(err => {
-						console.group('Error running module startup');
-						console.error(err);
-						console.groupEnd();
-						return Promise.reject(err);
-					});
+		const startupPromises = this.modules.reduce(
+			(memo, module) => {
+				if (module.startup && isFunction(module.startup)) {
+					const moduleStartupReturn = module.startup(this);
+					if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
+						// Add a catch function to the promise
+						moduleStartupReturn.catch(err => {
+							console.group('Error running module startup');
+							console.error(err);
+							console.groupEnd();
+							return Promise.reject(err);
+						});
+					}
+					return [...memo, moduleStartupReturn];
 				}
-				return [...memo, moduleStartupReturn];
-			}
-			return memo;
-		}, [] as Promise<any | void>[]);
+				return memo;
+			},
+			[] as Promise<any | void>[],
+		);
 
 		// Execute startup promises
 		d('Executing module startup');

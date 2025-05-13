@@ -37,7 +37,7 @@
 		"@js-joda/core": "^5.1.0",
 		"@loadable/component": "^5.15.2",
 		"@reduxjs/toolkit": "^1.6.1",
-		"@thx/controls": "^17.2.1",
+		"@thx/controls": "^17.2.2",
 		"@thx/date": "^17.2.1",
 		"@thx/env": "^17.2.1",
 		"@thx/sha256": "^17.2.1",

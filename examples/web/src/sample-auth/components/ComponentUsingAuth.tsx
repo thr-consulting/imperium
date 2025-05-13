@@ -21,13 +21,16 @@ const d = debug('imperium.web.sample-auth.components.ComponentUsingAuth');
 function useTraceUpdate(props: any) {
 	const prev = useRef(props);
 	useEffect(() => {
-		const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-			if (prev.current[k] !== v) {
-				// eslint-disable-next-line no-param-reassign
-				ps[k] = [prev.current[k], v];
-			}
-			return ps;
-		}, {} as Record<string, any>);
+		const changedProps = Object.entries(props).reduce(
+			(ps, [k, v]) => {
+				if (prev.current[k] !== v) {
+					// eslint-disable-next-line no-param-reassign
+					ps[k] = [prev.current[k], v];
+				}
+				return ps;
+			},
+			{} as Record<string, any>,
+		);
 		if (Object.keys(changedProps).length > 0) {
 			d('Changed props:', changedProps);
 		}
