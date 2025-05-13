@@ -2,6 +2,6 @@ export function authorizationHeader(token?: string | null): Record<string, strin
 	return token
 		? {
 				authorization: `Bearer ${token}`,
-		  }
+			}
 		: {};
 }

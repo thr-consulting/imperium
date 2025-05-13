@@ -26,7 +26,7 @@ export function ContentRouter(props: ContentRouterProps) {
 						? props.renderOnUnauth
 						: () => {
 								return <div>Not authenticated</div>;
-						  };
+							};
 					routeProps.children = undefined;
 					routeProps.component = undefined;
 					return <Route key={`${route.path}`} {...routeProps} />;

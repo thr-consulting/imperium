@@ -45,7 +45,7 @@ export function Layout({footer, primaryMenu, statusbar, secondaryMenu, children}
 					...primaryMenu.map(p => {
 						return {...p, text: undefined};
 					}),
-			  ]
+				]
 			: primaryMenu,
 	);
 

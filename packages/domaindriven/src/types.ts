@@ -7,6 +7,5 @@ type RepositoryInitializersOnly<T extends EntityBase> = Pick<
 	'initializeEntity' | 'initializeCollection' | 'initializeCollectionAsArray'
 >;
 
-export type Initializers<T extends AbstractRepository<any>> = T extends AbstractRepository<any>
-	? RepositoryInitializersOnly<ExtractEntityTypeFromRepository<T>>
-	: never;
+export type Initializers<T extends AbstractRepository<any>> =
+	T extends AbstractRepository<any> ? RepositoryInitializersOnly<ExtractEntityTypeFromRepository<T>> : never;

@@ -35,7 +35,7 @@ export function withImperiumState(opts?: StateClientOptions) {
 				? configureStore({
 						reducer,
 						middleware: getDefaultMiddleware => getDefaultMiddleware().concat(opts?.middleware || []),
-				  })
+					})
 				: null;
 		if (store) {
 			d('Redux store created');

@@ -42,7 +42,7 @@
     "@rollup/plugin-graphql": "^1.1.0",
     "@thx/codegen": "^17.2.1",
     "@thx/env": "^17.2.1",
-    "@thx/eslint-config-thx": "^17.2.1",
+    "@thx/eslint-config-thx": "^17.2.2",
     "@thx/prettier-config-thx": "^17.2.1",
     "@thx/rollup-config-thx": "^17.2.1",
     "@thx/sharedcache": "^17.2.1",

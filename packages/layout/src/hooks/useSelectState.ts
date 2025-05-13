@@ -9,7 +9,7 @@ export function useSelectState(stateSelectorHook?: StateSelectorHook | StateSele
 					stateSelectorHook.map(hook => {
 						return (prev: State) => ({...prev, ...hook()});
 					}),
-			  )
+				)
 			: stateSelectorHook;
 	}
 	return finalSelectorHook();
