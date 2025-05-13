@@ -18,9 +18,9 @@ export const mikroOrmConfig = {
 						ssl: process.env.POSTGRESQL_REJECT_UNAUTHORIZED
 							? {
 									rejectUnauthorized: process.env.POSTGRESQL_REJECT_UNAUTHORIZED === 'true',
-							  }
+								}
 							: true,
 					},
-			  }
+				}
 			: {},
 };
