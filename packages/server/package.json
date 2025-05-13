@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/server",
-	"version": "13.1.1",
+	"version": "13.1.2",
 	"description": "Imperium core server",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
