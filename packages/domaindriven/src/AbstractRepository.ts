@@ -13,8 +13,11 @@ import type {
 	Populate,
 	Primary,
 	RequiredEntityData,
+	type Collection,
+	LockMode,
+	type Reference,
+	wrap,
 } from '@mikro-orm/core';
-import {Collection, LockMode, Reference, wrap} from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
@@ -24,7 +27,9 @@ const d = debug('imperium.domaindriven.AbstractRepository');
 
 export abstract class AbstractRepository<EntityType extends EntityBase> {
 	protected readonly repo: EntityRepository<EntityType>;
+
 	protected readonly connectors: Connectors;
+
 	private readonly dataloader: DataLoader<EntityType['id'], EntityType | undefined>;
 
 	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors) {
@@ -190,7 +195,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version Obtains an optimistic lock when deleting.
 	 */
 	public async deleteById(id: EntityType['id'], version: number) {
-		await this.repo.remove(await this.getLock(id, version));
+		this.repo.remove(await this.getLock(id, version));
 		this.dataloader.clear(id);
 	}
 

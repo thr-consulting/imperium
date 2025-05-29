@@ -69,6 +69,7 @@ export default function ComponentUsingAuth() {
 			);
 		}
 	} catch (err) {
+		d(err);
 		payloadText = 'invalid token';
 	}
 
@@ -117,16 +118,26 @@ export default function ComponentUsingAuth() {
 							)
 							.then(v => {
 								d('stuff', v);
-							});
-						authorization.can('getMore').then(v => {
-							d('more', v);
-						});
-						authorization.can({permission: 'getPing', data: {force: true}}).then(v => {
-							d('ping', v);
-						});
-						authorization.can({permission: 'getLoc', data: {force: false}}).then(v => {
-							d('loc', v);
-						});
+							})
+							.catch(err => d(err));
+						authorization
+							.can('getMore')
+							.then(v => {
+								d('more', v);
+							})
+							.catch(err => d(err));
+						authorization
+							.can({permission: 'getPing', data: {force: true}})
+							.then(v => {
+								d('ping', v);
+							})
+							.catch(err => d(err));
+						authorization
+							.can({permission: 'getLoc', data: {force: false}})
+							.then(v => {
+								d('loc', v);
+							})
+							.catch(err => d(err));
 					}}
 				>
 					Check permission
@@ -144,7 +155,8 @@ export default function ComponentUsingAuth() {
 							})
 							.then(data => {
 								d(data);
-							});
+							})
+							.catch(err => d(err));
 					}}
 				>
 					REST
@@ -176,10 +188,12 @@ export default function ComponentUsingAuth() {
 						a.setExpirationTime(b);
 						a.setIssuedAt(b);
 						a.setProtectedHeader({alg: 'HS256'});
-						a.sign(new TextEncoder().encode(serverSecret || '')).then(tok => {
-							window.localStorage.setItem('access', tok);
-							dispatch(renewToken(tok));
-						});
+						a.sign(new TextEncoder().encode(serverSecret || ''))
+							.then(tok => {
+								window.localStorage.setItem('access', tok);
+								dispatch(renewToken(tok));
+							})
+							.catch(err => d(err));
 					}}
 				>
 					Set expired token
@@ -192,10 +206,12 @@ export default function ComponentUsingAuth() {
 						a.setExpirationTime(b);
 						a.setIssuedAt(b);
 						a.setProtectedHeader({alg: 'HS256'});
-						a.sign(new TextEncoder().encode(serverSecret || '')).then(tok => {
-							window.localStorage.setItem('access', tok);
-							dispatch(renewToken(tok));
-						});
+						a.sign(new TextEncoder().encode(serverSecret || ''))
+							.then(tok => {
+								window.localStorage.setItem('access', tok);
+								dispatch(renewToken(tok));
+							})
+							.catch(err => d(err));
 					}}
 				>
 					Set almost expired token
@@ -208,10 +224,12 @@ export default function ComponentUsingAuth() {
 						a.setExpirationTime(b);
 						a.setIssuedAt(b);
 						a.setProtectedHeader({alg: 'HS256'});
-						a.sign(new TextEncoder().encode(serverSecret || '')).then(tok => {
-							window.localStorage.setItem('access', tok);
-							dispatch(renewToken(tok));
-						});
+						a.sign(new TextEncoder().encode(serverSecret || ''))
+							.then(tok => {
+								window.localStorage.setItem('access', tok);
+								dispatch(renewToken(tok));
+							})
+							.catch(err => d(err));
 					}}
 				>
 					Set valid token

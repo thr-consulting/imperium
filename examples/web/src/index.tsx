@@ -36,6 +36,8 @@ client
 	});
 
 // Testing dynamic chunk
-import('~common/test').then(({test}) => {
-	test();
-});
+import('~common/test')
+	.then(({test}) => {
+		test();
+	})
+	.catch(err => d(err));

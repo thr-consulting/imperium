@@ -1,9 +1,9 @@
-import {ApolloClientOptions, ApolloProvider, NormalizedCacheObject} from '@apollo/client';
+import {type ApolloClientOptions, ApolloProvider, type NormalizedCacheObject} from '@apollo/client';
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
-import {ComponentType, useMemo, useState} from 'react';
+import {type ComponentType, useMemo, useState} from 'react';
 import {ImperiumGraphqlContext} from './ImperiumGraphqlContext';
-import {createApolloClient, ImpApolloClient} from './createApolloClient';
+import {createApolloClient, type ImpApolloClient} from './createApolloClient';
 
 const d = debug('imperium.graphql-client.withGraphql');
 

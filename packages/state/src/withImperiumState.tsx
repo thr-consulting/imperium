@@ -1,9 +1,9 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
-import {configureStore, Slice} from '@reduxjs/toolkit';
+import {configureStore, type Slice} from '@reduxjs/toolkit';
 import debug from 'debug';
 import type {ComponentType} from 'react';
 import {Provider} from 'react-redux';
-import {isImperiumStateClientModule, StateClientOptions} from './types';
+import {isImperiumStateClientModule, type StateClientOptions} from './types';
 
 const d = debug('imperium.state.withImperiumState');
 

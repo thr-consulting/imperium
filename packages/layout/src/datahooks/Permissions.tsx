@@ -26,11 +26,14 @@ export function Permissions({permissions}: PermissionsProps) {
 				};
 			});
 			permissionsWithData.forEach(permission => {
-				authorization.can(permission).then(result => {
-					dispatch(actions.setPermission({...permission, result}));
-				});
+				authorization
+					.can(permission)
+					.then(result => {
+						dispatch(actions.setPermission({...permission, result}));
+					})
+					.catch(err => d(err));
 			});
-		})();
+		})().catch(err => d(err));
 	}, [dispatch, permissions, authorization, layoutState.params]);
 
 	return null;

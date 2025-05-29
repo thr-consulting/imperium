@@ -1,8 +1,8 @@
 import type {ImperiumServer} from '@imperium/server';
 import {env} from '@thx/env';
 import debug from 'debug';
-import {execute, GraphQLSchema, subscribe} from 'graphql';
-import {ServerOptions, SubscriptionServer} from 'subscriptions-transport-ws';
+import {execute, type GraphQLSchema, subscribe} from 'graphql';
+import {type ServerOptions, SubscriptionServer} from 'subscriptions-transport-ws';
 import {defaults} from './defaults';
 
 const d = debug('imperium.graphql-server.createSubscriptionServer');

@@ -2,8 +2,8 @@
 import type {AuthenticationRequest} from '@imperium/authorization';
 import type {Connectors} from '@imperium/connector';
 import debug from 'debug';
-import express, {Application, RequestHandler} from 'express';
-import {createServer, Server} from 'http';
+import express, {type Application, type RequestHandler} from 'express';
+import {createServer, type Server} from 'http';
 import {isFunction} from 'lodash-es';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
@@ -11,10 +11,15 @@ const d = debug('imperium.server.ImperiumServer');
 
 export class ImperiumServer<Context> {
 	private readonly _moduleFactoryFn: () => ImperiumServerModule<Context>[];
+
 	private readonly _contextCreator: (connector: Connectors, authenticatedUser?: AuthenticationRequest) => Promise<Context>;
+
 	private _expressApp: Application | null = null;
+
 	private _httpServer: Server | null = null;
+
 	private readonly _httpPort: number;
+
 	private _modules: ImperiumServerModule<Context>[];
 
 	public readonly connectors: Connectors;
@@ -41,11 +46,13 @@ export class ImperiumServer<Context> {
 	public contextMiddleware(): RequestHandler {
 		return (req, res, next) => {
 			// @ts-ignore
-			this.createContext(req).then(ctx => {
-				// @ts-ignore
-				req.context = ctx;
-				next();
-			});
+			this.createContext(req)
+				.then(ctx => {
+					// @ts-ignore
+					req.context = ctx;
+					next();
+				})
+				.catch(err => d(err));
 		};
 	}
 

@@ -1,5 +1,5 @@
 import type {DefineRouteOptions} from '@imperium/router';
-import {Icon, SemanticCOLORS} from 'semantic-ui-react';
+import {Icon, type SemanticCOLORS} from 'semantic-ui-react';
 import type {RouteItem} from '../commonItems';
 import type {BaseSidebarItem, ContentData} from './types';
 

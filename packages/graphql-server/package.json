@@ -40,7 +40,7 @@
 		"@graphql-tools/utils": "^8.6.2",
 		"@imperium/server": "^13.1.2",
 		"@js-joda/core": "^5.2.0",
-		"@thx/date": "^17.2.1",
+		"@thx/date": "^17.3.1",
 		"@thx/env": "^17.2.1",
 		"@thx/money": "^17.2.1",
 		"apollo-server-core": "^3.6.4",
