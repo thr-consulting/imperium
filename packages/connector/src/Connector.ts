@@ -8,9 +8,13 @@ interface ConnectorConfig<T> {
 
 export class Connector<T = unknown> {
 	public readonly name: string;
+
 	readonly #connect: ConnectorConfig<T>['connect'];
+
 	readonly #close?: ConnectorConfig<T>['close'];
+
 	readonly #isReady?: ConnectorConfig<T>['isReady'];
+
 	#instance?: T;
 
 	constructor(name: string, config: ConnectorConfig<T>) {

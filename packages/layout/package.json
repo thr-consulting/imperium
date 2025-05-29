@@ -35,7 +35,7 @@
 		"@imperium/client": "^13.1.1",
 		"@imperium/router": "^13.1.2",
 		"@imperium/state": "^13.1.2",
-		"@thx/controls": "^17.2.2",
+		"@thx/controls": "^17.3.1",
 		"debug": "^4.4.0",
 		"history": "^5.0.1",
 		"lodash-es": "^4.17.21",

@@ -9,6 +9,7 @@ type CreateConnectors = () => Promise<Connector[]>;
 
 export class Connectors {
 	private connectors: NamedConnectors;
+
 	private readonly createConnectors: CreateConnectors;
 
 	constructor(createConnectors: CreateConnectors) {

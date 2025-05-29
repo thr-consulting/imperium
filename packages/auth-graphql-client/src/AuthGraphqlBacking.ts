@@ -5,6 +5,7 @@ type AuthGraphqlBackingPublishTokenFn = (token: string | null) => void;
  */
 export class AuthGraphqlBacking {
 	#token: string | null;
+
 	#publishFn: AuthGraphqlBackingPublishTokenFn;
 
 	constructor() {

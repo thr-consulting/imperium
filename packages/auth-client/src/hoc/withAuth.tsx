@@ -2,7 +2,7 @@ import {type AuthenticationToken, Authorization, noPermissionLookup} from '@impe
 import type {Hoc} from '@imperium/client';
 import {env} from '@thx/env';
 import debug from 'debug';
-import {ComponentType, memo, useEffect, useMemo, useRef} from 'react';
+import {type ComponentType, memo, useEffect, useMemo, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {AuthContext} from '../AuthContext';
 import {CacheContext} from '../CacheContext';
@@ -50,7 +50,7 @@ export function withAuth(opts?: AuthClientOptions) {
 				useEffect(() => {
 					(async function iife() {
 						await cache.current.open();
-					})();
+					})().catch(err => d(err));
 				}, [authContext]);
 
 				// Cleanup if we ever become un-authenticated
@@ -66,7 +66,7 @@ export function withAuth(opts?: AuthClientOptions) {
 							await cache.current.clearAll();
 							dispatch(setAuthenticated({token: null}));
 						}
-					})();
+					})().catch(err => d(err));
 				}, [dispatch, id, token?.length]);
 
 				return (

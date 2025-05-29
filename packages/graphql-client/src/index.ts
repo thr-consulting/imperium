@@ -1,5 +1,5 @@
 import type {ImperiumClientModule} from '@imperium/client';
-import {withGraphql, GraphqlClientOptions} from './withGraphql';
+import {withGraphql, type GraphqlClientOptions} from './withGraphql';
 
 /**
  * Imperium Graphql Module

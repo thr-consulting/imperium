@@ -12,6 +12,7 @@ export abstract class AbstractHeartbeat<T, CTX> {
 	}
 
 	public readonly name: string;
+
 	public readonly cronSchedule?: string; // cron schedule
 	public abstract select(): Promise<T[]>;
 	public abstract command(item: T): Promise<void>;

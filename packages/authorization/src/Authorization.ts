@@ -21,10 +21,15 @@ interface AuthorizationConstructor<Extra extends AuthenticationBase> {
 
 export class Authorization<Extra extends AuthenticationBase, Context = any> {
 	#lookup: PermissionLookup<Extra> = noPermissionLookup;
+
 	readonly #dataloader: DataLoader<string, boolean>;
+
 	readonly #lrucache: LruCache<string, boolean>;
+
 	#cache?: AuthorizationCache;
+
 	readonly #extra?: Extra;
+
 	private ctx?: Context;
 
 	public constructor(opts?: AuthorizationConstructor<Extra>) {
@@ -188,5 +193,6 @@ export class Authorization<Extra extends AuthenticationBase, Context = any> {
 	}
 
 	static keyToString = keyToString;
+
 	static stringToKey = stringToKey; // Needed by @imperium/auth-server
 }

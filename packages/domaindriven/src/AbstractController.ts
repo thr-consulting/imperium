@@ -8,8 +8,11 @@ export interface AbstractControllerOptions {
 
 export abstract class AbstractController<Repos, Extra extends AuthenticationBase> {
 	protected readonly repos: Repos;
+
 	private readonly em: EntityManager;
+
 	readonly authorization: Authorization<Extra>;
+
 	protected readonly opts?: AbstractControllerOptions;
 
 	protected constructor(repos: Repos, em: EntityManager, authorization: Authorization<Extra>, opts?: AbstractControllerOptions) {

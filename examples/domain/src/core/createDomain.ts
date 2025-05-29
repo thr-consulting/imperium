@@ -1,5 +1,5 @@
 import {type AuthenticationRequest, Authorization} from '@imperium/authorization';
-import {Connectors, ImperiumBaseContext} from '@imperium/connector';
+import {type Connectors, ImperiumBaseContext} from '@imperium/connector';
 import {Domain} from '@imperium/domaindriven';
 import debug from 'debug';
 import {authModule} from '../auth';

@@ -25,6 +25,7 @@ export interface DomainCon<Repositories> {
 
 export class Domain<Extra extends AuthenticationBase, Repositories = any> {
 	#permissions: Permissions<Repositories> = {};
+
 	readonly #repositories: Repositories;
 
 	constructor({modules, repositories}: DomainCon<Repositories>) {

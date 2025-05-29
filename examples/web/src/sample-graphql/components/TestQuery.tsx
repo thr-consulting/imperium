@@ -21,7 +21,7 @@ export function TestQuery() {
 			<Button
 				size="mini"
 				onClick={() => {
-					refetch();
+					refetch().catch(e => d(e));
 				}}
 			>
 				Refetch Query

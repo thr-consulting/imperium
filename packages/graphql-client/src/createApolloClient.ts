@@ -1,9 +1,9 @@
-import {ApolloClient, InMemoryCache, MutationOptions, QueryOptions, WatchQueryOptions} from '@apollo/client';
+import {ApolloClient, InMemoryCache, type MutationOptions, type QueryOptions, type WatchQueryOptions} from '@apollo/client';
 import type {ImperiumClient} from '@imperium/client';
 import {env} from '@thx/env';
 import debug from 'debug';
 import mergeOptions from 'merge-options';
-import {createLink, ILink} from './createLink';
+import {createLink, type ILink} from './createLink';
 import {defaults} from './defaults';
 import type {GraphqlClientOptions} from './withGraphql';
 
@@ -32,12 +32,15 @@ interface CreateClientOpts {
 export function createApolloClient({client, opts, apolloClient}: CreateClientOpts) {
 	if (apolloClient) {
 		d('Stopping old Apollo client');
-		apolloClient.client.clearStore().then(() => {
-			apolloClient.client.stop();
-			if (apolloClient.link) {
-				apolloClient.link.close();
-			}
-		});
+		apolloClient.client
+			.clearStore()
+			.then(() => {
+				apolloClient.client.stop();
+				if (apolloClient.link) {
+					apolloClient.link.close();
+				}
+			})
+			.catch(err => d(err));
 	}
 
 	const apolloDefaults = env.getRecord('apolloDefaults', defaults.apolloDefaults) as unknown as ApolloDefaults;

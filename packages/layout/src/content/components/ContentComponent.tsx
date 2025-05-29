@@ -1,7 +1,7 @@
 import type {DefineRouteOptions} from '@imperium/router';
 import debug from 'debug';
 import {isEqual} from 'lodash-es';
-import {DependencyList, EffectCallback, useEffect, useRef, useState} from 'react';
+import {type DependencyList, type EffectCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Button} from 'semantic-ui-react';
 import {useMediaQuery} from 'react-responsive';

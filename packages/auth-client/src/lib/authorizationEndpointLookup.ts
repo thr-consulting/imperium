@@ -26,46 +26,49 @@ export const authorizationEndpointLookup: PermissionLookup<AuthenticationToken> 
 		}
 
 		d(`Fetching authorization keys: ${keyStrings.join(', ')}`);
-		authorization.extra.getToken().then(token => {
-			if (!token) {
-				resolve(keyStrings.map(() => false));
-				return;
-			}
+		authorization.extra
+			.getToken()
+			.then(token => {
+				if (!token) {
+					resolve(keyStrings.map(() => false));
+					return;
+				}
 
-			const url = new URL(env.getString('authPermissionUrl', defaults.authPermissionUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
-			fetch(
-				url.href,
-				injectNewAuthorization(token, {
-					method: 'POST',
-					mode: 'cors',
-					credentials: 'include',
-					body: JSON.stringify({
-						permissions: keyStrings,
+				const url = new URL(env.getString('authPermissionUrl', defaults.authPermissionUrl), env.getString('IMP_API_URL', defaults.IMP_API_URL));
+				fetch(
+					url.href,
+					injectNewAuthorization(token, {
+						method: 'POST',
+						mode: 'cors',
+						credentials: 'include',
+						body: JSON.stringify({
+							permissions: keyStrings,
+						}),
+						headers: {
+							'content-type': 'application/json',
+						},
 					}),
-					headers: {
-						'content-type': 'application/json',
-					},
-				}),
-			)
-				.then(res => {
-					if (!res.ok) reject(res.statusText);
-					d(`Authorization fetched ${keyStrings.join(', ')}: ${res.ok}`);
-					res
-						.json()
-						.then(returnJson => {
-							if (isRestResult(returnJson)) {
-								resolve(returnJson.results);
-							} else {
-								reject(new Error('Authorization results not an array'));
-							}
-						})
-						.catch(() => {
-							reject(new Error('No authorization results'));
-						});
-				})
-				.catch(err => {
-					reject(err);
-				});
-		});
+				)
+					.then(res => {
+						if (!res.ok) reject(res.statusText);
+						d(`Authorization fetched ${keyStrings.join(', ')}: ${res.ok}`);
+						res
+							.json()
+							.then(returnJson => {
+								if (isRestResult(returnJson)) {
+									resolve(returnJson.results);
+								} else {
+									reject(new Error('Authorization results not an array'));
+								}
+							})
+							.catch(() => {
+								reject(new Error('No authorization results'));
+							});
+					})
+					.catch(err => {
+						reject(err);
+					});
+			})
+			.catch(err => d(err));
 	});
 };

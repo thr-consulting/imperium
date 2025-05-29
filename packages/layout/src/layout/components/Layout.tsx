@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {ReactNode, useState} from 'react';
+import {type ReactNode, useState} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import {Segment} from 'semantic-ui-react';
 import {moveItems} from '../moveItems';

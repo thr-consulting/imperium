@@ -32,9 +32,11 @@
 	},
 	"dependencies": {
 		"@imperium/authorization": "^13.1.1",
-		"@imperium/connector": "^13.1.1",
 		"dataloader": "^2.2.2",
 		"debug": "^4.4.0"
+	},
+	"devDependencies": {
+		"@imperium/connector": "^13.1.1"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "5.x",

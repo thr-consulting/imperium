@@ -28,9 +28,11 @@ export function resolvers(server: ImperiumServer<Context>): Resolvers {
 				// data to the client via the subscription by passing it as the payload
 				// to pubsub.publish(). The payload is an object with the key of the
 				// subscription name.
-				getConnector('pubsub', ctx.connectors).publish('VALUECHANGED', {
-					subscriptionValueChanged: data,
-				});
+				getConnector('pubsub', ctx.connectors)
+					.publish('VALUECHANGED', {
+						subscriptionValueChanged: data,
+					})
+					.catch(err => d(err));
 
 				// Return value for the mutation.
 				return data;

@@ -1,4 +1,4 @@
-import {Button, Grid, GridColumn, GridRow, List, ListItem} from 'semantic-ui-react';
+import {Button, List, ListItem} from 'semantic-ui-react';
 
 export function SampleSidebar() {
 	return (

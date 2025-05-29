@@ -45,7 +45,7 @@ export function useAccessToken() {
 	useEffect(() => {
 		(async function iife() {
 			await getToken();
-		})();
+		})().catch(err => d(err));
 	}, [getToken]);
 
 	return {token, getToken};
