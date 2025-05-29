@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "13.1.2",
+	"version": "13.1.3",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "Mike Kornelson <darkadept@durbn.net>",
@@ -28,10 +28,10 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-server": "^13.1.2",
-		"@imperium/authorization": "^13.1.1",
-		"@imperium/connector": "^13.1.1",
-		"@imperium/domaindriven": "^13.1.2",
+		"@imperium/auth-server": "^13.1.3",
+		"@imperium/authorization": "^13.1.3",
+		"@imperium/connector": "^13.1.3",
+		"@imperium/domaindriven": "^13.1.3",
 		"@js-joda/core": "^5.2.0",
 		"debug": "^4.4.0",
 		"graphql-subscriptions": "^2.0.0",

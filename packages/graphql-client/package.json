@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/graphql-client",
-	"version": "13.1.1",
+	"version": "13.1.3",
 	"description": "Imperium Graphql client package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/client": "^13.1.1",
+		"@imperium/client": "^13.1.3",
 		"@thx/env": "^17.2.1",
 		"@thx/util": "^17.3.1",
 		"debug": "^4.4.0",

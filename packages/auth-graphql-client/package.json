@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-graphql-client",
-	"version": "13.1.2",
+	"version": "13.1.3",
 	"description": "Imperium Auth Graphql client package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -32,9 +32,9 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.5.10",
-		"@imperium/auth-client": "^13.1.2",
-		"@imperium/client": "^13.1.1",
-		"@imperium/graphql-client": "^13.1.1",
+		"@imperium/auth-client": "^13.1.3",
+		"@imperium/client": "^13.1.3",
+		"@imperium/graphql-client": "^13.1.3",
 		"@thx/env": "^17.2.1",
 		"apollo-link-token-refresh": "^0.6.1",
 		"debug": "^4.4.0"
