@@ -13,7 +13,7 @@ export function PlainSidebarItem<T extends DefineRouteOptions, K extends keyof T
 	const icon = getIcon(item, data);
 
 	return (
-		<Button fluid compact color={getColor(item, data)} icon={!!icon} labelPosition={icon ? 'left' : undefined} as={Link} to={getRouteTo(item, data)}>
+		<Button fluid color={getColor(item, data)} icon={!!icon} labelPosition={icon ? 'left' : undefined} as={Link} to={getRouteTo(item, data)}>
 			{icon}
 			{getText(item, data)}
 		</Button>

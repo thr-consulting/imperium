@@ -37,7 +37,6 @@ export function ActionFormSidebarItemComponent<T extends DefineRouteOptions, K e
 	return (
 		<Button
 			fluid
-			compact
 			color={getColor(item, data)}
 			icon={!!icon}
 			labelPosition={icon ? 'left' : undefined}
