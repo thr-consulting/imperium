@@ -2066,20 +2066,20 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@js-joda/core@^5.1.0", "@js-joda/core@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@js-joda/core/-/core-5.2.0.tgz#fcebb14cffbf25adaaeec20d4579530e896ecd4a"
-  integrity sha512-0OriPYIaMLB3XiLQMe0BXKVIqeriTn3H7JMOzTsHEtt7Zqq+TetCu97KnAhU3ckiQZKBxfZshft+H1OC4D1lXw==
+"@js-joda/core@^5.6.5":
+  version "5.6.5"
+  resolved "https://registry.yarnpkg.com/@js-joda/core/-/core-5.6.5.tgz#c766894b49eb8044480b91625fb7dc370e8182ef"
+  integrity sha512-3zwefSMwHpu8iVUW8YYz227sIv6UFqO31p1Bf1ZH/Vom7CmNyUsXjDBlnNzcuhmOL1XfxZ3nvND42kR23XlbcQ==
 
-"@js-joda/locale_en@^4.7.0":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@js-joda/locale_en/-/locale_en-4.7.0.tgz#f6ab26bd7fccba053c865c447c2d634b04e4f0d1"
-  integrity sha512-FPoc0Y8ClxOzQSY8sq75DmlVcwKNxzbYxV/Ermf4f+5vY/0WdYb51jLvlQJTxhKQO0nmQ8Bf6Og7pbrUHFfTTQ==
+"@js-joda/locale_en@^4.15.1":
+  version "4.15.1"
+  resolved "https://registry.yarnpkg.com/@js-joda/locale_en/-/locale_en-4.15.1.tgz#9c51609b8eaaf8e4b5731a50b944a3786e5f5716"
+  integrity sha512-HgjN66i+8tAL9VSb8Gu6C5rPnFrB/AI5qrm8ykt80Nr158KB9QGgBWpF2ikZz4xjRtJfOGr1CrdSCbpwNcbRdg==
 
-"@js-joda/timezone@^2.12.0":
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/@js-joda/timezone/-/timezone-2.12.0.tgz#a0b89ec5b4b2a53c0837f0308503ba5ecc8abc5f"
-  integrity sha512-1bpkGU3bh80wqR1TCpMXpgpwVs7RpIkYmq75JIGl+NRFIKEhE3qHYBtS4EFSAkVxCTZSj6b9dolr8ijq36GJEQ==
+"@js-joda/timezone@^2.22.0":
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/@js-joda/timezone/-/timezone-2.22.0.tgz#dc0eea2b33c6bac4404240ce91095573543f5d3e"
+  integrity sha512-9UNXxEztbcofD6XvV7xPrbzB2nE/AWaHr/XfugRZgVqg2vCZOVPnD8QI7GW164EFIWMw0c97Gs6STJ5dh0J99Q==
 
 "@kesills/eslint-config-airbnb-typescript@^20.0.0":
   version "20.0.0"
@@ -2789,13 +2789,13 @@
     js-yaml "^4.1.0"
     lodash-es "^4.17.21"
 
-"@thx/controls@^17.3.1":
-  version "17.3.1"
-  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-17.3.1.tgz#d247db87149ebe8460353d7b7a1117db7c1bc23f"
-  integrity sha512-gLPlO90kNUKIOkV7wMU3kM8SkLjUHHDonym6iGjmcXpZWeGOAZzVnvLW/AV+RwyrIfWeSMAnEwHXQ3NrQxtdvA==
+"@thx/controls@^17.3.2":
+  version "17.3.2"
+  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-17.3.2.tgz#fc7877aa56c0dd63b8f866d30d637abd4e9dcd3a"
+  integrity sha512-FwDDaI4bLsIdZfmZ0h6t0P03wLNOpfbgj+OqAIWJ+DO/Um+NgdFbSjO4sXH6DA8cFL2PmRx0yk2GH7zANqVcFw==
   dependencies:
-    "@js-joda/core" "^5.1.0"
-    "@thx/date" "^17.3.1"
+    "@js-joda/core" "^5.6.5"
+    "@thx/date" "^17.3.2"
     "@thx/money" "^17.2.1"
     "@types/inputmask" "^5.0.7"
     "@types/react-datepicker" "^6.0.1"
@@ -2813,14 +2813,14 @@
     social-insurance-number "^0.2.2"
     use-deep-compare-effect "1.4.0"
 
-"@thx/date@^17.3.1":
-  version "17.3.1"
-  resolved "https://registry.yarnpkg.com/@thx/date/-/date-17.3.1.tgz#f5df7f4be113a8ed4dc13d1723c26091afb3ac63"
-  integrity sha512-sjkRmqBBp9cH+T1a0YCsV8t1F8d/ZojbvjOkEIjA37+qI1606X5SQG7q7rwdDOmP2Jbn2SaTea+NaUiwEXkniQ==
+"@thx/date@^17.3.2":
+  version "17.3.2"
+  resolved "https://registry.yarnpkg.com/@thx/date/-/date-17.3.2.tgz#5e4e669e768bb8d9b8b7b940d9d4220e8b7d9507"
+  integrity sha512-WBa2KvUYIMHhwrXNzUIz7/vvOQq+8xmKRXWtoRglKplkFr7Hbs7/HXQRUtEcoihxDvA9lRfz/+M8Bu6TxTdzWw==
   dependencies:
-    "@js-joda/core" "^5.2.0"
-    "@js-joda/locale_en" "^4.7.0"
-    "@js-joda/timezone" "^2.12.0"
+    "@js-joda/core" "^5.6.5"
+    "@js-joda/locale_en" "^4.15.1"
+    "@js-joda/timezone" "^2.22.0"
 
 "@thx/env@^17.2.1":
   version "17.2.1"
@@ -2890,13 +2890,13 @@
   resolved "https://registry.yarnpkg.com/@thx/promise-sequential/-/promise-sequential-17.2.1.tgz#17a7bb5c13ca60f06c37292513287ee33dcf3eda"
   integrity sha512-H5PIpilFEU3IeQRmSuFH1sGjVeVXPlwYTo0j1QwAaRxUqjElQPmTeK8Il1heQvaWXOw9Cj4hNvCn36mY+4M7eg==
 
-"@thx/random@^17.3.1":
-  version "17.3.1"
-  resolved "https://registry.yarnpkg.com/@thx/random/-/random-17.3.1.tgz#ee69d79387ac48deac919d6daa701589bbd5ffb5"
-  integrity sha512-eYkzdPn0Pb9NxOVYLAZTd8ThLupSUzAxwtukFjnnXnfHal5mUdpVlDFUzILGM+EXmwbCCo00dw5EC/RgfQdPiQ==
+"@thx/random@^17.3.2":
+  version "17.3.2"
+  resolved "https://registry.yarnpkg.com/@thx/random/-/random-17.3.2.tgz#aaaf9b3b45f984cb72f0c61ce8c4598a1e90cc90"
+  integrity sha512-WmHlTQrP4LEmKdPMutX+jRIgclnU0e7XPE1b83NgePaM05rkp8lcG+pPLDRJ+ufk+ilpI/T60HRcoc1nvKU9bw==
   dependencies:
-    "@js-joda/core" "^5.2.0"
-    "@thx/date" "^17.3.1"
+    "@js-joda/core" "^5.6.5"
+    "@thx/date" "^17.3.2"
     nanoid "^3.2.0"
 
 "@thx/rollup-config-thx@^17.2.1":
