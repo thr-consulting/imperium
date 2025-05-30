@@ -14,7 +14,6 @@ export function ActionSidebarItemComponent<T extends DefineRouteOptions, K exten
 	return (
 		<Button
 			fluid
-			compact
 			color={getColor(item, data)}
 			icon={!!icon}
 			labelPosition={icon ? 'left' : undefined}
