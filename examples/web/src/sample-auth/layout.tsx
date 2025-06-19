@@ -1,9 +1,9 @@
+import {useCan} from '@imperium/auth-client';
 import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
-import {useCan} from '@imperium/auth-client';
 import {Permission} from '../core/graphql';
-import {routes} from './routes';
 import {useSampleState} from '../sample-state/state';
+import {routes} from './routes';
 
 const d = debug('imperium.web.sample-auth.layout');
 

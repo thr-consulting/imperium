@@ -7,37 +7,39 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  DateTime: Date;
-  Email: string;
-  LocalDate: LocalDate;
-  LocalTime: LocalTime;
-  Money: any;
-  ObjectId: any;
-  Password: string;
-  URL: any;
-  UUID: string;
-  Upload: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: Date; output: Date; }
+  Email: { input: string; output: string; }
+  LocalDate: { input: LocalDate; output: LocalDate; }
+  LocalTime: { input: LocalTime; output: LocalTime; }
+  Money: { input: any; output: any; }
+  ObjectId: { input: any; output: any; }
+  Password: { input: string; output: string; }
+  URL: { input: any; output: any; }
+  UUID: { input: string; output: string; }
+  Upload: { input: any; output: any; }
 };
 
 export type CacheList = {
   __typename?: 'CacheList';
-  id: Scalars['String'];
-  name: Scalars['String'];
-  type: Scalars['String'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  type: Scalars['String']['output'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   changeSubscriptionValue?: Maybe<SubscriptionValue>;
-  root?: Maybe<Scalars['String']>;
+  root?: Maybe<Scalars['String']['output']>;
 };
 
 export enum Permission {
@@ -49,27 +51,27 @@ export enum Permission {
 
 export type Query = {
   __typename?: 'Query';
-  getAuthData: Scalars['String'];
+  getAuthData: Scalars['String']['output'];
   getCacheList?: Maybe<Array<Maybe<CacheList>>>;
-  getData?: Maybe<Scalars['Int']>;
+  getData?: Maybe<Scalars['Int']['output']>;
   getSubscriptionValue?: Maybe<SubscriptionValue>;
-  root?: Maybe<Scalars['String']>;
+  root?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type QueryGetCacheListArgs = {
-  filter: Scalars['String'];
+  filter: Scalars['String']['input'];
 };
 
 export type Subscription = {
   __typename?: 'Subscription';
-  root?: Maybe<Scalars['String']>;
+  root?: Maybe<Scalars['String']['output']>;
   subscriptionValueChanged?: Maybe<SubscriptionValue>;
 };
 
 export type SubscriptionValue = {
   __typename?: 'SubscriptionValue';
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -140,49 +142,51 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CacheList: ResolverTypeWrapper<CacheList>;
-  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Email: ResolverTypeWrapper<Scalars['Email']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  LocalDate: ResolverTypeWrapper<Scalars['LocalDate']>;
-  LocalTime: ResolverTypeWrapper<Scalars['LocalTime']>;
-  Money: ResolverTypeWrapper<Scalars['Money']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  Email: ResolverTypeWrapper<Scalars['Email']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  LocalDate: ResolverTypeWrapper<Scalars['LocalDate']['output']>;
+  LocalTime: ResolverTypeWrapper<Scalars['LocalTime']['output']>;
+  Money: ResolverTypeWrapper<Scalars['Money']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
-  ObjectId: ResolverTypeWrapper<Scalars['ObjectId']>;
-  Password: ResolverTypeWrapper<Scalars['Password']>;
+  ObjectId: ResolverTypeWrapper<Scalars['ObjectId']['output']>;
+  Password: ResolverTypeWrapper<Scalars['Password']['output']>;
   Permission: Permission;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
   SubscriptionValue: ResolverTypeWrapper<SubscriptionValue>;
-  URL: ResolverTypeWrapper<Scalars['URL']>;
-  UUID: ResolverTypeWrapper<Scalars['UUID']>;
-  Upload: ResolverTypeWrapper<Scalars['Upload']>;
+  URL: ResolverTypeWrapper<Scalars['URL']['output']>;
+  UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
+  Upload: ResolverTypeWrapper<Scalars['Upload']['output']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Boolean: Scalars['Boolean'];
+  Boolean: Scalars['Boolean']['output'];
   CacheList: CacheList;
-  DateTime: Scalars['DateTime'];
-  Email: Scalars['Email'];
-  Int: Scalars['Int'];
-  LocalDate: Scalars['LocalDate'];
-  LocalTime: Scalars['LocalTime'];
-  Money: Scalars['Money'];
+  DateTime: Scalars['DateTime']['output'];
+  Email: Scalars['Email']['output'];
+  Int: Scalars['Int']['output'];
+  LocalDate: Scalars['LocalDate']['output'];
+  LocalTime: Scalars['LocalTime']['output'];
+  Money: Scalars['Money']['output'];
   Mutation: {};
-  ObjectId: Scalars['ObjectId'];
-  Password: Scalars['Password'];
+  ObjectId: Scalars['ObjectId']['output'];
+  Password: Scalars['Password']['output'];
   Query: {};
-  String: Scalars['String'];
+  String: Scalars['String']['output'];
   Subscription: {};
   SubscriptionValue: SubscriptionValue;
-  URL: Scalars['URL'];
-  UUID: Scalars['UUID'];
-  Upload: Scalars['Upload'];
+  URL: Scalars['URL']['output'];
+  UUID: Scalars['UUID']['output'];
+  Upload: Scalars['Upload']['output'];
 }>;
 
 export type CacheListResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CacheList'] = ResolversParentTypes['CacheList']> = ResolversObject<{

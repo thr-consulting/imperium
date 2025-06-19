@@ -1,7 +1,7 @@
+import type {AuthenticationRequest} from '@imperium/authorization';
 import type {ImperiumContext, Connectors} from '@imperium/connector';
 import {createDomain} from '@imperium/example-domain';
 import debug from 'debug';
-import type {AuthenticationRequest} from '@imperium/authorization';
 
 const d = debug('imperium.server.core.context');
 

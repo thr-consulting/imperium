@@ -1,11 +1,11 @@
-import 'react';
 import {ImperiumClient} from '@imperium/client';
 import {debug} from 'debug';
-import {render} from 'react-dom';
+import 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import {render} from 'react-dom';
+import {Root} from './Root';
 import {clientModules} from './core/clientModules';
 import './core/styles.css';
-import {Root} from './Root';
 
 const d = debug('imperium.web');
 

@@ -38,6 +38,11 @@ export function useQLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QQuery, 
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<QQuery, QQueryVariables>(Operations, options);
         }
+export function useQSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<QQuery, QQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QQuery, QQueryVariables>(Operations, options);
+        }
 export type QQueryHookResult = ReturnType<typeof useQQuery>;
 export type QLazyQueryHookResult = ReturnType<typeof useQLazyQuery>;
+export type QSuspenseQueryHookResult = ReturnType<typeof useQSuspenseQuery>;
 export type QQueryResult = Apollo.QueryResult<QQuery, QQueryVariables>;

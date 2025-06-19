@@ -38,6 +38,11 @@ export function useGetDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetDataQuery, GetDataQueryVariables>(Operations, options);
         }
+export function useGetDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetDataQuery, GetDataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetDataQuery, GetDataQueryVariables>(Operations, options);
+        }
 export type GetDataQueryHookResult = ReturnType<typeof useGetDataQuery>;
 export type GetDataLazyQueryHookResult = ReturnType<typeof useGetDataLazyQuery>;
+export type GetDataSuspenseQueryHookResult = ReturnType<typeof useGetDataSuspenseQuery>;
 export type GetDataQueryResult = Apollo.QueryResult<GetDataQuery, GetDataQueryVariables>;
