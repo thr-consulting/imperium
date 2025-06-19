@@ -8,12 +8,12 @@ import {
 	useLogin,
 	useLogout,
 } from '@imperium/auth-client';
+import sha256 from '@thx/sha256';
 import debug from 'debug';
 import {decodeJwt, SignJWT} from 'jose';
 import {useEffect, useRef, useState} from 'react';
-import {Button, Input, Segment} from 'semantic-ui-react';
 import {useDispatch} from 'react-redux';
-import sha256 from '@thx/sha256';
+import {Button, Input, Segment} from 'semantic-ui-react';
 import {TestMutation} from '../../sample-graphql/components/TestMutation';
 
 const d = debug('imperium.web.sample-auth.components.ComponentUsingAuth');

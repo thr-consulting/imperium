@@ -32,7 +32,7 @@
     "yak": "tools/yak.sh"
   },
   "devDependencies": {
-    "@apollo/client": "^3.5.10",
+    "@apollo/client": "^3.13.8",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@mikro-orm/core": "^5.1.2",
@@ -40,7 +40,7 @@
     "@reduxjs/toolkit": "^1.8.0",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-graphql": "^1.1.0",
-    "@thx/codegen": "^17.2.1",
+    "@thx/codegen": "^17.3.3",
     "@thx/env": "^17.2.1",
     "@thx/eslint-config-thx": "^17.3.1",
     "@thx/prettier-config-thx": "^17.2.1",

@@ -1,9 +1,9 @@
 import {createPages} from '@imperium/layout';
 import debug from 'debug';
+import {SampleSidebar} from '../SampleSidebar';
 import {TestDatahookA} from './TestDatahookA';
 import {TestDatahookB} from './TestDatahookB';
 import {routes} from './routes';
-import {SampleSidebar} from '../SampleSidebar';
 
 const d = debug('imperium.web.test-datahook.pages');
 

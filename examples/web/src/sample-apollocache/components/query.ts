@@ -5,7 +5,7 @@ import type * as Types from '../../core/graphql';
 import Operations from './query.graphql';
 const defaultOptions = {} as const;
 export type GetCacheListQueryVariables = Types.Exact<{
-  filter: Types.Scalars['String'];
+  filter: Types.Scalars['String']['input'];
 }>;
 
 
@@ -33,7 +33,7 @@ export type GetCacheListType = { id: string, name: string, type: string };
  *   },
  * });
  */
-export function useGetCacheListQuery(baseOptions: Apollo.QueryHookOptions<GetCacheListQuery, GetCacheListQueryVariables>) {
+export function useGetCacheListQuery(baseOptions: Apollo.QueryHookOptions<GetCacheListQuery, GetCacheListQueryVariables> & ({ variables: GetCacheListQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetCacheListQuery, GetCacheListQueryVariables>(Operations, options);
       }
@@ -41,6 +41,11 @@ export function useGetCacheListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetCacheListQuery, GetCacheListQueryVariables>(Operations, options);
         }
+export function useGetCacheListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCacheListQuery, GetCacheListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCacheListQuery, GetCacheListQueryVariables>(Operations, options);
+        }
 export type GetCacheListQueryHookResult = ReturnType<typeof useGetCacheListQuery>;
 export type GetCacheListLazyQueryHookResult = ReturnType<typeof useGetCacheListLazyQuery>;
+export type GetCacheListSuspenseQueryHookResult = ReturnType<typeof useGetCacheListSuspenseQuery>;
 export type GetCacheListQueryResult = Apollo.QueryResult<GetCacheListQuery, GetCacheListQueryVariables>;
