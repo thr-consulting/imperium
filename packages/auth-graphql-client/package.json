@@ -7,7 +7,7 @@
 	},
 	"repository": "darkadept/imperium",
 	"license": "MIT",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"author": "MYMC <tech@makingyourmilescount.com>",
 	"sideEffects": false,
 	"type": "module",
 	"main": "./dist/esm/index.js",

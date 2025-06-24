@@ -5,7 +5,7 @@
     "url": "https://github.com/darkadept/imperium.git"
   },
   "license": "MIT",
-  "author": "Mike Kornelson <darkadept@durbn.net>",
+  "author": "MYMC <tech@makingyourmilescount.com>",
   "workspaces": [
     "packages/*",
     "examples/*"

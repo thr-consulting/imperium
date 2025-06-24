@@ -8,7 +8,7 @@
 		"url": "git@github.com:darkadept/imperium.git"
 	},
 	"license": "UNLICENSED",
-	"author": "Mike Kornelson <darkadept@durbn.net>",
+	"author": "MYMC <tech@makingyourmilescount.com>",
 	"scripts": {
 		"build": "vite build",
 		"clean": "thx clean",
