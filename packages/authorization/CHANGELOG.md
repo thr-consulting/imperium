@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.7](https://github.com/darkadept/imperium/compare/v13.1.6...v13.1.7) (2025-06-27)
+
+### Features
+
+- update author ([ea4a26c](https://github.com/darkadept/imperium/commit/ea4a26cff4bd7e29e21cf3c9d49caf2a18fa3f5e))
+
 ## [13.1.3](https://github.com/darkadept/imperium/compare/v13.1.2...v13.1.3) (2025-05-29)
 
 **Note:** Version bump only for package @imperium/authorization
