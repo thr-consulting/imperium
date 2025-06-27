@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.9](https://github.com/darkadept/imperium/compare/v13.1.8...v13.1.9) (2025-06-27)
+
+### Bug Fixes
+
+- comment ([19d0fc2](https://github.com/darkadept/imperium/commit/19d0fc2ad1c34e5383dff458e8ed701b3aba1f29))
+
 ## [13.1.8](https://github.com/darkadept/imperium/compare/v13.1.7...v13.1.8) (2025-06-27)
 
 ### Bug Fixes
