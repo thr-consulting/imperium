@@ -8,7 +8,7 @@ const d = debug('imperium.example-domain.user.repositories.UserRepository');
 
 export class UserRepository extends AbstractRepository<User> {
 	public constructor(repo: EntityRepository<User>, connectors: Connectors) {
-		super(repo, connectors);
+		super('User', repo, connectors);
 	}
 
 	initializeEntity(user: User) {

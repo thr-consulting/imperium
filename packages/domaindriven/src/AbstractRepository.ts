@@ -26,13 +26,16 @@ import type {EntityBase} from './types';
 const d = debug('imperium.domaindriven.AbstractRepository');
 
 export abstract class AbstractRepository<EntityType extends EntityBase> {
+	protected readonly entityName: string;
+
 	protected readonly repo: EntityRepository<EntityType>;
 
 	protected readonly connectors: Connectors;
 
 	private readonly dataloader: DataLoader<EntityType['id'], EntityType | undefined>;
 
-	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors) {
+	protected constructor(entityName: string, repo: EntityRepository<EntityType>, connectors: Connectors) {
+		this.entityName = entityName;
 		this.repo = repo;
 		this.connectors = connectors;
 
@@ -167,6 +170,18 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	public getById(id: EntityType['id'], version?: number): Promise<EntityType | undefined> {
 		if (version) return this.getLock(id, version);
 		return this.load(id);
+	}
+
+	/**
+	 * Get an entity by id or error.
+	 * @param id
+	 * @param version: if the version is specified it acts as a getLock
+	 */
+	public async getByIdOrError(id: EntityType['id'], version?: number): Promise<EntityType> {
+		if (version) return this.getLock(id, version);
+		const entity = await this.load(id);
+		if (!entity) throw new Error(`${this.entityName} with ${id} not found!`);
+		return entity;
 	}
 
 	/**

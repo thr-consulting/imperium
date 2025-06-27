@@ -5,6 +5,6 @@ import type {Score} from '../entities/Score';
 
 export class ScoreRepository extends AbstractRepository<Score> {
 	public constructor(repo: EntityRepository<Score>, connectors: Connectors) {
-		super(repo, connectors);
+		super('Score', repo, connectors);
 	}
 }
