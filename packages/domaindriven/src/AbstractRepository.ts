@@ -180,7 +180,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	public async getByIdOrError(id: EntityType['id'], version?: number): Promise<EntityType> {
 		if (version) return this.getLock(id, version);
 		const entity = await this.load(id);
-		if (!entity) throw new Error(`${this.entityName} with ${id} not found!`);
+		if (!entity) throw new Error(`${this.entityName} with id ${id} not found!`);
 		return entity;
 	}
 
