@@ -30,11 +30,14 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 	protected readonly connectors: Connectors;
 
+	protected readonly entityName: string;
+
 	private readonly dataloader: DataLoader<EntityType['id'], EntityType | undefined>;
 
-	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors) {
+	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors, entityName: string) {
 		this.repo = repo;
 		this.connectors = connectors;
+		this.entityName = entityName;
 
 		// Create a dataloader to be used by this repository
 		this.dataloader = new DataLoader<EntityType['id'], EntityType | undefined>(async (keys: ReadonlyArray<EntityType['id']>) => {
@@ -167,6 +170,18 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	public getById(id: EntityType['id'], version?: number): Promise<EntityType | undefined> {
 		if (version) return this.getLock(id, version);
 		return this.load(id);
+	}
+
+	/**
+	 * Get an entity by id or error.
+	 * @param id
+	 * @param version: if the version is specified it acts as a getLock
+	 */
+	public async getByIdOrError(id: EntityType['id'], version?: number): Promise<EntityType> {
+		if (version) return this.getLock(id, version);
+		const entity = await this.load(id);
+		if (!entity) throw new Error(`${this.entityName} with ${id} not found!`);
+		return entity;
 	}
 
 	/**
