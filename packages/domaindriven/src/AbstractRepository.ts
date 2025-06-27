@@ -165,7 +165,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Get an entity by id.
 	 * @param id
-	 * @param version: if the version is specified it acts as a getLock
+	 * @param version if the version is specified it acts as a getLock
 	 */
 	public getById(id: EntityType['id'], version?: number): Promise<EntityType | undefined> {
 		if (version) return this.getLock(id, version);
@@ -175,7 +175,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Get an entity by id or error.
 	 * @param id
-	 * @param version: if the version is specified it acts as a getLock
+	 * @param version if the version is specified it acts as a getLock
 	 */
 	public async getByIdOrError(id: EntityType['id'], version?: number): Promise<EntityType> {
 		if (version) return this.getLock(id, version);
