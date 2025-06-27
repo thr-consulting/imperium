@@ -26,18 +26,18 @@ import type {EntityBase} from './types';
 const d = debug('imperium.domaindriven.AbstractRepository');
 
 export abstract class AbstractRepository<EntityType extends EntityBase> {
+	protected readonly entityName: string;
+
 	protected readonly repo: EntityRepository<EntityType>;
 
 	protected readonly connectors: Connectors;
 
-	protected readonly entityName: string;
-
 	private readonly dataloader: DataLoader<EntityType['id'], EntityType | undefined>;
 
-	protected constructor(repo: EntityRepository<EntityType>, connectors: Connectors, entityName: string) {
+	protected constructor(entityName: string, repo: EntityRepository<EntityType>, connectors: Connectors) {
+		this.entityName = entityName;
 		this.repo = repo;
 		this.connectors = connectors;
-		this.entityName = entityName;
 
 		// Create a dataloader to be used by this repository
 		this.dataloader = new DataLoader<EntityType['id'], EntityType | undefined>(async (keys: ReadonlyArray<EntityType['id']>) => {
