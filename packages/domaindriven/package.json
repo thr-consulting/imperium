@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/domaindriven",
-	"version": "13.1.9",
+	"version": "13.2.0",
 	"description": "Imperium Domain Driven Design package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
