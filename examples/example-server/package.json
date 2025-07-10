@@ -40,7 +40,6 @@
 		"@imperium/voyager": "^13.1.7",
 		"@js-joda/core": "^5.6.5",
 		"@mikro-orm/core": "^6.4.16",
-		"@mikro-orm/postgresql": "^6.4.16",
 		"@thx/env": "^17.2.1",
 		"@thx/random": "^17.3.2",
 		"@thx/sharedcache": "^17.3.1",
