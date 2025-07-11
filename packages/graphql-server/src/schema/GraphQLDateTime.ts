@@ -1,9 +1,16 @@
 import {toDate} from '@thx/date';
-import debug from 'debug';
 import {GraphQLError, GraphQLScalarType, Kind} from 'graphql';
 
-const d = debug('imperium.graphql-server.schema.GraphQLDateTime');
+function normalizeDateString(dateStr: string): Date {
+	// ISO compliance: replace ' ' with 'T' and '+00' with '+00:00'
+	const isoStr = dateStr.replace(' ', 'T').replace(/\+(\d{2})$/, '+$1:00');
 
+	const d = new Date(isoStr);
+	if (Number.isNaN(d.getTime())) {
+		throw new Error(`Invalid date: "${dateStr}" → "${isoStr}"`);
+	}
+	return d;
+}
 export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 	name: 'DateTime',
 	description: 'JS Date',
@@ -15,7 +22,12 @@ export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 	serialize(value) {
 		if (value instanceof Date) return value.getTime();
 		if (typeof value === 'number') return value;
-		throw new GraphQLError(`Cannot serialize Date value: ${'value'}.`);
+		if (typeof value === 'string') {
+			const normalized = normalizeDateString(value);
+			return normalized.getTime();
+		}
+
+		throw new GraphQLError(`Cannot serialize Date value: ${JSON.stringify(value)}`);
 	},
 	// Parses GraphQL language AST into the value. (AST => JSON)
 	parseLiteral(ast): Date {
