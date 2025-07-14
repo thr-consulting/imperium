@@ -1,8 +1,5 @@
 import {toDate} from '@thx/date';
-import debug from 'debug';
 import {GraphQLError, GraphQLScalarType, Kind} from 'graphql';
-
-const d = debug('imperium.graphql-server.schema.GraphQLDateTime');
 
 export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 	name: 'DateTime',
@@ -15,7 +12,11 @@ export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 	serialize(value) {
 		if (value instanceof Date) return value.getTime();
 		if (typeof value === 'number') return value;
-		throw new GraphQLError(`Cannot serialize Date value: ${'value'}.`);
+		if (typeof value === 'string') {
+			return toDate(value).getTime();
+		}
+
+		throw new GraphQLError(`Cannot serialize Date value: ${JSON.stringify(value)}`);
 	},
 	// Parses GraphQL language AST into the value. (AST => JSON)
 	parseLiteral(ast): Date {

@@ -41,7 +41,7 @@
 		"@js-joda/core": "^5.6.5",
 		"@mikro-orm/core": "^6.4.16",
 		"@thx/env": "^17.2.1",
-		"@thx/random": "^17.3.2",
+		"@thx/random": "^17.4.4",
 		"@thx/sharedcache": "^17.3.1",
 		"@thx/util": "^17.3.1",
 		"apollo-server-express": "^3.6.4",

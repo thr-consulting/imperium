@@ -3095,14 +3095,14 @@
     js-yaml "^4.1.0"
     lodash-es "^4.17.21"
 
-"@thx/controls@^17.3.2":
-  version "17.3.2"
-  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-17.3.2.tgz#fc7877aa56c0dd63b8f866d30d637abd4e9dcd3a"
-  integrity sha512-FwDDaI4bLsIdZfmZ0h6t0P03wLNOpfbgj+OqAIWJ+DO/Um+NgdFbSjO4sXH6DA8cFL2PmRx0yk2GH7zANqVcFw==
+"@thx/controls@^17.4.4":
+  version "17.4.4"
+  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-17.4.4.tgz#2f679cc9c9c35e382fba722d36b7f5de6d86629e"
+  integrity sha512-KkHlPSyF1Feu8VrzDAIZViA76YdG9S44hlhgwY9vdvqjAsCnN97fcJRpGasJW0Hkje85vku+wrvZVdAFpzBfvQ==
   dependencies:
     "@js-joda/core" "^5.6.5"
-    "@thx/date" "^17.3.2"
-    "@thx/money" "^17.2.1"
+    "@thx/date" "^17.4.4"
+    "@thx/money" "^17.3.6"
     "@types/inputmask" "^5.0.7"
     "@types/react-datepicker" "^6.0.1"
     credit-card-type "^9.1.0"
@@ -3119,10 +3119,10 @@
     social-insurance-number "^0.2.2"
     use-deep-compare-effect "1.4.0"
 
-"@thx/date@^17.3.2":
-  version "17.3.2"
-  resolved "https://registry.yarnpkg.com/@thx/date/-/date-17.3.2.tgz#5e4e669e768bb8d9b8b7b940d9d4220e8b7d9507"
-  integrity sha512-WBa2KvUYIMHhwrXNzUIz7/vvOQq+8xmKRXWtoRglKplkFr7Hbs7/HXQRUtEcoihxDvA9lRfz/+M8Bu6TxTdzWw==
+"@thx/date@^17.4.4":
+  version "17.4.4"
+  resolved "https://registry.yarnpkg.com/@thx/date/-/date-17.4.4.tgz#e1e9b93f46360282d95390f76a4b5d84153797f5"
+  integrity sha512-TCznrImniQayBxQ/uYEZefM3jzOUNPiB3K2fABZGr1w6maSPxcwqg+x9jYNjM6aX+tv4t0uoJny2tTF458B7WA==
   dependencies:
     "@js-joda/core" "^5.6.5"
     "@js-joda/locale_en" "^4.15.1"
@@ -3186,6 +3186,14 @@
     accounting "^0.4.1"
     js-money "^0.6.3"
 
+"@thx/money@^17.3.6":
+  version "17.3.6"
+  resolved "https://registry.yarnpkg.com/@thx/money/-/money-17.3.6.tgz#1991fa46a859de171c4acd2d26ddce5a4c776cff"
+  integrity sha512-JrKDL5sGXtBIevVkDqMvaVacggzkhZiOkhA8NYg6mGqb6+qTqlpvJnDIU2DkG7LR5UTBLwH7Flk10OZNAsH56Q==
+  dependencies:
+    accounting "^0.4.1"
+    js-money "^0.6.3"
+
 "@thx/prettier-config-thx@^17.2.1":
   version "17.2.1"
   resolved "https://registry.yarnpkg.com/@thx/prettier-config-thx/-/prettier-config-thx-17.2.1.tgz#691a901bf3d1e531926860f156c2c3dc778578e8"
@@ -3196,13 +3204,13 @@
   resolved "https://registry.yarnpkg.com/@thx/promise-sequential/-/promise-sequential-17.2.1.tgz#17a7bb5c13ca60f06c37292513287ee33dcf3eda"
   integrity sha512-H5PIpilFEU3IeQRmSuFH1sGjVeVXPlwYTo0j1QwAaRxUqjElQPmTeK8Il1heQvaWXOw9Cj4hNvCn36mY+4M7eg==
 
-"@thx/random@^17.3.2":
-  version "17.3.2"
-  resolved "https://registry.yarnpkg.com/@thx/random/-/random-17.3.2.tgz#aaaf9b3b45f984cb72f0c61ce8c4598a1e90cc90"
-  integrity sha512-WmHlTQrP4LEmKdPMutX+jRIgclnU0e7XPE1b83NgePaM05rkp8lcG+pPLDRJ+ufk+ilpI/T60HRcoc1nvKU9bw==
+"@thx/random@^17.4.4":
+  version "17.4.4"
+  resolved "https://registry.yarnpkg.com/@thx/random/-/random-17.4.4.tgz#378a59b4b8e4792123aa863dd78cce6d906517b7"
+  integrity sha512-0WPDqXxLEvGJdtv6vscsxb536p38Haq0zaKEHQARrovbU5PI+oDjcfMdGo0i1dMo35BgJ8ZO0FpKNfTpro899w==
   dependencies:
     "@js-joda/core" "^5.6.5"
-    "@thx/date" "^17.3.2"
+    "@thx/date" "^17.4.4"
     nanoid "^3.2.0"
 
 "@thx/rollup-config-thx@^17.2.1":
