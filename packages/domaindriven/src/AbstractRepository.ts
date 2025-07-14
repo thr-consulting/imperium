@@ -16,7 +16,6 @@ import {
 	type Collection,
 	LockMode,
 	wrap,
-	type PopulateOptions,
 	type FindAllOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
