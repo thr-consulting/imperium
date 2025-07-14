@@ -265,13 +265,13 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
-	 * @param options
+	 * @param populate
 	 */
-	public async initializeEntity(entity: EntityType, options?: PopulateOptions<EntityType>) {
+	public async initializeEntity(entity: EntityType, populate?: Populate<EntityType>) {
 		d(`InitEntity: ${entity.id}`);
 
-		if (options) {
-			const initialized = await wrap(entity).init(options);
+		if (populate) {
+			const initialized = await wrap(entity).init({populate});
 			if (!initialized) throw new Error('Failed to initialize entity');
 			return this.prime(initialized);
 		}
