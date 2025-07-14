@@ -1,16 +1,6 @@
 import {toDate} from '@thx/date';
 import {GraphQLError, GraphQLScalarType, Kind} from 'graphql';
 
-function normalizeDateString(dateStr: string): Date {
-	// ISO compliance: replace ' ' with 'T' and '+00' with '+00:00'
-	const isoStr = dateStr.replace(' ', 'T').replace(/\+(\d{2})$/, '+$1:00');
-
-	const d = new Date(isoStr);
-	if (Number.isNaN(d.getTime())) {
-		throw new Error(`Invalid date: "${dateStr}" → "${isoStr}"`);
-	}
-	return d;
-}
 export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 	name: 'DateTime',
 	description: 'JS Date',
@@ -23,8 +13,7 @@ export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 		if (value instanceof Date) return value.getTime();
 		if (typeof value === 'number') return value;
 		if (typeof value === 'string') {
-			const normalized = normalizeDateString(value);
-			return normalized.getTime();
+			return toDate(value).getTime();
 		}
 
 		throw new GraphQLError(`Cannot serialize Date value: ${JSON.stringify(value)}`);
