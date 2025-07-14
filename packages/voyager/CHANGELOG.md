@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.2.1](https://github.com/darkadept/imperium/compare/v13.2.0...v13.2.1) (2025-07-14)
+
+**Note:** Version bump only for package @imperium/voyager
+
 ## [13.1.7](https://github.com/darkadept/imperium/compare/v13.1.6...v13.1.7) (2025-06-27)
 
 ### Features
