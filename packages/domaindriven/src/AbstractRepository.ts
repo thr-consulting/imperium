@@ -5,11 +5,9 @@ import {
 	type EntityDictionary,
 	type EntityRepository,
 	type FilterQuery,
-	type FindOneOptions,
 	type FindOptions,
 	type GetReferenceOptions,
 	type Ref,
-	type Loaded,
 	type Populate,
 	type Primary,
 	type RequiredEntityData,
@@ -17,6 +15,7 @@ import {
 	LockMode,
 	wrap,
 	type FindAllOptions,
+	type FindOneOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -108,9 +107,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return arr as (EntityType | undefined)[];
 	}
 
-	public async findOne<P extends string = never, F extends string = string>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P, F>) {
+	public async findOne<P extends string = never, F extends string = string>(
+		where: FilterQuery<EntityType>,
+		options?: FindOneOptions<EntityType, P, F>,
+	) {
 		const entity = await this.repo.findOne(where, options);
-		if (entity) this.prime(entity);
+		if (entity) this.prime(entity as EntityType);
 		return entity || undefined;
 	}
 
@@ -124,7 +126,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	public async find<P extends string = never, F extends string = string>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P, F>) {
-		return this.prime(await this.repo.find(where, options));
+		const entity = await this.repo.find(where, options);
+		return this.prime(entity as EntityType[]);
 	}
 
 	public async count<P extends string = never>(where: FilterQuery<EntityType>, options?: CountOptions<EntityType, P>) {
@@ -141,9 +144,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 */
 	public prime(entityOrEntities: EntityType): EntityType;
 	public prime(entityOrEntities: EntityType[]): EntityType[];
-	public prime(entityOrEntities: Loaded<EntityType, any, any, any>): Loaded<EntityType, any, any, any>;
-	public prime(entityOrEntities: Loaded<EntityType, any, any, any>[]): Loaded<EntityType, any, any, any>[];
-	public prime(entityOrEntities: EntityType | EntityType[] | Loaded<EntityType, any, any, any> | Loaded<EntityType, any, any, any>[]) {
+	public prime(entityOrEntities: EntityType | EntityType[]) {
 		if (Array.isArray(entityOrEntities)) {
 			return entityOrEntities.map(e => {
 				this.dataloader.prime(e.id, e);
