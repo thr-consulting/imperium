@@ -20,11 +20,29 @@ export class UserRepository extends AbstractRepository<User> {
 			{email},
 			{
 				populate: ['service'],
+				fields: ['email'],
 			},
 		);
 	}
 
 	createUser(data: RequiredEntityData<User>) {
 		return this.create(data);
+	}
+
+	async getMany(email: string) {
+		return this.find(
+			{email},
+			{
+				populate: ['service'],
+				fields: ['email'],
+			},
+		);
+	}
+
+	async getEverything() {
+		return this.getAll({
+			populate: ['service'],
+			fields: ['email'],
+		});
 	}
 }

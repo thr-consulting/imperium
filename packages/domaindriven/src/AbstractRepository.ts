@@ -5,11 +5,9 @@ import {
 	type EntityDictionary,
 	type EntityRepository,
 	type FilterQuery,
-	type FindOneOptions,
 	type FindOptions,
 	type GetReferenceOptions,
 	type Ref,
-	type Loaded,
 	type Populate,
 	type Primary,
 	type RequiredEntityData,
@@ -17,6 +15,7 @@ import {
 	LockMode,
 	wrap,
 	type FindAllOptions,
+	type FindOneOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -108,22 +107,27 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return arr as (EntityType | undefined)[];
 	}
 
-	public async findOne<P extends string = never>(
+	public async findOne<P extends string = never, F extends string = string>(
 		where: FilterQuery<EntityType>,
-		options?: FindOneOptions<EntityType, P>,
-	): Promise<Loaded<EntityType, P> | undefined> {
+		options?: FindOneOptions<EntityType, P, F>,
+	) {
 		const entity = await this.repo.findOne(where, options);
-		if (entity) this.prime(entity);
+		if (entity) this.prime(entity as EntityType);
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
+	public async getAll<
+		P extends Extract<keyof EntityType, string> = Extract<keyof EntityType, string>,
+		F extends string = '*',
+		E extends string = never,
+	>(options?: FindAllOptions<EntityType, P, F, E>) {
 		const entities = await this.repo.findAll(options);
 		return this.prime(entities as EntityType[]);
 	}
 
-	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
-		return this.prime(await this.repo.find(where, options));
+	public async find<P extends string = never, F extends string = string>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P, F>) {
+		const entity = await this.repo.find(where, options);
+		return this.prime(entity as EntityType[]);
 	}
 
 	public async count<P extends string = never>(where: FilterQuery<EntityType>, options?: CountOptions<EntityType, P>) {
