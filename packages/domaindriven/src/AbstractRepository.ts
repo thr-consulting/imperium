@@ -17,7 +17,7 @@ import {
 	type FindAllOptions,
 	type FindOneOptions,
 } from '@mikro-orm/core';
-import type {QueryBuilder} from '@mikro-orm/postgresql';
+import type {Loaded, QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
 import type {EntityBase} from './types';
@@ -112,7 +112,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		options?: FindOneOptions<EntityType, P, F>,
 	) {
 		const entity = await this.repo.findOne(where, options);
-		if (entity) this.prime(entity as EntityType);
+		if (entity) this.prime(entity);
 		return entity || undefined;
 	}
 
@@ -122,12 +122,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		E extends string = never,
 	>(options?: FindAllOptions<EntityType, P, F, E>) {
 		const entities = await this.repo.findAll(options);
-		return this.prime(entities as EntityType[]);
+		return this.prime(entities);
 	}
 
 	public async find<P extends string = never, F extends string = string>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P, F>) {
 		const entity = await this.repo.find(where, options);
-		return this.prime(entity as EntityType[]);
+		return this.prime(entity);
 	}
 
 	public async count<P extends string = never>(where: FilterQuery<EntityType>, options?: CountOptions<EntityType, P>) {
@@ -142,16 +142,19 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Prime the dataloader with entities
 	 * @param entityOrEntities
 	 */
-	public prime(entityOrEntities: EntityType): EntityType;
-	public prime(entityOrEntities: EntityType[]): EntityType[];
-	public prime(entityOrEntities: EntityType | EntityType[]) {
+	public prime<P extends string = never, F extends string = string, E extends string = never>(
+		entityOrEntities: Loaded<EntityType, P, F, E> | Loaded<EntityType, P, F, E>[],
+	): typeof entityOrEntities {
 		if (Array.isArray(entityOrEntities)) {
-			return entityOrEntities.map(e => {
-				this.dataloader.prime(e.id, e);
-				return e;
+			entityOrEntities.forEach(e => {
+				// Assert id exists on loaded entity
+				const {id} = e as {id: EntityType['id']};
+				this.dataloader.prime(id, e as unknown as EntityType);
 			});
+		} else {
+			const {id} = entityOrEntities as {id: EntityType['id']};
+			this.dataloader.prime(id, entityOrEntities as unknown as EntityType);
 		}
-		this.dataloader.prime(entityOrEntities.id, entityOrEntities);
 		return entityOrEntities;
 	}
 
@@ -172,7 +175,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @param version if the version is specified it acts as a getLock
 	 */
-	public getById(id: EntityType['id'], version?: number): Promise<EntityType | undefined> {
+	public getById(id: EntityType['id'], version?: number) {
 		if (version) return this.getLock(id, version);
 		return this.load(id);
 	}
@@ -182,7 +185,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @param version if the version is specified it acts as a getLock
 	 */
-	public async getByIdOrError(id: EntityType['id'], version?: number): Promise<EntityType> {
+	public async getByIdOrError(id: EntityType['id'], version?: number) {
 		if (version) return this.getLock(id, version);
 		const entity = await this.load(id);
 		if (!entity) throw new Error(`${this.entityName} with id ${id} not found!`);
@@ -203,8 +206,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version
 	 * @return entity
 	 */
-	private async getLock(id: EntityType['id'], version: number): Promise<EntityType> {
-		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {lockVersion: version, lockMode: LockMode.OPTIMISTIC});
+	private async getLock(id: EntityType['id'], version: number) {
+		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {
+			lockVersion: version,
+			lockMode: LockMode.OPTIMISTIC,
+		});
+
 		if (!entity) throw new Error('Could not optimistically lock entity');
 		return this.prime(entity);
 	}
