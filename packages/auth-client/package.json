@@ -35,7 +35,7 @@
 		"@imperium/client": "^13.1.7",
 		"@imperium/state": "^13.1.7",
 		"@reduxjs/toolkit": "^1.9.7",
-		"@thx/env": "^17.2.1",
+		"@thx/env": "^19.0.0",
 		"debug": "^4.4.0",
 		"dexie": "^3.2.1",
 		"jwt-decode": "^3.1.2"

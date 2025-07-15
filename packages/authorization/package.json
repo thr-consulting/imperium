@@ -31,7 +31,7 @@
 		}
 	},
 	"dependencies": {
-		"@thx/env": "^17.2.1",
+		"@thx/env": "^19.0.0",
 		"dataloader": "^2.2.2",
 		"debug": "^4.4.0",
 		"lodash-es": "^4.17.21",

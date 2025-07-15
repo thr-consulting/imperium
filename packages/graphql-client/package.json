@@ -32,8 +32,8 @@
 	},
 	"dependencies": {
 		"@imperium/client": "^13.1.7",
-		"@thx/env": "^17.2.1",
-		"@thx/util": "^17.3.1",
+		"@thx/env": "^19.0.0",
+		"@thx/util": "^19.0.0",
 		"debug": "^4.4.0",
 		"merge-options": "^3.0.4",
 		"subscriptions-transport-ws": "^0.11.0"
