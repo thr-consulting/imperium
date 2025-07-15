@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.2.4](https://github.com/darkadept/imperium/compare/v13.2.3...v13.2.4) (2025-07-15)
+
+**Note:** Version bump only for package @imperium/example-server
+
 ## [13.2.3](https://github.com/darkadept/imperium/compare/v13.2.2...v13.2.3) (2025-07-15)
 
 **Note:** Version bump only for package @imperium/example-server

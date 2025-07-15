@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-server",
-	"version": "13.2.3",
+	"version": "13.2.4",
 	"private": true,
 	"description": "Imperium server example project",
 	"repository": {
@@ -34,7 +34,7 @@
 		"@imperium/authorization": "^13.1.7",
 		"@imperium/cluster": "^13.1.7",
 		"@imperium/connector": "^13.2.1",
-		"@imperium/example-domain": "^13.2.3",
+		"@imperium/example-domain": "^13.2.4",
 		"@imperium/graphql-server": "^13.2.1",
 		"@imperium/server": "^13.2.1",
 		"@imperium/voyager": "^13.2.1",
