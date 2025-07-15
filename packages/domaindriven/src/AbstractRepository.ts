@@ -108,21 +108,22 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return arr as (EntityType | undefined)[];
 	}
 
-	public async findOne<P extends string = never>(
-		where: FilterQuery<EntityType>,
-		options?: FindOneOptions<EntityType, P>,
-	): Promise<Loaded<EntityType, P> | undefined> {
+	public async findOne<P extends string = never, F extends string = string>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P, F>) {
 		const entity = await this.repo.findOne(where, options);
 		if (entity) this.prime(entity);
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
+	public async getAll<
+		P extends Extract<keyof EntityType, string> = Extract<keyof EntityType, string>,
+		F extends string = '*',
+		E extends string = never,
+	>(options?: FindAllOptions<EntityType, P, F, E>) {
 		const entities = await this.repo.findAll(options);
 		return this.prime(entities as EntityType[]);
 	}
 
-	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
+	public async find<P extends string = never, F extends string = string>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P, F>) {
 		return this.prime(await this.repo.find(where, options));
 	}
 
@@ -140,7 +141,9 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 */
 	public prime(entityOrEntities: EntityType): EntityType;
 	public prime(entityOrEntities: EntityType[]): EntityType[];
-	public prime(entityOrEntities: EntityType | EntityType[]) {
+	public prime(entityOrEntities: Loaded<EntityType, any, any, any>): Loaded<EntityType, any, any, any>;
+	public prime(entityOrEntities: Loaded<EntityType, any, any, any>[]): Loaded<EntityType, any, any, any>[];
+	public prime(entityOrEntities: EntityType | EntityType[] | Loaded<EntityType, any, any, any> | Loaded<EntityType, any, any, any>[]) {
 		if (Array.isArray(entityOrEntities)) {
 			return entityOrEntities.map(e => {
 				this.dataloader.prime(e.id, e);
