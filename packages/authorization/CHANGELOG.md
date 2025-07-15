@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.0.0](https://github.com/darkadept/imperium/compare/v13.1.9...v14.0.0) (2025-07-15)
+
+**Note:** Version bump only for package @imperium/authorization
+
 ## [13.1.7](https://github.com/darkadept/imperium/compare/v13.1.6...v13.1.7) (2025-06-27)
 
 ### Features
