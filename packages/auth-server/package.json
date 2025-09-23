@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/auth-server",
-	"version": "14.0.0",
+	"version": "14.1.0",
 	"description": "Imperium Auth server package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"@imperium/authorization": "^14.0.0",
-		"@imperium/server": "^14.0.0",
+		"@imperium/server": "^14.1.0",
 		"@thx/env": "^19.0.0",
 		"@thx/sha256": "^19.0.0",
 		"bcrypt": "^5.0.1",

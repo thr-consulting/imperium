@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "14.0.0",
+	"version": "14.1.0",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "MYMC <tech@makingyourmilescount.com>",
@@ -28,7 +28,7 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-server": "^14.0.0",
+		"@imperium/auth-server": "^14.1.0",
 		"@imperium/authorization": "^14.0.0",
 		"@imperium/connector": "^14.0.0",
 		"@imperium/domaindriven": "^14.0.0",
