@@ -5,6 +5,7 @@ import debug from 'debug';
 import express, {type Application, type RequestHandler} from 'express';
 import {createServer, type Server} from 'http';
 import {isFunction} from 'lodash-es';
+import cors from 'cors';
 import type {ImperiumServerConfig, ImperiumServerModule} from './types';
 
 const d = debug('imperium.server.ImperiumServer');
@@ -22,6 +23,8 @@ export class ImperiumServer<Context> {
 
 	private _modules: ImperiumServerModule<Context>[];
 
+	private readonly corsOrigin?: boolean | string | RegExp | string[];
+
 	public readonly connectors: Connectors;
 
 	public constructor(config: ImperiumServerConfig<Context>) {
@@ -30,6 +33,7 @@ export class ImperiumServer<Context> {
 		this._moduleFactoryFn = config.serverModules;
 		this._httpPort = config.httpPort || -1;
 		this._modules = [];
+		this.corsOrigin = config.corsOrigin;
 	}
 
 	/**
@@ -73,6 +77,14 @@ export class ImperiumServer<Context> {
 			d('Creating HTTP server and express app');
 			this._expressApp = express();
 			this._httpServer = createServer(this._expressApp);
+
+			const corsMiddleware = cors({
+				origin: this.corsOrigin,
+				credentials: true,
+			});
+
+			this._expressApp.use(corsMiddleware);
+			this._expressApp.options('*', corsMiddleware);
 		}
 
 		// Module endpoints

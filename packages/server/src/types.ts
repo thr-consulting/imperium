@@ -18,4 +18,5 @@ export interface ImperiumServerConfig<Context> {
 	serverModules: () => ImperiumServerModule<Context>[];
 	contextCreator: (connector: Connectors) => Promise<Context>;
 	httpPort?: number;
+	corsOrigin?: boolean | string | RegExp | string[];
 }
