@@ -45,6 +45,14 @@ export function ContentComponent<T extends DefineRouteOptions, K extends keyof T
 		dispatch(actions.setParams(params));
 	}, [dispatch, params]);
 
+	useEffect(() => {
+		if (typeof page.header === 'string') {
+			dispatch(actions.setPageHeader(page.header));
+		} else {
+			dispatch(actions.setPageHeader(''));
+		}
+	}, [dispatch, page.header]);
+
 	const content = page.content(data);
 	const sidebarItems = sortWeightedItems(page.sidebar || []);
 

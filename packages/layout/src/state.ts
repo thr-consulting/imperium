@@ -8,6 +8,7 @@ export const state = createSlice({
 		isMobile: false,
 		params: {},
 		permissions: {} as Record<string, boolean>,
+		pageHeader: '',
 	},
 	reducers: {
 		setMobile: (st, action: PayloadAction<boolean>) => ({...st, isMobile: action.payload}),
@@ -16,6 +17,9 @@ export const state = createSlice({
 		},
 		setPermission: (st, action: PayloadAction<{permission: string; result: boolean}>) => {
 			st.permissions[action.payload.permission] = action.payload.result;
+		},
+		setPageHeader: (st, action: PayloadAction<string>) => {
+			st.pageHeader = action.payload;
 		},
 	},
 });
