@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.2.2](https://github.com/darkadept/imperium/compare/v14.2.1...v14.2.2) (2025-11-12)
+
+**Note:** Version bump only for package imperium
+
 ## [14.2.1](https://github.com/darkadept/imperium/compare/v14.2.0...v14.2.1) (2025-10-22)
 
 ### Bug Fixes
