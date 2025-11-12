@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.2.5](https://github.com/darkadept/imperium/compare/v14.2.4...v14.2.5) (2025-11-12)
+
+### Features
+
+- initialize nullable entity ([17e2d99](https://github.com/darkadept/imperium/commit/17e2d99af2548543a091e4f99d2ba582b628ee60))
+
+### Reverts
+
+- Revert "Allow passing in null entities in to initializer (#386)" ([3d1beca](https://github.com/darkadept/imperium/commit/3d1beca32f52bfc767bf19e6500ade1d4cbacd9f)), closes [#386](https://github.com/darkadept/imperium/issues/386)
+- Revert "fix: add override" ([8e9e53e](https://github.com/darkadept/imperium/commit/8e9e53e2682730f7ae105528a6f07b3c6ac4bfcd))
+
 ## [14.2.4](https://github.com/darkadept/imperium/compare/v14.2.3...v14.2.4) (2025-11-12)
 
 ### Bug Fixes
