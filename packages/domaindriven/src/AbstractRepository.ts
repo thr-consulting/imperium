@@ -219,7 +219,11 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param options
 	 */
-	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: {populate?: Populate<EntityType, P>}) {
+	public async initializeCollection<P extends string = never>(
+		collection?: Collection<EntityType> | null,
+		options?: {populate?: Populate<EntityType, P>},
+	) {
+		if (!collection) return null;
 		d('InitCollection');
 
 		if (options?.populate) {
@@ -229,10 +233,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		}
 
 		if (collection.isInitialized()) return collection;
+
 		const initColl = await collection.init();
 		this.prime(initColl.getItems(false));
 		return initColl;
-		// NOTE: I could use dataloader here, but we would have to reconstitute the array as a collection.
 	}
 
 	/**
@@ -241,10 +245,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param options
 	 */
 	public async initializeCollectionAsArray<P extends string = never>(
-		collection: Collection<EntityType>,
+		collection?: Collection<EntityType> | null,
 		options?: {populate?: Populate<EntityType, P>},
 	) {
+		if (!collection) return null;
 		d('InitCollectionAsArray');
+
 		if (options?.populate) {
 			const initColl = await collection.init(options);
 			this.prime(initColl.getItems(false));
@@ -252,6 +258,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		}
 
 		if (collection.isInitialized()) return collection.getItems();
+
 		const ids = collection.getItems(false).map(v => v.id);
 		const arr = await this.loadMany(ids);
 		if (arr.some(v => v === undefined)) {
