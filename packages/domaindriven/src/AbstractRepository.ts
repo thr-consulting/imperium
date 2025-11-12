@@ -17,6 +17,7 @@ import {
 	LockMode,
 	type Reference,
 	wrap,
+	type LoadedCollection,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -24,12 +25,6 @@ import debug from 'debug';
 import type {EntityBase} from './types';
 
 const d = debug('imperium.domaindriven.AbstractRepository');
-
-// Accept either raw EntityType or Loaded<EntityType, any>
-type MaybeLoaded<T> = T | Loaded<T, any>;
-
-// Collection's second generic param is often used for options; use unknown to avoid narrow mismatches
-type AnyCollection<T> = Collection<MaybeLoaded<T>, unknown>;
 
 export abstract class AbstractRepository<EntityType extends EntityBase> {
 	protected readonly entityName: string;
@@ -225,24 +220,24 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param options
 	 */
+
 	public async initializeCollection<P extends string = never>(
-		collection?: AnyCollection<EntityType> | null,
-		options?: {populate?: Populate<MaybeLoaded<EntityType>, P>},
-	): Promise<AnyCollection<EntityType> | null> {
+		collection?: Collection<EntityType> | null,
+		options?: {populate?: Populate<EntityType, P>},
+	): Promise<LoadedCollection<Loaded<EntityType, P>> | null> {
 		if (!collection) return null;
 		d('InitCollection');
 
 		if (options?.populate) {
-			const initColl = await collection.init({populate: options.populate as any});
-			this.prime(initColl.getItems(false) as EntityType[]);
-			return initColl as AnyCollection<EntityType>;
+			const initColl = await collection.init({populate: options.populate});
+			this.prime(initColl.getItems(false));
+			return initColl as LoadedCollection<Loaded<EntityType, P>>;
 		}
 
-		if (collection.isInitialized()) return collection as AnyCollection<EntityType>;
-
+		if (collection.isInitialized()) return collection as LoadedCollection<Loaded<EntityType, P>>;
 		const initColl = await collection.init();
-		this.prime(initColl.getItems(false) as EntityType[]);
-		return initColl as AnyCollection<EntityType>;
+		this.prime(initColl.getItems(false));
+		return initColl as LoadedCollection<Loaded<EntityType, P>>;
 	}
 
 	/**
@@ -251,21 +246,20 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param options
 	 */
 	public async initializeCollectionAsArray<P extends string = never>(
-		collection?: AnyCollection<EntityType> | null,
-		options?: {populate?: Populate<MaybeLoaded<EntityType>, P>},
+		collection?: Collection<EntityType> | null,
+		options?: {populate?: Populate<EntityType, P>},
 	): Promise<EntityType[] | null> {
 		if (!collection) return null;
 		d('InitCollectionAsArray');
 
 		if (options?.populate) {
-			const initColl = await collection.init(options as any);
-			this.prime(initColl.getItems(false) as EntityType[]);
-			return initColl.getItems() as EntityType[];
+			const initColl = await collection.init(options);
+			this.prime(initColl.getItems(false));
+			return initColl.getItems();
 		}
 
-		if (collection.isInitialized()) return collection.getItems() as EntityType[];
-
-		const ids = collection.getItems(false).map(v => (v as EntityType).id);
+		if (collection.isInitialized()) return collection.getItems();
+		const ids = collection.getItems(false).map(v => v.id);
 		const arr = await this.loadMany(ids);
 		if (arr.some(v => v === undefined)) {
 			throw new Error(`Error initializing collection: ${collection}`);
@@ -279,7 +273,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param options
 	 */
 	public async initializeEntity<P extends string = never>(
-		entity: EntityType | null | undefined,
+		entity?: EntityType | null,
 		options?: {populate?: Populate<EntityType, P>},
 	): Promise<EntityType | null> {
 		if (!entity) return null;
@@ -290,7 +284,6 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
-
 		const ent = await this.load(entity.id);
 		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
 		return ent;
