@@ -272,11 +272,14 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param options
 	 */
+	public async initializeEntity<P extends string = never>(entity: EntityType, options?: {populate?: Populate<EntityType, P>}): Promise<EntityType>;
+	public async initializeEntity<P extends string = never>(entity: null | undefined, options?: {populate?: Populate<EntityType, P>}): Promise<null>;
 	public async initializeEntity<P extends string = never>(
 		entity?: EntityType | null,
 		options?: {populate?: Populate<EntityType, P>},
 	): Promise<EntityType | null> {
 		if (!entity) return null;
+
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
@@ -284,6 +287,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
+
 		const ent = await this.load(entity.id);
 		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
 		return ent;
