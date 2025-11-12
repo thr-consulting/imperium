@@ -10,7 +10,7 @@ type GetInitializersReturn<T extends GetInitializersOpts> = {
 };
 
 /**
- * Returns an object of repositories transformed into initializer functions only.
+ * Returns an object of repositories transformed into initializer functions only
  * @param repositories
  */
 export function getInitializers<T extends GetInitializersOpts>(repositories: T): GetInitializersReturn<T> {
