@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "14.2.2",
+	"version": "14.2.3",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "MYMC <tech@makingyourmilescount.com>",
@@ -31,7 +31,7 @@
 		"@imperium/auth-server": "^14.1.0",
 		"@imperium/authorization": "^14.0.0",
 		"@imperium/connector": "^14.0.0",
-		"@imperium/domaindriven": "^14.2.2",
+		"@imperium/domaindriven": "^14.2.3",
 		"@js-joda/core": "^5.6.5",
 		"debug": "^4.4.0",
 		"graphql-subscriptions": "^2.0.0",
