@@ -17,7 +17,6 @@ import {
 	LockMode,
 	type Reference,
 	wrap,
-	type LoadedCollection,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -220,24 +219,20 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param options
 	 */
-
-	public async initializeCollection<P extends string = never>(
-		collection?: Collection<EntityType> | null,
-		options?: {populate?: Populate<EntityType, P>},
-	): Promise<LoadedCollection<Loaded<EntityType, P>> | null> {
-		if (!collection) return null;
+	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: {populate?: Populate<EntityType, P>}) {
 		d('InitCollection');
 
 		if (options?.populate) {
 			const initColl = await collection.init({populate: options.populate});
 			this.prime(initColl.getItems(false));
-			return initColl as LoadedCollection<Loaded<EntityType, P>>;
+			return initColl;
 		}
 
-		if (collection.isInitialized()) return collection as LoadedCollection<Loaded<EntityType, P>>;
+		if (collection.isInitialized()) return collection;
 		const initColl = await collection.init();
 		this.prime(initColl.getItems(false));
-		return initColl as LoadedCollection<Loaded<EntityType, P>>;
+		return initColl;
+		// NOTE: I could use dataloader here, but we would have to reconstitute the array as a collection.
 	}
 
 	/**
@@ -246,12 +241,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param options
 	 */
 	public async initializeCollectionAsArray<P extends string = never>(
-		collection?: Collection<EntityType> | null,
+		collection: Collection<EntityType>,
 		options?: {populate?: Populate<EntityType, P>},
-	): Promise<EntityType[] | null> {
-		if (!collection) return null;
+	) {
 		d('InitCollectionAsArray');
-
 		if (options?.populate) {
 			const initColl = await collection.init(options);
 			this.prime(initColl.getItems(false));
@@ -272,11 +265,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeEntity<P extends string = never>(
-		entity?: EntityType | null,
-		options?: {populate?: Populate<EntityType, P>},
-	): Promise<EntityType | null> {
-		if (!entity) return null;
+	public async initializeEntity<P extends string = never>(entity: EntityType, options?: {populate?: Populate<EntityType, P>}) {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
