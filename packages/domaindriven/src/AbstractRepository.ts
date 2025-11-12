@@ -278,6 +278,31 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return ent;
 	}
 
+	/**
+	 * Initializes a single entity. Uses dataloader.
+	 * @param entity
+	 * @param options
+	 */
+	public async initializeNullableEntity<P extends string = never>(
+		entity?: EntityType | null,
+		options?: {populate?: Populate<EntityType, P> | null},
+	): Promise<EntityType | null> {
+		if (!entity) return null;
+
+		d(`InitEntity: ${entity.id}`);
+
+		if (options?.populate) {
+			// initialize with populate
+			return this.prime(await wrap(entity).init(true, options.populate));
+		}
+
+		if (wrap(entity).isInitialized()) return entity;
+
+		const ent = await this.load(entity.id);
+		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
+		return ent;
+	}
+
 	public getReference(
 		id: Primary<EntityType>,
 		options: Omit<GetReferenceOptions, 'wrapped'> & {
