@@ -265,7 +265,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeEntity<P extends string = never>(entity: EntityType, options?: {populate?: Populate<EntityType, P>}) {
+	public async initializeEntity<P extends string = never>(entity?: EntityType | null, options?: {populate?: Populate<EntityType, P>}) {
+		if (!entity) return null;
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
