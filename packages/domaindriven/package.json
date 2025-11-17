@@ -39,8 +39,8 @@
 		"@imperium/connector": "^14.0.0"
 	},
 	"peerDependencies": {
-		"@mikro-orm/core": "5.x",
-		"@mikro-orm/postgresql": "5.x"
+		"@mikro-orm/core": "6.x",
+		"@mikro-orm/postgresql": "6.x"
 	},
 	"engines": {
 		"node": ">=22"
