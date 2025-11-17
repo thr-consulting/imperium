@@ -39,8 +39,7 @@
 		"@imperium/server": "^14.1.0",
 		"@imperium/voyager": "^14.1.0",
 		"@js-joda/core": "^5.6.5",
-		"@mikro-orm/core": "^5.1.2",
-		"@mikro-orm/postgresql": "^5.1.2",
+		"@mikro-orm/core": "^6.6.0",
 		"@thx/env": "^19.0.0",
 		"@thx/random": "^19.0.0",
 		"@thx/sharedcache": "^19.0.0",
@@ -55,7 +54,7 @@
 		"ioredis": "^5.2.4"
 	},
 	"devDependencies": {
-		"@mikro-orm/cli": "^5.1.2"
+		"@mikro-orm/cli": "^6.6.0"
 	},
 	"engines": {
 		"node": ">=22"
