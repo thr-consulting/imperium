@@ -9,7 +9,6 @@ import {
 	type FindOptions,
 	type GetReferenceOptions,
 	type Loaded,
-	type Populate,
 	type Primary,
 	type RequiredEntityData,
 	type Collection,
@@ -17,6 +16,7 @@ import {
 	type Ref,
 	type FindAllOptions,
 	wrap,
+	type InitCollectionOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -226,7 +226,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param options
 	 */
-	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: {populate?: Populate<EntityType, P>}) {
+	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: InitCollectionOptions<EntityType, P>) {
 		d('InitCollection');
 
 		if (options?.populate) {
@@ -249,7 +249,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 */
 	public async initializeCollectionAsArray<P extends string = never>(
 		collection: Collection<EntityType>,
-		options?: {populate?: Populate<EntityType, P>},
+		options?: InitCollectionOptions<EntityType, P, '*', never> | undefined,
 	) {
 		d('InitCollectionAsArray');
 		if (options?.populate) {
@@ -272,7 +272,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeEntity<P extends string = never>(entity: EntityType, options?: {populate?: Populate<EntityType, P>}) {
+	public async initializeEntity<P extends string = never>(entity: EntityType, options?: FindOptions<EntityType, P>) {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
@@ -292,7 +292,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 */
 	public async initializeNullableEntity<P extends string = never>(
 		entity?: EntityType | null,
-		options?: {populate?: Populate<EntityType, P> | null},
+		options?: FindOptions<EntityType, P>,
 	): Promise<EntityType | null> {
 		if (!entity) return null;
 
