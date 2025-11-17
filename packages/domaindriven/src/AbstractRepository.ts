@@ -8,14 +8,14 @@ import {
 	type FindOneOptions,
 	type FindOptions,
 	type GetReferenceOptions,
-	type IdentifiedReference,
 	type Loaded,
 	type Populate,
 	type Primary,
 	type RequiredEntityData,
 	type Collection,
 	LockMode,
-	type Reference,
+	type Ref,
+	type FindAllOptions,
 	wrap,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
@@ -58,7 +58,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 */
 	public persist(entity: EntityType | EntityType[]) {
-		return this.repo.persist(entity);
+		return this.repo.getEntityManager().persist(entity);
 	}
 
 	/**
@@ -117,7 +117,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindOptions<EntityType, P>) {
+	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
 		return this.prime(await this.repo.findAll(options));
 	}
 
@@ -308,7 +308,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		options: Omit<GetReferenceOptions, 'wrapped'> & {
 			wrapped: true;
 		},
-	): IdentifiedReference<EntityType, 'id'>;
+	): Ref<EntityType>;
 	public getReference(id: Primary<EntityType>): EntityType;
 	public getReference(
 		id: Primary<EntityType>,
@@ -316,7 +316,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 			wrapped: false;
 		},
 	): EntityType;
-	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Reference<EntityType> {
+	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Ref<EntityType> {
 		if (options?.wrapped) {
 			return this.repo.getReference(id, {wrapped: true});
 		}
