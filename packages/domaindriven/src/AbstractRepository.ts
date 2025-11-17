@@ -130,7 +130,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	public async remove(entityOrEntities: EntityType | EntityType[]) {
-		return this.repo.remove(entityOrEntities);
+		return this.repo.getEntityManager().remove(entityOrEntities);
 	}
 
 	/**
@@ -210,7 +210,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version Obtains an optimistic lock when deleting.
 	 */
 	public async deleteById(id: EntityType['id'], version: number) {
-		this.repo.remove(await this.getLock(id, version));
+		this.repo.getEntityManager().remove(await this.getLock(id, version));
 		this.dataloader.clear(id);
 	}
 
@@ -269,7 +269,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			return this.prime(await wrap(entity).init(true, options.populate));
+			return this.prime(await wrap(entity).init({refresh:true, populate: options.populate}));
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
@@ -293,7 +293,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		if (options?.populate) {
 			// initialize with populate
-			return this.prime(await wrap(entity).init(true, options.populate));
+			return this.prime(await wrap(entity).init({refresh: true, populate: options.populate}));
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
