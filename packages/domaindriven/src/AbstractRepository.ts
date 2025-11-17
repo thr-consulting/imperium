@@ -137,15 +137,22 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Prime the dataloader with entities
 	 * @param entityOrEntities
 	 */
-	public prime(entityOrEntities: EntityType): EntityType;
-	public prime(entityOrEntities: EntityType[]): EntityType[];
-	public prime(entityOrEntities: EntityType | EntityType[]) {
+	public prime<P extends string = never>(entityOrEntities: EntityType | Loaded<EntityType, P> | null | undefined): EntityType | Loaded<EntityType, P>;
+	public prime<P extends string = never>(
+		entityOrEntities: (EntityType | Loaded<EntityType, P>)[] | null | undefined,
+	): (EntityType | Loaded<EntityType, P>)[];
+	public prime<P extends string = never>(
+		entityOrEntities: EntityType | Loaded<EntityType, P> | null | undefined | (EntityType | Loaded<EntityType, P>)[],
+	) {
+		if (!entityOrEntities) return entityOrEntities;
+
 		if (Array.isArray(entityOrEntities)) {
 			return entityOrEntities.map(e => {
-				this.dataloader.prime(e.id, e);
+				if (e) this.dataloader.prime(e.id, e);
 				return e;
 			});
 		}
+
 		this.dataloader.prime(entityOrEntities.id, entityOrEntities);
 		return entityOrEntities;
 	}
@@ -269,7 +276,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			return this.prime(await wrap(entity).init({refresh:true, populate: options.populate}));
+			return this.prime(await wrap(entity).init({refresh: true, populate: options.populate}));
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
