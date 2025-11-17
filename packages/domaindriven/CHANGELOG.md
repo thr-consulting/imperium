@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.3.1](https://github.com/darkadept/imperium/compare/v14.3.0...v14.3.1) (2025-11-17)
+
+### Features
+
+- improve abstract repository types ([c0f112e](https://github.com/darkadept/imperium/commit/c0f112e455878270db86543a518c947242a60ffd))
+
 # [14.3.0](https://github.com/darkadept/imperium/compare/v14.2.5...v14.3.0) (2025-11-17)
 
 **Note:** Version bump only for package @imperium/domaindriven
