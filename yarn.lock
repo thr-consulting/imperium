@@ -2519,7 +2519,7 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@mikro-orm/cli@^6.0.7":
+"@mikro-orm/cli@^6.6.0":
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/@mikro-orm/cli/-/cli-6.6.0.tgz#7f6d688352f8644ec477df206665973fd76baa36"
   integrity sha512-5hou4O7Q3a5VhJ8Hdf4hGR4/AI6k3C1jLrHstQQKPaX7j37O+TUwYroOKWPenFzXL2PmT7Xw8Sg84CJzA1GozA==
@@ -2531,7 +2531,7 @@
     tsconfig-paths "4.2.0"
     yargs "17.7.2"
 
-"@mikro-orm/core@6.6.0", "@mikro-orm/core@^6.0.7":
+"@mikro-orm/core@6.6.0", "@mikro-orm/core@^6.6.0":
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-6.6.0.tgz#2be76d2133a13d45c25ba0fb337e5aaabc8f1169"
   integrity sha512-o0uFaaBnE5Y88hbm5Qeol8Z5kllXJbJkdW3PdWVuwVSKTdv7hNu3tmcCixKmw5004VVfa8a9zpjXvySk1EbzVg==
@@ -2553,7 +2553,7 @@
     knex "3.1.0"
     sqlstring "2.3.3"
 
-"@mikro-orm/postgresql@^6.0.7":
+"@mikro-orm/postgresql@^6.6.0":
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/@mikro-orm/postgresql/-/postgresql-6.6.0.tgz#a7f6ca83a105def8b21d6337be66e02b1e5a73ec"
   integrity sha512-CuiSO5FJXT0/uLe9eB0qrV0T90oc0eId/TXc+hV47HrvBVRcL3TcrO49WNqvl1qy9B0garIf+zmd685cc7amug==
