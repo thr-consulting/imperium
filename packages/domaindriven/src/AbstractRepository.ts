@@ -1,4 +1,3 @@
-// Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm, and it has to match. -mk
 import type {Connectors} from '@imperium/connector';
 import {
 	type CountOptions,
@@ -21,7 +20,16 @@ import {
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
-import type {EntityBase} from './types';
+
+export type EntityBase = {id: string};
+type ExtractEntityTypeFromRepository<Entity> = Entity extends AbstractRepository<infer X> ? X : never;
+type RepositoryInitializersOnly<T extends EntityBase> = Pick<
+	AbstractRepository<T>,
+	'initializeEntity' | 'initializeCollection' | 'initializeCollectionAsArray'
+>;
+
+export type Initializers<T extends AbstractRepository<any>> =
+	T extends AbstractRepository<any> ? RepositoryInitializersOnly<ExtractEntityTypeFromRepository<T>> : never;
 
 const d = debug('imperium.domaindriven.AbstractRepository');
 
@@ -41,15 +49,19 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		// Create a dataloader to be used by this repository
 		this.dataloader = new DataLoader<EntityType['id'], EntityType | undefined>(async (keys: ReadonlyArray<EntityType['id']>) => {
-			d(`Finding keys: ${keys}`);
+			// capture stack
+			const stack = new Error().stack?.split('').slice(2, 12).join('') || 'no-stack';
+			d(`DL batch START keys=${keys.join(', ')}trigger stack:${stack}`);
+
+			const start = Date.now();
+			// NOTE: using repo.find here is intentional - Mikro's find supports "in" queries
 			const unordered = await this.repo.find(keys as FilterQuery<EntityType>);
+			const took = Date.now() - start;
+
+			d(`DL batch END keys=${keys.join(', ')} took=${took}ms results=${unordered.length}`);
 			const entMap = new Map<EntityType['id'], EntityType>();
-			unordered.forEach(ent => {
-				entMap.set(ent.id, ent);
-			});
-			return keys.map(key => {
-				return entMap.get(key);
-			});
+			unordered.forEach(ent => entMap.set(ent.id, ent));
+			return keys.map(key => entMap.get(key));
 		});
 	}
 
@@ -243,7 +255,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	/**
-	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
+	 * Initializes a collection, returning an array of entities (not a Collection). Uses repository directly to avoid
+	 * triggering DataLoader re-entrancy loops during initialization.
 	 * @param collection
 	 * @param options
 	 */
@@ -260,15 +273,21 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		if (collection.isInitialized()) return collection.getItems();
 		const ids = collection.getItems(false).map(v => v.id);
-		const arr = await this.loadMany(ids);
-		if (arr.some(v => v === undefined)) {
+
+		// Use repo.find directly to fetch all items in one query and avoid DataLoader re-entry.
+		const unordered = await this.repo.find(ids as FilterQuery<EntityType>);
+		const entMap = new Map<EntityType['id'], EntityType>();
+		unordered.forEach(ent => entMap.set(ent.id, ent));
+		const ordered = ids.map(id => entMap.get(id));
+		if (ordered.some(v => v === undefined)) {
 			throw new Error(`Error initializing collection: ${collection}`);
 		}
-		return arr as EntityType[];
+		this.prime(ordered as EntityType[]);
+		return ordered as EntityType[];
 	}
 
 	/**
-	 * Initializes a single entity. Uses dataloader.
+	 * Initializes a single entity. Uses repository directly for initialization to prevent re-entrant DataLoader calls.
 	 * @param entity
 	 * @param options
 	 */
@@ -276,38 +295,45 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			return this.prime(await wrap(entity).init({refresh: true, populate: options.populate}));
+			// fetch fresh entity with populate via repository so we avoid DataLoader re-entrancy
+			const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>, {populate: options.populate as any});
+			if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
+			this.prime(fetched as EntityType);
+			return fetched as EntityType;
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
-		const ent = await this.load(entity.id);
-		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
-		return ent;
+
+		// fetch entity directly from repo (avoids using dataloader)
+		const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>);
+		if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
+		this.prime(fetched as EntityType);
+		return fetched as EntityType;
 	}
 
 	/**
-	 * Initializes a single entity. Uses dataloader.
+	 * Initializes a single nullable entity. Uses repository directly for initialization to prevent re-entrant DataLoader calls.
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeNullableEntity<P extends string = never>(
-		entity?: EntityType | null,
-		options?: FindOptions<EntityType, P>,
-	): Promise<EntityType | null> {
+	public async initializeNullableEntity<P extends string = never>(entity?: EntityType | null, options?: FindOptions<EntityType, P>) {
 		if (!entity) return null;
 
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			// initialize with populate
-			return this.prime(await wrap(entity).init({refresh: true, populate: options.populate}));
+			const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>, {populate: options.populate as any});
+			if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
+			this.prime(fetched as EntityType);
+			return fetched as EntityType;
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
 
-		const ent = await this.load(entity.id);
-		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
-		return ent;
+		const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>);
+		if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
+		this.prime(fetched as EntityType);
+		return fetched as EntityType;
 	}
 
 	public getReference(
