@@ -1,3 +1,4 @@
+// Disabled "any" checks because I'm reusing a lot of typescript from Mikro-orm, and it has to match. -mk
 import type {Connectors} from '@imperium/connector';
 import {
 	type CountOptions,
@@ -7,29 +8,20 @@ import {
 	type FindOneOptions,
 	type FindOptions,
 	type GetReferenceOptions,
+	type IdentifiedReference,
 	type Loaded,
+	type Populate,
 	type Primary,
 	type RequiredEntityData,
 	type Collection,
 	LockMode,
-	type Ref,
-	type FindAllOptions,
+	type Reference,
 	wrap,
-	type InitCollectionOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
 import debug from 'debug';
-
-export type EntityBase = {id: string};
-type ExtractEntityTypeFromRepository<Entity> = Entity extends AbstractRepository<infer X> ? X : never;
-type RepositoryInitializersOnly<T extends EntityBase> = Pick<
-	AbstractRepository<T>,
-	'initializeEntity' | 'initializeCollection' | 'initializeCollectionAsArray'
->;
-
-export type Initializers<T extends AbstractRepository<any>> =
-	T extends AbstractRepository<any> ? RepositoryInitializersOnly<ExtractEntityTypeFromRepository<T>> : never;
+import type {EntityBase} from './types';
 
 const d = debug('imperium.domaindriven.AbstractRepository');
 
@@ -49,19 +41,15 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		// Create a dataloader to be used by this repository
 		this.dataloader = new DataLoader<EntityType['id'], EntityType | undefined>(async (keys: ReadonlyArray<EntityType['id']>) => {
-			// capture stack
-			const stack = new Error().stack?.split('').slice(2, 12).join('') || 'no-stack';
-			d(`DL batch START keys=${keys.join(', ')}trigger stack:${stack}`);
-
-			const start = Date.now();
-			// NOTE: using repo.find here is intentional - Mikro's find supports "in" queries
+			d(`Finding keys: ${keys}`);
 			const unordered = await this.repo.find(keys as FilterQuery<EntityType>);
-			const took = Date.now() - start;
-
-			d(`DL batch END keys=${keys.join(', ')} took=${took}ms results=${unordered.length}`);
 			const entMap = new Map<EntityType['id'], EntityType>();
-			unordered.forEach(ent => entMap.set(ent.id, ent));
-			return keys.map(key => entMap.get(key));
+			unordered.forEach(ent => {
+				entMap.set(ent.id, ent);
+			});
+			return keys.map(key => {
+				return entMap.get(key);
+			});
 		});
 	}
 
@@ -70,7 +58,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 */
 	public persist(entity: EntityType | EntityType[]) {
-		return this.repo.getEntityManager().persist(entity);
+		return this.repo.persist(entity);
 	}
 
 	/**
@@ -129,7 +117,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
+	public async getAll<P extends string = never>(options?: FindOptions<EntityType, P>) {
 		return this.prime(await this.repo.findAll(options));
 	}
 
@@ -142,29 +130,22 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	public async remove(entityOrEntities: EntityType | EntityType[]) {
-		return this.repo.getEntityManager().remove(entityOrEntities);
+		return this.repo.remove(entityOrEntities);
 	}
 
 	/**
 	 * Prime the dataloader with entities
 	 * @param entityOrEntities
 	 */
-	public prime<P extends string = never>(entityOrEntities: EntityType | Loaded<EntityType, P> | null | undefined): EntityType | Loaded<EntityType, P>;
-	public prime<P extends string = never>(
-		entityOrEntities: (EntityType | Loaded<EntityType, P>)[] | null | undefined,
-	): (EntityType | Loaded<EntityType, P>)[];
-	public prime<P extends string = never>(
-		entityOrEntities: EntityType | Loaded<EntityType, P> | null | undefined | (EntityType | Loaded<EntityType, P>)[],
-	) {
-		if (!entityOrEntities) return entityOrEntities;
-
+	public prime(entityOrEntities: EntityType): EntityType;
+	public prime(entityOrEntities: EntityType[]): EntityType[];
+	public prime(entityOrEntities: EntityType | EntityType[]) {
 		if (Array.isArray(entityOrEntities)) {
 			return entityOrEntities.map(e => {
-				if (e) this.dataloader.prime(e.id, e);
+				this.dataloader.prime(e.id, e);
 				return e;
 			});
 		}
-
 		this.dataloader.prime(entityOrEntities.id, entityOrEntities);
 		return entityOrEntities;
 	}
@@ -229,7 +210,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version Obtains an optimistic lock when deleting.
 	 */
 	public async deleteById(id: EntityType['id'], version: number) {
-		this.repo.getEntityManager().remove(await this.getLock(id, version));
+		this.repo.remove(await this.getLock(id, version));
 		this.dataloader.clear(id);
 	}
 
@@ -238,7 +219,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param collection
 	 * @param options
 	 */
-	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: InitCollectionOptions<EntityType, P>) {
+	public async initializeCollection<P extends string = never>(collection: Collection<EntityType>, options?: {populate?: Populate<EntityType, P>}) {
 		d('InitCollection');
 
 		if (options?.populate) {
@@ -255,14 +236,13 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	/**
-	 * Initializes a collection, returning an array of entities (not a Collection). Uses repository directly to avoid
-	 * triggering DataLoader re-entrancy loops during initialization.
+	 * Initializes a collection, returning an array of entities (not a Collection). Uses dataloader.
 	 * @param collection
 	 * @param options
 	 */
 	public async initializeCollectionAsArray<P extends string = never>(
 		collection: Collection<EntityType>,
-		options?: InitCollectionOptions<EntityType, P, '*', never> | undefined,
+		options?: {populate?: Populate<EntityType, P>},
 	) {
 		d('InitCollectionAsArray');
 		if (options?.populate) {
@@ -273,67 +253,54 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		if (collection.isInitialized()) return collection.getItems();
 		const ids = collection.getItems(false).map(v => v.id);
-
-		// Use repo.find directly to fetch all items in one query and avoid DataLoader re-entry.
-		const unordered = await this.repo.find(ids as FilterQuery<EntityType>);
-		const entMap = new Map<EntityType['id'], EntityType>();
-		unordered.forEach(ent => entMap.set(ent.id, ent));
-		const ordered = ids.map(id => entMap.get(id));
-		if (ordered.some(v => v === undefined)) {
+		const arr = await this.loadMany(ids);
+		if (arr.some(v => v === undefined)) {
 			throw new Error(`Error initializing collection: ${collection}`);
 		}
-		this.prime(ordered as EntityType[]);
-		return ordered as EntityType[];
+		return arr as EntityType[];
 	}
 
 	/**
-	 * Initializes a single entity. Uses repository directly for initialization to prevent re-entrant DataLoader calls.
+	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeEntity<P extends string = never>(entity: EntityType, options?: FindOptions<EntityType, P>) {
+	public async initializeEntity<P extends string = never>(entity: EntityType, options?: {populate?: Populate<EntityType, P>}) {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			// fetch fresh entity with populate via repository so we avoid DataLoader re-entrancy
-			const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>, {populate: options.populate as any});
-			if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
-			this.prime(fetched as EntityType);
-			return fetched as EntityType;
+			return this.prime(await wrap(entity).init(true, options.populate));
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
-
-		// fetch entity directly from repo (avoids using dataloader)
-		const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>);
-		if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
-		this.prime(fetched as EntityType);
-		return fetched as EntityType;
+		const ent = await this.load(entity.id);
+		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
+		return ent;
 	}
 
 	/**
-	 * Initializes a single nullable entity. Uses repository directly for initialization to prevent re-entrant DataLoader calls.
+	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeNullableEntity<P extends string = never>(entity?: EntityType | null, options?: FindOptions<EntityType, P>) {
+	public async initializeNullableEntity<P extends string = never>(
+		entity?: EntityType | null,
+		options?: {populate?: Populate<EntityType, P> | null},
+	): Promise<EntityType | null> {
 		if (!entity) return null;
 
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>, {populate: options.populate as any});
-			if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
-			this.prime(fetched as EntityType);
-			return fetched as EntityType;
+			// initialize with populate
+			return this.prime(await wrap(entity).init(true, options.populate));
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
 
-		const fetched = await this.repo.findOne(entity.id as FilterQuery<EntityType>);
-		if (!fetched) throw new Error(`Error initializing entity: ${entity}`);
-		this.prime(fetched as EntityType);
-		return fetched as EntityType;
+		const ent = await this.load(entity.id);
+		if (!ent) throw new Error(`Error initializing entity: ${entity}`);
+		return ent;
 	}
 
 	public getReference(
@@ -341,7 +308,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		options: Omit<GetReferenceOptions, 'wrapped'> & {
 			wrapped: true;
 		},
-	): Ref<EntityType>;
+	): IdentifiedReference<EntityType, 'id'>;
 	public getReference(id: Primary<EntityType>): EntityType;
 	public getReference(
 		id: Primary<EntityType>,
@@ -349,7 +316,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 			wrapped: false;
 		},
 	): EntityType;
-	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Ref<EntityType> {
+	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Reference<EntityType> {
 		if (options?.wrapped) {
 			return this.repo.getReference(id, {wrapped: true});
 		}
