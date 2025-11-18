@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.3.2](https://github.com/darkadept/imperium/compare/v14.3.1...v14.3.2) (2025-11-18)
+
+### Features
+
+- improve abstract repository ([06552b5](https://github.com/darkadept/imperium/commit/06552b56101b88419c09dcd2d0b41f3802ce8e8e))
+
 ## [14.3.1](https://github.com/darkadept/imperium/compare/v14.3.0...v14.3.1) (2025-11-17)
 
 ### Features
