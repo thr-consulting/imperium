@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.3.3](https://github.com/darkadept/imperium/compare/v14.3.2...v14.3.3) (2025-11-18)
+
+### Reverts
+
+- Revert mikro orm6 (#388) ([32938a1](https://github.com/darkadept/imperium/commit/32938a135a143a65065f42fae9a07f52411a5ad5)), closes [#388](https://github.com/darkadept/imperium/issues/388) [#387](https://github.com/darkadept/imperium/issues/387)
+
 ## [14.3.2](https://github.com/darkadept/imperium/compare/v14.3.1...v14.3.2) (2025-11-18)
 
 ### Features
