@@ -1,5 +1,10 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+unset PREFIX
+
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+. "$(dirname "$0")/_/husky.sh"
+
 yarn commitlint --edit "$1"
+
