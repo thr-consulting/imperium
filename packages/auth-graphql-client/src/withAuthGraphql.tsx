@@ -1,4 +1,4 @@
-import {renewToken, setAuthenticated, useAccessToken} from '@imperium/auth-client';
+import {renewToken, useAccessToken} from '@imperium/auth-client';
 import type {Hoc} from '@imperium/client';
 import {type ComponentType, memo, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
@@ -25,8 +25,6 @@ export function withAuthGraphql({backing}: WithAuthGraphqlOpts) {
 					backing.setPublishFn(tkn => {
 						if (tkn) {
 							dispatch(renewToken(tkn));
-						} else {
-							dispatch(setAuthenticated({token: null}));
 						}
 					});
 				}, [dispatch]);

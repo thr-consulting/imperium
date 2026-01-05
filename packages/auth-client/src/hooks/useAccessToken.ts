@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 import {defaults} from '../defaults';
 import {fetchAccessToken} from '../lib/fetchAccessToken';
 import {isTokenValidOrUndefined} from '../lib/isTokenValidOrUndefined';
-import {renewToken, useTokenState} from '../state';
+import {renewToken, setAuthenticated, useTokenState} from '../state';
 
 const d = debug('imperium.auth-client.hooks.useAccessToken');
 
@@ -35,6 +35,7 @@ export function useAccessToken() {
 				}
 			} catch (err: any) {
 				d(`Failed to renew the access token: ${err.toString()}`);
+				dispatch(setAuthenticated({ token: null }));
 			} finally {
 				isRenewing = false;
 			}
