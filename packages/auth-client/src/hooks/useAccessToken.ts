@@ -35,7 +35,7 @@ export function useAccessToken() {
 				}
 			} catch (err: any) {
 				d(`Failed to renew the access token: ${err.toString()}`);
-				dispatch(setAuthenticated({ token: null }));
+				dispatch(setAuthenticated({token: null}));
 			} finally {
 				isRenewing = false;
 			}
