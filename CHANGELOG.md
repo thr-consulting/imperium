@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.3.4](https://github.com/darkadept/imperium/compare/v14.3.3...v14.3.4) (2026-01-05)
+
+### Bug Fixes
+
+- .husky commit ([b389e48](https://github.com/darkadept/imperium/commit/b389e487684aa2f4bb524501fdcc912e4b980cc1))
+
 ## [14.3.3](https://github.com/darkadept/imperium/compare/v14.3.2...v14.3.3) (2025-11-18)
 
 ### Reverts

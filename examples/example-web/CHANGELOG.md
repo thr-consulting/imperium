@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.3.4](https://github.com/darkadept/imperium/compare/v14.3.3...v14.3.4) (2026-01-05)
+
+**Note:** Version bump only for package @imperium/example-web
+
 # [14.2.0](https://github.com/darkadept/imperium/compare/v14.1.0...v14.2.0) (2025-09-29)
 
 **Note:** Version bump only for package @imperium/example-web
