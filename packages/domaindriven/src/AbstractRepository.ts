@@ -261,6 +261,16 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	/**
+	 * Initialized a standard array of entities rather than a MikroORM Collection.
+	 */
+	public async initializeEntityArray<P extends string = never>(entities: EntityType[], options?: {populate?: Populate<EntityType, P>}) {
+		d('InitEntityArray');
+
+		// Use Promise.all to run your existing initializeEntity logic on every item
+		return Promise.all(entities.map(entity => this.initializeEntity(entity, options)));
+	}
+
+	/**
 	 * Initializes a single entity. Uses dataloader.
 	 * @param entity
 	 * @param options
