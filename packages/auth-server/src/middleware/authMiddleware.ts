@@ -52,10 +52,9 @@ export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
 		);
 	}
 
-	return compose([
+	const composed = compose([
 		...middlewareArr,
 		(req, res, next) => {
-			// @ts-ignore
 			if (req.user) {
 				d('JWT present and valid');
 				// @ts-ignore
@@ -69,4 +68,24 @@ export function authMiddleware(config: AuthMiddlewareConfig): RequestHandler {
 			}
 		},
 	]);
+
+	return (req, res, next) => {
+		return composed(req, res, (err: any) => {
+			if (err && err.name === 'UnauthorizedError') {
+				// Missing tokens: pass to next
+				if (err.message === 'No authorization token was found') {
+					return next();
+				}
+
+				// Bad/Expired tokens: Hard 401
+				// Return the result of the .json() call to ensure a value is returned
+				return res.status(401).json({
+					errors: [{message: 'Session expired', extensions: {code: 'UNAUTHENTICATED'}}],
+				});
+			}
+
+			// Success or other errors
+			return next(err);
+		});
+	};
 }
