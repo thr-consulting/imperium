@@ -35,6 +35,19 @@ export function createLink(client: ImperiumClient, opts?: GraphqlClientOptions):
 
 	d('Creating Apollo Error link');
 	const errorLink = onError(({graphQLErrors, networkError}) => {
+		const isUnauthenticated =
+			(networkError && 'statusCode' in networkError && networkError.statusCode === 401) ||
+			(graphQLErrors && graphQLErrors.some(e => e.extensions?.code === 'UNAUTHENTICATED'));
+
+		if (isUnauthenticated) {
+			// Clear local storage to ensure useAuthenticatedState() returns null
+			localStorage.removeItem('access');
+			localStorage.removeItem('id');
+			if (window.location.pathname !== '/login') {
+				window.location.href = '/login';
+			}
+		}
+
 		if (graphQLErrors)
 			graphQLErrors.forEach(({message, locations, path}) => d(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`));
 		if (networkError) d(`[Network error]: ${networkError}`);
