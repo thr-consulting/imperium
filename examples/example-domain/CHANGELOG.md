@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.4.1](https://github.com/thr-consulting/imperium/compare/v14.4.0...v14.4.1) (2026-04-08)
+
+**Note:** Version bump only for package @imperium/example-domain
+
 # [14.4.0](https://github.com/thr-consulting/imperium/compare/v14.3.4...v14.4.0) (2026-02-06)
 
 **Note:** Version bump only for package @imperium/example-domain

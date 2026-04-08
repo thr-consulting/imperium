@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-web",
-	"version": "14.3.4",
+	"version": "14.4.1",
 	"private": true,
 	"description": "Imperium example client project",
 	"repository": {
@@ -28,9 +28,9 @@
 	"dependencies": {
 		"@apollo/client": "^3.13.8",
 		"@imperium/auth-client": "^14.3.4",
-		"@imperium/auth-graphql-client": "^14.3.4",
+		"@imperium/auth-graphql-client": "^14.4.1",
 		"@imperium/client": "^14.0.0",
-		"@imperium/graphql-client": "^14.0.0",
+		"@imperium/graphql-client": "^14.4.1",
 		"@imperium/layout": "^14.3.4",
 		"@imperium/router": "^14.0.0",
 		"@imperium/state": "^14.0.0",
