@@ -18,7 +18,7 @@ export function apolloErrorHandler<T>(logError?: ImperiumGraphqlLogErrorFn<T>, l
 			return {
 				async didEncounterErrors(rC: GraphQLRequestContextDidEncounterErrors<BaseContext>): Promise<void> {
 					await Promise.all(
-						rC.errors?.map(async error => {
+						rC.errors.map(async error => {
 							const err = error.originalError || error;
 							d(err);
 							// eslint-disable-next-line no-underscore-dangle

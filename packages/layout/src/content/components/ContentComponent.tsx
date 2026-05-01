@@ -23,7 +23,7 @@ interface ContentComponentProps<T extends DefineRouteOptions, K extends keyof T>
 
 function useDeepCompareMemoize(value: any) {
 	const ref = useRef();
-	if (!value && !ref.current) return ref.current;
+	if (!value) return ref.current;
 	if (!isEqual(value, ref.current)) {
 		ref.current = value;
 	}

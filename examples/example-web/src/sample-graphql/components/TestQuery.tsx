@@ -17,7 +17,7 @@ export function TestQuery() {
 
 	return (
 		<Segment inverted>
-			<p>Query: {loading ? 'Loading' : data.getSubscriptionValue.id}</p>
+			<p>Query: {data.getSubscriptionValue.id}</p>
 			<Button
 				size="mini"
 				onClick={() => {
