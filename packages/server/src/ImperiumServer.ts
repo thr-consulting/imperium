@@ -99,7 +99,7 @@ export class ImperiumServer<Context> {
 			(memo, module) => {
 				if (module.startup && isFunction(module.startup)) {
 					const moduleStartupReturn = module.startup(this);
-					if (moduleStartupReturn && isFunction(moduleStartupReturn.then)) {
+					if (isFunction(moduleStartupReturn.then)) {
 						// Add a catch function to the promise
 						moduleStartupReturn.catch(err => {
 							console.group('Error running module startup');

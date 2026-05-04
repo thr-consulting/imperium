@@ -36,7 +36,7 @@ function pullItems(items: LayoutItem[], pulled: LayoutItem[] = []): LayoutItem[]
 	}, [] as LayoutItem[]);
 }
 
-function addItems(items: LayoutItem[], pulled: Record<string, LayoutItem[]>): LayoutItem[] {
+function addItems(items: LayoutItem[], pulled: Record<string, LayoutItem[] | undefined>): LayoutItem[] {
 	return items.reduce((memo, item) => {
 		if (isDropdownLayoutItem(item)) {
 			const newItems = item.key && pulled[item.key] ? pulled[item.key] : [];
@@ -44,7 +44,7 @@ function addItems(items: LayoutItem[], pulled: Record<string, LayoutItem[]>): La
 				...memo,
 				{
 					...item,
-					dropdown: [...addItems(item.dropdown, pulled), ...newItems],
+					dropdown: [...addItems(item.dropdown, pulled), ...(newItems || [])],
 				},
 			];
 		}
@@ -55,7 +55,7 @@ function addItems(items: LayoutItem[], pulled: Record<string, LayoutItem[]>): La
 				...memo,
 				{
 					...item,
-					menu: [...addItems(item.menu, pulled), ...newItems],
+					menu: [...addItems(item.menu, pulled), ...(newItems || [])],
 				},
 			];
 		}
