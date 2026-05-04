@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-domain",
-	"version": "14.4.1",
+	"version": "14.5.0",
 	"private": true,
 	"description": "Imperium Domain Example",
 	"author": "MYMC <tech@makingyourmilescount.com>",
@@ -28,10 +28,10 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/auth-server": "^14.4.1",
-		"@imperium/authorization": "^14.0.0",
-		"@imperium/connector": "^14.0.0",
-		"@imperium/domaindriven": "^14.4.0",
+		"@imperium/auth-server": "^14.5.0",
+		"@imperium/authorization": "^14.5.0",
+		"@imperium/connector": "^14.5.0",
+		"@imperium/domaindriven": "^14.5.0",
 		"@js-joda/core": "^5.6.5",
 		"debug": "^4.4.0",
 		"graphql-subscriptions": "^2.0.0",
