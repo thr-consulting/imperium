@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.5.3](https://github.com/darkadept/imperium/compare/v14.5.2...v14.5.3) (2026-05-04)
+
+### Bug Fixes
+
+- invalid index values ([8327b1d](https://github.com/darkadept/imperium/commit/8327b1d499a98c7b0772e8665dbec83bfcd6289b))
+
 ## [14.5.2](https://github.com/darkadept/imperium/compare/v14.5.1...v14.5.2) (2026-05-04)
 
 ### Bug Fixes
