@@ -48,9 +48,9 @@ export async function keysSplitAndSort<Key, Value>(
 		return 'b';
 	});
 
-	let vals: IndexedValue<Value>[] = grouped.b as IndexedValue<Value>[];
+	let vals = grouped.b as IndexedValue<Value>[] | undefined;
 	if (grouped.a.length > 0) {
-		vals = [...vals, ...(await lookup(grouped.a))];
+		vals = [...(vals || []), ...(await lookup(grouped.a))];
 	}
 
 	const sorted = sortBy(vals, 'index');
