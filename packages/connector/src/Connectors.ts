@@ -49,7 +49,7 @@ export class Connectors {
 	}
 
 	public get(type: string) {
-		// @ts-ignore
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		if (!this.connectors[type]) {
 			throw new Error(`Connector: ${type} doesn't exist`);
 		}
