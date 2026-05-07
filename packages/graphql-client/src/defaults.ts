@@ -6,7 +6,7 @@ export const defaults = {
 		},
 		watchQuery: {
 			fetchPolicy: 'cache-and-network',
-			errorPolicy: 'ignore',
+			errorPolicy: 'all',
 		},
 		mutate: {
 			fetchPolicy: 'no-cache',
