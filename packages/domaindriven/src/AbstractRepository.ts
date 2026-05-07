@@ -167,8 +167,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @param version if the version is specified it acts as a getLock
 	 */
-	public getById(id: EntityType['id'], version?: number): Promise<EntityType | undefined> {
-		if (version) return this.getLock(id, version);
+	public getById<P extends string = never>(
+		id: EntityType['id'],
+		version?: number,
+		options?: FindOneOptions<EntityType, P>,
+	): Promise<EntityType | undefined> {
+		if (version) return this.getLock(id, version, options);
 		return this.load(id);
 	}
 
@@ -177,8 +181,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param id
 	 * @param version if the version is specified it acts as a getLock
 	 */
-	public async getByIdOrError(id: EntityType['id'], version?: number): Promise<EntityType> {
-		if (version) return this.getLock(id, version);
+	public async getByIdOrError<P extends string = never>(
+		id: EntityType['id'],
+		version?: number,
+		options?: FindOneOptions<EntityType, P>,
+	): Promise<EntityType> {
+		if (version) return this.getLock(id, version, options);
 		const entity = await this.load(id);
 		if (!entity) throw new Error(`${this.entityName} with id ${id} not found!`);
 		return entity;
@@ -196,10 +204,15 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Get an optimistic lock on an entity by id and version. This does not batch/cache.
 	 * @param id
 	 * @param version
+	 * @param options
 	 * @return entity
 	 */
-	private async getLock(id: EntityType['id'], version: number): Promise<EntityType> {
-		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {lockVersion: version, lockMode: LockMode.OPTIMISTIC});
+	private async getLock<P extends string = never>(
+		id: EntityType['id'],
+		version: number,
+		options?: FindOneOptions<EntityType, P>,
+	): Promise<EntityType> {
+		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {...options, lockVersion: version, lockMode: LockMode.OPTIMISTIC});
 		if (!entity) throw new Error('Could not optimistically lock entity');
 		return this.prime(entity);
 	}
