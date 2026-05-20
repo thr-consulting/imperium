@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.8.3](https://github.com/thr-consulting/imperium/compare/v14.8.2...v14.8.3) (2026-05-20)
+
+### Features
+
+- revert changes that broke imperium features ([af86325](https://github.com/thr-consulting/imperium/commit/af8632524327b21cba7d2a108455a32598dcb767))
+
 # [14.6.0](https://github.com/thr-consulting/imperium/compare/v14.5.3...v14.6.0) (2026-05-08)
 
 **Note:** Version bump only for package @imperium/example-domain
