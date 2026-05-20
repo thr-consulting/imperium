@@ -35,7 +35,6 @@ export function createSliceHook<State, T extends Transforms<State>>(slice: Slice
 		const keys = Object.keys(rawState) as (keyof State)[];
 		return keys.reduce(
 			(memo, key) => {
-				// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 				const fn = transformers ? transformers[key] : null;
 				if (fn && typeof fn === 'function') {
 					return {

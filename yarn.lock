@@ -3122,10 +3122,10 @@
   dependencies:
     lodash-es "^4.17.21"
 
-"@thx/eslint-config-thx@^19.10.0":
-  version "19.10.0"
-  resolved "https://registry.yarnpkg.com/@thx/eslint-config-thx/-/eslint-config-thx-19.10.0.tgz#5c4528382be43c3721d535723f0f009974185411"
-  integrity sha512-ZvWuEzh6PGpcjUb6GoGTxpji/ko1TTSYfjevgbhUNjeyzwwJdlKgxZeM3fnv092Z/bQ8qXqy2XGMZssp7/Px4Q==
+"@thx/eslint-config-thx@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@thx/eslint-config-thx/-/eslint-config-thx-19.0.0.tgz#4629135510950eae0f99ccec5798fb84d98eb34b"
+  integrity sha512-XPkkb9kcSM0cP3OU/IPrWwl2MfHiyRZphMYtmVfoU9zYmNt7yAP2uIICZrnRYJwuBmFZkJUdCi1JdT9zlTXzrQ==
   dependencies:
     "@kesills/eslint-config-airbnb-typescript" "^20.0.0"
     "@stylistic/eslint-plugin" "^4.4.0"

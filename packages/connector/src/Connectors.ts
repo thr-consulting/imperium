@@ -20,7 +20,6 @@ export class Connectors {
 	public async connect() {
 		const connectors = await this.createConnectors();
 		this.connectors = connectors.reduce((memo, connector) => {
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			if (memo[connector.name]) {
 				throw new Error(`Connector name: ${connector.name} already exists`);
 			}
@@ -43,13 +42,12 @@ export class Connectors {
 	public async close() {
 		await Promise.all(
 			Object.values(this.connectors).map(async connector => {
-				await connector.close();
+				if (connector.close) await connector.close();
 			}),
 		);
 	}
 
 	public get(type: string) {
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		if (!this.connectors[type]) {
 			throw new Error(`Connector: ${type} doesn't exist`);
 		}

@@ -17,7 +17,7 @@ export function makeSchema<T>({server}: MakeSchemaOpts) {
 	d('Merging graphql schema');
 	const typeDefs = mergeTypeDefs(
 		server.modules.reduce((memo, module) => {
-			if (isImperiumGraphqlServerModule(module)) {
+			if (isImperiumGraphqlServerModule(module) && module.schema) {
 				if (Array.isArray(module.schema)) {
 					return [...memo, ...module.schema];
 				}
@@ -35,7 +35,7 @@ export function makeSchema<T>({server}: MakeSchemaOpts) {
 	d('Merging graphql resolvers');
 	const resolversArray = server.modules.reduce(
 		(memo, module) => {
-			if (isImperiumGraphqlServerModule(module)) {
+			if (isImperiumGraphqlServerModule(module) && module.resolvers) {
 				const resolvers1 = module.resolvers(server);
 				if (Array.isArray(resolvers1)) {
 					return [...memo, ...resolvers1];

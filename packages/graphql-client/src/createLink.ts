@@ -81,7 +81,7 @@ export function createLink(client: ImperiumClient, opts?: GraphqlClientOptions):
 
 	// Use links from other modules
 	const moduleLinks = client.modules.reduce((memo: ApolloLink[], module: ImperiumClientModule) => {
-		if (isImperiumGraphqlClientModule(module) && typeof module.apolloLinks === 'function') {
+		if (isImperiumGraphqlClientModule(module) && module.apolloLinks && typeof module.apolloLinks === 'function') {
 			return [...memo, ...module.apolloLinks(client)];
 		}
 		return memo;

@@ -35,6 +35,6 @@ export interface ImperiumGraphqlServerModule<Context> extends ImperiumServerModu
  * @param object
  */
 export function isImperiumGraphqlServerModule<Context>(object: ImperiumServerModule<Context>): object is ImperiumGraphqlServerModule<Context> {
-	const {resolvers, schema} = object as Partial<ImperiumGraphqlServerModule<Context>>;
+	const {resolvers, schema} = object as ImperiumGraphqlServerModule<Context>;
 	return !!resolvers && typeof resolvers === 'function' && !!schema;
 }

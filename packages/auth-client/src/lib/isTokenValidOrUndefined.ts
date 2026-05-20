@@ -8,7 +8,7 @@ const tokenGracePeriod = 5; // seconds
 
 export function isTokenValid(token: string) {
 	try {
-		const decodedToken = decode(token) as {exp: number} | undefined;
+		const decodedToken = decode(token) as {exp: number};
 		if (!decodedToken || !decodedToken.exp) return false;
 		return decodedToken.exp - Date.now() / 1000 > tokenGracePeriod;
 	} catch (err: any) {

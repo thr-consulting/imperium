@@ -14,7 +14,7 @@ interface ForgotPasswordInfo {
 }
 
 function isForgotPasswordInfo(forgotPasswordInfo: any): forgotPasswordInfo is ForgotPasswordInfo {
-	return (forgotPasswordInfo as Partial<ForgotPasswordInfo>).email !== undefined;
+	return (forgotPasswordInfo as ForgotPasswordInfo).email !== undefined;
 }
 
 export function forgotPasswordEndpoint(getAuthFn: GetAuthenticationFn, server: ImperiumServer<any>): void {

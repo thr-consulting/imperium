@@ -61,7 +61,7 @@ export const layout: LayoutData = {
 				},
 				{
 					text: ({state}) => {
-						return (state.myParam as string) || '404';
+						return (state?.myParam as string) || '404';
 					},
 					to: ({loc}) => routes.to.withParam(routes.match.withParam(loc.pathname)),
 					weight: 2,

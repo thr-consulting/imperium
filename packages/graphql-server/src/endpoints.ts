@@ -38,7 +38,7 @@ export function endpoints<T>(config?: GraphqlServerModuleConfig<T>) {
 					return {
 						// @ts-ignore It's too much work to place "context" on the Request type.
 						...req.context,
-						...config.apolloContextCreator({req, res}),
+						...config?.apolloContextCreator({req, res}),
 					};
 				}
 

@@ -48,7 +48,7 @@ export interface ImperiumRouterClientModule extends ImperiumClientModule {
 }
 
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {
-	const routeModule = module as Partial<ImperiumRouterClientModule>;
+	const routeModule = module as ImperiumRouterClientModule;
 	return routeModule.routeProps !== undefined;
 }
 

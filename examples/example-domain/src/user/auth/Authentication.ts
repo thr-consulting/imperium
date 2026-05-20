@@ -74,6 +74,7 @@ export class Authentication implements AuthenticationDomain {
 				password: '$2a$11$FqT0AJ9OjWqgnY9Vl5PjbuxAp4oTtm41zTyQAWYizhZ5jTzijL4nq', // password
 			},
 		};
+		if (!user) return null;
 		return {
 			password: user.service.password,
 			id: user.id,

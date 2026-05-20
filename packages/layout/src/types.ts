@@ -36,6 +36,6 @@ export interface ImperiumLayoutClientModule extends ImperiumClientModule {
 }
 
 export function isImperiumLayoutClientModule(module: ImperiumClientModule): module is ImperiumLayoutClientModule {
-	const layoutModule = module as Partial<ImperiumLayoutClientModule>;
+	const layoutModule = module as ImperiumLayoutClientModule;
 	return layoutModule.layout !== undefined;
 }
