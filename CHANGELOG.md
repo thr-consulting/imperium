@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.8.4](https://github.com/darkadept/imperium/compare/v14.8.3...v14.8.4) (2026-05-20)
+
+### Features
+
+- cookie storage ([d1c5f59](https://github.com/darkadept/imperium/commit/d1c5f591547c0cd3d43b1da03c424fc299cc61ee))
+
 ## [14.8.3](https://github.com/darkadept/imperium/compare/v14.8.2...v14.8.3) (2026-05-20)
 
 ### Features
