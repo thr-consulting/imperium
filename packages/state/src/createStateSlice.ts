@@ -1,106 +1,68 @@
-import {createSlice, type CreateSliceOptions, type Slice, type SliceCaseReducers} from '@reduxjs/toolkit';
+import {createSlice, type CreateSliceOptions, type Slice, type SliceCaseReducers, type Action} from '@reduxjs/toolkit';
 import {merge} from 'lodash-es';
-
-export type PersistedSlice<State> = Slice<State> & {
-	persist?: boolean;
-};
-
-export function createStateSlice<State, CaseReducers extends SliceCaseReducers<State>, Name extends string = string>(
-	options: CreateSliceOptions<State, CaseReducers, Name> & {
-		persist?: boolean;
-	},
-): PersistedSlice<State> {
-	const {persist, ...rest} = options;
-
-	const slice = createSlice(rest);
-
-	return Object.assign(slice, {
-		persist,
-	});
-}
-
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-	return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-/**
- * Lightweight structural validation.
- *
- * This intentionally only validates:
- * - object-ness
- * - existence of top-level keys
- *
- * For stricter runtime validation, use a schema validator
- * like Zod or Valibot.
- */
-export function isValidState<State>(parsed: unknown, defaultState: State): parsed is State {
-	// Primitive states cannot be structurally validated
-	if (!isPlainObject(defaultState)) {
-		return true;
-	}
-
-	if (!isPlainObject(parsed)) {
-		return false;
-	}
-
-	return Object.keys(defaultState).every(key => key in parsed);
-}
 
 export function getPersistedStateKey(sliceName: string): string {
 	return `persisted_slice_${sliceName}`;
 }
 
-export function clearPersistedState(sliceName: string): void {
-	if (typeof window === 'undefined') {
-		return;
-	}
-
-	try {
-		localStorage.removeItem(getPersistedStateKey(sliceName));
-	} catch {
-		// Ignore storage failures
-	}
-}
-
-export function persistState<State>(sliceName: string, state: State): void {
-	if (typeof window === 'undefined') {
-		return;
-	}
-
-	try {
-		localStorage.setItem(getPersistedStateKey(sliceName), JSON.stringify(state));
-	} catch {
-		// Ignore quota/security/storage failures
-	}
-}
-
 /**
- * Hydrates persisted slice state safely.
+ * Clean Higher-Order Reducer that intercepts actions to load/save state
+ * without mutating the slice object structure itself.
  */
-export function loadPersistedState<State>(sliceName: string, defaultState: State): State {
-	if (typeof window === 'undefined') {
-		return defaultState;
+export function createStateSlice<State, CaseReducers extends SliceCaseReducers<State>, Name extends string = string>(
+	options: CreateSliceOptions<State, CaseReducers, Name> & {
+		persist?: boolean;
+	},
+): Slice<State, CaseReducers, Name> {
+	const {persist, ...rest} = options;
+
+	// 1. If persistence isn't explicitly requested, return a completely pristine slice.
+	// This guarantees that slices like your user slice are 100% identical to your old code.
+	if (!persist) {
+		return createSlice(rest);
 	}
 
-	try {
-		const serializedState = localStorage.getItem(getPersistedStateKey(sliceName));
+	// 2. Otherwise, set up storage synchronization safely inside the reducer layer
+	const slice = createSlice(rest);
+	const baseReducer = slice.reducer;
 
-		if (serializedState === null) {
-			return defaultState;
+	const key = getPersistedStateKey(slice.name);
+
+	// Build a wrapper reducer that reads initial state from storage on boot,
+	// and saves state to storage on changes.
+	const persistedReducer = (state: State | undefined, action: Action) => {
+		// On initialization, see if we have valid cached data
+		if (state === undefined && typeof window !== 'undefined') {
+			try {
+				const serialized = localStorage.getItem(key);
+				if (serialized !== null) {
+					const parsed = JSON.parse(serialized);
+					// Safe deep merge to prevent broken topologies
+					// eslint-disable-next-line no-param-reassign
+					state = merge({}, rest.initialState, parsed);
+				}
+			} catch {
+				// Fallback to default initial state safely
+			}
 		}
 
-		const parsed: unknown = JSON.parse(serializedState);
+		// Run the normal slice reduction logic
+		const nextState = baseReducer(state, action);
 
-		if (isValidState(parsed, defaultState)) {
-			// This ensures that even if deep runtime structures change, your layout engine always
-			// encounters the complete default object topology it needs to evaluate your layouts.
-			return merge({}, defaultState, parsed);
+		// If the state changed, sync it to localStorage
+		if (state !== nextState && typeof window !== 'undefined') {
+			try {
+				localStorage.setItem(key, JSON.stringify(nextState));
+			} catch {
+				// Handle quota errors silently
+			}
 		}
 
-		clearPersistedState(sliceName);
-		return defaultState;
-	} catch {
-		clearPersistedState(sliceName);
-		return defaultState;
-	}
+		return nextState;
+	};
+
+	// Replace the reducer property safely without breaking prototypes or adding custom properties
+	slice.reducer = persistedReducer as any;
+
+	return slice;
 }
