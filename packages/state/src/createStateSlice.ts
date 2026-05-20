@@ -1,68 +1,73 @@
-import {createSlice, type CreateSliceOptions, type Slice, type SliceCaseReducers, type Action} from '@reduxjs/toolkit';
-import {merge} from 'lodash-es';
+import {createSlice, type CreateSliceOptions, type Slice, type SliceCaseReducers} from '@reduxjs/toolkit';
+import debug from 'debug';
 
-export function getPersistedStateKey(sliceName: string): string {
-	return `persisted_slice_${sliceName}`;
-}
+const d = debug('imperium.state.createStateSlice');
 
-/**
- * Clean Higher-Order Reducer that intercepts actions to load/save state
- * without mutating the slice object structure itself.
- */
+export type PersistedSlice<T = any> = Slice<T> & {p?: boolean};
+
 export function createStateSlice<State, CaseReducers extends SliceCaseReducers<State>, Name extends string = string>(
-	options: CreateSliceOptions<State, CaseReducers, Name> & {
-		persist?: boolean;
-	},
-): Slice<State, CaseReducers, Name> {
-	const {persist, ...rest} = options;
+	options: CreateSliceOptions<State, CaseReducers, Name> & {persist?: boolean},
+): PersistedSlice<State> {
+	const {persist, name, initialState, reducers, ...rest} = options;
+	const localStorageKey = `persisted_slice_${name}`;
 
-	// 1. If persistence isn't explicitly requested, return a completely pristine slice.
-	// This guarantees that slices like your user slice are 100% identical to your old code.
-	if (!persist) {
-		return createSlice(rest);
+	// 1. Resolve initial state (load from localStorage if persist is enabled)
+	let finalInitialState = initialState;
+	if (persist && typeof window !== 'undefined') {
+		try {
+			const serializedState = localStorage.getItem(localStorageKey);
+			if (serializedState !== null) {
+				finalInitialState = JSON.parse(serializedState);
+			}
+		} catch (err) {
+			d(`Failed to load persisted state for slice ${name}:`, err);
+		}
 	}
 
-	// 2. Otherwise, set up storage synchronization safely inside the reducer layer
-	const slice = createSlice(rest);
-	const baseReducer = slice.reducer;
+	// 2. Wrap reducers to automatically save to localStorage on invocation
+	const finalReducers = {...reducers};
 
-	const key = getPersistedStateKey(slice.name);
+	if (persist) {
+		Object.keys(finalReducers).forEach(key => {
+			const originalReducer = finalReducers[key];
 
-	// Build a wrapper reducer that reads initial state from storage on boot,
-	// and saves state to storage on changes.
-	const persistedReducer = (state: State | undefined, action: Action) => {
-		// On initialization, see if we have valid cached data
-		if (state === undefined && typeof window !== 'undefined') {
-			try {
-				const serialized = localStorage.getItem(key);
-				if (serialized !== null) {
-					const parsed = JSON.parse(serialized);
-					// Safe deep merge to prevent broken topologies
-					// eslint-disable-next-line no-param-reassign
-					state = merge({}, rest.initialState, parsed);
-				}
-			} catch {
-				// Fallback to default initial state safely
+			// Redux Toolkit supports both naked functions and { reducer, prepare } objects
+			if (typeof originalReducer === 'function') {
+				// @ts-ignore
+				finalReducers[key] = ((state: any, action: any) => {
+					const result = originalReducer(state, action);
+
+					// RTK uses Immer, so we safely stringify the draft/mutated state
+					try {
+						localStorage.setItem(localStorageKey, JSON.stringify(state));
+					} catch (err) {
+						d(`Failed to persist state for slice ${name}:`, err);
+					}
+
+					return result;
+				}) as any;
+			} else if (typeof originalReducer === 'object' && 'reducer' in originalReducer) {
+				const originalFunc = originalReducer.reducer;
+				originalReducer.reducer = ((state: any, action: any) => {
+					const result = originalFunc(state, action);
+					try {
+						localStorage.setItem(localStorageKey, JSON.stringify(state));
+					} catch (err) {
+						d(`Failed to persist state for slice ${name}:`, err);
+					}
+					return result;
+				}) as any;
 			}
-		}
+		});
+	}
 
-		// Run the normal slice reduction logic
-		const nextState = baseReducer(state, action);
+	// 3. Create the slice with our modified configuration
+	const slice = createSlice({
+		...rest,
+		name,
+		initialState: finalInitialState,
+		reducers: finalReducers,
+	});
 
-		// If the state changed, sync it to localStorage
-		if (state !== nextState && typeof window !== 'undefined') {
-			try {
-				localStorage.setItem(key, JSON.stringify(nextState));
-			} catch {
-				// Handle quota errors silently
-			}
-		}
-
-		return nextState;
-	};
-
-	// Replace the reducer property safely without breaking prototypes or adding custom properties
-	slice.reducer = persistedReducer as any;
-
-	return slice;
+	return Object.assign(slice, {p: persist});
 }
