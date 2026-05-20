@@ -13,6 +13,7 @@ type RootState = Record<string, unknown>;
 function getReducer(prev: ReducersMapObject<RootState>, slice: Slice): ReducersMapObject<RootState> {
 	if (!slice.name) return prev;
 
+	// eslint-disable-next-line no-param-reassign
 	prev[slice.name] = slice.reducer;
 
 	return prev;
@@ -32,7 +33,7 @@ export function withImperiumState(opts?: StateClientOptions) {
 			slices.forEach(slice => {
 				const persistedSlice = slice as PersistedSlice<unknown>;
 
-				if (persistedSlice.p && persistedSlice.name) {
+				if (persistedSlice.persist && persistedSlice.name) {
 					persistedSlices.set(persistedSlice.name, persistedSlice);
 				}
 			});
@@ -51,7 +52,7 @@ export function withImperiumState(opts?: StateClientOptions) {
 				? configureStore({
 						reducer,
 						preloadedState,
-						middleware: getDefaultMiddleware => getDefaultMiddleware().concat((opts?.middleware as Middleware[]) || []),
+						middleware: getDefaultMiddleware => getDefaultMiddleware().concat(opts?.middleware as Middleware[]),
 					})
 				: null;
 
