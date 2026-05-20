@@ -42,7 +42,8 @@ export function LayoutItemWrapper({item, as, vertical, data: parentData}: ItemWr
 		if (typeof item.visible === 'function') {
 			if (!item.visible(data)) return null;
 		} else {
-			const q = new Query(item.visible);
+			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+			const q = new Query(item.visible || {});
 			if (!q.test(data)) return null;
 		}
 	}

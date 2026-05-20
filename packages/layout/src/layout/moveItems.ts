@@ -36,26 +36,28 @@ function pullItems(items: LayoutItem[], pulled: LayoutItem[] = []): LayoutItem[]
 	}, [] as LayoutItem[]);
 }
 
-function addItems(items: LayoutItem[], pulled: Record<string, LayoutItem[] | undefined>): LayoutItem[] {
+function addItems(items: LayoutItem[], pulled: Record<string, LayoutItem[]>): LayoutItem[] {
 	return items.reduce((memo, item) => {
 		if (isDropdownLayoutItem(item)) {
+			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			const newItems = item.key && pulled[item.key] ? pulled[item.key] : [];
 			return [
 				...memo,
 				{
 					...item,
-					dropdown: [...addItems(item.dropdown, pulled), ...(newItems || [])],
+					dropdown: [...addItems(item.dropdown, pulled), ...newItems],
 				},
 			];
 		}
 
 		if (isMenuLayoutItem(item) && item.key) {
+			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			const newItems = item.key && pulled[item.key] ? pulled[item.key] : [];
 			return [
 				...memo,
 				{
 					...item,
-					menu: [...addItems(item.menu, pulled), ...(newItems || [])],
+					menu: [...addItems(item.menu, pulled), ...newItems],
 				},
 			];
 		}
