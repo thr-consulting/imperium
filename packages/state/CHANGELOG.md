@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.7.2](https://github.com/darkadept/imperium/compare/v14.7.1...v14.7.2) (2026-05-20)
+
+### Bug Fixes
+
+- update state slice ([cd41ef3](https://github.com/darkadept/imperium/commit/cd41ef3a437aad6415f633f83e12d8ef4a5cdf48))
+
 ## [14.7.1](https://github.com/darkadept/imperium/compare/v14.7.0...v14.7.1) (2026-05-20)
 
 ### Bug Fixes
