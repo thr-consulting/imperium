@@ -13,3 +13,4 @@ export function stateClientModule(opts?: StateClientOptions): ImperiumClientModu
 export type {ImperiumStateClientModule, StateClientOptions} from './types';
 
 export {createSliceHook} from './createSliceHook';
+export {createStateSlice} from './createStateSlice';

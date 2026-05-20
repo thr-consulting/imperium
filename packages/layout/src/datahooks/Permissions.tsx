@@ -19,7 +19,8 @@ export function Permissions({permissions}: PermissionsProps) {
 	useEffect(() => {
 		(async function iife() {
 			const permissionsWithData = permissions.map(permission => {
-				const data = Object.keys(layoutState.params).length > 0 ? layoutState.params : undefined;
+				// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+				const data = layoutState.params && Object.keys(layoutState.params).length > 0 ? layoutState.params : undefined;
 				return {
 					permission,
 					data,
