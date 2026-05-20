@@ -1,4 +1,5 @@
 import {createSlice, type CreateSliceOptions, type Slice, type SliceCaseReducers} from '@reduxjs/toolkit';
+import {merge} from 'lodash-es';
 
 export type PersistedSlice<State> = Slice<State> & {
 	persist?: boolean;
@@ -91,15 +92,15 @@ export function loadPersistedState<State>(sliceName: string, defaultState: State
 		const parsed: unknown = JSON.parse(serializedState);
 
 		if (isValidState(parsed, defaultState)) {
-			return parsed;
+			// This ensures that even if deep runtime structures change, your layout engine always
+			// encounters the complete default object topology it needs to evaluate your layouts.
+			return merge({}, defaultState, parsed);
 		}
 
 		clearPersistedState(sliceName);
-
 		return defaultState;
 	} catch {
 		clearPersistedState(sliceName);
-
 		return defaultState;
 	}
 }
