@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.8.0](https://github.com/darkadept/imperium/compare/v14.7.7...v14.8.0) (2026-05-20)
+
+### Features
+
+- revert changes ([53dacb6](https://github.com/darkadept/imperium/commit/53dacb6d91be35d57b85bc6a5e141ee9606be1d7))
+
 ## [14.7.7](https://github.com/darkadept/imperium/compare/v14.7.6...v14.7.7) (2026-05-20)
 
 ### Bug Fixes
