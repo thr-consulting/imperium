@@ -1,5 +1,8 @@
 import type {Slice} from '@reduxjs/toolkit';
 import {useSelector} from 'react-redux';
+import debug from 'debug';
+
+const d = debug('imperium.state.createSliceHook');
 
 type Transforms<State> = {
 	[K in keyof State]?: (v: State[K]) => any | State[K];
