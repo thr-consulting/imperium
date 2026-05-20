@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.7.3](https://github.com/darkadept/imperium/compare/v14.7.2...v14.7.3) (2026-05-20)
+
+### Bug Fixes
+
+- new reducer on each param ([7ce44cd](https://github.com/darkadept/imperium/commit/7ce44cd14d1057778ed844d1c594ef117e42cd5f))
+
 ## [14.7.2](https://github.com/darkadept/imperium/compare/v14.7.1...v14.7.2) (2026-05-20)
 
 ### Bug Fixes
