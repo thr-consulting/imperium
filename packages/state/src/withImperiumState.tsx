@@ -13,10 +13,10 @@ type RootState = Record<string, unknown>;
 function getReducer(prev: ReducersMapObject<RootState>, slice: Slice): ReducersMapObject<RootState> {
 	if (!slice.name) return prev;
 
-	// eslint-disable-next-line no-param-reassign
-	prev[slice.name] = slice.reducer;
-
-	return prev;
+	return {
+		...prev,
+		[slice.name]: slice.reducer,
+	};
 }
 
 export function withImperiumState(opts?: StateClientOptions) {
