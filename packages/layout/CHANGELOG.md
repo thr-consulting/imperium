@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.7.4](https://github.com/darkadept/imperium/compare/v14.7.3...v14.7.4) (2026-05-20)
+
+**Note:** Version bump only for package @imperium/layout
+
 ## [14.7.3](https://github.com/darkadept/imperium/compare/v14.7.2...v14.7.3) (2026-05-20)
 
 **Note:** Version bump only for package @imperium/layout

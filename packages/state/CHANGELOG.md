@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.7.4](https://github.com/darkadept/imperium/compare/v14.7.3...v14.7.4) (2026-05-20)
+
+### Bug Fixes
+
+- state ([4321295](https://github.com/darkadept/imperium/commit/43212959d7baea5ba84b53e15002ce8be11592e4))
+
+### Features
+
+- update imperium ([e8dda62](https://github.com/darkadept/imperium/commit/e8dda620d3219648bbaa45b0927acd3e1603ba1d))
+
 ## [14.7.3](https://github.com/darkadept/imperium/compare/v14.7.2...v14.7.3) (2026-05-20)
 
 ### Bug Fixes
