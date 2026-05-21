@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/router",
-	"version": "14.8.3",
+	"version": "14.8.5",
 	"description": "Imperium Router package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
