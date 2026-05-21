@@ -6,5 +6,8 @@ export interface ImperiumGraphqlClientModule extends ImperiumClientModule {
 }
 
 export function isImperiumGraphqlClientModule(value: ImperiumClientModule): value is ImperiumGraphqlClientModule {
-	return (value as ImperiumGraphqlClientModule).apolloLinks !== undefined && typeof (value as ImperiumGraphqlClientModule).apolloLinks === 'function';
+	return (
+		(value as ImperiumGraphqlClientModule | undefined)?.apolloLinks !== undefined &&
+		typeof (value as ImperiumGraphqlClientModule).apolloLinks === 'function'
+	);
 }

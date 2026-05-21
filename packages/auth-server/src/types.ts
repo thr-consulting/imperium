@@ -9,7 +9,7 @@ export interface Password {
 
 export interface LoginInfo {
 	identifier: string;
-	password: Password;
+	password?: Password;
 	rememberDevice?: boolean;
 	device?: {
 		uniqueId: string;

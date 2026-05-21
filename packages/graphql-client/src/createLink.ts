@@ -81,6 +81,7 @@ export function createLink(client: ImperiumClient, opts?: GraphqlClientOptions):
 
 	// Use links from other modules
 	const moduleLinks = client.modules.reduce((memo: ApolloLink[], module: ImperiumClientModule) => {
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		if (isImperiumGraphqlClientModule(module) && module.apolloLinks && typeof module.apolloLinks === 'function') {
 			return [...memo, ...module.apolloLinks(client)];
 		}

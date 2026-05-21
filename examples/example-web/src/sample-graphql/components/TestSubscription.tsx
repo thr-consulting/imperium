@@ -9,9 +9,6 @@ export function TestSubscription() {
 	const {data, loading, error} = useOnStuffSubscription();
 
 	d('subscription', loading ? 'loading' : '', error ? 'error' : '', data);
-	if (loading) {
-		return null;
-	}
 	if (error) {
 		d(error);
 	}

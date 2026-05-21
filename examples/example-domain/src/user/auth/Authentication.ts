@@ -39,6 +39,8 @@ export class Authentication implements AuthenticationDomain {
 			throw new Error('User not found');
 		}
 
+		if (!loginInfo.password) throw new Error('Password is required');
+
 		if (await validatePassword(serviceInfo.password, loginInfo.password)) {
 			return {
 				id: serviceInfo.id,
@@ -74,7 +76,6 @@ export class Authentication implements AuthenticationDomain {
 				password: '$2a$11$FqT0AJ9OjWqgnY9Vl5PjbuxAp4oTtm41zTyQAWYizhZ5jTzijL4nq', // password
 			},
 		};
-		if (!user) return null;
 		return {
 			password: user.service.password,
 			id: user.id,

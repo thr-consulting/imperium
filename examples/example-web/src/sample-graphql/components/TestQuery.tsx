@@ -9,7 +9,6 @@ export function TestQuery() {
 	const {loading, error, data, refetch} = useQuery(query);
 
 	d('query', loading, error, data);
-	if (loading) return null;
 	if (error) {
 		d(error);
 		return null;

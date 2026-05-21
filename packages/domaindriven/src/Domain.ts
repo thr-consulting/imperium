@@ -44,6 +44,7 @@ export class Domain<Extra extends AuthenticationBase, Repositories = any> {
 		d('Calculating permissions');
 		return Promise.all(
 			opts.keys.map(async k => {
+				// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 				if (this.#permissions[k.permission]) {
 					const a = this.#permissions[k.permission];
 					return a({userId: opts.authorization.extra?.auth?.id, data: k.data, repos: this.#repositories});

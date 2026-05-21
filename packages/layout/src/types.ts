@@ -32,7 +32,7 @@ export interface Data extends Record<string, unknown> {
 }
 
 export interface ImperiumLayoutClientModule extends ImperiumClientModule {
-	layout: LayoutData;
+	layout?: LayoutData;
 }
 
 export function isImperiumLayoutClientModule(module: ImperiumClientModule): module is ImperiumLayoutClientModule {

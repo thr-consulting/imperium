@@ -35,7 +35,7 @@ export function createSliceHook<State, T extends Transforms<State>>(slice: Slice
 		const keys = Object.keys(rawState) as (keyof State)[];
 		return keys.reduce(
 			(memo, key) => {
-				const fn = transformers ? transformers[key] : null;
+				const fn = transformers[key];
 				if (fn && typeof fn === 'function') {
 					return {
 						...memo,

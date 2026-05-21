@@ -22,7 +22,7 @@ function getCookie(name: string) {
 }
 
 function getReducer(prev: object, state: Slice) {
-	if (!state?.name) return prev;
+	if (!state.name) return prev;
 	return {
 		...prev,
 		[state.name]: state.reducer,

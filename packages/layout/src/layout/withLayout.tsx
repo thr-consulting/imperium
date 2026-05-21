@@ -24,13 +24,13 @@ export function withLayout(client: ImperiumClient): Hoc {
 	const layoutModuleData = client.modules.reduce((memo, module) => {
 		if (isImperiumLayoutClientModule(module)) {
 			return {
-				dataHooks: [...(memo.dataHooks || []), ...(module.layout.dataHooks || [])],
-				permissionSelectorHooks: [...(memo.permissionSelectorHooks || []), ...(module.layout.permissionSelectorHooks || [])],
-				permissions: [...(memo.permissions || []), ...(module.layout.permissions || [])],
-				primaryMenu: [...(memo.primaryMenu || []), ...(module.layout.primaryMenu || [])],
-				statusbar: [...(memo.statusbar || []), ...(module.layout.statusbar || [])],
-				secondaryMenu: [...(memo.secondaryMenu || []), ...(module.layout.secondaryMenu || [])],
-				footer: [...(memo.footer || []), ...(module.layout.footer || [])],
+				dataHooks: [...memo.dataHooks, ...(module.layout?.dataHooks || [])],
+				permissionSelectorHooks: [...memo.permissionSelectorHooks, ...(module.layout?.permissionSelectorHooks || [])],
+				permissions: [...memo.permissions, ...(module.layout?.permissions || [])],
+				primaryMenu: [...memo.primaryMenu, ...(module.layout?.primaryMenu || [])],
+				statusbar: [...memo.statusbar, ...(module.layout?.statusbar || [])],
+				secondaryMenu: [...memo.secondaryMenu, ...(module.layout?.secondaryMenu || [])],
+				footer: [...memo.footer, ...(module.layout?.footer || [])],
 			} as Required<LayoutData>;
 		}
 		return memo;
