@@ -3,13 +3,13 @@ type ExcludeDataField<T> = {
 };
 
 export interface Password {
-	digest: string;
-	algorithm: string;
+	digest?: string;
+	algorithm?: string;
 }
 
 export interface LoginInfo {
 	identifier: string;
-	password: Password;
+	password?: Password;
 	rememberDevice?: boolean;
 	device?: {
 		uniqueId: string;

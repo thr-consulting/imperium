@@ -36,5 +36,6 @@ export interface ImperiumGraphqlServerModule<Context> extends ImperiumServerModu
  */
 export function isImperiumGraphqlServerModule<Context>(object: ImperiumServerModule<Context>): object is ImperiumGraphqlServerModule<Context> {
 	const {resolvers, schema} = object as ImperiumGraphqlServerModule<Context>;
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	return !!resolvers && typeof resolvers === 'function' && !!schema;
 }

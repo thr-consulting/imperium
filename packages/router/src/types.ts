@@ -44,7 +44,7 @@ export type KeyedRouteMatchFns<T extends DefineRouteOptions> = {
 };
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
-	routeProps: RouteProps[];
+	routeProps?: RouteProps[];
 }
 
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {

@@ -15,7 +15,7 @@ import type {AuthClientOptions} from '../types';
 const d = debug('imperium.auth-client.hoc.withAuth');
 
 export function withAuth(opts?: AuthClientOptions) {
-	const lookup = opts?.lookup ? opts?.lookup : noPermissionLookup;
+	const lookup = opts?.lookup ? opts.lookup : noPermissionLookup;
 
 	return (): Hoc => {
 		return function authHoc(Wrapped: ComponentType) {

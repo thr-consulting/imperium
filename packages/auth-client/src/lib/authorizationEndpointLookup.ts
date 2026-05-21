@@ -12,7 +12,7 @@ interface RestResult {
 }
 
 function isRestResult(res: any): res is RestResult {
-	return !!((res as RestResult).results && Array.isArray(res.results));
+	return !!((res as RestResult | undefined)?.results && Array.isArray(res.results));
 }
 
 export const authorizationEndpointLookup: PermissionLookup<AuthenticationToken> = async opts => {
