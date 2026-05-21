@@ -3,8 +3,8 @@ type ExcludeDataField<T> = {
 };
 
 export interface Password {
-	digest?: string;
-	algorithm?: string;
+	digest: string;
+	algorithm: string;
 }
 
 export interface LoginInfo {

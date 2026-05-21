@@ -12,7 +12,7 @@ export default function withRouter(client: ImperiumClient): Hoc {
 	d('Loading routes');
 	const routes = client.modules.reduce((memo, module) => {
 		if (isImperiumRouterClientModule(module)) {
-			return [...memo, ...module.routeProps];
+			return [...memo, ...(module.routeProps || [])];
 		}
 		return memo;
 	}, [] as RouteProps[]);
