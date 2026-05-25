@@ -166,13 +166,20 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Get an entity by id.
 	 * @param id
 	 * @param version if the version is specified it acts as a getLock
+	 * @param options
 	 */
-	public getById<P extends string = never>(
+	public async getById<P extends string = never>(
 		id: EntityType['id'],
 		version?: number,
 		options?: FindOneOptions<EntityType, P>,
 	): Promise<EntityType | undefined> {
 		if (version) return this.getLock(id, version, options);
+
+		if (options) {
+			const entity = await this.repo.findOne(id as FilterQuery<EntityType>, options);
+			if (entity) this.prime(entity);
+			return entity || undefined;
+		}
 		return this.load(id);
 	}
 
@@ -180,6 +187,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * Get an entity by id or error.
 	 * @param id
 	 * @param version if the version is specified it acts as a getLock
+	 * @param options
 	 */
 	public async getByIdOrError<P extends string = never>(
 		id: EntityType['id'],
@@ -187,6 +195,12 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		options?: FindOneOptions<EntityType, P>,
 	): Promise<EntityType> {
 		if (version) return this.getLock(id, version, options);
+		if (options) {
+			const entity = await this.repo.findOne(id as FilterQuery<EntityType>, options);
+			if (!entity) throw new Error(`${this.entityName} with id ${id} not found!`);
+			this.prime(entity);
+			return entity;
+		}
 		const entity = await this.load(id);
 		if (!entity) throw new Error(`${this.entityName} with id ${id} not found!`);
 		return entity;
