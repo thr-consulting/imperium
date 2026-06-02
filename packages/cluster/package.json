@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/cluster",
-	"version": "14.5.1",
+	"version": "14.9.1",
 	"description": "Imperium cluster wrapper",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
