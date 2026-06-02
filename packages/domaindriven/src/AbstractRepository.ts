@@ -309,7 +309,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		if (options?.populate) {
 			const populatedEntity = await wrap(entity).init(options);
-			if (!populatedEntity) return null;
+			if (!populatedEntity) throw new Error(`Error initializing entity: ${entity}`);
 			return this.prime(populatedEntity);
 		}
 
