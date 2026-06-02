@@ -6,7 +6,7 @@ import type {AccessToken, AuthorizationInfo, LoginInfo, LogoutInfo, RefreshToken
  */
 export function isLoginInfo(loginInfo: any): loginInfo is LoginInfo {
 	const a = loginInfo as LoginInfo | undefined;
-	if (a?.identifier !== undefined && a.password !== undefined && a.password.algorithm !== undefined && a.password.digest !== undefined) {
+	if (a?.identifier !== undefined && a.password !== undefined) {
 		if (a.device) {
 			return !!a.device.uniqueId;
 		}
