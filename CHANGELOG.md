@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.9.2](https://github.com/darkadept/imperium/compare/v14.9.1...v14.9.2) (2026-06-02)
+
+### Bug Fixes
+
+- improve graphql date serialization ([01558e3](https://github.com/darkadept/imperium/commit/01558e3dfd1753957469c97d7c5d3e8251616a74))
+
 ## [14.9.1](https://github.com/darkadept/imperium/compare/v14.9.0...v14.9.1) (2026-06-02)
 
 **Note:** Version bump only for package imperium

@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/example-server",
-	"version": "14.9.1",
+	"version": "14.9.2",
 	"private": true,
 	"description": "Imperium server example project",
 	"repository": {
@@ -35,7 +35,7 @@
 		"@imperium/cluster": "^14.9.1",
 		"@imperium/connector": "^14.9.1",
 		"@imperium/example-domain": "^14.9.1",
-		"@imperium/graphql-server": "^14.9.1",
+		"@imperium/graphql-server": "^14.9.2",
 		"@imperium/server": "^14.9.1",
 		"@imperium/voyager": "^14.9.1",
 		"@js-joda/core": "^5.6.5",
