@@ -6,7 +6,6 @@ import {
 	type EntityRepository,
 	type FilterQuery,
 	type FindOneOptions,
-	type FindOptions,
 	type GetReferenceOptions,
 	type Loaded,
 	type Populate,
@@ -17,6 +16,7 @@ import {
 	wrap,
 	type Ref,
 	type FindAllOptions,
+	FindOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -108,21 +108,21 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return arr as (EntityType | undefined)[];
 	}
 
-	public async findOne<P extends string = never>(
+	public async findOne(
 		where: FilterQuery<EntityType>,
-		options?: FindOneOptions<EntityType, P>,
-	): Promise<Loaded<EntityType, P> | undefined> {
+		options?: Omit<FindOneOptions<EntityType, never, '*', never>, 'fields'>,
+	): Promise<Loaded<EntityType> | undefined> {
 		const entity = await this.repo.findOne(where, options);
 		if (entity) this.prime(entity);
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
+	public async getAll(options?: Omit<FindAllOptions<EntityType, never, '*', never>, 'fields'>) {
 		const allEntities = await this.repo.findAll(options);
 		return this.prime(allEntities);
 	}
 
-	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
+	public async find(where: FilterQuery<EntityType>, options?: Omit<FindOptions<EntityType, never, '*', never>, 'fields'>) {
 		return this.prime(await this.repo.find(where, options));
 	}
 
