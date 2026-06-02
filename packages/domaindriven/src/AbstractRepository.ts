@@ -8,7 +8,6 @@ import {
 	type FindOneOptions,
 	type FindOptions,
 	type GetReferenceOptions,
-	type IdentifiedReference,
 	type Loaded,
 	type Populate,
 	type Primary,
@@ -17,6 +16,7 @@ import {
 	LockMode,
 	type Reference,
 	wrap,
+	Ref,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -345,7 +345,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		options: Omit<GetReferenceOptions, 'wrapped'> & {
 			wrapped: true;
 		},
-	): IdentifiedReference<EntityType, 'id'>;
+	): Ref<EntityType>;
 	public getReference(id: Primary<EntityType>): EntityType;
 	public getReference(
 		id: Primary<EntityType>,
@@ -353,7 +353,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 			wrapped: false;
 		},
 	): EntityType;
-	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Reference<EntityType> {
+	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Ref<EntityType> {
 		if (options?.wrapped) {
 			return this.repo.getReference(id, {wrapped: true});
 		}
