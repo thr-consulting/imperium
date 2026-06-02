@@ -14,9 +14,9 @@ import {
 	type RequiredEntityData,
 	type Collection,
 	LockMode,
-	type Reference,
 	wrap,
-	Ref,
+	type Ref,
+	FindAllOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -58,7 +58,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 */
 	public persist(entity: EntityType | EntityType[]) {
-		return this.repo.persist(entity);
+		return this.repo.getEntityManager().persist(entity);
 	}
 
 	/**
@@ -117,8 +117,9 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindOptions<EntityType, P>) {
-		return this.prime(await this.repo.findAll(options));
+	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
+		const allEntities = await this.repo.findAll(options);
+		return this.prime(allEntities);
 	}
 
 	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
@@ -130,7 +131,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	public async remove(entityOrEntities: EntityType | EntityType[]) {
-		return this.repo.remove(entityOrEntities);
+		return this.repo.getEntityManager().remove(entityOrEntities);
 	}
 
 	/**
@@ -306,7 +307,8 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			return this.prime(await wrap(entity).init(true, options.populate));
+			const populatedEntity = await wrap(entity).init(options);
+			return this.prime(populatedEntity);
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
@@ -320,17 +322,15 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeNullableEntity<P extends string = never>(
-		entity?: EntityType | null,
-		options?: {populate?: Populate<EntityType, P> | null},
-	): Promise<EntityType | null> {
+	public async initializeNullableEntity(entity?: EntityType | null, options?: FindOneOptions<EntityType>): Promise<EntityType | null> {
 		if (!entity) return null;
 
 		d(`InitEntity: ${entity.id}`);
 
-		if (options?.populate) {
+		if (options) {
 			// initialize with populate
-			return this.prime(await wrap(entity).init(true, options.populate));
+			const populatedEntity = await wrap(entity).init(options);
+			return this.prime(populatedEntity);
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
