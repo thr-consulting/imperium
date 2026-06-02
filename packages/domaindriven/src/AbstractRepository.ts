@@ -238,7 +238,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version Obtains an optimistic lock when deleting.
 	 */
 	public async deleteById(id: EntityType['id'], version: number) {
-		this.repo.remove(await this.getLock(id, version));
+		this.repo.getEntityManager().remove(await this.getLock(id, version));
 		this.dataloader.clear(id);
 	}
 
@@ -308,6 +308,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 
 		if (options?.populate) {
 			const populatedEntity = await wrap(entity).init(options);
+			if (!populatedEntity) return null;
 			return this.prime(populatedEntity);
 		}
 
@@ -330,6 +331,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		if (options) {
 			// initialize with populate
 			const populatedEntity = await wrap(entity).init(options);
+			if (!populatedEntity) return null;
 			return this.prime(populatedEntity);
 		}
 
