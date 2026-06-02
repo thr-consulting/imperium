@@ -15,6 +15,10 @@ export const GraphQLDateTime = new GraphQLScalarType<Date, number>({
 	serialize(value) {
 		if (value instanceof Date) return value.getTime();
 		if (typeof value === 'number') return value;
+		if (typeof value === 'string') {
+			const date = new Date(value);
+			if (!Number.isNaN(date.getTime())) return date.getTime();
+		}
 		throw new GraphQLError(`Cannot serialize Date value: ${'value'}.`);
 	},
 	// Parses GraphQL language AST into the value. (AST => JSON)
