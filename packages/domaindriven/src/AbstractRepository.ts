@@ -16,7 +16,7 @@ import {
 	LockMode,
 	wrap,
 	type Ref,
-	FindAllOptions,
+	type FindAllOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -227,9 +227,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		version: number,
 		options?: FindOneOptions<EntityType, P>,
 	): Promise<EntityType> {
-		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {...options, lockVersion: version, lockMode: LockMode.OPTIMISTIC});
+		const lockOptions: FindOneOptions<EntityType, P> = {...options, lockVersion: version, lockMode: LockMode.OPTIMISTIC};
+		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, lockOptions);
 		if (!entity) throw new Error('Could not optimistically lock entity');
-		return this.prime(entity);
+		return this.prime(entity as EntityType);
 	}
 
 	/**
