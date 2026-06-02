@@ -8,15 +8,15 @@ import {
 	type FindOneOptions,
 	type FindOptions,
 	type GetReferenceOptions,
-	type IdentifiedReference,
 	type Loaded,
 	type Populate,
 	type Primary,
 	type RequiredEntityData,
 	type Collection,
 	LockMode,
-	type Reference,
 	wrap,
+	type Ref,
+	type FindAllOptions,
 } from '@mikro-orm/core';
 import type {QueryBuilder} from '@mikro-orm/postgresql';
 import DataLoader from 'dataloader';
@@ -58,7 +58,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 */
 	public persist(entity: EntityType | EntityType[]) {
-		return this.repo.persist(entity);
+		return this.repo.getEntityManager().persist(entity);
 	}
 
 	/**
@@ -117,8 +117,9 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		return entity || undefined;
 	}
 
-	public async getAll<P extends string = never>(options?: FindOptions<EntityType, P>) {
-		return this.prime(await this.repo.findAll(options));
+	public async getAll<P extends string = never>(options?: FindAllOptions<EntityType, P>) {
+		const allEntities = await this.repo.findAll(options);
+		return this.prime(allEntities);
 	}
 
 	public async find<P extends string = never>(where: FilterQuery<EntityType>, options?: FindOptions<EntityType, P>) {
@@ -130,7 +131,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	}
 
 	public async remove(entityOrEntities: EntityType | EntityType[]) {
-		return this.repo.remove(entityOrEntities);
+		return this.repo.getEntityManager().remove(entityOrEntities);
 	}
 
 	/**
@@ -226,9 +227,10 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		version: number,
 		options?: FindOneOptions<EntityType, P>,
 	): Promise<EntityType> {
-		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, {...options, lockVersion: version, lockMode: LockMode.OPTIMISTIC});
+		const lockOptions: FindOneOptions<EntityType, P> = {...options, lockVersion: version, lockMode: LockMode.OPTIMISTIC};
+		const entity = await this.repo.findOne(id as FilterQuery<EntityType>, lockOptions);
 		if (!entity) throw new Error('Could not optimistically lock entity');
-		return this.prime(entity);
+		return this.prime(entity as EntityType);
 	}
 
 	/**
@@ -237,7 +239,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param version Obtains an optimistic lock when deleting.
 	 */
 	public async deleteById(id: EntityType['id'], version: number) {
-		this.repo.remove(await this.getLock(id, version));
+		this.repo.getEntityManager().remove(await this.getLock(id, version));
 		this.dataloader.clear(id);
 	}
 
@@ -306,7 +308,9 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		d(`InitEntity: ${entity.id}`);
 
 		if (options?.populate) {
-			return this.prime(await wrap(entity).init(true, options.populate));
+			const populatedEntity = await wrap(entity).init(options);
+			if (!populatedEntity) return null;
+			return this.prime(populatedEntity);
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
@@ -320,17 +324,16 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 	 * @param entity
 	 * @param options
 	 */
-	public async initializeNullableEntity<P extends string = never>(
-		entity?: EntityType | null,
-		options?: {populate?: Populate<EntityType, P> | null},
-	): Promise<EntityType | null> {
+	public async initializeNullableEntity(entity?: EntityType | null, options?: FindOneOptions<EntityType>): Promise<EntityType | null> {
 		if (!entity) return null;
 
 		d(`InitEntity: ${entity.id}`);
 
-		if (options?.populate) {
+		if (options) {
 			// initialize with populate
-			return this.prime(await wrap(entity).init(true, options.populate));
+			const populatedEntity = await wrap(entity).init(options);
+			if (!populatedEntity) return null;
+			return this.prime(populatedEntity);
 		}
 
 		if (wrap(entity).isInitialized()) return entity;
@@ -345,7 +348,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 		options: Omit<GetReferenceOptions, 'wrapped'> & {
 			wrapped: true;
 		},
-	): IdentifiedReference<EntityType, 'id'>;
+	): Ref<EntityType>;
 	public getReference(id: Primary<EntityType>): EntityType;
 	public getReference(
 		id: Primary<EntityType>,
@@ -353,7 +356,7 @@ export abstract class AbstractRepository<EntityType extends EntityBase> {
 			wrapped: false;
 		},
 	): EntityType;
-	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Reference<EntityType> {
+	public getReference(id: Primary<EntityType>, options?: GetReferenceOptions): EntityType | Ref<EntityType> {
 		if (options?.wrapped) {
 			return this.repo.getReference(id, {wrapped: true});
 		}
