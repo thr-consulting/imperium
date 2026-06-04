@@ -38,7 +38,7 @@
 		"@thx/util": "^19.1.0"
 	},
 	"engines": {
-		"node": ">=22"
+		"node": ">=24"
 	},
 	"publishConfig": {
 		"access": "public"
