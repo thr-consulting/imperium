@@ -21,7 +21,7 @@ inputs:
   node-version:
     description: 'Node version to use'
     required: true
-    default: '22'
+    default: '24'
 runs:
   using: 'composite'
   steps:
