@@ -35,7 +35,7 @@
 		"@imperium/auth-client": "^14.9.1",
 		"@imperium/client": "^14.9.1",
 		"@imperium/graphql-client": "^14.9.1",
-		"@thx/env": "^19.1.0",
+		"@thx/env": "^20.0.0",
 		"apollo-link-token-refresh": "^0.6.1",
 		"debug": "^4.4.0"
 	},
