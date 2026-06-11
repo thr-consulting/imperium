@@ -1,6 +1,6 @@
 {
 	"name": "@imperium/domaindriven",
-	"version": "14.9.1",
+	"version": "15.0.0",
 	"description": "Imperium Domain Driven Design package",
 	"bugs": {
 		"url": "https://github.com/thr-consulting/imperium/issues"
@@ -31,12 +31,12 @@
 		}
 	},
 	"dependencies": {
-		"@imperium/authorization": "^14.9.1",
+		"@imperium/authorization": "^15.0.0",
 		"dataloader": "^2.2.2",
 		"debug": "^4.4.0"
 	},
 	"devDependencies": {
-		"@imperium/connector": "^14.9.1"
+		"@imperium/connector": "^15.0.0"
 	},
 	"peerDependencies": {
 		"@mikro-orm/core": "6.x",
