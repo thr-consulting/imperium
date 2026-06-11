@@ -4,12 +4,12 @@ inputs:
   node-version:
     description: 'Node version to use'
     required: true
-    default: '22'
+    default: '24'
 runs:
   using: 'composite'
   steps:
     - name: Setup node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'yarn'
@@ -27,7 +27,7 @@ runs:
         yarn deps -v
 
     - name: node_modules cache
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       id: cache
       with:
         path: |
