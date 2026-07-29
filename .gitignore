@@ -19,3 +19,4 @@ env.js
 docs/assets/coverage/
 dist
 tsconfig.tsbuildinfo
+.yarn
