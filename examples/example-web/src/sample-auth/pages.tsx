@@ -6,7 +6,7 @@ import {routes} from './routes';
 
 export const routeProps = createPages(routes, {
 	login: {
-		content: data => <Login {...data} />,
+		content: () => <Login />,
 	},
 	authTest: {
 		permissionSelectorHook: () => {

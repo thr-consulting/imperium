@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {ImperiumClientModule} from '@imperium/client';
-import type {match, RouteComponentProps, RouteProps} from 'react-router-dom';
+import type {ReactNode} from 'react';
+import {type RouteObject} from 'react-router-dom';
 
 export type ParametersFromAssertion<T extends readonly string[]> = {
 	[key in T[number]]: string;
@@ -11,14 +12,12 @@ type RoutePathFn<T extends readonly string[] | undefined> = T extends readonly s
 	: () => string;
 
 type RouteRenderFn<T extends readonly string[] | undefined> = T extends readonly string[]
-	? (params: ParametersFromAssertion<T>, rcp: RouteComponentProps<ParametersFromAssertion<T>>) => JSX.Element
-	: (params: null, rcp: RouteComponentProps<never>) => JSX.Element;
+	? (params: ParametersFromAssertion<T>) => ReactNode
+	: (params: null) => ReactNode;
 
 type RouteParamsType<T extends readonly string[] | undefined> = T extends readonly string[] ? ParametersFromAssertion<T> : never;
 
-type RouteMatch<T extends readonly string[] | undefined> = T extends readonly string[] ? match<ParametersFromAssertion<T>> : match;
-
-export interface RouteOptions extends Omit<RouteProps, 'render' | 'children' | 'component'> {
+export interface RouteOptions extends Omit<RouteObject, 'element' | 'children'> {
 	params?: readonly string[];
 	isPublic?: boolean;
 }
@@ -40,11 +39,11 @@ export type KeyedRouteParamTypes<T extends DefineRouteOptions> = {
 };
 
 export type KeyedRouteMatchFns<T extends DefineRouteOptions> = {
-	[key in keyof T]: (s: string) => RouteMatch<T[key]['params']>['params'] | null;
+	[key in keyof T]: (pathname: string) => RouteParamsType<T[key]['params']> | null;
 };
 
 export interface ImperiumRouterClientModule extends ImperiumClientModule {
-	routeProps?: RouteProps[];
+	routeProps?: (RouteObject & {isPublic?: boolean})[];
 }
 
 export function isImperiumRouterClientModule(module: ImperiumClientModule): module is ImperiumRouterClientModule {
@@ -56,5 +55,5 @@ export interface Routes<T extends DefineRouteOptions> {
 	types: KeyedRouteParamTypes<T>;
 	match: KeyedRouteMatchFns<T>;
 	to: KeyedRoutePathFns<T>;
-	renderRouteProps: (routeRenderFunctions: KeyedRouteRenderFns<T>) => RouteProps[];
+	renderRouteProps: (routeRenderFunctions: KeyedRouteRenderFns<T>) => (RouteObject & {isPublic?: boolean})[];
 }

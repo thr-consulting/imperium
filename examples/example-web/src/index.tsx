@@ -2,7 +2,7 @@ import {ImperiumClient} from '@imperium/client';
 import {debug} from 'debug';
 import 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {Root} from './Root';
 import {clientModules} from './core/clientModules';
 import './core/styles.css';
@@ -27,8 +27,12 @@ const client = new ImperiumClient({
 client
 	.start()
 	.then(Imperium => {
+		const container = document.getElementById('root');
+		if (container) {
+			const root = createRoot(container);
+			root.render(<Imperium />);
+		}
 		d('Rendering root component');
-		render(<Imperium />, document.getElementById('root'));
 	})
 	.catch(err => {
 		// eslint-disable-next-line no-console
