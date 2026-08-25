@@ -1,6 +1,5 @@
 import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
-import {routes as sampleRoutes} from '../sample/routes';
 import {useGetData} from './hooks/useGetData';
 import {routes} from './routes';
 import {useLayoutState} from './state';
