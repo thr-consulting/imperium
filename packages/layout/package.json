@@ -50,7 +50,7 @@
 	"peerDependencies": {
 		"@reduxjs/toolkit": "1.x",
 		"mingo": "5.x",
-		"react": "17.x",
+		"react": "18.x",
 		"react-redux": "7.x",
 		"react-router-dom": "5.x"
 	},

@@ -35,7 +35,7 @@
 		"debug": "^4.4.0"
 	},
 	"peerDependencies": {
-		"react": "17.x",
+		"react": "18.x",
 		"react-router-dom": "5.x"
 	},
 	"engines": {

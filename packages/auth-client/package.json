@@ -41,7 +41,7 @@
 		"jwt-decode": "^3.1.2"
 	},
 	"peerDependencies": {
-		"react": "17.x",
+		"react": "18.x",
 		"react-redux": "7.x"
 	},
 	"engines": {
