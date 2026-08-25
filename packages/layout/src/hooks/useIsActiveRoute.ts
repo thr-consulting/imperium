@@ -1,22 +1,30 @@
-import {useRouteMatch} from 'react-router';
-import type {RouteProps} from 'react-router-dom';
+import {useMatch} from 'react-router-dom';
 import {isRouteItem} from '../commonItems';
 import type {Data} from '../types';
 
 export function useIsActiveRoute(data: Data, item?: any) {
-	// Determine if the current route matches the to route to see if the link is active
-	const routeMatchObject: RouteProps = {};
+	let targetPath: string | undefined;
+
 	if (item && isRouteItem(item)) {
 		if (typeof item.to === 'string') {
-			routeMatchObject.path = item.to;
+			targetPath = item.to;
+		} else if (typeof item.to === 'function') {
+			targetPath = item.to(data);
 		}
-		if (typeof item.to === 'function') {
-			routeMatchObject.path = item.to(data);
-		}
-		routeMatchObject.exact = item.exact !== false;
-		routeMatchObject.sensitive = item.sensitive;
-		routeMatchObject.strict = item.strict;
 	}
-	const routeMatch = useRouteMatch(routeMatchObject);
+
+	// useMatch returns a match object if the current URL matches targetPath, or null otherwise.
+	// Pass end: item.exact !== false to emulate v5 'exact' behavior if needed.
+	const routeMatch = useMatch({
+		path: targetPath || '',
+		end: item?.exact !== false,
+		caseSensitive: item?.sensitive,
+	});
+
+	// If no targetPath was derived, return false
+	if (!targetPath) {
+		return false;
+	}
+
 	return routeMatch !== null;
 }

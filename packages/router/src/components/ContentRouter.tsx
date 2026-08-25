@@ -1,41 +1,48 @@
 import debug from 'debug';
 import type {ComponentClass, ReactNode} from 'react';
-import {Switch, Route, type RouteProps} from 'react-router-dom';
+import {Routes, Route, type RouteObject} from 'react-router-dom';
 
 const d = debug('imperium.router.components.ContentRouter');
 
+export type ExtendedRouteProps = RouteObject & {
+	isPublic?: boolean;
+};
+
 interface ContentRouterProps {
-	routeDefaults?: Omit<RouteProps, 'render' | 'component' | 'children'>;
-	routes?: RouteProps[];
+	routeDefaults?: Omit<ExtendedRouteProps, 'element' | 'children'>;
+	routes?: ExtendedRouteProps[];
 	errorBoundary?: ComponentClass<{children: ReactNode}>;
-	isAuthenticated?: boolean; // Pass true if the user is authenticated, otherwise assumes not authenticated
+	isAuthenticated?: boolean;
 	renderOnUnauth?: () => ReactNode;
 }
 
 export function ContentRouter(props: ContentRouterProps) {
-	const {routeDefaults, errorBoundary} = props;
+	const {routeDefaults, errorBoundary, routes = [], isAuthenticated, renderOnUnauth} = props;
 
 	const childs = (
-		<Switch>
-			{props.routes?.map(route => {
-				// Apply default route options and then apply specific route options
-				// @ts-ignore
-				if (!route.isPublic && !props.isAuthenticated) {
-					const routeProps: RouteProps = {...(routeDefaults || {}), ...route};
-					routeProps.render = props.renderOnUnauth
-						? props.renderOnUnauth
-						: () => {
-								return <div>Not authenticated</div>;
-							};
-					routeProps.children = undefined;
-					routeProps.component = undefined;
-					return <Route key={`${route.path}`} {...routeProps} />;
+		<Routes>
+			{routes.map((route, index) => {
+				const mergedRoute = {
+					...(routeDefaults || {}),
+					...route,
+				} as ExtendedRouteProps;
+
+				const key = typeof mergedRoute.path === 'string' ? mergedRoute.path : `route-${index}`;
+				const {isPublic, element, path, caseSensitive, index: isIndex, children, ...rest} = mergedRoute;
+
+				// Resolve active element without nested ternaries
+				let activeElement = element;
+				if (!isPublic && !isAuthenticated) {
+					activeElement = renderOnUnauth ? renderOnUnauth() : <div>Not authenticated</div>;
 				}
 
-				const routeProps: RouteProps = {...(routeDefaults || {}), ...route};
-				return <Route key={`${route.path}`} {...routeProps} />;
+				return (
+					<Route key={key} path={path} index={isIndex as any} caseSensitive={caseSensitive} element={activeElement} {...(rest as any)}>
+						{children as ReactNode}
+					</Route>
+				);
 			})}
-		</Switch>
+		</Routes>
 	);
 
 	if (errorBoundary) {
