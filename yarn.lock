@@ -3100,10 +3100,10 @@
     js-yaml "^4.1.0"
     lodash-es "^4.17.21"
 
-"@thx/controls@^20.0.0":
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-20.0.0.tgz#37013af9f78b7e1dfb6474128f5ccafcd944d089"
-  integrity sha512-5kyqj6+65TPXN7ipzfj3W5rMGRVWdr+EVjuu9nkIl7pFbMpDG1frAdPBXCKww32clE5Ht3vJd8/aOygSquzAeQ==
+"@thx/controls@^20.1.0":
+  version "20.1.0"
+  resolved "https://registry.yarnpkg.com/@thx/controls/-/controls-20.1.0.tgz#e00bfe67b21906b918f0d5e663d8f250276e030e"
+  integrity sha512-9uDT50IyuOofkLDH7Q2wF4zuFY+KLZJZMGS+Mk+WOVHkVGTeixkKEE3fWgM5tsAM/zm8EaLwHwKYO+vdzFpG2g==
   dependencies:
     "@js-joda/core" "^5.6.5"
     "@thx/date" "^20.0.0"

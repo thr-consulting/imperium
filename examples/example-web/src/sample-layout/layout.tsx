@@ -43,11 +43,6 @@ export const layout: LayoutData = {
 			key: 'dropdown',
 			dropdown: [
 				{
-					text: 'To home',
-					to: sampleRoutes.to.home(),
-					weight: 5,
-				},
-				{
 					text: 'Param 1 - Static',
 					to: '/layout/param/testParam1',
 					weight: 1,
