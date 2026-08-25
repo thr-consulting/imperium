@@ -18,7 +18,7 @@ export const layout: LayoutData = {
 		{
 			stateSelectorHook: useLayoutState,
 			text: s => {
-				return s.state.myParam || '';
+				return s.state.text || 'No State';
 			},
 			visible: () => true,
 		},
