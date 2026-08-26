@@ -4,7 +4,7 @@ export interface DataHookParams {
 }
 
 /**
- * A hook, that doesn't return anything. If used together with a route match function, the returned route parameters are passed in.
+ * A simple hook, that doesn't return anything. If used together with a route match function, the returned route parameters are passed in.
  */
 export type DataHook = (params: DataHookParams) => void;
 
