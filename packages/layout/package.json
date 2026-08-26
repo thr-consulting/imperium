@@ -40,8 +40,8 @@
 		"history": "^5.0.1",
 		"lodash-es": "^4.17.21",
 		"react-responsive": "^9.0.2",
-		"react-router": "^6.30.6",
-		"react-router-dom": "^6.30.6",
+		"react-router": "^5.2.1",
+		"react-router-dom": "^5.3.0",
 		"semantic-ui-react": "^2.1.2"
 	},
 	"devDependencies": {
@@ -50,9 +50,9 @@
 	"peerDependencies": {
 		"@reduxjs/toolkit": "1.x",
 		"mingo": "5.x",
-		"react": "18.x",
+		"react": "17.x",
 		"react-redux": "7.x",
-		"react-router-dom": "6.x"
+		"react-router-dom": "5.x"
 	},
 	"engines": {
 		"node": ">=24"

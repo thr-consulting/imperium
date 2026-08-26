@@ -2,7 +2,7 @@ import {useLogin} from '@imperium/auth-client';
 import {TForm, type TFormProps} from '@thx/controls';
 import sha256 from '@thx/sha256';
 import debug from 'debug';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useHistory} from 'react-router';
 import {Form, Input, Segment} from 'semantic-ui-react';
 import {object as obj, string, type InferType} from 'yup';
 
@@ -15,13 +15,9 @@ const loginValidation = obj().shape({
 
 type LoginValidation = InferType<typeof loginValidation>;
 
-export default function Login() {
+export default function Login(data: any) {
 	const login = useLogin();
-	const navigate = useNavigate();
-	const location = useLocation();
-
-	// Retrieve origin route from location state if available (fallback to homepage)
-	const from = (location.state as {from?: Location}).from || '/';
+	const history = useHistory();
 
 	return (
 		<>
@@ -38,7 +34,9 @@ export default function Login() {
 					})
 						.then(() => {
 							d('Logged in successfully');
-							navigate(from, {replace: true});
+							if (data.loc.state.from) {
+								history.push(data.loc.state.from);
+							}
 						})
 						.catch(err => {
 							d('Login error', err);

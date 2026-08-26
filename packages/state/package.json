@@ -36,7 +36,7 @@
 	},
 	"peerDependencies": {
 		"@reduxjs/toolkit": "1.x",
-		"react": "18.x",
+		"react": "17.x",
 		"react-redux": "7.x"
 	},
 	"engines": {

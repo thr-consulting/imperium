@@ -1,15 +1,11 @@
 import type {Hoc, ImperiumClient} from '@imperium/client';
 import debug from 'debug';
 import type {ComponentType} from 'react';
-import {BrowserRouter, type RouteObject} from 'react-router-dom';
+import {BrowserRouter, type RouteProps} from 'react-router-dom';
 import {ScrollToTop} from './components/ScrollToTop';
 import {isImperiumRouterClientModule} from './types';
 
 const d = debug('imperium.router.withRouter');
-
-export type ExtendedRouteObject = RouteObject & {
-	isPublic?: boolean;
-};
 
 export default function withRouter(client: ImperiumClient): Hoc {
 	// Load routes
@@ -19,9 +15,9 @@ export default function withRouter(client: ImperiumClient): Hoc {
 			return [...memo, ...(module.routeProps || [])];
 		}
 		return memo;
-	}, [] as ExtendedRouteObject[]);
+	}, [] as RouteProps[]);
 
-	return function routerHoc(WrappedComponent: ComponentType<any>) {
+	return function routerHoc(WrappedComponent: ComponentType) {
 		const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
 		function ComponentWithRouter(props: any) {
@@ -33,7 +29,7 @@ export default function withRouter(client: ImperiumClient): Hoc {
 			);
 		}
 
-		ComponentWithRouter.displayName = `withRouter(${displayName})`;
+		ComponentWithRouter.displayName = `withRouter(${displayName}`;
 		return ComponentWithRouter;
 	};
 }

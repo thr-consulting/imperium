@@ -7,7 +7,7 @@ export const state = createSlice({
 	name: 'layout-sample',
 	initialState: {
 		id: '',
-		text: 'State Test',
+		text: '',
 	},
 	reducers: {
 		setId: (st, action: PayloadAction<string>) => {

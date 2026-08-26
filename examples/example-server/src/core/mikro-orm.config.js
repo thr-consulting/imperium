@@ -1,12 +1,12 @@
-import {defineConfig} from '@mikro-orm/postgresql';
 import {entities} from '@imperium/example-domain';
 import debug from 'debug';
 
 const d = debug('imperium.server.core.mikro-orm.config');
 
-export const mikroOrmConfig = defineConfig({
+export const mikroOrmConfig = {
 	entities: Object.values(entities),
 	clientUrl: process.env.POSTGRESQL_URL,
+	type: 'postgresql',
 	debug: process.env.POSTGRESQL_LOGGING === 'true',
 	discovery: {
 		disableDynamicFileAccess: true,
@@ -23,4 +23,4 @@ export const mikroOrmConfig = defineConfig({
 					},
 				}
 			: {},
-});
+};

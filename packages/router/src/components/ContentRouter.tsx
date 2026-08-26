@@ -1,48 +1,41 @@
 import debug from 'debug';
 import type {ComponentClass, ReactNode} from 'react';
-import {Routes, Route, type RouteObject} from 'react-router-dom';
+import {Switch, Route, type RouteProps} from 'react-router-dom';
 
 const d = debug('imperium.router.components.ContentRouter');
 
-export type ExtendedRouteProps = RouteObject & {
-	isPublic?: boolean;
-};
-
 interface ContentRouterProps {
-	routeDefaults?: Omit<ExtendedRouteProps, 'element' | 'children'>;
-	routes?: ExtendedRouteProps[];
+	routeDefaults?: Omit<RouteProps, 'render' | 'component' | 'children'>;
+	routes?: RouteProps[];
 	errorBoundary?: ComponentClass<{children: ReactNode}>;
-	isAuthenticated?: boolean;
+	isAuthenticated?: boolean; // Pass true if the user is authenticated, otherwise assumes not authenticated
 	renderOnUnauth?: () => ReactNode;
 }
 
 export function ContentRouter(props: ContentRouterProps) {
-	const {routeDefaults, errorBoundary, routes = [], isAuthenticated, renderOnUnauth} = props;
+	const {routeDefaults, errorBoundary} = props;
 
 	const childs = (
-		<Routes>
-			{routes.map((route, index) => {
-				const mergedRoute = {
-					...(routeDefaults || {}),
-					...route,
-				} as ExtendedRouteProps;
-
-				const key = typeof mergedRoute.path === 'string' ? mergedRoute.path : `route-${index}`;
-				const {isPublic, element, path, caseSensitive, index: isIndex, children, ...rest} = mergedRoute;
-
-				// Resolve active element without nested ternaries
-				let activeElement = element;
-				if (!isPublic && !isAuthenticated) {
-					activeElement = renderOnUnauth ? renderOnUnauth() : <div>Not authenticated</div>;
+		<Switch>
+			{props.routes?.map(route => {
+				// Apply default route options and then apply specific route options
+				// @ts-ignore
+				if (!route.isPublic && !props.isAuthenticated) {
+					const routeProps: RouteProps = {...(routeDefaults || {}), ...route};
+					routeProps.render = props.renderOnUnauth
+						? props.renderOnUnauth
+						: () => {
+								return <div>Not authenticated</div>;
+							};
+					routeProps.children = undefined;
+					routeProps.component = undefined;
+					return <Route key={`${route.path}`} {...routeProps} />;
 				}
 
-				return (
-					<Route key={key} path={path} index={isIndex as any} caseSensitive={caseSensitive} element={activeElement} {...(rest as any)}>
-						{children as ReactNode}
-					</Route>
-				);
+				const routeProps: RouteProps = {...(routeDefaults || {}), ...route};
+				return <Route key={`${route.path}`} {...routeProps} />;
 			})}
-		</Routes>
+		</Switch>
 	);
 
 	if (errorBoundary) {

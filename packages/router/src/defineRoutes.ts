@@ -1,13 +1,21 @@
 import debug from 'debug';
-import type {ReactNode} from 'react';
-import {generatePath, matchPath, type RouteObject} from 'react-router-dom';
+import {generatePath, matchPath, type RouteComponentProps, type RouteProps} from 'react-router-dom';
 import type {DefineRouteOptions, KeyedRouteMatchFns, KeyedRouteParamTypes, KeyedRoutePathFns, KeyedRouteRenderFns, Routes} from './types';
 
 const d = debug('imperium.router.defineRoutes');
 
-export type ExtendedRouteObject = RouteObject & {
-	isPublic?: boolean;
-};
+/*
+	Define routes from a definition object.
+
+	Each routes require its own string key and contains normal React-Router options,
+	less the render/children/component, plus a params array, if needed.
+
+	The return object provides the following:
+	- to: functions for creating route to strings
+	- match: a function that takes a route string and attempts to match it to the route, returning it's parameters
+	- types: when used with `typeof`, gives a type of the parameters object for the route, or `never` if no parameters.
+	- renderRouteProps: a function that can be used to link components to routes for rendering
+*/
 
 export function defineRoutes<T extends DefineRouteOptions>(opts: T): Routes<T> {
 	const to = {} as KeyedRoutePathFns<T>;
@@ -16,31 +24,22 @@ export function defineRoutes<T extends DefineRouteOptions>(opts: T): Routes<T> {
 
 	Object.keys(opts).forEach(key => {
 		// @ts-ignore
-		to[key] = (params: Record<string, string> | null) => {
-			const pathPattern = opts[key].path;
-			if (!pathPattern) return '/404';
-
-			const requiredParams = opts[key].params || [];
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-			const paramsAreGood = requiredParams.every(paramKey => params && params[paramKey] !== undefined && params[paramKey] !== '');
-
-			if (requiredParams.length > 0 && !paramsAreGood) {
-				return '/404';
-			}
-
-			return generatePath(pathPattern, params || {});
+		to[key] = params => {
+			const paramsAreGood = (opts[key].params || []).reduce((memo, v) => {
+				if (!params || !params[v] || params[v] === '') return false;
+				return memo;
+			}, true);
+			if (!paramsAreGood) return '/404';
+			// @ts-ignore
+			return generatePath(opts[key].path, params);
 		};
-
 		// @ts-ignore
 		types[key] = 'ERROR: Do not use route types as values';
-
 		// @ts-ignore
-		match[key] = (pathname: string) => {
-			const pathPattern = opts[key].path;
-			if (!pathPattern) return null;
-
-			const ret = matchPath({path: pathPattern, end: true}, pathname);
-			return ret ? (ret.params as any) : null;
+		match[key] = (s: string) => {
+			const ret = matchPath(s, opts[key]);
+			if (ret) return ret.params;
+			return null;
 		};
 	});
 
@@ -48,15 +47,23 @@ export function defineRoutes<T extends DefineRouteOptions>(opts: T): Routes<T> {
 		to,
 		match,
 		types,
-		renderRouteProps: (routeRenderFunctions: KeyedRouteRenderFns<T>): ExtendedRouteObject[] => {
+		renderRouteProps: (routeRenderFunctions: KeyedRouteRenderFns<T>): RouteProps[] => {
 			return Object.keys(opts).map(key => {
-				const routeOpt = opts[key];
-				const renderFn = routeRenderFunctions[key as keyof T] as (params: any) => ReactNode;
-
 				return {
-					path: routeOpt.path,
-					isPublic: routeOpt.isPublic || false,
-					element: renderFn(routeOpt.params ? {} : null),
+					path: opts[key].path,
+					isPublic: opts[key].isPublic || false,
+					exact: opts[key].exact !== false,
+					sensitive: opts[key].sensitive,
+					strict: opts[key].strict,
+					render: (rcp: RouteComponentProps) => {
+						if (opts[key].params) {
+							// @ts-ignore
+							return routeRenderFunctions[key](rcp.match.params, rcp);
+						}
+
+						// @ts-ignore
+						return routeRenderFunctions[key](null, rcp);
+					},
 				};
 			});
 		},

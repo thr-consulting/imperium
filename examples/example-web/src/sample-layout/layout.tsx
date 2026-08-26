@@ -1,5 +1,6 @@
 import type {LayoutData} from '@imperium/layout';
 import debug from 'debug';
+import {routes as sampleRoutes} from '../sample/routes';
 import {useGetData} from './hooks/useGetData';
 import {routes} from './routes';
 import {useLayoutState} from './state';
@@ -17,7 +18,7 @@ export const layout: LayoutData = {
 		{
 			stateSelectorHook: useLayoutState,
 			text: s => {
-				return s.state.text || 'No State';
+				return s.state.myParam || '';
 			},
 			visible: () => true,
 		},
@@ -41,6 +42,11 @@ export const layout: LayoutData = {
 			icon: 'protect',
 			key: 'dropdown',
 			dropdown: [
+				{
+					text: 'To home',
+					to: sampleRoutes.to.home(),
+					weight: 5,
+				},
 				{
 					text: 'Param 1 - Static',
 					to: '/layout/param/testParam1',
