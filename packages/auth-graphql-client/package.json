@@ -41,7 +41,7 @@
 	},
 	"peerDependencies": {
 		"react": "18.x",
-		"react-redux": "7.x"
+		"react-redux": "8.x"
 	},
 	"engines": {
 		"node": ">=24"
