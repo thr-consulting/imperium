@@ -1,6 +1,6 @@
 {
 	"packages": ["packages/*", "examples/*"],
-	"version": "15.1.0",
+	"version": "15.2.0",
 	"npmClient": "yarn",
 	"concurrency": 16,
 	"registry": "https://registry.npmjs.org/",
